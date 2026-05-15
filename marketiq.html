@@ -1,0 +1,1459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MarketIQ™ | Property Intelligence | Phillip Himes Real Estate</title>
+  <meta name="description" content="Enter any address and get instant property intelligence — TruMarket™ Value, market conditions, schools, flood zone, commute times, and expert offer strategy. Powered by Phillip Himes Real Estate." />
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCd1RVsM6qieBMlv1b-C6Jo9M0_Riuy0jQ&libraries=places&callback=initMarketMap" async defer></script>
+
+  <style>
+
+    /* ─── HERO ──────────────────────────────────────────────────── */
+    .miq-hero {
+      background: linear-gradient(135deg, #0a1c2e 0%, var(--navy-dark,#0d2137) 50%, #0a1a2e 100%);
+      padding: 4.5rem 0 3.5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .miq-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 60% 40%, rgba(32,137,160,0.13) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .miq-hero__eyebrow {
+      font-family: var(--font-heading); font-size: 0.78rem; font-weight: 700;
+      letter-spacing: 0.18em; text-transform: uppercase; color: var(--teal);
+      margin-bottom: 0.85rem;
+    }
+    .miq-hero__title {
+      color: var(--white); font-size: clamp(2rem, 5vw, 3rem);
+      margin-bottom: 0.85rem; line-height: 1.15;
+    }
+    .miq-hero__title span { color: var(--teal); }
+    .miq-hero__subtitle {
+      color: rgba(255,255,255,0.75); font-size: 1.05rem;
+      max-width: 580px; margin: 0 auto 2.5rem; line-height: 1.7;
+    }
+
+    /* ─── SEARCH CARD ───────────────────────────────────────────── */
+    .miq-search-card {
+      background: var(--white); border-radius: var(--radius-xl);
+      padding: 2rem; box-shadow: 0 8px 40px rgba(0,0,0,0.22);
+      max-width: 680px; margin: 0 auto;
+    }
+    .miq-search-card__label {
+      font-family: var(--font-heading); font-size: 0.8rem; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 0.1em; color: var(--navy);
+      margin-bottom: 0.75rem;
+    }
+    .miq-address-row {
+      display: flex; gap: 0.75rem; align-items: stretch;
+    }
+    @media (max-width: 560px) { .miq-address-row { flex-direction: column; } }
+    .miq-address-input {
+      flex: 1; padding: 0.85rem 1.1rem;
+      border: 2px solid var(--light-gray); border-radius: var(--radius-lg);
+      font-family: var(--font-body); font-size: 0.95rem; color: var(--navy);
+      outline: none; transition: border-color 0.2s;
+    }
+    .miq-address-input:focus { border-color: var(--teal); }
+    .miq-analyze-btn {
+      background: var(--teal); color: white; border: none;
+      padding: 0.85rem 1.75rem; border-radius: var(--radius-lg);
+      font-family: var(--font-heading); font-weight: 800; font-size: 0.9rem;
+      cursor: pointer; white-space: nowrap; transition: background 0.2s;
+      letter-spacing: 0.04em;
+    }
+    .miq-analyze-btn:hover { background: var(--teal-dark,#1a6f80); }
+
+    /* ─── MODE TOGGLE ───────────────────────────────────────────── */
+    .miq-mode-wrap {
+      display: flex; gap: 0.75rem; margin-top: 1.25rem;
+    }
+    .miq-mode-btn {
+      flex: 1; padding: 0.7rem 1rem;
+      border: 2px solid var(--light-gray); border-radius: var(--radius-lg);
+      background: var(--white); font-family: var(--font-heading);
+      font-weight: 700; font-size: 0.85rem; cursor: pointer;
+      color: var(--dark-gray); transition: all 0.2s; text-align: center;
+    }
+    .miq-mode-btn.active--buyer { border-color: var(--teal); background: rgba(32,137,160,0.07); color: var(--teal-dark,#1a6f80); }
+    .miq-mode-btn.active--seller { border-color: var(--gold); background: rgba(201,164,85,0.07); color: var(--gold-dark,#a07c2a); }
+    .miq-mode-hint {
+      font-size: 0.75rem; color: rgba(255,255,255,0.5); text-align: center;
+      margin-top: 0.85rem; font-family: var(--font-heading); font-weight: 600;
+    }
+
+    /* ─── RESULTS WRAPPER ───────────────────────────────────────── */
+    .miq-results {
+      display: none; padding: 3rem 0 4rem;
+    }
+    .miq-results.show { display: block; }
+    .miq-results__inner { max-width: 860px; margin: 0 auto; padding: 0 1.5rem; }
+
+    /* ─── PROPERTY HEADER ───────────────────────────────────────── */
+    .miq-prop-header {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      flex-wrap: wrap; gap: 1rem; margin-bottom: 1.75rem;
+    }
+    .miq-prop-header__address {
+      font-family: var(--font-heading); font-weight: 800; font-size: 1.4rem;
+      color: var(--navy); line-height: 1.2;
+    }
+    .miq-prop-header__neighborhood {
+      font-size: 0.9rem; color: var(--mid-gray); margin-top: 0.3rem;
+    }
+    .miq-badges { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; }
+    .miq-temp-badge {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      padding: 0.35rem 0.9rem; border-radius: var(--radius-full);
+      font-family: var(--font-heading); font-size: 0.72rem; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 0.09em;
+    }
+    .miq-temp-badge--hot { background: rgba(201,60,50,0.1); color: #c03c32; border: 1px solid rgba(201,60,50,0.25); }
+    .miq-temp-badge--warm { background: rgba(201,164,85,0.12); color: var(--gold-dark,#a07c2a); border: 1px solid rgba(201,164,85,0.3); }
+    .miq-temp-badge--balanced { background: rgba(32,137,160,0.1); color: var(--teal-dark,#1a6f80); border: 1px solid rgba(32,137,160,0.25); }
+    .miq-mode-pill {
+      padding: 0.3rem 0.85rem; border-radius: var(--radius-full);
+      font-family: var(--font-heading); font-size: 0.7rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.07em; cursor: pointer;
+      transition: all 0.2s;
+    }
+    .miq-mode-pill--buyer { background: rgba(32,137,160,0.1); color: var(--teal-dark,#1a6f80); border: 1px solid rgba(32,137,160,0.3); }
+    .miq-mode-pill--seller { background: rgba(201,164,85,0.1); color: var(--gold-dark,#a07c2a); border: 1px solid rgba(201,164,85,0.3); }
+
+    /* ─── TRUMARKET PANEL ───────────────────────────────────────── */
+    .miq-trumarket {
+      background: linear-gradient(135deg, var(--navy) 0%, #0d2137 100%);
+      border-radius: var(--radius-xl); padding: 2rem; margin-bottom: 1.25rem;
+      color: white; position: relative; overflow: hidden;
+    }
+    .miq-trumarket::before {
+      content: ''; position: absolute; top: -50px; right: -50px;
+      width: 200px; height: 200px; border-radius: 50%;
+      background: rgba(32,137,160,0.1); pointer-events: none;
+    }
+    .miq-trumarket__badge {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: rgba(32,137,160,0.2); border: 1px solid rgba(32,137,160,0.4);
+      border-radius: var(--radius-full); padding: 0.3rem 0.9rem;
+      font-family: var(--font-heading); font-size: 0.7rem; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 0.1em; color: #7dd4e8;
+      margin-bottom: 1rem;
+    }
+    .miq-value-display {
+      display: flex; align-items: flex-end; gap: 1.5rem;
+      flex-wrap: wrap; margin-bottom: 1rem;
+    }
+    .miq-value-mid {
+      font-family: var(--font-heading); font-weight: 800; font-size: 2.4rem;
+      color: white; line-height: 1;
+    }
+    .miq-value-range-label {
+      font-size: 0.82rem; color: rgba(255,255,255,0.6); line-height: 1.5;
+    }
+    .miq-value-range-label strong { color: rgba(255,255,255,0.85); display: block; font-size: 0.95rem; }
+    .miq-trend-pill {
+      display: inline-flex; align-items: center; gap: 0.3rem;
+      background: rgba(255,255,255,0.1); border-radius: var(--radius-full);
+      padding: 0.3rem 0.8rem; font-family: var(--font-heading);
+      font-size: 0.78rem; font-weight: 700; color: #7dd4e8;
+    }
+
+    /* List price comparison */
+    .miq-list-compare {
+      margin-top: 1.25rem; padding-top: 1.25rem;
+      border-top: 1px solid rgba(255,255,255,0.12);
+    }
+    .miq-list-compare__row {
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 0.75rem; margin-bottom: 0.75rem;
+    }
+    .miq-list-compare__label { font-size: 0.85rem; color: rgba(255,255,255,0.7); }
+    .miq-list-compare__val {
+      font-family: var(--font-heading); font-weight: 700; font-size: 1rem; color: white;
+    }
+    .miq-overpriced-alert {
+      background: rgba(201,60,50,0.15); border: 1px solid rgba(201,60,50,0.3);
+      border-radius: var(--radius-lg); padding: 0.85rem 1.1rem;
+      font-size: 0.85rem; color: rgba(255,255,255,0.88); line-height: 1.6;
+    }
+    .miq-overpriced-alert strong { color: #ff9090; }
+    .miq-overpriced-alert a { color: #7dd4e8; text-decoration: underline; font-weight: 700; }
+    .miq-fairprice-alert {
+      background: rgba(32,137,160,0.15); border: 1px solid rgba(32,137,160,0.3);
+      border-radius: var(--radius-lg); padding: 0.85rem 1.1rem;
+      font-size: 0.85rem; color: rgba(255,255,255,0.88); line-height: 1.6;
+    }
+    .miq-fairprice-alert strong { color: #7dd4e8; }
+    .miq-listprice-row {
+      display: flex; gap: 0.75rem; align-items: center; margin-top: 1rem;
+    }
+    .miq-listprice-input {
+      flex: 1; padding: 0.65rem 1rem;
+      border: 1.5px solid rgba(255,255,255,0.2); border-radius: var(--radius-md);
+      background: rgba(255,255,255,0.08); color: white;
+      font-family: var(--font-heading); font-weight: 700; font-size: 0.95rem;
+      outline: none; transition: border-color 0.2s;
+    }
+    .miq-listprice-input::placeholder { color: rgba(255,255,255,0.35); }
+    .miq-listprice-input:focus { border-color: var(--teal); }
+    .miq-listprice-btn {
+      padding: 0.65rem 1.25rem; background: var(--teal); color: white;
+      border: none; border-radius: var(--radius-md); font-family: var(--font-heading);
+      font-weight: 800; font-size: 0.82rem; cursor: pointer; white-space: nowrap;
+      transition: background 0.2s;
+    }
+    .miq-listprice-btn:hover { background: var(--teal-dark,#1a6f80); }
+
+    /* ─── INTEL GRID ─────────────────────────────────────────────── */
+    .miq-section-title {
+      font-family: var(--font-heading); font-weight: 800; font-size: 1rem;
+      color: var(--navy); margin-bottom: 1rem;
+    }
+    .miq-intel-grid {
+      display: grid; grid-template-columns: repeat(4,1fr); gap: 0.85rem;
+      margin-bottom: 1.25rem;
+    }
+    @media (max-width: 620px) { .miq-intel-grid { grid-template-columns: 1fr 1fr; } }
+    .miq-intel-card {
+      background: var(--white); border-radius: var(--radius-lg); padding: 1.1rem;
+      box-shadow: var(--shadow-sm); border: 1px solid var(--light-gray); text-align: center;
+    }
+    .miq-intel-card__icon { font-size: 1.4rem; margin-bottom: 0.4rem; }
+    .miq-intel-card__val {
+      font-family: var(--font-heading); font-weight: 800; font-size: 1.15rem;
+      color: var(--navy); line-height: 1; margin-bottom: 0.25rem;
+    }
+    .miq-intel-card__label {
+      font-size: 0.72rem; color: var(--mid-gray); text-transform: uppercase;
+      letter-spacing: 0.06em; font-family: var(--font-heading); font-weight: 600;
+    }
+    .miq-intel-card__sub { font-size: 0.72rem; color: var(--mid-gray); margin-top: 0.2rem; }
+
+    /* ─── INFO CARD (schools, commute, notes) ─────────────────────── */
+    .miq-info-card {
+      background: var(--white); border-radius: var(--radius-xl); padding: 1.5rem;
+      box-shadow: var(--shadow-sm); border: 1px solid var(--light-gray);
+      margin-bottom: 1.25rem;
+    }
+    .miq-info-card__head {
+      display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;
+    }
+    .miq-info-card__icon {
+      width: 36px; height: 36px; border-radius: var(--radius-md);
+      background: rgba(32,137,160,0.1); display: flex; align-items: center;
+      justify-content: center; font-size: 1.1rem; flex-shrink: 0;
+    }
+    .miq-info-card__icon--gold { background: rgba(201,164,85,0.1); }
+    .miq-info-card__icon--navy { background: rgba(27,58,92,0.1); }
+    .miq-info-card__title { font-family: var(--font-heading); font-weight: 800; font-size: 0.9rem; color: var(--navy); }
+    .miq-info-card__sub { font-size: 0.78rem; color: var(--mid-gray); }
+    .miq-schools-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 0.75rem; }
+    @media (max-width: 520px) { .miq-schools-grid { grid-template-columns: 1fr; } }
+    .miq-school-item {}
+    .miq-school-item__level {
+      font-family: var(--font-heading); font-size: 0.65rem; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 0.1em; color: var(--teal);
+      margin-bottom: 0.2rem;
+    }
+    .miq-school-item__name { font-size: 0.85rem; font-weight: 600; color: var(--navy); }
+    .miq-school-item__district { font-size: 0.75rem; color: var(--mid-gray); }
+
+    /* Commute */
+    .miq-commute-input-row {
+      display: flex; gap: 0.65rem; margin-bottom: 0.85rem;
+    }
+    .miq-commute-input {
+      flex: 1; padding: 0.65rem 0.9rem;
+      border: 1.5px solid var(--light-gray); border-radius: var(--radius-md);
+      font-family: var(--font-body); font-size: 0.88rem; color: var(--navy);
+      outline: none; transition: border-color 0.2s;
+    }
+    .miq-commute-input:focus { border-color: var(--teal); }
+    .miq-commute-btn {
+      padding: 0.65rem 1.1rem; background: var(--navy); color: white;
+      border: none; border-radius: var(--radius-md); font-family: var(--font-heading);
+      font-weight: 800; font-size: 0.8rem; cursor: pointer; white-space: nowrap;
+      transition: background 0.2s;
+    }
+    .miq-commute-btn:hover { background: var(--navy-light,#2a5080); }
+    .miq-commute-result {
+      display: none; background: rgba(27,58,92,0.04);
+      border-radius: var(--radius-md); padding: 0.85rem 1rem;
+      border: 1px solid rgba(27,58,92,0.1);
+    }
+    .miq-commute-result.show { display: block; }
+    .miq-commute-result__modes { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .miq-commute-mode { text-align: center; }
+    .miq-commute-mode__icon { font-size: 1.2rem; }
+    .miq-commute-mode__time {
+      font-family: var(--font-heading); font-weight: 800; font-size: 1rem;
+      color: var(--navy);
+    }
+    .miq-commute-mode__label { font-size: 0.7rem; color: var(--mid-gray); }
+
+    /* ─── NEIGHBORHOOD STATS (seller mode) ──────────────────────── */
+    .miq-stats-grid {
+      display: grid; grid-template-columns: repeat(3,1fr); gap: 0.85rem;
+      margin-bottom: 1.25rem;
+    }
+    @media (max-width: 520px) { .miq-stats-grid { grid-template-columns: 1fr 1fr; } }
+    .miq-stat-card {
+      background: var(--white); border-radius: var(--radius-lg); padding: 1.1rem;
+      box-shadow: var(--shadow-sm); border: 1px solid var(--light-gray); text-align: center;
+    }
+    .miq-stat-card__val {
+      font-family: var(--font-heading); font-weight: 800; font-size: 1.35rem;
+      color: var(--navy); line-height: 1; margin-bottom: 0.3rem;
+    }
+    .miq-stat-card__label {
+      font-size: 0.7rem; color: var(--mid-gray); text-transform: uppercase;
+      letter-spacing: 0.06em; font-family: var(--font-heading); font-weight: 600;
+    }
+
+    /* ─── LIFESTYLE TAGS ─────────────────────────────────────────── */
+    .miq-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.25rem; }
+    .miq-tag {
+      padding: 0.3rem 0.8rem; border-radius: var(--radius-full);
+      background: rgba(27,58,92,0.07); border: 1px solid rgba(27,58,92,0.12);
+      font-family: var(--font-heading); font-size: 0.72rem; font-weight: 700;
+      color: var(--navy); letter-spacing: 0.04em;
+    }
+
+    /* ─── COMPS & ACTIVE LISTINGS ────────────────────────────────── */
+    .miq-cards-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; margin-bottom: 1.5rem; }
+    @media (max-width: 640px) { .miq-cards-grid { grid-template-columns: 1fr; } }
+    .miq-prop-card {
+      background: var(--white); border-radius: var(--radius-lg); padding: 1.1rem;
+      box-shadow: var(--shadow-sm); border: 1px solid var(--light-gray);
+    }
+    .miq-prop-card__address {
+      font-family: var(--font-heading); font-weight: 700; font-size: 0.82rem;
+      color: var(--navy); margin-bottom: 0.5rem; line-height: 1.3;
+    }
+    .miq-prop-card__specs {
+      font-size: 0.78rem; color: var(--mid-gray); margin-bottom: 0.6rem;
+    }
+    .miq-prop-card__price {
+      font-family: var(--font-heading); font-weight: 800; font-size: 1.1rem;
+      color: var(--navy);
+    }
+    .miq-prop-card__price--list { color: var(--teal-dark,#1a6f80); }
+    .miq-prop-card__meta { font-size: 0.72rem; color: var(--mid-gray); margin-top: 0.3rem; }
+    .miq-prop-card__tag {
+      display: inline-block; padding: 0.2rem 0.6rem; border-radius: var(--radius-full);
+      font-family: var(--font-heading); font-size: 0.65rem; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 0.5rem;
+    }
+    .miq-prop-card__tag--sold { background: rgba(27,58,92,0.08); color: var(--navy); }
+    .miq-prop-card__tag--active { background: rgba(32,137,160,0.1); color: var(--teal-dark,#1a6f80); }
+
+    /* ─── OFFER / PRICING SCENARIOS ─────────────────────────────── */
+    .miq-scenarios-wrap {
+      background: linear-gradient(135deg, var(--navy) 0%, #0d2137 100%);
+      border-radius: var(--radius-xl); padding: 2rem; margin-bottom: 1.25rem; color: white;
+    }
+    .miq-scenarios-wrap__eyebrow {
+      font-family: var(--font-heading); font-size: 0.72rem; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 0.12em; color: var(--teal);
+      margin-bottom: 0.35rem;
+    }
+    .miq-scenarios-wrap__title {
+      font-family: var(--font-heading); font-weight: 800; font-size: 1.15rem;
+      color: white; margin-bottom: 1.5rem; line-height: 1.3;
+    }
+    .miq-scenarios-grid { display: grid; gap: 0.85rem; }
+    .miq-scenarios-grid--3 { grid-template-columns: repeat(3,1fr); }
+    .miq-scenarios-grid--4 { grid-template-columns: repeat(4,1fr); }
+    @media (max-width: 680px) {
+      .miq-scenarios-grid--3, .miq-scenarios-grid--4 { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 420px) {
+      .miq-scenarios-grid--3, .miq-scenarios-grid--4 { grid-template-columns: 1fr; }
+    }
+    .miq-scenario-card {
+      background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12);
+      border-radius: var(--radius-lg); padding: 1.1rem; transition: all 0.2s;
+    }
+    .miq-scenario-card:hover { background: rgba(255,255,255,0.11); }
+    .miq-scenario-card--teal { border-color: rgba(32,137,160,0.4); }
+    .miq-scenario-card--gold { border-color: rgba(201,164,85,0.4); }
+    .miq-scenario-card--purple { border-color: rgba(123,94,167,0.4); }
+    .miq-scenario-card__name {
+      font-family: var(--font-heading); font-size: 0.7rem; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.4rem;
+    }
+    .miq-scenario-card__name--teal { color: #7dd4e8; }
+    .miq-scenario-card__name--white { color: rgba(255,255,255,0.7); }
+    .miq-scenario-card__name--gold { color: var(--gold-light,#d4b86a); }
+    .miq-scenario-card__name--purple { color: #c4a8e8; }
+    .miq-scenario-card__price {
+      font-family: var(--font-heading); font-weight: 800; font-size: 1.3rem;
+      color: white; margin-bottom: 0.5rem; line-height: 1;
+    }
+    .miq-scenario-card__desc {
+      font-size: 0.78rem; color: rgba(255,255,255,0.65); line-height: 1.5;
+    }
+
+    /* Hot market note */
+    .miq-hotmarket-note {
+      background: rgba(201,60,50,0.12); border: 1px solid rgba(201,60,50,0.25);
+      border-radius: var(--radius-md); padding: 0.75rem 1rem; margin-bottom: 1rem;
+      font-size: 0.82rem; color: rgba(255,255,255,0.85); line-height: 1.55;
+    }
+    .miq-hotmarket-note strong { color: #ff9090; }
+
+    /* ─── DISCLOSURE ─────────────────────────────────────────────── */
+    .miq-disclosure {
+      font-family: var(--font-accent); font-style: italic; font-size: 0.8rem;
+      color: rgba(255,255,255,0.5); line-height: 1.6; margin-top: 1.25rem;
+      padding-top: 1.25rem; border-top: 1px solid rgba(255,255,255,0.1);
+    }
+
+    /* ─── MARKET NOTE ────────────────────────────────────────────── */
+    .miq-market-note {
+      background: rgba(201,164,85,0.08); border-left: 3px solid var(--gold);
+      border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+      padding: 1.1rem 1.25rem; margin-bottom: 1.25rem;
+    }
+    .miq-market-note__label {
+      font-family: var(--font-heading); font-size: 0.68rem; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 0.1em; color: var(--gold-dark,#a07c2a);
+      margin-bottom: 0.4rem;
+    }
+    .miq-market-note__text {
+      font-family: var(--font-accent); font-style: italic; font-size: 0.9rem;
+      color: var(--dark-gray); line-height: 1.65;
+    }
+
+    /* ─── FINAL CTA ──────────────────────────────────────────────── */
+    .miq-final-cta {
+      background: var(--white); border-radius: var(--radius-xl); padding: 2rem;
+      box-shadow: var(--shadow-md); text-align: center; margin-bottom: 1.25rem;
+    }
+    .miq-final-cta__eyebrow {
+      font-family: var(--font-heading); font-size: 0.72rem; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 0.12em; color: var(--teal);
+      margin-bottom: 0.4rem;
+    }
+    .miq-final-cta__title {
+      font-family: var(--font-heading); font-weight: 800; font-size: 1.3rem;
+      color: var(--navy); margin-bottom: 0.5rem; line-height: 1.3;
+    }
+    .miq-final-cta__sub {
+      font-size: 0.88rem; color: var(--dark-gray); line-height: 1.6;
+      max-width: 520px; margin: 0 auto 1.5rem;
+    }
+    .miq-final-cta__btns { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; }
+    .miq-cta-primary {
+      background: var(--navy); color: white; border: none;
+      padding: 0.9rem 2rem; border-radius: var(--radius-full);
+      font-family: var(--font-heading); font-weight: 800; font-size: 0.92rem;
+      cursor: pointer; text-decoration: none; transition: background 0.2s;
+      display: inline-block;
+    }
+    .miq-cta-primary:hover { background: var(--navy-light,#2a5080); }
+    .miq-cta-secondary {
+      background: transparent; color: var(--navy);
+      border: 2px solid var(--navy); padding: 0.9rem 2rem;
+      border-radius: var(--radius-full); font-family: var(--font-heading);
+      font-weight: 800; font-size: 0.92rem; cursor: pointer;
+      text-decoration: none; transition: all 0.2s; display: inline-block;
+    }
+    .miq-cta-secondary:hover { background: var(--navy); color: white; }
+
+    /* ─── JOURNEY PATHS ──────────────────────────────────────────── */
+    .miq-journey-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem; }
+    @media (max-width: 480px) { .miq-journey-grid { grid-template-columns: 1fr; } }
+    .miq-journey-card {
+      border-radius: var(--radius-lg); padding: 1.25rem;
+      border: 2px solid var(--light-gray); text-align: center; text-decoration: none;
+      transition: all 0.2s; display: block;
+    }
+    .miq-journey-card--buyer:hover { border-color: var(--teal); background: rgba(32,137,160,0.04); }
+    .miq-journey-card--seller:hover { border-color: var(--gold); background: rgba(201,164,85,0.04); }
+    .miq-journey-card__icon { font-size: 1.8rem; margin-bottom: 0.5rem; }
+    .miq-journey-card__brand {
+      font-family: var(--font-heading); font-size: 0.72rem; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.3rem;
+    }
+    .miq-journey-card__brand--teal { color: var(--teal-dark,#1a6f80); }
+    .miq-journey-card__brand--gold { color: var(--gold-dark,#a07c2a); }
+    .miq-journey-card__title { font-family: var(--font-heading); font-weight: 700; font-size: 0.9rem; color: var(--navy); margin-bottom: 0.3rem; }
+    .miq-journey-card__desc { font-size: 0.78rem; color: var(--mid-gray); line-height: 1.5; }
+
+    /* ─── SECTION DIVIDER ────────────────────────────────────────── */
+    .miq-divider {
+      height: 1px; background: var(--light-gray); margin: 1.5rem 0;
+    }
+
+    /* ─── LOADING STATE ──────────────────────────────────────────── */
+    .miq-loading {
+      display: none; text-align: center; padding: 3rem 1.5rem;
+    }
+    .miq-loading.show { display: block; }
+    .miq-loading__spinner {
+      width: 44px; height: 44px; border: 3px solid var(--light-gray);
+      border-top-color: var(--teal); border-radius: 50%;
+      animation: miqSpin 0.8s linear infinite; margin: 0 auto 1rem;
+    }
+    @keyframes miqSpin { to { transform: rotate(360deg); } }
+    .miq-loading__text { font-family: var(--font-heading); font-weight: 700; color: var(--mid-gray); }
+
+    /* ─── PLACEHOLDER EMPTY ──────────────────────────────────────── */
+    #results-section { background: #f7f8fa; }
+
+  </style>
+</head>
+<body>
+
+  <!-- ── NAVIGATION ──────────────────────────────────────── -->
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo" aria-label="Phillip Himes Real Estate Home">
+        <img src="images/logo.png" alt="Phillip Himes | Brokered by eXp Realty"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+        <span class="nav__logo-text" style="display:none;">
+          <span class="nav__logo-name">Phillip Himes</span>
+          <span class="nav__logo-brokerage">Brokered by eXp Realty</span>
+        </span>
+      </a>
+      <ul class="nav__links" id="nav-links">
+        <li><a href="buyers.html" class="nav__link">Buying</a></li>
+        <li><a href="sellers.html" class="nav__link">Selling</a></li>
+        <li class="nav__item nav__item--dropdown">
+          <a href="cities.html" class="nav__link">Cities</a>
+          <ul class="nav__dropdown">
+            <li><a href="cities.html#league-city">League City</a></li>
+            <li><a href="cities.html#friendswood">Friendswood</a></li>
+            <li><a href="cities.html#pearland">Pearland</a></li>
+            <li><a href="cities.html#clear-lake">Clear Lake</a></li>
+          </ul>
+        </li>
+        <li><a href="marketiq.html" class="nav__link nav__link--active">MarketIQ™</a></li>
+        <li><a href="contact.html" class="nav__link">Ask Phil</a></li>
+        <li class="nav__mobile-cta" style="display:none;">
+          <a href="tel:8325361016" class="btn btn--secondary" style="width:100%;margin-top:var(--space-md);">📞 (832) 536-1016</a>
+          <a href="contact.html?topic=trumarket" class="btn btn--primary" style="width:100%;margin-top:var(--space-sm);">Get Home Value</a>
+        </li>
+      </ul>
+      <div class="nav__cta">
+        <a href="tel:8325361016" class="nav__phone">📞 (832) 536-1016</a>
+        <a href="contact.html?topic=trumarket" class="btn btn--primary btn--sm">Get Home Value</a>
+      </div>
+      <button class="nav__hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ── HERO ────────────────────────────────────────────── -->
+  <section class="miq-hero">
+    <div class="container">
+      <p class="miq-hero__eyebrow">MarketIQ™ — Property Intelligence</p>
+      <h1 class="miq-hero__title">Know the <span>real story</span> behind any address.</h1>
+      <p class="miq-hero__subtitle">
+        TruMarket™ value, market conditions, schools, flood zone, commute times,
+        and expert offer strategy — all from one address.
+      </p>
+
+      <div class="miq-search-card">
+        <p class="miq-search-card__label">Enter a property address</p>
+        <div class="miq-address-row">
+          <input type="text" id="miq-address" class="miq-address-input"
+                 placeholder="e.g. 2847 Venetian Shores Dr, League City, TX"
+                 autocomplete="off" />
+          <button class="miq-analyze-btn" onclick="analyzeAddress()">Analyze →</button>
+        </div>
+
+        <div class="miq-mode-wrap">
+          <button class="miq-mode-btn active--buyer" id="mode-btn-buyer" onclick="setMode('buyer')">
+            🔍 I'm looking at this property
+          </button>
+          <button class="miq-mode-btn" id="mode-btn-seller" onclick="setMode('seller')">
+            🏠 I own this property
+          </button>
+        </div>
+      </div>
+      <p class="miq-mode-hint">Select your situation above — the intelligence updates to match.</p>
+    </div>
+  </section>
+
+  <!-- ── LOADING ─────────────────────────────────────────── -->
+  <div id="miq-loading" class="miq-loading">
+    <div class="miq-loading__spinner"></div>
+    <p class="miq-loading__text">Pulling market intelligence…</p>
+  </div>
+
+  <!-- ── RESULTS ─────────────────────────────────────────── -->
+  <section id="results-section">
+    <div id="miq-results" class="miq-results">
+      <div class="miq-results__inner">
+
+        <!-- Property Header -->
+        <div class="miq-prop-header">
+          <div>
+            <div class="miq-prop-header__address" id="res-address">—</div>
+            <div class="miq-prop-header__neighborhood" id="res-neighborhood">—</div>
+          </div>
+          <div class="miq-badges">
+            <span class="miq-temp-badge" id="res-temp-badge">—</span>
+            <span class="miq-mode-pill" id="res-mode-pill" onclick="toggleMode()">Buyer Mode</span>
+          </div>
+        </div>
+
+        <!-- TruMarket Value -->
+        <div class="miq-trumarket">
+          <div class="miq-trumarket__badge">📊 TruMarket™ Value Analysis</div>
+          <div class="miq-value-display">
+            <div class="miq-value-mid" id="res-trumarket-mid">$—</div>
+            <div>
+              <div class="miq-value-range-label">
+                <strong id="res-trumarket-range">$— – $—</strong>
+                Estimated market value range
+              </div>
+              <span class="miq-trend-pill" id="res-trend-pill">↑ —%</span>
+            </div>
+          </div>
+
+          <!-- List Price Comparison (buyer mode) -->
+          <div id="res-listprice-section" class="miq-list-compare">
+            <div class="miq-listprice-row">
+              <input type="text" id="res-listprice-input" class="miq-listprice-input"
+                     placeholder="Enter list price (e.g. 389,000)" />
+              <button class="miq-listprice-btn" onclick="compareListPrice()">Compare →</button>
+            </div>
+            <p style="font-size:0.75rem;color:rgba(255,255,255,0.45);margin-top:0.5rem;">
+              Enter the property's list price to see how it compares to TruMarket™ Value
+            </p>
+          </div>
+          <div id="res-comparison-result" style="margin-top:1rem;display:none;"></div>
+        </div>
+
+        <!-- BUYER MODE CONTENT -->
+        <div id="buyer-content">
+
+          <!-- Property Intel Grid -->
+          <p class="miq-section-title">Property Intelligence</p>
+          <div class="miq-intel-grid">
+            <div class="miq-intel-card">
+              <div class="miq-intel-card__icon">📅</div>
+              <div class="miq-intel-card__val" id="res-dom">—</div>
+              <div class="miq-intel-card__label">Avg Days on Market</div>
+            </div>
+            <div class="miq-intel-card">
+              <div class="miq-intel-card__icon">📉</div>
+              <div class="miq-intel-card__val" id="res-reductions">—</div>
+              <div class="miq-intel-card__label">Price Reductions</div>
+              <div class="miq-intel-card__sub" id="res-reductions-sub"></div>
+            </div>
+            <div class="miq-intel-card">
+              <div class="miq-intel-card__icon">💧</div>
+              <div class="miq-intel-card__val" id="res-flood-short">—</div>
+              <div class="miq-intel-card__label">Flood Zone</div>
+            </div>
+            <div class="miq-intel-card">
+              <div class="miq-intel-card__icon">📈</div>
+              <div class="miq-intel-card__val" id="res-trend-val">—</div>
+              <div class="miq-intel-card__label">Price Trend (YoY)</div>
+            </div>
+          </div>
+
+          <!-- Flood Zone Detail -->
+          <div class="miq-info-card" id="res-flood-card">
+            <div class="miq-info-card__head">
+              <div class="miq-info-card__icon">💧</div>
+              <div>
+                <div class="miq-info-card__title">Flood Zone</div>
+                <div class="miq-info-card__sub" id="res-flood-detail">—</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Schools -->
+          <div class="miq-info-card">
+            <div class="miq-info-card__head">
+              <div class="miq-info-card__icon miq-info-card__icon--gold">🏫</div>
+              <div>
+                <div class="miq-info-card__title">School District</div>
+                <div class="miq-info-card__sub" id="res-district">—</div>
+              </div>
+            </div>
+            <div class="miq-schools-grid" id="res-schools-grid">
+              <!-- populated by JS -->
+            </div>
+          </div>
+
+          <!-- Commute Calculator -->
+          <div class="miq-info-card">
+            <div class="miq-info-card__head">
+              <div class="miq-info-card__icon miq-info-card__icon--navy">🚗</div>
+              <div>
+                <div class="miq-info-card__title">Commute Calculator</div>
+                <div class="miq-info-card__sub">Enter your workplace to calculate drive time</div>
+              </div>
+            </div>
+            <div class="miq-commute-input-row">
+              <input type="text" id="work-address" class="miq-commute-input"
+                     placeholder="Your work address" autocomplete="off" />
+              <button class="miq-commute-btn" onclick="calcCommute()">Calculate</button>
+            </div>
+            <div class="miq-commute-result" id="commute-result">
+              <div class="miq-commute-result__modes" id="commute-modes">
+                <!-- populated by JS -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Lifestyle Tags -->
+          <div class="miq-tags" id="res-tags"></div>
+
+          <!-- Active Competing Listings -->
+          <div class="miq-divider"></div>
+          <p class="miq-section-title">Active Competition Nearby</p>
+          <div class="miq-cards-grid" id="res-active-listings">
+            <!-- populated by JS -->
+          </div>
+
+        </div><!-- /buyer-content -->
+
+        <!-- SELLER MODE CONTENT -->
+        <div id="seller-content" style="display:none;">
+
+          <!-- Neighborhood Stats -->
+          <p class="miq-section-title">Your Market Position</p>
+          <div class="miq-stats-grid">
+            <div class="miq-stat-card">
+              <div class="miq-stat-card__val" id="sel-median">—</div>
+              <div class="miq-stat-card__label">Median Sale Price</div>
+            </div>
+            <div class="miq-stat-card">
+              <div class="miq-stat-card__val" id="sel-dom">—</div>
+              <div class="miq-stat-card__label">Avg Days on Market</div>
+            </div>
+            <div class="miq-stat-card">
+              <div class="miq-stat-card__val" id="sel-lts">—</div>
+              <div class="miq-stat-card__label">List-to-Sale Ratio</div>
+            </div>
+            <div class="miq-stat-card">
+              <div class="miq-stat-card__val" id="sel-ppsf">—</div>
+              <div class="miq-stat-card__label">Price per Sq Ft</div>
+            </div>
+            <div class="miq-stat-card">
+              <div class="miq-stat-card__val" id="sel-active">—</div>
+              <div class="miq-stat-card__label">Active Listings</div>
+            </div>
+            <div class="miq-stat-card">
+              <div class="miq-stat-card__val" id="sel-trend">—</div>
+              <div class="miq-stat-card__label">Price Trend (YoY)</div>
+            </div>
+          </div>
+
+          <!-- Lifestyle Tags -->
+          <div class="miq-tags" id="sel-tags"></div>
+
+        </div><!-- /seller-content -->
+
+        <!-- Comparable Sales (both modes) -->
+        <div class="miq-divider"></div>
+        <p class="miq-section-title">Recent Comparable Sales</p>
+        <div class="miq-cards-grid" id="res-comps">
+          <!-- populated by JS -->
+        </div>
+
+        <!-- Market Note (both modes) -->
+        <div class="miq-market-note">
+          <div class="miq-market-note__label">📍 Phil's Market Note — <span id="res-note-neighborhood"></span></div>
+          <div class="miq-market-note__text" id="res-market-note">—</div>
+        </div>
+
+        <!-- Offer / Pricing Scenarios -->
+        <div class="miq-scenarios-wrap" id="res-scenarios-wrap">
+          <div class="miq-scenarios-wrap__eyebrow" id="scen-eyebrow">Offer Scenarios</div>
+          <div class="miq-scenarios-wrap__title" id="scen-title">Based on TruMarket™ Value — here are your three strategic options.</div>
+          <div id="scen-hotmarket-note" class="miq-hotmarket-note" style="display:none;"></div>
+          <div class="miq-scenarios-grid" id="scen-grid">
+            <!-- populated by JS -->
+          </div>
+          <div class="miq-disclosure" id="scen-disclosure"></div>
+        </div>
+
+        <!-- Final CTA -->
+        <div class="miq-final-cta">
+          <p class="miq-final-cta__eyebrow">Ready to go deeper?</p>
+          <h3 class="miq-final-cta__title" id="cta-title">Get Phil's Expert Read on This Property</h3>
+          <p class="miq-final-cta__sub" id="cta-sub">
+            Data tells you what. Phil tells you what to do about it. Schedule a quick call
+            and he'll walk you through exactly what the numbers mean for your situation.
+          </p>
+          <div class="miq-final-cta__btns">
+            <a href="contact.html?topic=marketiq-schedule" class="miq-cta-primary" id="cta-primary-btn">
+              Get Phil's Read on This Property →
+            </a>
+          </div>
+
+          <div class="miq-divider" style="margin:1.5rem 0;"></div>
+
+          <p style="font-family:var(--font-heading);font-size:0.75rem;font-weight:700;color:var(--mid-gray);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.85rem;">
+            Or continue your journey
+          </p>
+          <div class="miq-journey-grid">
+            <a href="buyeriq.html" class="miq-journey-card miq-journey-card--buyer">
+              <div class="miq-journey-card__icon">🔑</div>
+              <div class="miq-journey-card__brand miq-journey-card__brand--teal">BuyerIQ™</div>
+              <div class="miq-journey-card__title">Buyer's Edge Assessment</div>
+              <div class="miq-journey-card__desc">Full buying strategy — neighborhoods, offer approach, timeline, and Caitlyn in your corner.</div>
+            </a>
+            <a href="selleriq.html" class="miq-journey-card miq-journey-card--seller">
+              <div class="miq-journey-card__icon">🏡</div>
+              <div class="miq-journey-card__brand miq-journey-card__brand--gold">SellerIQ™</div>
+              <div class="miq-journey-card__title">Seller's Edge Assessment</div>
+              <div class="miq-journey-card__desc">Full selling strategy — TruMarket™ report, net proceeds, pricing plan, and next steps.</div>
+            </a>
+          </div>
+        </div>
+
+      </div><!-- /miq-results__inner -->
+    </div><!-- /miq-results -->
+  </section>
+
+  <!-- ── FOOTER ───────────────────────────────────────────── -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <div class="footer__brand-name">Phillip Himes</div>
+          <div class="footer__brokerage">Brokered by eXp Realty</div>
+          <p class="footer__tagline">"Sell Smart. Buy Right. Build More."</p>
+          <p class="footer__desc">REALTOR® serving League City, Friendswood, Pearland, Clear Lake, Dickinson, and Manvel.</p>
+          <div style="margin-top:var(--space-lg);">
+            <a href="tel:8325361016" class="footer__link" style="display:block;margin-bottom:0.5rem;">📞 (832) 536-1016</a>
+            <a href="mailto:phil@philliphimes.com" class="footer__link">✉ phil@philliphimes.com</a>
+          </div>
+        </div>
+        <div>
+          <h3 class="footer__heading">Buy &amp; Sell</h3>
+          <ul class="footer__links">
+            <li><a href="buyeriq.html" class="footer__link">BuyerIQ™</a></li>
+            <li><a href="selleriq.html" class="footer__link">SellerIQ™</a></li>
+            <li><a href="marketiq.html" class="footer__link">MarketIQ™</a></li>
+            <li><a href="sellers.html#trumarket" class="footer__link">TruMarket™ Report</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="footer__heading">Cities</h3>
+          <ul class="footer__links">
+            <li><a href="cities.html#league-city" class="footer__link">League City</a></li>
+            <li><a href="cities.html#friendswood" class="footer__link">Friendswood</a></li>
+            <li><a href="cities.html#clear-lake" class="footer__link">Clear Lake</a></li>
+            <li><a href="cities.html#pearland" class="footer__link">Pearland</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="footer__heading">reLifeIQ™</h3>
+          <ul class="footer__links">
+            <li><a href="primequity.html#rebalance" class="footer__link">Rebalance™</a></li>
+            <li><a href="primequity.html#amplify" class="footer__link">Amplify™</a></li>
+            <li><a href="primequity.html#renew" class="footer__link">Renew™</a></li>
+            <li><a href="contact.html" class="footer__link">Ask Phil</a></li>
+            <li><a href="privacy-policy.html" class="footer__link">Privacy Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__copyright">© 2026 Phillip Himes | Brokered by eXp Realty. All rights reserved. REALTOR® Licensed in Texas.</p>
+        <p class="footer__copyright" style="margin-top:0.5rem;">eXp Realty, LLC | 2600 South Shore Blvd. #300, League City, TX 77573</p>
+        <div class="footer__legal-links">
+          <a href="privacy-policy.html" class="footer__legal-link">Privacy Policy</a>
+          <a href="terms-of-service.html" class="footer__legal-link">Terms of Service</a>
+          <a href="contact.html" class="footer__legal-link">Contact</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="https://widgets.leadconnectorhq.com/loader.js"
+    data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js"
+    data-widget-id="6a0623c7f127bb5833bc2697"></script>
+
+  <script>
+  /* ═══════════════════════════════════════════════════════════════
+     MarketIQ™ — Property Intelligence Engine
+     ═══════════════════════════════════════════════════════════════ */
+
+  /* ── STATE ──────────────────────────────────────────────────── */
+  const miqState = {
+    mode: 'buyer',         // 'buyer' | 'seller'
+    neighborhood: null,    // key into MARKET_DATA
+    address: '',
+    listPrice: 0,
+    propertyAutocomplete: null,
+    workAutocomplete: null,
+    propertyLatLng: null
+  };
+
+  /* ── MARKET DATA ────────────────────────────────────────────── */
+  const MARKET_DATA = {
+    'tuscan-lakes': {
+      name: 'Tuscan Lakes', city: 'League City',
+      trumarket: { low: 420000, mid: 465000, high: 520000 },
+      medianPrice: 465000, pricePerSqft: 162, daysOnMarket: 22,
+      listToSaleRatio: 0.984, marketTemp: 'hot', priceTrend: 4.8,
+      activeListingsCount: 14, priceReductionPct: 18,
+      floodZone: 'Zone X', floodDetail: 'Zone X (Minimal Risk) — no flood insurance required by lenders in most cases.',
+      schoolDistrict: 'Clear Creek ISD',
+      schools: { elementary: 'Bauerschlag Elementary', middle: 'Creekside Intermediate', high: 'Clear Springs High School' },
+      lifestyleTags: ['Master-Planned', 'Resort Amenities', 'Waterfront Lots', 'Top-Rated Schools', 'Zone X Flood'],
+      marketNote: 'Tuscan Lakes continues to be one of the most in-demand master-planned communities in the Bay Area. Limited resale inventory and strong buyer demand keep prices firm — well-priced homes here move fast. If you\'re a buyer, waiting rarely works in your favor. If you\'re a seller, your position is strong.',
+      comps: [
+        { address: '2847 Venetian Shores Dr', beds: 4, baths: 3, sqft: 2850, salePrice: 472000, dom: 18, soldDate: 'Mar 2026' },
+        { address: '3104 Portofino Pass', beds: 4, baths: 2.5, sqft: 2650, salePrice: 448500, dom: 24, soldDate: 'Feb 2026' },
+        { address: '2619 Amalfi Coast Ln', beds: 5, baths: 3.5, sqft: 3200, salePrice: 515000, dom: 15, soldDate: 'Apr 2026' }
+      ],
+      activeListings: [
+        { address: '2901 Como Lake Dr', beds: 4, baths: 3, sqft: 2780, listPrice: 479000, dom: 11 },
+        { address: '3250 Venetian Shores Dr', beds: 4, baths: 2.5, sqft: 2600, listPrice: 455000, dom: 19 },
+        { address: '2755 Capri Cove', beds: 5, baths: 3.5, sqft: 3100, listPrice: 524000, dom: 7 }
+      ]
+    },
+    'south-shore-harbour': {
+      name: 'South Shore Harbour', city: 'League City',
+      trumarket: { low: 375000, mid: 425000, high: 480000 },
+      medianPrice: 425000, pricePerSqft: 155, daysOnMarket: 25,
+      listToSaleRatio: 0.971, marketTemp: 'warm', priceTrend: 3.4,
+      activeListingsCount: 22, priceReductionPct: 31,
+      floodZone: 'Zone AE', floodDetail: 'Zone AE (Moderate Risk) — flood insurance is typically required by lenders. Budget $1,200–$2,400/year depending on elevation.',
+      schoolDistrict: 'Clear Creek ISD',
+      schools: { elementary: 'South Shore Elementary', middle: 'Space Center Intermediate', high: 'Clear Lake High School' },
+      lifestyleTags: ['Marina Community', 'Golf Course', 'Waterfront Access', 'Established Neighborhood'],
+      marketNote: 'South Shore Harbour draws a specific buyer — marina access, golf, and waterfront lots are a powerful combination. Note the AE flood zone designation on many lots; flood insurance is a real line item to budget for. Buyers who factor that in upfront negotiate from a more realistic position.',
+      comps: [
+        { address: '1847 Marina Bay Dr', beds: 4, baths: 3, sqft: 2950, salePrice: 432000, dom: 22, soldDate: 'Mar 2026' },
+        { address: '2103 Harbour Town Dr', beds: 4, baths: 2.5, sqft: 2720, salePrice: 418000, dom: 30, soldDate: 'Feb 2026' },
+        { address: '1655 Shore Vista Ct', beds: 5, baths: 3.5, sqft: 3350, salePrice: 475000, dom: 19, soldDate: 'Jan 2026' }
+      ],
+      activeListings: [
+        { address: '1920 Marina Bay Dr', beds: 4, baths: 3, sqft: 2880, listPrice: 445000, dom: 14 },
+        { address: '2240 Harbour Club Dr', beds: 4, baths: 2.5, sqft: 2650, listPrice: 428000, dom: 28 },
+        { address: '1730 Spinnaker Cove', beds: 5, baths: 4, sqft: 3400, listPrice: 489000, dom: 8 }
+      ]
+    },
+    'league-city': {
+      name: 'League City', city: 'League City',
+      trumarket: { low: 340000, mid: 385000, high: 440000 },
+      medianPrice: 385000, pricePerSqft: 148, daysOnMarket: 29,
+      listToSaleRatio: 0.968, marketTemp: 'warm', priceTrend: 3.1,
+      activeListingsCount: 87, priceReductionPct: 28,
+      floodZone: 'Zone X', floodDetail: 'Zone X (Minimal Risk — most areas). Some pockets near drainage areas may differ; always verify with FEMA\'s flood map for the specific parcel.',
+      schoolDistrict: 'Clear Creek ISD',
+      schools: { elementary: 'Varies by address', middle: 'Varies by address', high: 'Clear Creek or Clear Springs HS' },
+      lifestyleTags: ['Family-Friendly', 'Easy Freeway Access', 'Diverse Neighborhoods', 'Strong Job Corridor'],
+      marketNote: 'League City is one of the most balanced markets in the Bay Area — enough inventory that buyers aren\'t panicking, enough demand that sellers don\'t have to give much away. The $350K–$425K range moves consistently. Above $500K, plan for a longer runway.',
+      comps: [
+        { address: '512 Westover Park Dr', beds: 4, baths: 2.5, sqft: 2480, salePrice: 387000, dom: 26, soldDate: 'Mar 2026' },
+        { address: '748 Oak Grove Ln', beds: 3, baths: 2, sqft: 1980, salePrice: 348000, dom: 33, soldDate: 'Feb 2026' },
+        { address: '1204 Creekwood Dr', beds: 4, baths: 3, sqft: 2750, salePrice: 422000, dom: 21, soldDate: 'Apr 2026' }
+      ],
+      activeListings: [
+        { address: '634 Plantation Dr', beds: 4, baths: 2.5, sqft: 2520, listPrice: 395000, dom: 16 },
+        { address: '891 Fairway Oaks Dr', beds: 3, baths: 2, sqft: 2050, listPrice: 358000, dom: 24 },
+        { address: '1355 Bay Colony Dr', beds: 4, baths: 3, sqft: 2820, listPrice: 435000, dom: 11 }
+      ]
+    },
+    'friendswood': {
+      name: 'Friendswood', city: 'Friendswood',
+      trumarket: { low: 380000, mid: 430000, high: 490000 },
+      medianPrice: 430000, pricePerSqft: 158, daysOnMarket: 24,
+      listToSaleRatio: 0.981, marketTemp: 'hot', priceTrend: 4.2,
+      activeListingsCount: 31, priceReductionPct: 15,
+      floodZone: 'Zone X', floodDetail: 'Zone X (Minimal Risk) — Friendswood sits on higher ground than most Bay Area communities. Low flood risk is one of the market\'s key advantages.',
+      schoolDistrict: 'Friendswood ISD',
+      schools: { elementary: 'Cline Elementary', middle: 'Friendswood Junior High', high: 'Friendswood High School' },
+      lifestyleTags: ['Top-Rated Schools', 'Low Inventory', 'Established Community', 'High Demand', 'Zone X Flood'],
+      marketNote: 'Friendswood ISD is the single biggest demand driver here — families move specifically for the schools and they don\'t leave. Low inventory and consistent buyer demand make this one of the tightest markets in the Bay Area. Sellers are in a strong position. Buyers need to be ready to move on well-priced homes.',
+      comps: [
+        { address: '407 Mustang Hollow Dr', beds: 4, baths: 3, sqft: 2820, salePrice: 438000, dom: 18, soldDate: 'Mar 2026' },
+        { address: '1102 Stone Hollow Dr', beds: 4, baths: 2.5, sqft: 2580, salePrice: 415000, dom: 21, soldDate: 'Feb 2026' },
+        { address: '823 Winding Way', beds: 5, baths: 3.5, sqft: 3150, salePrice: 488000, dom: 14, soldDate: 'Apr 2026' }
+      ],
+      activeListings: [
+        { address: '614 Oak Creek Dr', beds: 4, baths: 3, sqft: 2740, listPrice: 445000, dom: 9 },
+        { address: '1228 Heritage Dr', beds: 4, baths: 2.5, sqft: 2550, listPrice: 418000, dom: 17 },
+        { address: '955 Timber Hollow Dr', beds: 5, baths: 3.5, sqft: 3080, listPrice: 492000, dom: 6 }
+      ]
+    },
+    'clear-lake': {
+      name: 'Clear Lake', city: 'Clear Lake City',
+      trumarket: { low: 295000, mid: 345000, high: 400000 },
+      medianPrice: 345000, pricePerSqft: 138, daysOnMarket: 34,
+      listToSaleRatio: 0.959, marketTemp: 'balanced', priceTrend: 2.1,
+      activeListingsCount: 64, priceReductionPct: 38,
+      floodZone: 'Zone AE', floodDetail: 'Zone AE (Moderate Risk — many areas). Flood zone varies significantly by street and parcel; always verify with FEMA flood maps. Budget flood insurance into your monthly cost calculation.',
+      schoolDistrict: 'Clear Creek ISD',
+      schools: { elementary: 'Varies by address', middle: 'Varies by address', high: 'Clear Lake or Clear Creek HS' },
+      lifestyleTags: ['NASA Corridor', 'Waterway Access', 'Established Neighborhood', 'Value Opportunity'],
+      marketNote: 'Clear Lake is the most balanced market in the Bay Area — buyers have real negotiating room, especially above $375K. Flood zone is a genuine consideration; verify each specific address. Strong upside for buyers willing to do their homework on flood designation and insurance costs.',
+      comps: [
+        { address: '14823 El Camino Real', beds: 3, baths: 2, sqft: 1920, salePrice: 336000, dom: 31, soldDate: 'Mar 2026' },
+        { address: '15204 Middlebrook Way', beds: 4, baths: 2.5, sqft: 2350, salePrice: 372000, dom: 28, soldDate: 'Feb 2026' },
+        { address: '14450 Seabrook Cir', beds: 4, baths: 3, sqft: 2640, salePrice: 398000, dom: 22, soldDate: 'Jan 2026' }
+      ],
+      activeListings: [
+        { address: '15018 El Dorado Blvd', beds: 3, baths: 2, sqft: 1880, listPrice: 342000, dom: 22 },
+        { address: '14726 Windy Hollow Ct', beds: 4, baths: 2.5, sqft: 2280, listPrice: 368000, dom: 35 },
+        { address: '15340 Middlebrook Way', beds: 4, baths: 3, sqft: 2580, listPrice: 405000, dom: 18 }
+      ]
+    },
+    'pearland': {
+      name: 'Pearland', city: 'Pearland',
+      trumarket: { low: 320000, mid: 368000, high: 420000 },
+      medianPrice: 368000, pricePerSqft: 144, daysOnMarket: 30,
+      listToSaleRatio: 0.972, marketTemp: 'warm', priceTrend: 3.5,
+      activeListingsCount: 72, priceReductionPct: 30,
+      floodZone: 'Zone X', floodDetail: 'Zone X (Minimal Risk — most areas). Pearland has made significant infrastructure investments in drainage; the majority of the city is in the X zone.',
+      schoolDistrict: 'Pearland ISD',
+      schools: { elementary: 'Varies by address', middle: 'Varies by address', high: 'Pearland or Dawson High School' },
+      lifestyleTags: ['Growing Community', 'New Construction Available', 'Good Schools', 'Value Play'],
+      marketNote: 'Pearland has held value well thanks to strong job growth and Pearland ISD schools. You\'ll find both resale and new construction competing for buyers right now — and builders are offering rate buydowns and closing cost incentives that resale sellers can\'t easily match. Worth comparing both before committing.',
+      comps: [
+        { address: '2847 Windmill Lakes Blvd', beds: 4, baths: 2.5, sqft: 2480, salePrice: 371000, dom: 27, soldDate: 'Mar 2026' },
+        { address: '3124 Southern Trails Dr', beds: 4, baths: 3, sqft: 2680, salePrice: 392000, dom: 22, soldDate: 'Feb 2026' },
+        { address: '2619 Shadow Creek Dr', beds: 3, baths: 2, sqft: 2050, salePrice: 342000, dom: 35, soldDate: 'Jan 2026' }
+      ],
+      activeListings: [
+        { address: '3008 Morning Dew Dr', beds: 4, baths: 2.5, sqft: 2440, listPrice: 378000, dom: 18 },
+        { address: '2755 Windmill Lakes Blvd', beds: 4, baths: 3, sqft: 2620, listPrice: 396000, dom: 26 },
+        { address: '3350 Southern Trails Dr', beds: 3, baths: 2, sqft: 2080, listPrice: 349000, dom: 14 }
+      ]
+    },
+    'shadow-creek-ranch': {
+      name: 'Shadow Creek Ranch', city: 'Pearland',
+      trumarket: { low: 355000, mid: 400000, high: 455000 },
+      medianPrice: 400000, pricePerSqft: 152, daysOnMarket: 23,
+      listToSaleRatio: 0.979, marketTemp: 'hot', priceTrend: 4.1,
+      activeListingsCount: 18, priceReductionPct: 16,
+      floodZone: 'Zone X', floodDetail: 'Zone X (Minimal Risk) — one of the advantages of Shadow Creek Ranch\'s master-planned infrastructure. Minimal flood risk for the majority of the community.',
+      schoolDistrict: 'Alvin ISD',
+      schools: { elementary: 'Nolan Ryan Elementary', middle: 'Nolan Ryan Junior High', high: 'Shadow Creek High School' },
+      lifestyleTags: ['Master-Planned', 'Resort Amenities', 'Top-Rated Schools', 'Family Community', 'Zone X Flood'],
+      marketNote: 'Shadow Creek Ranch is one of the most desirable master-planned communities in Pearland — resort amenities, Shadow Creek High School, and Zone X flood designation are a powerful combination. Low inventory keeps prices firm. Sellers are in a strong position; buyers should be ready to move quickly on well-priced listings.',
+      comps: [
+        { address: '12204 Sabal Palm Dr', beds: 4, baths: 3, sqft: 2720, salePrice: 405000, dom: 19, soldDate: 'Mar 2026' },
+        { address: '11847 Breezy Knoll Ln', beds: 4, baths: 2.5, sqft: 2550, salePrice: 388000, dom: 24, soldDate: 'Feb 2026' },
+        { address: '12550 Morning Creek Dr', beds: 5, baths: 3.5, sqft: 3100, salePrice: 452000, dom: 16, soldDate: 'Apr 2026' }
+      ],
+      activeListings: [
+        { address: '12018 Shadow Creek Pkwy', beds: 4, baths: 3, sqft: 2680, listPrice: 412000, dom: 8 },
+        { address: '11920 Sabal Palm Dr', beds: 4, baths: 2.5, sqft: 2520, listPrice: 392000, dom: 16 },
+        { address: '12640 Morning Creek Dr', beds: 5, baths: 3.5, sqft: 3050, listPrice: 458000, dom: 11 }
+      ]
+    },
+    'default': {
+      name: 'Houston Bay Area Bay Area', city: 'Houston Bay Area',
+      trumarket: { low: 325000, mid: 372000, high: 425000 },
+      medianPrice: 372000, pricePerSqft: 146, daysOnMarket: 29,
+      listToSaleRatio: 0.971, marketTemp: 'warm', priceTrend: 3.2,
+      activeListingsCount: 142, priceReductionPct: 27,
+      floodZone: 'Verify', floodDetail: 'Flood zone varies significantly in the Greater Houston area. Always verify the specific parcel with FEMA\'s flood map at msc.fema.gov before making any decisions.',
+      schoolDistrict: 'Verify by address',
+      schools: { elementary: 'Verify by specific address', middle: 'Verify by specific address', high: 'Verify by specific address' },
+      lifestyleTags: ['Houston Bay Area Suburb', 'NASA Corridor', 'Bay Area Living'],
+      marketNote: 'The Houston Bay Area Bay Area market remains active and well-balanced. Buyers have options without the frantic pace of peak market; sellers are still seeing solid demand for well-priced homes. For a detailed analysis tied to your specific parcel, Phil can pull exact comps and current market position in minutes.',
+      comps: [
+        { address: 'Area Comparable #1', beds: 4, baths: 2.5, sqft: 2480, salePrice: 375000, dom: 27, soldDate: 'Mar 2026' },
+        { address: 'Area Comparable #2', beds: 3, baths: 2, sqft: 2050, salePrice: 345000, dom: 32, soldDate: 'Feb 2026' },
+        { address: 'Area Comparable #3', beds: 4, baths: 3, sqft: 2720, salePrice: 408000, dom: 22, soldDate: 'Jan 2026' }
+      ],
+      activeListings: [
+        { address: 'Active Listing #1', beds: 4, baths: 2.5, sqft: 2440, listPrice: 382000, dom: 18 },
+        { address: 'Active Listing #2', beds: 3, baths: 2, sqft: 2080, listPrice: 352000, dom: 25 },
+        { address: 'Active Listing #3', beds: 4, baths: 3, sqft: 2680, listPrice: 415000, dom: 14 }
+      ]
+    }
+  };
+
+  /* ── GOOGLE MAPS INIT ───────────────────────────────────────── */
+  function initMarketMap() {
+    miqState.propertyAutocomplete = new google.maps.places.Autocomplete(
+      document.getElementById('miq-address'),
+      { componentRestrictions: { country: 'us' }, fields: ['formatted_address','geometry','name'] }
+    );
+    miqState.propertyAutocomplete.addListener('place_changed', () => {
+      const place = miqState.propertyAutocomplete.getPlace();
+      if (place.geometry) miqState.propertyLatLng = place.geometry.location;
+    });
+
+    miqState.workAutocomplete = new google.maps.places.Autocomplete(
+      document.getElementById('work-address'),
+      { componentRestrictions: { country: 'us' }, fields: ['formatted_address','geometry'] }
+    );
+
+    // Restore saved work address
+    const savedWork = localStorage.getItem('miq_workAddress');
+    if (savedWork) document.getElementById('work-address').value = savedWork;
+  }
+
+  /* ── NEIGHBORHOOD DETECTION ─────────────────────────────────── */
+  function detectNeighborhood(address) {
+    const a = address.toLowerCase();
+    if (a.includes('tuscan lakes') || a.includes('venetian shores') || a.includes('portofino') || a.includes('amalfi') || a.includes('como lake') || a.includes('capri cove')) return 'tuscan-lakes';
+    if (a.includes('south shore harbour') || a.includes('marina bay') || a.includes('harbour town') || a.includes('spinnaker') || a.includes('harbour club')) return 'south-shore-harbour';
+    if (a.includes('shadow creek') || a.includes('sabal palm') || a.includes('breezy knoll') || a.includes('morning creek') || a.includes('nolan ryan')) return 'shadow-creek-ranch';
+    if (a.includes('friendswood') || a.includes('mustang hollow') || a.includes('stone hollow') || a.includes('friendswood isd')) return 'friendswood';
+    if (a.includes('clear lake') || a.includes('el camino real') || a.includes('middlebrook') || a.includes('seabrook') || a.includes('el dorado blvd') || a.includes('windy hollow')) return 'clear-lake';
+    if (a.includes('pearland') || a.includes('windmill lake') || a.includes('southern trails') || a.includes('morning dew') || a.includes('pomona') || a.includes('silverlake') || a.includes('silverlake')) return 'pearland';
+    if (a.includes('league city') || a.includes('westover') || a.includes('bay colony') || a.includes('plantation dr') || a.includes('creekwood') || a.includes('fairway oaks')) return 'league-city';
+    return 'default';
+  }
+
+  /* ── HELPERS ────────────────────────────────────────────────── */
+  function fmt(n) {
+    return '$' + Math.round(n).toLocaleString();
+  }
+
+  /* ── MODE SWITCHING ─────────────────────────────────────────── */
+  function setMode(mode) {
+    miqState.mode = mode;
+    document.getElementById('mode-btn-buyer').className = 'miq-mode-btn' + (mode === 'buyer' ? ' active--buyer' : '');
+    document.getElementById('mode-btn-seller').className = 'miq-mode-btn' + (mode === 'seller' ? ' active--seller' : '');
+    if (document.getElementById('miq-results').classList.contains('show')) {
+      renderModeContent();
+    }
+  }
+
+  function toggleMode() {
+    setMode(miqState.mode === 'buyer' ? 'seller' : 'buyer');
+  }
+
+  /* ── MAIN ANALYZE ───────────────────────────────────────────── */
+  function analyzeAddress() {
+    const input = document.getElementById('miq-address').value.trim();
+    if (!input) {
+      document.getElementById('miq-address').style.borderColor = '#c0392b';
+      setTimeout(() => document.getElementById('miq-address').style.borderColor = '', 2000);
+      return;
+    }
+
+    // Show loading, hide results
+    document.getElementById('miq-loading').classList.add('show');
+    document.getElementById('miq-results').classList.remove('show');
+    window.scrollTo({ top: document.getElementById('miq-loading').offsetTop - 80, behavior: 'smooth' });
+
+    miqState.address = input;
+    miqState.neighborhood = detectNeighborhood(input);
+
+    // Simulate async data fetch
+    setTimeout(() => {
+      document.getElementById('miq-loading').classList.remove('show');
+      renderResults();
+    }, 900);
+  }
+
+  /* ── RENDER RESULTS ─────────────────────────────────────────── */
+  function renderResults() {
+    const data = MARKET_DATA[miqState.neighborhood];
+
+    // Property header
+    document.getElementById('res-address').textContent = miqState.address;
+    document.getElementById('res-neighborhood').textContent = data.name + ' · ' + data.city;
+    document.getElementById('res-note-neighborhood').textContent = data.name;
+
+    // Market temp badge
+    const tempBadge = document.getElementById('res-temp-badge');
+    const tempLabels = { hot: '🔥 Hot Market', warm: '☀️ Warm Market', balanced: '⚖️ Balanced Market' };
+    tempBadge.textContent = tempLabels[data.marketTemp];
+    tempBadge.className = 'miq-temp-badge miq-temp-badge--' + data.marketTemp;
+
+    // TruMarket value
+    document.getElementById('res-trumarket-mid').textContent = fmt(data.trumarket.mid);
+    document.getElementById('res-trumarket-range').textContent = fmt(data.trumarket.low) + ' – ' + fmt(data.trumarket.high);
+    const trendDir = data.priceTrend >= 0 ? '↑' : '↓';
+    document.getElementById('res-trend-pill').textContent = trendDir + ' ' + Math.abs(data.priceTrend) + '% YoY';
+
+    // Comps
+    const compsHtml = data.comps.map(c => `
+      <div class="miq-prop-card">
+        <span class="miq-prop-card__tag miq-prop-card__tag--sold">Sold</span>
+        <div class="miq-prop-card__address">${c.address}</div>
+        <div class="miq-prop-card__specs">${c.beds} bed · ${c.baths} bath · ${c.sqft.toLocaleString()} sqft</div>
+        <div class="miq-prop-card__price">${fmt(c.salePrice)}</div>
+        <div class="miq-prop-card__meta">${c.dom} days on market · Sold ${c.soldDate}</div>
+      </div>`).join('');
+    document.getElementById('res-comps').innerHTML = compsHtml;
+
+    // Market note
+    document.getElementById('res-market-note').textContent = data.marketNote;
+
+    // Mode-specific
+    renderModeContent();
+
+    // Show results
+    document.getElementById('miq-results').classList.add('show');
+    window.scrollTo({ top: document.getElementById('results-section').offsetTop - 80, behavior: 'smooth' });
+
+    // Reset list price comparison
+    miqState.listPrice = 0;
+    document.getElementById('res-listprice-input').value = '';
+    document.getElementById('res-comparison-result').style.display = 'none';
+  }
+
+  /* ── MODE CONTENT ───────────────────────────────────────────── */
+  function renderModeContent() {
+    const data = MARKET_DATA[miqState.neighborhood];
+    const isBuyer = miqState.mode === 'buyer';
+
+    // Mode pill
+    const pill = document.getElementById('res-mode-pill');
+    pill.textContent = isBuyer ? '🔍 Buyer View' : '🏠 Seller View';
+    pill.className = 'miq-mode-pill miq-mode-pill--' + (isBuyer ? 'buyer' : 'seller');
+
+    // Show/hide content sections
+    document.getElementById('buyer-content').style.display = isBuyer ? 'block' : 'none';
+    document.getElementById('seller-content').style.display = isBuyer ? 'none' : 'block';
+    document.getElementById('res-listprice-section').style.display = isBuyer ? 'block' : 'none';
+
+    if (isBuyer) {
+      renderBuyerContent(data);
+    } else {
+      renderSellerContent(data);
+    }
+
+    renderScenarios(data);
+    renderFinalCta(data);
+  }
+
+  /* ── BUYER CONTENT ──────────────────────────────────────────── */
+  function renderBuyerContent(data) {
+    // Intel grid
+    document.getElementById('res-dom').textContent = data.daysOnMarket + ' days';
+    const redPct = data.priceReductionPct;
+    document.getElementById('res-reductions').textContent = redPct + '%';
+    document.getElementById('res-reductions-sub').textContent = 'of active listings had reductions';
+    document.getElementById('res-flood-short').textContent = data.floodZone;
+    document.getElementById('res-trend-val').textContent = (data.priceTrend >= 0 ? '+' : '') + data.priceTrend + '%';
+
+    // Flood detail
+    document.getElementById('res-flood-detail').textContent = data.floodDetail;
+
+    // Schools
+    document.getElementById('res-district').textContent = data.schoolDistrict;
+    document.getElementById('res-schools-grid').innerHTML = `
+      <div class="miq-school-item">
+        <div class="miq-school-item__level">Elementary</div>
+        <div class="miq-school-item__name">${data.schools.elementary}</div>
+        <div class="miq-school-item__district">${data.schoolDistrict}</div>
+      </div>
+      <div class="miq-school-item">
+        <div class="miq-school-item__level">Middle School</div>
+        <div class="miq-school-item__name">${data.schools.middle}</div>
+        <div class="miq-school-item__district">${data.schoolDistrict}</div>
+      </div>
+      <div class="miq-school-item">
+        <div class="miq-school-item__level">High School</div>
+        <div class="miq-school-item__name">${data.schools.high}</div>
+        <div class="miq-school-item__district">${data.schoolDistrict}</div>
+      </div>`;
+
+    // Tags
+    document.getElementById('res-tags').innerHTML = data.lifestyleTags.map(t => `<span class="miq-tag">${t}</span>`).join('');
+
+    // Active listings
+    document.getElementById('res-active-listings').innerHTML = data.activeListings.map(l => `
+      <div class="miq-prop-card">
+        <span class="miq-prop-card__tag miq-prop-card__tag--active">Active</span>
+        <div class="miq-prop-card__address">${l.address}</div>
+        <div class="miq-prop-card__specs">${l.beds} bed · ${l.baths} bath · ${l.sqft.toLocaleString()} sqft</div>
+        <div class="miq-prop-card__price miq-prop-card__price--list">${fmt(l.listPrice)}</div>
+        <div class="miq-prop-card__meta">${l.dom} days on market</div>
+      </div>`).join('');
+  }
+
+  /* ── SELLER CONTENT ─────────────────────────────────────────── */
+  function renderSellerContent(data) {
+    document.getElementById('sel-median').textContent = fmt(data.medianPrice);
+    document.getElementById('sel-dom').textContent = data.daysOnMarket + ' days';
+    document.getElementById('sel-lts').textContent = (data.listToSaleRatio * 100).toFixed(1) + '%';
+    document.getElementById('sel-ppsf').textContent = '$' + data.pricePerSqft + '/sqft';
+    document.getElementById('sel-active').textContent = data.activeListingsCount;
+    document.getElementById('sel-trend').textContent = (data.priceTrend >= 0 ? '+' : '') + data.priceTrend + '%';
+    document.getElementById('sel-tags').innerHTML = data.lifestyleTags.map(t => `<span class="miq-tag">${t}</span>`).join('');
+  }
+
+  /* ── LIST PRICE COMPARISON ──────────────────────────────────── */
+  function compareListPrice() {
+    const raw = document.getElementById('res-listprice-input').value.replace(/[^0-9]/g, '');
+    const listPrice = parseInt(raw, 10);
+    if (!listPrice || listPrice < 50000) return;
+    miqState.listPrice = listPrice;
+
+    const data = MARKET_DATA[miqState.neighborhood];
+    const tm = data.trumarket.mid;
+    const diff = listPrice - tm;
+    const pct = Math.abs((diff / tm) * 100).toFixed(1);
+    const resultEl = document.getElementById('res-comparison-result');
+
+    let html = '';
+    if (diff > tm * 0.01) {
+      // Overpriced
+      html = `<div class="miq-overpriced-alert">
+        <strong>TruMarket™ Value is estimating this home is listed ${pct}% above market</strong>
+        (<a href="contact.html?topic=marketiq-schedule">Phil to confirm</a>).
+        Here's what that means for your offer strategy — see scenarios below.
+      </div>`;
+    } else if (diff < -(tm * 0.01)) {
+      // Underpriced / good value
+      html = `<div class="miq-fairprice-alert">
+        <strong>TruMarket™ Value estimates this home is listed ${pct}% below market</strong> —
+        this may represent strong value or signal unique property factors.
+        <a href="contact.html?topic=marketiq-schedule">Phil to confirm</a> before you move.
+      </div>`;
+    } else {
+      html = `<div class="miq-fairprice-alert">
+        <strong>This home is listed within TruMarket™ range</strong> —
+        fairly priced based on current neighborhood data. Your offer strategy starts from a clean position.
+      </div>`;
+    }
+
+    resultEl.innerHTML = html;
+    resultEl.style.display = 'block';
+
+    // Re-render scenarios with list price context
+    renderScenarios(data);
+  }
+
+  /* ── SCENARIOS ──────────────────────────────────────────────── */
+  function renderScenarios(data) {
+    const tm = data.trumarket.mid;
+    const lts = data.listToSaleRatio;
+    const isHotMarket = lts > 1.0;
+    const isBuyer = miqState.mode === 'buyer';
+    const listPrice = miqState.listPrice;
+    const isOverpriced = listPrice > 0 && listPrice > tm * 1.01;
+    const show4 = isBuyer && isOverpriced;
+
+    // Eyebrow / title
+    document.getElementById('scen-eyebrow').textContent = isBuyer ? 'Offer Scenarios' : 'Pricing Scenarios';
+    document.getElementById('scen-title').textContent = isBuyer
+      ? 'Based on TruMarket™ Value — here are your strategic offer options.'
+      : 'Based on TruMarket™ Value — here are your three pricing strategies.';
+
+    // Hot market note
+    const hotNote = document.getElementById('scen-hotmarket-note');
+    if (isHotMarket) {
+      hotNote.style.display = 'block';
+      hotNote.innerHTML = `<strong>🔥 Hot Market Alert:</strong> Homes in this area are selling at ${(lts * 100).toFixed(1)}% of list price — meaning offers at or above list are standard. Scenarios below reflect actual market expectations.`;
+    } else {
+      hotNote.style.display = 'none';
+    }
+
+    let scenarios = [];
+    if (isBuyer) {
+      // Buyer scenarios — anchored to TruMarket Value
+      const winPrice = isHotMarket ? Math.round(listPrice * lts) : Math.round(tm * 1.025);
+      scenarios = [
+        { name: 'Negotiating Room', nameColor: 'teal', price: Math.round(tm * 0.975),
+          desc: 'Best when the home is sitting or priced above market. Leaves room to negotiate toward fair value.' },
+        { name: 'Fair Market', nameColor: 'white', price: Math.round(tm),
+          desc: 'What the data says this home is worth. A clean, defensible offer that any seller can respect.' },
+        { name: 'Win It', nameColor: 'gold', price: winPrice,
+          desc: isHotMarket ? 'This market is moving fast — this puts you where actual sales are happening.' : 'Use when you expect competition or when this is the one you can\'t afford to lose.' }
+      ];
+      if (show4) {
+        scenarios.push({
+          name: 'Secure It', nameColor: 'purple', price: listPrice,
+          desc: 'You know what you want. Sometimes the right home is worth the premium. Use when fear of losing it outweighs the price difference.'
+        });
+      }
+    } else {
+      // Seller scenarios
+      scenarios = [
+        { name: 'Fast Sale', nameColor: 'teal', price: Math.round(tm * 0.975),
+          desc: 'Price below market to generate immediate activity and multiple offer potential. Best when speed matters.' },
+        { name: 'Fair Market', nameColor: 'white', price: Math.round(tm),
+          desc: 'List at what the data supports. Strong buyer interest, reasonable timeline to close.' },
+        { name: 'Aggressive', nameColor: 'gold', price: Math.round(tm * 1.025),
+          desc: 'Push the ceiling. Works in low-inventory markets when your home is in exceptional condition and shows well.' }
+      ];
+    }
+
+    // Grid class
+    const grid = document.getElementById('scen-grid');
+    grid.className = 'miq-scenarios-grid miq-scenarios-grid--' + (show4 ? '4' : '3');
+    grid.innerHTML = scenarios.map(s => `
+      <div class="miq-scenario-card ${s.nameColor !== 'white' ? 'miq-scenario-card--' + s.nameColor : ''}">
+        <div class="miq-scenario-card__name miq-scenario-card__name--${s.nameColor}">${s.name}</div>
+        <div class="miq-scenario-card__price">${fmt(s.price)}</div>
+        <div class="miq-scenario-card__desc">${s.desc}</div>
+      </div>`).join('');
+
+    // Disclosure
+    const disclosureText = isBuyer
+      ? 'These scenarios are based on neighborhood TruMarket™ data and current list-to-sale ratios. They do not account for property condition, seller motivation, recent upgrades, or active competition — factors that can shift the right number by 5–10% or more. That\'s exactly what Phil\'s analysis is for.'
+      : 'These pricing scenarios are based on neighborhood TruMarket™ data and current market conditions. They do not account for your home\'s specific condition, upgrades, curb appeal, or competitive timing — all of which influence where your home lands within this range. Phil\'s analysis accounts for all of it.';
+    document.getElementById('scen-disclosure').textContent = disclosureText;
+  }
+
+  /* ── FINAL CTA ──────────────────────────────────────────────── */
+  function renderFinalCta(data) {
+    const isBuyer = miqState.mode === 'buyer';
+    document.getElementById('cta-title').textContent = isBuyer
+      ? 'Get Phil\'s Expert Read on This Property'
+      : 'Get Phil\'s Expert Pricing Analysis';
+    document.getElementById('cta-sub').textContent = isBuyer
+      ? 'Data tells you what. Phil tells you what to do about it. Schedule a quick call and he\'ll walk you through exactly what these numbers mean for your offer strategy.'
+      : 'You\'ve seen the market position. Now let Phil build the full pricing plan — what to list at, how to prepare, and what you\'ll walk away with.';
+  }
+
+  /* ── COMMUTE CALCULATOR ─────────────────────────────────────── */
+  function calcCommute() {
+    const workAddr = document.getElementById('work-address').value.trim();
+    if (!workAddr || !miqState.address) return;
+
+    // Save work address for cross-tool sync
+    localStorage.setItem('miq_workAddress', workAddr);
+
+    const service = new google.maps.DistanceMatrixService();
+    service.getDistanceMatrix({
+      origins: [miqState.address],
+      destinations: [workAddr],
+      travelMode: google.maps.TravelMode.DRIVING,
+      drivingOptions: { departureTime: new Date(Date.now() + 86400000), trafficModel: 'bestguess' }
+    }, (response, status) => {
+      if (status === 'OK') {
+        const el = response.rows[0].elements[0];
+        const driving = el.status === 'OK' ? el.duration_in_traffic
+          ? el.duration_in_traffic.text : el.duration.text : '—';
+        const dist = el.status === 'OK' ? el.distance.text : '—';
+
+        document.getElementById('commute-modes').innerHTML = `
+          <div class="miq-commute-mode">
+            <div class="miq-commute-mode__icon">🚗</div>
+            <div class="miq-commute-mode__time">${driving}</div>
+            <div class="miq-commute-mode__label">By Car (w/ traffic)</div>
+          </div>
+          <div class="miq-commute-mode">
+            <div class="miq-commute-mode__icon">📍</div>
+            <div class="miq-commute-mode__time">${dist}</div>
+            <div class="miq-commute-mode__label">Distance</div>
+          </div>`;
+        document.getElementById('commute-result').classList.add('show');
+      }
+    });
+  }
+
+  /* ── ADDRESS INPUT ENTER KEY ────────────────────────────────── */
+  document.getElementById('miq-address').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') analyzeAddress();
+  });
+  </script>
+
+<script src="https://widgets.leadconnectorhq.com/loader.js" data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" data-widget-id="6a0623c7f127bb5833bc2697"></script>
+</body>
+</html>

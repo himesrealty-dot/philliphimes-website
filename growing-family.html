@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Moving Up | Growing Families in League City & Houston Bay Area | Phillip Himes</title>
+  <meta name="description" content="Your family has outgrown your home. Phillip Himes helps growing families in League City, Friendswood, and Pearland navigate the sell-and-buy challenge — with the right schools, the right space, and no gaps in between." />
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+
+  <style>
+
+    /* ─── PAGE HERO ────────────────────────────────────── */
+    .gf-hero {
+      background: linear-gradient(135deg, var(--navy) 0%, #0d2137 60%, #0f2845 100%);
+      padding: 5rem 0 4rem; position: relative; overflow: hidden;
+    }
+    .gf-hero::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 65% 40%, rgba(201,164,85,0.08) 0%, transparent 55%);
+      pointer-events: none;
+    }
+    .gf-hero__eyebrow {
+      font-family: var(--font-heading); font-size: 0.75rem; font-weight: 800;
+      letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold);
+      margin-bottom: 1rem; display: block;
+    }
+    .gf-hero__title {
+      font-family: var(--font-heading); font-weight: 900;
+      font-size: clamp(2rem, 4vw, 3rem); color: white;
+      line-height: 1.1; margin-bottom: 1.25rem;
+    }
+    .gf-hero__subtitle {
+      font-size: clamp(0.95rem, 1.5vw, 1.1rem); color: rgba(255,255,255,0.75);
+      line-height: 1.7; max-width: 560px; margin-bottom: 2rem;
+    }
+    .gf-hero__btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .gf-hero__btn--primary {
+      background: var(--gold); color: var(--navy);
+      font-family: var(--font-heading); font-weight: 800; font-size: 0.92rem;
+      padding: 0.85rem 1.75rem; border-radius: var(--radius-full);
+      text-decoration: none; transition: all 0.2s; letter-spacing: 0.03em;
+    }
+    .gf-hero__btn--primary:hover { background: #d4b86a; }
+    .gf-hero__btn--outline {
+      background: transparent; color: rgba(255,255,255,0.85);
+      border: 2px solid rgba(255,255,255,0.3);
+      font-family: var(--font-heading); font-weight: 700; font-size: 0.88rem;
+      padding: 0.85rem 1.75rem; border-radius: var(--radius-full);
+      text-decoration: none; transition: all 0.2s;
+    }
+    .gf-hero__btn--outline:hover { border-color: rgba(255,255,255,0.6); }
+
+    /* ─── THE REAL PROBLEM SECTION ─────────────────────── */
+    .gf-problem {
+      background: var(--off-white, #f9f7f4); padding: 5rem 0;
+    }
+    .gf-problem__grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+    }
+    @media (max-width: 820px) { .gf-problem__grid { grid-template-columns: 1fr; gap: 2.5rem; } }
+
+    .gf-problem__eyebrow {
+      font-family: var(--font-heading); font-size: 0.75rem; font-weight: 800;
+      letter-spacing: 0.18em; text-transform: uppercase; color: var(--navy);
+      margin-bottom: 0.85rem; display: block;
+    }
+    .gf-problem__heading {
+      font-family: var(--font-heading); font-weight: 900;
+      font-size: clamp(1.5rem, 2.5vw, 2rem); color: var(--navy);
+      line-height: 1.15; margin-bottom: 1.25rem;
+    }
+    .gf-problem__body {
+      font-size: 0.95rem; color: var(--dark-gray); line-height: 1.75; margin-bottom: 1rem;
+    }
+    .gf-problem__body strong { color: var(--navy); }
+
+    .gf-tensions { display: flex; flex-direction: column; gap: 1rem; }
+    .gf-tension {
+      background: white; border-radius: var(--radius-lg); padding: 1.25rem 1.5rem;
+      border-left: 3px solid var(--gold); box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+      display: flex; gap: 1rem; align-items: flex-start;
+    }
+    .gf-tension__icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 0.1rem; }
+    .gf-tension__title {
+      font-family: var(--font-heading); font-weight: 800; font-size: 0.88rem;
+      color: var(--navy); margin-bottom: 0.3rem;
+    }
+    .gf-tension__desc { font-size: 0.82rem; color: var(--dark-gray); line-height: 1.6; }
+
+    /* ─── DARK STRATEGY SECTION ─────────────────────────── */
+    .gf-strategy {
+      background: linear-gradient(135deg, #0a1c2e 0%, #0d2137 100%);
+      padding: 5rem 0; position: relative; overflow: hidden;
+    }
+    .gf-strategy::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 70% 40%, rgba(201,164,85,0.06) 0%, transparent 55%);
+      pointer-events: none;
+    }
+    .gf-strategy .section-header__eyebrow { color: var(--gold); }
+    .gf-strategy .section-header__title { color: white; }
+    .gf-strategy .section-header__subtitle { color: rgba(255,255,255,0.65); }
+
+    .gf-paths {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-top: 3rem;
+    }
+    @media (max-width: 900px) { .gf-paths { grid-template-columns: 1fr; } }
+
+    .gf-path {
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.09);
+      border-radius: var(--radius-xl); padding: 2rem 1.75rem;
+    }
+    .gf-path__badge {
+      display: inline-block; font-family: var(--font-heading); font-size: 0.65rem;
+      font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em;
+      padding: 0.2rem 0.7rem; border-radius: var(--radius-full); margin-bottom: 1rem;
+    }
+    .gf-path__badge--sell-first { background: rgba(201,164,85,0.2); color: var(--gold); }
+    .gf-path__badge--buy-first { background: rgba(32,137,160,0.2); color: var(--teal); }
+    .gf-path__badge--simultaneous { background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.75); }
+    .gf-path__icon { font-size: 1.75rem; margin-bottom: 0.85rem; }
+    .gf-path__title {
+      font-family: var(--font-heading); font-weight: 800; font-size: 0.95rem;
+      color: white; margin-bottom: 0.75rem; line-height: 1.3;
+    }
+    .gf-path__desc { font-size: 0.82rem; color: rgba(255,255,255,0.65); line-height: 1.65; margin-bottom: 1rem; }
+    .gf-path__pros-title {
+      font-family: var(--font-heading); font-size: 0.68rem; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.35); margin-bottom: 0.4rem;
+    }
+    .gf-path__list { list-style: none; padding: 0; margin: 0; }
+    .gf-path__list li {
+      font-size: 0.8rem; color: rgba(255,255,255,0.7); padding: 0.2rem 0;
+      display: flex; gap: 0.5rem; align-items: flex-start;
+    }
+    .gf-path__list li::before { content: '›'; font-weight: 900; flex-shrink: 0; color: var(--gold); }
+
+    /* ─── SCHOOL SECTION ───────────────────────────────── */
+    .gf-schools {
+      background: white; padding: 5rem 0;
+    }
+    .gf-schools__grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 3.5rem; align-items: start;
+    }
+    @media (max-width: 820px) { .gf-schools__grid { grid-template-columns: 1fr; } }
+
+    .gf-schools__eyebrow {
+      font-family: var(--font-heading); font-size: 0.75rem; font-weight: 800;
+      letter-spacing: 0.18em; text-transform: uppercase; color: var(--teal);
+      margin-bottom: 0.85rem; display: block;
+    }
+    .gf-schools__heading {
+      font-family: var(--font-heading); font-weight: 900;
+      font-size: clamp(1.4rem, 2.5vw, 1.9rem); color: var(--navy);
+      line-height: 1.15; margin-bottom: 1rem;
+    }
+    .gf-schools__body {
+      font-size: 0.93rem; color: var(--dark-gray); line-height: 1.75; margin-bottom: 1.25rem;
+    }
+    .gf-schools__note {
+      background: #f0f8fa; border-left: 3px solid var(--teal);
+      border-radius: 0 var(--radius-lg) var(--radius-lg) 0; padding: 1rem 1.25rem;
+    }
+    .gf-schools__note p { font-size: 0.85rem; color: var(--dark-gray); line-height: 1.6; margin: 0; }
+    .gf-schools__note strong { color: var(--navy); }
+
+    .gf-districts { display: flex; flex-direction: column; gap: 1rem; }
+    .gf-district {
+      background: var(--off-white, #f9f7f4); border-radius: var(--radius-lg);
+      padding: 1.5rem; border: 1.5px solid var(--light-gray);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .gf-district:hover { border-color: var(--teal); box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+    .gf-district__header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.5rem; }
+    .gf-district__name {
+      font-family: var(--font-heading); font-weight: 900; font-size: 0.9rem; color: var(--navy);
+    }
+    .gf-district__tag {
+      font-family: var(--font-heading); font-size: 0.65rem; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 0.08em;
+      background: rgba(32,137,160,0.12); color: var(--teal);
+      padding: 0.15rem 0.55rem; border-radius: var(--radius-full);
+    }
+    .gf-district__desc { font-size: 0.82rem; color: var(--dark-gray); line-height: 1.6; }
+
+    /* ─── TESTIMONIAL ──────────────────────────────────── */
+    .gf-testimonial {
+      background: #f7f4ef; padding: 5rem 0; position: relative;
+    }
+    .gf-testimonial::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+      background: linear-gradient(90deg, var(--navy), var(--gold));
+    }
+
+    /* ─── CTA ──────────────────────────────────────────── */
+    .gf-cta {
+      background: linear-gradient(135deg, #0a1c2e 0%, #0d2137 100%);
+      padding: 5rem 0; position: relative; overflow: hidden;
+    }
+    .gf-cta::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 60% 50%, rgba(201,164,85,0.07) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .gf-cta__inner { text-align: center; position: relative; max-width: 660px; margin: 0 auto; }
+    .gf-cta__eyebrow {
+      font-family: var(--font-heading); font-size: 0.75rem; font-weight: 800;
+      letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold);
+      margin-bottom: 1rem; display: block;
+    }
+    .gf-cta__title {
+      font-family: var(--font-heading); font-weight: 900;
+      font-size: clamp(1.5rem, 3vw, 2.2rem); color: white;
+      line-height: 1.15; margin-bottom: 1rem;
+    }
+    .gf-cta__text {
+      font-size: 0.95rem; color: rgba(255,255,255,0.7);
+      line-height: 1.7; margin-bottom: 2.5rem;
+    }
+    .gf-cta__btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+  </style>
+</head>
+<body>
+
+  <!-- ── NAVIGATION ──────────────────────────────────── -->
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo" aria-label="Phillip Himes Real Estate Home">
+        <img src="images/logo.png" alt="Phillip Himes | Brokered by eXp Realty" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+        <span class="nav__logo-text" style="display:none;">
+          <span class="nav__logo-name">Phillip Himes</span>
+          <span class="nav__logo-brokerage">Brokered by eXp Realty</span>
+        </span>
+      </a>
+      <ul class="nav__links" id="nav-links">
+        <li><a href="buyers.html" class="nav__link nav__link--active">Buying</a></li>
+        <li><a href="sellers.html" class="nav__link">Selling</a></li>
+        <li class="nav__item nav__item--dropdown">
+          <a href="cities.html" class="nav__link">Cities</a>
+          <ul class="nav__dropdown" aria-label="Cities submenu">
+            <li><a href="cities.html#league-city">League City</a></li>
+            <li><a href="cities.html#friendswood">Friendswood</a></li>
+            <li><a href="cities.html#pearland">Pearland</a></li>
+            <li><a href="cities.html#clear-lake">Clear Lake</a></li>
+            <li><a href="cities.html#dickinson">Dickinson</a></li>
+            <li><a href="cities.html#manvel">Manvel</a></li>
+          </ul>
+        </li>
+        <li class="nav__item nav__item--dropdown">
+          <a href="marketiq.html" class="nav__link">Tools</a>
+          <ul class="nav__dropdown" aria-label="Tools submenu">
+            <li><a href="buyeriq.html">BuyerIQ™ — Buyer's Edge</a></li>
+            <li><a href="selleriq.html">SellerIQ™ — Seller's Edge</a></li>
+            <li><a href="marketiq.html">MarketIQ™ — Property Intelligence</a></li>
+          </ul>
+        </li>
+        <li><a href="contact.html" class="nav__link">Ask Phil</a></li>
+        <li class="nav__mobile-cta" style="display:none;">
+          <a href="tel:8325361016" class="btn btn--secondary" style="width:100%;margin-top:var(--space-md);">📞 (832) 536-1016</a>
+          <a href="buyeriq.html" class="btn btn--primary" style="width:100%;margin-top:var(--space-sm);">Start BuyerIQ™</a>
+        </li>
+      </ul>
+      <div class="nav__cta">
+        <a href="tel:8325361016" class="nav__phone">📞 (832) 536-1016</a>
+        <a href="buyeriq.html" class="btn btn--primary btn--sm">Start BuyerIQ™</a>
+      </div>
+      <button class="nav__hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ── HERO ───────────────────────────────────────── -->
+  <section class="gf-hero" aria-label="Growing family hero">
+    <div class="container">
+      <span class="gf-hero__eyebrow">Moving Up · Growing Families · Houston Bay Area</span>
+      <h1 class="gf-hero__title">More Space.<br />Better Schools.<br />Smarter Move.</h1>
+      <p class="gf-hero__subtitle">You've outgrown your home. The question isn't whether to move — it's how to do it without the stress of being caught in between, overpaying for the next house, or landing in the wrong school district.</p>
+      <div class="gf-hero__btns">
+        <a href="buyeriq.html" class="gf-hero__btn--primary">Start BuyerIQ™ — Free →</a>
+        <a href="contact.html" class="gf-hero__btn--outline">Talk Through the Plan</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── THE REAL PROBLEM ───────────────────────────── -->
+  <section class="gf-problem" aria-labelledby="problem-heading">
+    <div class="container">
+      <div class="gf-problem__grid">
+        <div>
+          <span class="gf-problem__eyebrow">The Real Challenge</span>
+          <h2 class="gf-problem__heading" id="problem-heading">It's Not Just About Finding a Bigger House</h2>
+          <p class="gf-problem__body">Moving up is more complicated than buying your first home. You're not starting from zero — you have a house to sell, equity to protect, timing to coordinate, and a family's life to not disrupt.</p>
+          <p class="gf-problem__body"><strong>The biggest fear? Being stuck.</strong> Either you sell before you find the next home and scramble for temporary housing, or you commit to buying before your current home sells and carry two mortgages.</p>
+          <p class="gf-problem__body">There are strategies for both. The right one depends on your equity position, the speed of the market you're selling in, and your flexibility. That's what we figure out together — before you list or make an offer on anything.</p>
+          <a href="buyeriq.html" class="btn btn--primary" style="margin-top:1.5rem;">Start BuyerIQ™ — Map Your Move →</a>
+        </div>
+        <div>
+          <div class="gf-tensions">
+            <div class="gf-tension">
+              <div class="gf-tension__icon">⏱️</div>
+              <div>
+                <div class="gf-tension__title">The Timing Problem</div>
+                <div class="gf-tension__desc">Selling and buying simultaneously requires careful coordination. Miss the timing and you're either houseless or double-mortgaged. We map this out before you commit to anything.</div>
+              </div>
+            </div>
+            <div class="gf-tension">
+              <div class="gf-tension__icon">🏫</div>
+              <div>
+                <div class="gf-tension__title">School District Decisions</div>
+                <div class="gf-tension__desc">The school a home feeds into can make or break resale value — and your kids' years. Knowing the feeder patterns before you shop is non-negotiable.</div>
+              </div>
+            </div>
+            <div class="gf-tension">
+              <div class="gf-tension__icon">💰</div>
+              <div>
+                <div class="gf-tension__title">Equity Strategy</div>
+                <div class="gf-tension__desc">How you position your current home — pricing, timing, contingencies — directly affects how strong your offer is on the next one. These two transactions are connected.</div>
+              </div>
+            </div>
+            <div class="gf-tension">
+              <div class="gf-tension__icon">📐</div>
+              <div>
+                <div class="gf-tension__title">How Much More Space Do You Actually Need?</div>
+                <div class="gf-tension__desc">Most families either under-buy and move again in 4 years, or overbuy and strain the budget. We size the next home to your life — not just today's life, but where you're headed.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── STRATEGY OPTIONS ───────────────────────────── -->
+  <section class="gf-strategy" aria-labelledby="strategy-heading">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-header__eyebrow">How We Structure the Move</span>
+        <h2 class="section-header__title" id="strategy-heading">Three Ways to Move Up. One Right Fit.</h2>
+        <p class="section-header__subtitle">There's no universal answer — the right path depends on your market, your equity, and your risk tolerance. Here's what each one looks like.</p>
+      </div>
+      <div class="gf-paths">
+
+        <div class="gf-path">
+          <span class="gf-path__badge gf-path__badge--sell-first">Sell First</span>
+          <div class="gf-path__icon">🏡➡️🏠</div>
+          <div class="gf-path__title">Sell Your Home First, Then Buy</div>
+          <div class="gf-path__desc">List and sell your current home before making an offer on the next one. Maximizes your negotiating position and buying power — but requires a plan for where you live in between.</div>
+          <div class="gf-path__pros-title">Works best when:</div>
+          <ul class="gf-path__list">
+            <li>You have flexibility on timing</li>
+            <li>The market is moving fast and competition is high</li>
+            <li>You don't want to carry two mortgages</li>
+            <li>You want to know your exact equity before buying</li>
+          </ul>
+        </div>
+
+        <div class="gf-path">
+          <span class="gf-path__badge gf-path__badge--buy-first">Buy First</span>
+          <div class="gf-path__icon">🏠➡️🏡</div>
+          <div class="gf-path__title">Buy First, Then Sell</div>
+          <div class="gf-path__desc">Secure the next home before listing yours. Eliminates the housing gap and relocation chaos — but requires strong equity and sometimes a bridge loan or HELOC to manage cash flow.</div>
+          <div class="gf-path__pros-title">Works best when:</div>
+          <ul class="gf-path__list">
+            <li>Your current home has significant equity</li>
+            <li>You've found the right next home and don't want to lose it</li>
+            <li>You can qualify for both mortgages temporarily</li>
+            <li>A quick sell on your current home is realistic</li>
+          </ul>
+        </div>
+
+        <div class="gf-path">
+          <span class="gf-path__badge gf-path__badge--simultaneous">Simultaneous Close</span>
+          <div class="gf-path__icon">🔄</div>
+          <div class="gf-path__title">Sell and Buy at the Same Time</div>
+          <div class="gf-path__desc">Close on both transactions on the same day or within days of each other. The cleanest outcome — but requires tight coordination between two transactions, two title companies, and two sets of timelines.</div>
+          <div class="gf-path__pros-title">Works best when:</div>
+          <ul class="gf-path__list">
+            <li>Both markets are predictable and moving at similar speeds</li>
+            <li>Your contracts include contingencies that protect you</li>
+            <li>You have an agent coordinating both sides (or referring out)</li>
+            <li>Your lender is experienced with back-to-back closings</li>
+          </ul>
+        </div>
+
+      </div>
+      <div style="text-align:center;margin-top:3rem;">
+        <a href="buyeriq.html" class="btn btn--primary btn--lg">Start BuyerIQ™ — Find the Right Path for You →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SCHOOLS SECTION ────────────────────────────── -->
+  <section class="gf-schools" aria-labelledby="schools-heading">
+    <div class="container">
+      <div class="gf-schools__grid">
+        <div>
+          <span class="gf-schools__eyebrow">School District Guide</span>
+          <h2 class="gf-schools__heading" id="schools-heading">The School District Question That Drives Every Move-Up Decision</h2>
+          <p class="gf-schools__body">For growing families, school district isn't a checkbox — it's often the primary filter. The right district protects your kids and your resale value. The wrong one follows you for years.</p>
+          <p class="gf-schools__body">What most families don't know: school district boundaries don't always follow city lines. A home that's technically "in Friendswood" might be zoned to a different district than the house two streets over. I know these boundaries cold.</p>
+          <div class="gf-schools__note">
+            <p><strong>My recommendation:</strong> Before you fall in love with any home, tell me your school priorities and I'll run the feeder pattern check. It takes two minutes and saves you from a very expensive mistake.</p>
+          </div>
+          <a href="contact.html" class="btn btn--primary" style="margin-top:1.75rem;">Ask Phil About School Districts →</a>
+        </div>
+        <div>
+          <div class="gf-districts">
+            <div class="gf-district">
+              <div class="gf-district__header">
+                <div class="gf-district__name">Clear Creek ISD (CCISD)</div>
+                <span class="gf-district__tag">Top Rated</span>
+              </div>
+              <div class="gf-district__desc">Serves League City, Clear Lake, Friendswood, and Webster. Consistently ranks among the top districts in the greater Houston area. Strong athletics, AP programs, and post-secondary readiness scores. High demand — homes in CCISD carry a resale premium.</div>
+            </div>
+            <div class="gf-district">
+              <div class="gf-district__header">
+                <div class="gf-district__name">Friendswood ISD</div>
+                <span class="gf-district__tag">Top Rated</span>
+              </div>
+              <div class="gf-district__desc">Serves the city of Friendswood. One of the most sought-after districts in the Bay Area — tight community, excellent academics, and a feeder pattern that families stay in for generations. Inventory inside Friendswood ISD boundaries is limited and moves fast.</div>
+            </div>
+            <div class="gf-district">
+              <div class="gf-district__header">
+                <div class="gf-district__name">Pearland ISD</div>
+                <span class="gf-district__tag">Growing Strong</span>
+              </div>
+              <div class="gf-district__desc">Serves Pearland and portions of Shadow Creek Ranch. Rapidly improving — newer facilities, strong athletic programs, and growing AP enrollment. A solid choice for families who want more house per dollar without sacrificing school quality.</div>
+            </div>
+            <div class="gf-district">
+              <div class="gf-district__header">
+                <div class="gf-district__name">Alvin ISD</div>
+                <span class="gf-district__tag">Value Pick</span>
+              </div>
+              <div class="gf-district__desc">Serves Manvel, Iowa Colony, and Alvin. Fast-growing with significant investment in new schools and facilities. Best value-per-square-foot in the Bay Area for families who prioritize space and newer builds.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── TESTIMONIAL ────────────────────────────────── -->
+  <section class="gf-testimonial" aria-label="Client testimonial">
+    <div class="container">
+      <div style="max-width:820px;margin:0 auto;text-align:center;">
+        <span style="font-family:var(--font-heading);font-size:0.72rem;font-weight:800;text-transform:uppercase;letter-spacing:0.18em;color:var(--navy);margin-bottom:1rem;display:block;">Client Story</span>
+        <div style="font-family:Georgia,serif;font-size:6rem;line-height:0.55;color:var(--navy);opacity:0.18;margin-bottom:1rem;" aria-hidden="true">"</div>
+        <blockquote style="font-family:var(--font-accent);font-style:italic;font-size:clamp(1.05rem,2vw,1.35rem);color:var(--navy);line-height:1.7;margin:0 0 2rem;border:none;padding:0;">
+          After living in our home for 17 years, we decided it was time to start the next journey. Phil took care of everything — answered every question, made the process clear, and made sure we got to the next chapter without any of the stress we expected.
+        </blockquote>
+        <div style="display:inline-flex;align-items:center;gap:1rem;background:white;border-radius:var(--radius-full);padding:0.6rem 1.5rem 0.6rem 0.6rem;box-shadow:0 2px 16px rgba(0,0,0,0.08);margin-bottom:2rem;">
+          <div style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--navy),#1a5080);display:flex;align-items:center;justify-content:center;font-family:var(--font-heading);font-weight:800;font-size:0.75rem;color:white;flex-shrink:0;">MF</div>
+          <div style="text-align:left;">
+            <div style="font-family:var(--font-heading);font-weight:800;font-size:0.92rem;color:var(--navy);">Michael &amp; Cheryl Flores</div>
+            <div style="font-size:0.75rem;color:var(--dark-gray);">Sold in Bacliff · Bought Their Forever Home · 17 years of memories — and a perfect next chapter</div>
+          </div>
+        </div>
+        <div>
+          <a href="buyeriq.html" class="btn btn--primary btn--lg">Start BuyerIQ™ — Map Your Next Move →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA ───────────────────────────────────────── -->
+  <section class="gf-cta" aria-labelledby="gf-cta-heading">
+    <div class="container">
+      <div class="gf-cta__inner">
+        <span class="gf-cta__eyebrow">Ready to Move Up?</span>
+        <h2 class="gf-cta__title" id="gf-cta-heading">Let's Build the Plan Before You Make Any Moves</h2>
+        <p class="gf-cta__text">BuyerIQ™ starts with where you are — current home, current equity, what you need next — and maps the right path forward. Know your strategy before you list or make an offer on anything.</p>
+        <div class="gf-cta__btns">
+          <a href="buyeriq.html" class="btn btn--primary btn--lg">Start BuyerIQ™ →</a>
+          <a href="tel:8325361016" class="btn btn--white-outline btn--lg">📞 (832) 536-1016</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ─────────────────────────────────────── -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <div class="footer__brand-name">Phillip Himes</div>
+          <div class="footer__brokerage">REALTOR® | Brokered by eXp Realty</div>
+          <p class="footer__tagline">"Real estate built around your life — not just your transaction."</p>
+          <p class="footer__desc">Serving League City, Friendswood, Pearland, Clear Lake, Dickinson, and Manvel across the Houston Bay Area.</p>
+          <p class="footer__desc" style="margin-top:var(--space-md);">📞 <a href="tel:8325361016" style="color:rgba(255,255,255,0.6);">(832) 536-1016</a><br />✉️ <a href="mailto:phil@philliphimes.com" style="color:rgba(255,255,255,0.6);">phil@philliphimes.com</a></p>
+        </div>
+        <div>
+          <div class="footer__heading">Buying</div>
+          <ul class="footer__links">
+            <li><a href="buyeriq.html">BuyerIQ™ Suite</a></li>
+            <li><a href="search.html">Search Homes</a></li>
+            <li><a href="first-home.html">First-Time Buyers</a></li>
+            <li><a href="growing-family.html">Growing Families</a></li>
+            <li><a href="veterans.html">Veterans &amp; Military</a></li>
+            <li><a href="buyers.html#newbuild">New Construction</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer__heading">Selling</div>
+          <ul class="footer__links">
+            <li><a href="selleriq.html">SellerIQ™ Suite</a></li>
+            <li><a href="contact.html?topic=trumarket">Get Home Value</a></li>
+            <li><a href="selleriq.html">Rebalance™</a></li>
+            <li><a href="selleriq.html">Amplify™</a></li>
+            <li><a href="selleriq.html">Renew™</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer__heading">Explore</div>
+          <ul class="footer__links">
+            <li><a href="marketiq.html">MarketIQ™</a></li>
+            <li><a href="cities.html">Cities</a></li>
+            <li><a href="selleriq.html">reLifeIQ™</a></li>
+            <li><a href="contact.html">Ask Phil</a></li>
+            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__legal">
+          © 2026 Phillip Himes · Brokered by eXp Realty · Licensed in Texas ·
+          <a href="privacy-policy.html">Privacy Policy</a> ·
+          <a href="terms-of-service.html">Terms of Service</a>
+        </p>
+        <p class="footer__disclaimer">
+          All information deemed reliable but not guaranteed. Equal Housing Opportunity. Information subject to change without notice.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="https://widgets.leadconnectorhq.com/loader.js" data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" data-widget-id="6a0623c7f127bb5833bc2697"></script>
+<script src="https://widgets.leadconnectorhq.com/loader.js" data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" data-widget-id="6a0623c7f127bb5833bc2697"></script>
+</body>
+</html>

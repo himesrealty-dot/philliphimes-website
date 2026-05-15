@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Search Homes for Sale | League City · Friendswood · Pearland · Clear Lake | Phillip Himes</title>
+  <meta name="description" content="Search homes for sale across League City, Friendswood, Pearland, and Clear Lake TX. Browse by neighborhood, map, or price. Real listings from HAR MLS — from a local REALTOR® who knows every street." />
+  <meta name="author" content="Phillip Himes | Brokered by eXp Realty" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Search Homes | South Houston Suburbs | Phillip Himes" />
+  <meta property="og:description" content="Browse real MLS listings across League City, Friendswood, Pearland, Clear Lake and every major neighborhood in between." />
+  <meta property="og:url" content="https://philliphimes.com/search" />
+
+  <!-- Schema: SearchAction -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Search Homes for Sale — Phillip Himes",
+    "url": "https://philliphimes.com/search.html",
+    "description": "MLS-powered home search for League City, Friendswood, Pearland, and Clear Lake TX.",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://philliphimes.idxbroker.com/idx/search/advanced?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+
+  <style>
+
+    /* ─── SEARCH HERO ─────────────────────────────────────────── */
+    .search-hero {
+      background: linear-gradient(135deg, #0a1c2e 0%, #0d2137 60%, #062030 100%);
+      padding: 5rem 0 0; position: relative; overflow: hidden;
+    }
+    .search-hero::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 70% 30%, rgba(32,137,160,0.14) 0%, transparent 55%);
+      pointer-events: none;
+    }
+    .search-hero__content { position: relative; padding-bottom: 4rem; }
+    .search-hero__eyebrow {
+      font-family: var(--font-heading); font-size: 0.75rem; font-weight: 800;
+      letter-spacing: 0.18em; text-transform: uppercase; color: var(--teal);
+      margin-bottom: 1rem; display: block;
+    }
+    .search-hero__title {
+      font-family: var(--font-heading); font-weight: 900;
+      font-size: clamp(2rem, 4vw, 3.2rem); color: white;
+      line-height: 1.1; margin-bottom: 1.25rem;
+    }
+    .search-hero__title span { color: var(--teal-light); }
+    .search-hero__subtitle {
+      font-size: clamp(0.95rem, 1.5vw, 1.1rem); color: rgba(255,255,255,0.70);
+      line-height: 1.7; max-width: 580px; margin-bottom: 2.5rem;
+    }
+    .search-hero__btns { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 3.5rem; }
+
+    /* Quick-search bar */
+    .search-bar-row {
+      display: grid; grid-template-columns: repeat(4,1fr); gap: 0;
+      background: rgba(255,255,255,0.07); border-top: 1px solid rgba(255,255,255,0.09);
+    }
+    @media (max-width: 768px) { .search-bar-row { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 480px) { .search-bar-row { grid-template-columns: 1fr; } }
+    .search-quick-btn {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: 1.5rem 1rem; gap: 0.4rem; text-decoration: none;
+      border-right: 1px solid rgba(255,255,255,0.08); transition: background 0.2s;
+    }
+    .search-quick-btn:last-child { border-right: none; }
+    .search-quick-btn:hover { background: rgba(32,137,160,0.15); }
+    .search-quick-btn__icon { font-size: 1.5rem; }
+    .search-quick-btn__label {
+      font-family: var(--font-heading); font-weight: 800; font-size: 0.78rem;
+      text-transform: uppercase; letter-spacing: 0.1em; color: white;
+    }
+    .search-quick-btn__sub {
+      font-size: 0.72rem; color: rgba(255,255,255,0.45); font-family: var(--font-body);
+    }
+
+    /* ─── SEARCH TOOLS SECTION ────────────────────────────────── */
+    .search-tools {
+      background: var(--off-white); padding: 5rem 0;
+    }
+    .section-eyebrow {
+      font-family: var(--font-heading); font-size: 0.75rem; font-weight: 800;
+      letter-spacing: 0.18em; text-transform: uppercase; color: var(--teal);
+      margin-bottom: 0.85rem; display: block; text-align: center;
+    }
+    .section-title {
+      font-family: var(--font-heading); font-weight: 900;
+      font-size: clamp(1.75rem, 3vw, 2.5rem); color: var(--navy);
+      line-height: 1.1; margin-bottom: 0.75rem; text-align: center;
+    }
+    .section-title span { color: var(--teal); }
+    .section-sub {
+      font-size: 1rem; color: var(--dark-gray); line-height: 1.7;
+      max-width: 540px; margin: 0 auto 3rem; text-align: center;
+    }
+
+    .tool-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    @media (max-width: 900px) { .tool-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 580px) { .tool-grid { grid-template-columns: 1fr; } }
+
+    .tool-card {
+      background: white; border-radius: var(--radius-xl);
+      padding: 2rem 1.75rem; text-decoration: none;
+      border: 2px solid transparent;
+      box-shadow: var(--shadow-sm);
+      display: flex; flex-direction: column; gap: 0.6rem;
+      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    }
+    .tool-card:hover {
+      transform: translateY(-4px); box-shadow: var(--shadow-lg);
+      border-color: var(--teal);
+    }
+    .tool-card__icon {
+      width: 52px; height: 52px; border-radius: var(--radius-lg);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; margin-bottom: 0.5rem;
+    }
+    .tool-card__icon--teal { background: rgba(32,137,160,0.10); }
+    .tool-card__icon--navy { background: rgba(27,58,92,0.10); }
+    .tool-card__icon--gold { background: rgba(201,164,85,0.12); }
+    .tool-card__label {
+      font-family: var(--font-heading); font-weight: 900; font-size: 1.05rem;
+      color: var(--navy); line-height: 1.2;
+    }
+    .tool-card__desc {
+      font-size: 0.88rem; color: var(--dark-gray); line-height: 1.65;
+    }
+    .tool-card__arrow {
+      margin-top: auto; padding-top: 0.5rem;
+      font-family: var(--font-heading); font-weight: 800; font-size: 0.8rem;
+      color: var(--teal); letter-spacing: 0.04em;
+    }
+
+    /* ─── COMMUNITY PAGES SECTION ─────────────────────────────── */
+    .communities {
+      background: white; padding: 5rem 0;
+    }
+
+    .city-cluster { margin-bottom: 4rem; }
+    .city-cluster:last-child { margin-bottom: 0; }
+
+    .city-cluster__header {
+      display: flex; align-items: center; gap: 1.25rem;
+      margin-bottom: 1.5rem; padding-bottom: 1rem;
+      border-bottom: 2px solid var(--light-gray);
+    }
+    .city-cluster__icon {
+      width: 52px; height: 52px; border-radius: var(--radius-lg);
+      display: flex; align-items: center; justify-content: center; font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+    .city-cluster__city-name {
+      font-family: var(--font-heading); font-weight: 900;
+      font-size: 1.5rem; color: var(--navy); line-height: 1;
+    }
+    .city-cluster__city-sub {
+      font-size: 0.85rem; color: var(--dark-gray); margin-top: 0.25rem;
+    }
+    .city-cluster__browse-link {
+      margin-left: auto; flex-shrink: 0;
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: var(--navy); color: white; text-decoration: none;
+      padding: 0.55rem 1.2rem; border-radius: var(--radius-full);
+      font-family: var(--font-heading); font-weight: 800; font-size: 0.78rem;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      transition: background 0.2s;
+    }
+    .city-cluster__browse-link:hover { background: var(--teal); }
+
+    .neighborhood-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;
+    }
+    @media (max-width: 900px) { .neighborhood-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 480px) { .neighborhood-grid { grid-template-columns: 1fr; } }
+
+    .neighborhood-card {
+      text-decoration: none; border-radius: var(--radius-lg);
+      padding: 1.25rem 1.1rem; display: flex; flex-direction: column; gap: 0.3rem;
+      border: 1.5px solid var(--light-gray); background: var(--off-white);
+      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s, background 0.2s;
+    }
+    .neighborhood-card:hover {
+      transform: translateY(-3px); box-shadow: var(--shadow-md);
+      background: white;
+    }
+    .neighborhood-card__name {
+      font-family: var(--font-heading); font-weight: 800; font-size: 0.92rem;
+      color: var(--navy); line-height: 1.2;
+    }
+    .neighborhood-card__tag {
+      font-size: 0.73rem; color: var(--teal); font-family: var(--font-heading);
+      font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+    }
+    .neighborhood-card__arrow {
+      margin-top: 0.6rem; font-size: 0.78rem; color: var(--teal);
+      font-family: var(--font-heading); font-weight: 800;
+    }
+
+    /* City color accents */
+    .city-cluster--lc .city-cluster__icon { background: rgba(32,137,160,0.12); }
+    .city-cluster--lc .neighborhood-card:hover { border-color: var(--teal); }
+
+    .city-cluster--pr .city-cluster__icon { background: rgba(130,40,55,0.10); }
+    .city-cluster--pr .neighborhood-card:hover { border-color: #822837; }
+    .city-cluster--pr .neighborhood-card__tag,
+    .city-cluster--pr .neighborhood-card__arrow { color: #822837; }
+    .city-cluster--pr .city-cluster__browse-link:hover { background: #822837; }
+
+    .city-cluster--fw .city-cluster__icon { background: rgba(60,100,75,0.12); }
+    .city-cluster--fw .neighborhood-card:hover { border-color: #3c6449; }
+    .city-cluster--fw .neighborhood-card__tag,
+    .city-cluster--fw .neighborhood-card__arrow { color: #3c6449; }
+    .city-cluster--fw .city-cluster__browse-link:hover { background: #3c6449; }
+
+    .city-cluster--cl .city-cluster__icon { background: rgba(50,80,120,0.10); }
+    .city-cluster--cl .neighborhood-card:hover { border-color: #324f78; }
+    .city-cluster--cl .neighborhood-card__tag,
+    .city-cluster--cl .neighborhood-card__arrow { color: #324f78; }
+    .city-cluster--cl .city-cluster__browse-link:hover { background: #324f78; }
+
+    /* ─── CTA STRIP ───────────────────────────────────────────── */
+    .search-cta {
+      background: linear-gradient(135deg, #0a1c2e 0%, #0d2137 100%);
+      padding: 4rem 0; text-align: center; position: relative; overflow: hidden;
+    }
+    .search-cta::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 50% 50%, rgba(32,137,160,0.12) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .search-cta__title {
+      font-family: var(--font-heading); font-weight: 900;
+      font-size: clamp(1.5rem, 3vw, 2.2rem); color: white;
+      margin-bottom: 0.75rem; position: relative;
+    }
+    .search-cta__title span { color: var(--teal-light); }
+    .search-cta__sub {
+      font-size: 1rem; color: rgba(255,255,255,0.65); max-width: 480px;
+      margin: 0 auto 2rem; line-height: 1.7; position: relative;
+    }
+    .search-cta__btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; position: relative; }
+
+    /* ─── NAV ────────────────────────────────────────────────── */
+    .site-nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      padding: 1rem 0;
+      background: rgba(10, 28, 46, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      transition: all 0.3s ease;
+    }
+    .site-nav__inner {
+      max-width: var(--container-max); margin: 0 auto;
+      padding: 0 2rem; display: flex; align-items: center; justify-content: space-between;
+    }
+    .site-nav__logo {
+      font-family: var(--font-heading); font-weight: 900; font-size: 1.1rem;
+      color: white; text-decoration: none; letter-spacing: -0.01em;
+    }
+    .site-nav__logo span { color: var(--teal); }
+    .site-nav__links {
+      display: flex; align-items: center; gap: 2rem; list-style: none;
+    }
+    @media (max-width: 768px) { .site-nav__links { display: none; } }
+    .site-nav__links a {
+      font-family: var(--font-heading); font-weight: 600; font-size: 0.83rem;
+      text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.75);
+      text-decoration: none; transition: color 0.2s;
+    }
+    .site-nav__links a:hover, .site-nav__links a.active { color: var(--teal-light); }
+    .site-nav__cta {
+      background: var(--teal); color: white; text-decoration: none;
+      padding: 0.55rem 1.3rem; border-radius: var(--radius-full);
+      font-family: var(--font-heading); font-weight: 800; font-size: 0.8rem;
+      letter-spacing: 0.05em; transition: background 0.2s;
+    }
+    .site-nav__cta:hover { background: var(--teal-dark); }
+
+    /* ─── FOOTER ──────────────────────────────────────────────── */
+    .site-footer {
+      background: var(--text-dark); padding: 3rem 0 2rem;
+    }
+    .site-footer__inner {
+      max-width: var(--container-max); margin: 0 auto; padding: 0 2rem;
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem;
+    }
+    @media (max-width: 900px) { .site-footer__inner { grid-template-columns: 1fr 1fr; gap: 2rem; } }
+    @media (max-width: 580px) { .site-footer__inner { grid-template-columns: 1fr; } }
+    .site-footer__brand-name {
+      font-family: var(--font-heading); font-weight: 900; font-size: 1.1rem;
+      color: white; margin-bottom: 0.5rem;
+    }
+    .site-footer__brand-name span { color: var(--teal); }
+    .site-footer__tagline {
+      font-size: 0.85rem; color: rgba(255,255,255,0.45); line-height: 1.6; margin-bottom: 1rem;
+    }
+    .site-footer__contact {
+      font-size: 0.85rem; color: rgba(255,255,255,0.6); line-height: 1.9;
+    }
+    .site-footer__contact a { color: var(--teal-light); text-decoration: none; }
+    .site-footer__col-title {
+      font-family: var(--font-heading); font-size: 0.7rem; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 0.12em; color: rgba(255,255,255,0.35);
+      margin-bottom: 1rem;
+    }
+    .site-footer__col-links { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; }
+    .site-footer__col-links a {
+      font-size: 0.85rem; color: rgba(255,255,255,0.6); text-decoration: none; transition: color 0.2s;
+    }
+    .site-footer__col-links a:hover { color: var(--teal-light); }
+    .site-footer__bottom {
+      max-width: var(--container-max); margin: 2rem auto 0; padding: 1.5rem 2rem 0;
+      border-top: 1px solid rgba(255,255,255,0.07);
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
+    }
+    .site-footer__legal { font-size: 0.75rem; color: rgba(255,255,255,0.3); line-height: 1.6; }
+
+    /* ─── SHARED BUTTON STYLES ────────────────────────────────── */
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--teal); color: white; text-decoration: none;
+      padding: 0.85rem 2rem; border-radius: var(--radius-full);
+      font-family: var(--font-heading); font-weight: 800; font-size: 0.9rem;
+      letter-spacing: 0.04em; transition: background 0.2s, transform 0.2s;
+    }
+    .btn-primary:hover { background: var(--teal-dark); transform: translateY(-1px); }
+    .btn-outline-white {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: transparent; color: white; text-decoration: none;
+      padding: 0.85rem 2rem; border-radius: var(--radius-full);
+      font-family: var(--font-heading); font-weight: 800; font-size: 0.9rem;
+      letter-spacing: 0.04em; border: 2px solid rgba(255,255,255,0.35);
+      transition: border-color 0.2s, background 0.2s, transform 0.2s;
+    }
+    .btn-outline-white:hover { border-color: white; background: rgba(255,255,255,0.08); transform: translateY(-1px); }
+
+    .container {
+      max-width: var(--container-max); margin: 0 auto; padding: 0 2rem;
+    }
+    .page-top { padding-top: 76px; }
+
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="site-nav">
+    <div class="site-nav__inner">
+      <a href="index.html" class="site-nav__logo">Phillip<span>Himes</span>.com</a>
+      <ul class="site-nav__links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="buyers.html">Buy</a></li>
+        <li><a href="sellers.html">Sell</a></li>
+        <li><a href="search.html" class="active">Search</a></li>
+        <li><a href="cities.html">Cities</a></li>
+        <li><a href="market-insights.html">Market</a></li>
+      </ul>
+      <a href="https://philliphimes.idxbroker.com/idx/contact" target="_blank" class="site-nav__cta">Talk to Phil</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="search-hero page-top">
+    <div class="container">
+      <div class="search-hero__content">
+        <span class="search-hero__eyebrow">Live MLS Listings · Updated Daily</span>
+        <h1 class="search-hero__title">Find Your Home in the<br /><span>South Houston Suburbs</span></h1>
+        <p class="search-hero__subtitle">Browse real listings across League City, Friendswood, Pearland, and Clear Lake — by neighborhood, price, map, or lifestyle. No sign-up wall. No fake listings.</p>
+        <div class="search-hero__btns">
+          <a href="https://philliphimes.idxbroker.com/idx/search/advanced" target="_blank" class="btn-primary">Advanced Search &#8594;</a>
+          <a href="https://philliphimes.idxbroker.com/idx/map/mapsearch" target="_blank" class="btn-outline-white">&#128506; Map Search</a>
+        </div>
+      </div>
+    </div>
+    <div class="search-bar-row">
+      <a href="https://philliphimes.idxbroker.com/idx/search/basic" target="_blank" class="search-quick-btn">
+        <span class="search-quick-btn__icon">&#128269;</span>
+        <span class="search-quick-btn__label">Basic Search</span>
+        <span class="search-quick-btn__sub">Quick address or zip</span>
+      </a>
+      <a href="https://philliphimes.idxbroker.com/idx/search/advanced" target="_blank" class="search-quick-btn">
+        <span class="search-quick-btn__icon">&#9881;&#65039;</span>
+        <span class="search-quick-btn__label">Advanced Search</span>
+        <span class="search-quick-btn__sub">Beds, baths, price, features</span>
+      </a>
+      <a href="https://philliphimes.idxbroker.com/idx/map/mapsearch" target="_blank" class="search-quick-btn">
+        <span class="search-quick-btn__icon">&#128205;</span>
+        <span class="search-quick-btn__label">Map Search</span>
+        <span class="search-quick-btn__sub">Draw your own search area</span>
+      </a>
+      <a href="https://philliphimes.idxbroker.com/idx/results/listings?pt=sfr&lp=200000&hp=800000" target="_blank" class="search-quick-btn">
+        <span class="search-quick-btn__icon">&#127968;</span>
+        <span class="search-quick-btn__label">Browse All Listings</span>
+        <span class="search-quick-btn__sub">SFR &middot; $200K&ndash;$800K</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- SEARCH TOOLS -->
+  <section class="search-tools">
+    <div class="container">
+      <span class="section-eyebrow">Search Tools</span>
+      <h2 class="section-title">Every Way to <span>Search</span></h2>
+      <p class="section-sub">Use whichever search fits how you think — filter by features, draw on the map, or pull up a specific address.</p>
+      <div class="tool-grid">
+        <a href="https://philliphimes.idxbroker.com/idx/search/advanced" target="_blank" class="tool-card">
+          <div class="tool-card__icon tool-card__icon--teal">&#9881;&#65039;</div>
+          <div class="tool-card__label">Advanced Search</div>
+          <div class="tool-card__desc">Filter by beds, baths, price range, square footage, school district, HOA, pool, new construction, and more.</div>
+          <div class="tool-card__arrow">Open Advanced Search &#8594;</div>
+        </a>
+        <a href="https://philliphimes.idxbroker.com/idx/search/basic" target="_blank" class="tool-card">
+          <div class="tool-card__icon tool-card__icon--navy">&#128269;</div>
+          <div class="tool-card__label">Basic Search</div>
+          <div class="tool-card__desc">Fast lookup by address, neighborhood name, zip code, or MLS number. Great when you already know what you're looking for.</div>
+          <div class="tool-card__arrow">Open Basic Search &#8594;</div>
+        </a>
+        <a href="https://philliphimes.idxbroker.com/idx/map/mapsearch" target="_blank" class="tool-card">
+          <div class="tool-card__icon tool-card__icon--teal">&#128506;</div>
+          <div class="tool-card__label">Map Search</div>
+          <div class="tool-card__desc">Draw a custom boundary on the map to see every listing inside it. Perfect for finding homes near a school, workplace, or specific street.</div>
+          <div class="tool-card__arrow">Open Map Search &#8594;</div>
+        </a>
+        <a href="https://philliphimes.idxbroker.com/idx/results/listings?pt=sfr&lp=200000&hp=800000" target="_blank" class="tool-card">
+          <div class="tool-card__icon tool-card__icon--gold">&#127968;</div>
+          <div class="tool-card__label">Browse All Listings</div>
+          <div class="tool-card__desc">All single-family homes currently on the market between $200K&ndash;$800K across the South Houston suburbs — sorted by newest first.</div>
+          <div class="tool-card__arrow">Browse Listings &#8594;</div>
+        </a>
+        <a href="https://philliphimes.idxbroker.com/idx/market-reports" target="_blank" class="tool-card">
+          <div class="tool-card__icon tool-card__icon--teal">&#128202;</div>
+          <div class="tool-card__label">Market Reports</div>
+          <div class="tool-card__desc">Track median prices, days on market, and inventory levels by city or zip code. Get a report delivered to your inbox monthly.</div>
+          <div class="tool-card__arrow">View Market Reports &#8594;</div>
+        </a>
+        <a href="https://philliphimes.idxbroker.com/idx/contact" target="_blank" class="tool-card">
+          <div class="tool-card__icon tool-card__icon--navy">&#128172;</div>
+          <div class="tool-card__label">Talk to Phil</div>
+          <div class="tool-card__desc">Can't find what you're looking for? Tell Phil your must-haves and he'll set up a custom search that alerts you the moment the right home hits.</div>
+          <div class="tool-card__arrow">Contact Phil &#8594;</div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMMUNITY PAGES -->
+  <section class="communities">
+    <div class="container">
+      <span class="section-eyebrow">Neighborhood Browse</span>
+      <h2 class="section-title">Search by <span>Community</span></h2>
+      <p class="section-sub">Every neighborhood has its own vibe, price range, and school zoning. Browse by community to see only homes in that subdivision.</p>
+
+      <!-- LEAGUE CITY -->
+      <div class="city-cluster city-cluster--lc">
+        <div class="city-cluster__header">
+          <div class="city-cluster__icon">&#127961;&#65039;</div>
+          <div>
+            <div class="city-cluster__city-name">League City</div>
+            <div class="city-cluster__city-sub">CCISD &middot; Median ~$390K &middot; Master-Planned Communities</div>
+          </div>
+          <a href="https://philliphimes.idxbroker.com/i/League-City" target="_blank" class="city-cluster__browse-link">All League City &#8594;</a>
+        </div>
+        <div class="neighborhood-grid">
+          <a href="https://philliphimes.idxbroker.com/i/South-Shore-Harbour" target="_blank" class="neighborhood-card">
+            <div class="neighborhood-card__name">South Shore Harbour</div>
+            <div class="neighborhood-card__tag">Waterfront &middot; Marina</div>
+            <div class="neighborhood-card__arrow">Browse &#8594;</div>
+          </a>
+          <a href="https://philliphimes.idxbroker.com/i/Tuscan-Lakes" target="_blank" class="neighborhood-card">
+            <div class="neighborhood-card__name">Tuscan Lakes</div>
+            <div class="neighborhood-card__tag">Master-Planned &middot; Clear Falls HS</div>
+            <div class="neighborhood-card__arrow">Browse &#8594;</div>
+          </a>
+          <a href="https://philliphimes.idxbroker.com/i/Mar-Bella" target="_blank" class="neighborhood-card">
+            <div class="neighborhood-card__name">Mar Bella</div>
+            <div class="neighborhood-card__tag">Resort Amenities &middot; $400K+</div>
+            <div class="neighborhood-card__arrow">Browse &#8594;</div>
+          </a>
+          <a href="https://philliphimes.idxbroker.com/i/Bay-Colony" target="_blank" class="neighborhood-card">
+            <div class="neighborhood-card__name">Bay Colony</div>
+            <div class="neighborhood-card__tag">Value Play &middot; Great Schools</div>
+            <div class="neighborhood-card__arrow">Browse &#8594;</div>
+          </a>
+        </div>
+      </div>
+
+      <!-- PEARLAND -->
+      <div class="city-cluster city-cluster--pr">
+        <div class="city-cluster__header">
+          <div class="city-cluster__icon">&#127969;</div>
+          <div>
+            <div class="city-cluster__city-name">Pearland</div>
+            <div class="city-cluster__city-sub">PISD #1 Brazoria Co. &middot; Median ~$375K &middot; 288 Corridor</div>
+          </div>
+          <a href="https://philliphimes.idxbroker.com/i/Pearland" target="_blank" class="city-cluster__browse-link">All Pearland &#8594;</a>
+        </div>
+        <div class="neighborhood-grid">
+          <a href="https://philliphimes.idxbroker.com/i/Shadow-Creek-Ranch" target="_blank" class="neighborhood-card">
+            <div class="neighborhood-card__name">Shadow Creek Ranch</div>
+            <div class="neighborhood-card__tag">Master-Planned &middot; Amenity-Rich</div>
+            <div class="neighborhood-card__arrow">Browse &#8594;</div>
+          </a>
+          <a href="https://philliphimes.idxbroker.com/i/Silver-lake" target="_blank" class="neighborhood-card">
+            <div class="neighborhood-card__name">Silverlake</div>
+            <div class="neighborhood-card__tag">Established &middot; Lakeside</div>
+            <div class="neighborhood-card__arrow">Browse &#8594;</div>
+          </a>
+          <a href="https://philliphimes.idxbroker.com/i/Pomona" target="_blank" class="neighborhood-card">
+            <div class="neighborhood-card__name">Pomona</div>
+            <div class="neighborhood-card__tag">New Construction &middot; Manvel Area</div>
+            <div class="neighborhood-card__arrow">Browse &#8594;</div>
+          </a>
+          <a href="https://philliphimes.idxbroker.com/i/Country-Place" target="_blank" class="neighborhood-card">
+            <div class="neighborhood-card__name">Country Place</div>
+            <div class="neighborhood-card__tag">Established &middot; Central Pearland</div>
+            <div class="neighborhood-card__arrow">Browse &#8594;</div>
+          </a>
+        </div>
+      </div>
+
+      <!-- FRIENDSWOOD -->
+      <div class="city-cluster city-cluster--fw">
+        <div class="city-cluster__header">
+          <div class="city-cluster__icon">&#127795;</div>
+          <div>
+            <div class="city-cluster__city-name">Friendswood</div>
+            <div class="city-cluster__city-sub">FISD #1 Rated &middot; Median ~$430K &middot; Established &amp; Quiet</div>
+          </div>
+          <a href="https://philliphimes.idxbroker.com/i/Friendswood" target="_blank" class="city-cluster__browse-link">All Friendswood &#8594;</a>
+        </div>
+        <div class="neighborhood-grid">
+          <a href="https://philliphimes.idxbroker.com/i/West-Ranch" target="_blank" class="neighborhood-card">
+            <div class="neighborhood-card__name">West Ranch</div>
+            <div class="neighborhood-card__tag">New Construction &middot; $400K+</div>
+            <div class="neighborhood-card__arrow">Browse &#8594;</div>
+          </a>
+          <a href="https://philliphimes.idxbroker.com/i/Silvercreek" target="_blank" class="neighborhood-card">
+            <div class="neighborhood-card__name">Silvercreek</div>
+            <div class="neighborhood-card__tag">Established &middot; Great Lots</div>
+            <div class="neighborhood-card__arrow">Browse &#8594;</div>
+          </a>
+          <a href="https://philliphimes.idxbroker.com/i/Friendswood-Lakes" target="_blank" class="neighborhood-card">
+            <div class="neighborhood-card__name">Friendswood Lakes</div>
+            <div class="neighborhood-card__tag">Lakeside &middot; Family Friendly</div>
+            <div class="neighborhood-card__arrow">Browse &#8594;</div>
+          </a>
+          <a href="https://philliphimes.idxbroker.com/i/Falcon-Ridge" target="_blank" class="neighborhood-card">
+            <div class="neighborhood-card__name">Falcon Ridge</div>
+            <div class="neighborhood-card__tag">Value &middot; Quiet Streets</div>
+            <div class="neighborhood-card__arrow">Browse &#8594;</div>
+          </a>
+        </div>
+      </div>
+
+      <!-- CLEAR LAKE -->
+      <div class="city-cluster city-cluster--cl">
+        <div class="city-cluster__header">
+          <div class="city-cluster__icon">&#128640;</div>
+          <div>
+            <div class="city-cluster__city-name">Clear Lake</div>
+            <div class="city-cluster__city-sub">NASA Corridor &middot; CCISD &middot; Median ~$310K &middot; Best Value</div>
+          </div>
+          <a href="https://philliphimes.idxbroker.com/i/Clear-Lake" target="_blank" class="city-cluster__browse-link">All Clear Lake &#8594;</a>
+        </div>
+        <div class="neighborhood-grid">
+          <a href="https://philliphimes.idxbroker.com/i/Bay-Oaks" target="_blank" class="neighborhood-card">
+            <div class="neighborhood-card__name">Bay Oaks</div>
+            <div class="neighborhood-card__tag">Established &middot; NASA Adjacent</div>
+            <div class="neighborhood-card__arrow">Browse &#8594;</div>
+          </a>
+          <a href="https://philliphimes.idxbroker.com/i/Clear-Lake-City" target="_blank" class="neighborhood-card">
+            <div class="neighborhood-card__name">Clear Lake City</div>
+            <div class="neighborhood-card__tag">Urban Convenience &middot; 45 Corridor</div>
+            <div class="neighborhood-card__arrow">Browse &#8594;</div>
+          </a>
+          <a href="https://philliphimes.idxbroker.com/i/Nassau-Bay" target="_blank" class="neighborhood-card">
+            <div class="neighborhood-card__name">Nassau Bay</div>
+            <div class="neighborhood-card__tag">Waterfront &middot; Unique Community</div>
+            <div class="neighborhood-card__arrow">Browse &#8594;</div>
+          </a>
+          <a href="https://philliphimes.idxbroker.com/i/Timber-Cove" target="_blank" class="neighborhood-card">
+            <div class="neighborhood-card__name">Timber Cove</div>
+            <div class="neighborhood-card__tag">Canal Access &middot; Boating</div>
+            <div class="neighborhood-card__arrow">Browse &#8594;</div>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CTA STRIP -->
+  <section class="search-cta">
+    <div class="container">
+      <h2 class="search-cta__title">Not Sure Where to Start?<br /><span>Let's Figure It Out Together.</span></h2>
+      <p class="search-cta__sub">Tell Phil your must-haves &mdash; budget, school zone, commute &mdash; and he'll set you up with a custom search and alert the moment the right home hits the market.</p>
+      <div class="search-cta__btns">
+        <a href="buyers.html" class="btn-primary">Start with BuyerIQ&#8482; &#8594;</a>
+        <a href="https://philliphimes.idxbroker.com/idx/contact" target="_blank" class="btn-outline-white">Contact Phil</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="site-footer__inner">
+      <div>
+        <div class="site-footer__brand-name">Phillip<span>Himes</span>.com</div>
+        <p class="site-footer__tagline">Sell Smart. Buy Right. Build More.<br />Real estate built around your life &mdash; not just your transaction.</p>
+        <div class="site-footer__contact">
+          <a href="tel:8325361016">(832) 536-1016</a><br />
+          <a href="mailto:phil@philliphimes.com">phil@philliphimes.com</a><br />
+          League City, TX &middot; Brokered by eXp Realty
+        </div>
+      </div>
+      <div>
+        <div class="site-footer__col-title">Search</div>
+        <ul class="site-footer__col-links">
+          <li><a href="https://philliphimes.idxbroker.com/idx/search/advanced" target="_blank">Advanced Search</a></li>
+          <li><a href="https://philliphimes.idxbroker.com/idx/map/mapsearch" target="_blank">Map Search</a></li>
+          <li><a href="https://philliphimes.idxbroker.com/idx/market-reports" target="_blank">Market Reports</a></li>
+          <li><a href="https://philliphimes.idxbroker.com/idx/contact" target="_blank">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="site-footer__col-title">Tools</div>
+        <ul class="site-footer__col-links">
+          <li><a href="buyers.html">BuyerIQ&#8482;</a></li>
+          <li><a href="sellers.html">SellerIQ&#8482;</a></li>
+          <li><a href="market-insights.html">MarketIQ&#8482;</a></li>
+          <li><a href="index.html#relifeiq">reLifeIQ&#8482;</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="site-footer__col-title">Cities</div>
+        <ul class="site-footer__col-links">
+          <li><a href="league-city.html">League City</a></li>
+          <li><a href="friendswood.html">Friendswood</a></li>
+          <li><a href="pearland.html">Pearland</a></li>
+          <li><a href="clear-lake.html">Clear Lake</a></li>
+          <li><a href="dickinson.html">Dickinson</a></li>
+          <li><a href="manvel.html">Manvel</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="site-footer__bottom">
+      <p class="site-footer__legal">&copy; 2026 Phillip Himes &middot; Brokered by eXp Realty &middot; Licensed in Texas &middot; All Rights Reserved<br />
+      IDX listings courtesy of HAR MLS. Information is deemed reliable but not guaranteed.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

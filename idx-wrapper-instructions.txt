@@ -1,0 +1,90 @@
+IDX BROKER WRAPPER — INSTALLATION INSTRUCTIONS
+philliphimes.com | May 2026
+================================================
+
+THREE FILES. THREE PASTE LOCATIONS.
+------------------------------------
+idx-header.html   → IDX Broker > Design > Global Header
+idx-footer.html   → IDX Broker > Design > Global Footer
+idx-custom-css.css → IDX Broker > Design > Custom CSS (or "IDX Colors & Styles")
+
+
+HOW TO INSTALL
+--------------
+1. Log into IDX Broker dashboard (idxbroker.com)
+
+2. Navigate to: Design > Global Header
+   - Click "Edit"
+   - Select all existing content and DELETE it
+   - Open idx-header.html, select all (Ctrl+A), copy, paste
+   - Save
+
+3. Navigate to: Design > Global Footer
+   - Same process with idx-footer.html
+   - Save
+
+4. Navigate to: Design > IDX Colors & Styles (or "Custom CSS")
+   - Open idx-custom-css.css, select all, copy, paste
+   - Save
+
+5. Navigate to: Design > Premium Templates
+   - Select the template that gives you the cleanest grid layout
+   - The CSS will override its colors/fonts automatically
+
+6. TEST: Open any IDX page and confirm:
+   - Site nav appears at top with logo
+   - Context bar ("IDX Property Search") appears below nav
+   - Listing cards have rounded corners and correct colors
+   - Footer appears with full three-column layout
+   - Mobile hamburger menu works
+
+
+AFTER IDX BROKER IS PURCHASED
+------------------------------
+Run these steps in order:
+
+□ 1. Install wrapper (above)
+□ 2. Set your HAR MLS coverage area to South Houston suburbs
+       (League City, Friendswood, Pearland, Clear Lake, Dickinson, Manvel)
+□ 3. Purchase IDXAddons (idxaddons.com)
+       - Bulk Saved Link Creator — build community pages fast
+       - One Click Community — auto-generate neighborhood pages
+       - GHL Integration — connect IDX leads → GHL webhook
+□ 4. Create Saved Links for each neighborhood
+       Use Bulk Saved Link Creator to build all 6 city pages
+       + 15 neighborhoods per city (do League City first)
+□ 5. Embed IDX search widget on buyers.html
+       Replace placeholder with actual IDX iframe/widget
+□ 6. Embed IDX home valuation on selleriq.html Stage 3
+       Replace TruMarket™ prototype with real Plunk widget
+□ 7. Connect IDXAddons GHL Integration
+       IDX lead behavior → GHL webhook → Caitlyn follow-up
+
+
+IMPORTANT NOTES
+---------------
+- All URLs in the wrapper use https://philliphimes.com/ (absolute)
+  Once the site goes live on this domain, everything will resolve correctly.
+  For local testing, the nav links will 404 — that's expected.
+
+- The IDX disclaimer text in the footer is a placeholder.
+  IDX Broker may inject their own required disclaimer automatically.
+  Check their "Show IDX Disclaimer" setting and adjust accordingly.
+
+- The phone number (832) 895-7547 will be swapped to the GHL
+  tracking number when that's set up. Update in:
+  - idx-header.html (two places: nav__phone href and display text)
+  - idx-footer.html (one place: agent info column)
+
+- If IDX Broker's class names differ from what the CSS targets,
+  use your browser's DevTools to inspect the actual class names
+  on IDX pages and update idx-custom-css.css accordingly.
+  IDX Broker occasionally updates their class structure.
+
+
+FILES IN THIS SET
+-----------------
+idx-header.html           — Global Header HTML
+idx-footer.html           — Global Footer HTML
+idx-custom-css.css        — Custom CSS overrides
+idx-wrapper-instructions.txt — This file

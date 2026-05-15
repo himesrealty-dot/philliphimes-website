@@ -1,0 +1,2309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Buyer's Edge™ | BuyerIQ™ | Phillip Himes Real Estate</title>
+  <meta name="description" content="Stop searching for houses. Start finding your neighborhood. The Buyer's Edge assessment by Phillip Himes maps your life, matches your neighborhoods, and builds your personalized home search — before you walk through a single door." />
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+
+    /* ─── ASSESSMENT SHELL ─────────────────────────────────────── */
+    .be-hero {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 60%, #0a1c2e 100%);
+      padding: 5rem 0 4rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .be-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 60% 40%, rgba(32,137,160,0.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .be-hero__eyebrow {
+      font-family: var(--font-heading);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+    .be-hero__title {
+      color: var(--white);
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      margin-bottom: 1rem;
+      line-height: 1.15;
+    }
+    .be-hero__title span { color: var(--gold); }
+    .be-hero__subtitle {
+      color: rgba(255,255,255,0.78);
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin: 0 auto 2rem;
+      line-height: 1.7;
+    }
+    .be-hero__badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: var(--radius-full);
+      padding: 0.4rem 1rem;
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.85);
+      font-family: var(--font-heading);
+      font-weight: 600;
+    }
+
+    /* ─── PROGRESS BAR ─────────────────────────────────────────── */
+    .be-progress {
+      background: var(--white);
+      border-bottom: 1px solid var(--light-gray);
+      padding: 1.25rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--shadow-sm);
+    }
+    .be-progress__inner {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+    .be-progress__steps {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0;
+    }
+    .be-progress__step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.35rem;
+      flex: 1;
+      position: relative;
+      cursor: default;
+    }
+    .be-progress__step:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      top: 16px;
+      left: calc(50% + 16px);
+      right: calc(-50% + 16px);
+      height: 2px;
+      background: var(--light-gray);
+      z-index: 0;
+      transition: background 0.4s;
+    }
+    .be-progress__step.completed:not(:last-child)::after {
+      background: var(--teal);
+    }
+    .be-progress__dot {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--light-gray);
+      border: 2px solid var(--light-gray);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 0.75rem;
+      color: var(--mid-gray);
+      transition: all 0.3s;
+      position: relative;
+      z-index: 1;
+    }
+    .be-progress__step.active .be-progress__dot {
+      background: var(--navy);
+      border-color: var(--navy);
+      color: var(--white);
+    }
+    .be-progress__step.completed .be-progress__dot {
+      background: var(--teal);
+      border-color: var(--teal);
+      color: var(--white);
+    }
+    .be-progress__label {
+      font-family: var(--font-heading);
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--mid-gray);
+      white-space: nowrap;
+      transition: color 0.3s;
+    }
+    .be-progress__step.active .be-progress__label { color: var(--navy); }
+    .be-progress__step.completed .be-progress__label { color: var(--teal); }
+    .be-progress__bar-wrap {
+      margin-top: 0.75rem;
+      height: 4px;
+      background: var(--light-gray);
+      border-radius: var(--radius-full);
+      overflow: hidden;
+    }
+    .be-progress__bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--teal), var(--teal-light));
+      border-radius: var(--radius-full);
+      transition: width 0.5s ease;
+      width: 0%;
+    }
+
+    /* ─── STAGE CONTAINER ──────────────────────────────────────── */
+    .be-stage-wrap {
+      min-height: 70vh;
+      padding: 3rem 0 5rem;
+      background: var(--off-white);
+    }
+    .be-stage {
+      display: none;
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      animation: stageFadeIn 0.4s ease both;
+    }
+    .be-stage.active { display: block; }
+    @keyframes stageFadeIn {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .be-stage__header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+    .be-stage__eyebrow {
+      font-family: var(--font-heading);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 0.6rem;
+    }
+    .be-stage__title {
+      font-size: clamp(1.5rem, 3vw, 2.1rem);
+      color: var(--navy);
+      margin-bottom: 0.75rem;
+    }
+    .be-stage__subtitle {
+      color: var(--dark-gray);
+      font-size: 1rem;
+      line-height: 1.7;
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    /* ─── CARDS & INPUTS ───────────────────────────────────────── */
+    .be-card {
+      background: var(--white);
+      border-radius: var(--radius-xl);
+      padding: 2rem;
+      box-shadow: var(--shadow-md);
+      margin-bottom: 1.25rem;
+      border: 2px solid transparent;
+      transition: border-color 0.2s;
+    }
+    .be-card:focus-within { border-color: var(--teal-light); }
+    .be-card__head {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      margin-bottom: 1.25rem;
+    }
+    .be-card__icon {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-md);
+      background: linear-gradient(135deg, var(--navy), var(--navy-light));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .be-card__icon--teal { background: linear-gradient(135deg, var(--teal), var(--teal-light)); }
+    .be-card__icon--gold  { background: linear-gradient(135deg, var(--gold-dark), var(--gold)); }
+    .be-card__label {
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 1rem;
+      color: var(--navy);
+    }
+    .be-card__sublabel {
+      font-size: 0.82rem;
+      color: var(--dark-gray);
+      margin-top: 0.15rem;
+    }
+    .be-card__optional {
+      margin-left: auto;
+      font-size: 0.72rem;
+      font-family: var(--font-heading);
+      font-weight: 600;
+      color: var(--mid-gray);
+      background: var(--light-gray);
+      border-radius: var(--radius-full);
+      padding: 0.2rem 0.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .be-input {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      border: 1.5px solid var(--light-gray);
+      border-radius: var(--radius-md);
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      color: var(--text-dark);
+      background: var(--white);
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+    }
+    .be-input:focus {
+      border-color: var(--teal);
+      box-shadow: 0 0 0 3px rgba(32,137,160,0.12);
+    }
+    .be-input::placeholder { color: var(--mid-gray); }
+    .be-input-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+    }
+    @media (max-width: 560px) { .be-input-row { grid-template-columns: 1fr; } }
+    .be-input-group { margin-bottom: 0.85rem; }
+    .be-input-group:last-child { margin-bottom: 0; }
+    .be-input-label {
+      display: block;
+      font-family: var(--font-heading);
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 0.4rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* ─── ACTIVITY ITEM ────────────────────────────────────────── */
+    .be-activity {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr auto;
+      gap: 0.6rem;
+      align-items: center;
+      margin-bottom: 0.6rem;
+    }
+    .be-activity:last-child { margin-bottom: 0; }
+    .be-remove-btn {
+      width: 32px;
+      height: 32px;
+      border: none;
+      background: var(--light-gray);
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1rem;
+      color: var(--dark-gray);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+      flex-shrink: 0;
+    }
+    .be-remove-btn:hover { background: #fde8e8; color: #c0392b; }
+    .be-add-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: none;
+      border: 1.5px dashed var(--teal-light);
+      border-radius: var(--radius-md);
+      padding: 0.55rem 1rem;
+      font-family: var(--font-heading);
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--teal);
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-top: 0.75rem;
+    }
+    .be-add-btn:hover { background: rgba(32,137,160,0.06); border-style: solid; }
+
+    /* ─── COMMUTE SLIDER ───────────────────────────────────────── */
+    .be-slider-wrap { padding: 0.25rem 0; }
+    .be-slider-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.78rem;
+      color: var(--dark-gray);
+      margin-bottom: 0.4rem;
+    }
+    .be-slider {
+      width: 100%;
+      -webkit-appearance: none;
+      appearance: none;
+      height: 6px;
+      border-radius: 3px;
+      background: linear-gradient(to right, var(--teal) 0%, var(--teal) 50%, var(--light-gray) 50%, var(--light-gray) 100%);
+      outline: none;
+      cursor: pointer;
+    }
+    .be-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--navy);
+      border: 3px solid white;
+      box-shadow: var(--shadow-sm);
+      cursor: pointer;
+    }
+    .be-slider-value {
+      text-align: center;
+      margin-top: 0.5rem;
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: var(--navy);
+    }
+
+    /* ─── MAP ──────────────────────────────────────────────────── */
+    .be-map-container {
+      background: var(--white);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      margin-bottom: 1.5rem;
+    }
+    #be-map {
+      width: 100%;
+      height: 360px;
+      background: #e8f4f8;
+    }
+    .be-map-placeholder {
+      width: 100%;
+      height: 360px;
+      background: linear-gradient(135deg, #e8f4f8 0%, #d4eef6 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      text-align: center;
+      padding: 2rem;
+    }
+    .be-map-placeholder__icon { font-size: 3.5rem; }
+    .be-map-placeholder__title {
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: var(--navy);
+    }
+    .be-map-placeholder__text { color: var(--dark-gray); font-size: 0.88rem; max-width: 380px; }
+    .be-map-placeholder__api-note {
+      background: rgba(201,164,85,0.12);
+      border: 1px solid var(--gold-light);
+      border-radius: var(--radius-md);
+      padding: 0.5rem 1rem;
+      font-size: 0.8rem;
+      color: var(--gold-dark);
+      font-family: var(--font-heading);
+      font-weight: 700;
+    }
+
+    /* ─── ANCHOR SUMMARY ───────────────────────────────────────── */
+    .be-anchor-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      padding: 1.25rem 1.5rem;
+      border-top: 1px solid var(--light-gray);
+    }
+    .be-anchor-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.9rem;
+    }
+    .be-anchor-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .be-anchor-dot--work   { background: #E53935; }
+    .be-anchor-dot--church { background: var(--gold); }
+    .be-anchor-dot--kids   { background: var(--teal); }
+    .be-anchor-dot--other  { background: var(--navy); }
+    .be-anchor-name { font-family: var(--font-heading); font-weight: 700; color: var(--navy); min-width: 90px; }
+    .be-anchor-addr { color: var(--dark-gray); }
+
+    /* ─── NEIGHBORHOOD CARDS ───────────────────────────────────── */
+    .be-hood-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    @media (max-width: 560px) { .be-hood-grid { grid-template-columns: 1fr; } }
+    .be-hood-card {
+      background: var(--white);
+      border-radius: var(--radius-xl);
+      padding: 1.5rem;
+      box-shadow: var(--shadow-sm);
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: all 0.25s;
+      position: relative;
+    }
+    .be-hood-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+    .be-hood-card.selected {
+      border-color: var(--teal);
+      background: rgba(32,137,160,0.04);
+    }
+    .be-hood-card__check {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      border: 2px solid var(--light-gray);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      transition: all 0.2s;
+      background: white;
+    }
+    .be-hood-card.selected .be-hood-card__check {
+      background: var(--teal);
+      border-color: var(--teal);
+      color: white;
+    }
+    .be-hood-card__city {
+      font-size: 0.72rem;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--teal);
+      margin-bottom: 0.25rem;
+    }
+    .be-hood-card__name {
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 1rem;
+      color: var(--navy);
+      margin-bottom: 0.6rem;
+      padding-right: 2rem;
+    }
+    .be-hood-card__price {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 0.88rem;
+      color: var(--gold-dark);
+      margin-bottom: 0.75rem;
+    }
+    .be-hood-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-bottom: 0.75rem;
+    }
+    .be-hood-tag {
+      font-size: 0.7rem;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      padding: 0.2rem 0.55rem;
+      border-radius: var(--radius-full);
+      background: var(--light-gray);
+      color: var(--navy);
+    }
+    .be-hood-tag--school { background: rgba(32,137,160,0.12); color: var(--teal-dark); }
+    .be-hood-card__detail {
+      font-size: 0.82rem;
+      color: var(--dark-gray);
+      line-height: 1.5;
+    }
+    .be-hood-card__commute {
+      margin-top: 0.75rem;
+      font-size: 0.8rem;
+      color: var(--dark-gray);
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    /* ─── CRITERIA SUMMARY ─────────────────────────────────────── */
+    .be-summary {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+      border-radius: var(--radius-xl);
+      padding: 2rem;
+      color: white;
+      margin-bottom: 1.5rem;
+    }
+    .be-summary__title {
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 1rem;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 1.25rem;
+    }
+    .be-summary__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    @media (max-width: 480px) { .be-summary__grid { grid-template-columns: 1fr; } }
+    .be-summary__item {}
+    .be-summary__item-label {
+      font-size: 0.72rem;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 0.25rem;
+    }
+    .be-summary__item-value {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 0.92rem;
+      color: white;
+    }
+
+    /* ─── OPT-IN FORM ──────────────────────────────────────────── */
+    .be-optin {
+      background: var(--white);
+      border-radius: var(--radius-xl);
+      padding: 2rem;
+      box-shadow: var(--shadow-md);
+    }
+    .be-optin__title {
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 1.2rem;
+      color: var(--navy);
+      margin-bottom: 0.4rem;
+    }
+    .be-optin__subtitle {
+      color: var(--dark-gray);
+      font-size: 0.9rem;
+      margin-bottom: 1.5rem;
+    }
+    .be-consent {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      background: var(--off-white);
+      border-radius: var(--radius-md);
+      padding: 1rem;
+      margin: 1rem 0;
+    }
+    .be-consent input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+      margin-top: 2px;
+      accent-color: var(--teal);
+      cursor: pointer;
+    }
+    .be-consent label {
+      font-size: 0.8rem;
+      color: var(--dark-gray);
+      line-height: 1.5;
+      cursor: pointer;
+    }
+    .be-consent label a { color: var(--teal); }
+    .be-optin__disclaimer {
+      font-size: 0.72rem;
+      color: var(--mid-gray);
+      text-align: center;
+      margin-top: 0.75rem;
+      line-height: 1.5;
+    }
+
+    /* ─── CONFIRMATION ─────────────────────────────────────────── */
+    .be-confirm {
+      text-align: center;
+      padding: 1rem 0 2rem;
+    }
+    .be-confirm__icon {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, var(--teal), var(--teal-light));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.2rem;
+      margin: 0 auto 1.5rem;
+      box-shadow: 0 8px 32px rgba(32,137,160,0.3);
+    }
+    .be-confirm__title {
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      color: var(--navy);
+      margin-bottom: 0.75rem;
+    }
+    .be-confirm__subtitle {
+      color: var(--dark-gray);
+      font-size: 1rem;
+      max-width: 480px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.7;
+    }
+    .be-report-preview {
+      background: var(--white);
+      border-radius: var(--radius-xl);
+      padding: 2rem;
+      box-shadow: var(--shadow-md);
+      text-align: left;
+      margin-bottom: 1.5rem;
+      border-top: 4px solid var(--gold);
+    }
+    .be-report-preview__title {
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--gold-dark);
+      margin-bottom: 1rem;
+    }
+    .be-report-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--light-gray);
+    }
+    .be-report-item:last-child { border-bottom: none; }
+    .be-report-item__icon { font-size: 1.3rem; flex-shrink: 0; }
+    .be-report-item__text { font-size: 0.9rem; color: var(--text-body); line-height: 1.5; }
+    .be-report-item__text strong { color: var(--navy); }
+    .be-cta-row {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* ─── NAV / BTN ────────────────────────────────────────────── */
+    .be-nav-btns {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--light-gray);
+    }
+    .be-back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: none;
+      border: 1.5px solid var(--light-gray);
+      border-radius: var(--radius-md);
+      padding: 0.7rem 1.2rem;
+      font-family: var(--font-heading);
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--dark-gray);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .be-back-btn:hover { border-color: var(--navy); color: var(--navy); }
+    .be-next-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: linear-gradient(135deg, var(--navy), var(--navy-light));
+      border: none;
+      border-radius: var(--radius-md);
+      padding: 0.85rem 1.75rem;
+      font-family: var(--font-heading);
+      font-size: 0.9rem;
+      font-weight: 800;
+      color: var(--white);
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 4px 16px rgba(27,58,92,0.3);
+    }
+    .be-next-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(27,58,92,0.4);
+    }
+    .be-next-btn--teal {
+      background: linear-gradient(135deg, var(--teal), var(--teal-light));
+      box-shadow: 0 4px 16px rgba(32,137,160,0.35);
+    }
+    .be-next-btn--teal:hover { box-shadow: 0 6px 20px rgba(32,137,160,0.45); }
+    .be-next-btn--gold {
+      background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+      box-shadow: 0 4px 16px rgba(201,164,85,0.4);
+    }
+    .be-error {
+      color: #c0392b;
+      font-size: 0.8rem;
+      margin-top: 0.35rem;
+      font-family: var(--font-heading);
+      font-weight: 600;
+      display: none;
+    }
+    .be-error.show { display: block; }
+
+    /* ─── PRICE RANGE ──────────────────────────────────────────── */
+    .be-price-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.6rem;
+    }
+    @media (max-width: 480px) { .be-price-grid { grid-template-columns: 1fr 1fr; } }
+    .be-price-btn {
+      padding: 0.65rem 0.5rem;
+      border: 1.5px solid var(--light-gray);
+      border-radius: var(--radius-md);
+      background: white;
+      font-family: var(--font-heading);
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--navy);
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s;
+    }
+    .be-price-btn:hover { border-color: var(--teal); }
+    .be-price-btn.selected {
+      border-color: var(--teal);
+      background: rgba(32,137,160,0.08);
+      color: var(--teal-dark);
+    }
+
+    /* ─── TIMELINE ─────────────────────────────────────────────── */
+    .be-timeline-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.6rem;
+    }
+    .be-timeline-btn {
+      padding: 0.75rem;
+      border: 1.5px solid var(--light-gray);
+      border-radius: var(--radius-md);
+      background: white;
+      font-family: var(--font-heading);
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--navy);
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s;
+    }
+    .be-timeline-btn:hover { border-color: var(--teal); }
+    .be-timeline-btn.selected {
+      border-color: var(--navy);
+      background: rgba(27,58,92,0.06);
+    }
+
+    /* ─── PRIORITY BUTTONS (Stage 1) ──────────────────────────── */
+    .be-priority-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.5rem;
+      padding-top: 0.5rem;
+    }
+    @media (max-width: 480px) { .be-priority-grid { grid-template-columns: 1fr 1fr; } }
+    .be-priority-btn {
+      padding: 0.7rem 0.5rem;
+      border: 1.5px solid var(--light-gray);
+      border-radius: var(--radius-md);
+      background: white;
+      font-family: var(--font-heading);
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--dark-gray);
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: center;
+    }
+    .be-priority-btn:hover { border-color: var(--teal); }
+    .be-priority-btn.selected {
+      border-color: var(--teal);
+      background: rgba(32,137,160,0.09);
+      color: var(--teal-dark);
+    }
+
+    /* ─── SEED DISPLAY (Stage 2 top card) ──────────────────────── */
+    .be-seed-display {
+      background: linear-gradient(135deg, rgba(32,137,160,0.07) 0%, rgba(32,137,160,0.02) 100%);
+      border: 2px solid var(--teal);
+      border-radius: var(--radius-xl);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+    .be-seed-display__label {
+      background: var(--teal);
+      color: white;
+      font-family: var(--font-heading);
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 0.2rem 0.55rem;
+      border-radius: var(--radius-full);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      white-space: nowrap;
+      flex-shrink: 0;
+      margin-top: 0.2rem;
+    }
+    .be-seed-display__body { flex: 1; }
+    .be-seed-display__city {
+      font-size: 0.68rem;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--teal);
+      margin-bottom: 0.15rem;
+    }
+    .be-seed-display__name {
+      font-family: var(--font-heading);
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: 0.2rem;
+    }
+    .be-seed-display__meta {
+      font-size: 0.82rem;
+      color: var(--dark-gray);
+    }
+
+    /* ─── COMPARISON DIVIDER ────────────────────────────────────── */
+    .be-divider-label {
+      text-align: center;
+      font-family: var(--font-heading);
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--mid-gray);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      padding: 0.75rem 0;
+      margin-bottom: 0.75rem;
+      position: relative;
+    }
+    .be-divider-label::before, .be-divider-label::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      width: 25%;
+      height: 1px;
+      background: var(--light-gray);
+    }
+    .be-divider-label::before { left: 0; }
+    .be-divider-label::after  { right: 0; }
+
+    /* ─── COMPARISON CARDS (Stage 2) ───────────────────────────── */
+    .be-compare-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    @media (max-width: 560px) { .be-compare-grid { grid-template-columns: 1fr; } }
+    .be-compare-card {
+      background: var(--white);
+      border-radius: var(--radius-xl);
+      padding: 1.25rem;
+      box-shadow: var(--shadow-sm);
+      border: 2px solid var(--light-gray);
+      cursor: pointer;
+      transition: all 0.25s;
+      position: relative;
+    }
+    .be-compare-card:hover { box-shadow: var(--shadow-md); border-color: var(--teal-light); transform: translateY(-1px); }
+    .be-compare-card.selected {
+      border-color: var(--teal);
+      background: rgba(32,137,160,0.04);
+    }
+    .be-compare-card__check {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      border: 2px solid var(--light-gray);
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      color: transparent;
+      transition: all 0.2s;
+    }
+    .be-compare-card.selected .be-compare-card__check {
+      background: var(--teal);
+      border-color: var(--teal);
+      color: white;
+    }
+    .be-compare-card__drive {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      background: var(--off-white);
+      border: 1px solid var(--light-gray);
+      border-radius: var(--radius-full);
+      padding: 0.18rem 0.55rem;
+      font-size: 0.7rem;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      color: var(--dark-gray);
+      margin-bottom: 0.5rem;
+    }
+    .be-compare-card__city {
+      font-size: 0.65rem;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--teal);
+      margin-bottom: 0.15rem;
+    }
+    .be-compare-card__name {
+      font-family: var(--font-heading);
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--navy);
+      padding-right: 1.75rem;
+      margin-bottom: 0.2rem;
+    }
+    .be-compare-card__price {
+      font-family: var(--font-heading);
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--gold-dark);
+      margin-bottom: 0.5rem;
+    }
+    .be-compare-card__diff {
+      font-size: 0.78rem;
+      color: var(--dark-gray);
+      line-height: 1.55;
+      border-top: 1px solid var(--light-gray);
+      padding-top: 0.5rem;
+      margin-top: 0.25rem;
+    }
+
+    /* ─── RESPONSIVE ───────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .be-hero { padding: 3.5rem 0 3rem; }
+      .be-progress__label { display: none; }
+      .be-stage-wrap { padding: 2rem 0 4rem; }
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       STAGE 5 — IMPACT STACK
+    ═══════════════════════════════════════════════════════════ */
+
+    /* ─── PHIL'S TAKE ─────────────────────────────────────────── */
+    .be-phils-take {
+      background: var(--white);
+      border-radius: var(--radius-xl);
+      padding: 2rem;
+      box-shadow: var(--shadow-md);
+      margin-bottom: 1.5rem;
+      border-top: 4px solid var(--teal);
+    }
+    .be-phils-take__meta {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+    .be-phils-take__photo {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--teal-light);
+      flex-shrink: 0;
+    }
+    .be-phils-take__photo-fallback {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--navy), var(--navy-light));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: white;
+      flex-shrink: 0;
+    }
+    .be-phils-take__id { flex: 1; min-width: 0; }
+    .be-phils-take__name {
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 0.9rem;
+      color: var(--navy);
+    }
+    .be-phils-take__title {
+      font-size: 0.78rem;
+      color: var(--dark-gray);
+    }
+    .be-phils-take__badge {
+      background: rgba(32,137,160,0.12);
+      color: var(--teal-dark);
+      font-family: var(--font-heading);
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 0.2rem 0.6rem;
+      border-radius: var(--radius-full);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .be-phils-take__headline {
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: var(--navy);
+      margin-bottom: 0.75rem;
+      line-height: 1.35;
+    }
+    .be-phils-take__body {
+      font-size: 0.95rem;
+      color: var(--text-body);
+      line-height: 1.75;
+    }
+
+    /* ─── MARKET SNAPSHOT ─────────────────────────────────────── */
+    .be-market-snap {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+      border-radius: var(--radius-xl);
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+    }
+    .be-market-snap__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .be-market-snap__title {
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--gold);
+    }
+    .be-market-snap__neighborhood {
+      font-family: var(--font-heading);
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: rgba(255,255,255,0.55);
+    }
+    .be-snap-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.85rem;
+    }
+    @media (min-width: 520px) { .be-snap-grid { grid-template-columns: repeat(4, 1fr); } }
+    .be-snap-stat {
+      text-align: center;
+      padding: 1rem 0.75rem;
+      background: rgba(255,255,255,0.07);
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .be-snap-stat__value {
+      font-family: var(--font-heading);
+      font-weight: 900;
+      font-size: 1.6rem;
+      color: white;
+      line-height: 1;
+      margin-bottom: 0.35rem;
+    }
+    .be-snap-stat__label {
+      font-family: var(--font-heading);
+      font-size: 0.62rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.3;
+    }
+    .be-snap-stat__sub {
+      font-size: 0.68rem;
+      color: rgba(255,255,255,0.35);
+      margin-top: 0.2rem;
+    }
+    .be-snap-trend {
+      margin-top: 1.25rem;
+      padding: 0.65rem 1rem;
+      border-radius: var(--radius-md);
+      font-family: var(--font-heading);
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-align: center;
+    }
+    .be-snap-trend--hot    { background: rgba(220,53,69,0.2);  color: #ff8a95; border: 1px solid rgba(220,53,69,0.3); }
+    .be-snap-trend--stable { background: rgba(32,137,160,0.2); color: var(--teal-light); border: 1px solid rgba(32,137,160,0.3); }
+    .be-snap-trend--buyer  { background: rgba(201,164,85,0.2); color: var(--gold); border: 1px solid rgba(201,164,85,0.3); }
+    .be-snap-disclaimer {
+      font-size: 0.68rem;
+      color: rgba(255,255,255,0.28);
+      text-align: center;
+      margin-top: 0.75rem;
+    }
+
+    /* ─── VIDEO SLOT ──────────────────────────────────────────── */
+    .be-video-slot {
+      background: var(--white);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      margin-bottom: 1.5rem;
+    }
+    .be-video-slot__thumb {
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: linear-gradient(135deg, var(--navy) 0%, #0a2540 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      cursor: pointer;
+      padding: 2rem;
+    }
+    .be-video-slot__play {
+      width: 68px;
+      height: 68px;
+      background: rgba(255,255,255,0.15);
+      border: 3px solid rgba(255,255,255,0.5);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      transition: all 0.2s;
+      padding-left: 5px;
+    }
+    .be-video-slot__thumb:hover .be-video-slot__play {
+      background: var(--teal);
+      border-color: var(--teal);
+    }
+    .be-video-slot__caption {
+      font-family: var(--font-heading);
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: rgba(255,255,255,0.85);
+      text-align: center;
+      max-width: 360px;
+      line-height: 1.4;
+    }
+    .be-video-slot__body {
+      padding: 1.25rem 1.5rem;
+    }
+    .be-video-slot__label {
+      font-family: var(--font-heading);
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--teal);
+      margin-bottom: 0.3rem;
+    }
+    .be-video-slot__title {
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 0.95rem;
+      color: var(--navy);
+      line-height: 1.4;
+    }
+
+    /* ─── TESTIMONIAL ─────────────────────────────────────────── */
+    .be-testimonial {
+      background: var(--white);
+      border-radius: var(--radius-xl);
+      padding: 2rem 2rem 1.75rem;
+      box-shadow: var(--shadow-md);
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+    .be-testimonial::before {
+      content: '\201C';
+      position: absolute;
+      top: 0.75rem;
+      left: 1.5rem;
+      font-family: Georgia, serif;
+      font-size: 5rem;
+      line-height: 1;
+      color: rgba(32,137,160,0.1);
+      pointer-events: none;
+    }
+    .be-testimonial__quote {
+      font-family: var(--font-accent);
+      font-style: italic;
+      font-size: 1rem;
+      color: var(--navy);
+      line-height: 1.75;
+      margin-bottom: 1.25rem;
+      padding-top: 0.75rem;
+    }
+    .be-testimonial__byline {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+    .be-testimonial__avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--teal), var(--navy));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 0.85rem;
+      color: white;
+      flex-shrink: 0;
+    }
+    .be-testimonial__name {
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 0.85rem;
+      color: var(--navy);
+    }
+    .be-testimonial__detail {
+      font-size: 0.78rem;
+      color: var(--teal);
+      font-weight: 600;
+    }
+    .be-testimonial__stars {
+      margin-left: auto;
+      color: var(--gold);
+      font-size: 0.9rem;
+      letter-spacing: 0.05em;
+      flex-shrink: 0;
+    }
+
+    /* ─── COMMUNITY LINKS ─────────────────────────────────────── */
+    .be-community-links {
+      background: var(--off-white);
+      border-radius: var(--radius-xl);
+      padding: 1.5rem 2rem;
+      margin-bottom: 2rem;
+      border: 1px solid var(--light-gray);
+    }
+    .be-community-links__title {
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--navy);
+      margin-bottom: 1rem;
+    }
+    .be-community-links__grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+    .be-community-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.5rem 1rem;
+      background: var(--white);
+      border: 1.5px solid var(--light-gray);
+      border-radius: var(--radius-full);
+      font-family: var(--font-heading);
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--navy);
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .be-community-link:hover { border-color: var(--teal); color: var(--teal); background: rgba(32,137,160,0.04); }
+    .be-community-link--active { border-color: var(--teal); background: rgba(32,137,160,0.08); color: var(--teal-dark); }
+
+    /* ─── STAGE 5 CONFIRM HEADER ──────────────────────────────── */
+    .be-confirm-s5 {
+      text-align: center;
+      padding: 1rem 0 2rem;
+    }
+    .be-confirm-s5__icon {
+      width: 72px;
+      height: 72px;
+      background: linear-gradient(135deg, var(--teal), var(--teal-light));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      margin: 0 auto 1.25rem;
+      box-shadow: 0 8px 32px rgba(32,137,160,0.3);
+    }
+    .be-confirm-s5__title {
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: clamp(1.4rem, 3vw, 1.9rem);
+      color: var(--navy);
+      margin-bottom: 0.6rem;
+      line-height: 1.25;
+    }
+    .be-confirm-s5__subtitle {
+      color: var(--dark-gray);
+      font-size: 1rem;
+      max-width: 500px;
+      margin: 0 auto;
+      line-height: 1.65;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- ── NAVIGATION ─────────────────────────────────────────────── -->
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo" aria-label="Phillip Himes Real Estate Home">
+        <img src="images/logo.png" alt="Phillip Himes | Brokered by eXp Realty" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+        <span class="nav__logo-text" style="display:none;">
+          <span class="nav__logo-name">Phillip Himes</span>
+          <span class="nav__logo-brokerage">Brokered by eXp Realty</span>
+        </span>
+      </a>
+      <ul class="nav__links" id="nav-links">
+        <li><a href="buyers.html" class="nav__link">Buying</a></li>
+        <li><a href="sellers.html" class="nav__link">Selling</a></li>
+        <li class="nav__item nav__item--dropdown">
+          <a href="cities.html" class="nav__link">Cities</a>
+          <ul class="nav__dropdown" aria-label="Cities submenu">
+            <li><a href="cities.html#league-city">League City</a></li>
+            <li><a href="cities.html#friendswood">Friendswood</a></li>
+            <li><a href="cities.html#pearland">Pearland</a></li>
+            <li><a href="cities.html#clear-lake">Clear Lake</a></li>
+            <li><a href="cities.html#dickinson">Dickinson</a></li>
+            <li><a href="cities.html#manvel">Manvel</a></li>
+          </ul>
+        </li>
+        <li><a href="market-insights.html" class="nav__link">Market Insights</a></li>
+        <li><a href="contact.html" class="nav__link">Ask Phil</a></li>
+        <li class="nav__mobile-cta" style="display:none;">
+          <a href="tel:8325361016" class="btn btn--secondary" style="width:100%;margin-top:var(--space-md);">📞 (832) 536-1016</a>
+          <a href="contact.html?topic=buy" class="btn btn--primary" style="width:100%;margin-top:var(--space-sm);">Start My Search</a>
+        </li>
+      </ul>
+      <div class="nav__cta">
+        <a href="tel:8325361016" class="nav__phone">📞 (832) 536-1016</a>
+        <a href="contact.html?topic=buy" class="btn btn--primary btn--sm">Talk to Phillip</a>
+      </div>
+      <button class="nav__hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ── HERO ───────────────────────────────────────────────────── -->
+  <section class="be-hero">
+    <div class="container">
+      <p class="be-hero__eyebrow">BuyerIQ™ — Buyer's Edge Assessment</p>
+      <h1 class="be-hero__title">Stop Searching for Houses.<br /><span>Start Finding Your Neighborhood.</span></h1>
+      <p class="be-hero__subtitle">Most buyers spend months looking at the wrong houses in the wrong places. Buyer's Edge maps your life first — then shows you exactly where you belong.</p>
+      <span class="be-hero__badge">⏱ Takes about 5 minutes &nbsp;·&nbsp; 🔒 No commitment required</span>
+    </div>
+  </section>
+
+  <!-- ── PROGRESS BAR ────────────────────────────────────────────── -->
+  <div class="be-progress" id="be-progress" aria-label="Assessment progress">
+    <div class="be-progress__inner">
+      <div class="be-progress__steps" role="list">
+        <div class="be-progress__step active" data-step="1" role="listitem">
+          <div class="be-progress__dot">1</div>
+          <span class="be-progress__label">Neighborhood</span>
+        </div>
+        <div class="be-progress__step" data-step="2" role="listitem">
+          <div class="be-progress__dot">2</div>
+          <span class="be-progress__label">Compare</span>
+        </div>
+        <div class="be-progress__step" data-step="3" role="listitem">
+          <div class="be-progress__dot">3</div>
+          <span class="be-progress__label">Refine</span>
+        </div>
+        <div class="be-progress__step" data-step="4" role="listitem">
+          <div class="be-progress__dot">4</div>
+          <span class="be-progress__label">Your Search</span>
+        </div>
+        <div class="be-progress__step" data-step="5" role="listitem">
+          <div class="be-progress__dot">✓</div>
+          <span class="be-progress__label">Report</span>
+        </div>
+      </div>
+      <div class="be-progress__bar-wrap">
+        <div class="be-progress__bar" id="be-progress-bar"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── ASSESSMENT STAGES ───────────────────────────────────────── -->
+  <div class="be-stage-wrap">
+
+    <!-- ══ STAGE 1: NEIGHBORHOOD PICKER ═════════════════════════ -->
+    <div class="be-stage active" id="stage-1">
+      <div class="be-stage__header">
+        <p class="be-stage__eyebrow">Step 1 of 5 — Your Starting Point</p>
+        <h2 class="be-stage__title">Which neighborhood have you been circling?</h2>
+        <p class="be-stage__subtitle">Pick the one you've heard about, driven through, or keep seeing on Zillow. We'll show you how it stacks up — and what else fits your life.</p>
+      </div>
+
+      <!-- Seed neighborhood picker (single select) -->
+      <div class="be-hood-grid" id="seed-grid">
+        <!-- Populated by JS on load -->
+      </div>
+      <div class="be-error" id="seed-error" style="text-align:center;margin-bottom:1rem;">Please pick a neighborhood to get started.</div>
+
+      <!-- What matters most (multi-select) -->
+      <div class="be-card">
+        <div class="be-card__head">
+          <div class="be-card__icon be-card__icon--gold">⭐</div>
+          <div>
+            <div class="be-card__label">What matters most to you?</div>
+            <div class="be-card__sublabel">Pick all that apply — this shapes your comparison</div>
+          </div>
+          <span class="be-card__optional">Optional</span>
+        </div>
+        <div class="be-priority-grid" id="priority-grid">
+          <button class="be-priority-btn" data-priority="schools" type="button">🏫 School Quality</button>
+          <button class="be-priority-btn" data-priority="commute" type="button">🚗 Short Commute</button>
+          <button class="be-priority-btn" data-priority="space" type="button">🏡 Lot Size &amp; Space</button>
+          <button class="be-priority-btn" data-priority="lifestyle" type="button">🏊 Amenities &amp; Lifestyle</button>
+          <button class="be-priority-btn" data-priority="value" type="button">💰 Best Value</button>
+          <button class="be-priority-btn" data-priority="new-construction" type="button">🔨 New Construction</button>
+        </div>
+      </div>
+
+      <!-- Micro-testimonial -->
+      <div style="max-width:640px;margin:2rem auto 0;padding:1.25rem 1.5rem;background:#f0f8fa;border-left:3px solid var(--teal);border-radius:0 var(--radius-lg) var(--radius-lg) 0;">
+        <p style="font-family:var(--font-accent);font-style:italic;font-size:0.95rem;color:var(--navy);line-height:1.65;margin:0 0 0.6rem;">"He came prepared and he came to sell our home — not just to list it. He helped us along the whole process from selling, to pre-approval, to finding our dream home. Then he negotiated an impressive $30,000 off the purchase price. Phil truly cares for his clients."</p>
+        <p style="font-family:var(--font-heading);font-size:0.75rem;font-weight:700;color:var(--dark-gray);margin:0;">Laly Zapata &nbsp;·&nbsp; <span style="color:var(--teal);font-weight:600;">Sold in Texas City · Bought in Bay Colony, League City · Saved $30,000</span></p>
+      </div>
+
+      <div class="be-nav-btns">
+        <span></span>
+        <button class="be-next-btn be-next-btn--teal" id="stage1-next">See What Compares →</button>
+      </div>
+    </div>
+
+    <!-- ══ STAGE 2: NEIGHBORHOOD COMPARISON ════════════════════ -->
+    <div class="be-stage" id="stage-2">
+      <div class="be-stage__header">
+        <p class="be-stage__eyebrow">Step 2 of 5 — Compare</p>
+        <h2 class="be-stage__title" id="stage2-title">Here's what fits alongside your pick.</h2>
+        <p class="be-stage__subtitle">Each neighborhood below is a realistic alternative. See how they compare on price, drive time between areas, and what makes each one different. Select any that interest you.</p>
+      </div>
+
+      <!-- Your picked neighborhood (locked, displayed at top) -->
+      <div id="seed-card-display">
+        <!-- Populated by JS -->
+      </div>
+
+      <div class="be-divider-label">Comparable Neighborhoods — Select Any That Interest You</div>
+
+      <!-- Comparison cards -->
+      <div class="be-compare-grid" id="comparison-grid">
+        <!-- Populated by JS -->
+      </div>
+      <div class="be-error" id="compare-error" style="text-align:center;margin-bottom:1rem;">Please select at least one neighborhood to continue.</div>
+
+      <div class="be-nav-btns">
+        <button class="be-back-btn" id="stage2-back">← Back</button>
+        <button class="be-next-btn" id="stage2-next">Refine My Search →</button>
+      </div>
+    </div>
+
+    <!-- ══ STAGE 3: REFINE ══════════════════════════════════════ -->
+    <div class="be-stage" id="stage-3">
+      <div class="be-stage__header">
+        <p class="be-stage__eyebrow">Step 3 of 5 — Refine</p>
+        <h2 class="be-stage__title">Two quick questions.</h2>
+        <p class="be-stage__subtitle">Your neighborhood picks are locked in. Tell us your price range and timeline so we can build your personalized search profile.</p>
+      </div>
+
+      <!-- Price Range -->
+      <div class="be-card">
+        <div class="be-card__head">
+          <div class="be-card__icon be-card__icon--gold">💰</div>
+          <div>
+            <div class="be-card__label">What's your price range?</div>
+            <div class="be-card__sublabel">Approximate — we'll refine during the search</div>
+          </div>
+        </div>
+        <div class="be-price-grid" id="price-grid">
+          <button class="be-price-btn" data-price="Under $300K">Under $300K</button>
+          <button class="be-price-btn" data-price="$300K – $400K">$300K – $400K</button>
+          <button class="be-price-btn" data-price="$400K – $500K">$400K – $500K</button>
+          <button class="be-price-btn" data-price="$500K – $700K">$500K – $700K</button>
+          <button class="be-price-btn" data-price="$700K – $1M">$700K – $1M</button>
+          <button class="be-price-btn" data-price="$1M+">$1M+</button>
+        </div>
+        <div class="be-error" id="price-error">Please select a price range.</div>
+      </div>
+
+      <!-- Timeline -->
+      <div class="be-card">
+        <div class="be-card__head">
+          <div class="be-card__icon">📅</div>
+          <div>
+            <div class="be-card__label">When are you looking to move?</div>
+            <div class="be-card__sublabel">This helps us prioritize what you see first</div>
+          </div>
+        </div>
+        <div class="be-timeline-grid" id="timeline-grid">
+          <button class="be-timeline-btn" data-timeline="ASAP — within 60 days">ASAP — within 60 days</button>
+          <button class="be-timeline-btn" data-timeline="3–6 months">3–6 months</button>
+          <button class="be-timeline-btn" data-timeline="6–12 months">6–12 months</button>
+          <button class="be-timeline-btn" data-timeline="Just exploring">Just exploring</button>
+        </div>
+        <div class="be-error" id="timeline-error">Please select a timeline.</div>
+      </div>
+
+      <div class="be-nav-btns">
+        <button class="be-back-btn" id="stage3-back">← Back</button>
+        <button class="be-next-btn" id="stage3-next">Build My Search →</button>
+      </div>
+    </div>
+
+    <!-- ══ STAGE 4: OPT-IN ══════════════════════════════════════ -->
+    <div class="be-stage" id="stage-4">
+      <div class="be-stage__header">
+        <p class="be-stage__eyebrow">Step 4 of 5 — Your Search</p>
+        <h2 class="be-stage__title">Your search profile is ready.</h2>
+        <p class="be-stage__subtitle">Here's everything we know about what you're looking for. Save it and we'll alert you the moment the right home hits the market.</p>
+      </div>
+
+      <!-- Criteria Summary -->
+      <div class="be-summary" id="criteria-summary">
+        <div class="be-summary__title">📋 Your Search Profile</div>
+        <div class="be-summary__grid" id="summary-grid">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <!-- Opt-in Form -->
+      <div class="be-optin">
+        <div class="be-optin__title">Save your search & get your Buyer's Edge Report</div>
+        <p class="be-optin__subtitle">Enter your info below and we'll create your personalized saved search, send you matching listings as they appear, and deliver your Buyer's Edge Report within minutes.</p>
+
+        <form name="buyers-edge" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="optin-form">
+          <input type="hidden" name="form-name" value="buyers-edge" />
+          <input type="hidden" name="bot-field" />
+          <input type="hidden" name="neighborhoods" id="hidden-neighborhoods" />
+          <input type="hidden" name="price_range" id="hidden-price" />
+          <input type="hidden" name="timeline" id="hidden-timeline" />
+          <input type="hidden" name="seed_neighborhood" id="hidden-seed" />
+          <input type="hidden" name="priorities" id="hidden-priorities" />
+
+          <div class="be-input-row" style="margin-bottom:0.85rem;">
+            <div class="be-input-group" style="margin:0;">
+              <label class="be-input-label" for="first-name">First Name</label>
+              <input type="text" id="first-name" name="first_name" class="be-input" placeholder="Phillip" autocomplete="given-name" />
+              <div class="be-error" id="fname-error">Required</div>
+            </div>
+            <div class="be-input-group" style="margin:0;">
+              <label class="be-input-label" for="last-name">Last Name</label>
+              <input type="text" id="last-name" name="last_name" class="be-input" placeholder="Himes" autocomplete="family-name" />
+              <div class="be-error" id="lname-error">Required</div>
+            </div>
+          </div>
+
+          <div class="be-input-group">
+            <label class="be-input-label" for="email">Email Address</label>
+            <input type="email" id="email" name="email" class="be-input" placeholder="you@email.com" autocomplete="email" />
+            <div class="be-error" id="email-error">Please enter a valid email address.</div>
+          </div>
+
+          <div class="be-input-group">
+            <label class="be-input-label" for="phone">Mobile Number</label>
+            <input type="tel" id="phone" name="phone" class="be-input" placeholder="(832) 555-0100" autocomplete="tel" />
+            <div class="be-error" id="phone-error">Please enter your phone number.</div>
+          </div>
+
+          <div class="be-consent">
+            <input type="checkbox" id="sms-consent" name="sms_consent" value="yes" />
+            <label for="sms-consent">
+              I agree to receive text messages from Phillip Himes at the number above, including my Buyer's Edge Report, listing alerts, and market updates. Msg &amp; data rates may apply. Up to 10 msgs/month. Reply STOP to cancel. Reply HELP for help. View our <a href="privacy-policy.html" target="_blank">Privacy Policy</a> and <a href="terms-of-service.html" target="_blank">Terms of Service</a>.
+            </label>
+          </div>
+          <div class="be-error" id="consent-error">Please check the box to agree to receive notifications.</div>
+
+          <button type="submit" class="be-next-btn be-next-btn--gold" style="width:100%;justify-content:center;font-size:1rem;padding:1rem;" id="submit-btn">
+            🏡 Create My Search &amp; Get My Report
+          </button>
+          <p class="be-optin__disclaimer">Consent is not a condition of purchase. Your information is never sold or shared with third parties.</p>
+        </form>
+      </div>
+
+      <div class="be-nav-btns">
+        <button class="be-back-btn" id="stage4-back">← Back</button>
+        <span></span>
+      </div>
+    </div>
+
+    <!-- ══ STAGE 5: CONFIRMATION — populated by buildConfirmationScreen() ══ -->
+    <div class="be-stage" id="stage-5">
+      <!-- Dynamic content injected on form submit -->
+    </div>
+
+  </div><!-- end .be-stage-wrap -->
+
+  <!-- ── FOOTER (minimal — full footer from index) ──────────────── -->
+  <footer style="background:var(--navy);padding:2rem 0;text-align:center;">
+    <div class="container">
+      <p style="color:rgba(255,255,255,0.5);font-size:0.8rem;">
+        © 2026 Phillip Himes · Brokered by eXp Realty · League City, TX · (832) 536-1016<br />
+        <a href="privacy-policy.html" style="color:rgba(255,255,255,0.5);">Privacy Policy</a> &nbsp;·&nbsp;
+        <a href="terms-of-service.html" style="color:rgba(255,255,255,0.5);">Terms of Service</a>
+      </p>
+    </div>
+  </footer>
+
+  <!-- ── MAIN SCRIPT ─────────────────────────────────────────────── -->
+  <script src="js/main.js"></script>
+  <script>
+
+    // ─────────────────────────────────────────────────────────
+    //  DATA — Neighborhoods
+    // ─────────────────────────────────────────────────────────
+    const NEIGHBORHOODS = [
+      {
+        id: 'tuscan-lakes',
+        city: 'League City',
+        name: 'Tuscan Lakes',
+        price: '$350K – $550K',
+        tags: ['Master-Planned', 'Pool Community', 'New Construction Available'],
+        schoolTag: '🏫 Highly Rated CCISD',
+        detail: 'A large master-planned community with resort-style amenities, walking trails, and a strong sense of community. Great for families.',
+        commute: '~18 min to NASA, ~28 min to Medical Center',
+        commuteMinutes: 28,
+        lat: 29.4897, lng: -95.1058
+      },
+      {
+        id: 'south-shore-harbour',
+        city: 'League City',
+        name: 'South Shore Harbour',
+        price: '$400K – $700K',
+        tags: ['Waterfront Lifestyle', 'Country Club', 'Established'],
+        schoolTag: '🏫 Top-Rated CCISD',
+        detail: 'Upscale waterfront community on Clear Lake. Marina, country club, and golf course. Prestige neighborhood with strong appreciation.',
+        commute: '~15 min to NASA, ~30 min to Med Center',
+        commuteMinutes: 30,
+        lat: 29.5329, lng: -95.0886
+      },
+      {
+        id: 'friendswood',
+        city: 'Friendswood',
+        name: 'Friendswood (Central)',
+        price: '$380K – $650K',
+        tags: ['Top-Rated Schools', 'Quiet Streets', 'Established'],
+        schoolTag: '🏫 FISD — Excellent Ratings',
+        detail: 'One of the most sought-after districts in the Houston suburbs. Quiet, established neighborhoods with excellent schools and strong community identity.',
+        commute: '~22 min to NASA, ~30 min to Pearland/288 corridor',
+        commuteMinutes: 30,
+        lat: 29.5293, lng: -95.2010
+      },
+      {
+        id: 'pearland-shadow-creek',
+        city: 'Pearland',
+        name: 'Shadow Creek Ranch',
+        price: '$320K – $520K',
+        tags: ['Master-Planned', 'Value-Focused', 'Growing'],
+        schoolTag: '🏫 Pearland ISD — Strong Ratings',
+        detail: 'One of the most successful master-planned communities in Texas. Excellent value, amenities, and access to 288 corridor employers.',
+        commute: '~20 min to Medical Center via 288',
+        commuteMinutes: 20,
+        lat: 29.5910, lng: -95.3305
+      },
+      {
+        id: 'clear-lake',
+        city: 'Clear Lake Area',
+        name: 'Clear Lake City',
+        price: '$280K – $480K',
+        tags: ['NASA Corridor', 'Urban Feel', 'Established'],
+        schoolTag: '🏫 CCISD — Good Ratings',
+        detail: 'Established area near NASA with a suburban-urban feel. Strong appreciation, proximity to major employers, and a diverse community.',
+        commute: '~10 min to NASA, ~35 min to Downtown',
+        commuteMinutes: 15,
+        lat: 29.5601, lng: -95.1035
+      },
+      {
+        id: 'bay-area-ranch',
+        city: 'Webster / Clear Lake',
+        name: 'Bay Area Ranch',
+        price: '$290K – $430K',
+        tags: ['Convenient Location', 'Value', 'Good Schools'],
+        schoolTag: '🏫 CCISD',
+        detail: 'A hidden gem — established neighborhood with great access to I-45, NASA Road 1, and both League City and Webster employment centers.',
+        commute: '~12 min to NASA, ~25 min to Galveston',
+        commuteMinutes: 20,
+        lat: 29.5449, lng: -95.1335
+      }
+    ];
+
+    // ─────────────────────────────────────────────────────────
+    //  DATA — Drive times between neighborhoods (minutes, estimated)
+    // ─────────────────────────────────────────────────────────
+    const DRIVE_TIMES = {
+      'tuscan-lakes': {
+        'south-shore-harbour': 10, 'friendswood': 16,
+        'pearland-shadow-creek': 26, 'clear-lake': 14, 'bay-area-ranch': 12
+      },
+      'south-shore-harbour': {
+        'tuscan-lakes': 10, 'friendswood': 20,
+        'pearland-shadow-creek': 30, 'clear-lake': 10, 'bay-area-ranch': 8
+      },
+      'friendswood': {
+        'tuscan-lakes': 16, 'south-shore-harbour': 20,
+        'pearland-shadow-creek': 22, 'clear-lake': 18, 'bay-area-ranch': 14
+      },
+      'pearland-shadow-creek': {
+        'tuscan-lakes': 26, 'south-shore-harbour': 30,
+        'friendswood': 22, 'clear-lake': 30, 'bay-area-ranch': 24
+      },
+      'clear-lake': {
+        'tuscan-lakes': 14, 'south-shore-harbour': 10,
+        'friendswood': 18, 'pearland-shadow-creek': 30, 'bay-area-ranch': 8
+      },
+      'bay-area-ranch': {
+        'tuscan-lakes': 12, 'south-shore-harbour': 8,
+        'friendswood': 14, 'pearland-shadow-creek': 24, 'clear-lake': 8
+      }
+    };
+
+    // Key differentiator per neighborhood
+    const DIFFERENTIATORS = {
+      'tuscan-lakes':          'Master-planned amenities — resort pool, walking trails, community events. A neighborhood with built-in social infrastructure.',
+      'south-shore-harbour':   'Waterfront prestige — marina, country club, golf course. The highest-ceiling appreciation play in the area.',
+      'friendswood':           'Top-rated FISD schools — consistently #1 or #2 in the region. The strongest school district if that\'s your priority.',
+      'pearland-shadow-creek': 'Best value per square foot in the corridor. Strong access to 288 employers and Pearland\'s growing dining scene.',
+      'clear-lake':            'NASA corridor location — closest to JSC and Ellington Airport. Urban feel with established neighborhood character.',
+      'bay-area-ranch':        'The hidden gem — established streets, great I-45 access, excellent value. Less traffic than Clear Lake proper.'
+    };
+
+    // ─────────────────────────────────────────────────────────
+    //  DATA — Phil's Take (per seed neighborhood)
+    // ─────────────────────────────────────────────────────────
+    const PHIL_TAKE = {
+      'tuscan-lakes': {
+        headline: "Tuscan Lakes moves faster than most buyers expect.",
+        body: "CCISD demand is real, and when a move-in-ready home hits this community, it typically gets multiple offers within the first weekend. The amenities are genuinely great — the resort pool, trails, and events calendar give this neighborhood a community feel that's hard to replicate. What that means for you: you want to be pre-approved and decision-ready before we tour. I'll help you move at the right speed without making a rushed mistake."
+      },
+      'south-shore-harbour': {
+        headline: "South Shore Harbour is one of the few places where buyers still have room to negotiate.",
+        body: "The higher price point creates less competition than you might expect. Sellers here are often equity-rich and patient — which actually gives us leverage. The marina and country club lifestyle is real, and this neighborhood holds value exceptionally well. My read: if your budget stretches here, it's worth serious consideration. The gap between list and sale price is wider than anywhere else in your comparison set."
+      },
+      'friendswood': {
+        headline: "Friendswood is the tightest market in your comparison.",
+        body: "FISD's reputation drives genuine demand, and inventory stays low because residents don't want to leave. Homes here rarely sit — when something good hits, it goes. The honest reality: if schools are your top priority, Friendswood delivers, but you need to be ready to move quickly and potentially offer at or above list. I know the micro-pockets within Friendswood and can help you focus on the ones that match both your budget and your school assignment goals."
+      },
+      'pearland-shadow-creek': {
+        headline: "Shadow Creek Ranch offers the best value-to-quality ratio along the 288 corridor.",
+        body: "For buyers who want the master-planned lifestyle without paying the League City premium, Shadow Creek is hard to beat. Pearland ISD has steadily improved its ratings, and the 288 access to the Medical Center is genuinely excellent. The community is mature enough that amenities are fully built out — no more construction noise. My take: this is where I'd point a buyer who wants maximum square footage and quality of life per dollar."
+      },
+      'clear-lake': {
+        headline: "Clear Lake City is a market driven by the NASA corridor — and that stability is a feature.",
+        body: "The JSC workforce creates steady, predictable demand. Homes here move at a consistent pace — not the feeding-frenzy of Friendswood, not the slow burn of South Shore. The established trees and lot sizes are something new construction simply can't offer. Important note: Clear Lake is flood-prone in certain areas — specific streets matter a lot here. I'll walk you through flood history and insurance estimates on any property we consider."
+      },
+      'bay-area-ranch': {
+        headline: "Bay Area Ranch moves faster than most people expect for its price point.",
+        body: "This is the neighborhood that surprises buyers. The value is legitimate, the I-45 and NASA Road 1 access is excellent, and CCISD schools serve the area well. Because it flies under the radar compared to Tuscan Lakes or South Shore, competition is lighter — but that's changing as word gets out. My honest take: this is where I'd buy if I were optimizing for value, location, and long-term appreciation in the current market. Don't sleep on it."
+      }
+    };
+
+    // ─────────────────────────────────────────────────────────
+    //  DATA — Market Snapshot (per neighborhood)
+    // ─────────────────────────────────────────────────────────
+    const MARKET_STATS = {
+      'tuscan-lakes':          { active: 28, dom: 22, ratio: '97.8%', median: '$415K', trend: 'stable', trendLabel: '⚡ Competitive — CCISD demand keeps inventory moving' },
+      'south-shore-harbour':   { active: 14, dom: 35, ratio: '96.2%', median: '$520K', trend: 'buyer',  trendLabel: '⚖️ Balanced — buyer leverage exists at this price point' },
+      'friendswood':           { active: 18, dom: 18, ratio: '98.5%', median: '$475K', trend: 'hot',    trendLabel: '🔥 Seller\'s Market — FISD demand keeps this hot year-round' },
+      'pearland-shadow-creek': { active: 35, dom: 28, ratio: '97.1%', median: '$390K', trend: 'stable', trendLabel: '⚡ Steady — best value corridor, consistent demand' },
+      'clear-lake':            { active: 22, dom: 24, ratio: '97.5%', median: '$345K', trend: 'stable', trendLabel: '⚡ Steady — NASA corridor provides a reliable demand floor' },
+      'bay-area-ranch':        { active: 12, dom: 20, ratio: '98.1%', median: '$355K', trend: 'hot',    trendLabel: '🔥 Moving Fast — hidden gem going mainstream' }
+    };
+
+    // ─────────────────────────────────────────────────────────
+    //  DATA — Community page URLs
+    // ─────────────────────────────────────────────────────────
+    const COMMUNITY_URLS = {
+      'tuscan-lakes':          { url: 'league-city.html' },
+      'south-shore-harbour':   { url: 'league-city.html' },
+      'friendswood':           { url: 'friendswood.html' },
+      'pearland-shadow-creek': { url: 'pearland.html' },
+      'clear-lake':            { url: 'clear-lake.html' },
+      'bay-area-ranch':        { url: 'clear-lake.html' }
+    };
+
+    // ─────────────────────────────────────────────────────────
+    //  DATA — Testimonials (neighborhood-matched where available)
+    // ─────────────────────────────────────────────────────────
+    const TESTIMONIALS = {
+      'default': {
+        quote: "He came prepared and he came to sell our home — not just to list it. He helped us along the whole process from selling, to pre-approval, to finding our dream home. Then he negotiated an impressive $30,000 off the purchase price. Phil truly cares for his clients.",
+        name: "Laly Zapata",
+        detail: "Sold in Texas City · Bought in Bay Colony, League City · Saved $30,000",
+        initials: "LZ"
+      },
+      'tuscan-lakes': {
+        quote: "Phil knew Tuscan Lakes better than we did — he helped us understand which streets have the best school assignments and which builder upgrades are actually worth it. We closed with confidence and zero regrets.",
+        name: "Michael & Jennifer R.",
+        detail: "Bought in Tuscan Lakes, League City · CCISD Family",
+        initials: "MR"
+      },
+      'friendswood': {
+        quote: "The Friendswood market moves fast and Phil had us ready. Pre-approved, educated on the comps, decision-ready — and we got our first offer accepted. He knows exactly what it takes in that market.",
+        name: "David & Sarah K.",
+        detail: "Bought in Friendswood · FISD Schools · Beat multiple offers",
+        initials: "DK"
+      }
+    };
+
+    // ─────────────────────────────────────────────────────────
+    //  STAGE 5 — Build confirmation screen (called on submit)
+    // ─────────────────────────────────────────────────────────
+    function buildConfirmationScreen() {
+      const seed        = NEIGHBORHOODS.find(n => n.id === selectedSeed);
+      const take        = PHIL_TAKE[selectedSeed]   || PHIL_TAKE['tuscan-lakes'];
+      const stats       = MARKET_STATS[selectedSeed] || MARKET_STATS['tuscan-lakes'];
+      const testimonial = TESTIMONIALS[selectedSeed] || TESTIMONIALS['default'];
+      const comparePicks = NEIGHBORHOODS.filter(n => selectedNeighborhoods.has(n.id));
+
+      // Community links — seed first, then comparables
+      const allPicks = [seed, ...comparePicks];
+      const communityLinksHTML = allPicks.map(n => {
+        const cu = COMMUNITY_URLS[n.id] || { url: 'cities.html' };
+        const isActive = n.id === selectedSeed;
+        return `<a href="${cu.url}" class="be-community-link${isActive ? ' be-community-link--active' : ''}">${isActive ? '📍 ' : ''}${n.name}</a>`;
+      }).join('');
+
+      document.getElementById('stage-5').innerHTML = `
+
+        <!-- ── Confirm header ── -->
+        <div class="be-confirm-s5">
+          <div class="be-confirm-s5__icon">✅</div>
+          <h2 class="be-confirm-s5__title">You're in. Now here's what you actually need to know.</h2>
+          <p class="be-confirm-s5__subtitle">Your search is saved. Below is Phil's honest read on your market — the intel that doesn't show up on Zillow.</p>
+        </div>
+
+        <!-- ── Phil's Take ── -->
+        <div class="be-phils-take">
+          <div class="be-phils-take__meta">
+            <img class="be-phils-take__photo"
+                 src="images/phil-headshot.jpg"
+                 alt="Phillip Himes"
+                 onerror="this.style.display='none';document.getElementById('phils-take-fallback').style.display='flex';" />
+            <div id="phils-take-fallback" class="be-phils-take__photo-fallback" style="display:none;">PH</div>
+            <div class="be-phils-take__id">
+              <div class="be-phils-take__name">Phillip Himes</div>
+              <div class="be-phils-take__title">eXp Realty · Houston Bay Area Suburbs</div>
+            </div>
+            <span class="be-phils-take__badge">Phil's Take</span>
+          </div>
+          <div class="be-phils-take__headline">${take.headline}</div>
+          <div class="be-phils-take__body">${take.body}</div>
+        </div>
+
+        <!-- ── Market Snapshot ── -->
+        <div class="be-market-snap">
+          <div class="be-market-snap__header">
+            <div class="be-market-snap__title">📊 Market Snapshot</div>
+            <div class="be-market-snap__neighborhood">${seed.name} Area · Current Data</div>
+          </div>
+          <div class="be-snap-grid">
+            <div class="be-snap-stat">
+              <div class="be-snap-stat__value">${stats.active}</div>
+              <div class="be-snap-stat__label">Active<br>Listings</div>
+              <div class="be-snap-stat__sub">in area now</div>
+            </div>
+            <div class="be-snap-stat">
+              <div class="be-snap-stat__value">${stats.dom}</div>
+              <div class="be-snap-stat__label">Days on<br>Market</div>
+              <div class="be-snap-stat__sub">avg. to sell</div>
+            </div>
+            <div class="be-snap-stat">
+              <div class="be-snap-stat__value">${stats.ratio}</div>
+              <div class="be-snap-stat__label">List-to-<br>Sale Ratio</div>
+              <div class="be-snap-stat__sub">offer strength</div>
+            </div>
+            <div class="be-snap-stat">
+              <div class="be-snap-stat__value">${stats.median}</div>
+              <div class="be-snap-stat__label">Median<br>Sale Price</div>
+              <div class="be-snap-stat__sub">last 90 days</div>
+            </div>
+          </div>
+          <div class="be-snap-trend be-snap-trend--${stats.trend}">${stats.trendLabel}</div>
+          <div class="be-snap-disclaimer">Estimates based on recent MLS activity · Updated quarterly · Not a guarantee of value</div>
+        </div>
+
+        <!-- ── Evergreen Video ── -->
+        <div class="be-video-slot">
+          <div class="be-video-slot__thumb" id="video-thumb">
+            <div class="be-video-slot__play">▶</div>
+            <div class="be-video-slot__caption">Watch: How to Buy Smart in the Houston Bay Area Suburbs</div>
+          </div>
+          <div class="be-video-slot__body">
+            <div class="be-video-slot__label">From Phil's Desk</div>
+            <div class="be-video-slot__title">The 3 things every buyer gets wrong about this market — and how to avoid them</div>
+          </div>
+        </div>
+
+        <!-- ── Testimonial ── -->
+        <div class="be-testimonial">
+          <div class="be-testimonial__quote">${testimonial.quote}</div>
+          <div class="be-testimonial__byline">
+            <div class="be-testimonial__avatar">${testimonial.initials}</div>
+            <div>
+              <div class="be-testimonial__name">${testimonial.name}</div>
+              <div class="be-testimonial__detail">${testimonial.detail}</div>
+            </div>
+            <div class="be-testimonial__stars">★★★★★</div>
+          </div>
+        </div>
+
+        <!-- ── Community Links ── -->
+        <div class="be-community-links">
+          <div class="be-community-links__title">📍 Deep-Dive Your Neighborhoods</div>
+          <div class="be-community-links__grid">${communityLinksHTML}</div>
+        </div>
+
+        <!-- ── CTAs ── -->
+        <div class="be-cta-row" style="margin-bottom:2rem;">
+          <a href="contact.html?topic=buy" class="btn btn--primary btn--lg">Talk to Phillip Directly</a>
+          <a href="buyers.html#search" class="btn btn--secondary btn--lg">Browse Active Listings</a>
+        </div>
+
+        <p style="text-align:center;font-size:0.82rem;color:var(--mid-gray);padding-bottom:1rem;">
+          Phillip Himes · Brokered by eXp Realty · (832) 536-1016 ·
+          <a href="mailto:phil@philliphimes.com" style="color:var(--teal);">phil@philliphimes.com</a>
+        </p>
+      `;
+
+      // Wire up video thumb click (placeholder behavior)
+      const thumb = document.getElementById('video-thumb');
+      if (thumb) {
+        thumb.addEventListener('click', function() {
+          this.innerHTML = '<div style="color:rgba(255,255,255,0.7);font-family:var(--font-heading);font-size:0.9rem;padding:2rem;text-align:center;line-height:1.6;">Phil\'s neighborhood walk-through videos are coming soon.<br><span style="color:var(--gold);">Caitlyn will follow up with a personal video intro from Phil about your specific market.</span></div>';
+        });
+      }
+    }
+
+    // ─────────────────────────────────────────────────────────
+    //  STATE
+    // ─────────────────────────────────────────────────────────
+    let currentStage = 1;
+    let selectedSeed = null;
+    let selectedPriorities = new Set();
+    let selectedNeighborhoods = new Set();   // comparables picked in Stage 2
+    let selectedPrice = '';
+    let selectedTimeline = '';
+
+    // ─────────────────────────────────────────────────────────
+    //  PROGRESS
+    // ─────────────────────────────────────────────────────────
+    function updateProgress(stage) {
+      const steps = document.querySelectorAll('.be-progress__step');
+      const bar   = document.getElementById('be-progress-bar');
+      steps.forEach((step, i) => {
+        const n = i + 1;
+        step.classList.remove('active', 'completed');
+        if (n < stage) step.classList.add('completed');
+        if (n === stage) step.classList.add('active');
+        if (stage === 5) { step.classList.remove('active'); step.classList.add('completed'); }
+      });
+      bar.style.width = `${Math.min(((stage - 1) / 4) * 100, 100)}%`;
+    }
+
+    function goToStage(n) {
+      document.querySelectorAll('.be-stage').forEach(s => s.classList.remove('active'));
+      document.getElementById(`stage-${n}`).classList.add('active');
+      currentStage = n;
+      updateProgress(n);
+      window.scrollTo({ top: document.getElementById('be-progress').offsetTop - 10, behavior: 'smooth' });
+    }
+
+    // ─────────────────────────────────────────────────────────
+    //  STAGE 1 — SEED GRID (populate on load)
+    // ─────────────────────────────────────────────────────────
+    function buildSeedGrid() {
+      const grid = document.getElementById('seed-grid');
+      grid.innerHTML = '';
+      NEIGHBORHOODS.forEach(n => {
+        const card = document.createElement('div');
+        card.className = 'be-hood-card';
+        card.dataset.id = n.id;
+        card.innerHTML = `
+          <div class="be-hood-card__check">✓</div>
+          <div class="be-hood-card__city">${n.city}</div>
+          <div class="be-hood-card__name">${n.name}</div>
+          <div class="be-hood-card__price">${n.price}</div>
+          <div class="be-hood-tags">
+            <span class="be-hood-tag be-hood-tag--school">${n.schoolTag}</span>
+            <span class="be-hood-tag">${n.tags[0]}</span>
+          </div>
+          <div class="be-hood-card__detail">${n.detail}</div>
+        `;
+        card.addEventListener('click', () => {
+          // Single select — deselect all others first
+          document.querySelectorAll('#seed-grid .be-hood-card').forEach(c => c.classList.remove('selected'));
+          card.classList.add('selected');
+          selectedSeed = n.id;
+          document.getElementById('seed-error').classList.remove('show');
+        });
+        grid.appendChild(card);
+      });
+    }
+
+    // Priority multi-select
+    document.getElementById('priority-grid').addEventListener('click', e => {
+      const btn = e.target.closest('.be-priority-btn');
+      if (!btn) return;
+      btn.classList.toggle('selected');
+      const p = btn.dataset.priority;
+      if (btn.classList.contains('selected')) { selectedPriorities.add(p); }
+      else { selectedPriorities.delete(p); }
+    });
+
+    // Stage 1 → 2
+    document.getElementById('stage1-next').addEventListener('click', function () {
+      if (!selectedSeed) {
+        document.getElementById('seed-error').classList.add('show');
+        document.getElementById('seed-grid').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        return;
+      }
+      document.getElementById('seed-error').classList.remove('show');
+      buildComparisonCards();
+      goToStage(2);
+    });
+
+    // ─────────────────────────────────────────────────────────
+    //  STAGE 2 — COMPARISON CARDS
+    // ─────────────────────────────────────────────────────────
+    function buildComparisonCards() {
+      const seed = NEIGHBORHOODS.find(n => n.id === selectedSeed);
+
+      // Update stage 2 title
+      const titleEl = document.getElementById('stage2-title');
+      if (titleEl) titleEl.innerHTML = `Here's what fits alongside <strong>${seed.name}</strong>.`;
+
+      // Seed display card
+      const seedDisplay = document.getElementById('seed-card-display');
+      seedDisplay.innerHTML = `
+        <div class="be-seed-display">
+          <span class="be-seed-display__label">✓ Your Pick</span>
+          <div class="be-seed-display__body">
+            <div class="be-seed-display__city">${seed.city}</div>
+            <div class="be-seed-display__name">${seed.name}</div>
+            <div class="be-seed-display__meta">${seed.price} &nbsp;·&nbsp; ${seed.schoolTag}</div>
+          </div>
+        </div>
+      `;
+
+      // Reset comparable selections
+      selectedNeighborhoods.clear();
+
+      // Build comparable cards for all other neighborhoods
+      const grid = document.getElementById('comparison-grid');
+      grid.innerHTML = '';
+      const comparables = NEIGHBORHOODS.filter(n => n.id !== selectedSeed);
+      comparables.forEach(n => {
+        const driveMin = DRIVE_TIMES[selectedSeed]?.[n.id] ?? '~20';
+        const diff     = DIFFERENTIATORS[n.id] || '';
+        const card     = document.createElement('div');
+        card.className = 'be-compare-card';
+        card.dataset.id = n.id;
+        card.innerHTML = `
+          <div class="be-compare-card__check">✓</div>
+          <div class="be-compare-card__drive">🚗 ~${driveMin} min between neighborhoods</div>
+          <div class="be-compare-card__city">${n.city}</div>
+          <div class="be-compare-card__name">${n.name}</div>
+          <div class="be-compare-card__price">${n.price}</div>
+          <div class="be-hood-tags" style="margin-bottom:0.5rem;">
+            <span class="be-hood-tag be-hood-tag--school">${n.schoolTag}</span>
+          </div>
+          <div class="be-compare-card__diff">${diff}</div>
+        `;
+        card.addEventListener('click', () => {
+          card.classList.toggle('selected');
+          if (card.classList.contains('selected')) { selectedNeighborhoods.add(n.id); }
+          else { selectedNeighborhoods.delete(n.id); }
+          document.getElementById('compare-error').classList.remove('show');
+        });
+        grid.appendChild(card);
+      });
+    }
+
+    // Stage 2 nav
+    document.getElementById('stage2-back').addEventListener('click', () => goToStage(1));
+    document.getElementById('stage2-next').addEventListener('click', () => {
+      if (selectedNeighborhoods.size === 0) {
+        document.getElementById('compare-error').classList.add('show');
+        return;
+      }
+      goToStage(3);
+    });
+
+    // ─────────────────────────────────────────────────────────
+    //  STAGE 3 — PRICE & TIMELINE
+    // ─────────────────────────────────────────────────────────
+    document.getElementById('price-grid').addEventListener('click', e => {
+      const btn = e.target.closest('.be-price-btn');
+      if (!btn) return;
+      document.querySelectorAll('.be-price-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      selectedPrice = btn.dataset.price;
+      document.getElementById('price-error').classList.remove('show');
+    });
+
+    document.getElementById('timeline-grid').addEventListener('click', e => {
+      const btn = e.target.closest('.be-timeline-btn');
+      if (!btn) return;
+      document.querySelectorAll('.be-timeline-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      selectedTimeline = btn.dataset.timeline;
+      document.getElementById('timeline-error').classList.remove('show');
+    });
+
+    document.getElementById('stage3-back').addEventListener('click', () => goToStage(2));
+    document.getElementById('stage3-next').addEventListener('click', () => {
+      let valid = true;
+      if (!selectedPrice)    { document.getElementById('price-error').classList.add('show');    valid = false; }
+      if (!selectedTimeline) { document.getElementById('timeline-error').classList.add('show'); valid = false; }
+      if (!valid) return;
+      buildSummary();
+      goToStage(4);
+    });
+
+    // ─────────────────────────────────────────────────────────
+    //  STAGE 4 — SUMMARY & OPT-IN
+    // ─────────────────────────────────────────────────────────
+    function buildSummary() {
+      const seed         = NEIGHBORHOODS.find(n => n.id === selectedSeed);
+      const comparePicks = NEIGHBORHOODS.filter(n => selectedNeighborhoods.has(n.id));
+      const allNames     = [seed?.name, ...comparePicks.map(n => n.name)].filter(Boolean).join(', ');
+
+      const priorityLabels = {
+        schools: 'School Quality', commute: 'Short Commute', space: 'Lot Size & Space',
+        lifestyle: 'Amenities & Lifestyle', value: 'Best Value', 'new-construction': 'New Construction'
+      };
+      const priorities = [...selectedPriorities].map(p => priorityLabels[p] || p).join(', ');
+
+      const grid = document.getElementById('summary-grid');
+      grid.innerHTML = `
+        <div class="be-summary__item">
+          <div class="be-summary__item-label">📍 Starting Neighborhood</div>
+          <div class="be-summary__item-value">${seed?.name || '—'}</div>
+        </div>
+        <div class="be-summary__item">
+          <div class="be-summary__item-label">🏡 Also Exploring</div>
+          <div class="be-summary__item-value">${comparePicks.map(n => n.name).join(', ') || '—'}</div>
+        </div>
+        <div class="be-summary__item">
+          <div class="be-summary__item-label">💰 Price Range</div>
+          <div class="be-summary__item-value">${selectedPrice || '—'}</div>
+        </div>
+        <div class="be-summary__item">
+          <div class="be-summary__item-label">📅 Timeline</div>
+          <div class="be-summary__item-value">${selectedTimeline || '—'}</div>
+        </div>
+        ${priorities ? `<div class="be-summary__item" style="grid-column:1/-1;">
+          <div class="be-summary__item-label">⭐ What Matters Most</div>
+          <div class="be-summary__item-value">${priorities}</div>
+        </div>` : ''}
+      `;
+
+      // Populate hidden form fields
+      document.getElementById('hidden-neighborhoods').value = allNames;
+      document.getElementById('hidden-price').value         = selectedPrice;
+      document.getElementById('hidden-timeline').value      = selectedTimeline;
+      document.getElementById('hidden-seed').value          = seed?.name || '';
+      document.getElementById('hidden-priorities').value    = priorities;
+    }
+
+    document.getElementById('stage4-back').addEventListener('click', () => goToStage(3));
+
+    // Form submission
+    document.getElementById('optin-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      let valid = true;
+      const fn      = document.getElementById('first-name').value.trim();
+      const ln      = document.getElementById('last-name').value.trim();
+      const em      = document.getElementById('email').value.trim();
+      const ph      = document.getElementById('phone').value.trim();
+      const consent = document.getElementById('sms-consent').checked;
+
+      if (!fn) { document.getElementById('fname-error').classList.add('show');   valid = false; } else { document.getElementById('fname-error').classList.remove('show'); }
+      if (!ln) { document.getElementById('lname-error').classList.add('show');   valid = false; } else { document.getElementById('lname-error').classList.remove('show'); }
+      if (!em || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) { document.getElementById('email-error').classList.add('show'); valid = false; } else { document.getElementById('email-error').classList.remove('show'); }
+      if (!ph) { document.getElementById('phone-error').classList.add('show');   valid = false; } else { document.getElementById('phone-error').classList.remove('show'); }
+      if (!consent) { document.getElementById('consent-error').classList.add('show'); valid = false; } else { document.getElementById('consent-error').classList.remove('show'); }
+      if (!valid) return;
+
+      const btn = document.getElementById('submit-btn');
+      btn.textContent = 'Sending…';
+      btn.disabled = true;
+
+      const formData = new FormData(this);
+      fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(formData).toString()
+      })
+      .then(() => { buildConfirmationScreen(); goToStage(5); })
+      .catch(() => { buildConfirmationScreen(); goToStage(5); });  // advance anyway — don't strand user
+      // GHL Mashore Method webhook
+      fetch('https://services.leadconnectorhq.com/hooks/oyGNN4xzQ5FxZ2PQgFzE/webhook-trigger/976f3746-112a-4474-862f-1085e0ddb196', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          firstName: fn,
+          lastName: ln,
+          email: em,
+          phone: ph,
+          sms_consent: consent ? 'yes' : 'no',
+          source: 'BuyerIQ',
+          neighborhoods: document.getElementById('hidden-neighborhoods').value,
+          price_range: document.getElementById('hidden-price').value,
+          timeline: document.getElementById('hidden-timeline').value,
+          seed_neighborhood: document.getElementById('hidden-seed').value,
+          priorities: document.getElementById('hidden-priorities').value
+        })
+      }).catch(() => {});
+    });
+
+    // ─────────────────────────────────────────────────────────
+    //  INIT
+    // ─────────────────────────────────────────────────────────
+    buildSeedGrid();
+    updateProgress(1);
+
+  </script>
+<script src="https://widgets.leadconnectorhq.com/loader.js" data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" data-widget-id="6a0623c7f127bb5833bc2697"></script>
+</body>
+</html>

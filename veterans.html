@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VA Home Loans for Veterans & Military | League City & Houston Bay Area | Phillip Himes</title>
+  <meta name="description" content="You've earned your VA benefit. Phillip Himes helps veterans and active military in League City and the Houston Bay Area maximize their VA loan — $0 down, no PMI, and an agent who understands military timelines." />
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+
+  <style>
+
+    /* ─── PAGE HERO ────────────────────────────────────── */
+    .vet-hero {
+      background: linear-gradient(135deg, #2e1a06 0%, #5a380d 50%, #7a4a10 100%);
+      padding: 5rem 0 4rem; position: relative; overflow: hidden;
+    }
+    .vet-hero::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 65% 40%, rgba(240,192,96,0.1) 0%, transparent 55%);
+      pointer-events: none;
+    }
+    .vet-hero__eyebrow {
+      font-family: var(--font-heading); font-size: 0.75rem; font-weight: 800;
+      letter-spacing: 0.18em; text-transform: uppercase; color: #f0c060;
+      margin-bottom: 1rem; display: block;
+    }
+    .vet-hero__title {
+      font-family: var(--font-heading); font-weight: 900;
+      font-size: clamp(2rem, 4vw, 3rem); color: white;
+      line-height: 1.1; margin-bottom: 1.25rem;
+    }
+    .vet-hero__subtitle {
+      font-size: clamp(0.95rem, 1.5vw, 1.1rem); color: rgba(255,255,255,0.78);
+      line-height: 1.7; max-width: 560px; margin-bottom: 2rem;
+    }
+    .vet-hero__btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .vet-hero__btn--primary {
+      background: #f0c060; color: #2e1a06;
+      font-family: var(--font-heading); font-weight: 800; font-size: 0.92rem;
+      padding: 0.85rem 1.75rem; border-radius: var(--radius-full);
+      text-decoration: none; transition: all 0.2s; letter-spacing: 0.03em;
+    }
+    .vet-hero__btn--primary:hover { background: #f5d080; }
+    .vet-hero__btn--outline {
+      background: transparent; color: rgba(255,255,255,0.85);
+      border: 2px solid rgba(255,255,255,0.3);
+      font-family: var(--font-heading); font-weight: 700; font-size: 0.88rem;
+      padding: 0.85rem 1.75rem; border-radius: var(--radius-full);
+      text-decoration: none; transition: all 0.2s;
+    }
+    .vet-hero__btn--outline:hover { border-color: rgba(255,255,255,0.6); }
+
+    /* ─── VA BENEFIT OVERVIEW ──────────────────────────── */
+    .vet-benefit {
+      background: var(--off-white, #f9f7f4); padding: 5rem 0;
+    }
+    .vet-benefit__eyebrow {
+      font-family: var(--font-heading); font-size: 0.75rem; font-weight: 800;
+      letter-spacing: 0.18em; text-transform: uppercase; color: #7a4a10;
+      margin-bottom: 0.85rem; display: block; text-align: center;
+    }
+    .vet-benefit__heading {
+      font-family: var(--font-heading); font-weight: 900;
+      font-size: clamp(1.6rem, 3vw, 2.2rem); color: var(--navy);
+      line-height: 1.15; margin-bottom: 0.75rem; text-align: center;
+    }
+    .vet-benefit__sub {
+      text-align: center; color: var(--dark-gray); font-size: 0.95rem;
+      line-height: 1.65; max-width: 600px; margin: 0 auto 3.5rem;
+    }
+
+    .vet-pillars {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+    }
+    @media (max-width: 860px) { .vet-pillars { grid-template-columns: 1fr; } }
+
+    .vet-pillar {
+      background: white; border-radius: var(--radius-xl); padding: 2rem;
+      border: 1.5px solid var(--light-gray); text-align: center;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .vet-pillar:hover { border-color: #f0c060; box-shadow: 0 8px 30px rgba(0,0,0,0.07); }
+    .vet-pillar__icon { font-size: 2.25rem; margin-bottom: 0.85rem; }
+    .vet-pillar__title {
+      font-family: var(--font-heading); font-weight: 900; font-size: 1rem;
+      color: var(--navy); margin-bottom: 0.5rem;
+    }
+    .vet-pillar__value {
+      font-family: var(--font-heading); font-weight: 900; font-size: 1.6rem;
+      color: #7a4a10; margin-bottom: 0.5rem; line-height: 1.1;
+    }
+    .vet-pillar__desc { font-size: 0.83rem; color: var(--dark-gray); line-height: 1.6; }
+
+    /* ─── DARK VA MECHANICS SECTION ────────────────────── */
+    .vet-mechanics {
+      background: linear-gradient(135deg, #0a1c2e 0%, #0d2137 100%);
+      padding: 5rem 0; position: relative; overflow: hidden;
+    }
+    .vet-mechanics::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 30% 60%, rgba(240,192,96,0.06) 0%, transparent 55%);
+      pointer-events: none;
+    }
+    .vet-mechanics .section-header__eyebrow { color: #f0c060; }
+    .vet-mechanics .section-header__title { color: white; }
+    .vet-mechanics .section-header__subtitle { color: rgba(255,255,255,0.65); }
+
+    .vet-qa-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-top: 3rem;
+    }
+    @media (max-width: 820px) { .vet-qa-grid { grid-template-columns: 1fr; } }
+
+    .vet-qa {
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius-xl); padding: 1.75rem;
+    }
+    .vet-qa__q {
+      font-family: var(--font-heading); font-weight: 800; font-size: 0.9rem;
+      color: #f0c060; margin-bottom: 0.75rem; line-height: 1.3;
+    }
+    .vet-qa__a { font-size: 0.83rem; color: rgba(255,255,255,0.72); line-height: 1.7; }
+    .vet-qa__a strong { color: rgba(255,255,255,0.9); }
+
+    /* ─── PHIL'S SERVICE SECTION ───────────────────────── */
+    .vet-service {
+      background: #f9f7f4; padding: 5rem 0;
+    }
+    .vet-service__inner {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 3.5rem; align-items: center;
+    }
+    @media (max-width: 860px) { .vet-service__inner { grid-template-columns: 1fr; } }
+
+    .vet-service__eyebrow {
+      font-family: var(--font-heading); font-size: 0.75rem; font-weight: 800;
+      letter-spacing: 0.18em; text-transform: uppercase; color: #7a4a10;
+      margin-bottom: 0.85rem; display: block;
+    }
+    .vet-service__heading {
+      font-family: var(--font-heading); font-weight: 900;
+      font-size: clamp(1.4rem, 2.5vw, 1.9rem); color: var(--navy);
+      line-height: 1.15; margin-bottom: 1rem;
+    }
+    .vet-service__body {
+      font-size: 0.93rem; color: var(--dark-gray); line-height: 1.78; margin-bottom: 1rem;
+    }
+    .vet-service__body strong { color: var(--navy); }
+
+    .vet-service__card {
+      background: linear-gradient(145deg, #1c0e03 0%, #2e1a06 100%);
+      border-radius: var(--radius-xl); overflow: hidden;
+      box-shadow: 0 12px 48px rgba(0,0,0,0.25);
+    }
+    .vet-service__card-header {
+      background: linear-gradient(90deg, #7a4a10, #5a380d);
+      padding: 1.25rem 1.75rem;
+      display: flex; flex-direction: column; gap: 0.25rem;
+    }
+    .vet-service__rank {
+      font-family: var(--font-heading); font-weight: 900; font-size: 1rem;
+      color: #f0c060; letter-spacing: 0.03em;
+    }
+    .vet-service__branch {
+      font-size: 0.78rem; color: rgba(255,255,255,0.75);
+      font-family: var(--font-heading); font-weight: 700;
+    }
+    .vet-service__rows {
+      padding: 1.5rem 1.75rem; display: flex; flex-direction: column; gap: 1rem;
+    }
+    .vet-service__row {
+      display: grid; grid-template-columns: 110px 1fr; gap: 0.75rem; align-items: start;
+    }
+    .vet-service__row--full { grid-template-columns: 1fr; }
+    .vet-service__row-label {
+      font-family: var(--font-heading); font-size: 0.65rem; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.35);
+      padding-top: 0.1rem;
+    }
+    .vet-service__row-value {
+      font-family: var(--font-heading); font-weight: 700; font-size: 0.88rem; color: white;
+    }
+    .vet-service__stations {
+      display: flex; flex-direction: column; gap: 0.75rem; margin-top: 0.5rem;
+    }
+    .vet-service__station {
+      display: flex; gap: 0.75rem; align-items: flex-start;
+      padding: 0.65rem 0.85rem;
+      background: rgba(255,255,255,0.04); border-radius: var(--radius-md);
+      border: 1px solid rgba(255,255,255,0.07);
+    }
+    .vet-service__station-flag { font-size: 1.1rem; flex-shrink: 0; margin-top: 0.05rem; }
+    .vet-service__station-name {
+      font-family: var(--font-heading); font-weight: 800; font-size: 0.83rem; color: white;
+      margin-bottom: 0.15rem;
+    }
+    .vet-service__station-unit {
+      font-size: 0.74rem; color: #f0c060; font-family: var(--font-heading); font-weight: 600;
+    }
+
+    /* ─── PCS / MILITARY LIFE SECTION ──────────────────── */
+    .vet-pcs {
+      background: white; padding: 5rem 0;
+    }
+    .vet-pcs__grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 3.5rem; align-items: center;
+    }
+    @media (max-width: 820px) { .vet-pcs__grid { grid-template-columns: 1fr; } }
+
+    .vet-pcs__eyebrow {
+      font-family: var(--font-heading); font-size: 0.75rem; font-weight: 800;
+      letter-spacing: 0.18em; text-transform: uppercase; color: #7a4a10;
+      margin-bottom: 0.85rem; display: block;
+    }
+    .vet-pcs__heading {
+      font-family: var(--font-heading); font-weight: 900;
+      font-size: clamp(1.4rem, 2.5vw, 1.9rem); color: var(--navy);
+      line-height: 1.15; margin-bottom: 1rem;
+    }
+    .vet-pcs__body {
+      font-size: 0.93rem; color: var(--dark-gray); line-height: 1.75; margin-bottom: 1.25rem;
+    }
+    .vet-pcs__body strong { color: var(--navy); }
+
+    .vet-considerations { display: flex; flex-direction: column; gap: 1rem; }
+    .vet-consideration {
+      background: var(--off-white, #f9f7f4); border-radius: var(--radius-lg);
+      padding: 1.25rem 1.5rem; display: flex; gap: 1rem; align-items: flex-start;
+      border: 1.5px solid var(--light-gray); transition: border-color 0.2s;
+    }
+    .vet-consideration:hover { border-color: #f0c060; }
+    .vet-consideration__icon { font-size: 1.4rem; flex-shrink: 0; }
+    .vet-consideration__title {
+      font-family: var(--font-heading); font-weight: 800; font-size: 0.88rem;
+      color: var(--navy); margin-bottom: 0.3rem;
+    }
+    .vet-consideration__desc { font-size: 0.82rem; color: var(--dark-gray); line-height: 1.6; }
+
+    /* ─── TESTIMONIAL ──────────────────────────────────── */
+    .vet-testimonial {
+      background: #fdf8ef; padding: 5rem 0; position: relative;
+    }
+    .vet-testimonial::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+      background: linear-gradient(90deg, #7a4a10, #f0c060);
+    }
+
+    /* ─── CTA ──────────────────────────────────────────── */
+    .vet-cta {
+      background: linear-gradient(135deg, #2e1a06 0%, #5a380d 100%);
+      padding: 5rem 0; position: relative; overflow: hidden;
+    }
+    .vet-cta::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 60% 50%, rgba(240,192,96,0.08) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .vet-cta__inner { text-align: center; position: relative; max-width: 660px; margin: 0 auto; }
+    .vet-cta__eyebrow {
+      font-family: var(--font-heading); font-size: 0.75rem; font-weight: 800;
+      letter-spacing: 0.18em; text-transform: uppercase; color: #f0c060;
+      margin-bottom: 1rem; display: block;
+    }
+    .vet-cta__title {
+      font-family: var(--font-heading); font-weight: 900;
+      font-size: clamp(1.5rem, 3vw, 2.2rem); color: white;
+      line-height: 1.15; margin-bottom: 1rem;
+    }
+    .vet-cta__text {
+      font-size: 0.95rem; color: rgba(255,255,255,0.72);
+      line-height: 1.7; margin-bottom: 2.5rem;
+    }
+    .vet-cta__btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .vet-cta__btn--primary {
+      background: #f0c060; color: #2e1a06;
+      font-family: var(--font-heading); font-weight: 800; font-size: 0.95rem;
+      padding: 0.9rem 2rem; border-radius: var(--radius-full);
+      text-decoration: none; transition: all 0.2s;
+    }
+    .vet-cta__btn--primary:hover { background: #f5d080; }
+
+  </style>
+</head>
+<body>
+
+  <!-- ── NAVIGATION ──────────────────────────────────── -->
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo" aria-label="Phillip Himes Real Estate Home">
+        <img src="images/logo.png" alt="Phillip Himes | Brokered by eXp Realty" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+        <span class="nav__logo-text" style="display:none;">
+          <span class="nav__logo-name">Phillip Himes</span>
+          <span class="nav__logo-brokerage">Brokered by eXp Realty</span>
+        </span>
+      </a>
+      <ul class="nav__links" id="nav-links">
+        <li><a href="buyers.html" class="nav__link nav__link--active">Buying</a></li>
+        <li><a href="sellers.html" class="nav__link">Selling</a></li>
+        <li class="nav__item nav__item--dropdown">
+          <a href="cities.html" class="nav__link">Cities</a>
+          <ul class="nav__dropdown" aria-label="Cities submenu">
+            <li><a href="cities.html#league-city">League City</a></li>
+            <li><a href="cities.html#friendswood">Friendswood</a></li>
+            <li><a href="cities.html#pearland">Pearland</a></li>
+            <li><a href="cities.html#clear-lake">Clear Lake</a></li>
+            <li><a href="cities.html#dickinson">Dickinson</a></li>
+            <li><a href="cities.html#manvel">Manvel</a></li>
+          </ul>
+        </li>
+        <li class="nav__item nav__item--dropdown">
+          <a href="marketiq.html" class="nav__link">Tools</a>
+          <ul class="nav__dropdown" aria-label="Tools submenu">
+            <li><a href="buyeriq.html">BuyerIQ™ — Buyer's Edge</a></li>
+            <li><a href="selleriq.html">SellerIQ™ — Seller's Edge</a></li>
+            <li><a href="marketiq.html">MarketIQ™ — Property Intelligence</a></li>
+          </ul>
+        </li>
+        <li><a href="contact.html" class="nav__link">Ask Phil</a></li>
+        <li class="nav__mobile-cta" style="display:none;">
+          <a href="tel:8325361016" class="btn btn--secondary" style="width:100%;margin-top:var(--space-md);">📞 (832) 536-1016</a>
+          <a href="buyeriq.html" class="btn btn--primary" style="width:100%;margin-top:var(--space-sm);">Start BuyerIQ™</a>
+        </li>
+      </ul>
+      <div class="nav__cta">
+        <a href="tel:8325361016" class="nav__phone">📞 (832) 536-1016</a>
+        <a href="buyeriq.html" class="btn btn--primary btn--sm">Start BuyerIQ™</a>
+      </div>
+      <button class="nav__hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ── HERO ───────────────────────────────────────── -->
+  <section class="vet-hero" aria-label="Veterans hero">
+    <div class="container">
+      <span class="vet-hero__eyebrow">🎖️ Veterans &amp; Active Military · Houston Bay Area</span>
+      <h1 class="vet-hero__title">You've Earned This Benefit.<br />Let's Make Sure You Use It Right.</h1>
+      <p class="vet-hero__subtitle">The VA loan is one of the most powerful home buying tools available anywhere — $0 down, no PMI, competitive rates. Most veterans leave money on the table simply because they don't have an agent who understands how to use it.</p>
+      <div class="vet-hero__btns">
+        <a href="buyeriq.html" class="vet-hero__btn--primary">Start BuyerIQ™ — Free →</a>
+        <a href="contact.html" class="vet-hero__btn--outline">Talk to Phil Directly</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── VA BENEFIT PILLARS ─────────────────────────── -->
+  <section class="vet-benefit" aria-labelledby="benefit-heading">
+    <div class="container">
+      <span class="vet-benefit__eyebrow">What You've Earned</span>
+      <h2 class="vet-benefit__heading" id="benefit-heading">The VA Loan Advantage — By the Numbers</h2>
+      <p class="vet-benefit__sub">The VA home loan benefit isn't just a program — it's a competitive edge that most veterans significantly underutilize. Here's what it actually gives you.</p>
+
+      <div class="vet-pillars">
+        <div class="vet-pillar">
+          <div class="vet-pillar__icon">💰</div>
+          <div class="vet-pillar__title">Down Payment Required</div>
+          <div class="vet-pillar__value">$0</div>
+          <div class="vet-pillar__desc">Full purchase price financed with no down payment required for eligible veterans with full entitlement. Conventional loans typically require 5–20% down.</div>
+        </div>
+        <div class="vet-pillar">
+          <div class="vet-pillar__icon">🚫</div>
+          <div class="vet-pillar__title">Private Mortgage Insurance</div>
+          <div class="vet-pillar__value">No PMI</div>
+          <div class="vet-pillar__desc">PMI can cost $100–$200+ per month on a conventional loan. VA loans eliminate it entirely — that's real money back in your pocket every month.</div>
+        </div>
+        <div class="vet-pillar">
+          <div class="vet-pillar__icon">📉</div>
+          <div class="vet-pillar__title">Interest Rates</div>
+          <div class="vet-pillar__value">Below Market</div>
+          <div class="vet-pillar__desc">VA loans consistently carry lower interest rates than conventional loans — typically 0.25%–0.5% lower. On a $400K loan, that's thousands saved over the life of the mortgage.</div>
+        </div>
+        <div class="vet-pillar">
+          <div class="vet-pillar__icon">🔄</div>
+          <div class="vet-pillar__title">Benefit Usage</div>
+          <div class="vet-pillar__value">Reusable</div>
+          <div class="vet-pillar__desc">Your VA benefit isn't single-use. As long as you pay off or sell the previous home, entitlement is restored. You can use it again and again throughout your life.</div>
+        </div>
+        <div class="vet-pillar">
+          <div class="vet-pillar__icon">📋</div>
+          <div class="vet-pillar__title">Credit Requirements</div>
+          <div class="vet-pillar__value">Flexible</div>
+          <div class="vet-pillar__desc">The VA doesn't set a minimum credit score — lenders do, and they're typically more flexible with VA loans than conventional. Credit challenges don't automatically disqualify you.</div>
+        </div>
+        <div class="vet-pillar">
+          <div class="vet-pillar__icon">🛡️</div>
+          <div class="vet-pillar__title">Seller Protections</div>
+          <div class="vet-pillar__value">Built In</div>
+          <div class="vet-pillar__desc">VA appraisals include minimum property requirements that protect you from buying a home with major deficiencies. The VA works for the veteran — not the seller.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── VA MECHANICS Q&A ───────────────────────────── -->
+  <section class="vet-mechanics" aria-labelledby="mechanics-heading">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-header__eyebrow">Know Your Benefit</span>
+        <h2 class="section-header__title" id="mechanics-heading">The Questions Every Veteran Should Ask Before Buying</h2>
+        <p class="section-header__subtitle">The VA loan has nuances. Know these before you start — they affect your strategy.</p>
+      </div>
+      <div class="vet-qa-grid">
+
+        <div class="vet-qa">
+          <div class="vet-qa__q">What's the VA funding fee and who pays it?</div>
+          <div class="vet-qa__a">The VA funding fee is a one-time fee (typically 2.15% for first-time use with $0 down) that replaces the mortgage insurance conventional borrowers pay monthly. It can be financed into the loan. <strong>Veterans with a service-connected disability rating are exempt from the funding fee entirely.</strong></div>
+        </div>
+
+        <div class="vet-qa">
+          <div class="vet-qa__q">Can I use my VA benefit if I still have a VA loan on another property?</div>
+          <div class="vet-qa__a">Yes, in some cases. If you have remaining entitlement, you may be able to use a second VA loan. The calculation depends on your current loan balance, the county loan limit, and whether you've restored entitlement. We'll run this before you commit to anything.</div>
+        </div>
+
+        <div class="vet-qa">
+          <div class="vet-qa__q">Do sellers in this market resist VA offers?</div>
+          <div class="vet-qa__a">Some sellers have misconceptions about VA loans — longer timelines, stricter appraisals. <strong>A well-prepared VA offer with an experienced agent can win against conventional offers.</strong> I know how to present VA offers so sellers take them seriously.</div>
+        </div>
+
+        <div class="vet-qa">
+          <div class="vet-qa__q">What does the VA appraisal mean for negotiations?</div>
+          <div class="vet-qa__a">If the VA appraisal comes in below the purchase price, you have options: negotiate the price down, pay the difference in cash, or walk away. The VA appraisal protects you — you can't be forced to pay more than appraised value without a choice.</div>
+        </div>
+
+        <div class="vet-qa">
+          <div class="vet-qa__q">Can I use BAH (Basic Allowance for Housing) to qualify?</div>
+          <div class="vet-qa__a">Yes. BAH is considered non-taxable income, and lenders typically gross it up by 25% for qualifying purposes — meaning your BAH goes further toward your debt-to-income ratio than the same dollar amount of taxable income would.</div>
+        </div>
+
+        <div class="vet-qa">
+          <div class="vet-qa__q">How do I get my Certificate of Eligibility (COE)?</div>
+          <div class="vet-qa__a">Your COE confirms your entitlement and is required before you can use the VA loan. It can be obtained through the VA website, your lender (many can pull it directly), or through a VA-approved agent. <strong>We handle this early in the process so nothing slows you down.</strong></div>
+        </div>
+
+        <div class="vet-qa">
+          <div class="vet-qa__q">What property types qualify for a VA loan?</div>
+          <div class="vet-qa__a">Primary residences only — single family homes, townhomes, condos (VA-approved), and some multi-family (if you occupy one unit). Investment properties and vacation homes don't qualify. New construction requires specific VA approval for the builder.</div>
+        </div>
+
+        <div class="vet-qa">
+          <div class="vet-qa__q">What if I've had a bankruptcy or foreclosure?</div>
+          <div class="vet-qa__a">The VA has more lenient guidelines than conventional loans. Typically 2 years post-bankruptcy discharge and 2 years post-foreclosure — though timing and circumstances matter. Don't assume you don't qualify. Let's look at your specific situation.</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PHIL'S SERVICE ────────────────────────────────── -->
+  <section class="vet-service" aria-labelledby="service-heading">
+    <div class="container">
+      <div class="vet-service__inner">
+        <div class="vet-service__left">
+          <span class="vet-service__eyebrow">From One Veteran to Another</span>
+          <h2 class="vet-service__heading" id="service-heading">I Didn't Just Study the VA Loan.<br />I Earned the Right to Use It.</h2>
+          <p class="vet-service__body">Before I was a REALTOR®, I was an Army infantryman. I served for 9 years, achieved the rank of Staff Sergeant (SSG), and trained as an 11B — the tip of the spear. I went through Sniper School. I know what discipline, mission focus, and attention to detail actually look like under pressure.</p>
+          <p class="vet-service__body">I've PCS'd. I've packed up and reported to a new duty station on someone else's timeline. I know what it feels like to need housing figured out fast, in a place you've never lived, with orders that don't care about the real estate market.</p>
+          <p class="vet-service__body">When I tell you I understand military life — that's not a sales line. I lived it.</p>
+          <a href="buyeriq.html" class="btn btn--primary" style="margin-top:1.75rem;">Start BuyerIQ™ — Let's Talk →</a>
+        </div>
+        <div class="vet-service__right">
+          <div class="vet-service__card">
+            <div class="vet-service__card-header">
+              <span class="vet-service__rank">SSG · Staff Sergeant</span>
+              <span class="vet-service__branch">🇺🇸 United States Army · 9 Years</span>
+            </div>
+            <div class="vet-service__rows">
+              <div class="vet-service__row">
+                <div class="vet-service__row-label">MOS</div>
+                <div class="vet-service__row-value">11B — Infantryman</div>
+              </div>
+              <div class="vet-service__row">
+                <div class="vet-service__row-label">Qualification</div>
+                <div class="vet-service__row-value">Army Sniper School Graduate</div>
+              </div>
+              <div class="vet-service__row vet-service__row--full">
+                <div class="vet-service__row-label">Duty Stations &amp; Deployments</div>
+                <div class="vet-service__stations">
+                  <div class="vet-service__station">
+                    <span class="vet-service__station-flag">🏔️</span>
+                    <div>
+                      <div class="vet-service__station-name">Fort Lewis, WA</div>
+                      <div class="vet-service__station-unit">9th Infantry Division</div>
+                    </div>
+                  </div>
+                  <div class="vet-service__station">
+                    <span class="vet-service__station-flag">🌍</span>
+                    <div>
+                      <div class="vet-service__station-name">Sinai Peninsula, Egypt</div>
+                      <div class="vet-service__station-unit">Multinational Force &amp; Observers</div>
+                    </div>
+                  </div>
+                  <div class="vet-service__station">
+                    <span class="vet-service__station-flag">🌏</span>
+                    <div>
+                      <div class="vet-service__station-name">South Korea</div>
+                      <div class="vet-service__station-unit">2nd Infantry Division</div>
+                    </div>
+                  </div>
+                  <div class="vet-service__station">
+                    <span class="vet-service__station-flag">🌊</span>
+                    <div>
+                      <div class="vet-service__station-name">Haiti</div>
+                      <div class="vet-service__station-unit">Operation Restore Hope</div>
+                    </div>
+                  </div>
+                  <div class="vet-service__station">
+                    <span class="vet-service__station-flag">❄️</span>
+                    <div>
+                      <div class="vet-service__station-name">Fort Drum, NY</div>
+                      <div class="vet-service__station-unit">10th Mountain Division</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PCS / MILITARY LIFE CONSIDERATIONS ─────────── -->
+  <section class="vet-pcs" aria-labelledby="pcs-heading">
+    <div class="container">
+      <div class="vet-pcs__grid">
+        <div>
+          <span class="vet-pcs__eyebrow">Military Life Realities</span>
+          <h2 class="vet-pcs__heading" id="pcs-heading">Buying with Military Timelines in Mind</h2>
+          <p class="vet-pcs__body">Military life doesn't follow a standard real estate timeline. PCS orders, deployment windows, BAH transitions, and the possibility of a future move all affect the decisions you make today.</p>
+          <p class="vet-pcs__body"><strong>I don't just find you a house. I find you a house that makes sense given where your career and life are headed.</strong> That means thinking about resale from day one, proximity to Ellington Field and the NASA corridor, and neighborhoods that attract strong tenant pools if you ever need to rent it out.</p>
+          <p class="vet-pcs__body">The Houston Bay Area is home to a significant military and veteran community. League City, Clear Lake, and Friendswood are all within easy reach of Ellington Field Joint Reserve Base — and the communities are military-friendly.</p>
+          <a href="buyeriq.html" class="btn btn--primary" style="margin-top:1.5rem;">Start BuyerIQ™ — Plan It Right →</a>
+        </div>
+        <div>
+          <div class="vet-considerations">
+            <div class="vet-consideration">
+              <div class="vet-consideration__icon">📅</div>
+              <div>
+                <div class="vet-consideration__title">PCS Timelines</div>
+                <div class="vet-consideration__desc">Military buyers often need to move fast. I can compress timelines without cutting corners — coordinating lender, inspection, and closing to match your reporting date.</div>
+              </div>
+            </div>
+            <div class="vet-consideration">
+              <div class="vet-consideration__icon">📍</div>
+              <div>
+                <div class="vet-consideration__title">Proximity to Ellington Field</div>
+                <div class="vet-consideration__desc">League City and Clear Lake put you within 15–20 minutes of Ellington Field Joint Reserve Base. I know which communities offer the best commute, schools, and resale.</div>
+              </div>
+            </div>
+            <div class="vet-consideration">
+              <div class="vet-consideration__icon">🏠</div>
+              <div>
+                <div class="vet-consideration__title">Rental-Friendly Buying</div>
+                <div class="vet-consideration__desc">If future orders take you elsewhere, you'll want a home that rents well. I factor in rental demand, HOA restrictions, and property management access when we look at every home.</div>
+              </div>
+            </div>
+            <div class="vet-consideration">
+              <div class="vet-consideration__icon">💵</div>
+              <div>
+                <div class="vet-consideration__title">BAH Optimization</div>
+                <div class="vet-consideration__desc">Your BAH is set for the Galveston County area. We'll find a home that maximizes what your BAH covers — so your housing benefit works as hard as possible for your family.</div>
+              </div>
+            </div>
+            <div class="vet-consideration">
+              <div class="vet-consideration__icon">🔁</div>
+              <div>
+                <div class="vet-consideration__title">Entitlement Restoration</div>
+                <div class="vet-consideration__desc">Already used your VA benefit on a previous home? Depending on your situation, entitlement may be restorable. We check this early — not after you've fallen in love with a house.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── TESTIMONIAL ────────────────────────────────── -->
+  <section class="vet-testimonial" aria-label="Client testimonial">
+    <div class="container">
+      <div style="max-width:820px;margin:0 auto;text-align:center;">
+        <span style="font-family:var(--font-heading);font-size:0.72rem;font-weight:800;text-transform:uppercase;letter-spacing:0.18em;color:#7a4a10;margin-bottom:1rem;display:block;">Client Story</span>
+        <div style="font-family:Georgia,serif;font-size:6rem;line-height:0.55;color:#7a4a10;opacity:0.2;margin-bottom:1rem;" aria-hidden="true">"</div>
+        <blockquote style="font-family:var(--font-accent);font-style:italic;font-size:clamp(1.05rem,2vw,1.35rem);color:var(--navy);line-height:1.7;margin:0 0 2rem;border:none;padding:0;">
+          Our house was on the market for over 6 months with a well-known big time agent — one offer, no strategy, just another listing. We met Phil, he pulled it, repriced it with a real plan, and we had a cash offer in 10 days. That's the difference an agent who actually works makes.
+        </blockquote>
+        <div style="display:inline-flex;align-items:center;gap:1rem;background:white;border-radius:var(--radius-full);padding:0.6rem 1.5rem 0.6rem 0.6rem;box-shadow:0 2px 16px rgba(0,0,0,0.08);margin-bottom:2rem;">
+          <div style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#5a380d,#7a4a10);display:flex;align-items:center;justify-content:center;font-family:var(--font-heading);font-weight:800;font-size:0.75rem;color:white;flex-shrink:0;">PK</div>
+          <div style="text-align:left;">
+            <div style="font-family:var(--font-heading);font-weight:800;font-size:0.92rem;color:var(--navy);">Paul Kaup</div>
+            <div style="font-size:0.75rem;color:var(--dark-gray);">Sold in Westover Park, League City · 6 months stalled → cash offer in 10 days</div>
+          </div>
+        </div>
+        <div>
+          <a href="buyeriq.html" class="btn btn--primary btn--lg">Start BuyerIQ™ — Maximize Your Benefit →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA ───────────────────────────────────────── -->
+  <section class="vet-cta" aria-labelledby="vet-cta-heading">
+    <div class="container">
+      <div class="vet-cta__inner">
+        <span class="vet-cta__eyebrow">Veterans &amp; Military</span>
+        <h2 class="vet-cta__title" id="vet-cta-heading">You Served. Now Let's Get You the Home You've Earned.</h2>
+        <p class="vet-cta__text">Start BuyerIQ™ to map out your purchasing power, ideal neighborhoods near Ellington Field, and the right strategy for your timeline. Free, no commitment — just clarity before you commit to anything.</p>
+        <div class="vet-cta__btns">
+          <a href="buyeriq.html" class="vet-cta__btn--primary">Start BuyerIQ™ →</a>
+          <a href="tel:8325361016" class="btn btn--white-outline btn--lg">📞 (832) 536-1016</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ─────────────────────────────────────── -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <div class="footer__brand-name">Phillip Himes</div>
+          <div class="footer__brokerage">REALTOR® | Brokered by eXp Realty</div>
+          <p class="footer__tagline">"Real estate built around your life — not just your transaction."</p>
+          <p class="footer__desc">Serving League City, Friendswood, Pearland, Clear Lake, Dickinson, and Manvel across the Houston Bay Area.</p>
+          <p class="footer__desc" style="margin-top:var(--space-md);">📞 <a href="tel:8325361016" style="color:rgba(255,255,255,0.6);">(832) 536-1016</a><br />✉️ <a href="mailto:phil@philliphimes.com" style="color:rgba(255,255,255,0.6);">phil@philliphimes.com</a></p>
+        </div>
+        <div>
+          <div class="footer__heading">Buying</div>
+          <ul class="footer__links">
+            <li><a href="buyeriq.html">BuyerIQ™ Suite</a></li>
+            <li><a href="search.html">Search Homes</a></li>
+            <li><a href="first-home.html">First-Time Buyers</a></li>
+            <li><a href="growing-family.html">Growing Families</a></li>
+            <li><a href="veterans.html">Veterans &amp; Military</a></li>
+            <li><a href="buyers.html#newbuild">New Construction</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer__heading">Selling</div>
+          <ul class="footer__links">
+            <li><a href="selleriq.html">SellerIQ™ Suite</a></li>
+            <li><a href="contact.html?topic=trumarket">Get Home Value</a></li>
+            <li><a href="selleriq.html">Rebalance™</a></li>
+            <li><a href="selleriq.html">Amplify™</a></li>
+            <li><a href="selleriq.html">Renew™</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer__heading">Explore</div>
+          <ul class="footer__links">
+            <li><a href="marketiq.html">MarketIQ™</a></li>
+            <li><a href="cities.html">Cities</a></li>
+            <li><a href="selleriq.html">reLifeIQ™</a></li>
+            <li><a href="contact.html">Ask Phil</a></li>
+            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__legal">
+          © 2026 Phillip Himes · Brokered by eXp Realty · Licensed in Texas ·
+          <a href="privacy-policy.html">Privacy Policy</a> ·
+          <a href="terms-of-service.html">Terms of Service</a>
+        </p>
+        <p class="footer__disclaimer">
+          All information deemed reliable but not guaranteed. Equal Housing Opportunity. Information subject to change without notice.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="https://widgets.leadconnectorhq.com/loader.js" data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" data-widget-id="6a0623c7f127bb5833bc2697"></script>
+<script src="https://widgets.leadconnectorhq.com/loader.js" data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" data-widget-id="6a0623c7f127bb5833bc2697"></script>
+</body>
+</html>

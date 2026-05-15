@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Houston Bay Area Cities | League City · Friendswood · Pearland · Clear Lake | Phillip Himes</title>
+  <meta name="description" content="Explore Houston Bay Area's best cities — League City, Friendswood, Pearland, Clear Lake, Dickinson, and Manvel. Local market data, school ratings, and neighborhood intel from REALTOR® Phillip Himes." />
+  <meta name="author" content="Phillip Himes | Brokered by eXp Realty" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Houston Bay Area Cities — Phillip Himes Real Estate",
+    "description": "Real estate market guides for Houston Bay Area cities served by Phillip Himes, REALTOR®",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "League City, TX", "url": "https://philliphimes.com/cities.html#league-city" },
+      { "@type": "ListItem", "position": 2, "name": "Friendswood, TX", "url": "https://philliphimes.com/cities.html#friendswood" },
+      { "@type": "ListItem", "position": 3, "name": "Pearland, TX", "url": "https://philliphimes.com/cities.html#pearland" },
+      { "@type": "ListItem", "position": 4, "name": "Clear Lake, TX", "url": "https://philliphimes.com/cities.html#clear-lake" },
+      { "@type": "ListItem", "position": 5, "name": "Dickinson, TX", "url": "https://philliphimes.com/cities.html#dickinson" },
+      { "@type": "ListItem", "position": 6, "name": "Manvel, TX", "url": "https://philliphimes.com/cities.html#manvel" }
+    ]
+  }
+  </script>
+
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+
+  <style>
+    .city-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .city-card {
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      background: var(--white);
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: inherit;
+      transition: transform var(--transition-slow), box-shadow var(--transition-slow);
+    }
+
+    .city-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-xl);
+    }
+
+    .city-card__image {
+      height: 200px;
+      display: flex;
+      align-items: flex-end;
+      padding: var(--space-lg);
+      position: relative;
+    }
+
+    .city-card__name {
+      font-family: var(--font-heading);
+      font-weight: 900;
+      font-size: 1.5rem;
+      color: var(--white);
+      position: relative;
+      z-index: 1;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    }
+
+    .city-card__state {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--gold);
+      position: relative;
+      z-index: 1;
+      font-family: var(--font-heading);
+      text-shadow: 0 1px 4px rgba(0,0,0,0.4);
+      margin-left: 0.5rem;
+    }
+
+    .city-card__body {
+      padding: var(--space-xl);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .city-card__personality {
+      font-family: var(--font-accent);
+      font-style: italic;
+      font-size: 0.95rem;
+      color: var(--teal);
+      margin-bottom: var(--space-md);
+      line-height: 1.5;
+    }
+
+    .city-card__stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-sm);
+      margin-bottom: var(--space-lg);
+      padding: var(--space-md) 0;
+      border-top: 1px solid var(--light-gray);
+      border-bottom: 1px solid var(--light-gray);
+    }
+
+    .city-stat__label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--mid-gray);
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .city-stat__value {
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 0.95rem;
+      color: var(--navy);
+    }
+
+    .city-card__desc {
+      font-size: 0.875rem;
+      color: var(--dark-gray);
+      line-height: 1.65;
+      margin-bottom: var(--space-lg);
+      flex: 1;
+    }
+
+    .city-card .btn {
+      width: 100%;
+      text-align: center;
+    }
+
+    /* City color themes */
+    .city-card--league-city .city-card__image {
+      background: linear-gradient(160deg, #1B3A5C 0%, #2089A0 100%);
+    }
+    .city-card--friendswood .city-card__image {
+      background: linear-gradient(160deg, #122840 0%, #1B3A5C 100%);
+    }
+    .city-card--pearland .city-card__image {
+      background: linear-gradient(160deg, #254d7a 0%, #2089A0 100%);
+    }
+    .city-card--clear-lake .city-card__image {
+      background: linear-gradient(160deg, #186e82 0%, #1B3A5C 100%);
+    }
+    .city-card--dickinson .city-card__image {
+      background: linear-gradient(160deg, #1B3A5C 0%, #C9A455 100%);
+    }
+    .city-card--manvel .city-card__image {
+      background: linear-gradient(160deg, #2c5f6e 0%, #1B3A5C 100%);
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .city-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 600px) {
+      .city-grid { grid-template-columns: 1fr; }
+      .city-card__image { height: 160px; }
+    }
+
+    @media (hover: none) {
+      .city-card:hover { transform: none; box-shadow: var(--shadow-md); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAVIGATION ──────────────────────────────────── -->
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo" aria-label="Phillip Himes Real Estate Home">
+        <img src="images/logo.png" alt="Phillip Himes | Brokered by eXp Realty" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+        <span class="nav__logo-text" style="display:none;">
+          <span class="nav__logo-name">Phillip Himes</span>
+          <span class="nav__logo-brokerage">Brokered by eXp Realty</span>
+        </span>
+      </a>
+
+      <ul class="nav__links" id="nav-links">
+        <li><a href="buyers.html" class="nav__link">Buying</a></li>
+        <li><a href="sellers.html" class="nav__link">Selling</a></li>
+        <li class="nav__item nav__item--dropdown">
+          <a href="cities.html" class="nav__link nav__link--active">Cities</a>
+          <ul class="nav__dropdown" aria-label="Cities submenu">
+            <li><a href="league-city.html">League City</a></li>
+            <li><a href="friendswood.html">Friendswood</a></li>
+            <li><a href="pearland.html">Pearland</a></li>
+            <li><a href="clear-lake.html">Clear Lake</a></li>
+            <li><a href="dickinson.html">Dickinson</a></li>
+            <li><a href="manvel.html">Manvel</a></li>
+          </ul>
+        </li>
+        <li class="nav__item nav__item--dropdown">
+          <a href="marketiq.html" class="nav__link">Tools</a>
+          <ul class="nav__dropdown" aria-label="Tools submenu">
+            <li><a href="buyeriq.html">BuyerIQ™ — Buyer's Edge</a></li>
+            <li><a href="selleriq.html">SellerIQ™ — Seller's Edge</a></li>
+            <li><a href="marketiq.html">MarketIQ™ — Property Intelligence</a></li>
+          </ul>
+        </li>
+        <li><a href="contact.html" class="nav__link">Ask Phil</a></li>
+        <li class="nav__mobile-cta" style="display:none;">
+          <a href="tel:8325361016" class="btn btn--secondary" style="width:100%;margin-top:var(--space-md);">📞 (832) 536-1016</a>
+          <a href="buyeriq.html" class="btn btn--primary" style="width:100%;margin-top:var(--space-sm);">Start BuyerIQ™</a>
+        </li>
+      </ul>
+
+      <div class="nav__cta">
+        <a href="tel:8325361016" class="nav__phone">📞 (832) 536-1016</a>
+        <a href="buyeriq.html" class="btn btn--primary btn--sm">Start BuyerIQ™</a>
+      </div>
+
+      <button class="nav__hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ── PAGE HERO ───────────────────────────────────── -->
+  <section class="page-hero" aria-label="Cities hero">
+    <div class="container">
+      <div class="page-hero__content">
+        <p class="page-hero__eyebrow">Houston Bay Area · Gulf Coast</p>
+        <h1 class="page-hero__title">Find Your City</h1>
+        <p class="page-hero__subtitle">
+          Deep local knowledge across six distinct communities — each with its own character, schools, price points, and lifestyle. Choose yours below.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CITIES GRID ─────────────────────────────────── -->
+  <section class="section" aria-labelledby="cities-heading">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-header__eyebrow">Where Do You Want to Live?</span>
+        <h2 class="section-header__title" id="cities-heading">Houston Bay Area's Best Cities</h2>
+        <p class="section-header__subtitle">
+          Every city below has its own personality. Click in to get the full picture — market data, school districts, neighborhoods, and what it's actually like to live there.
+        </p>
+      </div>
+
+      <div class="city-grid">
+
+        <!-- League City -->
+        <a href="league-city.html" class="city-card city-card--league-city" id="league-city" aria-label="League City real estate">
+          <div class="city-card__image">
+            <span class="city-card__name">League City</span>
+            <span class="city-card__state">TX</span>
+          </div>
+          <div class="city-card__body">
+            <p class="city-card__personality">"Waterfront living, top schools, and the NASA corridor — my primary market."</p>
+            <div class="city-card__stats">
+              <div>
+                <span class="city-stat__label">Median Price</span>
+                <span class="city-stat__value">$375K</span>
+              </div>
+              <div>
+                <span class="city-stat__label">Schools</span>
+                <span class="city-stat__value">A-Rated</span>
+              </div>
+              <div>
+                <span class="city-stat__label">Market</span>
+                <span class="city-stat__value">Active</span>
+              </div>
+            </div>
+            <p class="city-card__desc">League City sits at the heart of the Bay Area — waterfront neighborhoods, Clear Creek ISD schools, proximity to NASA JSC, and some of the strongest home values on the Gulf Coast.</p>
+            <span class="btn btn--secondary">Explore League City →</span>
+          </div>
+        </a>
+
+        <!-- Friendswood -->
+        <a href="friendswood.html" class="city-card city-card--friendswood" id="friendswood" aria-label="Friendswood real estate">
+          <div class="city-card__image">
+            <span class="city-card__name">Friendswood</span>
+            <span class="city-card__state">TX</span>
+          </div>
+          <div class="city-card__body">
+            <p class="city-card__personality">"One of Houston's most desirable suburbs — tight community, elite schools, strong values."</p>
+            <div class="city-card__stats">
+              <div>
+                <span class="city-stat__label">Median Price</span>
+                <span class="city-stat__value">$385K</span>
+              </div>
+              <div>
+                <span class="city-stat__label">Schools</span>
+                <span class="city-stat__value">Top Rated</span>
+              </div>
+              <div>
+                <span class="city-stat__label">Market</span>
+                <span class="city-stat__value">Competitive</span>
+              </div>
+            </div>
+            <p class="city-card__desc">Friendswood consistently ranks among the best places to live in Texas. CCISD schools, established neighborhoods, low crime, and a genuine small-town feel just 25 minutes from downtown Houston.</p>
+            <span class="btn btn--secondary">Explore Friendswood →</span>
+          </div>
+        </a>
+
+        <!-- Pearland -->
+        <a href="pearland.html" class="city-card city-card--pearland" id="pearland" aria-label="Pearland real estate">
+          <div class="city-card__image">
+            <span class="city-card__name">Pearland</span>
+            <span class="city-card__state">TX</span>
+          </div>
+          <div class="city-card__body">
+            <p class="city-card__personality">"Fast-growing, family-friendly, close to the Medical Center — and still affordable."</p>
+            <div class="city-card__stats">
+              <div>
+                <span class="city-stat__label">Median Price</span>
+                <span class="city-stat__value">$320K</span>
+              </div>
+              <div>
+                <span class="city-stat__label">Growth</span>
+                <span class="city-stat__value">High</span>
+              </div>
+              <div>
+                <span class="city-stat__label">Market</span>
+                <span class="city-stat__value">Active</span>
+              </div>
+            </div>
+            <p class="city-card__desc">Pearland has grown from a quiet suburb into one of Houston's most sought-after cities. Quick access to the Texas Medical Center, Hobby Airport, and downtown — with room left to grow.</p>
+            <span class="btn btn--secondary">Explore Pearland →</span>
+          </div>
+        </a>
+
+        <!-- Clear Lake -->
+        <a href="clear-lake.html" class="city-card city-card--clear-lake" id="clear-lake" aria-label="Clear Lake real estate">
+          <div class="city-card__image">
+            <span class="city-card__name">Clear Lake</span>
+            <span class="city-card__state">TX</span>
+          </div>
+          <div class="city-card__body">
+            <p class="city-card__personality">"NASA's backyard — waterfront access, aerospace culture, strong community roots."</p>
+            <div class="city-card__stats">
+              <div>
+                <span class="city-stat__label">Median Price</span>
+                <span class="city-stat__value">$340K</span>
+              </div>
+              <div>
+                <span class="city-stat__label">Vibe</span>
+                <span class="city-stat__value">NASA Hub</span>
+              </div>
+              <div>
+                <span class="city-stat__label">Market</span>
+                <span class="city-stat__value">Steady</span>
+              </div>
+            </div>
+            <p class="city-card__desc">The Clear Lake area spans several city boundaries — unified by water access, proximity to NASA Johnson Space Center, and a community of engineers, educators, and longtime Bay Area families.</p>
+            <span class="btn btn--secondary">Explore Clear Lake →</span>
+          </div>
+        </a>
+
+        <!-- Dickinson -->
+        <a href="dickinson.html" class="city-card city-card--dickinson" id="dickinson" aria-label="Dickinson real estate">
+          <div class="city-card__image">
+            <span class="city-card__name">Dickinson</span>
+            <span class="city-card__state">TX</span>
+          </div>
+          <div class="city-card__body">
+            <p class="city-card__personality">"Affordable Bay Area entry point with strong upside — great for first-timers and investors."</p>
+            <div class="city-card__stats">
+              <div>
+                <span class="city-stat__label">Median Price</span>
+                <span class="city-stat__value">$285K</span>
+              </div>
+              <div>
+                <span class="city-stat__label">Value</span>
+                <span class="city-stat__value">High</span>
+              </div>
+              <div>
+                <span class="city-stat__label">Market</span>
+                <span class="city-stat__value">Growing</span>
+              </div>
+            </div>
+            <p class="city-card__desc">Dickinson offers the most affordable path into the Bay Area market without sacrificing location. Close to Galveston Bay, I-45, and the League City corridor — with genuine investment upside.</p>
+            <span class="btn btn--secondary">Explore Dickinson →</span>
+          </div>
+        </a>
+
+        <!-- Manvel -->
+        <a href="manvel.html" class="city-card city-card--manvel" id="manvel" aria-label="Manvel real estate">
+          <div class="city-card__image">
+            <span class="city-card__name">Manvel</span>
+            <span class="city-card__state">TX</span>
+          </div>
+          <div class="city-card__body">
+            <p class="city-card__personality">"Space, new construction, and room to grow — the next wave of Houston Bay Area expansion."</p>
+            <div class="city-card__stats">
+              <div>
+                <span class="city-stat__label">Median Price</span>
+                <span class="city-stat__value">$340K</span>
+              </div>
+              <div>
+                <span class="city-stat__label">New Build</span>
+                <span class="city-stat__value">High</span>
+              </div>
+              <div>
+                <span class="city-stat__label">Market</span>
+                <span class="city-stat__value">Expanding</span>
+              </div>
+            </div>
+            <p class="city-card__desc">Manvel is where the Houston Bay Area is heading. Master-planned communities, new construction at competitive prices, Alvin ISD schools, and land. Ideal for buyers who want space and long-term appreciation.</p>
+            <span class="btn btn--secondary">Explore Manvel →</span>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── NOT SURE CTA ─────────────────────────────────── -->
+  <section class="section section--alt" aria-labelledby="city-help-heading">
+    <div class="container">
+      <div style="max-width:680px;margin:0 auto;text-align:center;">
+        <span class="section-header__eyebrow">Not Sure Which City Fits?</span>
+        <h2 id="city-help-heading" style="margin-bottom:var(--space-md);">I Know Every Block.<br />Let Me Help You Choose.</h2>
+        <div class="divider"></div>
+        <p style="font-size:1.05rem;color:var(--dark-gray);margin-bottom:var(--space-2xl);">
+          The right city depends on your life situation — commute, schools, budget, community feel.
+          I've helped hundreds of families find the right fit across all six markets.
+          One conversation is all it takes.
+        </p>
+        <div style="display:flex;gap:var(--space-md);justify-content:center;flex-wrap:wrap;">
+          <a href="contact.html" class="btn btn--primary btn--lg">Ask Phil →</a>
+          <a href="tel:8325361016" class="btn btn--secondary btn--lg">📞 (832) 536-1016</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA BANNER ────────────────────────────────────── -->
+  <section class="cta-banner" aria-labelledby="cta-heading">
+    <div class="container">
+      <h2 id="cta-heading">Your Best Chapter Isn't Behind You.</h2>
+      <p>Let's go build it. Schedule a no-pressure conversation and let's figure out what makes the most sense for you — right now.</p>
+      <div class="cta-banner__btns">
+        <a href="contact.html" class="btn btn--white btn--lg">Talk to Phillip</a>
+        <a href="tel:8325361016" class="btn btn--white-outline btn--lg">📞 (832) 536-1016</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ────────────────────────────────────────── -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <div class="footer__brand-name">Phillip Himes</div>
+          <div class="footer__brokerage">Brokered by eXp Realty</div>
+          <p class="footer__tagline">"Sell Smart. Buy Right. Build More."</p>
+          <p class="footer__desc">REALTOR® serving League City, Friendswood, Pearland, Clear Lake, Dickinson, and Manvel. Real estate built around your life — not just your transaction.</p>
+          <div style="margin-top:var(--space-lg);">
+            <a href="tel:8325361016" class="footer__link" style="display:block;margin-bottom:0.5rem;">📞 (832) 536-1016</a>
+            <a href="mailto:phil@philliphimes.com" class="footer__link">✉ phil@philliphimes.com</a>
+          </div>
+        </div>
+        <div>
+          <h3 class="footer__heading">Buy &amp; Sell</h3>
+          <ul class="footer__links">
+            <li><a href="buyers.html" class="footer__link">BuyerIQ™</a></li>
+            <li><a href="sellers.html" class="footer__link">SellerIQ™</a></li>
+            <li><a href="buyers.html#newbuild" class="footer__link">New Construction</a></li>
+            <li><a href="sellers.html#trumarket" class="footer__link">TruMarket™ Report</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="footer__heading">Cities</h3>
+          <ul class="footer__links">
+            <li><a href="cities.html#league-city" class="footer__link">League City</a></li>
+            <li><a href="cities.html#friendswood" class="footer__link">Friendswood</a></li>
+            <li><a href="cities.html#clear-lake" class="footer__link">Clear Lake</a></li>
+            <li><a href="cities.html#pearland" class="footer__link">Pearland</a></li>
+            <li><a href="cities.html#dickinson" class="footer__link">Dickinson</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="footer__heading">reLifeIQ™</h3>
+          <ul class="footer__links">
+            <li><a href="primequity.html#rebalance" class="footer__link">Rebalance™</a></li>
+            <li><a href="primequity.html#amplify" class="footer__link">Amplify™</a></li>
+            <li><a href="primequity.html#renew" class="footer__link">Renew™</a></li>
+            <li><a href="contact.html" class="footer__link">Ask Phil</a></li>
+            <li><a href="privacy-policy.html" class="footer__link">Privacy Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__copyright">© 2026 Phillip Himes | Brokered by eXp Realty. All rights reserved. REALTOR® Licensed in Texas.</p>
+        <p class="footer__copyright" style="margin-top:0.5rem;">eXp Realty, LLC | 2600 South Shore Blvd. #300, League City, TX 77573</p>
+        <div class="footer__legal-links">
+          <a href="privacy-policy.html" class="footer__legal-link">Privacy Policy</a>
+          <a href="terms-of-service.html" class="footer__legal-link">Terms of Service</a>
+          <a href="contact.html" class="footer__legal-link">Contact</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="https://widgets.leadconnectorhq.com/loader.js" data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" data-widget-id="6a0623c7f127bb5833bc2697"></script>
+<script src="https://widgets.leadconnectorhq.com/loader.js" data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" data-widget-id="6a0623c7f127bb5833bc2697"></script>
+</body>
+</html>

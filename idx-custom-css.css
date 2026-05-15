@@ -1,0 +1,528 @@
+/* ============================================================
+   IDX BROKER — CUSTOM CSS
+   Paste this into: IDX Broker > Design > Custom CSS
+   Last updated: May 2026
+   Site: philliphimes.com
+
+   PURPOSE: Fine-tune IDX Broker's own component styles
+   to match the philliphimes.com design system.
+   The main site CSS (loaded via the Global Header) handles
+   the nav, footer, and base typography. This file handles
+   IDX-specific UI components.
+   ============================================================ */
+
+/* ─── COLOR TOKENS (mirrored from site) ──────────────────── */
+:root {
+  --ph-navy:      #1B3A5C;
+  --ph-teal:      #2089A0;
+  --ph-teal-dark: #186e82;
+  --ph-gold:      #C9A455;
+  --ph-gold-dark: #a8883d;
+  --ph-off-white: #F8F9FA;
+  --ph-light-gray:#E9ECEF;
+  --ph-mid-gray:  #ADB5BD;
+  --ph-dark-gray: #495057;
+  --ph-text:      #333333;
+}
+
+/* ─── BASE PAGE ───────────────────────────────────────────── */
+body, html {
+  background: var(--ph-off-white);
+  font-family: 'Open Sans', sans-serif;
+  color: var(--ph-text);
+}
+
+/* ─── SEARCH RESULTS GRID ─────────────────────────────────── */
+.IDX-resultsList,
+.IDX-results-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+/* ─── LISTING CARDS ───────────────────────────────────────── */
+.IDX-resultCell,
+.IDX-listingCard {
+  background: #fff;
+  border-radius: 16px;
+  border: 1.5px solid var(--ph-light-gray);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  overflow: hidden;
+  transition: all 0.25s;
+  position: relative;
+}
+
+.IDX-resultCell:hover,
+.IDX-listingCard:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.13);
+  border-color: var(--ph-teal);
+}
+
+/* Listing image */
+.IDX-resultCell img,
+.IDX-listingCard img,
+.IDX-listingPhoto {
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  display: block;
+}
+
+/* Card body */
+.IDX-resultCell .IDX-resultInfo,
+.IDX-listingCard .IDX-listingInfo {
+  padding: 1.25rem;
+}
+
+/* Price */
+.IDX-price,
+.IDX-listPrice,
+.IDX-resultPrice {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  font-size: 1.2rem;
+  color: var(--ph-gold-dark);
+  margin-bottom: 0.35rem;
+}
+
+/* Address */
+.IDX-address,
+.IDX-streetAddress {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--ph-navy);
+  margin-bottom: 0.2rem;
+  line-height: 1.3;
+}
+
+/* City/State/Zip */
+.IDX-cityStateZip,
+.IDX-cityState {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.78rem;
+  color: var(--ph-mid-gray);
+  margin-bottom: 0.75rem;
+}
+
+/* Beds/Baths/Sqft row */
+.IDX-propSpecs,
+.IDX-specs-row {
+  display: flex;
+  gap: 0.75rem;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--ph-dark-gray);
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--ph-light-gray);
+}
+
+/* Status badge (Active, Pending, etc.) */
+.IDX-statusBadge,
+.IDX-propStatus {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0.25rem 0.6rem;
+  border-radius: 9999px;
+  background: var(--ph-teal);
+  color: #fff;
+}
+
+.IDX-statusBadge.pending,
+.IDX-propStatus.pending {
+  background: var(--ph-gold-dark);
+}
+
+/* Saved/favorite button */
+.IDX-saveBtn,
+.IDX-favoriteBtn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(255,255,255,0.9);
+  border: 1.5px solid var(--ph-light-gray);
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 1rem;
+  color: var(--ph-mid-gray);
+}
+
+.IDX-saveBtn:hover,
+.IDX-favoriteBtn:hover,
+.IDX-saveBtn.active,
+.IDX-favoriteBtn.active {
+  border-color: var(--ph-teal);
+  color: var(--ph-teal);
+  background: #fff;
+}
+
+/* ─── SEARCH FORM ─────────────────────────────────────────── */
+.IDX-searchForm {
+  background: #fff;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  border: 1.5px solid var(--ph-light-gray);
+  margin-bottom: 2rem;
+}
+
+.IDX-searchForm h2,
+.IDX-searchForm h3 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
+  color: var(--ph-navy);
+  font-size: 1.1rem;
+  margin-bottom: 1.25rem;
+}
+
+.IDX-searchForm input[type="text"],
+.IDX-searchForm input[type="number"],
+.IDX-searchForm select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1.5px solid var(--ph-light-gray);
+  border-radius: 8px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.9rem;
+  color: var(--ph-text);
+  background: #fff;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+}
+
+.IDX-searchForm input:focus,
+.IDX-searchForm select:focus {
+  border-color: var(--ph-teal);
+  box-shadow: 0 0 0 3px rgba(32,137,160,0.12);
+  outline: none;
+}
+
+.IDX-searchForm input[type="submit"],
+.IDX-searchForm button[type="submit"],
+.IDX-submitBtn {
+  width: 100%;
+  padding: 0.9rem 1.5rem;
+  background: linear-gradient(135deg, var(--ph-navy), #254d7a);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 16px rgba(27,58,92,0.25);
+  letter-spacing: 0.02em;
+}
+
+.IDX-searchForm input[type="submit"]:hover,
+.IDX-submitBtn:hover {
+  box-shadow: 0 6px 20px rgba(27,58,92,0.35);
+  transform: translateY(-1px);
+}
+
+/* Price range slider (if IDX uses one) */
+.IDX-priceSlider .IDX-slider-track {
+  background: linear-gradient(to right, var(--ph-teal), var(--ph-teal-dark));
+  height: 4px;
+  border-radius: 2px;
+}
+
+/* ─── PROPERTY DETAIL PAGE ────────────────────────────────── */
+.IDX-detailPage {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  overflow: hidden;
+}
+
+/* Gallery */
+.IDX-photoGallery,
+.IDX-galleryMain {
+  border-radius: 16px 16px 0 0;
+  overflow: hidden;
+}
+
+/* Detail header */
+.IDX-detailHeader {
+  padding: 2rem;
+  border-bottom: 1px solid var(--ph-light-gray);
+}
+
+.IDX-detailAddress,
+.IDX-detail-address {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: 1.4rem;
+  color: var(--ph-navy);
+  margin-bottom: 0.35rem;
+  line-height: 1.2;
+}
+
+.IDX-detailPrice,
+.IDX-detail-price {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  font-size: 1.9rem;
+  color: var(--ph-gold-dark);
+  margin-bottom: 0.75rem;
+}
+
+/* Specs row on detail page */
+.IDX-detailSpecs {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.IDX-detailSpec {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.IDX-detailSpec__label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ph-mid-gray);
+}
+
+.IDX-detailSpec__value {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: 1rem;
+  color: var(--ph-navy);
+}
+
+/* Detail body */
+.IDX-detailBody {
+  padding: 2rem;
+}
+
+.IDX-detailDescription,
+.IDX-remarks {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.92rem;
+  color: var(--ph-text);
+  line-height: 1.75;
+  margin-bottom: 2rem;
+}
+
+/* Detail feature list */
+.IDX-features,
+.IDX-featureList {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
+}
+
+.IDX-feature,
+.IDX-featureItem {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.82rem;
+  color: var(--ph-text);
+  padding: 0.4rem 0;
+  border-bottom: 1px solid var(--ph-light-gray);
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.IDX-feature::before {
+  content: '✓';
+  color: var(--ph-teal);
+  font-weight: 700;
+  font-size: 0.8rem;
+  flex-shrink: 0;
+}
+
+/* ─── CONTACT / LEAD FORM ────────────────────────────────── */
+.IDX-leadForm,
+.IDX-agentContact {
+  background: #fff;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  border: 1.5px solid var(--ph-light-gray);
+}
+
+.IDX-leadForm h3,
+.IDX-agentContact h3 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: 1rem;
+  color: var(--ph-navy);
+  margin-bottom: 1rem;
+}
+
+.IDX-leadForm input,
+.IDX-agentContact input,
+.IDX-leadForm textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1.5px solid var(--ph-light-gray);
+  border-radius: 8px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.9rem;
+  color: var(--ph-text);
+  background: #fff;
+  transition: border-color 0.2s;
+  margin-bottom: 0.75rem;
+  box-sizing: border-box;
+}
+
+.IDX-leadForm input:focus,
+.IDX-leadForm textarea:focus { border-color: var(--ph-teal); outline: none; }
+
+.IDX-leadForm button[type="submit"],
+.IDX-agentContact button[type="submit"] {
+  width: 100%;
+  padding: 0.9rem;
+  background: linear-gradient(135deg, var(--ph-teal), #3aafc9);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: 0.9rem;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(32,137,160,0.3);
+  transition: all 0.2s;
+}
+
+.IDX-leadForm button[type="submit"]:hover { box-shadow: 0 6px 20px rgba(32,137,160,0.4); }
+
+/* ─── MAP ────────────────────────────────────────────────── */
+.IDX-mapWrapper,
+.IDX-map-container {
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  margin-bottom: 1.5rem;
+}
+
+/* ─── PAGINATION ─────────────────────────────────────────── */
+.IDX-pagination,
+.IDX-pager {
+  display: flex;
+  justify-content: center;
+  gap: 0.4rem;
+  margin-top: 2.5rem;
+  flex-wrap: wrap;
+}
+
+.IDX-pagination a,
+.IDX-pager a {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 0.82rem;
+  color: var(--ph-navy);
+  border: 1.5px solid var(--ph-light-gray);
+  border-radius: 8px;
+  padding: 0.45rem 0.85rem;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.IDX-pagination a:hover,
+.IDX-pagination a.IDX-active,
+.IDX-pager a.active {
+  background: var(--ph-navy);
+  color: #fff;
+  border-color: var(--ph-navy);
+}
+
+/* ─── SAVED SEARCHES / ACCOUNT PAGES ────────────────────── */
+.IDX-savedSearch,
+.IDX-savedSearchList {
+  background: #fff;
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+  border: 1.5px solid var(--ph-light-gray);
+  margin-bottom: 1rem;
+}
+
+.IDX-savedSearchName {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: 0.95rem;
+  color: var(--ph-navy);
+}
+
+.IDX-savedSearchCriteria {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.8rem;
+  color: var(--ph-dark-gray);
+  margin-top: 0.4rem;
+}
+
+/* ─── COMMUNITY / SAVED LINKS (IDXAddons) ───────────────── */
+.IDX-community-header {
+  background: linear-gradient(135deg, var(--ph-navy), #254d7a);
+  border-radius: 16px;
+  padding: 2rem;
+  color: #fff;
+  margin-bottom: 2rem;
+}
+
+.IDX-community-title {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  font-size: 1.4rem;
+  margin-bottom: 0.4rem;
+}
+
+.IDX-community-subtitle {
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.7);
+}
+
+/* ─── GENERAL TYPOGRAPHY CLEANUP ────────────────────────── */
+h1, h2, h3, h4 {
+  font-family: 'Montserrat', sans-serif;
+  color: var(--ph-navy);
+}
+
+a { color: var(--ph-teal); }
+a:hover { color: var(--ph-teal-dark); }
+
+/* ─── MOBILE RESPONSIVENESS ──────────────────────────────── */
+@media (max-width: 768px) {
+  .IDX-resultsList,
+  .IDX-results-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .IDX-detailSpecs {
+    gap: 1rem;
+  }
+
+  .IDX-features,
+  .IDX-featureList {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .IDX-resultsList {
+    grid-template-columns: 1fr;
+  }
+}

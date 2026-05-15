@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Market Insights | Houston Bay Area Real Estate Intelligence | Phillip Himes</title>
+  <meta name="description" content="Real market intelligence for League City, Friendswood, Pearland, and Clear Lake. Monthly market reports, neighborhood trends, and local insights from REALTOR® Phillip Himes." />
+  <meta name="author" content="Phillip Himes | Brokered by eXp Realty" />
+
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+
+  <style>
+    .insights-coming {
+      background: var(--white);
+      border-radius: var(--radius-xl);
+      padding: var(--space-3xl);
+      box-shadow: var(--shadow-md);
+      max-width: 680px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .insights-coming__icon {
+      font-size: 3.5rem;
+      margin-bottom: var(--space-lg);
+    }
+
+    .insights-preview {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .insight-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl) var(--space-lg);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--light-gray);
+      text-align: center;
+    }
+
+    .insight-card__icon { font-size: 2rem; margin-bottom: var(--space-md); }
+    .insight-card__title { font-size: 1rem; color: var(--navy); margin-bottom: var(--space-sm); }
+    .insight-card__desc { font-size: 0.85rem; color: var(--dark-gray); line-height: 1.6; }
+
+    .subscribe-form {
+      display: flex;
+      gap: var(--space-sm);
+      max-width: 480px;
+      margin: var(--space-xl) auto 0;
+    }
+
+    .subscribe-form input {
+      flex: 1;
+      padding: 0.85rem 1.25rem;
+      border: 2px solid var(--light-gray);
+      border-radius: var(--radius-full);
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      outline: none;
+      min-height: 48px;
+      transition: border-color var(--transition);
+    }
+
+    .subscribe-form input:focus { border-color: var(--teal); }
+
+    .subscribe-form .btn { flex-shrink: 0; min-height: 48px; }
+
+    @media (max-width: 768px) {
+      .insights-preview { grid-template-columns: 1fr; }
+      .subscribe-form { flex-direction: column; }
+      .subscribe-form input, .subscribe-form .btn { width: 100%; }
+      .insights-coming { padding: var(--space-2xl) var(--space-lg); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAVIGATION ──────────────────────────────────── -->
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo" aria-label="Phillip Himes Real Estate Home">
+        <img src="images/logo.png" alt="Phillip Himes | Brokered by eXp Realty" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+        <span class="nav__logo-text" style="display:none;">
+          <span class="nav__logo-name">Phillip Himes</span>
+          <span class="nav__logo-brokerage">Brokered by eXp Realty</span>
+        </span>
+      </a>
+
+      <ul class="nav__links" id="nav-links">
+        <li><a href="buyers.html" class="nav__link">Buying</a></li>
+        <li><a href="sellers.html" class="nav__link">Selling</a></li>
+        <li class="nav__item nav__item--dropdown">
+          <a href="cities.html" class="nav__link">Cities</a>
+          <ul class="nav__dropdown" aria-label="Cities submenu">
+            <li><a href="cities.html#league-city">League City</a></li>
+            <li><a href="cities.html#friendswood">Friendswood</a></li>
+            <li><a href="cities.html#pearland">Pearland</a></li>
+            <li><a href="cities.html#clear-lake">Clear Lake</a></li>
+            <li><a href="cities.html#dickinson">Dickinson</a></li>
+            <li><a href="cities.html#manvel">Manvel</a></li>
+          </ul>
+        </li>
+        <li><a href="market-insights.html" class="nav__link nav__link--active">Market Insights</a></li>
+        <li><a href="contact.html" class="nav__link">Ask Phil</a></li>
+        <li class="nav__mobile-cta" style="display:none;">
+          <a href="tel:8325361016" class="btn btn--secondary" style="width:100%;margin-top:var(--space-md);">📞 (832) 536-1016</a>
+          <a href="contact.html?topic=trumarket" class="btn btn--primary" style="width:100%;margin-top:var(--space-sm);">Get Home Value</a>
+        </li>
+      </ul>
+
+      <div class="nav__cta">
+        <a href="tel:8325361016" class="nav__phone">📞 (832) 536-1016</a>
+        <a href="contact.html?topic=trumarket" class="btn btn--primary btn--sm">Get Home Value</a>
+      </div>
+
+      <button class="nav__hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ── PAGE HERO ───────────────────────────────────── -->
+  <section class="page-hero" aria-label="Market Insights hero">
+    <div class="container">
+      <div class="page-hero__content">
+        <p class="page-hero__eyebrow">Local Intelligence · Real Data · No Noise</p>
+        <h1 class="page-hero__title">Market Insights</h1>
+        <p class="page-hero__subtitle">
+          What's actually happening in League City, Friendswood, Pearland, and Clear Lake — straight from someone who lives and works in these markets every day.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── COMING SOON ─────────────────────────────────── -->
+  <section class="section" aria-labelledby="insights-heading">
+    <div class="container">
+      <div class="insights-coming">
+        <div class="insights-coming__icon">📊</div>
+        <h2 id="insights-heading" style="margin-bottom:var(--space-md);">Full Market Intelligence Hub<br />Coming Soon</h2>
+        <p style="color:var(--dark-gray);font-size:1rem;line-height:1.75;margin-bottom:var(--space-xl);">
+          Monthly market reports, neighborhood price trend analysis, school district deep-dives,
+          and hyper-local Q&amp;A content — all built around the Houston Bay Area markets that matter to you.
+          Subscribe below and you'll be the first to get it.
+        </p>
+
+        <form name="market-insights-subscribe" method="POST" data-netlify="true" data-form="subscribe">
+          <input type="hidden" name="form-name" value="market-insights-subscribe" />
+          <div class="subscribe-form">
+            <input
+              type="email"
+              name="email"
+              placeholder="Your email address"
+              required
+              aria-label="Email address"
+            />
+            <button type="submit" class="btn btn--primary">Notify Me</button>
+          </div>
+          <p style="font-size:0.75rem;color:var(--mid-gray);margin-top:var(--space-sm);text-align:center;">
+            No spam. One report per month. Unsubscribe anytime.
+          </p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── WHAT'S COMING ───────────────────────────────── -->
+  <section class="section section--alt" aria-labelledby="coming-heading">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-header__eyebrow">What You'll Get</span>
+        <h2 class="section-header__title" id="coming-heading">Intelligence Built for Your Market</h2>
+        <p class="section-header__subtitle">
+          Not national averages. Not Houston metro data. Hyper-local intelligence for the six cities where your next chapter is.
+        </p>
+      </div>
+
+      <div class="insights-preview">
+        <div class="insight-card">
+          <div class="insight-card__icon">📈</div>
+          <h3 class="insight-card__title">Monthly Market Report</h3>
+          <p class="insight-card__desc">What sold, what didn't, days on market, price per square foot, and where things are heading — by city, every month.</p>
+        </div>
+
+        <div class="insight-card">
+          <div class="insight-card__icon">🏫</div>
+          <h3 class="insight-card__title">School District Deep-Dives</h3>
+          <p class="insight-card__desc">Clear Creek ISD, CCISD, Alvin ISD, Pearland ISD — ratings, boundaries, attendance zones, and what the data means for home values.</p>
+        </div>
+
+        <div class="insight-card">
+          <div class="insight-card__icon">🏘️</div>
+          <h3 class="insight-card__title">Neighborhood Spotlights</h3>
+          <p class="insight-card__desc">Tuscan Lakes, South Shore Harbour, Silverlake, Pomona — what's selling, what's moving, and what's worth watching.</p>
+        </div>
+
+        <div class="insight-card">
+          <div class="insight-card__icon">🏗️</div>
+          <h3 class="insight-card__title">New Construction Watch</h3>
+          <p class="insight-card__desc">Builder incentives, rate buydowns, lot premiums, and community openings — tracked and reported before most buyers find out.</p>
+        </div>
+
+        <div class="insight-card">
+          <div class="insight-card__icon">❓</div>
+          <h3 class="insight-card__title">Local Q&amp;A</h3>
+          <p class="insight-card__desc">Real questions from real buyers and sellers in your market — answered the way a local expert answers them. Specific. Opinionated. Useful.</p>
+        </div>
+
+        <div class="insight-card">
+          <div class="insight-card__icon">⚖️</div>
+          <h3 class="insight-card__title">Equity &amp; Life Stage Guides</h3>
+          <p class="insight-card__desc">Downsizing, equity optimization, simultaneous buy-sell — decision guides written for where you actually are in life.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA BANNER ────────────────────────────────────── -->
+  <section class="cta-banner" aria-labelledby="cta-heading">
+    <div class="container">
+      <h2 id="cta-heading">Want the Market Data Now?</h2>
+      <p>Don't wait for the full hub. Ask Phil directly — one message and you'll have the current numbers for your specific city or neighborhood.</p>
+      <div class="cta-banner__btns">
+        <a href="contact.html" class="btn btn--white btn--lg">Ask Phil →</a>
+        <a href="tel:8325361016" class="btn btn--white-outline btn--lg">📞 (832) 536-1016</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ────────────────────────────────────────── -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <div class="footer__brand-name">Phillip Himes</div>
+          <div class="footer__brokerage">Brokered by eXp Realty</div>
+          <p class="footer__tagline">"Sell Smart. Buy Right. Build More."</p>
+          <p class="footer__desc">REALTOR® serving League City, Friendswood, Pearland, Clear Lake, Dickinson, and Manvel. Real estate built around your life — not just your transaction.</p>
+          <div style="margin-top:var(--space-lg);">
+            <a href="tel:8325361016" class="footer__link" style="display:block;margin-bottom:0.5rem;">📞 (832) 536-1016</a>
+            <a href="mailto:phil@philliphimes.com" class="footer__link">✉ phil@philliphimes.com</a>
+          </div>
+        </div>
+        <div>
+          <h3 class="footer__heading">Buy &amp; Sell</h3>
+          <ul class="footer__links">
+            <li><a href="buyers.html" class="footer__link">BuyerIQ™</a></li>
+            <li><a href="sellers.html" class="footer__link">SellerIQ™</a></li>
+            <li><a href="buyers.html#newbuild" class="footer__link">New Construction</a></li>
+            <li><a href="sellers.html#trumarket" class="footer__link">TruMarket™ Report</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="footer__heading">Cities</h3>
+          <ul class="footer__links">
+            <li><a href="cities.html#league-city" class="footer__link">League City</a></li>
+            <li><a href="cities.html#friendswood" class="footer__link">Friendswood</a></li>
+            <li><a href="cities.html#clear-lake" class="footer__link">Clear Lake</a></li>
+            <li><a href="cities.html#pearland" class="footer__link">Pearland</a></li>
+            <li><a href="cities.html#dickinson" class="footer__link">Dickinson</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="footer__heading">reLifeIQ™</h3>
+          <ul class="footer__links">
+            <li><a href="primequity.html#rebalance" class="footer__link">Rebalance™</a></li>
+            <li><a href="primequity.html#amplify" class="footer__link">Amplify™</a></li>
+            <li><a href="primequity.html#renew" class="footer__link">Renew™</a></li>
+            <li><a href="contact.html" class="footer__link">Ask Phil</a></li>
+            <li><a href="privacy-policy.html" class="footer__link">Privacy Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__copyright">© 2026 Phillip Himes | Brokered by eXp Realty. All rights reserved. REALTOR® Licensed in Texas.</p>
+        <p class="footer__copyright" style="margin-top:0.5rem;">eXp Realty, LLC | 2600 South Shore Blvd. #300, League City, TX 77573</p>
+        <div class="footer__legal-links">
+          <a href="privacy-policy.html" class="footer__legal-link">Privacy Policy</a>
+          <a href="terms-of-service.html" class="footer__legal-link">Terms of Service</a>
+          <a href="contact.html" class="footer__legal-link">Contact</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="https://widgets.leadconnectorhq.com/loader.js" data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" data-widget-id="6a0623c7f127bb5833bc2697"></script>
+<script src="https://widgets.leadconnectorhq.com/loader.js" data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" data-widget-id="6a0623c7f127bb5833bc2697"></script>
+</body>
+</html>
