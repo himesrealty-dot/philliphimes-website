@@ -85,6 +85,113 @@
       white-space: nowrap !important;
     }
 
+    /* ─── AI SEARCH BADGE + LABEL ──────────────────────────────── */
+    .hero__ai-label {
+      display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.65rem;
+    }
+    .hero__ai-badge {
+      display: inline-flex; align-items: center;
+      background: rgba(201,164,85,0.18); border: 1px solid rgba(201,164,85,0.45);
+      border-radius: var(--radius-full); padding: 0.3rem 0.9rem;
+      font-family: var(--font-heading); font-size: 0.7rem; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 0.1em; color: var(--gold);
+      white-space: nowrap;
+    }
+    .hero__ai-hint {
+      font-size: 0.85rem; color: rgba(255,255,255,0.6); font-style: italic;
+    }
+    .hero__ai-examples {
+      font-size: 0.82rem; color: rgba(255,255,255,0.5);
+      margin-top: 0.55rem; min-height: 1.2em;
+    }
+    .hero__ai-examples em { color: rgba(255,255,255,0.78); font-style: italic; }
+
+    /* ─── MAP SEARCH SECTION ────────────────────────────────────── */
+    .map-search-section {
+      padding: 3.5rem 0 4rem; background: white;
+    }
+    .map-search-section__header {
+      text-align: center; margin-bottom: 2rem;
+    }
+    .map-search-section__eyebrow {
+      font-family: var(--font-heading); font-size: 0.78rem; font-weight: 700;
+      letter-spacing: 0.18em; text-transform: uppercase; color: var(--teal);
+      margin-bottom: 0.6rem; display: block;
+    }
+    .map-search-section__title {
+      font-family: var(--font-heading); font-weight: 900;
+      font-size: clamp(1.8rem, 4vw, 2.6rem); color: var(--navy);
+      line-height: 1.1; margin-bottom: 0.65rem;
+    }
+    .map-search-section__title span { color: var(--teal); }
+    .map-search-section__sub {
+      font-size: 1rem; color: var(--dark-gray);
+      max-width: 560px; margin: 0 auto; line-height: 1.7;
+    }
+    .map-search-section__widget {
+      max-width: 1100px; margin: 0 auto;
+      border-radius: var(--radius-xl); overflow: hidden;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.1);
+      min-height: 480px;
+    }
+
+    /* ─── TOOL TEASER CARDS ─────────────────────────────────────── */
+    .tools-teaser {
+      padding: 4rem 0; background: #f0f4f7;
+    }
+    .tools-teaser__header {
+      text-align: center; margin-bottom: 2.5rem;
+    }
+    .tools-teaser__eyebrow {
+      font-family: var(--font-heading); font-size: 0.78rem; font-weight: 700;
+      letter-spacing: 0.18em; text-transform: uppercase; color: var(--teal);
+      margin-bottom: 0.6rem; display: block;
+    }
+    .tools-teaser__title {
+      font-family: var(--font-heading); font-weight: 900;
+      font-size: clamp(1.6rem, 3.5vw, 2.2rem); color: var(--navy);
+      line-height: 1.15;
+    }
+    .tools-teaser__grid {
+      display: grid; grid-template-columns: repeat(3,1fr); gap: 1.25rem;
+    }
+    @media (max-width: 768px) { .tools-teaser__grid { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; } }
+    .tools-teaser-card {
+      background: white; border-radius: var(--radius-xl);
+      padding: 2rem 1.75rem; text-align: center;
+      border: 1px solid #e4eaf0;
+      transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+      display: flex; flex-direction: column;
+    }
+    .tools-teaser-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.1);
+      border-color: rgba(32,137,160,0.3);
+    }
+    .tools-teaser-card__icon {
+      font-size: 2.8rem; margin-bottom: 1rem; display: block;
+    }
+    .tools-teaser-card__title {
+      font-family: var(--font-heading); font-weight: 900;
+      font-size: 1.15rem; color: var(--navy); margin-bottom: 0.5rem;
+    }
+    .tools-teaser-card__desc {
+      font-size: 0.9rem; color: var(--dark-gray);
+      line-height: 1.65; margin-bottom: 1.75rem; flex: 1;
+    }
+    .tools-teaser-card__btn {
+      display: flex; align-items: center; justify-content: center;
+      padding: 0.78rem 1.5rem; border-radius: var(--radius-full);
+      font-family: var(--font-heading); font-weight: 800; font-size: 0.88rem;
+      text-decoration: none; transition: all 0.2s; letter-spacing: 0.03em;
+    }
+    .tools-teaser-card--value .tools-teaser-card__btn { background: var(--gold); color: var(--navy); }
+    .tools-teaser-card--value .tools-teaser-card__btn:hover { background: #d4b86a; }
+    .tools-teaser-card--market .tools-teaser-card__btn { background: var(--teal); color: white; }
+    .tools-teaser-card--market .tools-teaser-card__btn:hover { background: #1a7a8f; }
+    .tools-teaser-card--calc .tools-teaser-card__btn { background: var(--navy); color: white; }
+    .tools-teaser-card--calc .tools-teaser-card__btn:hover { background: #122840; }
+
     /* Mobile search fallback — hidden on desktop, shown on mobile */
     .hero__mobile-search-btn {
       display: none;
@@ -235,12 +342,12 @@
 
     /* ─── RELIFEIQ SECTION ──────────────────────────────────────── */
     .relifeiq-section {
-      background: linear-gradient(135deg, #0a1c2e 0%, #0a2a0a 60%, #0d2137 100%);
+      background: linear-gradient(135deg, #0a1c2e 0%, #071e30 60%, #0d2137 100%);
       padding: 5rem 0; position: relative; overflow: hidden;
     }
     .relifeiq-section::before {
       content: ''; position: absolute; inset: 0;
-      background: radial-gradient(ellipse at 30% 50%, rgba(157,217,106,0.08) 0%, transparent 60%);
+      background: radial-gradient(ellipse at 30% 50%, rgba(32,137,160,0.1) 0%, transparent 60%);
       pointer-events: none;
     }
     .relifeiq-section__inner {
@@ -256,27 +363,27 @@
     .relifeiq-section__video-inner { text-align: center; }
     .relifeiq-section__play {
       width: 64px; height: 64px; border-radius: 50%;
-      background: rgba(157,217,106,0.2); border: 2px solid rgba(157,217,106,0.4);
+      background: rgba(32,137,160,0.2); border: 2px solid rgba(32,137,160,0.45);
       display: flex; align-items: center; justify-content: center;
       font-size: 1.5rem; margin: 0 auto 1rem; transition: all 0.2s;
     }
-    .relifeiq-section__video:hover .relifeiq-section__play { background: rgba(157,217,106,0.35); transform: scale(1.08); }
+    .relifeiq-section__video:hover .relifeiq-section__play { background: rgba(32,137,160,0.35); transform: scale(1.08); }
     .relifeiq-section__video-label {
       font-family: var(--font-heading); font-size: 0.8rem; font-weight: 600;
       color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.1em;
     }
     .relifeiq-section__eyebrow {
       display: inline-flex; align-items: center; gap: 0.5rem;
-      background: rgba(157,217,106,0.12); border: 1px solid rgba(157,217,106,0.25);
+      background: rgba(32,137,160,0.15); border: 1px solid rgba(32,137,160,0.35);
       border-radius: var(--radius-full); padding: 0.3rem 0.9rem;
       font-family: var(--font-heading); font-size: 0.72rem; font-weight: 800;
-      text-transform: uppercase; letter-spacing: 0.1em; color: #9dd96a; margin-bottom: 1.25rem;
+      text-transform: uppercase; letter-spacing: 0.1em; color: #5cc8dc; margin-bottom: 1.25rem;
     }
     .relifeiq-section__title {
       font-family: var(--font-heading); font-weight: 800;
       font-size: clamp(1.6rem, 3vw, 2.2rem); color: white; line-height: 1.2; margin-bottom: 1rem;
     }
-    .relifeiq-section__title span { color: #9dd96a; }
+    .relifeiq-section__title span { color: #5cc8dc; }
     .relifeiq-section__desc { font-size: 0.95rem; color: rgba(255,255,255,0.7); line-height: 1.75; margin-bottom: 1.75rem; }
     .relifeiq-tools { display: grid; grid-template-columns: repeat(3,1fr); gap: 0.75rem; margin-bottom: 1.75rem; }
     .relifeiq-tool {
@@ -284,22 +391,22 @@
       border-radius: var(--radius-lg); padding: 0.9rem; text-align: center;
       text-decoration: none; transition: all 0.2s;
     }
-    .relifeiq-tool:hover { background: rgba(255,255,255,0.1); border-color: rgba(157,217,106,0.3); }
-    .relifeiq-tool__name { font-family: var(--font-heading); font-weight: 800; font-size: 0.82rem; color: #9dd96a; margin-bottom: 0.2rem; }
+    .relifeiq-tool:hover { background: rgba(255,255,255,0.1); border-color: rgba(32,137,160,0.35); }
+    .relifeiq-tool__name { font-family: var(--font-heading); font-weight: 800; font-size: 0.82rem; color: #5cc8dc; margin-bottom: 0.2rem; }
     .relifeiq-tool__desc { font-size: 0.72rem; color: rgba(255,255,255,0.5); line-height: 1.4; }
     .relifeiq-section__promise {
       font-family: var(--font-accent); font-style: italic; font-size: 1.05rem;
-      color: rgba(255,255,255,0.6); border-left: 3px solid #9dd96a;
+      color: rgba(255,255,255,0.6); border-left: 3px solid var(--teal);
       padding-left: 1rem; margin-bottom: 1.5rem; line-height: 1.6;
     }
     .relifeiq-section__cta {
       display: inline-flex; align-items: center; gap: 0.5rem;
-      background: #9dd96a; color: #1a3a1a; padding: 0.85rem 1.75rem;
+      background: var(--teal); color: white; padding: 0.85rem 1.75rem;
       border-radius: var(--radius-full); font-family: var(--font-heading);
       font-weight: 800; font-size: 0.9rem; text-decoration: none;
       transition: all 0.2s; letter-spacing: 0.03em;
     }
-    .relifeiq-section__cta:hover { background: #b5e88a; }
+    .relifeiq-section__cta:hover { background: #1a7a8f; }
 
     /* ─── FEATURED TESTIMONIAL ─────────────────────────────────── */
     .featured-testimonial {
@@ -583,64 +690,53 @@
     </div>
   </section>
 
-  <!-- ── DECISION POINT ───────────────────────────────────── -->
-  <section class="decision-section" aria-labelledby="decision-heading">
+  <!-- ── MAP SEARCH ───────────────────────────────────────────── -->
+  <section class="map-search-section" aria-labelledby="map-heading">
     <div class="container">
-
-      <div class="decision-section__header">
-        <p class="decision-section__eyebrow">Where Do You Want to Go?</p>
-        <h2 class="decision-section__title" id="decision-heading">
-          Sell Smart. Buy Right. <span>Build More.</span>
+      <div class="map-search-section__header">
+        <span class="map-search-section__eyebrow">Explore the Map</span>
+        <h2 class="map-search-section__title" id="map-heading">
+          Find Homes <span>Your Way</span>
         </h2>
-        <p class="decision-section__sub">
-          Every move starts with a decision. Tell us where you are and we'll give you
-          the intelligence to get where you want to go.
+        <p class="map-search-section__sub">
+          Draw a search area, zoom into your favorite neighborhood, and browse active listings — right on the map.
         </p>
       </div>
+      <div class="map-search-section__widget">
+        <script charset="UTF-8" type="text/javascript" id="idxwidgetsrc-155562" src="//philliphimes.idxbroker.com/idx/widgets/155562"></script>
+      </div>
+    </div>
+  </section>
 
-      <div class="decision-cards">
+  <!-- ── TOOL TEASER CARDS ──────────────────────────────────────── -->
+  <section class="tools-teaser" aria-labelledby="tools-heading">
+    <div class="container">
+      <div class="tools-teaser__header">
+        <span class="tools-teaser__eyebrow">Intelligence Tools</span>
+        <h2 class="tools-teaser__title" id="tools-heading">More Ways to Get Smart Before You Move</h2>
+      </div>
+      <div class="tools-teaser__grid">
 
-        <!-- SELL SMART -->
-        <a href="selleriq.html" class="decision-card decision-card--sell">
-          <div class="decision-card__deco"></div>
-          <div class="decision-card__word">SELL</div>
-          <div class="decision-card__qualifier">SMART.</div>
-          <span class="decision-card__brand">SellerIQ™</span>
-          <p class="decision-card__desc">
-            Know your home's real value, your market position, and exactly what
-            you'll walk away with — before you decide anything. No guessing.
-            No surprises at the closing table.
-          </p>
-          <span class="decision-card__btn">Start SellerIQ™ →</span>
-        </a>
+        <div class="tools-teaser-card tools-teaser-card--value">
+          <span class="tools-teaser-card__icon">🏠</span>
+          <h3 class="tools-teaser-card__title">What's My Home Worth?</h3>
+          <p class="tools-teaser-card__desc">Get your TruMarket™ home valuation — a real analysis of your home's value, equity position, and what you'd walk away with today.</p>
+          <a href="sellers.html#home-value" class="tools-teaser-card__btn">Get My Value →</a>
+        </div>
 
-        <!-- BUY RIGHT -->
-        <a href="buyeriq.html" class="decision-card decision-card--buy">
-          <div class="decision-card__deco"></div>
-          <div class="decision-card__word">BUY</div>
-          <div class="decision-card__qualifier">RIGHT.</div>
-          <span class="decision-card__brand">BuyerIQ™</span>
-          <p class="decision-card__desc">
-            The tools and local intelligence to find the right home in the right
-            neighborhood — and make the right offer — before you walk through
-            a single door.
-          </p>
-          <span class="decision-card__btn">Start BuyerIQ™ →</span>
-        </a>
+        <div class="tools-teaser-card tools-teaser-card--market">
+          <span class="tools-teaser-card__icon">📊</span>
+          <h3 class="tools-teaser-card__title">What's the Market Doing?</h3>
+          <p class="tools-teaser-card__desc">Live market stats for League City, Friendswood, Pearland, and Clear Lake — median prices, days on market, and inventory trends.</p>
+          <a href="marketiq.html" class="tools-teaser-card__btn">See the Market →</a>
+        </div>
 
-        <!-- BUILD MORE -->
-        <a href="#relifeiq" class="decision-card decision-card--build">
-          <div class="decision-card__deco"></div>
-          <div class="decision-card__word">BUILD</div>
-          <div class="decision-card__qualifier">MORE.</div>
-          <span class="decision-card__brand">reLifeIQ™ — Life-Stage Strategy</span>
-          <p class="decision-card__desc">
-            Your equity is your greatest asset. Whether you're right-sizing,
-            investing, or starting fresh — reLifeIQ™ turns your real estate
-            into your next chapter.
-          </p>
-          <span class="decision-card__btn">Explore reLifeIQ™ →</span>
-        </a>
+        <div class="tools-teaser-card tools-teaser-card--calc">
+          <span class="tools-teaser-card__icon">💰</span>
+          <h3 class="tools-teaser-card__title">What Can I Afford?</h3>
+          <p class="tools-teaser-card__desc">Run the numbers before you start looking. Our mortgage calculator factors in current rates, down payment, and your target monthly payment.</p>
+          <a href="buyeriq.html#affordability" class="tools-teaser-card__btn">Calculate Now →</a>
+        </div>
 
       </div>
     </div>
@@ -867,6 +963,23 @@
 
   <script src="js/main.js"></script>
   <script>
+    // Animate AI search example queries
+    const queries = [
+      '"3br home near Clear Creek ISD under $450k"',
+      '"Quiet street in Friendswood with a big backyard"',
+      '"Downsizing from 4br — what\'s available under $350k?"',
+      '"New construction in League City under $500k"',
+      '"Home with a pool near good schools in Pearland"'
+    ];
+    let qi = 0;
+    const exEl = document.getElementById('ai-examples');
+    if (exEl) {
+      setInterval(() => {
+        qi = (qi + 1) % queries.length;
+        exEl.innerHTML = 'Try: <em>' + queries[qi] + '</em>';
+      }, 3500);
+    }
+
     // Force AI Search widget to be fully responsive
     function fixAISearch() {
       var widget = document.querySelector('.idx-ai-smart-search--small');
