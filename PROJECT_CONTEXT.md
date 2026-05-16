@@ -131,20 +131,27 @@ The site is a guided tour, not a brochure. Every element — the nav, the briefi
 
 | Layer | Tool | Status |
 |-------|------|--------|
-| Hosting | Netlify (static) | ✅ LIVE |
+| Hosting | Netlify (auto-deploy from GitHub) | ✅ LIVE |
 | Domain | philliphimes.com (GoDaddy DNS) | ✅ LIVE |
 | Forms | Netlify Forms (built-in) | ✅ Ready |
 | CRM | GoHighLevel (GHL) | ⏳ Pending A2P compliance |
-| IDX / Listings | IDX Broker Engage plan | ⏳ Purchase via RealtyCandy ($150 setup savings) |
-| IDX Bridge | IDXAddons (free) | ⏳ After IDX Broker purchase |
-| Future hosting | GHL website builder | ⏳ After A2P cleared |
+| IDX / Listings | IDX Broker Engage (philliphimes.idxbroker.com) | ✅ LIVE — RealtyCandy configured |
+| IDX Addons | IDXAddons.com | ✅ Active — 127 addons available |
+| Source Control | GitHub → philliphimes-website repo | ✅ LIVE — Netlify auto-deploys on push |
 | NewBuildIQ | newbuildiq.com | ✅ Domain owned, site TBD |
 
-### Netlify Redeploy Process
-1. Make changes to files in `C:\Users\philh\Desktop\Claude Playground\PH-Website\`
-2. Go to Netlify dashboard → philliphimes.com project
-3. Drag and drop the entire PH-Website folder onto the deploy area
-4. Site updates in ~30 seconds
+### Deploy Process (GitHub → Netlify)
+1. Edit files in `C:\Users\philh\Documents\GitHub\philliphimes-website\`
+2. Open GitHub Desktop → commit changes → push to main
+3. Netlify auto-deploys in ~30 seconds
+4. **Note:** If GitHub Desktop shows a `.git/index.lock` error, enable hidden files in File Explorer and delete that file
+
+### IDX Broker Design Panel (middleware.idxbroker.com/mgmt)
+Key sections for customization:
+- **Design → Branding → Colors** — set #1B3A5C, #2089A0, #C9A455 brand colors (DO THIS FIRST)
+- **Design → Website → Custom CSS** — inject brand CSS into all IDX pages
+- **Design → Website → Wrappers** — nav/footer already set up by RealtyCandy
+- **Design → Widgets → New** — AI Smart Search, Listings Carousel, Listings Showcase, Market Report, Map Search
 
 ---
 
@@ -364,3 +371,81 @@ Zillow knows everything about houses. We know everything about people and the li
 The site should feel like talking to the smartest, most empathetic real estate expert in Houston — one who understands that buying and selling homes is rarely about the house itself. It's about the next chapter.
 
 Every page, every section, every word should earn the trust of someone in the middle of a major life decision.
+
+---
+
+## 14. THREE-LAYER ARCHITECTURE (Locked May 2026)
+
+> **"The homepage is the hook. The briefing is the bridge. The portal is where the relationship is built."**
+
+| Layer | Name | What it does | Tools |
+|-------|------|--------------|-------|
+| 1 | **The Hook** | Give visitors what they want immediately — listings, home value, market data. No friction, no opt-in. | IDX Broker AI Smart Search, Listings Carousel/Showcase, Home Valuation (Plunk), Affordability Calculator |
+| 2 | **The Bridge** | Video series that makes them curious about a smarter approach. Answers: "What is my reason for moving?" Leads to the IQ tools. | Phil on camera, 60-90 sec universal video + life-stage branch videos |
+| 3 | **The Relationship** | IQ tool portals where Caitlyn engages and conversion happens. | BuyerIQ™, SellerIQ™, reLifeIQ™ (Rebalance/Amplify/Renew) |
+
+### Layer 2 Bridge Video Script (ready to record)
+- Opening: "You've researched what's available. You've checked prices. And if I'm right — you're just as unsure as when you started."
+- Core insight: "We buy and sell homes for a reason. Life requires it. Understanding your life moment unlocks everything — the timing, the neighborhood, the strategy."
+- The pivot: "So what are your reasons... for your next move... that really matter." [pause]
+- Introduce reLifeIQ: "reLifeIQ is a family of tools designed to bring clarity to this moment in your life."
+- Branch to Rebalance (empty nesters), Amplify (growing family/move-up), Renew (divorce/medical)
+
+---
+
+## 15. IDX BROKER + IDXADDONS STRATEGY (May 2026)
+
+### IDX Broker Engage — What's Live
+- philliphimes.idxbroker.com — full HAR MLS with nav/footer wrapper matching philliphimes.com (RealtyCandy)
+- philliphimes.idxbroker.com/i/League-City — city-filtered search pages (all 6 cities)
+- 250+ League City listings, avg $397K, live data
+
+### Key Widgets to Build (in order)
+1. **AI Smart Search** — natural language "3br home near Clear Creek ISD under $450k" → replaces homepage search bar
+2. **Listings Carousel** — pre-filtered by city, embed on each city page above the fold
+3. **Listings Showcase** — grid for deeper browse sections on city pages
+4. **Market Report** — drop into market-insights.html for real data by city/zip
+
+### IDXAddons Arsenal — 127 total addons
+Organized by strategy layer:
+- **Layer 1 (Hook):** AI Smart Search, Omnisearch 2.0, Home Valuation, Affordability Calculator, Mortgage Calculator, Geolocation Widget, Nearby Listings, Popular Listings, Property AI, RPR AVM
+- **Layer 2 (Bridge/Community):** One Click Community, Community Page Creator, Community Enhanced Builder, Community Listings Stats, Data Graph Widget, Market Report Widget, ChatGPT Content Generator
+- **Layer 3 (Relationship/GHL):** GHL Dashboard, Dynamic Saved Search, Property Updates for GHL, GHL Text Alerts, GHL Webhook & Workflows, Home Valuation + GHL, Auto Saved Search, Voice AI, CMA Widget
+- **SEO/AEO:** SEO Links, Bulk Saved Link Creator, Google Reviews, Testimonials Widget, Bulk Widget Generator, Counts, Popular Searches
+
+---
+
+## 16. CITY PAGE ARCHITECTURE (Pilot: League City)
+
+### Current Structure (all 6 city pages rebuilt May 2026)
+All city pages (league-city, friendswood, pearland, clear-lake, dickinson, manvel) now match the same template:
+- Full-height hero with city-specific color theme
+- WHY section (city-draw two-column)
+- NEIGHBORHOODS section (hood-cards with buyeriq.html CTAs)
+- SCHOOLS section (two-column with school-items)
+- COMMUTE section (commute-times)
+- FAQ section (faq-items with schema markup)
+
+### Next: League City Pilot Redesign
+Goal: Get IDX listings above the fold, community content below.
+1. **Compact hero** — ~220-250px tall (half current height), just city name + tagline
+2. **Listings Carousel widget** — pre-filtered to League City, right below fold
+3. **"View All League City Listings →"** — links to philliphimes.idxbroker.com/i/League-City
+4. **Community content** — existing neighborhoods/schools/commute/FAQ sections
+Roll out to all 6 cities after League City is proven.
+
+---
+
+## 17. SELLERS.HTML — TWO-STEP HOME VALUATION (Built May 2026)
+
+New section added between hero and two-door section on sellers.html:
+- **Step 1:** Custom-styled address input (dark navy/teal gradient, matches TruMarket aesthetic)
+- **Loading state:** Gold spinner + "Pulling your estimate..."
+- **Step 2:** Two-column — Left: IDXAddons Plunk result (white card on white background — no conflict); Right: TruMarket™ capture form (name/email/phone/SMS → Netlify form `home-value-lead`)
+- JS orchestration: dynamically injects IDXAddons script on submit, tries to pre-fill address, reveals Step 2 after 3s
+- "← Try a different address" resets flow
+
+### Pending Next Steps for Sellers Page
+- Test the two-step flow after push to GitHub
+- If IDXAddons pre-fill works → great. If not → widget shows with blank input, user re-enters address (acceptable)
+- Consider replacing IDXAddons with IDX Broker's native valuation once configured

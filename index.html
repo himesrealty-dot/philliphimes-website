@@ -59,6 +59,33 @@
   <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
   <style>
 
+    /* ─── LISTINGS CAROUSEL SECTION ────────────────────────────── */
+    .listings-carousel-section {
+      padding: 4rem 0 3rem;
+      background: #f0f4f7;
+    }
+    .listings-carousel-section__header {
+      text-align: center; margin-bottom: 2rem;
+    }
+    .listings-carousel-section__eyebrow {
+      font-family: var(--font-heading); font-size: 0.78rem; font-weight: 700;
+      letter-spacing: 0.18em; text-transform: uppercase; color: var(--teal);
+      margin-bottom: 0.6rem; display: block;
+    }
+    .listings-carousel-section__title {
+      font-family: var(--font-heading); font-weight: 900;
+      font-size: clamp(1.8rem, 4vw, 2.6rem); color: var(--navy);
+      line-height: 1.1; margin-bottom: 0.65rem;
+    }
+    .listings-carousel-section__title span { color: var(--teal); }
+    .listings-carousel-section__sub {
+      font-size: 1rem; color: var(--dark-gray);
+      max-width: 580px; margin: 0 auto; line-height: 1.7;
+    }
+    .listings-carousel-section__widget {
+      max-width: 1100px; margin: 0 auto;
+    }
+
     /* ─── DECISION POINT ────────────────────────────────────────── */
     .decision-section { padding: 5rem 0; background: var(--white); }
     .decision-section__header { text-align: center; margin-bottom: 3rem; }
@@ -463,6 +490,24 @@
       </div>
     </div>
   </div>
+
+  <!-- ── FEATURED LISTINGS CAROUSEL ──────────────────────────── -->
+  <section class="listings-carousel-section" aria-labelledby="carousel-heading">
+    <div class="container">
+      <div class="listings-carousel-section__header">
+        <span class="listings-carousel-section__eyebrow">Active Listings · Galveston County · Updated Daily</span>
+        <h2 class="listings-carousel-section__title" id="carousel-heading">
+          Homes Available <span>Right Now</span>
+        </h2>
+        <p class="listings-carousel-section__sub">
+          Browse the latest listings across League City, Friendswood, Pearland, and Clear Lake — pulled live from HAR MLS.
+        </p>
+      </div>
+      <div class="listings-carousel-section__widget">
+        <script charset="UTF-8" type="text/javascript" id="idxwidgetsrc-156152" src="//philliphimes.idxbroker.com/idx/widgets/156152"></script>
+      </div>
+    </div>
+  </section>
 
   <!-- ── DECISION POINT ───────────────────────────────────── -->
   <section class="decision-section" aria-labelledby="decision-heading">
