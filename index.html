@@ -84,6 +84,24 @@
       flex-shrink: 0 !important;
       white-space: nowrap !important;
     }
+    @media (max-width: 768px) {
+      .hero__ai-search .idx-ai-smart-search,
+      .hero__ai-search .idx-ai-smart-search--small {
+        flex-direction: column !important;
+        width: 100% !important;
+      }
+      .hero__ai-search .idx-ai-smart-search__search-bar {
+        width: 100% !important;
+        border-radius: 8px 8px 0 0 !important;
+        border-bottom: 1px solid #e0e0e0 !important;
+      }
+      .hero__ai-search .idx-ai-smart-search__search-button {
+        width: 100% !important;
+        justify-content: center !important;
+        border-radius: 0 0 8px 8px !important;
+        padding: 0.75rem !important;
+      }
+    }
 
     /* ─── LISTINGS CAROUSEL SECTION ────────────────────────────── */
     .listings-carousel-section {
