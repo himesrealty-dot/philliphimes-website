@@ -714,9 +714,11 @@
         address:    form.address.value.trim(),
         email:      form.email.value.trim(),
         phone:      form.phone.value.trim(),
-        consent:    form.consent.checked,
-        source:     'TruMarket™ Home Report — philliphimes.com',
-        submittedAt: new Date().toISOString()
+        smsConsent:           form.consent.checked,
+        smsConsentLanguage:   'I agree to receive text messages from Phillip Himes. Msg & data rates may apply. Reply STOP to cancel.',
+        smsConsentTimestamp:  new Date().toISOString(),
+        source:               'TruMarket™ Home Report — philliphimes.com',
+        submittedAt:          new Date().toISOString()
       };
 
       // Basic validation
@@ -724,7 +726,7 @@
         alert('Please fill out all fields before submitting.');
         return;
       }
-      if (!data.consent) {
+      if (!data.smsConsent) {
         alert('Please check the consent box to continue.');
         return;
       }
