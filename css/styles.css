@@ -1889,6 +1889,19 @@ p {
     overflow: hidden;
   }
 
+  .hero__ai-search {
+    width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+  .hero__ai-search > div,
+  .hero__ai-search form,
+  .hero__ai-search [class*="idx-"] {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
   .hero__search-input {
     min-width: 0;
     font-size: 0.9rem;
