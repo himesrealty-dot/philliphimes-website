@@ -1,4 +1,16 @@
 [[redirects]]
+  from = "/neighborhoods.html"
+  to = "/cities.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/thank-you.html"
+  to = "/index.html"
+  status = 301
+  force = true
+
+[[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
