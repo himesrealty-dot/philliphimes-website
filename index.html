@@ -113,11 +113,6 @@
       padding: 1.5rem 0 3rem;
       background: #f0f4f7;
     }
-    /* Container flipped: widget renders first visually, heading below — DOM order preserved for SEO */
-    .listings-carousel-section .container {
-      display: flex;
-      flex-direction: column-reverse;
-    }
     .listings-carousel-section__header {
       text-align: center; margin-top: 2rem; margin-bottom: 0;
     }
@@ -568,6 +563,9 @@
   <!-- ── FEATURED LISTINGS CAROUSEL ──────────────────────────── -->
   <section class="listings-carousel-section" aria-labelledby="carousel-heading">
     <div class="container">
+      <div class="listings-carousel-section__widget">
+        <script charset="UTF-8" type="text/javascript" id="idxwidgetsrc-156152" src="//philliphimes.idxbroker.com/idx/widgets/156152"></script>
+      </div>
       <div class="listings-carousel-section__header">
         <span class="listings-carousel-section__eyebrow">Active Listings · Galveston County · Updated Daily</span>
         <h2 class="listings-carousel-section__title" id="carousel-heading">
@@ -576,9 +574,6 @@
         <p class="listings-carousel-section__sub">
           Browse the latest listings across League City, Friendswood, Pearland, and Clear Lake — pulled live from HAR MLS.
         </p>
-      </div>
-      <div class="listings-carousel-section__widget">
-        <script charset="UTF-8" type="text/javascript" id="idxwidgetsrc-156152" src="//philliphimes.idxbroker.com/idx/widgets/156152"></script>
       </div>
     </div>
   </section>
