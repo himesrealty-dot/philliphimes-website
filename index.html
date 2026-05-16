@@ -87,35 +87,29 @@
     }
 
     /* ─── IDX BROKER CAROUSEL WIDGET BRAND OVERRIDES ────────── */
-    /* Targets the widget's injected DOM — not an iframe, so CSS reaches it */
-    .listings-carousel-section__widget .IDX-carouselTitle,
-    .listings-carousel-section__widget .widgetTitle,
-    .listings-carousel-section__widget [class*="carouselTitle"],
-    .listings-carousel-section__widget [class*="widget-title"],
-    .listings-carousel-section__widget [class*="widgetTitle"] {
+    .idx-listings-carousel_header-text {
       color: var(--navy) !important;
       font-family: var(--font-heading) !important;
       font-weight: 800 !important;
       font-size: 1.15rem !important;
-      letter-spacing: 0.01em;
     }
-    .listings-carousel-section__widget .IDX-carouselViewAll,
-    .listings-carousel-section__widget [class*="viewAll"],
-    .listings-carousel-section__widget [class*="ViewAll"],
-    .listings-carousel-section__widget [class*="view-all"] {
+    a[aria-label="View all listings"] {
       color: var(--teal) !important;
       font-family: var(--font-heading) !important;
       font-weight: 700 !important;
+      text-decoration: none !important;
     }
-    .listings-carousel-section__widget .IDX-carouselViewAll:hover,
-    .listings-carousel-section__widget [class*="viewAll"]:hover,
-    .listings-carousel-section__widget [class*="ViewAll"]:hover {
+    a[aria-label="View all listings"]:hover {
       color: var(--gold) !important;
     }
-    /* Arrow buttons */
-    .listings-carousel-section__widget [class*="arrow"],
-    .listings-carousel-section__widget [class*="Arrow"] {
-      background: var(--navy) !important;
+    .idx-listings-carousel__arrow {
+      background-color: var(--navy) !important;
+    }
+    .idx-listings-carousel__arrow:hover {
+      background-color: var(--teal) !important;
+    }
+    .idx-listings-carousel__arrow svg path {
+      fill: #ffffff !important;
     }
 
     /* ─── DECISION POINT ────────────────────────────────────────── */
