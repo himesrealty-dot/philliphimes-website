@@ -84,24 +84,6 @@
       flex-shrink: 0 !important;
       white-space: nowrap !important;
     }
-    @media (max-width: 768px) {
-      .hero__ai-search .idx-ai-smart-search,
-      .hero__ai-search .idx-ai-smart-search--small {
-        flex-direction: column !important;
-        width: 100% !important;
-      }
-      .hero__ai-search .idx-ai-smart-search__search-bar {
-        width: 100% !important;
-        border-radius: 8px 8px 0 0 !important;
-        border-bottom: 1px solid #e0e0e0 !important;
-      }
-      .hero__ai-search .idx-ai-smart-search__search-button {
-        width: 100% !important;
-        justify-content: center !important;
-        border-radius: 0 0 8px 8px !important;
-        padding: 0.75rem !important;
-      }
-    }
 
     /* ─── LISTINGS CAROUSEL SECTION ────────────────────────────── */
     .listings-carousel-section {
@@ -853,6 +835,32 @@
   </footer>
 
   <script src="js/main.js"></script>
+  <script>
+    // Force AI Search widget to be fully responsive
+    function fixAISearch() {
+      var widget = document.querySelector('.idx-ai-smart-search--small');
+      if (widget) {
+        widget.style.setProperty('width', '100%', 'important');
+        widget.style.setProperty('max-width', '100%', 'important');
+        widget.style.setProperty('display', 'flex', 'important');
+        widget.style.setProperty('box-sizing', 'border-box', 'important');
+        var input = widget.querySelector('.idx-ai-smart-search__search-bar');
+        if (input) {
+          input.style.setProperty('flex', '1 1 auto', 'important');
+          input.style.setProperty('min-width', '0', 'important');
+          input.style.setProperty('width', 'auto', 'important');
+        }
+        var btn = widget.querySelector('.idx-ai-smart-search__search-button');
+        if (btn) {
+          btn.style.setProperty('flex-shrink', '0', 'important');
+          btn.style.setProperty('white-space', 'nowrap', 'important');
+        }
+      } else {
+        setTimeout(fixAISearch, 200);
+      }
+    }
+    fixAISearch();
+  </script>
 <script src="https://widgets.leadconnectorhq.com/loader.js" data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" data-widget-id="6a0623c7f127bb5833bc2697"></script>
 </body>
 </html>
