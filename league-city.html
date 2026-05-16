@@ -559,88 +559,142 @@
       line-height: 1.72;
     }
 
-    /* ─── CTA SECTION ─────────────────────────────────────── */
-    .city-cta {
-      background: linear-gradient(135deg, var(--navy) 0%, #0d2137 100%);
+    /* ─── RELIFEIQ CTA ────────────────────────────────────── */
+    .city-relifeiq {
+      background: linear-gradient(135deg, #0a1c2e 0%, #071e30 60%, #0d2137 100%);
       padding: 5.5rem 0;
-      text-align: center;
       position: relative;
       overflow: hidden;
     }
-    .city-cta::before {
+    .city-relifeiq::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: radial-gradient(ellipse at 50% 0%, rgba(201,164,85,0.07) 0%, transparent 65%);
+      background: radial-gradient(ellipse at 20% 50%, rgba(32,137,160,0.1) 0%, transparent 60%);
       pointer-events: none;
     }
-    .city-cta__eyebrow {
-      font-family: var(--font-heading);
-      font-size: 0.78rem;
-      font-weight: 700;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 0.75rem;
-      display: block;
+    .city-relifeiq__inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
     }
-    .city-cta__title {
-      font-family: var(--font-heading);
-      font-weight: 900;
-      font-size: clamp(2rem, 5vw, 3rem);
-      color: white;
-      line-height: 1.1;
-      margin-bottom: 0.9rem;
+    @media (max-width: 860px) {
+      .city-relifeiq__inner { grid-template-columns: 1fr; gap: 3rem; }
     }
-    .city-cta__title span { color: var(--gold); }
-    .city-cta__sub {
-      font-size: 1.05rem;
-      color: rgba(255,255,255,0.7);
-      max-width: 580px;
-      margin: 0 auto 2.5rem;
-      line-height: 1.75;
-    }
-    .city-cta__buttons {
-      display: flex;
-      gap: 1rem;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-    .city-cta__btn-primary {
+    .city-relifeiq__eyebrow {
       display: inline-flex;
       align-items: center;
-      gap: 0.4rem;
-      background: var(--gold);
-      color: var(--navy);
-      padding: 0.9rem 2rem;
+      gap: 0.5rem;
+      background: rgba(32,137,160,0.15);
+      border: 1px solid rgba(32,137,160,0.35);
+      border-radius: var(--radius-full);
+      padding: 0.3rem 0.9rem;
+      font-family: var(--font-heading);
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #5cc8dc;
+      margin-bottom: 1.25rem;
+      display: block;
+    }
+    .city-relifeiq__title {
+      font-family: var(--font-heading);
+      font-weight: 900;
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      color: white;
+      line-height: 1.1;
+      margin-bottom: 1.1rem;
+      letter-spacing: -0.02em;
+    }
+    .city-relifeiq__title span { color: var(--gold); }
+    .city-relifeiq__desc {
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.78;
+      margin-bottom: 1.5rem;
+    }
+    .city-relifeiq__quote {
+      font-family: var(--font-accent, Georgia, serif);
+      font-style: italic;
+      font-size: 1rem;
+      color: rgba(255,255,255,0.55);
+      border-left: 3px solid var(--teal);
+      padding-left: 1rem;
+      margin: 0 0 1.75rem;
+      line-height: 1.6;
+    }
+    .city-relifeiq__buttons {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .city-relifeiq__btn-primary {
+      display: inline-flex;
+      align-items: center;
+      background: var(--teal);
+      color: white;
+      padding: 0.85rem 1.75rem;
       border-radius: var(--radius-full);
       font-family: var(--font-heading);
       font-weight: 800;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       text-decoration: none;
       letter-spacing: 0.03em;
       transition: background 0.2s;
     }
-    .city-cta__btn-primary:hover { background: #d4b86a; }
-    .city-cta__btn-secondary {
+    .city-relifeiq__btn-primary:hover { background: #1a7a8f; }
+    .city-relifeiq__btn-secondary {
       display: inline-flex;
       align-items: center;
-      gap: 0.4rem;
-      background: transparent;
-      border: 1.5px solid rgba(255,255,255,0.4);
+      background: rgba(255,255,255,0.1);
+      border: 1.5px solid rgba(255,255,255,0.3);
       color: white;
-      padding: 0.9rem 2rem;
+      padding: 0.85rem 1.75rem;
       border-radius: var(--radius-full);
       font-family: var(--font-heading);
       font-weight: 700;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       text-decoration: none;
       letter-spacing: 0.03em;
       transition: all 0.2s;
     }
-    .city-cta__btn-secondary:hover {
-      border-color: white;
-      background: rgba(255,255,255,0.08);
+    .city-relifeiq__btn-secondary:hover {
+      background: rgba(255,255,255,0.18);
+      border-color: rgba(255,255,255,0.6);
+    }
+    /* Tool cards */
+    .city-relifeiq__tools {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.85rem;
+    }
+    .city-relifeiq__tool {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius-lg);
+      padding: 1.1rem 1.2rem;
+      text-decoration: none;
+      transition: all 0.2s;
+      display: block;
+    }
+    .city-relifeiq__tool:hover {
+      background: rgba(255,255,255,0.11);
+      border-color: rgba(32,137,160,0.4);
+      transform: translateY(-2px);
+    }
+    .city-relifeiq__tool-name {
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 0.85rem;
+      color: #5cc8dc;
+      margin-bottom: 0.3rem;
+    }
+    .city-relifeiq__tool-desc {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.5;
     }
 
   </style>
@@ -898,15 +952,43 @@
     </div>
   </section>
 
-  <!-- ── CTA ───────────────────────────────────────────── -->
-  <section class="city-cta" aria-labelledby="cta-heading">
+  <!-- ── RELIFEIQ CTA ──────────────────────────────────── -->
+  <section class="city-relifeiq" aria-labelledby="relifeiq-heading">
     <div class="container">
-      <span class="city-cta__eyebrow">Your League City Real Estate Expert</span>
-      <h2 class="city-cta__title" id="cta-heading">Ready to Make Your <span>Move?</span></h2>
-      <p class="city-cta__sub">Whether you're buying in Tuscan Lakes, selling in South Shore Harbour, or just exploring what your equity can do — Phil is the local expert who lives here and knows this market cold.</p>
-      <div class="city-cta__buttons">
-        <a href="contact.html?city=league-city" class="city-cta__btn-primary">📞 Talk to Phil</a>
-        <a href="contact.html?topic=trumarket&city=league-city" class="city-cta__btn-secondary">Get My Home's Value</a>
+      <div class="city-relifeiq__inner">
+
+        <div class="city-relifeiq__content">
+          <span class="city-relifeiq__eyebrow">✦ reLifeIQ™ — Life-Stage Real Estate</span>
+          <h2 class="city-relifeiq__title" id="relifeiq-heading">You've Built Equity<br />in League City.<br /><span>Now What?</span></h2>
+          <p class="city-relifeiq__desc">Most homeowners in League City are sitting on $300K–$400K+ in equity and don't have a plan for it. Phil's reLifeIQ™ framework helps you figure out the smartest next move — whether that's selling, buying up, downsizing, or building long-term wealth.</p>
+          <blockquote class="city-relifeiq__quote">
+            "Real estate built around your life — not just your transaction."
+          </blockquote>
+          <div class="city-relifeiq__buttons">
+            <a href="next-step.html" class="city-relifeiq__btn-primary">What's My Next Move? →</a>
+            <a href="contact.html?topic=trumarket&city=league-city" class="city-relifeiq__btn-secondary">Get My Home's Value</a>
+          </div>
+        </div>
+
+        <div class="city-relifeiq__tools">
+          <a href="selleriq.html" class="city-relifeiq__tool">
+            <div class="city-relifeiq__tool-name">SellerIQ™</div>
+            <div class="city-relifeiq__tool-desc">Sell smart — pricing strategy, timing, and net proceeds optimization</div>
+          </a>
+          <a href="buyeriq.html" class="city-relifeiq__tool">
+            <div class="city-relifeiq__tool-name">BuyerIQ™</div>
+            <div class="city-relifeiq__tool-desc">Buy right — from first home to forever home, with a clear plan</div>
+          </a>
+          <a href="next-step.html" class="city-relifeiq__tool">
+            <div class="city-relifeiq__tool-name">reLifeIQ™</div>
+            <div class="city-relifeiq__tool-desc">Life-stage planning — downsize, upgrade, or leverage your equity</div>
+          </a>
+          <a href="contact.html?topic=trumarket" class="city-relifeiq__tool">
+            <div class="city-relifeiq__tool-name">TruMarket™</div>
+            <div class="city-relifeiq__tool-desc">Know exactly what your League City home is worth right now</div>
+          </a>
+        </div>
+
       </div>
     </div>
   </section>
