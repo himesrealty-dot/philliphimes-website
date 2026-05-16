@@ -124,7 +124,7 @@
       text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.45);
     }
 
-    /* ─── WHY LEAGUE CITY ──────────────────────────────── */
+    /* ─── WHY MANVEL ──────────────────────────────── */
     .city-why {
       background: var(--off-white, #f9f7f4); padding: 5rem 0;
     }
@@ -458,7 +458,6 @@
     }
     .city-cta__btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
 
-  
     /* ── Manvel: deep gold ── */
     .city-hero { background: linear-gradient(135deg, #1a1200 0%, #3d2e00 60%, #6b5200 100%); }
     .city-hero::before { background: radial-gradient(ellipse at 65% 35%, rgba(201,164,85,0.10) 0%, transparent 55%); }
@@ -471,41 +470,30 @@
     .hood-card__toggle { background: #6b5200; color: #fff; }
     .hood-card__toggle:hover { background: #4a3900; }
     .city-schools { background: #fdfbf3; }
-    .school-badge { background: #6b5200; }
-    .city-commute { background: linear-gradient(135deg, #1a1200 0%, #3d2e00 100%); }
+    .city-commute { background: white; }
     .city-faq { background: #140e00; }
     .faq-item__q-text { color: #f0c840; }
     .city-cta { background: linear-gradient(135deg, #3d2e00 0%, #6b5200 100%); }
+    .city-cta__title { color: #fff; }
+    .city-cta__text { color: rgba(255,255,255,0.8); }
+    .city-cta__eyebrow { color: #f0c840; }
     .city-cta .btn--primary { background: #c9a455; color: #1a1200; }
     .city-cta .btn--primary:hover { background: #b8903d; }
-    .city-cta .btn--outline { border-color: rgba(255,255,255,0.6); color: #fff; }
-    .city-cta .btn--outline:hover { background: rgba(255,255,255,0.1); }
+    .city-cta .btn--secondary { border-color: rgba(255,255,255,0.6); color: #fff; }
 
-    /* ── Legacy city-why__card structure ── */
-    .city-why.section { padding: 5rem 0; }
-    .city-why__grid { display: grid; grid-template-columns: 1fr; gap: 1rem; }
-    .city-why__grid-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-top: 1.5rem; }
-    @media (max-width: 900px) { .city-why__grid-cards { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 560px) { .city-why__grid-cards { grid-template-columns: 1fr; } }
-    .city-why__intro-eyebrow { font-family: var(--font-heading); font-size: 0.75rem; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: var(--teal); margin-bottom: 0.75rem; display: block; }
-    .city-why__intro-heading { font-family: var(--font-heading); font-weight: 900; font-size: clamp(1.5rem,2.5vw,2rem); color: var(--navy); line-height: 1.15; margin-bottom: 1rem; }
-    .city-why__intro-body { font-size: 0.95rem; color: var(--dark-gray); line-height: 1.78; margin-bottom: 2rem; }
-    .city-why__card { background: white; border-radius: var(--radius-lg); padding: 1.5rem; border: 1.5px solid var(--light-gray); transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s; }
-    .city-why__card:hover { border-color: var(--teal); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.07); }
-    .city-why__icon { font-size: 1.75rem; display: block; margin-bottom: 0.65rem; }
-    .city-why__card h3 { font-family: var(--font-heading); font-weight: 800; font-size: 0.9rem; color: var(--navy); margin-bottom: 0.4rem; line-height: 1.3; }
-    .city-why__card p { font-size: 0.82rem; color: var(--dark-gray); line-height: 1.65; margin: 0; }
-</style>
+  </style>
 </head>
 <body>
 
-<!-- ============ NAV ============ -->
-<header class="site-header">
-  <nav class="nav container">
+  <!-- ── NAVIGATION ──────────────────────────────────── -->
+  <nav class="nav" role="navigation" aria-label="Main navigation">
     <div class="nav__inner">
       <a href="index.html" class="nav__logo" aria-label="Phillip Himes Real Estate Home">
         <img src="images/logo.png" alt="Phillip Himes | Brokered by eXp Realty" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
-        <span class="nav__logo-text" style="display:none;"><span class="nav__logo-name">Phillip Himes</span><span class="nav__logo-brokerage">Brokered by eXp Realty</span></span>
+        <span class="nav__logo-text" style="display:none;">
+          <span class="nav__logo-name">Phillip Himes</span>
+          <span class="nav__logo-brokerage">Brokered by eXp Realty</span>
+        </span>
       </a>
       <ul class="nav__links" id="nav-links">
         <li><a href="buyers.html" class="nav__link">Buying</a></li>
@@ -543,526 +531,460 @@
       <button class="nav__hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links"><span></span><span></span><span></span></button>
     </div>
   </nav>
-</header>
 
-<!-- ============ HERO ============ -->
-<section class="city-hero">
-  <div class="container">
-    <div class="city-hero__content">
-      <p class="city-hero__eyebrow">Houston Bay Area Suburbs • Manvel, TX</p>
-      <h1 class="city-hero__title">Manvel Real Estate:<br>The Bay Area's Fastest-Appreciating<br>Master-Planned Communities</h1>
-      <p class="city-hero__sub">Pomona. Meridiana. Del Bello Lakes. This is where buyers who want growth buy — before the rest of the market figures it out.</p>
-      <div class="city-hero__actions">
-        <a href="tools.html?city=manvel" class="btn btn--primary btn--lg">Run BuyerIQ™ for Manvel</a>
-        <a href="contact.html" class="btn btn--outline btn--lg">Ask Phil a Question</a>
+  <!-- ── HERO ───────────────────────────────────────── -->
+  <section class="city-hero" aria-label="Manvel overview">
+    <div class="container">
+      <div class="city-hero__content">
+        <span class="city-hero__eyebrow">Houston Bay Area · Brazoria County</span>
+        <h1 class="city-hero__title">Manvel, TX<br />Real Estate Guide</h1>
+        <p class="city-hero__subtitle">Pomona. Meridiana. Del Bello Lakes. This is where buyers who want growth buy — before the rest of the market figures it out.</p>
+        <div class="city-hero__btns">
+          <a href="buyeriq.html" class="btn btn--primary btn--lg">Start BuyerIQ™ →</a>
+          <a href="contact.html" class="btn btn--white-outline btn--lg">Ask Phil a Question</a>
+        </div>
       </div>
     </div>
-
     <div class="city-stats-bar">
       <div class="city-stat">
-        <span class="city-stat__value">~$510K</span>
-        <span class="city-stat__label">Median Home Price</span>
+        <div class="city-stat__value">~$510K</div>
+        <div class="city-stat__label">Median Home Price</div>
       </div>
       <div class="city-stat">
-        <span class="city-stat__value">25–40 days</span>
-        <span class="city-stat__label">Avg. Days on Market</span>
+        <div class="city-stat__value">25–40 <span>days</span></div>
+        <div class="city-stat__label">Avg. Days on Market</div>
       </div>
       <div class="city-stat">
-        <span class="city-stat__value">Alvin ISD</span>
-        <span class="city-stat__label">School District</span>
+        <div class="city-stat__value">Alvin ISD</div>
+        <div class="city-stat__label">School District</div>
       </div>
       <div class="city-stat">
-        <span class="city-stat__value">#1 Appreciation</span>
-        <span class="city-stat__label">Fastest-Growing Bay Area City</span>
+        <div class="city-stat__value">#1</div>
+        <div class="city-stat__label">Fastest-Growing Bay Area City</div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- ============ WHY MANVEL ============ -->
-<section class="city-why section">
-  <div class="container">
-    <h2 class="section__title">Why Forward-Thinking Buyers Choose Manvel</h2>
-    <p class="section__sub">Manvel isn't about what's here right now. It's about understanding what it's becoming — and getting in before that price is fully baked in.</p>
-    <div class="city-why__grid">
-
-      <div class="city-why__card">
-        <div class="city-why__icon">📈</div>
-        <h3>Fastest Appreciation in the Bay Area</h3>
-        <p>Manvel's master-planned communities have outperformed every other Houston Bay Area suburb on appreciation over the past 5 years. Buyers who entered Pomona or Meridiana in 2019–2021 have seen 30–45% gains. The growth drivers remain in place — 288 corridor, TMC expansion, premium product in a supply-constrained premium tier.</p>
-      </div>
-
-      <div class="city-why__card">
-        <div class="city-why__icon">🏊</div>
-        <h3>Amenities That Compete With Resorts</h3>
-        <p>Meridiana has a surf wave pool. Pomona has a resort-style aquatic center and lake amenity. Del Bello Lakes has waterfront lots. These are not standard suburban amenity packages — they are destination-caliber amenities that command price premiums and attract buyers willing to pay for lifestyle quality.</p>
-      </div>
-
-      <div class="city-why__card">
-        <div class="city-why__icon">🏗️</div>
-        <h3>Premium Builder Names</h3>
-        <p>Toll Brothers, Drees Custom Homes, David Weekley, Perry Homes, and Lennar are all active in Manvel's master-planned communities. These aren't tract-home builders dropping spec product — these are quality builders competing for buyers who have choices. That builder competition produces better homes than markets with one or two dominant builders.</p>
-      </div>
-
-      <div class="city-why__card">
-        <div class="city-why__icon">🚗</div>
-        <h3>The 288 Commute Keeps Getting Better</h3>
-        <p>SH-288 toll road improvements have progressively reduced Manvel-to-TMC commute times. The managed HOV lanes make predictable commute times possible in a way that I-45 simply doesn't deliver. As more TMC expansion phases complete — the Helix project, Children's expansion — demand for 288-corridor housing grows with it.</p>
-      </div>
-
-      <div class="city-why__card">
-        <div class="city-why__icon">🏡</div>
-        <h3>More Home Per Dollar Than Katy or Woodlands</h3>
-        <p>Premium master-planned communities in Katy and The Woodlands trade at $600K–$800K+ for comparable homes to what Manvel offers in the $450K–$550K range. Buyers who understand what they're comparing have been migrating to Manvel specifically because the lifestyle-adjusted value equation is significantly better.</p>
-      </div>
-
-      <div class="city-why__card">
-        <div class="city-why__icon">🌿</div>
-        <h3>Space & Land That League City Can't Offer</h3>
-        <p>Manvel's lower density and larger lot footprints give buyers breathing room that fully-built-out League City and Pearland simply can't reproduce. If you want a 70-foot lot, a side-entry garage, and a backyard that doesn't touch your neighbor's fence — Manvel delivers this at a price that makes sense.</p>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ============ MARKET SNAPSHOT ============ -->
-<section class="city-market section">
-  <div class="container">
-    <h2 class="section__title" style="color:#fff;">Manvel Market Snapshot (2026)</h2>
-    <p class="section__sub" style="color:rgba(255,255,255,0.75);">A seller-favored market in premium communities. Buyers can still negotiate — but well-priced new builds from top builders require speed.</p>
-    <div class="city-market__grid">
-
-      <div class="city-market__card">
-        <div class="city-market__metric">~$510K</div>
-        <div class="city-market__label">Median Sale Price</div>
-        <p class="city-market__note">The highest median in the Houston Bay Area Bay Area guide. Premium communities pull the median up significantly. Buyers on a $400K–$450K budget should explore specific phases and builders, as entry-level new construction exists within that range.</p>
-      </div>
-
-      <div class="city-market__card">
-        <div class="city-market__metric">97–99%</div>
-        <div class="city-market__label">Sale-to-List Price Ratio</div>
-        <p class="city-market__note">The least negotiating room of any community in this guide on resale homes. Builders are offering incentives on new construction (rate buydowns, options credits) but aren't discounting base prices. Market strength gives sellers confidence here.</p>
-      </div>
-
-      <div class="city-market__card">
-        <div class="city-market__metric">~1.5 Months</div>
-        <div class="city-market__label">Inventory Supply</div>
-        <p class="city-market__note">Among the tightest resale inventory in the Bay Area despite high prices. New construction supply from active builders partially offsets — but finished, move-in-ready resale homes in Pomona and Meridiana move quickly when priced right.</p>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ============ NEIGHBORHOODS ============ -->
-<section class="city-hoods section">
-  <div class="container">
-    <h2 class="section__title">Manvel Communities: Pomona, Meridiana & More</h2>
-    <p class="section__sub">Three flagship master-planned communities anchor Manvel's premium market. Here's what distinguishes each one.</p>
-    <div class="city-hoods__grid">
-
-      <!-- Pomona -->
-      <div class="hood-card">
-        <div class="hood-card__header">
-          <div>
-            <span class="appreciation-badge">Highest Appreciation</span>
-            <h3 class="hood-card__name">Pomona</h3>
-            <p class="hood-card__tag">Johnson Development • Resort Amenities • Premium Builders</p>
-          </div>
-          <span class="hood-card__price">~$525K median</span>
+  <!-- ── WHY MANVEL ────────────────────────────── -->
+  <section class="city-why" aria-labelledby="why-heading">
+    <div class="container">
+      <div class="city-why__grid">
+        <div>
+          <span class="city-why__eyebrow">Why Manvel</span>
+          <h2 class="city-why__heading" id="why-heading">The Bay Area's Fastest-Appreciating Master-Planned Communities</h2>
+          <p class="city-why__body">Manvel isn't about what's here right now. It's about understanding what it's becoming — and getting in before that price is fully baked in. The master-planned communities here have outperformed every other Houston Bay Area suburb on appreciation over the past five years.</p>
+          <p class="city-why__body">Premium builder names — Toll Brothers, Drees Custom Homes, David Weekley, Perry Homes, and Lennar — are all active here. These are builders competing for buyers who have choices, and that competition produces better homes than markets with one or two dominant builders.</p>
+          <p class="city-why__body"><strong>Who buys here:</strong> TMC physicians and researchers, dual-income households on the 288 corridor, buyers who want more home per dollar than Katy or The Woodlands, and forward-thinking buyers who want to own into growth.</p>
         </div>
-        <p class="hood-card__desc">Pomona is Manvel's flagship community — developed by Johnson Development (same developer behind Sienna and Cross Creek Ranch) with resort-style amenities, a lake, multiple pools, and active phases from Toll Brothers, Drees, David Weekley, and Perry Homes. The premier address in the Houston Bay Area Bay Area for master-planned living.</p>
-        <button class="hood-card__toggle" aria-expanded="false">View Neighborhood Snapshot ▾</button>
-        <div class="hood-snapshot">
-          <div class="hood-snapshot__grid">
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">Median Price</span>
-              <span class="hood-snap-stat__value">~$525K</span>
+        <div>
+          <div class="city-draws">
+            <div class="city-draw">
+              <div class="city-draw__icon">📈</div>
+              <div>
+                <div class="city-draw__title">Fastest Appreciation in the Bay Area</div>
+                <div class="city-draw__desc">Manvel's master-planned communities have outperformed every other Houston Bay Area suburb on appreciation. Buyers who entered Pomona or Meridiana in 2019–2021 have seen 30–45% gains. The growth drivers remain in place — 288 corridor improvements, TMC expansion, premium product in a supply-constrained tier.</div>
+              </div>
             </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">Avg. Days on Market</span>
-              <span class="hood-snap-stat__value">~22 days</span>
+            <div class="city-draw">
+              <div class="city-draw__icon">🏊</div>
+              <div>
+                <div class="city-draw__title">Amenities That Compete With Resorts</div>
+                <div class="city-draw__desc">Meridiana has a surf wave pool. Pomona has a resort-style aquatic center and lake amenity. Del Bello Lakes has waterfront lots. These are destination-caliber amenities that command price premiums and attract buyers willing to pay for lifestyle quality.</div>
+              </div>
             </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">High School Feeder</span>
-              <span class="hood-snap-stat__value">Manvel HS (AISD)</span>
+            <div class="city-draw">
+              <div class="city-draw__icon">🚗</div>
+              <div>
+                <div class="city-draw__title">The 288 Commute Keeps Getting Better</div>
+                <div class="city-draw__desc">SH-288 toll road improvements have progressively reduced Manvel-to-TMC commute times. The managed HOV lanes make predictable commute times possible in a way that I-45 doesn't deliver. As TMC expansion phases continue, demand for 288-corridor housing grows with it.</div>
+              </div>
             </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">Flood Risk</span>
-              <span class="hood-snap-stat__value hood-snap-stat__value--good">Lower (engineered drainage)</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">HOA Range</span>
-              <span class="hood-snap-stat__value">~$1,200–$1,800/yr</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">Typical Year Built</span>
-              <span class="hood-snap-stat__value">2015–Present</span>
+            <div class="city-draw">
+              <div class="city-draw__icon">🏡</div>
+              <div>
+                <div class="city-draw__title">More Home Per Dollar Than Katy or Woodlands</div>
+                <div class="city-draw__desc">Premium master-planned communities in Katy and The Woodlands trade at $600K–$800K+ for comparable homes to what Manvel offers in the $450K–$550K range. Buyers who understand what they're comparing have been migrating to Manvel specifically for the lifestyle-adjusted value.</div>
+              </div>
             </div>
           </div>
-          <a href="tools.html?neighborhood=pomona-manvel" class="btn btn--sm" style="margin-top:1rem;background:#6b5200;color:#fff;">Run BuyerIQ™ for Pomona</a>
         </div>
-      </div>
-
-      <!-- Meridiana -->
-      <div class="hood-card">
-        <div class="hood-card__header">
-          <div>
-            <span class="appreciation-badge">Surf Wave Pool</span>
-            <h3 class="hood-card__name">Meridiana</h3>
-            <p class="hood-card__tag">Lifestyle-Forward • Wave Pool • Active Growth</p>
-          </div>
-          <span class="hood-card__price">~$490K median</span>
-        </div>
-        <p class="hood-card__desc">Meridiana made national headlines for its surf wave pool amenity — a genuine differentiator in a market full of identical "resort-style pool" claims. The community has an active lifestyle orientation: fitness trails, a sports complex, and a gathering hub beyond the standard subdivision amenity package. Multiple builders, multiple phases still under active development.</p>
-        <button class="hood-card__toggle" aria-expanded="false">View Neighborhood Snapshot ▾</button>
-        <div class="hood-snapshot">
-          <div class="hood-snapshot__grid">
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">Median Price</span>
-              <span class="hood-snap-stat__value">~$490K</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">Avg. Days on Market</span>
-              <span class="hood-snap-stat__value">~25 days</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">High School Feeder</span>
-              <span class="hood-snap-stat__value">Manvel HS (AISD)</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">Flood Risk</span>
-              <span class="hood-snap-stat__value hood-snap-stat__value--good">Lower (newer engineering)</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">HOA Range</span>
-              <span class="hood-snap-stat__value">~$1,000–$1,500/yr</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">Typical Year Built</span>
-              <span class="hood-snap-stat__value">2016–Present</span>
-            </div>
-          </div>
-          <a href="tools.html?neighborhood=meridiana-manvel" class="btn btn--sm" style="margin-top:1rem;background:#6b5200;color:#fff;">Run BuyerIQ™ for Meridiana</a>
-        </div>
-      </div>
-
-      <!-- Del Bello Lakes -->
-      <div class="hood-card">
-        <div class="hood-card__header">
-          <div>
-            <span class="appreciation-badge">Waterfront Lots</span>
-            <h3 class="hood-card__name">Del Bello Lakes</h3>
-            <p class="hood-card__tag">Lake Living • Waterfront Lots • Nature Setting</p>
-          </div>
-          <span class="hood-card__price">~$480K median</span>
-        </div>
-        <p class="hood-card__desc">Del Bello Lakes wraps around an existing lake system, offering genuine waterfront lots and views at master-planned community pricing. A quieter, more nature-oriented community compared to Pomona's resort energy or Meridiana's lifestyle intensity. The lake setting creates a distinctive character that resale buyers respond to strongly.</p>
-        <button class="hood-card__toggle" aria-expanded="false">View Neighborhood Snapshot ▾</button>
-        <div class="hood-snapshot">
-          <div class="hood-snapshot__grid">
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">Median Price</span>
-              <span class="hood-snap-stat__value">~$480K</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">Avg. Days on Market</span>
-              <span class="hood-snap-stat__value">~28 days</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">High School Feeder</span>
-              <span class="hood-snap-stat__value">Manvel HS (AISD)</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">Flood Risk</span>
-              <span class="hood-snap-stat__value hood-snap-stat__value--caution">Moderate — lake adjacency</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">HOA Range</span>
-              <span class="hood-snap-stat__value">~$1,000–$1,400/yr</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">Typical Year Built</span>
-              <span class="hood-snap-stat__value">2017–Present</span>
-            </div>
-          </div>
-          <a href="tools.html?neighborhood=del-bello-lakes" class="btn btn--sm" style="margin-top:1rem;background:#6b5200;color:#fff;">Run BuyerIQ™ for Del Bello Lakes</a>
-        </div>
-      </div>
-
-      <!-- Rodeo Palms -->
-      <div class="hood-card">
-        <div class="hood-card__header">
-          <div>
-            <h3 class="hood-card__name">Rodeo Palms</h3>
-            <p class="hood-card__tag">Established Community • More Affordable Entry</p>
-          </div>
-          <span class="hood-card__price">~$380K median</span>
-        </div>
-        <p class="hood-card__desc">Rodeo Palms is one of Manvel's earlier master-planned communities — more established, less new-construction-driven, and priced below the newer flagship communities. A good entry into the Manvel market for buyers who want the area and Alvin ISD without the premium-community price tag. Some sections are fully built-out with mature landscaping.</p>
-        <button class="hood-card__toggle" aria-expanded="false">View Neighborhood Snapshot ▾</button>
-        <div class="hood-snapshot">
-          <div class="hood-snapshot__grid">
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">Median Price</span>
-              <span class="hood-snap-stat__value">~$380K</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">Avg. Days on Market</span>
-              <span class="hood-snap-stat__value">~35 days</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">High School Feeder</span>
-              <span class="hood-snap-stat__value">Manvel HS (AISD)</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">Flood Risk</span>
-              <span class="hood-snap-stat__value hood-snap-stat__value--good">Lower — HOA managed drainage</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">HOA Range</span>
-              <span class="hood-snap-stat__value">~$700–$1,000/yr</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">Typical Year Built</span>
-              <span class="hood-snap-stat__value">2006–2018</span>
-            </div>
-          </div>
-          <a href="tools.html?neighborhood=rodeo-palms" class="btn btn--sm" style="margin-top:1rem;background:#6b5200;color:#fff;">Run BuyerIQ™ for Rodeo Palms</a>
-        </div>
-      </div>
-
-      <!-- Acreage / Rural Manvel -->
-      <div class="hood-card">
-        <div class="hood-card__header">
-          <div>
-            <h3 class="hood-card__name">Rural Manvel & Acreage Properties</h3>
-            <p class="hood-card__tag">1–5 Acres • Hobby Farms • No HOA</p>
-          </div>
-          <span class="hood-card__price">~$450K+ median</span>
-        </div>
-        <p class="hood-card__desc">Outside the master-planned communities, Manvel retains significant rural character — 1–5 acre tracts with no HOA, horses and livestock permitted, and room to build workshops or barns. This is a completely different buyer profile from Pomona, but an important part of the Manvel market for buyers who want land over amenities.</p>
-        <button class="hood-card__toggle" aria-expanded="false">View Neighborhood Snapshot ▾</button>
-        <div class="hood-snapshot">
-          <div class="hood-snapshot__grid">
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">Median Price</span>
-              <span class="hood-snap-stat__value">~$450K+ (land + home)</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">Avg. Days on Market</span>
-              <span class="hood-snap-stat__value">~45 days</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">High School Feeder</span>
-              <span class="hood-snap-stat__value">Manvel HS or Alvin HS (AISD)</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">Flood Risk</span>
-              <span class="hood-snap-stat__value hood-snap-stat__value--caution">Varies — verify by tract</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">HOA Range</span>
-              <span class="hood-snap-stat__value">None</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">Typical Year Built</span>
-              <span class="hood-snap-stat__value">Varies widely</span>
-            </div>
-          </div>
-          <a href="tools.html?neighborhood=rural-manvel" class="btn btn--sm" style="margin-top:1rem;background:#6b5200;color:#fff;">Run BuyerIQ™ for Rural Manvel</a>
-        </div>
-      </div>
-
-      <!-- Newer Phases Coming -->
-      <div class="hood-card">
-        <div class="hood-card__header">
-          <div>
-            <span class="appreciation-badge">Watch This Space</span>
-            <h3 class="hood-card__name">Emerging South Manvel Communities</h3>
-            <p class="hood-card__tag">Next Phase Growth • 288 Extension • Future Value</p>
-          </div>
-          <span class="hood-card__price">~$420K+ (new phases)</span>
-        </div>
-        <p class="hood-card__desc">South of Manvel's established communities, new master-planned development is continuing along the SH-288 corridor. Early-phase buyers in these emerging communities have historically captured the strongest appreciation as amenities build out and infrastructure matures. This is the forward-looking opportunity in the Manvel market — for buyers with a 5–7 year horizon.</p>
-        <button class="hood-card__toggle" aria-expanded="false">View Neighborhood Snapshot ▾</button>
-        <div class="hood-snapshot">
-          <div class="hood-snapshot__grid">
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">Median Price</span>
-              <span class="hood-snap-stat__value">~$420K (early phase)</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">Avg. Days on Market</span>
-              <span class="hood-snap-stat__value">New construction</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">High School Feeder</span>
-              <span class="hood-snap-stat__value">TBD — AISD expansion</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">Flood Risk</span>
-              <span class="hood-snap-stat__value hood-snap-stat__value--good">Lower (post-Harvey codes)</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">HOA Range</span>
-              <span class="hood-snap-stat__value">TBD by community</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">Typical Year Built</span>
-              <span class="hood-snap-stat__value">2024–Present</span>
-            </div>
-          </div>
-          <a href="contact.html" class="btn btn--sm" style="margin-top:1rem;background:#6b5200;color:#fff;">Ask Phil About Emerging Communities</a>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ============ SCHOOLS ============ -->
-<section class="city-schools section">
-  <div class="container">
-    <h2 class="section__title">Alvin ISD: Manvel's School Story</h2>
-    <p class="section__sub">Alvin ISD is a growing district investing heavily to keep pace with Manvel's rapid development. Manvel HS is the standout campus — and the distinction matters.</p>
-    <div class="city-schools__grid">
-
-      <div class="city-school__card">
-        <div class="school-badge">HS</div>
-        <h3>Manvel High School</h3>
-        <p class="school-rating">GreatSchools: 7/10</p>
-        <p>Manvel HS is AISD's strongest academic performer and consistently outranks the district average. Strong STEM programs, competitive athletics, and a growing AP/dual credit catalog. The school population skews heavily toward the master-planned community families who are intentionally investing in their children's education — which elevates the school culture beyond raw district rankings.</p>
-      </div>
-
-      <div class="city-school__card">
-        <div class="school-badge">📈</div>
-        <h3>District Investment & Growth</h3>
-        <p class="school-rating">New campuses opening regularly</p>
-        <p>AISD is in active expansion mode — new elementary and intermediate campuses are opening in Pomona and surrounding communities to serve the growth surge. The district is investing significantly in facilities, staff, and programs. Buyers who enter Manvel now are getting in during a district investment cycle — comparable to Pearland ISD 15 years ago when those communities were in active development.</p>
-      </div>
-
-      <div class="city-school__card">
-        <div class="school-badge">⚖️</div>
-        <h3>The CCISD vs AISD Tradeoff</h3>
-        <p class="school-rating">What the gap means for buyers</p>
-        <p>CCISD and Pearland ISD have higher aggregate ratings than AISD. For buyers who see school district quality as a primary purchase driver, this gap matters and should be factored into the city decision. For buyers who are weighing school quality against appreciation trajectory, home quality, and community amenities — Manvel's momentum argument is strong. Both positions are defensible; know which category you're in before choosing.</p>
-      </div>
-
-    </div>
-    <p class="city-schools__note">⚠️ With rapid growth comes redistricting. AISD has redrawn attendance zones as new campuses open. Always verify the current school assignment for any specific address before purchasing — what was true at the last sale may not reflect the current zone.</p>
-  </div>
-</section>
-
-<!-- ============ COMMUTE ============ -->
-<section class="city-commute section">
-  <div class="container">
-    <h2 class="section__title" style="color:#fff;">Manvel Commute Reality</h2>
-    <p class="section__sub" style="color:rgba(255,255,255,0.75);">SH-288 is the artery. The commute is longer than Pearland but more predictable than I-45 — and improving with each 288 expansion.</p>
-    <div class="city-commute__grid">
-      <div class="city-commute__card">
-        <div class="commute-dest">Texas Medical Center</div>
-        <div class="commute-time">30–45 min</div>
-        <div class="commute-route">via SH-288 North • 22–28 miles</div>
-        <p>The primary reason Manvel works for professionals. 288's managed lanes and HOV options make the commute significantly more predictable than I-45. Many TMC physicians and researchers in Pomona and Meridiana report consistent 35-minute commutes using express lanes — a tolerable daily drive for the lifestyle premium Manvel delivers.</p>
-      </div>
-      <div class="city-commute__card">
-        <div class="commute-dest">Downtown Houston</div>
-        <div class="commute-time">40–55 min</div>
-        <div class="commute-route">via SH-288 • 28–33 miles</div>
-        <p>Longer than Pearland's downtown commute but comparable in drive-time experience due to 288's managed lanes. The tradeoff buyers are accepting is a longer raw commute in exchange for significantly more home, more land, and stronger appreciation trajectory.</p>
-      </div>
-      <div class="city-commute__card">
-        <div class="commute-dest">Hobby Airport</div>
-        <div class="commute-time">30–40 min</div>
-        <div class="commute-route">via Beltway 8 or I-45 • 22–28 miles</div>
-        <p>Accessible via Beltway 8 without entering downtown traffic. Frequent travelers in Manvel use Hobby for Southwest and budget carriers. Some frequent international travelers factor IAH access into their decision — that commute runs 50–70 minutes depending on Manvel neighborhood and IAH terminal.</p>
-      </div>
-      <div class="city-commute__card">
-        <div class="commute-dest">Pearland / League City</div>
-        <div class="commute-time">20–35 min</div>
-        <div class="commute-route">via FM 518 or Hwy 35 • 15–25 miles</div>
-        <p>Cross-suburb access to Pearland Town Center and the broader Bay Area is straightforward from Manvel. Dual-income households with one spouse in the TMC and one in League City or NASA area find Manvel's central position on the 288 corridor a reasonable geographic compromise.</p>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- ============ FAQ ============ -->
-<section class="city-faq section">
-  <div class="container">
-    <h2 class="section__title" style="color:#fff;">Questions People Ask AI About Manvel</h2>
-    <p class="section__sub" style="color:rgba(255,255,255,0.7);">Honest answers — including the appreciation question everyone's thinking about.</p>
-    <div class="faq-list">
-
-      <div class="faq-item">
-        <button class="faq-item__question" aria-expanded="false">Is Manvel, TX a good investment in 2026?</button>
-        <div class="faq-item__answer">
-          <p>For buyers with a 5–10 year horizon, yes — Manvel's fundamentals remain strong. The growth drivers haven't changed: 288 corridor improvement, TMC expansion, premium master-planned product at a discount to comparable communities in Katy and The Woodlands. The appreciation that occurred from 2018–2023 has moderated, but the underlying demand case is intact. The risk is buying at the top of a new construction cycle with a short hold — if you need to sell in 2–3 years, you're competing with builder inventory at your asking price. Long holds are the right strategy here.</p>
+  <!-- ── MARKET SNAPSHOT ────────────────────────────── -->
+  <section class="city-market" aria-labelledby="market-heading">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-header__eyebrow">2026 Market Conditions</span>
+        <h2 class="section-header__title" id="market-heading">What the Manvel Market Looks Like Right Now</h2>
+        <p class="section-header__subtitle">A seller-favored market in premium communities. Buyers can still negotiate — but well-priced new builds from top builders require speed.</p>
+      </div>
+      <div class="market-cards">
+        <div class="market-card">
+          <div class="market-card__label">Median Sale Price</div>
+          <div class="market-card__value">~$510K</div>
+          <div class="market-card__sub">The highest median in the Houston Bay Area guide. Premium communities pull the median up significantly. Buyers on a $400K–$450K budget should explore specific phases and builders, as entry-level new construction exists within that range.</div>
+          <div class="market-card__takeaway">What it means: You're buying quality here. Manvel's median is a reflection of master-plan premium, not overheating.</div>
+        </div>
+        <div class="market-card">
+          <div class="market-card__label">Sale-to-List Price Ratio</div>
+          <div class="market-card__value">97–99%</div>
+          <div class="market-card__sub">The least negotiating room of any community in this guide on resale homes. Builders are offering incentives on new construction (rate buydowns, options credits) but aren't discounting base prices.</div>
+          <div class="market-card__takeaway">What it means: Market strength gives sellers confidence. Builder incentives are where the deals are — not on base price.</div>
+        </div>
+        <div class="market-card">
+          <div class="market-card__label">Inventory Supply</div>
+          <div class="market-card__value">~1.5 Months</div>
+          <div class="market-card__sub">Among the tightest resale inventory in the Bay Area despite high prices. New construction supply from active builders partially offsets — but finished, move-in-ready resale homes in Pomona and Meridiana move quickly when priced right.</div>
+          <div class="market-card__takeaway">What it means: Don't wait. Well-priced resale in the flagship communities goes quickly.</div>
         </div>
       </div>
-
-      <div class="faq-item">
-        <button class="faq-item__question" aria-expanded="false">Is Pomona or Meridiana better?</button>
-        <div class="faq-item__answer">
-          <p>They're both excellent communities with different personalities. Pomona is Johnson Development's flagship — more established, stronger resale track record, Toll Brothers and Drees presence means higher ceiling on luxury finishes. Meridiana is more lifestyle-forward with the surf wave pool and fitness-oriented amenities, and appeals to younger families and active buyers. Pomona typically trades at a slight premium on resale. Meridiana buyers tend to be more drawn to the community culture and active amenities. Visit both in person — the feel is genuinely different and which one resonates is a personal decision.</p>
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-item__question" aria-expanded="false">What is it really like to live in Manvel? Is it too far from everything?</button>
-        <div class="faq-item__answer">
-          <p>This is the most honest question to ask, and the answer depends on what "everything" means to you. Manvel's retail, dining, and entertainment infrastructure is still maturing — you're not walking to a neighborhood restaurant on a Tuesday night the way you might in Friendswood or Nassau Bay. H-E-B, Target, and the major services are in Pearland, 15–20 minutes away. Buyers who live in Pomona and Meridiana describe it as "worth the drive" for the home quality, amenities, and community — but that is a lifestyle adjustment from more urban-adjacent suburbs. Buyers coming from the Houston urban core feel the distance more acutely than those relocating from other Texas suburbs.</p>
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-item__question" aria-expanded="false">Should I buy new construction or resale in Manvel?</button>
-        <div class="faq-item__answer">
-          <p>Both have merit depending on your budget and timeline. New construction from premium builders lets you customize finishes and get a builder warranty — and builder incentives (rate buydowns, design center credits) can offset significant cost. Resale in established phases of Pomona or Meridiana gives you mature landscaping, confirmed school zones, and the ability to see what you're actually buying — no rendering risk. Resale also often includes upgraded landscaping, window treatments, and light fixtures that a base-price new build doesn't. For most buyers in Manvel, we evaluate both simultaneously and make the decision based on what the specific homes and incentives look like at that moment.</p>
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-item__question" aria-expanded="false">How are the property taxes in Manvel?</button>
-        <div class="faq-item__answer">
-          <p>Manvel's effective property tax rates are meaningful and worth understanding before you buy. Master-planned communities typically sit within MUD (Municipal Utility District) boundaries that add to the base county and ISD rates. Combined effective rates in Pomona and Meridiana typically run 2.8%–3.4% depending on the specific MUD. On a $500K home, that's $14,000–$17,000 per year before homestead exemption. The homestead exemption reduces taxable value after year one of ownership. Factor this into your monthly payment calculation — the payment on a $500K Manvel home will run $400–$600/month more than the principal and interest alone might suggest.</p>
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-item__question" aria-expanded="false">Did Manvel flood during Hurricane Harvey?</button>
-        <div class="faq-item__answer">
-          <p>Parts of older Manvel experienced flooding during Harvey. However, the major master-planned communities — Pomona, Meridiana, and Del Bello Lakes — were designed post-Harvey or to post-Harvey standards with significantly larger detention ponds and engineered drainage systems. These communities performed notably better than older Brazoria County developments during subsequent rain events. The newer the development, the better the flood engineering. That said, Del Bello Lakes warrants careful lot-level review given lake adjacency. Always get the elevation certificate and flood zone for any specific lot before proceeding.</p>
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-item__question" aria-expanded="false">Is Manvel better than Sugar Land or Katy for a family?</button>
-        <div class="faq-item__answer">
-          <p>Manvel beats Sugar Land and Katy on price per square foot for comparable master-planned product — often by $100K–$200K. Sugar Land offers Fort Bend ISD, which is consistently rated above AISD. Katy ISD is one of the most highly rated in Texas. Both communities are more mature with better retail, dining, and entertainment infrastructure. If school district quality is your absolute first filter, Sugar Land and Katy have stronger cases. If you're optimizing for value, appreciation trajectory, and home quality at a given budget, Manvel's premium communities compete favorably with anything Katy or Sugar Land offers in the same price bracket.</p>
-        </div>
-      </div>
-
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- ============ CTA ============ -->
-<section class="city-cta section">
-  <div class="container city-cta__inner">
-    <h2 class="city-cta__title">Manvel Is Where the Growth Is Going.<br>The Question Is Whether You're In Front of It or Behind It.</h2>
-    <p class="city-cta__sub">Run BuyerIQ™ to get a detailed breakdown of Manvel's master-planned communities, which phase fits your budget, and what the numbers actually say about appreciation and holding costs. Or call Phil directly.</p>
-    <div class="city-cta__actions">
-      <a href="tools.html?city=manvel" class="btn btn--primary btn--lg">Run BuyerIQ™ for Manvel</a>
-      <a href="contact.html" class="btn btn--outline btn--lg">Talk to Phil</a>
+  <!-- ── NEIGHBORHOODS ──────────────────────────────── -->
+  <section class="city-hoods" aria-labelledby="hoods-heading">
+    <div class="container">
+      <span class="city-hoods__eyebrow">Where to Live</span>
+      <h2 class="city-hoods__heading" id="hoods-heading">Manvel Communities — What Each One Is Really Like</h2>
+      <p class="city-hoods__sub">Three flagship master-planned communities anchor Manvel's premium market. Here's what distinguishes each one — plus two more options for different buyer profiles.</p>
+      <div class="hoods-grid">
+
+        <div class="hood-card">
+          <div class="hood-card__name">Pomona</div>
+          <div class="hood-card__price">Median ~$525K</div>
+          <div class="hood-card__desc">Pomona is Manvel's flagship community — developed by Johnson Development (same developer behind Sienna and Cross Creek Ranch) with resort-style amenities, a lake, multiple pools, and active phases from Toll Brothers, Drees, David Weekley, and Perry Homes. The premier address in the Bay Area for master-planned living.</div>
+          <div class="hood-card__tags">
+            <span class="hood-card__tag">Johnson Development</span>
+            <span class="hood-card__tag">Resort Amenities</span>
+            <span class="hood-card__tag">Manvel HS</span>
+          </div>
+          <button class="hood-card__toggle" aria-expanded="false">Neighborhood Snapshot <span class="hood-card__toggle-icon" aria-hidden="true">▾</span></button>
+          <div class="hood-snapshot">
+            <div class="hood-snapshot__grid">
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">Median Price</div><div class="hood-snap-stat__value">~$525K</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">Avg Days on Market</div><div class="hood-snap-stat__value">~22 days</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">High School</div><div class="hood-snap-stat__value">Manvel HS (AISD)</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">Flood Risk</div><div class="hood-snap-stat__value--good hood-snap-stat__value">Lower (engineered drainage)</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">HOA</div><div class="hood-snap-stat__value">Yes · ~$1,200–1,800/yr</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">Typical Year Built</div><div class="hood-snap-stat__value">2015–Present</div></div>
+            </div>
+            <a href="buyeriq.html" class="hood-snapshot__cta">Start BuyerIQ™ — Search Pomona →</a>
+          </div>
+        </div>
+
+        <div class="hood-card">
+          <div class="hood-card__name">Meridiana</div>
+          <div class="hood-card__price">Median ~$490K</div>
+          <div class="hood-card__desc">Meridiana made national headlines for its surf wave pool amenity — a genuine differentiator in a market full of identical "resort-style pool" claims. The community has an active lifestyle orientation: fitness trails, a sports complex, and a gathering hub. Multiple builders, multiple phases still under active development.</div>
+          <div class="hood-card__tags">
+            <span class="hood-card__tag">Surf Wave Pool</span>
+            <span class="hood-card__tag">Lifestyle-Forward</span>
+            <span class="hood-card__tag">Manvel HS</span>
+          </div>
+          <button class="hood-card__toggle" aria-expanded="false">Neighborhood Snapshot <span class="hood-card__toggle-icon" aria-hidden="true">▾</span></button>
+          <div class="hood-snapshot">
+            <div class="hood-snapshot__grid">
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">Median Price</div><div class="hood-snap-stat__value">~$490K</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">Avg Days on Market</div><div class="hood-snap-stat__value">~25 days</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">High School</div><div class="hood-snap-stat__value">Manvel HS (AISD)</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">Flood Risk</div><div class="hood-snap-stat__value--good hood-snap-stat__value">Lower (newer engineering)</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">HOA</div><div class="hood-snap-stat__value">Yes · ~$1,000–1,500/yr</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">Typical Year Built</div><div class="hood-snap-stat__value">2016–Present</div></div>
+            </div>
+            <a href="buyeriq.html" class="hood-snapshot__cta">Start BuyerIQ™ — Search Meridiana →</a>
+          </div>
+        </div>
+
+        <div class="hood-card">
+          <div class="hood-card__name">Del Bello Lakes</div>
+          <div class="hood-card__price">Median ~$480K</div>
+          <div class="hood-card__desc">Del Bello Lakes wraps around an existing lake system, offering genuine waterfront lots and views at master-planned community pricing. A quieter, more nature-oriented community compared to Pomona's resort energy or Meridiana's lifestyle intensity. The lake setting creates a distinctive character that resale buyers respond to strongly.</div>
+          <div class="hood-card__tags">
+            <span class="hood-card__tag">Waterfront Lots</span>
+            <span class="hood-card__tag">Lake Living</span>
+            <span class="hood-card__tag">Manvel HS</span>
+          </div>
+          <button class="hood-card__toggle" aria-expanded="false">Neighborhood Snapshot <span class="hood-card__toggle-icon" aria-hidden="true">▾</span></button>
+          <div class="hood-snapshot">
+            <div class="hood-snapshot__grid">
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">Median Price</div><div class="hood-snap-stat__value">~$480K</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">Avg Days on Market</div><div class="hood-snap-stat__value">~28 days</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">High School</div><div class="hood-snap-stat__value">Manvel HS (AISD)</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">Flood Risk</div><div class="hood-snap-stat__value--caution hood-snap-stat__value">Moderate — lake adjacency</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">HOA</div><div class="hood-snap-stat__value">Yes · ~$1,000–1,400/yr</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">Typical Year Built</div><div class="hood-snap-stat__value">2017–Present</div></div>
+            </div>
+            <a href="buyeriq.html" class="hood-snapshot__cta">Start BuyerIQ™ — Search Del Bello Lakes →</a>
+          </div>
+        </div>
+
+        <div class="hood-card">
+          <div class="hood-card__name">Rodeo Palms</div>
+          <div class="hood-card__price">Median ~$380K</div>
+          <div class="hood-card__desc">Rodeo Palms is one of Manvel's earlier master-planned communities — more established, less new-construction-driven, and priced below the newer flagship communities. A good entry into the Manvel market for buyers who want the area and Alvin ISD without the premium-community price tag. Some sections are fully built-out with mature landscaping.</div>
+          <div class="hood-card__tags">
+            <span class="hood-card__tag">Established</span>
+            <span class="hood-card__tag">More Affordable Entry</span>
+            <span class="hood-card__tag">Manvel HS</span>
+          </div>
+          <button class="hood-card__toggle" aria-expanded="false">Neighborhood Snapshot <span class="hood-card__toggle-icon" aria-hidden="true">▾</span></button>
+          <div class="hood-snapshot">
+            <div class="hood-snapshot__grid">
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">Median Price</div><div class="hood-snap-stat__value">~$380K</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">Avg Days on Market</div><div class="hood-snap-stat__value">~35 days</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">High School</div><div class="hood-snap-stat__value">Manvel HS (AISD)</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">Flood Risk</div><div class="hood-snap-stat__value--good hood-snap-stat__value">Lower — HOA managed drainage</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">HOA</div><div class="hood-snap-stat__value">Yes · ~$700–1,000/yr</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">Typical Year Built</div><div class="hood-snap-stat__value">2006–2018</div></div>
+            </div>
+            <a href="buyeriq.html" class="hood-snapshot__cta">Start BuyerIQ™ — Search Rodeo Palms →</a>
+          </div>
+        </div>
+
+        <div class="hood-card">
+          <div class="hood-card__name">Rural Manvel &amp; Acreage Properties</div>
+          <div class="hood-card__price">Median ~$450K+</div>
+          <div class="hood-card__desc">Outside the master-planned communities, Manvel retains significant rural character — 1–5 acre tracts with no HOA, horses and livestock permitted, and room to build workshops or barns. This is a completely different buyer profile from Pomona, but an important part of the Manvel market for buyers who want land over amenities.</div>
+          <div class="hood-card__tags">
+            <span class="hood-card__tag">1–5 Acres</span>
+            <span class="hood-card__tag">No HOA</span>
+            <span class="hood-card__tag">Hobby Farms</span>
+          </div>
+          <button class="hood-card__toggle" aria-expanded="false">Neighborhood Snapshot <span class="hood-card__toggle-icon" aria-hidden="true">▾</span></button>
+          <div class="hood-snapshot">
+            <div class="hood-snapshot__grid">
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">Median Price</div><div class="hood-snap-stat__value">~$450K+ (land + home)</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">Avg Days on Market</div><div class="hood-snap-stat__value">~45 days</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">High School</div><div class="hood-snap-stat__value">Manvel HS or Alvin HS</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">Flood Risk</div><div class="hood-snap-stat__value--caution hood-snap-stat__value">Varies — verify by tract</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">HOA</div><div class="hood-snap-stat__value">None</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">Typical Year Built</div><div class="hood-snap-stat__value">Varies widely</div></div>
+            </div>
+            <a href="buyeriq.html" class="hood-snapshot__cta">Start BuyerIQ™ — Search Rural Manvel →</a>
+          </div>
+        </div>
+
+        <div class="hood-card">
+          <div class="hood-card__name">Emerging South Manvel Communities</div>
+          <div class="hood-card__price">Median ~$420K+ (new phases)</div>
+          <div class="hood-card__desc">South of Manvel's established communities, new master-planned development is continuing along the SH-288 corridor. Early-phase buyers in these emerging communities have historically captured the strongest appreciation as amenities build out and infrastructure matures. This is the forward-looking opportunity for buyers with a 5–7 year horizon.</div>
+          <div class="hood-card__tags">
+            <span class="hood-card__tag">Next Phase Growth</span>
+            <span class="hood-card__tag">288 Corridor</span>
+            <span class="hood-card__tag">Future Value</span>
+          </div>
+          <button class="hood-card__toggle" aria-expanded="false">Neighborhood Snapshot <span class="hood-card__toggle-icon" aria-hidden="true">▾</span></button>
+          <div class="hood-snapshot">
+            <div class="hood-snapshot__grid">
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">Median Price</div><div class="hood-snap-stat__value">~$420K (early phase)</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">Avg Days on Market</div><div class="hood-snap-stat__value">New construction</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">High School</div><div class="hood-snap-stat__value">TBD — AISD expansion</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">Flood Risk</div><div class="hood-snap-stat__value--good hood-snap-stat__value">Lower (post-Harvey codes)</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">HOA</div><div class="hood-snap-stat__value">TBD by community</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">Typical Year Built</div><div class="hood-snap-stat__value">2024–Present</div></div>
+            </div>
+            <a href="buyeriq.html" class="hood-snapshot__cta">Start BuyerIQ™ — Explore Emerging Communities →</a>
+          </div>
+        </div>
+
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- ============ FOOTER ============ -->
-<footer class="footer" role="contentinfo">
+  <!-- ── SCHOOLS ────────────────────────────────────── -->
+  <section class="city-schools" aria-labelledby="schools-heading">
+    <div class="container">
+      <div class="city-schools__grid">
+        <div>
+          <span class="city-schools__eyebrow">Alvin ISD</span>
+          <h2 class="city-schools__heading" id="schools-heading">Manvel's School Story: A District in Active Investment</h2>
+          <p class="city-schools__body">Alvin ISD is a growing district investing heavily to keep pace with Manvel's rapid development. New elementary and intermediate campuses are opening in Pomona and surrounding communities to serve the growth surge. The district is investing significantly in facilities, staff, and programs.</p>
+          <p class="city-schools__body">Manvel High School is AISD's strongest academic performer and consistently outranks the district average. The school population skews heavily toward the master-planned community families who are intentionally investing in their children's education — which elevates the school culture beyond raw district rankings.</p>
+          <div class="city-schools__note">
+            <p><strong>Important:</strong> With rapid growth comes redistricting. AISD has redrawn attendance zones as new campuses open. Always verify the current school assignment for any specific address before purchasing — what was true at the last sale may not reflect the current zone.</p>
+          </div>
+          <a href="contact.html" class="btn btn--primary" style="margin-top:1.75rem;">Ask About School Feeders →</a>
+        </div>
+        <div>
+          <div class="schools-list">
+            <div class="school-item">
+              <div class="school-item__header">
+                <div class="school-item__name">Manvel High School</div>
+                <div class="school-item__grade">7/10</div>
+              </div>
+              <div class="school-item__level">High School · Grades 9–12 · Alvin ISD</div>
+              <div class="school-item__desc">Manvel HS is AISD's strongest academic performer and consistently outranks the district average. Strong STEM programs, competitive athletics, and a growing AP/dual credit catalog. The school population skews heavily toward master-planned community families who are actively investing in their children's education.</div>
+            </div>
+            <div class="school-item">
+              <div class="school-item__header">
+                <div class="school-item__name">Alvin ISD District Investment</div>
+                <div class="school-item__grade">Expanding</div>
+              </div>
+              <div class="school-item__level">District-Wide · New Campuses Opening</div>
+              <div class="school-item__desc">AISD is in active expansion mode — new elementary and intermediate campuses are opening in Pomona and surrounding communities to serve the growth surge. Buyers who enter Manvel now are getting in during a district investment cycle — comparable to Pearland ISD 15 years ago when those communities were in active development.</div>
+            </div>
+            <div class="school-item">
+              <div class="school-item__header">
+                <div class="school-item__name">CCISD vs AISD Tradeoff</div>
+                <div class="school-item__grade">Know Your Priority</div>
+              </div>
+              <div class="school-item__level">District Comparison</div>
+              <div class="school-item__desc">CCISD and Pearland ISD have higher aggregate ratings than AISD. For buyers who see school district quality as a primary purchase driver, this gap matters. For buyers weighing school quality against appreciation trajectory, home quality, and community amenities — Manvel's momentum argument is strong. Both positions are defensible; know which category you're in.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── COMMUTE ────────────────────────────────────── -->
+  <section class="city-commute" aria-labelledby="commute-heading">
+    <div class="container">
+      <div class="city-commute__grid">
+        <div>
+          <span class="city-commute__eyebrow">Location &amp; Commute</span>
+          <h2 class="city-commute__heading" id="commute-heading">Where Manvel Puts You</h2>
+          <p class="city-commute__body">SH-288 is the artery. The commute is longer than Pearland but more predictable than I-45 — and improving with each 288 expansion phase. Many TMC physicians and researchers in Pomona and Meridiana report consistent 35-minute commutes using express lanes.</p>
+          <p class="city-commute__body">Dual-income households with one spouse in the TMC and one in League City or NASA area find Manvel's central position on the 288 corridor a reasonable geographic compromise.</p>
+          <a href="buyeriq.html" class="btn btn--primary" style="margin-top:1.5rem;">Run BuyerIQ™ — Find Your Ideal Community →</a>
+        </div>
+        <div>
+          <div class="commute-times">
+            <div class="commute-time">
+              <div class="commute-time__icon">🏥</div>
+              <div class="commute-time__dest">Texas Medical Center</div>
+              <div class="commute-time__duration">30–45 min</div>
+            </div>
+            <div class="commute-time">
+              <div class="commute-time__icon">🏙️</div>
+              <div class="commute-time__dest">Downtown Houston</div>
+              <div class="commute-time__duration">40–55 min</div>
+            </div>
+            <div class="commute-time">
+              <div class="commute-time__icon">✈️</div>
+              <div class="commute-time__dest">Hobby Airport</div>
+              <div class="commute-time__duration">30–40 min</div>
+            </div>
+            <div class="commute-time">
+              <div class="commute-time__icon">🚀</div>
+              <div class="commute-time__dest">NASA Johnson Space Center</div>
+              <div class="commute-time__duration">25–35 min</div>
+            </div>
+            <div class="commute-time">
+              <div class="commute-time__icon">🛒</div>
+              <div class="commute-time__dest">Pearland Town Center</div>
+              <div class="commute-time__duration">20–35 min</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FAQ / AEO ──────────────────────────────────── -->
+  <section class="city-faq" aria-labelledby="faq-heading">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-header__eyebrow">Questions People Ask AI</span>
+        <h2 class="section-header__title" id="faq-heading">Honest Answers About Living &amp; Buying in Manvel</h2>
+        <p class="section-header__subtitle">Including the appreciation question everyone's thinking about.</p>
+      </div>
+      <div class="faq-list" role="list">
+
+        <div class="faq-item" role="listitem">
+          <button class="faq-item__question" aria-expanded="false">
+            <span class="faq-item__q-text">Is Manvel, TX a good investment in 2026?</span>
+            <span class="faq-item__chevron" aria-hidden="true">▾</span>
+          </button>
+          <div class="faq-item__answer">
+            <p>For buyers with a 5–10 year horizon, yes — Manvel's fundamentals remain strong. The growth drivers haven't changed: 288 corridor improvement, TMC expansion, premium master-planned product at a discount to comparable communities in Katy and The Woodlands. The appreciation that occurred from 2018–2023 has moderated, but the underlying demand case is intact. The risk is buying at the top of a new construction cycle with a short hold — if you need to sell in 2–3 years, you're competing with builder inventory at your asking price. Long holds are the right strategy here.</p>
+          </div>
+        </div>
+
+        <div class="faq-item" role="listitem">
+          <button class="faq-item__question" aria-expanded="false">
+            <span class="faq-item__q-text">Is Pomona or Meridiana better?</span>
+            <span class="faq-item__chevron" aria-hidden="true">▾</span>
+          </button>
+          <div class="faq-item__answer">
+            <p>They're both excellent communities with different personalities. Pomona is Johnson Development's flagship — more established, stronger resale track record, Toll Brothers and Drees presence means higher ceiling on luxury finishes. Meridiana is more lifestyle-forward with the surf wave pool and fitness-oriented amenities, and appeals to younger families and active buyers. Pomona typically trades at a slight premium on resale. Meridiana buyers tend to be more drawn to the community culture and active amenities. Visit both in person — the feel is genuinely different and which one resonates is a personal decision.</p>
+          </div>
+        </div>
+
+        <div class="faq-item" role="listitem">
+          <button class="faq-item__question" aria-expanded="false">
+            <span class="faq-item__q-text">What is it really like to live in Manvel? Is it too far from everything?</span>
+            <span class="faq-item__chevron" aria-hidden="true">▾</span>
+          </button>
+          <div class="faq-item__answer">
+            <p>This is the most honest question to ask, and the answer depends on what "everything" means to you. Manvel's retail, dining, and entertainment infrastructure is still maturing — you're not walking to a neighborhood restaurant on a Tuesday night the way you might in Friendswood or Nassau Bay. H-E-B, Target, and the major services are in Pearland, 15–20 minutes away. Buyers who live in Pomona and Meridiana describe it as "worth the drive" for the home quality, amenities, and community — but that is a lifestyle adjustment from more urban-adjacent suburbs.</p>
+          </div>
+        </div>
+
+        <div class="faq-item" role="listitem">
+          <button class="faq-item__question" aria-expanded="false">
+            <span class="faq-item__q-text">Should I buy new construction or resale in Manvel?</span>
+            <span class="faq-item__chevron" aria-hidden="true">▾</span>
+          </button>
+          <div class="faq-item__answer">
+            <p>Both have merit depending on your budget and timeline. New construction from premium builders lets you customize finishes and get a builder warranty — and builder incentives (rate buydowns, design center credits) can offset significant cost. Resale in established phases of Pomona or Meridiana gives you mature landscaping, confirmed school zones, and the ability to see what you're actually buying — no rendering risk. Resale also often includes upgraded landscaping, window treatments, and light fixtures that a base-price new build doesn't. For most buyers in Manvel, we evaluate both simultaneously and make the decision based on what the specific homes and incentives look like at that moment.</p>
+          </div>
+        </div>
+
+        <div class="faq-item" role="listitem">
+          <button class="faq-item__question" aria-expanded="false">
+            <span class="faq-item__q-text">How are the property taxes in Manvel?</span>
+            <span class="faq-item__chevron" aria-hidden="true">▾</span>
+          </button>
+          <div class="faq-item__answer">
+            <p>Manvel's effective property tax rates are meaningful and worth understanding before you buy. Master-planned communities typically sit within MUD (Municipal Utility District) boundaries that add to the base county and ISD rates. Combined effective rates in Pomona and Meridiana typically run 2.8%–3.4% depending on the specific MUD. On a $500K home, that's $14,000–$17,000 per year before homestead exemption. The homestead exemption reduces taxable value after year one of ownership. Factor this into your monthly payment calculation — the payment on a $500K Manvel home will run $400–$600/month more than the principal and interest alone might suggest.</p>
+          </div>
+        </div>
+
+        <div class="faq-item" role="listitem">
+          <button class="faq-item__question" aria-expanded="false">
+            <span class="faq-item__q-text">Did Manvel flood during Hurricane Harvey?</span>
+            <span class="faq-item__chevron" aria-hidden="true">▾</span>
+          </button>
+          <div class="faq-item__answer">
+            <p>Parts of older Manvel experienced flooding during Harvey. However, the major master-planned communities — Pomona, Meridiana, and Del Bello Lakes — were designed post-Harvey or to post-Harvey standards with significantly larger detention ponds and engineered drainage systems. These communities performed notably better than older Brazoria County developments during subsequent rain events. The newer the development, the better the flood engineering. That said, Del Bello Lakes warrants careful lot-level review given lake adjacency. Always get the elevation certificate and flood zone for any specific lot before proceeding.</p>
+          </div>
+        </div>
+
+        <div class="faq-item" role="listitem">
+          <button class="faq-item__question" aria-expanded="false">
+            <span class="faq-item__q-text">Is Manvel better than Sugar Land or Katy for a family?</span>
+            <span class="faq-item__chevron" aria-hidden="true">▾</span>
+          </button>
+          <div class="faq-item__answer">
+            <p>Manvel beats Sugar Land and Katy on price per square foot for comparable master-planned product — often by $100K–$200K. Sugar Land offers Fort Bend ISD, which is consistently rated above AISD. Katy ISD is one of the most highly rated in Texas. Both communities are more mature with better retail, dining, and entertainment infrastructure. If school district quality is your absolute first filter, Sugar Land and Katy have stronger cases. If you're optimizing for value, appreciation trajectory, and home quality at a given budget, Manvel's premium communities compete favorably with anything Katy or Sugar Land offers in the same price bracket.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA ───────────────────────────────────────── -->
+  <section class="city-cta" aria-labelledby="cta-heading">
+    <div class="container">
+      <div class="city-cta__inner">
+        <span class="city-cta__eyebrow">Ready to Make a Move in Manvel?</span>
+        <h2 class="city-cta__title" id="cta-heading">Manvel Is Where the Growth Is Going.<br />The Question Is Whether You're In Front of It or Behind It.</h2>
+        <p class="city-cta__text">BuyerIQ™ gives you a detailed breakdown of Manvel's master-planned communities, which phase fits your budget, and what the numbers actually say about appreciation and holding costs. Free, no commitment, 5 minutes.</p>
+        <div class="city-cta__btns">
+          <a href="buyeriq.html" class="btn btn--primary btn--lg">Start BuyerIQ™ →</a>
+          <a href="selleriq.html" class="btn btn--secondary btn--lg">Get My Home Value →</a>
+          <a href="tel:8325361016" class="btn btn--white-outline btn--lg" style="background:transparent;border:2px solid rgba(255,255,255,0.5);color:#fff;">&#128222; (832) 536-1016</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ─────────────────────────────────────── -->
+  <footer class="footer" role="contentinfo">
     <div class="container">
       <div class="footer__grid">
         <div>
@@ -1103,44 +1025,53 @@
         </div>
       </div>
       <div class="footer__bottom">
-        <p class="footer__legal">© 2026 Phillip Himes · Brokered by eXp Realty · Licensed in Texas · <a href="privacy-policy.html">Privacy Policy</a> · <a href="terms-of-service.html">Terms of Service</a></p>
-        <p class="footer__disclaimer">All information deemed reliable but not guaranteed. Equal Housing Opportunity. Market data sourced from HAR, Redfin, and Zillow — verify current conditions before making decisions.</p>
+        <p class="footer__legal">
+          © 2026 Phillip Himes · Brokered by eXp Realty · Licensed in Texas ·
+          <a href="privacy-policy.html">Privacy Policy</a> ·
+          <a href="terms-of-service.html">Terms of Service</a>
+        </p>
+        <p class="footer__disclaimer">
+          All information deemed reliable but not guaranteed. Equal Housing Opportunity. Information subject to change without notice. Market data sourced from HAR, Redfin, and Zillow — verify current conditions before making decisions.
+        </p>
       </div>
     </div>
   </footer>
 
-<script>
-  document.querySelectorAll('.hood-card__toggle').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const card = btn.closest('.hood-card');
-      const isOpen = card.classList.contains('hood-open');
-      document.querySelectorAll('.hood-card').forEach(c => {
-        c.classList.remove('hood-open');
-        c.querySelector('.hood-card__toggle').setAttribute('aria-expanded', 'false');
+  <script>
+    // Neighborhood snapshot toggles
+    document.querySelectorAll('.hood-card__toggle').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const card = btn.closest('.hood-card');
+        const isOpen = card.classList.contains('hood-open');
+        document.querySelectorAll('.hood-card').forEach(c => {
+          c.classList.remove('hood-open');
+          c.querySelector('.hood-card__toggle').setAttribute('aria-expanded', 'false');
+        });
+        if (!isOpen) {
+          card.classList.add('hood-open');
+          btn.setAttribute('aria-expanded', 'true');
+        }
       });
-      if (!isOpen) {
-        card.classList.add('hood-open');
-        btn.setAttribute('aria-expanded', 'true');
-      }
     });
-  });
 
-  document.querySelectorAll('.faq-item__question').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const item = btn.closest('.faq-item');
-      const isOpen = item.classList.contains('faq-open');
-      document.querySelectorAll('.faq-item').forEach(i => {
-        i.classList.remove('faq-open');
-        i.querySelector('.faq-item__question').setAttribute('aria-expanded', 'false');
+    // FAQ accordion
+    document.querySelectorAll('.faq-item__question').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.closest('.faq-item');
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(i => {
+          i.classList.remove('open');
+          i.querySelector('.faq-item__question').setAttribute('aria-expanded', 'false');
+        });
+        if (!isOpen) {
+          item.classList.add('open');
+          btn.setAttribute('aria-expanded', 'true');
+        }
       });
-      if (!isOpen) {
-        item.classList.add('faq-open');
-        btn.setAttribute('aria-expanded', 'true');
-      }
     });
-  });
-</script>
-<script src="js/main.js"></script>
-<script src="https://widgets.leadconnectorhq.com/loader.js" data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" data-widget-id="6a0623c7f127bb5833bc2697"></script>
+  </script>
+
+  <script src="js/main.js"></script>
+  <script src="https://widgets.leadconnectorhq.com/loader.js" data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" data-widget-id="6a0623c7f127bb5833bc2697"></script>
 </body>
 </html>

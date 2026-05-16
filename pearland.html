@@ -41,7 +41,7 @@
       {
         "@type": "Question",
         "name": "What are the best neighborhoods in Pearland, TX?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Top neighborhoods in Pearland include: Shadow Creek Ranch (master-planned, pools, parks, median ~$355K), Silverlake (established, lake views, strong schools, median ~$335K), Centennial Park (newer construction near 288, easy TMC commute, median ~$360K), Massey Oaks (mid-range, good access, median ~$310K), Green Tee Terrace (golf course community, more affordable, established 1970s–80s, median ~$275K), and West Pearland (newer builds, larger lots, premium finish, median ~$400K+)." }
+        "acceptedAnswer": { "@type": "Answer", "text": "Top neighborhoods in Pearland include: Shadow Creek Ranch (master-planned, pools, parks, median ~$355K), Silverlake (established, lake views, strong schools, median ~$335K), Centennial Park (newer construction near 288, easy TMC commute, median ~$360K), Massey Oaks (mid-range, good access, median ~$310K), Green Tee Terrace (golf course community, more affordable, established 1970s–80s, median ~$275K), and West Pearland (newer builds, larger lots, premium finish, median ~$410K+)." }
       },
       {
         "@type": "Question",
@@ -69,7 +69,8 @@
       "@type": "City",
       "name": "Pearland",
       "containedInPlace": { "@type": "State", "name": "Texas" }
-    }
+    },
+    "description": "Local REALTOR® serving Pearland, TX — helping buyers and sellers navigate the Houston Bay Area real estate market."
   }
   </script>
 
@@ -124,7 +125,7 @@
       text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.45);
     }
 
-    /* ─── WHY LEAGUE CITY ──────────────────────────────── */
+    /* ─── WHY PEARLAND ──────────────────────────────── */
     .city-why {
       background: var(--off-white, #f9f7f4); padding: 5rem 0;
     }
@@ -458,7 +459,6 @@
     }
     .city-cta__btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
 
-  
     /* ── Pearland: burgundy ── */
     .city-hero { background: linear-gradient(135deg, #1a0008 0%, #3d0015 60%, #6b0025 100%); }
     .city-hero::before { background: radial-gradient(ellipse at 65% 35%, rgba(180,0,60,0.12) 0%, transparent 55%); }
@@ -471,41 +471,30 @@
     .hood-card__toggle { background: #6b0025; color: #fff; }
     .hood-card__toggle:hover { background: #4a0018; }
     .city-schools { background: #fff5f7; }
-    .school-badge { background: #6b0025; }
-    .city-commute { background: linear-gradient(135deg, #1a0008 0%, #3d0015 100%); }
+    .city-commute { background: white; }
     .city-faq { background: #140005; }
     .faq-item__q-text { color: #f0a0b8; }
     .city-cta { background: linear-gradient(135deg, #3d0015 0%, #6b0025 100%); }
-    .city-cta .btn--primary { background: #c94565; color: #fff; }
+    .city-cta__title { color: #fff; }
+    .city-cta__text { color: rgba(255,255,255,0.8); }
+    .city-cta__eyebrow { color: #f0a0b8; }
+    .city-cta .btn--primary { background: #c9455a; color: #fff; }
     .city-cta .btn--primary:hover { background: #a8304f; }
-    .city-cta .btn--outline { border-color: rgba(255,255,255,0.6); color: #fff; }
-    .city-cta .btn--outline:hover { background: rgba(255,255,255,0.1); }
+    .city-cta .btn--secondary { border-color: rgba(255,255,255,0.6); color: #fff; }
 
-    /* ── Legacy city-why__card structure ── */
-    .city-why.section { padding: 5rem 0; }
-    .city-why__grid { display: grid; grid-template-columns: 1fr; gap: 1rem; }
-    .city-why__grid-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-top: 1.5rem; }
-    @media (max-width: 900px) { .city-why__grid-cards { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 560px) { .city-why__grid-cards { grid-template-columns: 1fr; } }
-    .city-why__intro-eyebrow { font-family: var(--font-heading); font-size: 0.75rem; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: var(--teal); margin-bottom: 0.75rem; display: block; }
-    .city-why__intro-heading { font-family: var(--font-heading); font-weight: 900; font-size: clamp(1.5rem,2.5vw,2rem); color: var(--navy); line-height: 1.15; margin-bottom: 1rem; }
-    .city-why__intro-body { font-size: 0.95rem; color: var(--dark-gray); line-height: 1.78; margin-bottom: 2rem; }
-    .city-why__card { background: white; border-radius: var(--radius-lg); padding: 1.5rem; border: 1.5px solid var(--light-gray); transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s; }
-    .city-why__card:hover { border-color: var(--teal); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.07); }
-    .city-why__icon { font-size: 1.75rem; display: block; margin-bottom: 0.65rem; }
-    .city-why__card h3 { font-family: var(--font-heading); font-weight: 800; font-size: 0.9rem; color: var(--navy); margin-bottom: 0.4rem; line-height: 1.3; }
-    .city-why__card p { font-size: 0.82rem; color: var(--dark-gray); line-height: 1.65; margin: 0; }
-</style>
+  </style>
 </head>
 <body>
 
-<!-- ============ NAV ============ -->
-<header class="site-header">
-  <nav class="nav container">
+  <!-- ── NAVIGATION ──────────────────────────────────── -->
+  <nav class="nav" role="navigation" aria-label="Main navigation">
     <div class="nav__inner">
       <a href="index.html" class="nav__logo" aria-label="Phillip Himes Real Estate Home">
         <img src="images/logo.png" alt="Phillip Himes | Brokered by eXp Realty" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
-        <span class="nav__logo-text" style="display:none;"><span class="nav__logo-name">Phillip Himes</span><span class="nav__logo-brokerage">Brokered by eXp Realty</span></span>
+        <span class="nav__logo-text" style="display:none;">
+          <span class="nav__logo-name">Phillip Himes</span>
+          <span class="nav__logo-brokerage">Brokered by eXp Realty</span>
+        </span>
       </a>
       <ul class="nav__links" id="nav-links">
         <li><a href="buyers.html" class="nav__link">Buying</a></li>
@@ -543,529 +532,465 @@
       <button class="nav__hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links"><span></span><span></span><span></span></button>
     </div>
   </nav>
-</header>
 
-<!-- ============ HERO ============ -->
-<section class="city-hero">
-  <div class="container">
-    <div class="city-hero__content">
-      <p class="city-hero__eyebrow">Houston Bay Area Suburbs • Pearland, TX</p>
-      <h1 class="city-hero__title">Pearland Real Estate:<br>Medical Center Access, Top Schools,<br>Room to Grow</h1>
-      <p class="city-hero__sub">The suburb that TMC professionals and growing families keep choosing — for good reason.</p>
-      <div class="city-hero__actions">
-        <a href="tools.html?city=pearland" class="btn btn--primary btn--lg">Run BuyerIQ™ for Pearland</a>
-        <a href="contact.html" class="btn btn--outline btn--lg">Ask Phil a Question</a>
+  <!-- ── HERO ───────────────────────────────────────── -->
+  <section class="city-hero" aria-label="Pearland overview">
+    <div class="container">
+      <div class="city-hero__content">
+        <span class="city-hero__eyebrow">Houston Bay Area · Brazoria County</span>
+        <h1 class="city-hero__title">Pearland, TX<br />Real Estate Guide</h1>
+        <p class="city-hero__subtitle">The suburb that TMC professionals and growing families keep choosing — for good reason. Top schools, a direct shot to the Medical Center, and more home per dollar than you'll find closer to Houston.</p>
+        <div class="city-hero__btns">
+          <a href="buyeriq.html" class="btn btn--primary btn--lg">Start BuyerIQ™ →</a>
+          <a href="contact.html" class="btn btn--white-outline btn--lg">Ask Phil a Question</a>
+        </div>
       </div>
     </div>
-
     <div class="city-stats-bar">
       <div class="city-stat">
-        <span class="city-stat__value">~$375K</span>
-        <span class="city-stat__label">Median Home Price</span>
+        <div class="city-stat__value">~$375K</div>
+        <div class="city-stat__label">Median Home Price</div>
       </div>
       <div class="city-stat">
-        <span class="city-stat__value">30–45 days</span>
-        <span class="city-stat__label">Avg. Days on Market</span>
+        <div class="city-stat__value">30–45 <span>days</span></div>
+        <div class="city-stat__label">Avg. Days on Market</div>
       </div>
       <div class="city-stat">
-        <span class="city-stat__value">Pearland ISD</span>
-        <span class="city-stat__label">#1 in Brazoria County</span>
+        <div class="city-stat__value">Pearland ISD</div>
+        <div class="city-stat__label">#1 in Brazoria County</div>
       </div>
       <div class="city-stat">
-        <span class="city-stat__value">~125K</span>
-        <span class="city-stat__label">Population</span>
+        <div class="city-stat__value">~125K</div>
+        <div class="city-stat__label">Population</div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- ============ WHY PEARLAND ============ -->
-<section class="city-why section">
-  <div class="container">
-    <h2 class="section__title">Why People Choose Pearland</h2>
-    <p class="section__sub">Pearland isn't a compromise — it's the answer for buyers who want top schools, a manageable commute, and more home for the money.</p>
-    <div class="city-why__grid">
-
-      <div class="city-why__card">
-        <div class="city-why__icon">🏥</div>
-        <h3>20 Min to the Medical Center</h3>
-        <p>No Houston suburb puts you closer to the Texas Medical Center. SH-288 runs straight in. For TMC employees, Pearland erases the commute problem that kills other suburb options.</p>
-      </div>
-
-      <div class="city-why__card">
-        <div class="city-why__icon">🎓</div>
-        <h3>#1 District in Brazoria County</h3>
-        <p>Pearland ISD is consistently rated #1 in Brazoria County with campuses at 8–9/10 on GreatSchools. Two high schools serve different parts of the city — both strong. Schools are the anchor of Pearland's long-term value.</p>
-      </div>
-
-      <div class="city-why__card">
-        <div class="city-why__icon">🏘️</div>
-        <h3>Master-Planned Value</h3>
-        <p>Shadow Creek Ranch and Silverlake deliver resort-style amenities — pools, walking trails, lakes, fitness centers — at prices well below what comparable master-planned communities cost in the Woodlands or Katy areas.</p>
-      </div>
-
-      <div class="city-why__card">
-        <div class="city-why__icon">📈</div>
-        <h3>Growth Without Speculation</h3>
-        <p>Pearland's growth has been consistent, not volatile. Its proximity to stable employers (TMC, downtown, Hobby Airport corridor) keeps demand steady even when broader Houston markets soften.</p>
-      </div>
-
-      <div class="city-why__card">
-        <div class="city-why__icon">🛒</div>
-        <h3>Infrastructure That Works</h3>
-        <p>Pearland Town Center, the 288 corridor, and Broadway Street give residents walkable retail, dining, and entertainment without driving into Houston. H-E-B, Target, The Kroger Marketplace — infrastructure keeps pace with growth here.</p>
-      </div>
-
-      <div class="city-why__card">
-        <div class="city-why__icon">💰</div>
-        <h3>More House Per Dollar</h3>
-        <p>You get more square footage in Pearland than in Friendswood or Clear Lake for the same budget. The gap is meaningful — often 200–400 sq ft on a comparable home — which matters when families are choosing between cities.</p>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ============ MARKET SNAPSHOT ============ -->
-<section class="city-market section">
-  <div class="container">
-    <h2 class="section__title" style="color:#fff;">Pearland Market Snapshot (2026)</h2>
-    <p class="section__sub" style="color:rgba(255,255,255,0.75);">A balanced-to-slight-seller's market driven by steady TMC demand and limited inventory in top school zones.</p>
-    <div class="city-market__grid">
-
-      <div class="city-market__card">
-        <div class="city-market__metric">~$375K</div>
-        <div class="city-market__label">Median Sale Price</div>
-        <p class="city-market__note">Up modestly from 2024. New construction in West Pearland pulling median higher while resale stays accessible.</p>
-      </div>
-
-      <div class="city-market__card">
-        <div class="city-market__metric">96–97%</div>
-        <div class="city-market__label">Sale-to-List Price Ratio</div>
-        <p class="city-market__note">Homes are selling near asking — sellers have modest leverage. Overpriced listings still sit. Well-priced homes in PISD zones move fast.</p>
-      </div>
-
-      <div class="city-market__card">
-        <div class="city-market__metric">~2 Months</div>
-        <div class="city-market__label">Inventory Supply</div>
-        <p class="city-market__note">Below the 3-month balanced threshold. Not as tight as Friendswood, but buyers shouldn't treat this as a slow market — PISD-zoned homes disappear quickly.</p>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ============ NEIGHBORHOODS ============ -->
-<section class="city-hoods section">
-  <div class="container">
-    <h2 class="section__title">Pearland Neighborhoods: What to Know Before You Buy</h2>
-    <p class="section__sub">Six communities, six different tradeoffs. Here's the honest breakdown.</p>
-    <div class="city-hoods__grid">
-
-      <!-- Shadow Creek Ranch -->
-      <div class="hood-card">
-        <div class="hood-card__header">
-          <div>
-            <h3 class="hood-card__name">Shadow Creek Ranch</h3>
-            <p class="hood-card__tag">Master-Planned • Pools & Parks • Family Hub</p>
-          </div>
-          <span class="hood-card__price">~$355K median</span>
+  <!-- ── WHY PEARLAND ────────────────────────────── -->
+  <section class="city-why" aria-labelledby="why-heading">
+    <div class="container">
+      <div class="city-why__grid">
+        <div>
+          <span class="city-why__eyebrow">Why Pearland</span>
+          <h2 class="city-why__heading" id="why-heading">The TMC Suburb That Delivers on Every Front</h2>
+          <p class="city-why__body">Pearland isn't a compromise — it's the answer for buyers who want top schools, a manageable commute, and more home for the money. SH-288 is the artery that makes the whole equation work. Twenty minutes to the Texas Medical Center, top-rated Pearland ISD schools, and master-planned communities at prices that don't require a physician's salary to access.</p>
+          <p class="city-why__body">It's been one of the fastest-growing cities in the U.S. for over a decade, but it hasn't grown at the expense of quality. Shadow Creek Ranch and Silverlake have the amenities and community infrastructure that newer developments elsewhere only aspire to. And the 288 corridor continues to add inventory for buyers who want newer builds.</p>
+          <p class="city-why__body"><strong>Who buys here:</strong> TMC physicians, nurses, and researchers; dual-income households who want top schools without Friendswood prices; and buyers who need more square footage per dollar than any community closer to Houston can offer.</p>
         </div>
-        <p class="hood-card__desc">One of Pearland's largest and most amenity-rich master-planned communities. Pools, walking trails, catch-and-release lakes, and recreation centers — all within a walkable community layout. Strong Glenda Dawson HS feeder and active HOA culture.</p>
-        <button class="hood-card__toggle" aria-expanded="false">View Neighborhood Snapshot ▾</button>
-        <div class="hood-snapshot">
-          <div class="hood-snapshot__grid">
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">Median Price</span>
-              <span class="hood-snap-stat__value">~$355K</span>
+        <div>
+          <div class="city-draws">
+            <div class="city-draw">
+              <div class="city-draw__icon">🏥</div>
+              <div>
+                <div class="city-draw__title">20 Minutes to the Medical Center</div>
+                <div class="city-draw__desc">No Houston suburb puts you closer to the Texas Medical Center. SH-288 runs straight in. For TMC employees, Pearland erases the commute problem that kills other suburb options. The express lanes make it predictable even during peak hours.</div>
+              </div>
             </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">Avg. Days on Market</span>
-              <span class="hood-snap-stat__value">~28 days</span>
+            <div class="city-draw">
+              <div class="city-draw__icon">🎓</div>
+              <div>
+                <div class="city-draw__title">#1 District in Brazoria County</div>
+                <div class="city-draw__desc">Pearland ISD is consistently rated #1 in Brazoria County with campuses at 8–9/10 on GreatSchools. Two high schools serve different parts of the city — both strong. Schools are the anchor of Pearland's long-term value and the primary reason it holds up in softer markets.</div>
+              </div>
             </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">High School Feeder</span>
-              <span class="hood-snap-stat__value">Glenda Dawson HS</span>
+            <div class="city-draw">
+              <div class="city-draw__icon">🏘️</div>
+              <div>
+                <div class="city-draw__title">Master-Planned Value at Scale</div>
+                <div class="city-draw__desc">Shadow Creek Ranch and Silverlake deliver resort-style amenities — pools, walking trails, lakes, fitness centers — at prices well below comparable master-planned communities in The Woodlands or Katy areas. More home per dollar is a consistent Pearland advantage.</div>
+              </div>
             </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">Flood Risk</span>
-              <span class="hood-snap-stat__value hood-snap-stat__value--good">Lower (X Zone mostly)</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">HOA Range</span>
-              <span class="hood-snap-stat__value">~$700–$1,100/yr</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">Typical Year Built</span>
-              <span class="hood-snap-stat__value">2002–2018</span>
+            <div class="city-draw">
+              <div class="city-draw__icon">📈</div>
+              <div>
+                <div class="city-draw__title">Growth Without Speculation</div>
+                <div class="city-draw__desc">Pearland's growth has been consistent, not volatile. Proximity to stable employers (TMC, downtown, Hobby Airport corridor) keeps demand steady even when broader Houston markets soften. Entry-level buildable land is limited in eastern Pearland, which protects existing home values.</div>
+              </div>
             </div>
           </div>
-          <a href="tools.html?neighborhood=shadow-creek-ranch" class="btn btn--sm" style="margin-top:1rem;background:#8b2a40;color:#fff;">Run BuyerIQ™ for Shadow Creek Ranch</a>
         </div>
-      </div>
-
-      <!-- Silverlake -->
-      <div class="hood-card">
-        <div class="hood-card__header">
-          <div>
-            <h3 class="hood-card__name">Silverlake</h3>
-            <p class="hood-card__tag">Established • Lakes & Ponds • Strong Resale</p>
-          </div>
-          <span class="hood-card__price">~$330K median</span>
-        </div>
-        <p class="hood-card__desc">One of Pearland's most established neighborhoods, featuring interconnected lakes, mature trees, and a community park system. Slightly more affordable than Shadow Creek Ranch with comparable school access. Strong long-term hold — resale inventory stays tight.</p>
-        <button class="hood-card__toggle" aria-expanded="false">View Neighborhood Snapshot ▾</button>
-        <div class="hood-snapshot">
-          <div class="hood-snapshot__grid">
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">Median Price</span>
-              <span class="hood-snap-stat__value">~$330K</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">Avg. Days on Market</span>
-              <span class="hood-snap-stat__value">~32 days</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">High School Feeder</span>
-              <span class="hood-snap-stat__value">Pearland HS</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">Flood Risk</span>
-              <span class="hood-snap-stat__value hood-snap-stat__value--caution">Moderate — verify by lot</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">HOA Range</span>
-              <span class="hood-snap-stat__value">~$500–$700/yr</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">Typical Year Built</span>
-              <span class="hood-snap-stat__value">1995–2010</span>
-            </div>
-          </div>
-          <a href="tools.html?neighborhood=silverlake" class="btn btn--sm" style="margin-top:1rem;background:#8b2a40;color:#fff;">Run BuyerIQ™ for Silverlake</a>
-        </div>
-      </div>
-
-      <!-- Centennial Park -->
-      <div class="hood-card">
-        <div class="hood-card__header">
-          <div>
-            <h3 class="hood-card__name">Centennial Park</h3>
-            <p class="hood-card__tag">Newer Construction • 288 Corridor • TMC Commuters</p>
-          </div>
-          <span class="hood-card__price">~$360K median</span>
-        </div>
-        <p class="hood-card__desc">Positioned along the SH-288 corridor, Centennial Park offers newer construction with direct freeway access to the Texas Medical Center. Popular with TMC employees who prioritize commute time above all else. More recently built with modern floor plans and larger square footage.</p>
-        <button class="hood-card__toggle" aria-expanded="false">View Neighborhood Snapshot ▾</button>
-        <div class="hood-snapshot">
-          <div class="hood-snapshot__grid">
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">Median Price</span>
-              <span class="hood-snap-stat__value">~$360K</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">Avg. Days on Market</span>
-              <span class="hood-snap-stat__value">~25 days</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">High School Feeder</span>
-              <span class="hood-snap-stat__value">Glenda Dawson HS</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">Flood Risk</span>
-              <span class="hood-snap-stat__value hood-snap-stat__value--good">Lower (newer drainage)</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">HOA Range</span>
-              <span class="hood-snap-stat__value">~$600–$900/yr</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">Typical Year Built</span>
-              <span class="hood-snap-stat__value">2008–2022</span>
-            </div>
-          </div>
-          <a href="tools.html?neighborhood=centennial-park" class="btn btn--sm" style="margin-top:1rem;background:#8b2a40;color:#fff;">Run BuyerIQ™ for Centennial Park</a>
-        </div>
-      </div>
-
-      <!-- Green Tee Terrace -->
-      <div class="hood-card">
-        <div class="hood-card__header">
-          <div>
-            <h3 class="hood-card__name">Green Tee Terrace</h3>
-            <p class="hood-card__tag">Golf Course Community • Established • Entry Value</p>
-          </div>
-          <span class="hood-card__price">~$275K median</span>
-        </div>
-        <p class="hood-card__desc">Pearland's most affordable established neighborhood, built around a golf course in the 1970s–80s. Larger lots than newer developments, mature landscaping, and one of the best price-per-square-foot values in the city. Ideal for buyers who want established Pearland at a lower entry point.</p>
-        <button class="hood-card__toggle" aria-expanded="false">View Neighborhood Snapshot ▾</button>
-        <div class="hood-snapshot">
-          <div class="hood-snapshot__grid">
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">Median Price</span>
-              <span class="hood-snap-stat__value">~$275K</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">Avg. Days on Market</span>
-              <span class="hood-snap-stat__value">~45 days</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">High School Feeder</span>
-              <span class="hood-snap-stat__value">Pearland HS</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">Flood Risk</span>
-              <span class="hood-snap-stat__value hood-snap-stat__value--caution">Moderate — check address</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">HOA Range</span>
-              <span class="hood-snap-stat__value">None or minimal</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">Typical Year Built</span>
-              <span class="hood-snap-stat__value">1972–1990</span>
-            </div>
-          </div>
-          <a href="tools.html?neighborhood=green-tee-terrace" class="btn btn--sm" style="margin-top:1rem;background:#8b2a40;color:#fff;">Run BuyerIQ™ for Green Tee Terrace</a>
-        </div>
-      </div>
-
-      <!-- Massey Oaks -->
-      <div class="hood-card">
-        <div class="hood-card__header">
-          <div>
-            <h3 class="hood-card__name">Massey Oaks</h3>
-            <p class="hood-card__tag">Mid-Range • Family-Friendly • Solid Schools</p>
-          </div>
-          <span class="hood-card__price">~$310K median</span>
-        </div>
-        <p class="hood-card__desc">A well-rounded mid-range neighborhood with good school access, established infrastructure, and a community feel that newer subdivisions can't replicate. Buyers get more lot for the money compared to Shadow Creek Ranch with slightly less amenity infrastructure but solid long-term value.</p>
-        <button class="hood-card__toggle" aria-expanded="false">View Neighborhood Snapshot ▾</button>
-        <div class="hood-snapshot">
-          <div class="hood-snapshot__grid">
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">Median Price</span>
-              <span class="hood-snap-stat__value">~$310K</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">Avg. Days on Market</span>
-              <span class="hood-snap-stat__value">~35 days</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">High School Feeder</span>
-              <span class="hood-snap-stat__value">Pearland HS</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">Flood Risk</span>
-              <span class="hood-snap-stat__value hood-snap-stat__value--good">Lower (mostly X Zone)</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">HOA Range</span>
-              <span class="hood-snap-stat__value">~$300–$500/yr</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">Typical Year Built</span>
-              <span class="hood-snap-stat__value">1990–2005</span>
-            </div>
-          </div>
-          <a href="tools.html?neighborhood=massey-oaks" class="btn btn--sm" style="margin-top:1rem;background:#8b2a40;color:#fff;">Run BuyerIQ™ for Massey Oaks</a>
-        </div>
-      </div>
-
-      <!-- West Pearland -->
-      <div class="hood-card">
-        <div class="hood-card__header">
-          <div>
-            <h3 class="hood-card__name">West Pearland / 288 Corridor</h3>
-            <p class="hood-card__tag">New Construction • Larger Lots • Premium Finishes</p>
-          </div>
-          <span class="hood-card__price">~$410K median</span>
-        </div>
-        <p class="hood-card__desc">The growth frontier for Pearland. New construction communities from Lennar, Perry Homes, and Meritage Homes with larger lots, open floor plans, and smart home features. Prices run higher but buyers get modern builds with builder warranties and energy efficiency built in.</p>
-        <button class="hood-card__toggle" aria-expanded="false">View Neighborhood Snapshot ▾</button>
-        <div class="hood-snapshot">
-          <div class="hood-snapshot__grid">
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">Median Price</span>
-              <span class="hood-snap-stat__value">~$410K</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">Avg. Days on Market</span>
-              <span class="hood-snap-stat__value">~22 days</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">High School Feeder</span>
-              <span class="hood-snap-stat__value">Glenda Dawson HS</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">Flood Risk</span>
-              <span class="hood-snap-stat__value hood-snap-stat__value--good">Lower (engineered drainage)</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">HOA Range</span>
-              <span class="hood-snap-stat__value">~$800–$1,200/yr</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">Typical Year Built</span>
-              <span class="hood-snap-stat__value">2018–Present</span>
-            </div>
-          </div>
-          <a href="tools.html?neighborhood=west-pearland" class="btn btn--sm" style="margin-top:1rem;background:#8b2a40;color:#fff;">Run BuyerIQ™ for West Pearland</a>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ============ SCHOOLS ============ -->
-<section class="city-schools section">
-  <div class="container">
-    <h2 class="section__title">Pearland ISD: The School Story</h2>
-    <p class="section__sub">Rated #1 in Brazoria County and consistently among the top 15 Houston metro districts — schools are the reason Pearland holds value when other markets soften.</p>
-    <div class="city-schools__grid">
-
-      <div class="city-school__card">
-        <div class="school-badge">HS</div>
-        <h3>Pearland High School</h3>
-        <p class="school-rating">GreatSchools: 8/10</p>
-        <p>Serves Silverlake, Massey Oaks, Green Tee Terrace, and east Pearland. Strong academic programs, award-winning fine arts, and competitive athletics. Consistent TEA recognized campus.</p>
-      </div>
-
-      <div class="city-school__card">
-        <div class="school-badge">HS</div>
-        <h3>Glenda Dawson High School</h3>
-        <p class="school-rating">GreatSchools: 8/10</p>
-        <p>Serves Shadow Creek Ranch, Centennial Park, and West Pearland. Named after a Texas lawmaker, Dawson HS opened in 2008 and has quickly built a reputation for academic rigor and growing athletics programs.</p>
-      </div>
-
-      <div class="city-school__card">
-        <div class="school-badge">#1</div>
-        <h3>District Performance</h3>
-        <p class="school-rating">28 campuses • Avg 8/10 GreatSchools</p>
-        <p>Pearland ISD operates 28 public schools with an average GreatSchools rating of 8/10 — one of the strongest district-wide averages in greater Houston. PISD is why physicians, researchers, and engineers consistently choose Pearland over closer-in suburban alternatives.</p>
-      </div>
-
-    </div>
-    <p class="city-schools__note">⚠️ School zoning changes occur. Always verify the exact school assignment for a specific address using Pearland ISD's official zoning tool before making a purchase decision.</p>
-  </div>
-</section>
-
-<!-- ============ COMMUTE ============ -->
-<section class="city-commute section">
-  <div class="container">
-    <h2 class="section__title" style="color:#fff;">Pearland Commute Reality</h2>
-    <p class="section__sub" style="color:rgba(255,255,255,0.75);">SH-288 is the lifeline. Your commute depends almost entirely on which side of 288 you live on and when you leave the house.</p>
-    <div class="city-commute__grid">
-      <div class="city-commute__card">
-        <div class="commute-dest">Texas Medical Center</div>
-        <div class="commute-time">20–35 min</div>
-        <div class="commute-route">via SH-288 North • 15–22 miles</div>
-        <p>The best TMC commute of any Houston Bay Area suburb. SH-288 is a direct shot. Rush hour adds time but the distance is short enough to remain manageable even in traffic.</p>
-      </div>
-      <div class="city-commute__card">
-        <div class="commute-dest">Downtown Houston</div>
-        <div class="commute-time">30–50 min</div>
-        <div class="commute-route">via SH-288 • 22–27 miles</div>
-        <p>Efficient downtown access via 288 or I-45. Park-and-ride options available from Pearland for commuters who prefer to skip the parking hassle. Metro Rapid Bus service runs from the 288 corridor.</p>
-      </div>
-      <div class="city-commute__card">
-        <div class="commute-dest">Hobby Airport</div>
-        <div class="commute-time">15–25 min</div>
-        <div class="commute-route">via I-45 or Beltway 8 • 10–15 miles</div>
-        <p>The closest major airport to Pearland. Frequent Southwest flights make Hobby the natural choice for Pearland residents regardless of where they ultimately need to fly.</p>
-      </div>
-      <div class="city-commute__card">
-        <div class="commute-dest">League City / Clear Lake</div>
-        <div class="commute-time">20–30 min</div>
-        <div class="commute-route">via Beltway 8 or SH-35 • 15–20 miles</div>
-        <p>Cross-suburb commuting to NASA JSC or Clear Lake employers is straightforward via the Beltway without needing to enter Houston proper. A meaningful benefit for dual-income households with jobs in different suburbs.</p>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- ============ FAQ ============ -->
-<section class="city-faq section">
-  <div class="container">
-    <h2 class="section__title" style="color:#fff;">Questions People Ask AI About Pearland</h2>
-    <p class="section__sub" style="color:rgba(255,255,255,0.7);">Honest answers — not marketing copy.</p>
-    <div class="faq-list">
-
-      <div class="faq-item">
-        <button class="faq-item__question" aria-expanded="false">Is Pearland, TX a good place to live in 2026?</button>
-        <div class="faq-item__answer">
-          <p>Yes — with one caveat. Pearland is an excellent choice for families, TMC employees, and buyers who want top schools and a functional commute. The caveat is that Pearland is large and heterogeneous — the quality-of-life experience varies significantly by neighborhood. Shadow Creek Ranch and Silverlake feel like completely different cities than Green Tee Terrace. Understanding which part of Pearland you're buying into is as important as the city decision itself.</p>
+  <!-- ── MARKET SNAPSHOT ────────────────────────────── -->
+  <section class="city-market" aria-labelledby="market-heading">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-header__eyebrow">2026 Market Conditions</span>
+        <h2 class="section-header__title" id="market-heading">What the Pearland Market Looks Like Right Now</h2>
+        <p class="section-header__subtitle">A balanced-to-slight-seller's market driven by steady TMC demand and limited inventory in top school zones.</p>
+      </div>
+      <div class="market-cards">
+        <div class="market-card">
+          <div class="market-card__label">Median Sale Price</div>
+          <div class="market-card__value">~$375K</div>
+          <div class="market-card__sub">Up modestly from 2024. New construction in West Pearland pulling median higher while resale stays accessible. Entry-level homes in Green Tee Terrace start near $260K–$290K.</div>
+          <div class="market-card__takeaway">What it means: Entry-level is still accessible. Move-up buyers in the $350K–$450K range have solid options across multiple neighborhoods.</div>
+        </div>
+        <div class="market-card">
+          <div class="market-card__label">Sale-to-List Price Ratio</div>
+          <div class="market-card__value">96–97%</div>
+          <div class="market-card__sub">Homes are selling near asking — sellers have modest leverage. Overpriced listings still sit. Well-priced homes in PISD zones move fast, sometimes with multiple offers in the first week.</div>
+          <div class="market-card__takeaway">What it means: Buyers can negotiate, but not as much as in League City or Dickinson. Be prepared to move quickly on well-priced properties in top school zones.</div>
+        </div>
+        <div class="market-card">
+          <div class="market-card__label">Inventory Supply</div>
+          <div class="market-card__value">~2 Months</div>
+          <div class="market-card__sub">Below the 3-month balanced threshold. Not as tight as Friendswood, but buyers shouldn't treat this as a slow market — PISD-zoned homes disappear quickly when priced correctly.</div>
+          <div class="market-card__takeaway">What it means: It's not a buyer's market — it's a strategic market. Know your numbers, get pre-approved, and be ready when the right home comes up.</div>
         </div>
       </div>
-
-      <div class="faq-item">
-        <button class="faq-item__question" aria-expanded="false">Is Pearland safe?</button>
-        <div class="faq-item__answer">
-          <p>Pearland has crime rates significantly below Houston proper and comparable to other major Houston Bay Area suburbs. Master-planned communities like Shadow Creek Ranch tend to have lower reported crime than older sections near downtown Pearland. Like any suburb, specific blocks and intersections matter more than city-wide statistics. NeighborhoodScout and the Pearland PD crime map are useful for address-level research before you buy.</p>
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-item__question" aria-expanded="false">How did Pearland do in Hurricane Harvey? Is flooding still a concern?</button>
-        <div class="faq-item__answer">
-          <p>Harvey affected parts of Pearland, particularly areas near Hickory Slough, Mary's Creek, and low-lying sections near SH-35. Since Harvey, the city has invested significantly in drainage infrastructure. Newer development is required to meet tighter detention standards. But flood risk hasn't been eliminated — it varies dramatically by lot. Running BuyerIQ™ or requesting a flood zone disclosure on any specific property is the only way to know what you're actually buying.</p>
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-item__question" aria-expanded="false">Is Pearland better than Friendswood?</button>
-        <div class="faq-item__answer">
-          <p>Different, not better or worse — it depends on your priorities. Friendswood offers its own ISD (highly rated, smaller, community-focused), more competitive pricing with faster appreciation, and a quieter small-town character. Pearland offers more square footage per dollar, better TMC commute access, a larger retail and dining infrastructure, and slightly more inventory to choose from. Families who value tight-knit community and school prestige often choose Friendswood. Families who prioritize home size, commute, or budget flexibility often choose Pearland.</p>
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-item__question" aria-expanded="false">What is Shadow Creek Ranch like to live in?</button>
-        <div class="faq-item__answer">
-          <p>Shadow Creek Ranch is Pearland's flagship master-planned community — and it earns the reputation. Multiple resort-style pools, a full recreation center, walking trails, catch-and-release lakes, and a community park system. The HOA is active and keeps the neighborhood maintained. Glenda Dawson HS feeder with strong academics. The tradeoff: HOA fees, deed restrictions, and the fact that it's a large enough community that it can feel suburban-generic in some sections. Overall, families with school-age kids consistently rate it highly.</p>
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-item__question" aria-expanded="false">Is new construction a good deal in Pearland right now?</button>
-        <div class="faq-item__answer">
-          <p>New construction in West Pearland from builders like Lennar, Perry Homes, and Meritage can be a strong value — especially when builders offer rate buydowns and closing cost credits, which they are currently doing to move inventory. The key is having representation. Builder sales agents work for the builder — not you. An experienced buyer's agent can negotiate additional incentives, catch contract issues, and schedule proper inspections that protect you on a new build. Never walk into a new build community without your own agent.</p>
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-item__question" aria-expanded="false">What is the property tax rate in Pearland?</button>
-        <div class="faq-item__answer">
-          <p>Pearland property tax rates vary depending on which taxing entities cover the specific address — Pearland ISD, Brazoria County, the City of Pearland, and potentially a MUD or special district. Combined effective rates typically run in the 2.4%–2.9% range depending on location. Shadow Creek Ranch and some newer communities sit within MUD districts that add to the base rate. Always request the full tax breakdown for any specific address before signing a contract — and budget for the Texas homestead exemption application after closing to reduce your ongoing liability.</p>
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-item__question" aria-expanded="false">Should I buy or rent in Pearland?</button>
-        <div class="faq-item__answer">
-          <p>In Pearland's current market (2026), buying is generally favorable for anyone planning to stay 3+ years. Rent for a comparable home runs $2,000–$2,800/month in most neighborhoods — approaching or exceeding mortgage costs for buyers with solid down payments and competitive rates. The homestead exemption reduces your tax burden. And Pearland's fundamentals (school district, TMC proximity, infrastructure) support long-term value. Short-term relocations under 2 years are the exception — in that scenario, renting is often smarter.</p>
-        </div>
-      </div>
-
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- ============ CTA ============ -->
-<section class="city-cta section">
-  <div class="container city-cta__inner">
-    <h2 class="city-cta__title">Pearland Has the Schools, the Commute, and the Value.<br>Let's Find the Right Neighborhood for You.</h2>
-    <p class="city-cta__sub">Run BuyerIQ™ to get a customized breakdown of what you can afford in Pearland, which neighborhoods fit your timeline, and what to watch out for — or call Phil directly.</p>
-    <div class="city-cta__actions">
-      <a href="tools.html?city=pearland" class="btn btn--primary btn--lg">Run BuyerIQ™ for Pearland</a>
-      <a href="contact.html" class="btn btn--outline btn--lg">Talk to Phil</a>
+  <!-- ── NEIGHBORHOODS ──────────────────────────────── -->
+  <section class="city-hoods" aria-labelledby="hoods-heading">
+    <div class="container">
+      <span class="city-hoods__eyebrow">Where to Live</span>
+      <h2 class="city-hoods__heading" id="hoods-heading">Pearland Neighborhoods — What Each One Is Really Like</h2>
+      <p class="city-hoods__sub">Six communities, six different tradeoffs. Here's the honest breakdown on price, schools, and what life actually looks like in each one.</p>
+      <div class="hoods-grid">
+
+        <div class="hood-card">
+          <div class="hood-card__name">Shadow Creek Ranch</div>
+          <div class="hood-card__price">Median ~$355K</div>
+          <div class="hood-card__desc">One of Pearland's largest and most amenity-rich master-planned communities. Pools, walking trails, catch-and-release lakes, and recreation centers — all within a walkable community layout. Strong Glenda Dawson HS feeder and an active HOA culture that keeps the neighborhood maintained.</div>
+          <div class="hood-card__tags">
+            <span class="hood-card__tag">Master-Planned</span>
+            <span class="hood-card__tag">Resort Amenities</span>
+            <span class="hood-card__tag">Glenda Dawson HS</span>
+          </div>
+          <button class="hood-card__toggle" aria-expanded="false">Neighborhood Snapshot <span class="hood-card__toggle-icon" aria-hidden="true">▾</span></button>
+          <div class="hood-snapshot">
+            <div class="hood-snapshot__grid">
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">Median Price</div><div class="hood-snap-stat__value">~$355K</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">Avg Days on Market</div><div class="hood-snap-stat__value">~28 days</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">High School</div><div class="hood-snap-stat__value">Glenda Dawson HS</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">Flood Risk</div><div class="hood-snap-stat__value--good hood-snap-stat__value">Lower (X Zone mostly)</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">HOA</div><div class="hood-snap-stat__value">Yes · ~$700–1,100/yr</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">Typical Year Built</div><div class="hood-snap-stat__value">2002–2018</div></div>
+            </div>
+            <a href="buyeriq.html" class="hood-snapshot__cta">Start BuyerIQ™ — Search Shadow Creek Ranch →</a>
+          </div>
+        </div>
+
+        <div class="hood-card">
+          <div class="hood-card__name">Silverlake</div>
+          <div class="hood-card__price">Median ~$330K</div>
+          <div class="hood-card__desc">One of Pearland's most established neighborhoods, featuring interconnected lakes, mature trees, and a community park system. Slightly more affordable than Shadow Creek Ranch with comparable school access. Strong long-term hold — resale inventory stays tight and the community has roots that newer developments can't replicate.</div>
+          <div class="hood-card__tags">
+            <span class="hood-card__tag">Established</span>
+            <span class="hood-card__tag">Lake Views</span>
+            <span class="hood-card__tag">Pearland HS</span>
+          </div>
+          <button class="hood-card__toggle" aria-expanded="false">Neighborhood Snapshot <span class="hood-card__toggle-icon" aria-hidden="true">▾</span></button>
+          <div class="hood-snapshot">
+            <div class="hood-snapshot__grid">
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">Median Price</div><div class="hood-snap-stat__value">~$330K</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">Avg Days on Market</div><div class="hood-snap-stat__value">~32 days</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">High School</div><div class="hood-snap-stat__value">Pearland HS</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">Flood Risk</div><div class="hood-snap-stat__value--caution hood-snap-stat__value">Moderate — verify by lot</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">HOA</div><div class="hood-snap-stat__value">Yes · ~$500–700/yr</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">Typical Year Built</div><div class="hood-snap-stat__value">1995–2010</div></div>
+            </div>
+            <a href="buyeriq.html" class="hood-snapshot__cta">Start BuyerIQ™ — Search Silverlake →</a>
+          </div>
+        </div>
+
+        <div class="hood-card">
+          <div class="hood-card__name">Centennial Park</div>
+          <div class="hood-card__price">Median ~$360K</div>
+          <div class="hood-card__desc">Positioned along the SH-288 corridor, Centennial Park offers newer construction with direct freeway access to the Texas Medical Center. Popular with TMC employees who prioritize commute time above all else. More recently built with modern floor plans, larger square footage, and energy-efficient construction.</div>
+          <div class="hood-card__tags">
+            <span class="hood-card__tag">Newer Construction</span>
+            <span class="hood-card__tag">288 Corridor</span>
+            <span class="hood-card__tag">Glenda Dawson HS</span>
+          </div>
+          <button class="hood-card__toggle" aria-expanded="false">Neighborhood Snapshot <span class="hood-card__toggle-icon" aria-hidden="true">▾</span></button>
+          <div class="hood-snapshot">
+            <div class="hood-snapshot__grid">
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">Median Price</div><div class="hood-snap-stat__value">~$360K</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">Avg Days on Market</div><div class="hood-snap-stat__value">~25 days</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">High School</div><div class="hood-snap-stat__value">Glenda Dawson HS</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">Flood Risk</div><div class="hood-snap-stat__value--good hood-snap-stat__value">Lower (newer drainage)</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">HOA</div><div class="hood-snap-stat__value">Yes · ~$600–900/yr</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">Typical Year Built</div><div class="hood-snap-stat__value">2008–2022</div></div>
+            </div>
+            <a href="buyeriq.html" class="hood-snapshot__cta">Start BuyerIQ™ — Search Centennial Park →</a>
+          </div>
+        </div>
+
+        <div class="hood-card">
+          <div class="hood-card__name">Green Tee Terrace</div>
+          <div class="hood-card__price">Median ~$275K</div>
+          <div class="hood-card__desc">Pearland's most affordable established neighborhood, built around a golf course in the 1970s–80s. Larger lots than newer developments, mature landscaping, and one of the best price-per-square-foot values in the city. Ideal for buyers who want established Pearland at the lowest possible entry point.</div>
+          <div class="hood-card__tags">
+            <span class="hood-card__tag">Golf Course Community</span>
+            <span class="hood-card__tag">Entry Value</span>
+            <span class="hood-card__tag">Pearland HS</span>
+          </div>
+          <button class="hood-card__toggle" aria-expanded="false">Neighborhood Snapshot <span class="hood-card__toggle-icon" aria-hidden="true">▾</span></button>
+          <div class="hood-snapshot">
+            <div class="hood-snapshot__grid">
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">Median Price</div><div class="hood-snap-stat__value">~$275K</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">Avg Days on Market</div><div class="hood-snap-stat__value">~45 days</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">High School</div><div class="hood-snap-stat__value">Pearland HS</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">Flood Risk</div><div class="hood-snap-stat__value--caution hood-snap-stat__value">Moderate — check address</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">HOA</div><div class="hood-snap-stat__value">None or minimal</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">Typical Year Built</div><div class="hood-snap-stat__value">1972–1990</div></div>
+            </div>
+            <a href="buyeriq.html" class="hood-snapshot__cta">Start BuyerIQ™ — Search Green Tee Terrace →</a>
+          </div>
+        </div>
+
+        <div class="hood-card">
+          <div class="hood-card__name">Massey Oaks</div>
+          <div class="hood-card__price">Median ~$310K</div>
+          <div class="hood-card__desc">A well-rounded mid-range neighborhood with good school access, established infrastructure, and a community feel that newer subdivisions can't replicate. Buyers get more lot for the money compared to Shadow Creek Ranch, with slightly less amenity infrastructure but solid long-term value and a manageable price entry.</div>
+          <div class="hood-card__tags">
+            <span class="hood-card__tag">Mid-Range</span>
+            <span class="hood-card__tag">Family-Friendly</span>
+            <span class="hood-card__tag">Pearland HS</span>
+          </div>
+          <button class="hood-card__toggle" aria-expanded="false">Neighborhood Snapshot <span class="hood-card__toggle-icon" aria-hidden="true">▾</span></button>
+          <div class="hood-snapshot">
+            <div class="hood-snapshot__grid">
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">Median Price</div><div class="hood-snap-stat__value">~$310K</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">Avg Days on Market</div><div class="hood-snap-stat__value">~35 days</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">High School</div><div class="hood-snap-stat__value">Pearland HS</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">Flood Risk</div><div class="hood-snap-stat__value--good hood-snap-stat__value">Lower (mostly X Zone)</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">HOA</div><div class="hood-snap-stat__value">Yes · ~$300–500/yr</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">Typical Year Built</div><div class="hood-snap-stat__value">1990–2005</div></div>
+            </div>
+            <a href="buyeriq.html" class="hood-snapshot__cta">Start BuyerIQ™ — Search Massey Oaks →</a>
+          </div>
+        </div>
+
+        <div class="hood-card">
+          <div class="hood-card__name">West Pearland / 288 Corridor</div>
+          <div class="hood-card__price">Median ~$410K</div>
+          <div class="hood-card__desc">The growth frontier for Pearland. New construction communities from Lennar, Perry Homes, and Meritage Homes with larger lots, open floor plans, and smart home features. Prices run higher but buyers get modern builds with builder warranties, energy efficiency, and builder incentives when available.</div>
+          <div class="hood-card__tags">
+            <span class="hood-card__tag">New Construction</span>
+            <span class="hood-card__tag">Larger Lots</span>
+            <span class="hood-card__tag">Glenda Dawson HS</span>
+          </div>
+          <button class="hood-card__toggle" aria-expanded="false">Neighborhood Snapshot <span class="hood-card__toggle-icon" aria-hidden="true">▾</span></button>
+          <div class="hood-snapshot">
+            <div class="hood-snapshot__grid">
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">Median Price</div><div class="hood-snap-stat__value">~$410K</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">Avg Days on Market</div><div class="hood-snap-stat__value">~22 days</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">High School</div><div class="hood-snap-stat__value">Glenda Dawson HS</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">Flood Risk</div><div class="hood-snap-stat__value--good hood-snap-stat__value">Lower (engineered drainage)</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">HOA</div><div class="hood-snap-stat__value">Yes · ~$800–1,200/yr</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">Typical Year Built</div><div class="hood-snap-stat__value">2018–Present</div></div>
+            </div>
+            <a href="buyeriq.html" class="hood-snapshot__cta">Start BuyerIQ™ — Search West Pearland →</a>
+          </div>
+        </div>
+
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- ============ FOOTER ============ -->
-<footer class="footer" role="contentinfo">
+  <!-- ── SCHOOLS ────────────────────────────────────── -->
+  <section class="city-schools" aria-labelledby="schools-heading">
+    <div class="container">
+      <div class="city-schools__grid">
+        <div>
+          <span class="city-schools__eyebrow">Pearland ISD</span>
+          <h2 class="city-schools__heading" id="schools-heading">The School District That Anchors Pearland's Value</h2>
+          <p class="city-schools__body">Pearland ISD is rated #1 in Brazoria County and consistently among the top 15 Houston metro districts. PISD is the primary reason TMC physicians, researchers, and engineers consistently choose Pearland over closer-in suburban alternatives with lower-rated schools. When the market softens elsewhere, Pearland holds — and schools are the reason.</p>
+          <p class="city-schools__body">Two high schools serve different parts of the city — Pearland HS (east) and Glenda Dawson HS (Shadow Creek Ranch, West Pearland, Centennial Park). Both are strong. The feeder pattern for a specific address determines which school your children attend, which affects both your family's experience and your home's resale value.</p>
+          <div class="city-schools__note">
+            <p><strong>Important:</strong> School zoning changes occur. Always verify the exact school assignment for a specific address using Pearland ISD's official zoning tool before making a purchase decision. I can help confirm this for any address you're considering.</p>
+          </div>
+          <a href="contact.html" class="btn btn--primary" style="margin-top:1.75rem;">Ask About School Feeders →</a>
+        </div>
+        <div>
+          <div class="schools-list">
+            <div class="school-item">
+              <div class="school-item__header">
+                <div class="school-item__name">Pearland High School</div>
+                <div class="school-item__grade">8/10</div>
+              </div>
+              <div class="school-item__level">High School · Grades 9–12 · Pearland ISD</div>
+              <div class="school-item__desc">Serves Silverlake, Massey Oaks, Green Tee Terrace, and east Pearland. Strong academic programs, award-winning fine arts, and competitive athletics. Consistent TEA recognized campus with a large and diverse student body.</div>
+            </div>
+            <div class="school-item">
+              <div class="school-item__header">
+                <div class="school-item__name">Glenda Dawson High School</div>
+                <div class="school-item__grade">8/10</div>
+              </div>
+              <div class="school-item__level">High School · Grades 9–12 · Pearland ISD</div>
+              <div class="school-item__desc">Serves Shadow Creek Ranch, Centennial Park, and West Pearland. Opened in 2008 and has quickly built a reputation for academic rigor and growing athletics programs. Named after a Texas lawmaker, Dawson HS is PISD's second comprehensive high school.</div>
+            </div>
+            <div class="school-item">
+              <div class="school-item__header">
+                <div class="school-item__name">Pearland ISD District</div>
+                <div class="school-item__grade">#1 Brazoria Co.</div>
+              </div>
+              <div class="school-item__level">District · 28 Campuses · Avg 8/10 GreatSchools</div>
+              <div class="school-item__desc">Pearland ISD operates 28 public schools with an average GreatSchools rating of 8/10 — one of the strongest district-wide averages in greater Houston. PISD is why physicians, researchers, and engineers consistently choose Pearland over closer-in suburban alternatives.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── COMMUTE ────────────────────────────────────── -->
+  <section class="city-commute" aria-labelledby="commute-heading">
+    <div class="container">
+      <div class="city-commute__grid">
+        <div>
+          <span class="city-commute__eyebrow">Location &amp; Commute</span>
+          <h2 class="city-commute__heading" id="commute-heading">Where Pearland Puts You</h2>
+          <p class="city-commute__body">SH-288 is the lifeline. Pearland's entire commute advantage rests on that single corridor — a direct shot north to the Texas Medical Center, then downtown beyond it. For TMC workers, no Houston Bay Area suburb beats the math here. The express lanes make the commute predictable in a way that I-45 can't match.</p>
+          <p class="city-commute__body">The east-west commute via Beltway 8 connects Pearland to Hobby Airport and the League City/NASA area without touching downtown Houston — an advantage for dual-income households whose jobs are in different directions.</p>
+          <a href="buyeriq.html" class="btn btn--primary" style="margin-top:1.5rem;">Run BuyerIQ™ — Find Your Ideal Neighborhood →</a>
+        </div>
+        <div>
+          <div class="commute-times">
+            <div class="commute-time">
+              <div class="commute-time__icon">🏥</div>
+              <div class="commute-time__dest">Texas Medical Center</div>
+              <div class="commute-time__duration">20–35 min</div>
+            </div>
+            <div class="commute-time">
+              <div class="commute-time__icon">🏙️</div>
+              <div class="commute-time__dest">Downtown Houston</div>
+              <div class="commute-time__duration">30–50 min</div>
+            </div>
+            <div class="commute-time">
+              <div class="commute-time__icon">✈️</div>
+              <div class="commute-time__dest">Hobby Airport</div>
+              <div class="commute-time__duration">15–25 min</div>
+            </div>
+            <div class="commute-time">
+              <div class="commute-time__icon">🚀</div>
+              <div class="commute-time__dest">League City / Clear Lake / NASA</div>
+              <div class="commute-time__duration">20–30 min</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FAQ / AEO ──────────────────────────────────── -->
+  <section class="city-faq" aria-labelledby="faq-heading">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-header__eyebrow">Questions People Ask AI</span>
+        <h2 class="section-header__title" id="faq-heading">Honest Answers About Living &amp; Buying in Pearland</h2>
+        <p class="section-header__subtitle">The real questions — answered straight, no real estate fluff.</p>
+      </div>
+      <div class="faq-list" role="list">
+
+        <div class="faq-item" role="listitem">
+          <button class="faq-item__question" aria-expanded="false">
+            <span class="faq-item__q-text">Is Pearland, TX a good place to live in 2026?</span>
+            <span class="faq-item__chevron" aria-hidden="true">▾</span>
+          </button>
+          <div class="faq-item__answer">
+            <p>Yes — with one caveat. Pearland is an excellent choice for families, TMC employees, and buyers who want top schools and a functional commute. The caveat is that Pearland is large and heterogeneous — the quality-of-life experience varies significantly by neighborhood. Shadow Creek Ranch and Silverlake feel like completely different cities than Green Tee Terrace. Understanding which part of Pearland you're buying into is as important as the city decision itself.</p>
+          </div>
+        </div>
+
+        <div class="faq-item" role="listitem">
+          <button class="faq-item__question" aria-expanded="false">
+            <span class="faq-item__q-text">Is Pearland safe?</span>
+            <span class="faq-item__chevron" aria-hidden="true">▾</span>
+          </button>
+          <div class="faq-item__answer">
+            <p>Pearland has crime rates significantly below Houston proper and comparable to other major Houston Bay Area suburbs. Master-planned communities like Shadow Creek Ranch tend to have lower reported crime than older sections near downtown Pearland. Like any suburb, specific blocks and intersections matter more than city-wide statistics. NeighborhoodScout and the Pearland PD crime map are useful for address-level research before you buy.</p>
+          </div>
+        </div>
+
+        <div class="faq-item" role="listitem">
+          <button class="faq-item__question" aria-expanded="false">
+            <span class="faq-item__q-text">How did Pearland do in Hurricane Harvey? Is flooding still a concern?</span>
+            <span class="faq-item__chevron" aria-hidden="true">▾</span>
+          </button>
+          <div class="faq-item__answer">
+            <p>Harvey affected parts of Pearland, particularly areas near Hickory Slough, Mary's Creek, and low-lying sections near SH-35. Since Harvey, the city has invested significantly in drainage infrastructure. Newer development is required to meet tighter detention standards. But flood risk hasn't been eliminated — it varies dramatically by lot. Running BuyerIQ™ or requesting a flood zone disclosure on any specific property is the only way to know what you're actually buying.</p>
+          </div>
+        </div>
+
+        <div class="faq-item" role="listitem">
+          <button class="faq-item__question" aria-expanded="false">
+            <span class="faq-item__q-text">Is Pearland better than Friendswood?</span>
+            <span class="faq-item__chevron" aria-hidden="true">▾</span>
+          </button>
+          <div class="faq-item__answer">
+            <p>Different, not better or worse — it depends on your priorities. Friendswood offers its own ISD (highly rated, smaller, community-focused), more competitive pricing with faster appreciation, and a quieter small-town character. Pearland offers more square footage per dollar, better TMC commute access, a larger retail and dining infrastructure, and slightly more inventory to choose from. Families who value tight-knit community and school prestige often choose Friendswood. Families who prioritize home size, commute, or budget flexibility often choose Pearland.</p>
+          </div>
+        </div>
+
+        <div class="faq-item" role="listitem">
+          <button class="faq-item__question" aria-expanded="false">
+            <span class="faq-item__q-text">What is Shadow Creek Ranch like to live in?</span>
+            <span class="faq-item__chevron" aria-hidden="true">▾</span>
+          </button>
+          <div class="faq-item__answer">
+            <p>Shadow Creek Ranch is Pearland's flagship master-planned community — and it earns the reputation. Multiple resort-style pools, a full recreation center, walking trails, catch-and-release lakes, and a community park system. The HOA is active and keeps the neighborhood maintained. Glenda Dawson HS feeder with strong academics. The tradeoff: HOA fees, deed restrictions, and the fact that it's a large enough community that it can feel suburban-generic in some sections. Overall, families with school-age kids consistently rate it highly.</p>
+          </div>
+        </div>
+
+        <div class="faq-item" role="listitem">
+          <button class="faq-item__question" aria-expanded="false">
+            <span class="faq-item__q-text">Is new construction a good deal in Pearland right now?</span>
+            <span class="faq-item__chevron" aria-hidden="true">▾</span>
+          </button>
+          <div class="faq-item__answer">
+            <p>New construction in West Pearland from builders like Lennar, Perry Homes, and Meritage can be a strong value — especially when builders offer rate buydowns and closing cost credits, which they are currently doing to move inventory. The key is having representation. Builder sales agents work for the builder — not you. An experienced buyer's agent can negotiate additional incentives, catch contract issues, and schedule proper inspections that protect you on a new build. Never walk into a new build community without your own agent.</p>
+          </div>
+        </div>
+
+        <div class="faq-item" role="listitem">
+          <button class="faq-item__question" aria-expanded="false">
+            <span class="faq-item__q-text">What is the property tax rate in Pearland?</span>
+            <span class="faq-item__chevron" aria-hidden="true">▾</span>
+          </button>
+          <div class="faq-item__answer">
+            <p>Pearland property tax rates vary depending on which taxing entities cover the specific address — Pearland ISD, Brazoria County, the City of Pearland, and potentially a MUD or special district. Combined effective rates typically run in the 2.4%–2.9% range depending on location. Shadow Creek Ranch and some newer communities sit within MUD districts that add to the base rate. Always request the full tax breakdown for any specific address before signing a contract — and budget for the Texas homestead exemption application after closing to reduce your ongoing liability.</p>
+          </div>
+        </div>
+
+        <div class="faq-item" role="listitem">
+          <button class="faq-item__question" aria-expanded="false">
+            <span class="faq-item__q-text">Should I buy or rent in Pearland?</span>
+            <span class="faq-item__chevron" aria-hidden="true">▾</span>
+          </button>
+          <div class="faq-item__answer">
+            <p>In Pearland's current market (2026), buying is generally favorable for anyone planning to stay 3+ years. Rent for a comparable home runs $2,000–$2,800/month in most neighborhoods — approaching or exceeding mortgage costs for buyers with solid down payments and competitive rates. The homestead exemption reduces your tax burden. And Pearland's fundamentals (school district, TMC proximity, infrastructure) support long-term value. Short-term relocations under 2 years are the exception — in that scenario, renting is often smarter.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA ───────────────────────────────────────── -->
+  <section class="city-cta" aria-labelledby="cta-heading">
+    <div class="container">
+      <div class="city-cta__inner">
+        <span class="city-cta__eyebrow">Ready to Make a Move in Pearland?</span>
+        <h2 class="city-cta__title" id="cta-heading">Pearland Has the Schools, the Commute, and the Value.<br>Let's Find the Right Neighborhood for You.</h2>
+        <p class="city-cta__text">BuyerIQ™ gives you a customized breakdown of what you can afford in Pearland, which neighborhoods fit your commute and school priorities, and what to watch out for before you make an offer. Free, no commitment, 5 minutes.</p>
+        <div class="city-cta__btns">
+          <a href="buyeriq.html" class="btn btn--primary btn--lg">Start BuyerIQ™ →</a>
+          <a href="selleriq.html" class="btn btn--secondary btn--lg">Get My Home Value →</a>
+          <a href="tel:8325361016" class="btn btn--white-outline btn--lg" style="background:transparent;border:2px solid rgba(255,255,255,0.5);color:#fff;">&#128222; (832) 536-1016</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ─────────────────────────────────────── -->
+  <footer class="footer" role="contentinfo">
     <div class="container">
       <div class="footer__grid">
         <div>
@@ -1106,46 +1031,53 @@
         </div>
       </div>
       <div class="footer__bottom">
-        <p class="footer__legal">© 2026 Phillip Himes · Brokered by eXp Realty · Licensed in Texas · <a href="privacy-policy.html">Privacy Policy</a> · <a href="terms-of-service.html">Terms of Service</a></p>
-        <p class="footer__disclaimer">All information deemed reliable but not guaranteed. Equal Housing Opportunity. Market data sourced from HAR, Redfin, and Zillow — verify current conditions before making decisions.</p>
+        <p class="footer__legal">
+          © 2026 Phillip Himes · Brokered by eXp Realty · Licensed in Texas ·
+          <a href="privacy-policy.html">Privacy Policy</a> ·
+          <a href="terms-of-service.html">Terms of Service</a>
+        </p>
+        <p class="footer__disclaimer">
+          All information deemed reliable but not guaranteed. Equal Housing Opportunity. Information subject to change without notice. Market data sourced from HAR, Redfin, and Zillow — verify current conditions before making decisions.
+        </p>
       </div>
     </div>
   </footer>
 
-<script>
-  // Neighborhood snapshot accordion
-  document.querySelectorAll('.hood-card__toggle').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const card = btn.closest('.hood-card');
-      const isOpen = card.classList.contains('hood-open');
-      document.querySelectorAll('.hood-card').forEach(c => {
-        c.classList.remove('hood-open');
-        c.querySelector('.hood-card__toggle').setAttribute('aria-expanded', 'false');
+  <script>
+    // Neighborhood snapshot toggles
+    document.querySelectorAll('.hood-card__toggle').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const card = btn.closest('.hood-card');
+        const isOpen = card.classList.contains('hood-open');
+        document.querySelectorAll('.hood-card').forEach(c => {
+          c.classList.remove('hood-open');
+          c.querySelector('.hood-card__toggle').setAttribute('aria-expanded', 'false');
+        });
+        if (!isOpen) {
+          card.classList.add('hood-open');
+          btn.setAttribute('aria-expanded', 'true');
+        }
       });
-      if (!isOpen) {
-        card.classList.add('hood-open');
-        btn.setAttribute('aria-expanded', 'true');
-      }
     });
-  });
 
-  // FAQ accordion
-  document.querySelectorAll('.faq-item__question').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const item = btn.closest('.faq-item');
-      const isOpen = item.classList.contains('faq-open');
-      document.querySelectorAll('.faq-item').forEach(i => {
-        i.classList.remove('faq-open');
-        i.querySelector('.faq-item__question').setAttribute('aria-expanded', 'false');
+    // FAQ accordion
+    document.querySelectorAll('.faq-item__question').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.closest('.faq-item');
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(i => {
+          i.classList.remove('open');
+          i.querySelector('.faq-item__question').setAttribute('aria-expanded', 'false');
+        });
+        if (!isOpen) {
+          item.classList.add('open');
+          btn.setAttribute('aria-expanded', 'true');
+        }
       });
-      if (!isOpen) {
-        item.classList.add('faq-open');
-        btn.setAttribute('aria-expanded', 'true');
-      }
     });
-  });
-</script>
-<script src="js/main.js"></script>
-<script src="https://widgets.leadconnectorhq.com/loader.js" data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" data-widget-id="6a0623c7f127bb5833bc2697"></script>
+  </script>
+
+  <script src="js/main.js"></script>
+  <script src="https://widgets.leadconnectorhq.com/loader.js" data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" data-widget-id="6a0623c7f127bb5833bc2697"></script>
 </body>
 </html>

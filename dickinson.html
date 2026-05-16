@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dickinson TX Real Estate | Homes for Sale & Neighborhood Guide | Phillip Himes</title>
+  <title>Dickinson TX Real Estate | Homes for Sale &amp; Neighborhood Guide | Phillip Himes</title>
   <meta name="description" content="Thinking about buying or selling in Dickinson, TX? Get current market data, waterfront neighborhood breakdowns, Dickinson ISD school info, and honest answers — from a local REALTOR® who knows every street." />
   <link rel="stylesheet" href="css/styles.css" />
   <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
@@ -16,12 +16,12 @@
       {
         "@type": "Question",
         "name": "Is Dickinson, TX a good place to live?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Dickinson is a good fit for specific buyer profiles — primarily those who want maximum home and land for the budget, waterfront or bayou access, or the most affordable entry into the Houston Bay Area Bay Area market. It offers bayou living, fishing, and a quieter pace than League City or Pearland. The tradeoffs are an older housing stock in many areas, a school district that lags CCISD and Pearland ISD on ratings, and longer commutes to major employment centers." }
+        "acceptedAnswer": { "@type": "Answer", "text": "Dickinson is a good fit for specific buyer profiles — primarily those who want maximum home and land for the budget, waterfront or bayou access, or the most affordable entry into the Houston Bay Area market. It offers bayou living, fishing, and a quieter pace than League City or Pearland. The tradeoffs are an older housing stock in many areas, a school district that lags CCISD and Pearland ISD on ratings, and longer commutes to major employment centers." }
       },
       {
         "@type": "Question",
         "name": "How much does a house cost in Dickinson, TX?",
-        "acceptedAnswer": { "@type": "Answer", "text": "As of 2026, the median home price in Dickinson is approximately $290,000–$320,000 — making it one of the most affordable communities in the Houston Bay Area Bay Area. Entry-level homes start around $200K–$240K. Bayou-front and waterfront-adjacent properties run $350K–$500K+. Dickinson is the value market of the Bay Area, offering the most square footage per dollar of any community in the region." }
+        "acceptedAnswer": { "@type": "Answer", "text": "As of 2026, the median home price in Dickinson is approximately $290,000–$320,000 — making it one of the most affordable communities in the Houston Bay Area. Entry-level homes start around $200K–$240K. Bayou-front and waterfront-adjacent properties run $350K–$500K+. Dickinson is the value market of the Bay Area, offering the most square footage per dollar of any community in the region." }
       },
       {
         "@type": "Question",
@@ -124,7 +124,7 @@
       text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.45);
     }
 
-    /* ─── WHY LEAGUE CITY ──────────────────────────────── */
+    /* ─── WHY DICKINSON ──────────────────────────────── */
     .city-why {
       background: var(--off-white, #f9f7f4); padding: 5rem 0;
     }
@@ -458,8 +458,7 @@
     }
     .city-cta__btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
 
-  
-    /* ── Dickinson: bayou teal ── */
+    /* ── Dickinson: bayou teal overrides ── */
     .city-hero { background: linear-gradient(135deg, #041414 0%, #082828 60%, #0d3d3d 100%); }
     .city-hero::before { background: radial-gradient(ellipse at 65% 35%, rgba(0,140,120,0.14) 0%, transparent 55%); }
     .city-hero__eyebrow { color: #7fd8cc; }
@@ -467,45 +466,25 @@
     .city-stat__value span { font-size: 1rem; color: #45b8a8; }
     .city-why { background: #f4fbfa; }
     .city-market { background: linear-gradient(135deg, #041414 0%, #082828 100%); }
-    .city-hoods { background: #fff; }
-    .hood-card__toggle { background: #0d3d3d; color: #fff; }
-    .hood-card__toggle:hover { background: #082828; }
+    .city-market::before { background: radial-gradient(ellipse at 30% 60%, rgba(0,140,120,0.08) 0%, transparent 55%); }
     .city-schools { background: #f4fbfa; }
-    .school-badge { background: #0d3d3d; }
-    .city-commute { background: linear-gradient(135deg, #041414 0%, #082828 100%); }
-    .city-faq { background: #041414; }
-    .faq-item__q-text { color: #7fd8cc; }
-    .city-cta { background: linear-gradient(135deg, #082828 0%, #0d3d3d 100%); }
-    .city-cta .btn--primary { background: #45b8a8; color: #041414; }
-    .city-cta .btn--primary:hover { background: #339988; }
-    .city-cta .btn--outline { border-color: rgba(255,255,255,0.6); color: #fff; }
-    .city-cta .btn--outline:hover { background: rgba(255,255,255,0.1); }
+    .city-commute { background: white; }
+    .city-faq { background: linear-gradient(135deg, #041414 0%, #082828 100%); }
+    .city-faq::before { background: radial-gradient(ellipse at 70% 30%, rgba(0,140,120,0.08) 0%, transparent 55%); }
 
-    /* ── Legacy city-why__card structure ── */
-    .city-why.section { padding: 5rem 0; }
-    .city-why__grid { display: grid; grid-template-columns: 1fr; gap: 1rem; }
-    .city-why__grid-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-top: 1.5rem; }
-    @media (max-width: 900px) { .city-why__grid-cards { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 560px) { .city-why__grid-cards { grid-template-columns: 1fr; } }
-    .city-why__intro-eyebrow { font-family: var(--font-heading); font-size: 0.75rem; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: var(--teal); margin-bottom: 0.75rem; display: block; }
-    .city-why__intro-heading { font-family: var(--font-heading); font-weight: 900; font-size: clamp(1.5rem,2.5vw,2rem); color: var(--navy); line-height: 1.15; margin-bottom: 1rem; }
-    .city-why__intro-body { font-size: 0.95rem; color: var(--dark-gray); line-height: 1.78; margin-bottom: 2rem; }
-    .city-why__card { background: white; border-radius: var(--radius-lg); padding: 1.5rem; border: 1.5px solid var(--light-gray); transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s; }
-    .city-why__card:hover { border-color: var(--teal); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.07); }
-    .city-why__icon { font-size: 1.75rem; display: block; margin-bottom: 0.65rem; }
-    .city-why__card h3 { font-family: var(--font-heading); font-weight: 800; font-size: 0.9rem; color: var(--navy); margin-bottom: 0.4rem; line-height: 1.3; }
-    .city-why__card p { font-size: 0.82rem; color: var(--dark-gray); line-height: 1.65; margin: 0; }
-</style>
+  </style>
 </head>
 <body>
 
-<!-- ============ NAV ============ -->
-<header class="site-header">
-  <nav class="nav container">
+  <!-- ── NAVIGATION ──────────────────────────────────── -->
+  <nav class="nav" role="navigation" aria-label="Main navigation">
     <div class="nav__inner">
       <a href="index.html" class="nav__logo" aria-label="Phillip Himes Real Estate Home">
         <img src="images/logo.png" alt="Phillip Himes | Brokered by eXp Realty" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
-        <span class="nav__logo-text" style="display:none;"><span class="nav__logo-name">Phillip Himes</span><span class="nav__logo-brokerage">Brokered by eXp Realty</span></span>
+        <span class="nav__logo-text" style="display:none;">
+          <span class="nav__logo-name">Phillip Himes</span>
+          <span class="nav__logo-brokerage">Brokered by eXp Realty</span>
+        </span>
       </a>
       <ul class="nav__links" id="nav-links">
         <li><a href="buyers.html" class="nav__link">Buying</a></li>
@@ -525,540 +504,475 @@
         <li class="nav__item nav__item--dropdown">
           <a href="marketiq.html" class="nav__link">Tools</a>
           <ul class="nav__dropdown" aria-label="Tools submenu">
-            <li><a href="buyeriq.html">BuyerIQ&#8482; &#8212; Buyer's Edge</a></li>
-            <li><a href="selleriq.html">SellerIQ&#8482; &#8212; Seller's Edge</a></li>
-            <li><a href="marketiq.html">MarketIQ&#8482; &#8212; Property Intelligence</a></li>
+            <li><a href="buyeriq.html">BuyerIQ™ — Buyer's Edge</a></li>
+            <li><a href="selleriq.html">SellerIQ™ — Seller's Edge</a></li>
+            <li><a href="marketiq.html">MarketIQ™ — Property Intelligence</a></li>
           </ul>
         </li>
         <li><a href="contact.html" class="nav__link">Ask Phil</a></li>
         <li class="nav__mobile-cta" style="display:none;">
-          <a href="tel:8325361016" class="btn btn--secondary" style="width:100%;margin-top:var(--space-md);">&#128222; (832) 536-1016</a>
-          <a href="buyeriq.html" class="btn btn--primary" style="width:100%;margin-top:var(--space-sm);">Start BuyerIQ&#8482;</a>
+          <a href="tel:8325361016" class="btn btn--secondary" style="width:100%;margin-top:var(--space-md);">📞 (832) 536-1016</a>
+          <a href="buyeriq.html" class="btn btn--primary" style="width:100%;margin-top:var(--space-sm);">Start BuyerIQ™</a>
         </li>
       </ul>
       <div class="nav__cta">
-        <a href="tel:8325361016" class="nav__phone">&#128222; (832) 536-1016</a>
-        <a href="buyeriq.html" class="btn btn--primary btn--sm">Start BuyerIQ&#8482;</a>
+        <a href="tel:8325361016" class="nav__phone">📞 (832) 536-1016</a>
+        <a href="buyeriq.html" class="btn btn--primary btn--sm">Start BuyerIQ™</a>
       </div>
-      <button class="nav__hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links"><span></span><span></span><span></span></button>
+      <button class="nav__hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </nav>
-</header>
 
-<!-- ============ HERO ============ -->
-<section class="city-hero">
-  <div class="container">
-    <div class="city-hero__content">
-      <p class="city-hero__eyebrow">Houston Bay Area Suburbs • Dickinson, TX</p>
-      <h1 class="city-hero__title">Dickinson Real Estate:<br>The Bay Area's Best Value Play —<br>If You Know How to Buy It Right</h1>
-      <p class="city-hero__sub">Most buyers overlook Dickinson. That's exactly why the deals are here.</p>
-      <div class="city-hero__actions">
-        <a href="tools.html?city=dickinson" class="btn btn--primary btn--lg">Run BuyerIQ™ for Dickinson</a>
-        <a href="contact.html" class="btn btn--outline btn--lg">Ask Phil a Question</a>
+  <!-- ── HERO ───────────────────────────────────────── -->
+  <section class="city-hero" aria-label="Dickinson overview">
+    <div class="container">
+      <div class="city-hero__content">
+        <span class="city-hero__eyebrow">Houston Bay Area · Bayou Country · Dickinson, TX</span>
+        <h1 class="city-hero__title">Dickinson, TX<br />Real Estate Guide</h1>
+        <p class="city-hero__subtitle">The Bay Area's best value play — if you know how to buy it right. Most buyers overlook Dickinson. That's exactly why the deals are here.</p>
+        <div class="city-hero__btns">
+          <a href="buyeriq.html" class="btn btn--primary btn--lg">Start BuyerIQ™ →</a>
+          <a href="contact.html" class="btn btn--white-outline btn--lg">Ask Phil a Question</a>
+        </div>
       </div>
     </div>
-
     <div class="city-stats-bar">
       <div class="city-stat">
-        <span class="city-stat__value">~$315K</span>
-        <span class="city-stat__label">Median Home Price</span>
+        <div class="city-stat__value">~$315K</div>
+        <div class="city-stat__label">Median Home Price</div>
       </div>
       <div class="city-stat">
-        <span class="city-stat__value">65–80 days</span>
-        <span class="city-stat__label">Avg. Days on Market</span>
+        <div class="city-stat__value">65–80 <span>days</span></div>
+        <div class="city-stat__label">Avg. Days on Market</div>
       </div>
       <div class="city-stat">
-        <span class="city-stat__value">Dickinson ISD</span>
-        <span class="city-stat__label">School District</span>
+        <div class="city-stat__value">DISD</div>
+        <div class="city-stat__label">Dickinson ISD</div>
       </div>
       <div class="city-stat">
-        <span class="city-stat__value">Bayou & Bay</span>
-        <span class="city-stat__label">Water Access</span>
+        <div class="city-stat__value">Bayou &amp; Bay</div>
+        <div class="city-stat__label">Water Access</div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- ============ WHY DICKINSON ============ -->
-<section class="city-why section">
-  <div class="container">
-    <h2 class="section__title">Why Some Buyers Choose Dickinson</h2>
-    <p class="section__sub">Dickinson isn't for every buyer. But for the right buyer — the one who knows what to look for — it offers something none of its neighbors can match.</p>
-    <div class="city-why__grid">
-
-      <div class="city-why__card">
-        <div class="city-why__icon">💵</div>
-        <h3>The Most Negotiating Room in the Bay Area</h3>
-        <p>65–80+ days on market means sellers are motivated. You won't find this kind of leverage in Friendswood (11 days) or Pearland (30–45 days). Buyers who need room to negotiate on price, repairs, and closing costs will find it here — and not elsewhere.</p>
-      </div>
-
-      <div class="city-why__card">
-        <div class="city-why__icon">🎣</div>
-        <h3>Real Bayou & Bay Access</h3>
-        <p>Dickinson Bayou connects to Galveston Bay. Fishing, boating, and waterfront living at prices well below Clear Lake waterfront. Bayou-front homes with boat docks exist in the $300K–$450K range — a price point that doesn't exist for comparable water access anywhere else in the Bay Area.</p>
-      </div>
-
-      <div class="city-why__card">
-        <div class="city-why__icon">🏡</div>
-        <h3>Lot Size & Space</h3>
-        <p>Dickinson offers larger lots per dollar than any other Bay Area suburb. Buyers who need a workshop, want to keep animals, or just don't want to see into their neighbor's kitchen from their patio will find options here that Pearland and League City can't deliver at similar prices.</p>
-      </div>
-
-      <div class="city-why__card">
-        <div class="city-why__icon">🛠️</div>
-        <h3>Value-Add Opportunity</h3>
-        <p>Dickinson's older housing stock creates genuine rehab and renovation opportunity. Buyers with the appetite and resources to update a home can acquire below-market, force appreciation through improvement, and sell into a market that rewards updated product — something harder to do in fully-developed master-planned communities.</p>
-      </div>
-
-      <div class="city-why__card">
-        <div class="city-why__icon">🚗</div>
-        <h3>I-45 & NASA Access</h3>
-        <p>Despite being the southernmost Bay Area community in this guide, Dickinson is 15–20 minutes from NASA JSC and Hobby Airport. The commute to Houston is longer, but the NASA/Bay Area employment corridor is accessible. For JSC contractors who don't need downtown access, Dickinson's commute math works.</p>
-      </div>
-
-      <div class="city-why__card">
-        <div class="city-why__icon">🌅</div>
-        <h3>Galveston Proximity</h3>
-        <p>Dickinson is the closest Bay Area suburb to Galveston Island — roughly 20–25 minutes. For buyers who want easy beach access built into their lifestyle (not a 2-hour round trip), Dickinson's location on I-45 delivers this better than any other community in this guide.</p>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ============ MARKET SNAPSHOT ============ -->
-<section class="city-market section">
-  <div class="container">
-    <h2 class="section__title" style="color:#fff;">Dickinson Market Snapshot (2026)</h2>
-    <p class="section__sub" style="color:rgba(255,255,255,0.75);">The Bay Area's strongest buyer's market — sellers have the least leverage, buyers have the most room. Know what to look for.</p>
-    <div class="city-market__grid">
-
-      <div class="city-market__card">
-        <div class="city-market__metric">~$315K</div>
-        <div class="city-market__label">Median Sale Price</div>
-        <p class="city-market__note">The lowest median in the Houston Bay Area Bay Area. Bayou-front and fully renovated homes at the top of the range, older fixer-uppers at the entry. The range is wide — median is a starting point, not a final answer.</p>
-      </div>
-
-      <div class="city-market__card">
-        <div class="city-market__metric">92–94%</div>
-        <div class="city-market__label">Sale-to-List Price Ratio</div>
-        <p class="city-market__note">The widest discount to asking price in the Bay Area. Buyers regularly negotiate 3–6% below list. On a $300K home, that's $9K–$18K in savings — before you negotiate repairs, closing costs, or rate buydowns.</p>
-      </div>
-
-      <div class="city-market__card">
-        <div class="city-market__metric">4+ Months</div>
-        <div class="city-market__label">Inventory Supply</div>
-        <p class="city-market__note">Well into buyer's market territory. More options, more time to decide, and less pressure to waive contingencies. The flip side: fewer buyers means longer holds if you need to sell in the next 2–3 years.</p>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ============ NEIGHBORHOODS ============ -->
-<section class="city-hoods section">
-  <div class="container">
-    <h2 class="section__title">Dickinson Neighborhoods: What to Know Before You Buy</h2>
-    <p class="section__sub">Dickinson rewards buyers who research. Flood risk, lot size, and school zoning vary more here than in any other Bay Area community.</p>
-    <div class="city-hoods__grid">
-
-      <!-- Bayou Shores / Waterfront -->
-      <div class="hood-card">
-        <div class="hood-card__header">
-          <div>
-            <h3 class="hood-card__name">Bayou Shores & Waterfront Areas</h3>
-            <p class="hood-card__tag">Bayou-Front • Boat Docks • Unique Lifestyle</p>
-          </div>
-          <span class="hood-card__price">~$380K median</span>
+  <!-- ── WHY DICKINSON ────────────────────────────── -->
+  <section class="city-why" aria-labelledby="why-heading">
+    <div class="container">
+      <div class="city-why__grid">
+        <div>
+          <span class="city-why__eyebrow">Why Dickinson</span>
+          <h2 class="city-why__heading" id="why-heading">The Bay Area's Best Value — For the Right Buyer</h2>
+          <p class="city-why__body">Dickinson isn't for every buyer. But for the right buyer — the one who knows what to look for — it offers something none of its neighbors can match: real negotiating room, real water access, and real space per dollar.</p>
+          <p class="city-why__body">65–80+ days on market means sellers are motivated. You won't find this kind of leverage in Friendswood or Pearland. Bayou-front homes with boat docks exist in the $300K–$450K range — a price point that doesn't exist for comparable water access anywhere else in the Bay Area.</p>
+          <p class="city-why__body"><strong>Who buys here:</strong> Buyers without school-age children, JSC employees who don't need downtown access, waterfront lifestyle seekers, investors, and retirees who want the most space and water for their dollar.</p>
         </div>
-        <p class="hood-card__desc">Bayou-front and canal-adjacent properties along Dickinson Bayou with private boat docks and direct bay access. This is the lifestyle play in Dickinson — authentic Texas waterfront living at a fraction of Clear Lake waterfront prices. Flood risk is the primary due-diligence item.</p>
-        <button class="hood-card__toggle" aria-expanded="false">View Neighborhood Snapshot ▾</button>
-        <div class="hood-snapshot">
-          <div class="hood-snapshot__grid">
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">Median Price</span>
-              <span class="hood-snap-stat__value">~$380K</span>
+        <div>
+          <div class="city-draws">
+            <div class="city-draw">
+              <div class="city-draw__icon">💵</div>
+              <div>
+                <div class="city-draw__title">Most Negotiating Room in the Bay Area</div>
+                <div class="city-draw__desc">65–80+ days on market means sellers are motivated. Buyers regularly negotiate 3–6% below list. On a $300K home, that's $9K–$18K in savings before you negotiate repairs, closing costs, or rate buydowns.</div>
+              </div>
             </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">Avg. Days on Market</span>
-              <span class="hood-snap-stat__value">~75 days</span>
+            <div class="city-draw">
+              <div class="city-draw__icon">🎣</div>
+              <div>
+                <div class="city-draw__title">Real Bayou &amp; Bay Access</div>
+                <div class="city-draw__desc">Dickinson Bayou connects to Galveston Bay. Fishing, boating, and bayou-front living at prices well below Clear Lake waterfront — a price point that doesn't exist for comparable water access anywhere else in the Bay Area.</div>
+              </div>
             </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">High School Feeder</span>
-              <span class="hood-snap-stat__value">Dickinson HS (DISD)</span>
+            <div class="city-draw">
+              <div class="city-draw__icon">🏡</div>
+              <div>
+                <div class="city-draw__title">Lot Size &amp; Space Per Dollar</div>
+                <div class="city-draw__desc">Dickinson offers larger lots per dollar than any other Bay Area suburb. Buyers who need a workshop, want to keep animals, or just don't want to see into their neighbor's kitchen will find options here that Pearland and League City can't deliver at similar prices.</div>
+              </div>
             </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">Flood Risk</span>
-              <span class="hood-snap-stat__value hood-snap-stat__value--risk">High — verify required</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">HOA Range</span>
-              <span class="hood-snap-stat__value">Minimal or none</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">Typical Year Built</span>
-              <span class="hood-snap-stat__value">1965–2000</span>
+            <div class="city-draw">
+              <div class="city-draw__icon">🌅</div>
+              <div>
+                <div class="city-draw__title">Galveston Proximity</div>
+                <div class="city-draw__desc">Dickinson is the closest Bay Area suburb to Galveston Island — roughly 20–25 minutes. For buyers who want easy beach access built into their lifestyle, Dickinson's I-45 position delivers this better than any other community in this guide.</div>
+              </div>
             </div>
           </div>
-          <a href="tools.html?neighborhood=dickinson-bayou-front" class="btn btn--sm" style="margin-top:1rem;background:#145a50;color:#fff;">Run BuyerIQ™ for Bayou Waterfront</a>
         </div>
-      </div>
-
-      <!-- Bay Colony (Dickinson area) -->
-      <div class="hood-card">
-        <div class="hood-card__header">
-          <div>
-            <h3 class="hood-card__name">West Dickinson / Highland Bayou</h3>
-            <p class="hood-card__tag">Larger Lots • Rural Feel • Workshop Potential</p>
-          </div>
-          <span class="hood-card__price">~$280K median</span>
-        </div>
-        <p class="hood-card__desc">The western reaches of Dickinson offering larger parcels, lower density, and some of the most affordable bayou-adjacent properties in the region. Appeals to buyers who want acreage, outdoor space, or a property that accommodates livestock, RVs, or large shops. Infrastructure is more rural — tradeoffs include longer drives to services.</p>
-        <button class="hood-card__toggle" aria-expanded="false">View Neighborhood Snapshot ▾</button>
-        <div class="hood-snapshot">
-          <div class="hood-snapshot__grid">
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">Median Price</span>
-              <span class="hood-snap-stat__value">~$280K</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">Avg. Days on Market</span>
-              <span class="hood-snap-stat__value">~80 days</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">High School Feeder</span>
-              <span class="hood-snap-stat__value">Dickinson HS (DISD)</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">Flood Risk</span>
-              <span class="hood-snap-stat__value hood-snap-stat__value--caution">Moderate — varies by parcel</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">HOA Range</span>
-              <span class="hood-snap-stat__value">None (typically)</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">Typical Year Built</span>
-              <span class="hood-snap-stat__value">1970–2000</span>
-            </div>
-          </div>
-          <a href="tools.html?neighborhood=west-dickinson" class="btn btn--sm" style="margin-top:1rem;background:#145a50;color:#fff;">Run BuyerIQ™ for West Dickinson</a>
-        </div>
-      </div>
-
-      <!-- Centerpoint / Established -->
-      <div class="hood-card">
-        <div class="hood-card__header">
-          <div>
-            <h3 class="hood-card__name">Centerpointe & East Dickinson</h3>
-            <p class="hood-card__tag">Established Subdivisions • Most Affordable Entry</p>
-          </div>
-          <span class="hood-card__price">~$240K median</span>
-        </div>
-        <p class="hood-card__desc">Dickinson's most affordable established neighborhoods, built primarily in the 1970s–90s. Solid working-class community character, close to I-45 and local services. Entry-level buyers or investors looking for rental properties will find the lowest price points in the Bay Area here. Due diligence on flood history is critical at this price range.</p>
-        <button class="hood-card__toggle" aria-expanded="false">View Neighborhood Snapshot ▾</button>
-        <div class="hood-snapshot">
-          <div class="hood-snapshot__grid">
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">Median Price</span>
-              <span class="hood-snap-stat__value">~$240K</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">Avg. Days on Market</span>
-              <span class="hood-snap-stat__value">~70 days</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">High School Feeder</span>
-              <span class="hood-snap-stat__value">Dickinson HS (DISD)</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">Flood Risk</span>
-              <span class="hood-snap-stat__value hood-snap-stat__value--caution">Moderate — check address</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">HOA Range</span>
-              <span class="hood-snap-stat__value">None to minimal</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">Typical Year Built</span>
-              <span class="hood-snap-stat__value">1975–1995</span>
-            </div>
-          </div>
-          <a href="tools.html?neighborhood=east-dickinson" class="btn btn--sm" style="margin-top:1rem;background:#145a50;color:#fff;">Run BuyerIQ™ for East Dickinson</a>
-        </div>
-      </div>
-
-      <!-- Dickinson-League City Border -->
-      <div class="hood-card">
-        <div class="hood-card__header">
-          <div>
-            <h3 class="hood-card__name">North Dickinson (Near League City Border)</h3>
-            <p class="hood-card__tag">Potential CCISD Zones • Border Value • Research Required</p>
-          </div>
-          <span class="hood-card__price">~$330K median</span>
-        </div>
-        <p class="hood-card__desc">The northern edge of Dickinson where some streets cross into League City or fall within CCISD school boundaries. This border area is the most nuanced real estate in the Bay Area — Dickinson prices with potential CCISD school zoning. Requires address-by-address verification but represents the best combined value in the region for buyers who do the research.</p>
-        <button class="hood-card__toggle" aria-expanded="false">View Neighborhood Snapshot ▾</button>
-        <div class="hood-snapshot">
-          <div class="hood-snapshot__grid">
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">Median Price</span>
-              <span class="hood-snap-stat__value">~$330K</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">Avg. Days on Market</span>
-              <span class="hood-snap-stat__value">~55 days</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">High School Feeder</span>
-              <span class="hood-snap-stat__value">Verify — DISD or CCISD</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">Flood Risk</span>
-              <span class="hood-snap-stat__value hood-snap-stat__value--good">Lower (higher elevation)</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">HOA Range</span>
-              <span class="hood-snap-stat__value">Varies widely</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">Typical Year Built</span>
-              <span class="hood-snap-stat__value">1990–2015</span>
-            </div>
-          </div>
-          <a href="tools.html?neighborhood=north-dickinson" class="btn btn--sm" style="margin-top:1rem;background:#145a50;color:#fff;">Run BuyerIQ™ for North Dickinson</a>
-        </div>
-      </div>
-
-      <!-- Bayou Bend / Mid Range -->
-      <div class="hood-card">
-        <div class="hood-card__header">
-          <div>
-            <h3 class="hood-card__name">Bayou Bend & Mid-Range Subdivisions</h3>
-            <p class="hood-card__tag">Renovated Stock • Mid-Range • Growing Equity</p>
-          </div>
-          <span class="hood-card__price">~$295K median</span>
-        </div>
-        <p class="hood-card__desc">Mid-range Dickinson subdivisions showing signs of renovation activity. Updated kitchens, new roofs, and fresh interiors are appearing throughout these neighborhoods as investors and owner-occupants upgrade older homes. The gap between renovated and unrenovated homes creates opportunity for buyers willing to do the work themselves.</p>
-        <button class="hood-card__toggle" aria-expanded="false">View Neighborhood Snapshot ▾</button>
-        <div class="hood-snapshot">
-          <div class="hood-snapshot__grid">
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">Median Price</span>
-              <span class="hood-snap-stat__value">~$295K</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">Avg. Days on Market</span>
-              <span class="hood-snap-stat__value">~68 days</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">High School Feeder</span>
-              <span class="hood-snap-stat__value">Dickinson HS (DISD)</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">Flood Risk</span>
-              <span class="hood-snap-stat__value hood-snap-stat__value--caution">Moderate — verify</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">HOA Range</span>
-              <span class="hood-snap-stat__value">None to ~$300/yr</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">Typical Year Built</span>
-              <span class="hood-snap-stat__value">1985–2005</span>
-            </div>
-          </div>
-          <a href="tools.html?neighborhood=bayou-bend-dickinson" class="btn btn--sm" style="margin-top:1rem;background:#145a50;color:#fff;">Run BuyerIQ™ for Bayou Bend Area</a>
-        </div>
-      </div>
-
-      <!-- Newer Construction -->
-      <div class="hood-card">
-        <div class="hood-card__header">
-          <div>
-            <h3 class="hood-card__name">Newer Dickinson Developments</h3>
-            <p class="hood-card__tag">Post-Harvey Construction • Better Drainage • Modern Builds</p>
-          </div>
-          <span class="hood-card__price">~$345K median</span>
-        </div>
-        <p class="hood-card__desc">Post-Harvey construction in Dickinson is subject to updated floodplain requirements, meaning newer homes are built to higher drainage standards and sit at elevated pads. These provide significantly better flood protection than the pre-Harvey housing stock. Limited availability, but the right move for buyers who want Dickinson value without the older home flood history risk.</p>
-        <button class="hood-card__toggle" aria-expanded="false">View Neighborhood Snapshot ▾</button>
-        <div class="hood-snapshot">
-          <div class="hood-snapshot__grid">
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">Median Price</span>
-              <span class="hood-snap-stat__value">~$345K</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">Avg. Days on Market</span>
-              <span class="hood-snap-stat__value">~50 days</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">High School Feeder</span>
-              <span class="hood-snap-stat__value">Dickinson HS (DISD)</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">Flood Risk</span>
-              <span class="hood-snap-stat__value hood-snap-stat__value--good">Lower (post-Harvey code)</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">HOA Range</span>
-              <span class="hood-snap-stat__value">~$500–$800/yr</span>
-            </div>
-            <div class="hood-snap-stat">
-              <span class="hood-snap-stat__label">Typical Year Built</span>
-              <span class="hood-snap-stat__value">2019–Present</span>
-            </div>
-          </div>
-          <a href="tools.html?neighborhood=newer-dickinson" class="btn btn--sm" style="margin-top:1rem;background:#145a50;color:#fff;">Run BuyerIQ™ for Newer Dickinson Builds</a>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ============ SCHOOLS ============ -->
-<section class="city-schools section">
-  <div class="container">
-    <h2 class="section__title">Dickinson ISD: The Honest School Picture</h2>
-    <p class="section__sub">Dickinson ISD is the primary tradeoff buyers make for the price advantage. Here's what that tradeoff looks like in reality.</p>
-    <div class="city-schools__grid">
-
-      <div class="city-school__card">
-        <div class="school-badge">HS</div>
-        <h3>Dickinson High School</h3>
-        <p class="school-rating">GreatSchools: 4–5/10</p>
-        <p>Dickinson High School is a large comprehensive campus with a wide range of programs. Academic ratings lag CCISD and Pearland ISD benchmarks. Strong CTE and vocational programs. The school serves a diverse community and has active sports and extracurricular programs. For families where elite academics are the top priority, this gap matters.</p>
-      </div>
-
-      <div class="city-school__card">
-        <div class="school-badge">🗺️</div>
-        <h3>The Border Zone Opportunity</h3>
-        <p class="school-rating">North Dickinson addresses — verify before buying</p>
-        <p>Some addresses in north Dickinson fall within CCISD attendance boundaries — meaning you can buy at Dickinson prices and potentially access CCISD schools. This requires address-level verification before you make any assumptions. Phil can help you identify which specific streets and subdivisions qualify. This is one of the most overlooked value plays in the entire Bay Area market.</p>
-      </div>
-
-      <div class="city-school__card">
-        <div class="school-badge">📊</div>
-        <h3>When Schools Are Not the Priority</h3>
-        <p class="school-rating">Buyers for whom this works</p>
-        <p>Dickinson makes strong sense for buyers without school-age children, investors who are renting to adults, retirees prioritizing outdoor lifestyle and low price, or buyers with children already in private schools. Eliminating the school premium from your real estate decision can mean $60K–$100K in additional buying power in this market.</p>
-      </div>
-
-    </div>
-    <p class="city-schools__note">⚠️ School boundaries change. Always verify the exact district and campus assignment using the official DISD or CCISD zoning lookup for any specific address before making a purchase decision.</p>
-  </div>
-</section>
-
-<!-- ============ COMMUTE ============ -->
-<section class="city-commute section">
-  <div class="container">
-    <h2 class="section__title" style="color:#fff;">Dickinson Commute Reality</h2>
-    <p class="section__sub" style="color:rgba(255,255,255,0.75);">The longest Bay Area commute to Houston. Closest Bay Area community to Galveston. Know the tradeoff before you buy.</p>
-    <div class="city-commute__grid">
-      <div class="city-commute__card">
-        <div class="commute-dest">Galveston Island</div>
-        <div class="commute-time">20–25 min</div>
-        <div class="commute-route">via I-45 South • 17–20 miles</div>
-        <p>The best Galveston access of any Bay Area suburb. For buyers who want beach lifestyle built into their weekly routine — not an annual trip — Dickinson's I-45 position is a genuine lifestyle advantage over League City, Pearland, or Friendswood.</p>
-      </div>
-      <div class="city-commute__card">
-        <div class="commute-dest">NASA Johnson Space Center</div>
-        <div class="commute-time">15–25 min</div>
-        <div class="commute-route">via I-45 North or Hwy 3 • 12–18 miles</div>
-        <p>Short NASA commute makes Dickinson viable for JSC employees and aerospace contractors who don't need downtown Houston access. The I-45 or FM 518 route to JSC is straightforward and avoids urban congestion.</p>
-      </div>
-      <div class="city-commute__card">
-        <div class="commute-dest">Downtown Houston</div>
-        <div class="commute-time">50–70 min</div>
-        <div class="commute-route">via I-45 North • 33–38 miles</div>
-        <p>The longest commute in this guide. Downtown employees who choose Dickinson are making a deliberate lifestyle trade — more home and water access in exchange for more drive time. This tradeoff works for some; for others it erodes quality of life quickly.</p>
-      </div>
-      <div class="city-commute__card">
-        <div class="commute-dest">Hobby Airport</div>
-        <div class="commute-time">25–35 min</div>
-        <div class="commute-route">via I-45 North • 20–25 miles</div>
-        <p>Accessible via I-45 without entering downtown traffic. For frequent travelers who fly primarily out of Hobby, the added distance from Dickinson versus League City or Clear Lake is marginal and doesn't significantly change airport logistics.</p>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- ============ FAQ ============ -->
-<section class="city-faq section">
-  <div class="container">
-    <h2 class="section__title" style="color:#fff;">Questions People Ask AI About Dickinson</h2>
-    <p class="section__sub" style="color:rgba(255,255,255,0.7);">Honest answers — including the ones most agents won't give you.</p>
-    <div class="faq-list">
-
-      <div class="faq-item">
-        <button class="faq-item__question" aria-expanded="false">Is Dickinson, TX worth buying in?</button>
-        <div class="faq-item__answer">
-          <p>It depends on your priorities. Dickinson is absolutely worth buying in if you: don't have school-age children (or use private schools), want waterfront/bayou access at Bay Area-affordable prices, need maximum space and lot size per dollar, or are a JSC/aerospace employee who doesn't commute to Houston daily. It is not the right market for buyers who need top-rated schools, want a fast resale market, or are sensitive to flood risk and don't want to manage that complexity.</p>
+  <!-- ── MARKET SNAPSHOT ────────────────────────────── -->
+  <section class="city-market" aria-labelledby="market-heading">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-header__eyebrow">2026 Market Conditions</span>
+        <h2 class="section-header__title" id="market-heading">What the Dickinson Market Looks Like Right Now</h2>
+        <p class="section-header__subtitle">The Bay Area's strongest buyer's market — sellers have the least leverage, buyers have the most room to negotiate.</p>
+      </div>
+      <div class="market-cards">
+        <div class="market-card">
+          <div class="market-card__label">Median Sale Price</div>
+          <div class="market-card__value">~$315K</div>
+          <div class="market-card__sub">The lowest median in the Houston Bay Area. Bayou-front and fully renovated homes at the top of the range, older fixer-uppers at the entry. The range is wide — median is a starting point, not a final answer.</div>
+          <div class="market-card__takeaway">What it means: Maximum square footage and lot per dollar. The most home for the budget of any Bay Area community.</div>
+        </div>
+        <div class="market-card">
+          <div class="market-card__label">Sale-to-List Price Ratio</div>
+          <div class="market-card__value">92–94%</div>
+          <div class="market-card__sub">The widest discount to asking price in the Bay Area. Buyers regularly negotiate 3–6% below list on top of repair credits and closing cost concessions.</div>
+          <div class="market-card__takeaway">What it means: Real negotiating leverage — more than anywhere else in the Bay Area right now.</div>
+        </div>
+        <div class="market-card">
+          <div class="market-card__label">Inventory Supply</div>
+          <div class="market-card__value">4+ Months</div>
+          <div class="market-card__sub">Well into buyer's market territory. More options, more time to decide, and less pressure to waive contingencies. The flip side: fewer buyers means longer holds if you need to sell in the next 2–3 years.</div>
+          <div class="market-card__takeaway">What it means: Time to do proper flood due diligence — something buyers skip in faster markets to their detriment.</div>
         </div>
       </div>
-
-      <div class="faq-item">
-        <button class="faq-item__question" aria-expanded="false">Did Dickinson flood during Hurricane Harvey?</button>
-        <div class="faq-item__answer">
-          <p>Yes — Dickinson was one of the hardest-hit communities in Harris and Galveston County during Harvey. Dickinson Bayou overflowed catastrophically. Thousands of homes flooded, some for the first time. The city has made drainage improvements since Harvey, and FEMA updated flood maps in some areas. However, Dickinson's flood risk remains among the highest in the Bay Area. This is non-negotiable due diligence for any buyer — get the flood zone certificate, understand the insurance costs, and ask specifically whether the home flooded during Harvey.</p>
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-item__question" aria-expanded="false">Can I get CCISD schools while buying in Dickinson?</button>
-        <div class="faq-item__answer">
-          <p>Potentially — but only on specific addresses in north Dickinson. Some streets in the northern reaches of Dickinson's zip code fall within CCISD's attendance boundaries. This is one of the most misunderstood aspects of Bay Area real estate. It requires address-level verification using the official CCISD attendance lookup — not neighborhood assumptions. Phil can help you identify which properties qualify. If you find one, you're accessing CCISD schools at Dickinson prices — that's a meaningful value gap worth understanding.</p>
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-item__question" aria-expanded="false">Is Dickinson a good place to buy a waterfront home?</button>
-        <div class="faq-item__answer">
-          <p>For buyers who understand the flood risk and price it correctly — yes. Bayou-front and bay-adjacent homes in Dickinson offer water access at prices $150K–$300K below comparable properties in Clear Lake or Taylor Lake Village. The lifestyle is more bayou-rustic than marina-polished. You'll have boat access, fishing, and a genuine waterfront experience. The key is proper due diligence: flood zone, insurance costs, Harvey history for that specific property, and elevation certificate. With those answered, Dickinson waterfront can be excellent value.</p>
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-item__question" aria-expanded="false">How does Dickinson compare to League City for buyers?</button>
-        <div class="faq-item__answer">
-          <p>The gap is significant in two directions. League City wins on: school district quality (CCISD vs DISD), newer master-planned communities, lower flood risk in most neighborhoods, and more reliable long-term appreciation. Dickinson wins on: price per square foot, lot size, waterfront access at entry-level prices, and negotiating room. The right choice depends on your life stage. A retiree who wants a bayou lot and a boat dock will often choose Dickinson. A family with elementary-age kids will almost always choose League City.</p>
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-item__question" aria-expanded="false">What is the property tax rate in Dickinson?</button>
-        <div class="faq-item__answer">
-          <p>Dickinson property taxes vary by specific address and taxing entities — Dickinson ISD, Galveston County, the City of Dickinson (if applicable), and any applicable MUD districts. Combined effective rates typically run 2.3%–2.8%. Some unincorporated areas outside the city limits may have slightly different rates. Request the full tax breakdown for any specific property before signing. Properties that flooded during Harvey and received FEMA buyouts in adjacent areas may have different valuation histories — worth verifying on older transactions.</p>
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-item__question" aria-expanded="false">Is Dickinson good for investment properties?</button>
-        <div class="faq-item__answer">
-          <p>Dickinson has attracted investor attention precisely because of its low entry prices and renovation upside. Single-family rental properties in Dickinson can achieve gross cap rates that are difficult to find in Pearland or League City. The risks: flood risk (which affects insurance costs and rental demand after major storms), slower appreciation relative to neighboring suburbs, and a tenant pool that may be more price-sensitive than in higher-income markets. For cash flow-focused investors who understand flood risk management, it's worth evaluating. For appreciation plays, there are better Bay Area options.</p>
-        </div>
-      </div>
-
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- ============ CTA ============ -->
-<section class="city-cta section">
-  <div class="container city-cta__inner">
-    <h2 class="city-cta__title">Dickinson Has the Most Negotiating Room in the Bay Area.<br>But You Need to Know What You're Buying.</h2>
-    <p class="city-cta__sub">Run BuyerIQ™ to get a flood-aware breakdown of Dickinson's market, which neighborhoods fit your profile, and what to verify before you make an offer. Or call Phil directly — he'll give you the unvarnished picture.</p>
-    <div class="city-cta__actions">
-      <a href="tools.html?city=dickinson" class="btn btn--primary btn--lg">Run BuyerIQ™ for Dickinson</a>
-      <a href="contact.html" class="btn btn--outline btn--lg">Talk to Phil</a>
+  <!-- ── NEIGHBORHOODS ──────────────────────────────── -->
+  <section class="city-hoods" aria-labelledby="hoods-heading">
+    <div class="container">
+      <span class="city-hoods__eyebrow">Where to Live</span>
+      <h2 class="city-hoods__heading" id="hoods-heading">Dickinson Neighborhoods — What Each One Is Really Like</h2>
+      <p class="city-hoods__sub">Dickinson rewards buyers who research. Flood risk, lot size, and school zoning vary more here than in any other Bay Area community.</p>
+      <div class="hoods-grid">
+
+        <div class="hood-card">
+          <div class="hood-card__name">Bayou Shores &amp; Waterfront Areas</div>
+          <div class="hood-card__price">Median ~$380K</div>
+          <div class="hood-card__desc">Bayou-front and canal-adjacent properties along Dickinson Bayou with private boat docks and direct bay access. Authentic Texas waterfront living at a fraction of Clear Lake waterfront prices. Flood risk is the primary due-diligence item — the lifestyle reward for buyers who do the work.</div>
+          <div class="hood-card__tags">
+            <span class="hood-card__tag">Bayou-Front</span>
+            <span class="hood-card__tag">Boat Docks</span>
+            <span class="hood-card__tag">Verify Flood Zone</span>
+          </div>
+          <button class="hood-card__toggle" aria-expanded="false">Neighborhood Snapshot <span class="hood-card__toggle-icon" aria-hidden="true">▾</span></button>
+          <div class="hood-snapshot">
+            <div class="hood-snapshot__grid">
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">Median Price</div><div class="hood-snap-stat__value">~$380K</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">Avg Days on Market</div><div class="hood-snap-stat__value">~75 days</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">High School</div><div class="hood-snap-stat__value">Dickinson HS (DISD)</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">Flood Risk</div><div class="hood-snap-stat__value--caution hood-snap-stat__value">High — verify required</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">HOA</div><div class="hood-snap-stat__value">Minimal or none</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">Typical Year Built</div><div class="hood-snap-stat__value">1965–2000</div></div>
+            </div>
+            <a href="buyeriq.html" class="hood-snapshot__cta">Start BuyerIQ™ — Search Bayou Waterfront →</a>
+          </div>
+        </div>
+
+        <div class="hood-card">
+          <div class="hood-card__name">West Dickinson / Highland Bayou</div>
+          <div class="hood-card__price">Median ~$280K</div>
+          <div class="hood-card__desc">The western reaches of Dickinson offering larger parcels, lower density, and some of the most affordable bayou-adjacent properties in the region. Appeals to buyers who want acreage, outdoor space, or a property that accommodates livestock, RVs, or large shops. Infrastructure is more rural — longer drives to services.</div>
+          <div class="hood-card__tags">
+            <span class="hood-card__tag">Larger Lots</span>
+            <span class="hood-card__tag">Rural Feel</span>
+            <span class="hood-card__tag">Workshop Potential</span>
+          </div>
+          <button class="hood-card__toggle" aria-expanded="false">Neighborhood Snapshot <span class="hood-card__toggle-icon" aria-hidden="true">▾</span></button>
+          <div class="hood-snapshot">
+            <div class="hood-snapshot__grid">
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">Median Price</div><div class="hood-snap-stat__value">~$280K</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">Avg Days on Market</div><div class="hood-snap-stat__value">~80 days</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">High School</div><div class="hood-snap-stat__value">Dickinson HS (DISD)</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">Flood Risk</div><div class="hood-snap-stat__value--caution hood-snap-stat__value">Moderate — varies by parcel</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">HOA</div><div class="hood-snap-stat__value">None (typically)</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">Typical Year Built</div><div class="hood-snap-stat__value">1970–2000</div></div>
+            </div>
+            <a href="buyeriq.html" class="hood-snapshot__cta">Start BuyerIQ™ — Search West Dickinson →</a>
+          </div>
+        </div>
+
+        <div class="hood-card">
+          <div class="hood-card__name">Centerpointe &amp; East Dickinson</div>
+          <div class="hood-card__price">Median ~$240K</div>
+          <div class="hood-card__desc">Dickinson's most affordable established neighborhoods, built primarily in the 1970s–90s. Solid working-class community character, close to I-45 and local services. Entry-level buyers and investors find the lowest price points in the Bay Area here. Due diligence on flood history is critical at this price range.</div>
+          <div class="hood-card__tags">
+            <span class="hood-card__tag">Entry Level</span>
+            <span class="hood-card__tag">Established</span>
+            <span class="hood-card__tag">Check Flood History</span>
+          </div>
+          <button class="hood-card__toggle" aria-expanded="false">Neighborhood Snapshot <span class="hood-card__toggle-icon" aria-hidden="true">▾</span></button>
+          <div class="hood-snapshot">
+            <div class="hood-snapshot__grid">
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">Median Price</div><div class="hood-snap-stat__value">~$240K</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">Avg Days on Market</div><div class="hood-snap-stat__value">~70 days</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">High School</div><div class="hood-snap-stat__value">Dickinson HS (DISD)</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">Flood Risk</div><div class="hood-snap-stat__value--caution hood-snap-stat__value">Moderate — check address</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">HOA</div><div class="hood-snap-stat__value">None to minimal</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">Typical Year Built</div><div class="hood-snap-stat__value">1975–1995</div></div>
+            </div>
+            <a href="buyeriq.html" class="hood-snapshot__cta">Start BuyerIQ™ — Search East Dickinson →</a>
+          </div>
+        </div>
+
+        <div class="hood-card">
+          <div class="hood-card__name">North Dickinson (Near League City Border)</div>
+          <div class="hood-card__price">Median ~$330K</div>
+          <div class="hood-card__desc">The northern edge of Dickinson where some streets cross into League City or fall within CCISD school boundaries. Dickinson prices with potential CCISD school zoning. Requires address-by-address verification but represents the best combined value in the region for buyers who do the research.</div>
+          <div class="hood-card__tags">
+            <span class="hood-card__tag">Potential CCISD</span>
+            <span class="hood-card__tag">Border Value</span>
+            <span class="hood-card__tag">Research Required</span>
+          </div>
+          <button class="hood-card__toggle" aria-expanded="false">Neighborhood Snapshot <span class="hood-card__toggle-icon" aria-hidden="true">▾</span></button>
+          <div class="hood-snapshot">
+            <div class="hood-snapshot__grid">
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">Median Price</div><div class="hood-snap-stat__value">~$330K</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">Avg Days on Market</div><div class="hood-snap-stat__value">~55 days</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">High School</div><div class="hood-snap-stat__value">Verify — DISD or CCISD</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">Flood Risk</div><div class="hood-snap-stat__value--good hood-snap-stat__value">Lower (higher elevation)</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">HOA</div><div class="hood-snap-stat__value">Varies widely</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">Typical Year Built</div><div class="hood-snap-stat__value">1990–2015</div></div>
+            </div>
+            <a href="buyeriq.html" class="hood-snapshot__cta">Start BuyerIQ™ — Search North Dickinson →</a>
+          </div>
+        </div>
+
+        <div class="hood-card">
+          <div class="hood-card__name">Bayou Bend &amp; Mid-Range Subdivisions</div>
+          <div class="hood-card__price">Median ~$295K</div>
+          <div class="hood-card__desc">Mid-range Dickinson subdivisions showing signs of renovation activity. Updated kitchens, new roofs, and fresh interiors are appearing throughout these neighborhoods as investors and owner-occupants upgrade older homes. The gap between renovated and unrenovated homes creates opportunity for buyers willing to do the work.</div>
+          <div class="hood-card__tags">
+            <span class="hood-card__tag">Renovation Activity</span>
+            <span class="hood-card__tag">Mid-Range</span>
+            <span class="hood-card__tag">Growing Equity</span>
+          </div>
+          <button class="hood-card__toggle" aria-expanded="false">Neighborhood Snapshot <span class="hood-card__toggle-icon" aria-hidden="true">▾</span></button>
+          <div class="hood-snapshot">
+            <div class="hood-snapshot__grid">
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">Median Price</div><div class="hood-snap-stat__value">~$295K</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">Avg Days on Market</div><div class="hood-snap-stat__value">~68 days</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">High School</div><div class="hood-snap-stat__value">Dickinson HS (DISD)</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">Flood Risk</div><div class="hood-snap-stat__value--caution hood-snap-stat__value">Moderate — verify</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">HOA</div><div class="hood-snap-stat__value">None to ~$300/yr</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">Typical Year Built</div><div class="hood-snap-stat__value">1985–2005</div></div>
+            </div>
+            <a href="buyeriq.html" class="hood-snapshot__cta">Start BuyerIQ™ — Search Bayou Bend Area →</a>
+          </div>
+        </div>
+
+        <div class="hood-card">
+          <div class="hood-card__name">Newer Dickinson Developments</div>
+          <div class="hood-card__price">Median ~$345K</div>
+          <div class="hood-card__desc">Post-Harvey construction built to updated floodplain requirements — newer homes sit at elevated pads and are built to higher drainage standards. These provide significantly better flood protection than the pre-Harvey housing stock. Limited availability, but the right move for buyers who want Dickinson value without the older home flood history risk.</div>
+          <div class="hood-card__tags">
+            <span class="hood-card__tag">Post-Harvey Code</span>
+            <span class="hood-card__tag">Better Drainage</span>
+            <span class="hood-card__tag">Modern Builds</span>
+          </div>
+          <button class="hood-card__toggle" aria-expanded="false">Neighborhood Snapshot <span class="hood-card__toggle-icon" aria-hidden="true">▾</span></button>
+          <div class="hood-snapshot">
+            <div class="hood-snapshot__grid">
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">Median Price</div><div class="hood-snap-stat__value">~$345K</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">Avg Days on Market</div><div class="hood-snap-stat__value">~50 days</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">High School</div><div class="hood-snap-stat__value">Dickinson HS (DISD)</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">Flood Risk</div><div class="hood-snap-stat__value--good hood-snap-stat__value">Lower (post-Harvey code)</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">HOA</div><div class="hood-snap-stat__value">~$500–$800/yr</div></div>
+              <div class="hood-snap-stat"><div class="hood-snap-stat__label">Typical Year Built</div><div class="hood-snap-stat__value">2019–Present</div></div>
+            </div>
+            <a href="buyeriq.html" class="hood-snapshot__cta">Start BuyerIQ™ — Search Newer Dickinson Builds →</a>
+          </div>
+        </div>
+
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- ============ FOOTER ============ -->
-<footer class="footer" role="contentinfo">
+  <!-- ── SCHOOLS ────────────────────────────────────── -->
+  <section class="city-schools" aria-labelledby="schools-heading">
+    <div class="container">
+      <div class="city-schools__grid">
+        <div>
+          <span class="city-schools__eyebrow">Dickinson ISD</span>
+          <h2 class="city-schools__heading" id="schools-heading">Dickinson ISD: The Honest School Picture</h2>
+          <p class="city-schools__body">Dickinson ISD is the primary tradeoff buyers make for the price advantage. DISD generally rates below CCISD and Pearland ISD on state accountability measures — this is a real and meaningful gap for families with school-age children.</p>
+          <p class="city-schools__body">However, there is a nuanced opportunity: some addresses in north Dickinson fall within CCISD attendance boundaries. This requires address-level verification — not neighborhood assumptions — but it represents one of the most overlooked value plays in the entire Bay Area market.</p>
+          <div class="city-schools__note">
+            <p><strong>Important:</strong> School boundaries change. Always verify the exact district and campus assignment using the official DISD or CCISD zoning lookup for any specific address before making a purchase decision.</p>
+          </div>
+          <a href="contact.html" class="btn btn--primary" style="margin-top:1.75rem;">Ask About School Zoning →</a>
+        </div>
+        <div>
+          <div class="schools-list">
+            <div class="school-item">
+              <div class="school-item__header">
+                <div class="school-item__name">Dickinson High School</div>
+                <div class="school-item__grade">4–5/10</div>
+              </div>
+              <div class="school-item__level">High School · Grades 9–12 · DISD</div>
+              <div class="school-item__desc">A large comprehensive campus with a wide range of programs. Academic ratings lag CCISD and Pearland ISD benchmarks. Strong CTE and vocational programs, active sports, and extracurriculars. For families where elite academics are the top priority, this gap matters.</div>
+            </div>
+            <div class="school-item">
+              <div class="school-item__header">
+                <div class="school-item__name">The Border Zone Opportunity</div>
+                <div class="school-item__grade">Verify First</div>
+              </div>
+              <div class="school-item__level">North Dickinson Addresses · CCISD Possible</div>
+              <div class="school-item__desc">Some addresses in north Dickinson fall within CCISD attendance boundaries — Dickinson prices with potential CCISD schools. Phil can help you identify which specific streets qualify. This is one of the most overlooked value plays in the entire Bay Area market.</div>
+            </div>
+            <div class="school-item">
+              <div class="school-item__header">
+                <div class="school-item__name">When Schools Aren't the Priority</div>
+                <div class="school-item__grade">Right Fit</div>
+              </div>
+              <div class="school-item__level">Buyers This Works For</div>
+              <div class="school-item__desc">Dickinson makes strong sense for buyers without school-age children, investors renting to adults, retirees prioritizing outdoor lifestyle, or buyers with children in private schools. Eliminating the school premium can mean $60K–$100K in additional buying power.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── COMMUTE ────────────────────────────────────── -->
+  <section class="city-commute" aria-labelledby="commute-heading">
+    <div class="container">
+      <div class="city-commute__grid">
+        <div>
+          <span class="city-commute__eyebrow">Location &amp; Commute</span>
+          <h2 class="city-commute__heading" id="commute-heading">Dickinson Commute Reality</h2>
+          <p class="city-commute__body">The longest Bay Area commute to Houston. The closest Bay Area community to Galveston. Know the tradeoff before you buy — this is a deliberate lifestyle choice, not an oversight.</p>
+          <p class="city-commute__body">Downtown employees who choose Dickinson are making a conscious trade: more home and water access in exchange for more drive time. For JSC employees and buyers prioritizing Galveston access over Houston access, the commute math works strongly in Dickinson's favor.</p>
+          <a href="buyeriq.html" class="btn btn--primary" style="margin-top:1.5rem;">Run BuyerIQ™ — Find Your Ideal Neighborhood →</a>
+        </div>
+        <div>
+          <div class="commute-times">
+            <div class="commute-time">
+              <div class="commute-time__icon">🌊</div>
+              <div class="commute-time__dest">Galveston Island</div>
+              <div class="commute-time__duration">20–25 min</div>
+            </div>
+            <div class="commute-time">
+              <div class="commute-time__icon">🚀</div>
+              <div class="commute-time__dest">NASA Johnson Space Center</div>
+              <div class="commute-time__duration">15–25 min</div>
+            </div>
+            <div class="commute-time">
+              <div class="commute-time__icon">🏙️</div>
+              <div class="commute-time__dest">Downtown Houston</div>
+              <div class="commute-time__duration">50–70 min</div>
+            </div>
+            <div class="commute-time">
+              <div class="commute-time__icon">✈️</div>
+              <div class="commute-time__dest">Hobby Airport</div>
+              <div class="commute-time__duration">25–35 min</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FAQ / AEO ──────────────────────────────────── -->
+  <section class="city-faq" aria-labelledby="faq-heading">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-header__eyebrow">Questions People Ask AI</span>
+        <h2 class="section-header__title" id="faq-heading">Honest Answers About Living &amp; Buying in Dickinson</h2>
+        <p class="section-header__subtitle">Including the answers most agents won't give you about flood risk, schools, and real value.</p>
+      </div>
+      <div class="faq-list" role="list">
+
+        <div class="faq-item" role="listitem">
+          <button class="faq-item__question" aria-expanded="false">
+            <span class="faq-item__q-text">Is Dickinson, TX worth buying in?</span>
+            <span class="faq-item__chevron" aria-hidden="true">▾</span>
+          </button>
+          <div class="faq-item__answer">
+            <p>It depends on your priorities. Dickinson is absolutely worth buying in if you: don't have school-age children (or use private schools), want waterfront/bayou access at Bay Area-affordable prices, need maximum space and lot size per dollar, or are a JSC/aerospace employee who doesn't commute to Houston daily. It is not the right market for buyers who need top-rated schools, want a fast resale market, or are sensitive to flood risk and don't want to manage that complexity.</p>
+          </div>
+        </div>
+
+        <div class="faq-item" role="listitem">
+          <button class="faq-item__question" aria-expanded="false">
+            <span class="faq-item__q-text">Did Dickinson flood during Hurricane Harvey?</span>
+            <span class="faq-item__chevron" aria-hidden="true">▾</span>
+          </button>
+          <div class="faq-item__answer">
+            <p>Yes — Dickinson was one of the hardest-hit communities during Harvey. Dickinson Bayou overflowed catastrophically. Thousands of homes flooded, some for the first time. The city has made drainage improvements since Harvey, and FEMA updated flood maps in some areas. However, Dickinson's flood risk remains among the highest in the Bay Area. <strong>This is non-negotiable due diligence for any buyer</strong> — get the flood zone certificate, understand the insurance costs, and ask specifically whether the home flooded during Harvey.</p>
+          </div>
+        </div>
+
+        <div class="faq-item" role="listitem">
+          <button class="faq-item__question" aria-expanded="false">
+            <span class="faq-item__q-text">Can I get CCISD schools while buying in Dickinson?</span>
+            <span class="faq-item__chevron" aria-hidden="true">▾</span>
+          </button>
+          <div class="faq-item__answer">
+            <p>Potentially — but only on specific addresses in north Dickinson. Some streets in the northern reaches of Dickinson's zip code fall within CCISD's attendance boundaries. This requires address-level verification using the official CCISD attendance lookup — not neighborhood assumptions. Phil can help you identify which properties qualify. If you find one, you're accessing CCISD schools at Dickinson prices — that's a meaningful value gap worth understanding.</p>
+          </div>
+        </div>
+
+        <div class="faq-item" role="listitem">
+          <button class="faq-item__question" aria-expanded="false">
+            <span class="faq-item__q-text">Is Dickinson a good place to buy a waterfront home?</span>
+            <span class="faq-item__chevron" aria-hidden="true">▾</span>
+          </button>
+          <div class="faq-item__answer">
+            <p>For buyers who understand the flood risk and price it correctly — yes. Bayou-front and bay-adjacent homes in Dickinson offer water access at prices $150K–$300K below comparable properties in Clear Lake or Taylor Lake Village. The lifestyle is more bayou-rustic than marina-polished. You'll have boat access, fishing, and a genuine waterfront experience. The key is proper due diligence: flood zone, insurance costs, Harvey history for that specific property, and elevation certificate. With those answered, Dickinson waterfront can be excellent value.</p>
+          </div>
+        </div>
+
+        <div class="faq-item" role="listitem">
+          <button class="faq-item__question" aria-expanded="false">
+            <span class="faq-item__q-text">How does Dickinson compare to League City for buyers?</span>
+            <span class="faq-item__chevron" aria-hidden="true">▾</span>
+          </button>
+          <div class="faq-item__answer">
+            <p>The gap is significant in two directions. League City wins on: school district quality (CCISD vs DISD), newer master-planned communities, lower flood risk in most neighborhoods, and more reliable long-term appreciation. Dickinson wins on: price per square foot, lot size, waterfront access at entry-level prices, and negotiating room. <strong>The right choice depends on your life stage.</strong> A retiree who wants a bayou lot and a boat dock will often choose Dickinson. A family with elementary-age kids will almost always choose League City.</p>
+          </div>
+        </div>
+
+        <div class="faq-item" role="listitem">
+          <button class="faq-item__question" aria-expanded="false">
+            <span class="faq-item__q-text">What is the property tax rate in Dickinson?</span>
+            <span class="faq-item__chevron" aria-hidden="true">▾</span>
+          </button>
+          <div class="faq-item__answer">
+            <p>Dickinson property taxes vary by specific address and taxing entities — Dickinson ISD, Galveston County, the City of Dickinson (if applicable), and any applicable MUD districts. Combined effective rates typically run 2.3%–2.8%. Request the full tax breakdown for any specific property before signing. Some unincorporated areas outside the city limits may have slightly different rates — worth verifying on any specific address you're seriously considering.</p>
+          </div>
+        </div>
+
+        <div class="faq-item" role="listitem">
+          <button class="faq-item__question" aria-expanded="false">
+            <span class="faq-item__q-text">Is Dickinson good for investment properties?</span>
+            <span class="faq-item__chevron" aria-hidden="true">▾</span>
+          </button>
+          <div class="faq-item__answer">
+            <p>Dickinson has attracted investor attention because of its low entry prices and renovation upside. Single-family rental properties can achieve gross cap rates that are difficult to find in Pearland or League City. The risks: flood risk (which affects insurance costs and rental demand after major storms), slower appreciation relative to neighboring suburbs, and a tenant pool that may be more price-sensitive than in higher-income markets. <strong>For cash flow-focused investors who understand flood risk management, it's worth evaluating.</strong> For pure appreciation plays, there are better Bay Area options.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA ───────────────────────────────────────── -->
+  <section class="city-cta" aria-labelledby="cta-heading">
+    <div class="container">
+      <div class="city-cta__inner">
+        <span class="city-cta__eyebrow">Ready to Make a Move in Dickinson?</span>
+        <h2 class="city-cta__title" id="cta-heading">Dickinson Has the Most Negotiating Room in the Bay Area.<br>But You Need to Know What You're Buying.</h2>
+        <p class="city-cta__text">BuyerIQ™ gives you a flood-aware breakdown of Dickinson's market, which neighborhoods fit your profile, and what to verify before you make an offer — before your first showing. Free, no commitment, 5 minutes.</p>
+        <div class="city-cta__btns">
+          <a href="buyeriq.html" class="btn btn--primary btn--lg">Start BuyerIQ™ →</a>
+          <a href="selleriq.html" class="btn btn--secondary btn--lg">Get My Home Value →</a>
+          <a href="contact.html" class="btn btn--white-outline btn--lg">Talk to Phil</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ─────────────────────────────────────── -->
+  <footer class="footer" role="contentinfo">
     <div class="container">
       <div class="footer__grid">
         <div>
@@ -1099,44 +1013,53 @@
         </div>
       </div>
       <div class="footer__bottom">
-        <p class="footer__legal">© 2026 Phillip Himes · Brokered by eXp Realty · Licensed in Texas · <a href="privacy-policy.html">Privacy Policy</a> · <a href="terms-of-service.html">Terms of Service</a></p>
-        <p class="footer__disclaimer">All information deemed reliable but not guaranteed. Equal Housing Opportunity. Market data sourced from HAR, Redfin, and Zillow — verify current conditions before making decisions.</p>
+        <p class="footer__legal">
+          © 2026 Phillip Himes · Brokered by eXp Realty · Licensed in Texas ·
+          <a href="privacy-policy.html">Privacy Policy</a> ·
+          <a href="terms-of-service.html">Terms of Service</a>
+        </p>
+        <p class="footer__disclaimer">
+          All information deemed reliable but not guaranteed. Equal Housing Opportunity. Information subject to change without notice. Market data sourced from HAR, Redfin, and Zillow — verify current conditions before making decisions.
+        </p>
       </div>
     </div>
   </footer>
 
-<script>
-  document.querySelectorAll('.hood-card__toggle').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const card = btn.closest('.hood-card');
-      const isOpen = card.classList.contains('hood-open');
-      document.querySelectorAll('.hood-card').forEach(c => {
-        c.classList.remove('hood-open');
-        c.querySelector('.hood-card__toggle').setAttribute('aria-expanded', 'false');
+  <script>
+    // Neighborhood snapshot toggles
+    document.querySelectorAll('.hood-card__toggle').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const card = btn.closest('.hood-card');
+        const isOpen = card.classList.contains('hood-open');
+        document.querySelectorAll('.hood-card').forEach(c => {
+          c.classList.remove('hood-open');
+          c.querySelector('.hood-card__toggle').setAttribute('aria-expanded', 'false');
+        });
+        if (!isOpen) {
+          card.classList.add('hood-open');
+          btn.setAttribute('aria-expanded', 'true');
+        }
       });
-      if (!isOpen) {
-        card.classList.add('hood-open');
-        btn.setAttribute('aria-expanded', 'true');
-      }
     });
-  });
 
-  document.querySelectorAll('.faq-item__question').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const item = btn.closest('.faq-item');
-      const isOpen = item.classList.contains('faq-open');
-      document.querySelectorAll('.faq-item').forEach(i => {
-        i.classList.remove('faq-open');
-        i.querySelector('.faq-item__question').setAttribute('aria-expanded', 'false');
+    // FAQ accordion
+    document.querySelectorAll('.faq-item__question').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.closest('.faq-item');
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(i => {
+          i.classList.remove('open');
+          i.querySelector('.faq-item__question').setAttribute('aria-expanded', 'false');
+        });
+        if (!isOpen) {
+          item.classList.add('open');
+          btn.setAttribute('aria-expanded', 'true');
+        }
       });
-      if (!isOpen) {
-        item.classList.add('faq-open');
-        btn.setAttribute('aria-expanded', 'true');
-      }
     });
-  });
-</script>
-<script src="js/main.js"></script>
-<script src="https://widgets.leadconnectorhq.com/loader.js" data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" data-widget-id="6a0623c7f127bb5833bc2697"></script>
+  </script>
+
+  <script src="js/main.js"></script>
+  <script src="https://widgets.leadconnectorhq.com/loader.js" data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" data-widget-id="6a0623c7f127bb5833bc2697"></script>
 </body>
 </html>
