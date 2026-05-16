@@ -85,6 +85,29 @@
       white-space: nowrap !important;
     }
 
+    /* Mobile search fallback — hidden on desktop, shown on mobile */
+    .hero__mobile-search-btn {
+      display: none;
+    }
+    @media (max-width: 768px) {
+      .hero__ai-search { display: none; }
+      .hero__mobile-search-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        padding: 1rem 1.5rem;
+        background: #C9A455;
+        color: #1B3A5C;
+        font-family: var(--font-heading);
+        font-weight: 800;
+        font-size: 1rem;
+        border-radius: 8px;
+        text-decoration: none;
+        letter-spacing: 0.03em;
+      }
+    }
+
     /* ─── LISTINGS CAROUSEL SECTION ────────────────────────────── */
     .listings-carousel-section {
       padding: 4rem 0 3rem;
@@ -491,6 +514,9 @@
         <div class="hero__ai-search">
           <script charset="UTF-8" type="text/javascript" id="idxwidgetsrc-156154" src="//philliphimes.idxbroker.com/idx/widgets/156154"></script>
         </div>
+        <a href="https://philliphimes.idxbroker.com/idx/search" class="hero__mobile-search-btn">
+          🔍 Search Homes with AI
+        </a>
       </div>
     </div>
   </section>
