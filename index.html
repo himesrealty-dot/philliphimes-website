@@ -86,6 +86,38 @@
       max-width: 1100px; margin: 0 auto;
     }
 
+    /* ─── IDX BROKER CAROUSEL WIDGET BRAND OVERRIDES ────────── */
+    /* Targets the widget's injected DOM — not an iframe, so CSS reaches it */
+    .listings-carousel-section__widget .IDX-carouselTitle,
+    .listings-carousel-section__widget .widgetTitle,
+    .listings-carousel-section__widget [class*="carouselTitle"],
+    .listings-carousel-section__widget [class*="widget-title"],
+    .listings-carousel-section__widget [class*="widgetTitle"] {
+      color: var(--navy) !important;
+      font-family: var(--font-heading) !important;
+      font-weight: 800 !important;
+      font-size: 1.15rem !important;
+      letter-spacing: 0.01em;
+    }
+    .listings-carousel-section__widget .IDX-carouselViewAll,
+    .listings-carousel-section__widget [class*="viewAll"],
+    .listings-carousel-section__widget [class*="ViewAll"],
+    .listings-carousel-section__widget [class*="view-all"] {
+      color: var(--teal) !important;
+      font-family: var(--font-heading) !important;
+      font-weight: 700 !important;
+    }
+    .listings-carousel-section__widget .IDX-carouselViewAll:hover,
+    .listings-carousel-section__widget [class*="viewAll"]:hover,
+    .listings-carousel-section__widget [class*="ViewAll"]:hover {
+      color: var(--gold) !important;
+    }
+    /* Arrow buttons */
+    .listings-carousel-section__widget [class*="arrow"],
+    .listings-carousel-section__widget [class*="Arrow"] {
+      background: var(--navy) !important;
+    }
+
     /* ─── DECISION POINT ────────────────────────────────────────── */
     .decision-section { padding: 5rem 0; background: var(--white); }
     .decision-section__header { text-align: center; margin-bottom: 3rem; }
