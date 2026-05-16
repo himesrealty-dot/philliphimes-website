@@ -525,7 +525,7 @@ p {
   min-height: 320px;
   display: flex;
   align-items: center;
-  background: url('../images/hero-bg.jpg') left center / cover no-repeat;
+  background: url('../images/hero-bg.jpg') center center / cover no-repeat;
   overflow: hidden;
 }
 
