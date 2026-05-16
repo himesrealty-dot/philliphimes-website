@@ -74,42 +74,428 @@
   </script>
 
   <style>
-    /* Dickinson — deep teal / bayou color scheme */
+
+    /* ─── CITY HERO ────────────────────────────────────── */
     .city-hero {
-      background: linear-gradient(135deg, #051a18 0%, #0a3530 60%, #145a50 100%);
+      background: linear-gradient(135deg, #0a1c2e 0%, #0d2137 60%, #0a2540 100%);
+      padding: 5rem 0 0; position: relative; overflow: hidden;
     }
-    .city-stat__value { color: #7adfd0; }
-    .city-why { background: #f4faf9; }
-    .city-why__icon { color: #145a50; }
-    .city-market { background: linear-gradient(135deg, #041210 0%, #0a3530 100%); }
-    .city-hoods { background: #fff; }
+    .city-hero::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 65% 35%, rgba(32,137,160,0.12) 0%, transparent 55%);
+      pointer-events: none;
+    }
+    .city-hero__content { position: relative; padding-bottom: 4rem; }
+    .city-hero__eyebrow {
+      font-family: var(--font-heading); font-size: 0.75rem; font-weight: 800;
+      letter-spacing: 0.18em; text-transform: uppercase; color: var(--teal);
+      margin-bottom: 1rem; display: block;
+    }
+    .city-hero__title {
+      font-family: var(--font-heading); font-weight: 900;
+      font-size: clamp(2rem, 4vw, 3.2rem); color: white;
+      line-height: 1.1; margin-bottom: 1.25rem;
+    }
+    .city-hero__subtitle {
+      font-size: clamp(0.95rem, 1.5vw, 1.1rem); color: rgba(255,255,255,0.72);
+      line-height: 1.7; max-width: 600px; margin-bottom: 2.5rem;
+    }
+    .city-hero__btns { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 3rem; }
+
+    /* Stats bar */
+    .city-stats-bar {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      background: rgba(255,255,255,0.06); border-top: 1px solid rgba(255,255,255,0.08);
+      position: relative;
+    }
+    @media (max-width: 768px) { .city-stats-bar { grid-template-columns: repeat(2, 1fr); } }
+    .city-stat {
+      padding: 1.5rem 1.75rem; border-right: 1px solid rgba(255,255,255,0.08);
+      text-align: center;
+    }
+    .city-stat:last-child { border-right: none; }
+    .city-stat__value {
+      font-family: var(--font-heading); font-weight: 900; font-size: 1.6rem;
+      color: white; line-height: 1; margin-bottom: 0.3rem;
+    }
+    .city-stat__value span { font-size: 1rem; color: var(--teal); }
+    .city-stat__label {
+      font-family: var(--font-heading); font-size: 0.68rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.45);
+    }
+
+    /* ─── WHY LEAGUE CITY ──────────────────────────────── */
+    .city-why {
+      background: var(--off-white, #f9f7f4); padding: 5rem 0;
+    }
+    .city-why__grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+    }
+    @media (max-width: 820px) { .city-why__grid { grid-template-columns: 1fr; gap: 2.5rem; } }
+    .city-why__eyebrow {
+      font-family: var(--font-heading); font-size: 0.75rem; font-weight: 800;
+      letter-spacing: 0.18em; text-transform: uppercase; color: var(--teal);
+      margin-bottom: 0.85rem; display: block;
+    }
+    .city-why__heading {
+      font-family: var(--font-heading); font-weight: 900;
+      font-size: clamp(1.5rem, 2.5vw, 2rem); color: var(--navy);
+      line-height: 1.15; margin-bottom: 1.25rem;
+    }
+    .city-why__body {
+      font-size: 0.95rem; color: var(--dark-gray); line-height: 1.78; margin-bottom: 1rem;
+    }
+    .city-why__body strong { color: var(--navy); }
+
+    .city-draws { display: flex; flex-direction: column; gap: 0.85rem; }
+    .city-draw {
+      display: flex; gap: 1rem; align-items: flex-start;
+      background: white; border-radius: var(--radius-lg); padding: 1.1rem 1.25rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+    .city-draw__icon { font-size: 1.4rem; flex-shrink: 0; }
+    .city-draw__title {
+      font-family: var(--font-heading); font-weight: 800; font-size: 0.88rem;
+      color: var(--navy); margin-bottom: 0.2rem;
+    }
+    .city-draw__desc { font-size: 0.8rem; color: var(--dark-gray); line-height: 1.55; }
+
+    /* ─── MARKET SNAPSHOT ──────────────────────────────── */
+    .city-market {
+      background: linear-gradient(135deg, #0a1c2e 0%, #0d2137 100%);
+      padding: 5rem 0; position: relative; overflow: hidden;
+    }
+    .city-market::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 30% 60%, rgba(32,137,160,0.08) 0%, transparent 55%);
+      pointer-events: none;
+    }
+    .city-market .section-header__eyebrow { color: var(--teal); }
+    .city-market .section-header__title { color: white; }
+    .city-market .section-header__subtitle { color: rgba(255,255,255,0.65); }
+
+    .market-cards {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-top: 3rem;
+    }
+    @media (max-width: 860px) { .market-cards { grid-template-columns: 1fr; } }
+
+    .market-card {
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius-xl); padding: 2rem;
+    }
+    .market-card__label {
+      font-family: var(--font-heading); font-size: 0.68rem; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 0.1em; color: var(--teal);
+      margin-bottom: 0.75rem;
+    }
+    .market-card__value {
+      font-family: var(--font-heading); font-weight: 900; font-size: 2rem;
+      color: white; line-height: 1; margin-bottom: 0.5rem;
+    }
+    .market-card__sub {
+      font-size: 0.8rem; color: rgba(255,255,255,0.55); line-height: 1.6; margin-bottom: 1rem;
+    }
+    .market-card__takeaway {
+      font-size: 0.82rem; color: rgba(255,255,255,0.8); line-height: 1.6;
+      padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.08);
+      font-style: italic;
+    }
+
+    /* ─── NEIGHBORHOODS ────────────────────────────────── */
+    .city-hoods {
+      background: white; padding: 5rem 0;
+    }
+    .city-hoods__eyebrow {
+      font-family: var(--font-heading); font-size: 0.75rem; font-weight: 800;
+      letter-spacing: 0.18em; text-transform: uppercase; color: var(--teal);
+      margin-bottom: 0.75rem; display: block; text-align: center;
+    }
+    .city-hoods__heading {
+      font-family: var(--font-heading); font-weight: 900;
+      font-size: clamp(1.5rem, 2.5vw, 2rem); color: var(--navy);
+      text-align: center; margin-bottom: 0.75rem;
+    }
+    .city-hoods__sub {
+      text-align: center; color: var(--dark-gray); font-size: 0.9rem;
+      max-width: 560px; margin: 0 auto 3rem; line-height: 1.65;
+    }
+    .hoods-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem;
+    }
+    @media (max-width: 900px) { .hoods-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 540px) { .hoods-grid { grid-template-columns: 1fr; } }
+
+    .hood-card {
+      background: var(--off-white, #f9f7f4); border-radius: var(--radius-xl);
+      padding: 1.75rem; border: 1.5px solid var(--light-gray);
+      transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+    }
+    .hood-card:hover {
+      border-color: var(--teal); transform: translateY(-3px);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+    }
+    .hood-card__name {
+      font-family: var(--font-heading); font-weight: 900; font-size: 1rem;
+      color: var(--navy); margin-bottom: 0.35rem;
+    }
+    .hood-card__price {
+      font-family: var(--font-heading); font-weight: 800; font-size: 0.8rem;
+      color: var(--teal); text-transform: uppercase; letter-spacing: 0.06em;
+      margin-bottom: 0.75rem;
+    }
+    .hood-card__desc {
+      font-size: 0.83rem; color: var(--dark-gray); line-height: 1.65;
+      margin-bottom: 0.75rem;
+    }
+    .hood-card__tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1rem; }
+    .hood-card__tag {
+      font-family: var(--font-heading); font-size: 0.62rem; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 0.08em;
+      background: rgba(32,137,160,0.1); color: var(--teal);
+      padding: 0.18rem 0.55rem; border-radius: var(--radius-full);
+    }
     .hood-card__toggle {
-      background: #145a50;
-      color: #fff;
+      width: 100%; background: none; border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.6rem 0 0; border-top: 1px solid var(--light-gray);
+      font-family: var(--font-heading); font-size: 0.72rem; font-weight: 800;
+      color: var(--teal); text-transform: uppercase; letter-spacing: 0.1em;
     }
-    .hood-card__toggle:hover { background: #0a3530; }
-    .city-schools { background: #f4faf9; }
-    .school-badge { background: #145a50; }
-    .city-commute { background: linear-gradient(135deg, #051a18 0%, #0a3530 100%); }
-    .city-faq { background: #041210; }
-    .faq-item__question { color: #7adfd0; }
-    .city-cta { background: linear-gradient(135deg, #0a3530 0%, #145a50 100%); }
-    .city-cta .btn--primary {
-      background: #1a7a6a;
-      color: #fff;
+    .hood-card__toggle-icon { transition: transform 0.25s; font-style: normal; }
+    .hood-card.hood-open .hood-card__toggle-icon { transform: rotate(180deg); }
+
+    /* Neighborhood snapshot */
+    .hood-snapshot {
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.35s ease, margin 0.25s;
     }
-    .city-cta .btn--primary:hover { background: #126055; }
-    .city-cta .btn--outline {
-      border-color: rgba(255,255,255,0.6);
-      color: #fff;
+    .hood-card.hood-open .hood-snapshot { max-height: 500px; margin-top: 1rem; }
+    .hood-snapshot__grid {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.6rem; margin-bottom: 1rem;
     }
-    .city-cta .btn--outline:hover {
-      background: rgba(255,255,255,0.1);
+    .hood-snap-stat {
+      background: white; border-radius: var(--radius-md); padding: 0.75rem 1rem;
+      border: 1px solid var(--light-gray);
     }
-    .hood-snap-stat__value--good { color: #4caf7d; }
-    .hood-snap-stat__value--caution { color: #e8a04a; }
-    .hood-snap-stat__value--risk { color: #e05c5c; }
-  </style>
+    .hood-snap-stat__label {
+      font-family: var(--font-heading); font-size: 0.6rem; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 0.1em; color: var(--dark-gray);
+      margin-bottom: 0.2rem;
+    }
+    .hood-snap-stat__value {
+      font-family: var(--font-heading); font-weight: 900; font-size: 0.95rem; color: var(--navy);
+    }
+    .hood-snap-stat__value--good { color: #1a7a3a; }
+    .hood-snap-stat__value--caution { color: #b85c00; }
+    .hood-snapshot__cta {
+      display: block; text-align: center;
+      background: var(--teal); color: white;
+      font-family: var(--font-heading); font-weight: 800; font-size: 0.78rem;
+      padding: 0.65rem 1rem; border-radius: var(--radius-full);
+      text-decoration: none; transition: background 0.2s;
+    }
+    .hood-snapshot__cta:hover { background: var(--teal-dark); }
+
+    /* ─── SCHOOLS ──────────────────────────────────────── */
+    .city-schools {
+      background: var(--off-white, #f9f7f4); padding: 5rem 0;
+    }
+    .city-schools__grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 3.5rem; align-items: start;
+    }
+    @media (max-width: 820px) { .city-schools__grid { grid-template-columns: 1fr; } }
+
+    .city-schools__eyebrow {
+      font-family: var(--font-heading); font-size: 0.75rem; font-weight: 800;
+      letter-spacing: 0.18em; text-transform: uppercase; color: var(--teal);
+      margin-bottom: 0.85rem; display: block;
+    }
+    .city-schools__heading {
+      font-family: var(--font-heading); font-weight: 900;
+      font-size: clamp(1.4rem, 2.5vw, 1.9rem); color: var(--navy);
+      line-height: 1.15; margin-bottom: 1rem;
+    }
+    .city-schools__body {
+      font-size: 0.93rem; color: var(--dark-gray); line-height: 1.78; margin-bottom: 1rem;
+    }
+    .city-schools__note {
+      background: white; border-left: 3px solid var(--gold);
+      border-radius: 0 var(--radius-lg) var(--radius-lg) 0; padding: 1rem 1.25rem;
+      margin-top: 1rem;
+    }
+    .city-schools__note p { font-size: 0.85rem; color: var(--dark-gray); line-height: 1.6; margin: 0; }
+    .city-schools__note strong { color: var(--navy); }
+
+    .schools-list { display: flex; flex-direction: column; gap: 1rem; }
+    .school-item {
+      background: white; border-radius: var(--radius-lg); padding: 1.25rem 1.5rem;
+      border: 1.5px solid var(--light-gray);
+    }
+    .school-item__header {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      margin-bottom: 0.4rem;
+    }
+    .school-item__name {
+      font-family: var(--font-heading); font-weight: 800; font-size: 0.88rem;
+      color: var(--navy);
+    }
+    .school-item__grade {
+      font-family: var(--font-heading); font-weight: 900; font-size: 0.88rem;
+      color: var(--teal);
+    }
+    .school-item__level {
+      font-family: var(--font-heading); font-size: 0.65rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.1em;
+      color: var(--dark-gray); margin-bottom: 0.5rem;
+    }
+    .school-item__desc { font-size: 0.8rem; color: var(--dark-gray); line-height: 1.6; }
+
+    /* ─── COMMUTE SECTION ──────────────────────────────── */
+    .city-commute {
+      background: white; padding: 5rem 0;
+    }
+    .city-commute__grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 3.5rem; align-items: center;
+    }
+    @media (max-width: 820px) { .city-commute__grid { grid-template-columns: 1fr; } }
+
+    .city-commute__eyebrow {
+      font-family: var(--font-heading); font-size: 0.75rem; font-weight: 800;
+      letter-spacing: 0.18em; text-transform: uppercase; color: var(--teal);
+      margin-bottom: 0.85rem; display: block;
+    }
+    .city-commute__heading {
+      font-family: var(--font-heading); font-weight: 900;
+      font-size: clamp(1.4rem, 2.5vw, 1.9rem); color: var(--navy);
+      line-height: 1.15; margin-bottom: 1rem;
+    }
+    .city-commute__body {
+      font-size: 0.93rem; color: var(--dark-gray); line-height: 1.78; margin-bottom: 1.5rem;
+    }
+
+    .commute-times { display: flex; flex-direction: column; gap: 0.75rem; }
+    .commute-time {
+      display: flex; align-items: center; gap: 1rem;
+      background: var(--off-white, #f9f7f4); border-radius: var(--radius-lg);
+      padding: 1rem 1.25rem;
+    }
+    .commute-time__icon { font-size: 1.3rem; flex-shrink: 0; }
+    .commute-time__dest {
+      font-family: var(--font-heading); font-weight: 800; font-size: 0.85rem;
+      color: var(--navy); flex: 1;
+    }
+    .commute-time__duration {
+      font-family: var(--font-heading); font-weight: 900; font-size: 0.9rem;
+      color: var(--teal); flex-shrink: 0;
+    }
+
+    /* ─── FAQ / AEO SECTION ────────────────────────────── */
+    .city-faq {
+      background: linear-gradient(135deg, #0a1c2e 0%, #0d2137 100%);
+      padding: 5rem 0; position: relative; overflow: hidden;
+    }
+    .city-faq::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 70% 30%, rgba(32,137,160,0.08) 0%, transparent 55%);
+      pointer-events: none;
+    }
+    .city-faq .section-header__eyebrow { color: var(--gold); }
+    .city-faq .section-header__title { color: white; }
+    .city-faq .section-header__subtitle { color: rgba(255,255,255,0.65); }
+
+    .faq-list { display: flex; flex-direction: column; gap: 1rem; margin-top: 3rem; }
+    .faq-item {
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius-xl); overflow: hidden;
+    }
+    .faq-item__question {
+      width: 100%; text-align: left; background: none; border: none; cursor: pointer;
+      padding: 1.5rem 1.75rem; display: flex; justify-content: space-between;
+      align-items: center; gap: 1rem;
+    }
+    .faq-item__q-text {
+      font-family: var(--font-heading); font-weight: 800; font-size: 0.92rem;
+      color: white; line-height: 1.3; text-align: left;
+    }
+    .faq-item__chevron {
+      font-size: 1rem; color: var(--teal); flex-shrink: 0;
+      transition: transform 0.25s; display: inline-block;
+    }
+    .faq-item.open .faq-item__chevron { transform: rotate(180deg); }
+    .faq-item__answer {
+      max-height: 0; overflow: hidden; transition: max-height 0.35s ease, padding 0.25s;
+      padding: 0 1.75rem;
+    }
+    .faq-item.open .faq-item__answer {
+      max-height: 400px; padding: 0 1.75rem 1.5rem;
+    }
+    .faq-item__answer p {
+      font-size: 0.88rem; color: rgba(255,255,255,0.75); line-height: 1.75; margin: 0;
+    }
+    .faq-item__answer strong { color: rgba(255,255,255,0.95); }
+
+    /* ─── CTA ──────────────────────────────────────────── */
+    .city-cta {
+      background: var(--off-white, #f9f7f4); padding: 5rem 0; position: relative;
+    }
+    .city-cta::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+      background: linear-gradient(90deg, var(--teal), var(--gold));
+    }
+    .city-cta__inner { text-align: center; max-width: 660px; margin: 0 auto; }
+    .city-cta__eyebrow {
+      font-family: var(--font-heading); font-size: 0.75rem; font-weight: 800;
+      letter-spacing: 0.18em; text-transform: uppercase; color: var(--teal);
+      margin-bottom: 1rem; display: block;
+    }
+    .city-cta__title {
+      font-family: var(--font-heading); font-weight: 900;
+      font-size: clamp(1.5rem, 3vw, 2.2rem); color: var(--navy);
+      line-height: 1.15; margin-bottom: 1rem;
+    }
+    .city-cta__text {
+      font-size: 0.95rem; color: var(--dark-gray); line-height: 1.7; margin-bottom: 2.5rem;
+    }
+    .city-cta__btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+  
+    /* ── Dickinson: bayou teal ── */
+    .city-hero { background: linear-gradient(135deg, #041414 0%, #082828 60%, #0d3d3d 100%); }
+    .city-hero::before { background: radial-gradient(ellipse at 65% 35%, rgba(0,140,120,0.14) 0%, transparent 55%); }
+    .city-hero__eyebrow { color: #7fd8cc; }
+    .city-stat__value { color: #7fd8cc; font-family: var(--font-heading); font-weight: 900; font-size: 1.6rem; line-height: 1; margin-bottom: 0.3rem; }
+    .city-stat__value span { font-size: 1rem; color: #45b8a8; }
+    .city-why { background: #f4fbfa; }
+    .city-market { background: linear-gradient(135deg, #041414 0%, #082828 100%); }
+    .city-hoods { background: #fff; }
+    .hood-card__toggle { background: #0d3d3d; color: #fff; }
+    .hood-card__toggle:hover { background: #082828; }
+    .city-schools { background: #f4fbfa; }
+    .school-badge { background: #0d3d3d; }
+    .city-commute { background: linear-gradient(135deg, #041414 0%, #082828 100%); }
+    .city-faq { background: #041414; }
+    .faq-item__q-text { color: #7fd8cc; }
+    .city-cta { background: linear-gradient(135deg, #082828 0%, #0d3d3d 100%); }
+    .city-cta .btn--primary { background: #45b8a8; color: #041414; }
+    .city-cta .btn--primary:hover { background: #339988; }
+    .city-cta .btn--outline { border-color: rgba(255,255,255,0.6); color: #fff; }
+    .city-cta .btn--outline:hover { background: rgba(255,255,255,0.1); }
+
+    /* ── Legacy city-why__card structure ── */
+    .city-why.section { padding: 5rem 0; }
+    .city-why__grid { display: grid; grid-template-columns: 1fr; gap: 1rem; }
+    .city-why__grid-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-top: 1.5rem; }
+    @media (max-width: 900px) { .city-why__grid-cards { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 560px) { .city-why__grid-cards { grid-template-columns: 1fr; } }
+    .city-why__intro-eyebrow { font-family: var(--font-heading); font-size: 0.75rem; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: var(--teal); margin-bottom: 0.75rem; display: block; }
+    .city-why__intro-heading { font-family: var(--font-heading); font-weight: 900; font-size: clamp(1.5rem,2.5vw,2rem); color: var(--navy); line-height: 1.15; margin-bottom: 1rem; }
+    .city-why__intro-body { font-size: 0.95rem; color: var(--dark-gray); line-height: 1.78; margin-bottom: 2rem; }
+    .city-why__card { background: white; border-radius: var(--radius-lg); padding: 1.5rem; border: 1.5px solid var(--light-gray); transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s; }
+    .city-why__card:hover { border-color: var(--teal); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.07); }
+    .city-why__icon { font-size: 1.75rem; display: block; margin-bottom: 0.65rem; }
+    .city-why__card h3 { font-family: var(--font-heading); font-weight: 800; font-size: 0.9rem; color: var(--navy); margin-bottom: 0.4rem; line-height: 1.3; }
+    .city-why__card p { font-size: 0.82rem; color: var(--dark-gray); line-height: 1.65; margin: 0; }
+</style>
 </head>
 <body>
 
@@ -672,49 +1058,52 @@
 </section>
 
 <!-- ============ FOOTER ============ -->
-<footer class="footer">
-  <div class="container footer__grid">
-    <div class="footer__brand">
-      <img src="images/ph-logo.png" alt="Phillip Himes" class="footer__logo" />
-      <p>Phillip Himes<br>REALTOR® | Army Veteran<br>Brokered by eXp Realty<br>League City, TX</p>
-      <p class="footer__license">TX License #0793995 · eXp Realty LLC</p>
+<footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <div class="footer__brand-name">Phillip Himes</div>
+          <div class="footer__brokerage">REALTOR® | Brokered by eXp Realty</div>
+          <p class="footer__tagline">"Real estate built around your life — not just your transaction."</p>
+          <p class="footer__desc">Serving League City, Friendswood, Pearland, Clear Lake, Dickinson, and Manvel across the Houston Bay Area.</p>
+          <p class="footer__desc" style="margin-top:var(--space-md);">📞 <a href="tel:8325361016" style="color:rgba(255,255,255,0.6);">(832) 536-1016</a><br />✉️ <a href="mailto:phil@philliphimes.com" style="color:rgba(255,255,255,0.6);">phil@philliphimes.com</a></p>
+        </div>
+        <div>
+          <div class="footer__heading">Cities</div>
+          <ul class="footer__links">
+            <li><a href="league-city.html">League City</a></li>
+            <li><a href="friendswood.html">Friendswood</a></li>
+            <li><a href="pearland.html">Pearland</a></li>
+            <li><a href="clear-lake.html">Clear Lake</a></li>
+            <li><a href="dickinson.html">Dickinson</a></li>
+            <li><a href="manvel.html">Manvel</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer__heading">Tools</div>
+          <ul class="footer__links">
+            <li><a href="buyeriq.html">BuyerIQ™ Suite</a></li>
+            <li><a href="selleriq.html">SellerIQ™ Suite</a></li>
+            <li><a href="marketiq.html">MarketIQ™</a></li>
+            <li><a href="search.html">Search Homes</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer__heading">Explore</div>
+          <ul class="footer__links">
+            <li><a href="buyers.html">Buying</a></li>
+            <li><a href="sellers.html">Selling</a></li>
+            <li><a href="contact.html">Ask Phil</a></li>
+            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__legal">© 2026 Phillip Himes · Brokered by eXp Realty · Licensed in Texas · <a href="privacy-policy.html">Privacy Policy</a> · <a href="terms-of-service.html">Terms of Service</a></p>
+        <p class="footer__disclaimer">All information deemed reliable but not guaranteed. Equal Housing Opportunity. Market data sourced from HAR, Redfin, and Zillow — verify current conditions before making decisions.</p>
+      </div>
     </div>
-    <div class="footer__col">
-      <h4>Buyers</h4>
-      <ul>
-        <li><a href="buyers.html">Buyer Overview</a></li>
-        <li><a href="first-home.html">First-Time Buyers</a></li>
-        <li><a href="growing-family.html">Growing Families</a></li>
-        <li><a href="veterans.html">Veterans & VA Loans</a></li>
-        <li><a href="search.html">Search Listings</a></li>
-      </ul>
-    </div>
-    <div class="footer__col">
-      <h4>Cities</h4>
-      <ul>
-        <li><a href="league-city.html">League City</a></li>
-        <li><a href="friendswood.html">Friendswood</a></li>
-        <li><a href="pearland.html">Pearland</a></li>
-        <li><a href="clear-lake.html">Clear Lake</a></li>
-        <li><a href="dickinson.html">Dickinson</a></li>
-        <li><a href="manvel.html">Manvel</a></li>
-      </ul>
-    </div>
-    <div class="footer__col">
-      <h4>Tools</h4>
-      <ul>
-        <li><a href="tools.html">BuyerIQ™</a></li>
-        <li><a href="tools.html">SellerIQ™</a></li>
-        <li><a href="tools.html">EquityIQ™</a></li>
-        <li><a href="sellers.html">Seller Overview</a></li>
-        <li><a href="contact.html">Ask Phil</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="footer__bottom container">
-    <p>© 2026 Phillip Himes · Brokered by eXp Realty LLC · All rights reserved · <a href="#">Privacy</a></p>
-  </div>
-</footer>
+  </footer>
 
 <script>
   document.querySelectorAll('.hood-card__toggle').forEach(btn => {
