@@ -116,45 +116,46 @@
 <!-- ============ NAV ============ -->
 <header class="site-header">
   <nav class="nav container">
-    <a href="index.html" class="nav__brand">
-      <img src="images/ph-logo.png" alt="Phillip Himes Real Estate" class="nav__logo" />
-    </a>
-    <button class="nav__toggle" aria-label="Open menu">&#9776;</button>
-    <ul class="nav__links">
-      <li><a href="index.html" class="nav__link">Home</a></li>
-      <li class="nav__item--dropdown">
-        <a href="buyers.html" class="nav__link">Buyers ▾</a>
-        <ul class="nav__dropdown">
-          <li><a href="buyers.html">Buyer Overview</a></li>
-          <li><a href="first-home.html">First-Time Buyers</a></li>
-          <li><a href="growing-family.html">Growing Families</a></li>
-          <li><a href="veterans.html">Veterans & VA Loans</a></li>
-          <li><a href="search.html">Search Listings</a></li>
-        </ul>
-      </li>
-      <li><a href="sellers.html" class="nav__link">Sellers</a></li>
-      <li class="nav__item--dropdown nav__link--active">
-        <a href="cities.html" class="nav__link">Cities ▾</a>
-        <ul class="nav__dropdown">
-          <li><a href="league-city.html">League City</a></li>
-          <li><a href="friendswood.html">Friendswood</a></li>
-          <li><a href="pearland.html">Pearland</a></li>
-          <li><a href="clear-lake.html">Clear Lake</a></li>
-          <li><a href="dickinson.html">Dickinson</a></li>
-          <li><a href="manvel.html">Manvel</a></li>
-        </ul>
-      </li>
-      <li class="nav__item--dropdown">
-        <a href="#" class="nav__link">Tools ▾</a>
-        <ul class="nav__dropdown">
-          <li><a href="tools.html">BuyerIQ™</a></li>
-          <li><a href="tools.html">SellerIQ™</a></li>
-          <li><a href="tools.html">EquityIQ™</a></li>
-        </ul>
-      </li>
-      <li><a href="contact.html" class="nav__link">Ask Phil</a></li>
-    </ul>
-    <a href="tools.html" class="btn btn--nav">Start BuyerIQ™</a>
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo" aria-label="Phillip Himes Real Estate Home">
+        <img src="images/logo.png" alt="Phillip Himes | Brokered by eXp Realty" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+        <span class="nav__logo-text" style="display:none;"><span class="nav__logo-name">Phillip Himes</span><span class="nav__logo-brokerage">Brokered by eXp Realty</span></span>
+      </a>
+      <ul class="nav__links" id="nav-links">
+        <li><a href="buyers.html" class="nav__link">Buying</a></li>
+        <li><a href="sellers.html" class="nav__link">Selling</a></li>
+        <li><a href="search.html" class="nav__link">Search</a></li>
+        <li class="nav__item nav__item--dropdown">
+          <a href="cities.html" class="nav__link nav__link--active">Cities</a>
+          <ul class="nav__dropdown" aria-label="Cities submenu">
+            <li><a href="league-city.html">League City</a></li>
+            <li><a href="friendswood.html">Friendswood</a></li>
+            <li><a href="pearland.html">Pearland</a></li>
+            <li><a href="clear-lake.html">Clear Lake</a></li>
+            <li><a href="dickinson.html">Dickinson</a></li>
+            <li><a href="manvel.html">Manvel</a></li>
+          </ul>
+        </li>
+        <li class="nav__item nav__item--dropdown">
+          <a href="marketiq.html" class="nav__link">Tools</a>
+          <ul class="nav__dropdown" aria-label="Tools submenu">
+            <li><a href="buyeriq.html">BuyerIQ&#8482; &#8212; Buyer's Edge</a></li>
+            <li><a href="selleriq.html">SellerIQ&#8482; &#8212; Seller's Edge</a></li>
+            <li><a href="marketiq.html">MarketIQ&#8482; &#8212; Property Intelligence</a></li>
+          </ul>
+        </li>
+        <li><a href="contact.html" class="nav__link">Ask Phil</a></li>
+        <li class="nav__mobile-cta" style="display:none;">
+          <a href="tel:8325361016" class="btn btn--secondary" style="width:100%;margin-top:var(--space-md);">&#128222; (832) 536-1016</a>
+          <a href="buyeriq.html" class="btn btn--primary" style="width:100%;margin-top:var(--space-sm);">Start BuyerIQ&#8482;</a>
+        </li>
+      </ul>
+      <div class="nav__cta">
+        <a href="tel:8325361016" class="nav__phone">&#128222; (832) 536-1016</a>
+        <a href="buyeriq.html" class="btn btn--primary btn--sm">Start BuyerIQ&#8482;</a>
+      </div>
+      <button class="nav__hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links"><span></span><span></span><span></span></button>
+    </div>
   </nav>
 </header>
 
