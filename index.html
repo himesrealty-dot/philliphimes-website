@@ -63,12 +63,26 @@
     .hero__ai-search {
       flex: 1;
       min-width: 0;
+      width: 100%;
+      overflow: hidden;
     }
-    .hero__ai-search > div,
-    .hero__ai-search form,
-    .hero__ai-search [class*="idx-"] {
+    .hero__ai-search .idx-ai-smart-search,
+    .hero__ai-search .idx-ai-smart-search--small {
+      display: flex !important;
       width: 100% !important;
       max-width: 100% !important;
+      box-sizing: border-box !important;
+      overflow: visible !important;
+    }
+    .hero__ai-search .idx-ai-smart-search__search-bar {
+      flex: 1 1 auto !important;
+      min-width: 0 !important;
+      width: auto !important;
+      box-sizing: border-box !important;
+    }
+    .hero__ai-search .idx-ai-smart-search__search-button {
+      flex-shrink: 0 !important;
+      white-space: nowrap !important;
     }
 
     /* ─── LISTINGS CAROUSEL SECTION ────────────────────────────── */
