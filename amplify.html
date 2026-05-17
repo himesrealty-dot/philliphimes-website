@@ -765,33 +765,17 @@
 <div class="stage" id="stage-2">
   <div class="stage-eyebrow">Step 2 of 5</div>
   <h1 class="stage-headline">Let's find out what<br><em>you've actually built.</em></h1>
-  <p class="stage-subhead">Years of mortgage payments have been building something. Enter your address below to get a real valuation — then tell us your number.</p>
+  <p class="stage-subhead">Years of mortgage payments have been building something. Enter your best estimate below — Phil will verify the exact number before any decisions are made.</p>
 
-  <!-- IDXAddons Home Valuation Widget — value is captured automatically on result -->
-  <div id="idxValuationWidget" style="margin:0 0 16px;">
-    <script src="https://idxaddons.com/addon/plunkvaluation/NWJfWXV2c0ctOEQ%3DDbVFmnXAMYT"></script>
-  </div>
-
-  <!-- AVM captured value — shown after widget returns a result -->
-  <div id="avmCaptured" style="display:none; margin-bottom:28px; animation: stageFadeIn 0.4s ease;">
-    <div style="background:var(--green-light); border:1px solid var(--green); border-radius:10px; padding:16px 20px; display:flex; align-items:center; justify-content:space-between; gap:16px;">
-      <div>
-        <div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--green);margin-bottom:4px;">Estimated Home Value</div>
-        <div id="avmDisplayValue" style="font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--navy);">—</div>
-      </div>
-      <div style="font-size:13px;color:var(--green);font-weight:500;">✓ Value captured</div>
-    </div>
-  </div>
-
-  <!-- Hidden field drives all calculations — populated by MutationObserver -->
+  <!-- Hidden field drives all calculations -->
   <input type="hidden" id="homeValue">
 
-  <!-- Manual entry — visible by default when widget is not yet deployed to live domain -->
+  <!-- Primary manual value entry -->
   <div id="manualValueEntry" style="margin-bottom:28px;">
     <div class="form-group" style="margin-bottom:8px;">
       <label>Your Home's Current Value</label>
       <input type="text" id="homeValueManual" placeholder="$398,000" oninput="formatDollar(this); applyManualValue(this.value)">
-      <p class="form-hint">The valuation tool above will fill this automatically once the site is live — or enter your own estimate here.</p>
+      <p class="form-hint">A rough estimate is fine — Zillow, Redfin, or your best guess. Phil will run the real numbers with you.</p>
     </div>
   </div>
 
@@ -1147,66 +1131,6 @@
     return parseInt((val || '0').replace(/[^0-9]/g, '')) || 0;
   }
 
-  // ── AUTO-DISMISS IDXAddons lead capture modal ──────────────────────────────
-  // The Plunk widget shows a "Confirm" modal before revealing results.
-  // On this page we have our own lead capture at the end, so we auto-click
-  // Confirm to skip it and let the value flow through uninterrupted.
-  (function() {
-    const widgetEl = document.getElementById('idxValuationWidget');
-    if (!widgetEl) return;
-    const modalDismisser = new MutationObserver(function() {
-      // Auto-dismiss the IDXAddons lead capture modal by clicking its close (X) button
-      const closeBtn = widgetEl.querySelector('button[class*="close"]') ||
-                       widgetEl.querySelector('button[aria-label*="close" i]') ||
-                       [...widgetEl.querySelectorAll('button')].find(b => b.textContent.trim() === '×' || b.textContent.trim() === 'x' || b.textContent.trim() === '✕');
-      if (closeBtn) {
-        closeBtn.click();
-        return;
-      }
-      // Fallback: hide any modal overlay directly
-      const modal = widgetEl.querySelector('[class*="modal"]') || widgetEl.querySelector('[class*="overlay"]') || widgetEl.querySelector('[class*="popup"]');
-      if (modal && modal.style.display !== 'none') {
-        modal.style.display = 'none';
-      }
-    });
-    modalDismisser.observe(widgetEl, { childList: true, subtree: true });
-  })();
-
-  // ── IDX AVM OBSERVER — watches widget for dollar value, auto-captures it ──
-  (function() {
-    const widgetEl = document.getElementById('idxValuationWidget');
-    if (!widgetEl) return;
-
-    const observer = new MutationObserver(function() {
-      // Target the widget's specific valuation element directly
-      const valEl = widgetEl.querySelector('#valuationPrice') ||
-                    widgetEl.querySelector('[class*="valuation-price"]') ||
-                    widgetEl.querySelector('[id*="valuationPrice"]');
-      if (!valEl) return;
-      const raw = valEl.textContent.replace(/[^0-9]/g, '');
-      const val = parseInt(raw);
-      if (val > 50000) {
-        if (val > 50000) {   // sanity check — must be a real home value
-          // Populate hidden field and trigger equity calc
-          document.getElementById('homeValue').value = val;
-          state.homeValue      = val;
-          state.estimatedValue = val;
-
-          // Show the green "value captured" banner
-          document.getElementById('avmDisplayValue').textContent = '$' + val.toLocaleString();
-          document.getElementById('avmCaptured').style.display = 'block';
-
-          // Hide the manual fallback link since we have the value
-          const manualLink = document.querySelector('#manualValueEntry');
-          if (manualLink) manualLink.style.display = 'none';
-
-          calcEquity();
-        }
-      }
-    });
-
-    observer.observe(widgetEl, { childList: true, subtree: true, characterData: true });
-  })();
 
   // ── MANUAL VALUE FALLBACK ──
   function applyManualValue(val) {
