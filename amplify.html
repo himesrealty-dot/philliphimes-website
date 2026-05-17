@@ -1153,9 +1153,11 @@
     if (!widgetEl) return;
 
     const observer = new MutationObserver(function() {
-      // Look for the first dollar value rendered inside the widget
+      // Strip range patterns (e.g. "$378,400 - $567,600") before matching
+      // so we capture the main estimate value, not the low end of a range
       const text = widgetEl.innerText || '';
-      const match = text.match(/\$[\d,]+/);
+      const textNoRanges = text.replace(/\$[\d,]+\s*[-–]\s*\$[\d,]+/g, '');
+      const match = textNoRanges.match(/\$[\d,]+/);
       if (match) {
         const raw = match[0].replace(/[^0-9]/g, '');
         const val = parseInt(raw);
