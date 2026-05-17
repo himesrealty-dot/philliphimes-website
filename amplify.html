@@ -1155,12 +1155,18 @@
     const widgetEl = document.getElementById('idxValuationWidget');
     if (!widgetEl) return;
     const modalDismisser = new MutationObserver(function() {
-      // Look for the Confirm button inside the widget modal
-      const confirmBtn = widgetEl.querySelector('button.pv-confirm-btn') ||
-                         widgetEl.querySelector('button[class*="confirm"]') ||
-                         [...widgetEl.querySelectorAll('button')].find(b => b.textContent.trim().toLowerCase() === 'confirm');
-      if (confirmBtn) {
-        confirmBtn.click();
+      // Auto-dismiss the IDXAddons lead capture modal by clicking its close (X) button
+      const closeBtn = widgetEl.querySelector('button[class*="close"]') ||
+                       widgetEl.querySelector('button[aria-label*="close" i]') ||
+                       [...widgetEl.querySelectorAll('button')].find(b => b.textContent.trim() === '×' || b.textContent.trim() === 'x' || b.textContent.trim() === '✕');
+      if (closeBtn) {
+        closeBtn.click();
+        return;
+      }
+      // Fallback: hide any modal overlay directly
+      const modal = widgetEl.querySelector('[class*="modal"]') || widgetEl.querySelector('[class*="overlay"]') || widgetEl.querySelector('[class*="popup"]');
+      if (modal && modal.style.display !== 'none') {
+        modal.style.display = 'none';
       }
     });
     modalDismisser.observe(widgetEl, { childList: true, subtree: true });
