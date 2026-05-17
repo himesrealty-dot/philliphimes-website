@@ -1153,19 +1153,14 @@
     if (!widgetEl) return;
 
     const observer = new MutationObserver(function() {
-      const text = widgetEl.innerText || '';
-      // Debug — remove after testing
-      console.log('[AVM Observer] raw text:', text.substring(0, 300));
-      // Collect all dollar amounts found in widget text
-      const allMatches = text.match(/\$[\d,]+/g) || [];
-      const allVals = allMatches.map(m => parseInt(m.replace(/[^0-9]/g, ''))).filter(v => v > 50000);
-      console.log('[AVM Observer] dollar values found:', allVals);
-      // Take the median value — handles range endpoints (low/mid/high) reliably
-      const sorted = [...allVals].sort((a, b) => a - b);
-      const medianVal = sorted.length ? sorted[Math.floor(sorted.length / 2)] : 0;
-      const match = medianVal > 50000 ? [String(medianVal)] : null;
-      if (match) {
-        const val = medianVal;
+      // Target the widget's specific valuation element directly
+      const valEl = widgetEl.querySelector('#valuationPrice') ||
+                    widgetEl.querySelector('[class*="valuation-price"]') ||
+                    widgetEl.querySelector('[id*="valuationPrice"]');
+      if (!valEl) return;
+      const raw = valEl.textContent.replace(/[^0-9]/g, '');
+      const val = parseInt(raw);
+      if (val > 50000) {
         if (val > 50000) {   // sanity check — must be a real home value
           // Populate hidden field and trigger equity calc
           document.getElementById('homeValue').value = val;
