@@ -1147,6 +1147,25 @@
     return parseInt((val || '0').replace(/[^0-9]/g, '')) || 0;
   }
 
+  // ── AUTO-DISMISS IDXAddons lead capture modal ──────────────────────────────
+  // The Plunk widget shows a "Confirm" modal before revealing results.
+  // On this page we have our own lead capture at the end, so we auto-click
+  // Confirm to skip it and let the value flow through uninterrupted.
+  (function() {
+    const widgetEl = document.getElementById('idxValuationWidget');
+    if (!widgetEl) return;
+    const modalDismisser = new MutationObserver(function() {
+      // Look for the Confirm button inside the widget modal
+      const confirmBtn = widgetEl.querySelector('button.pv-confirm-btn') ||
+                         widgetEl.querySelector('button[class*="confirm"]') ||
+                         [...widgetEl.querySelectorAll('button')].find(b => b.textContent.trim().toLowerCase() === 'confirm');
+      if (confirmBtn) {
+        confirmBtn.click();
+      }
+    });
+    modalDismisser.observe(widgetEl, { childList: true, subtree: true });
+  })();
+
   // ── IDX AVM OBSERVER — watches widget for dollar value, auto-captures it ──
   (function() {
     const widgetEl = document.getElementById('idxValuationWidget');
