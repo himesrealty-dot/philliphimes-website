@@ -1153,14 +1153,19 @@
     if (!widgetEl) return;
 
     const observer = new MutationObserver(function() {
-      // Strip range patterns (e.g. "$378,400 - $567,600") before matching
-      // so we capture the main estimate value, not the low end of a range
       const text = widgetEl.innerText || '';
-      const textNoRanges = text.replace(/\$[\d,]+\s*[-–]\s*\$[\d,]+/g, '');
-      const match = textNoRanges.match(/\$[\d,]+/);
+      // Debug — remove after testing
+      console.log('[AVM Observer] raw text:', text.substring(0, 300));
+      // Collect all dollar amounts found in widget text
+      const allMatches = text.match(/\$[\d,]+/g) || [];
+      const allVals = allMatches.map(m => parseInt(m.replace(/[^0-9]/g, ''))).filter(v => v > 50000);
+      console.log('[AVM Observer] dollar values found:', allVals);
+      // Take the median value — handles range endpoints (low/mid/high) reliably
+      const sorted = [...allVals].sort((a, b) => a - b);
+      const medianVal = sorted.length ? sorted[Math.floor(sorted.length / 2)] : 0;
+      const match = medianVal > 50000 ? [String(medianVal)] : null;
       if (match) {
-        const raw = match[0].replace(/[^0-9]/g, '');
-        const val = parseInt(raw);
+        const val = medianVal;
         if (val > 50000) {   // sanity check — must be a real home value
           // Populate hidden field and trigger equity calc
           document.getElementById('homeValue').value = val;
