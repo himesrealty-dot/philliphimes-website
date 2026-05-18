@@ -347,7 +347,7 @@
   <div class="form-row" style="margin-bottom:8px;">
     <div class="form-group">
       <label>How many bedrooms?</label>
-      <select id="currentBeds">
+      <select id="currentBeds" onchange="state.currentBeds = parseInt(this.value)||0">
         <option value="">— select —</option>
         <option value="2">2 bedrooms</option>
         <option value="3">3 bedrooms</option>
@@ -357,7 +357,7 @@
     </div>
     <div class="form-group">
       <label>How many bathrooms?</label>
-      <select id="currentBaths">
+      <select id="currentBaths" onchange="state.currentBaths = parseFloat(this.value)||0">
         <option value="">— select —</option>
         <option value="1">1 bathroom</option>
         <option value="2">2 bathrooms</option>
@@ -371,7 +371,7 @@
   <div class="form-row" style="margin-bottom:8px;">
     <div class="form-group">
       <label>Approximate square footage</label>
-      <select id="currentSqft">
+      <select id="currentSqft" onchange="state.currentSqft = parseInt(this.value)||0">
         <option value="">— select —</option>
         <option value="1400">Under 1,600 sq ft</option>
         <option value="1800">1,600 – 2,000 sq ft</option>
@@ -383,7 +383,7 @@
     </div>
     <div class="form-group">
       <label>Year built (approx.)</label>
-      <select id="currentYear">
+      <select id="currentYear" onchange="state.currentYear = parseInt(this.value)||0">
         <option value="">— select —</option>
         <option value="2018">2015 or newer</option>
         <option value="2010">2008 – 2014</option>
@@ -474,7 +474,7 @@
     </div>
     <div class="form-group">
       <label>Type of Home You're Targeting</label>
-      <select id="newHomeType">
+      <select id="newHomeType" onchange="state.newHomeType = this.value">
         <option value="">— select —</option>
         <option value="patio-home">Patio / Garden Home</option>
         <option value="condo">Condo or Townhome</option>
@@ -487,7 +487,7 @@
 
   <div class="form-group">
     <label>Preferred Area</label>
-    <select id="preferredArea">
+    <select id="preferredArea" onchange="state.preferredArea = this.value">
       <option value="">— select area —</option>
       <option value="League City">League City</option>
       <option value="Pearland">Pearland</option>
