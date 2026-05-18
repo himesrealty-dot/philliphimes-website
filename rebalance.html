@@ -902,6 +902,16 @@
     card.closest('.radio-group').querySelectorAll('.radio-card').forEach(c => c.classList.remove('selected'));
     card.classList.add('selected');
     state[group] = card.dataset.val;
+    if (group === 'has401k') {
+      const show = card.dataset.val === 'yes';
+      document.getElementById('contribFields').classList.toggle('visible', show);
+      if (!show) {
+        state.monthlyContrib = 0;
+        state.employerAnnual = 0;
+        document.getElementById('monthlyContrib').value = '';
+        document.getElementById('employerAnnual').value = '';
+      }
+    }
   }
 
   // ── FORMAT ──
