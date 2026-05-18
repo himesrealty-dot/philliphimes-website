@@ -1096,13 +1096,6 @@
     const remainC    = Math.max(0, net - downC - closingC);
     const proj10C    = fv(remainC, 0.10, 10);
 
-    // ── 401K PROJECTION ──
-    state.monthlyContrib = parseDollar(document.getElementById('monthlyContrib').value) || 0;
-    state.employerAnnual = parseDollar(document.getElementById('employerAnnual').value) || 0;
-    const annualContrib  = (state.monthlyContrib * 12) + state.employerAnnual;
-    const retiro10 = (state.has401k === 'yes' && annualContrib > 0)
-      ? fvAnnuity(annualContrib, 0.07, yearsToRetirement) : 0;
-
     // ── HERO NUMBERS (Step 5) ──
     const heroMonthly = remainA >= 0 ? cashFlowA : cashFlowB;
 
@@ -1110,7 +1103,15 @@
     const currentYear       = new Date().getFullYear();
     const currentAge        = state.birthYear > 0 ? currentYear - state.birthYear : 60;
     const yearsToRetirement = Math.max(5, 70 - currentAge);
-    const retirementBase    = remainB + state.retirementSavings; // equity deployed + existing savings
+
+    // ── 401K PROJECTION (needs yearsToRetirement) ──
+    state.monthlyContrib = parseDollar(document.getElementById('monthlyContrib').value) || 0;
+    state.employerAnnual = parseDollar(document.getElementById('employerAnnual').value) || 0;
+    const annualContrib  = (state.monthlyContrib * 12) + state.employerAnnual;
+    const retiro10 = (state.has401k === 'yes' && annualContrib > 0)
+      ? fvAnnuity(annualContrib, 0.07, yearsToRetirement) : 0;
+
+    const retirementBase    = remainB + state.retirementSavings;
     const projectedWealth   = fv(retirementBase, 0.07, yearsToRetirement) + retiro10;
     const retirementIncome  = projectedWealth * 0.04 / 12; // 4% SWR monthly
 
