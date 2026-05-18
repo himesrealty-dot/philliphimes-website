@@ -491,18 +491,8 @@
   <div class="form-row" style="margin-bottom:8px;">
     <div class="form-group">
       <label>Current Monthly Payment (PITI)</label>
-      <select id="currentPayment">
-        <option value="">— select range —</option>
-        <option value="800">Under $1,000/mo</option>
-        <option value="1200">$1,000 – $1,500/mo</option>
-        <option value="1750">$1,500 – $2,000/mo</option>
-        <option value="2250">$2,000 – $2,500/mo</option>
-        <option value="2750">$2,500 – $3,000/mo</option>
-        <option value="3250">$3,000 – $3,500/mo</option>
-        <option value="3750">$3,500 – $4,000/mo</option>
-        <option value="4500">$4,000+/mo</option>
-      </select>
-      <p class="form-hint">Principal, interest, taxes, and insurance — total monthly housing cost.</p>
+      <input type="text" id="currentPayment" placeholder="e.g. $2,847" oninput="formatDollar(this)">
+      <p class="form-hint">Your exact principal, interest, taxes, and insurance — check your last mortgage statement. The closer the number, the sharper the cashflow picture.</p>
     </div>
     <div class="form-group">
       <label>Household Income</label>
@@ -521,24 +511,22 @@
   <div class="form-row" style="margin-bottom:8px;">
     <div class="form-group">
       <label>Current Retirement Savings</label>
-      <select id="retirementSavings">
-        <option value="">— select range —</option>
-        <option value="0">Just getting started</option>
-        <option value="25000">Under $50,000</option>
-        <option value="75000">$50,000 – $100,000</option>
-        <option value="150000">$100,000 – $200,000</option>
-        <option value="300000">$200,000 – $400,000</option>
-        <option value="500000">$400,000 – $600,000</option>
-        <option value="700000">$600,000+</option>
-      </select>
+      <input type="text" id="retirementSavings" placeholder="e.g. $284,000" oninput="formatDollar(this)">
+      <p class="form-hint">401K, IRA, pension — total combined. Check your last statement. This shapes your 10-year projection.</p>
     </div>
     <div class="form-group">
-      <label>Do you contribute to a 401K?</label>
-      <div class="radio-group">
-        <div class="radio-card" onclick="selectRadio(this,'has401k')" data-val="yes">Yes</div>
-        <div class="radio-card" onclick="selectRadio(this,'has401k')" data-val="no">Not currently</div>
-        <div class="radio-card" onclick="selectRadio(this,'has401k')" data-val="unsure">Not sure</div>
-      </div>
+      <label>Est. Social Security Income</label>
+      <input type="text" id="socialSecurityIncome" placeholder="e.g. $2,200/mo" oninput="formatDollar(this)">
+      <p class="form-hint">Your estimated monthly SSI benefit. Check ssa.gov or your last benefits statement. Not receiving yet? Enter $0.</p>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>Do you contribute to a 401K?</label>
+    <div class="radio-group">
+      <div class="radio-card" onclick="selectRadio(this,'has401k')" data-val="yes">Yes</div>
+      <div class="radio-card" onclick="selectRadio(this,'has401k')" data-val="no">Not currently</div>
+      <div class="radio-card" onclick="selectRadio(this,'has401k')" data-val="unsure">Not sure</div>
     </div>
   </div>
 
@@ -828,7 +816,8 @@
     currentBeds: 0, currentBaths: 0, currentSqft: 0, currentYear: 0,
     homeValue: 0, mortgageBalance: 0, grossEquity: 0, netEquity: 0,
     newHomePrice: 0, newHomeType: '', preferredArea: '',
-    currentPayment: 0, householdIncome: 0, retirementSavings: 0, has401k: '',
+    currentPayment: 0, householdIncome: 0, retirementSavings: 0,
+    socialSecurityIncome: 0, has401k: '',
     goals: [], debts: [],
     heroMonthlyCashflow: 0, heroEquityProjection: 0, remainingEquity: 0,
     captureFirst: '', captureLast: '', captureEmail: '', capturePhone: '',
@@ -1019,10 +1008,11 @@
   function buildOutput() {
     collectDebts();
 
-    state.newHomePrice      = parseInt(document.getElementById('newHomePrice').value) || 325000;
-    state.currentPayment    = parseInt(document.getElementById('currentPayment').value) || 2000;
-    state.householdIncome   = parseInt(document.getElementById('householdIncome').value) || 0;
-    state.retirementSavings = parseInt(document.getElementById('retirementSavings').value) || 0;
+    state.newHomePrice         = parseInt(document.getElementById('newHomePrice').value) || 325000;
+    state.currentPayment       = parseDollar(document.getElementById('currentPayment').value) || 2000;
+    state.householdIncome      = parseInt(document.getElementById('householdIncome').value) || 0;
+    state.retirementSavings    = parseDollar(document.getElementById('retirementSavings').value) || 0;
+    state.socialSecurityIncome = parseDollar(document.getElementById('socialSecurityIncome').value) || 0;
 
     const net    = state.netEquity;
     const tgt    = state.newHomePrice;
@@ -1118,10 +1108,15 @@
       </div>`).join('');
 
     // ── POPULATE STEP 5 HERO ──
+    // Total monthly income freed = cashflow freed + SSI (if not yet receiving)
+    const ssi = state.socialSecurityIncome;
     document.getElementById('rebalanceHeroNumber').innerHTML = '<span>$</span>' + Math.round(heroMonthly).toLocaleString();
-    document.getElementById('statNetEquity').textContent     = fmt(net);
-    document.getElementById('statDeployedEquity').textContent= fmt(remainB);
-    document.getElementById('statProj10').textContent        = fmt(heroProjection + retiro10);
+    document.getElementById('rebalanceHeroLabel').textContent = ssi > 0
+      ? 'freed up every month — on top of your $' + Math.round(ssi).toLocaleString() + '/mo Social Security income.*'
+      : 'freed up every month — money that was going to your mortgage, now going to your life.*';
+    document.getElementById('statNetEquity').textContent      = fmt(net);
+    document.getElementById('statDeployedEquity').textContent = fmt(remainB);
+    document.getElementById('statProj10').textContent         = fmt(heroProjection + retiro10);
 
     // ── DEBT PAYOFF ──
     const dpEl = document.getElementById('debtPayoffResult');
@@ -1230,10 +1225,11 @@
       newHomePrice:       state.newHomePrice,
       newHomeType:        document.getElementById('newHomeType').value,
       preferredArea:      document.getElementById('preferredArea').value,
-      currentPayment:     state.currentPayment,
-      householdIncome:    state.householdIncome,
-      retirementSavings:  state.retirementSavings,
-      has401k:            state.has401k,
+      currentPayment:        state.currentPayment,
+      householdIncome:       state.householdIncome,
+      retirementSavings:     state.retirementSavings,
+      socialSecurityIncome:  state.socialSecurityIncome,
+      has401k:               state.has401k,
       goals:              state.goals.join(', '),
       debts:              JSON.stringify(state.debts),
       heroMonthlyCashflow:  state.heroMonthlyCashflow,
@@ -1290,11 +1286,4 @@
     if (e.target === this) this.style.display = 'none';
   });
 
-  // ── SMS TAP-TO-VERIFY ─────────────────────────────────────────
-  // Placeholder for future tap-to-verify implementation.
-  // When wired: GHL workflow sends a signed link via SMS on lead creation.
-  // User taps → philliphimes.com/verify?t=[token] → GHL tag updated to "Rebalance — Verified".
-</script>
-
-</body>
-</html>
+  // ── SMS TAP-TO-VERIFY ──────────────────────────
