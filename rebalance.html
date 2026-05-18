@@ -73,7 +73,7 @@
 
     /* ── LIFE MOMENT CARDS ── */
     .moment-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-bottom: 40px; }
-    .moment-card { background: var(--white); border: 2px solid var(--border); border-radius: 16px; padding: 28px 20px; cursor: pointer; transition: all 0.2s; text-align: center; user-select: none; position: relative; }
+    .moment-card { background: var(--white); border: 2px solid var(--border); border-radius: 16px; padding: 28px 20px; cursor: pointer; transition: all 0.2s; text-align: center; user-select: none; position: relative; font-family: inherit; width: 100%; }
     .moment-card:hover { border-color: var(--gold); background: var(--gold-pale); transform: translateY(-3px); box-shadow: var(--shadow); }
     .moment-card.selected { border-color: var(--gold); background: var(--gold-pale); box-shadow: var(--shadow); }
     .moment-card-check { position: absolute; top: 14px; right: 14px; width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--border); background: var(--white); display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
@@ -86,7 +86,7 @@
 
     /* ── GOAL CARDS ── */
     .goal-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(165px,1fr)); gap: 14px; margin-bottom: 24px; }
-    .goal-card { background: var(--white); border: 2px solid var(--border); border-radius: 12px; padding: 20px; cursor: pointer; transition: all 0.2s; text-align: center; user-select: none; }
+    .goal-card { background: var(--white); border: 2px solid var(--border); border-radius: 12px; padding: 20px; cursor: pointer; transition: all 0.2s; text-align: center; user-select: none; font-family: inherit; width: 100%; }
     .goal-card:hover { border-color: var(--gold); transform: translateY(-2px); box-shadow: var(--shadow-sm); }
     .goal-card.selected { border-color: var(--gold); background: var(--gold-pale); }
     .goal-icon { font-size: 26px; margin-bottom: 8px; }
@@ -236,7 +236,7 @@
     phone:   '(832) 536-1016',
     email:   'phil@philliphimes.com',
     market:  'South Houston Suburbs',
-    webhook: '', // ← GHL webhook URL — wire before deploy
+    webhook: 'https://services.leadconnectorhq.com/hooks/oyGNN4xzQ5FxZ2PQgFzE/webhook-trigger/HDR5P071JEBIXMHHvk3J',
     tags: {
       verified:   'Rebalance — Verified',
       unverified: 'Rebalance — Unverified'
@@ -298,24 +298,24 @@
   <p class="stage-subhead">The equity locked in your home is one of the most powerful financial tools you have — and most homeowners never unlock it strategically. Tell us what's driving this moment.</p>
 
   <div class="moment-grid">
-    <div class="moment-card" onclick="selectMoment(this,'empty-nest')" data-val="empty-nest">
+    <button type="button" class="moment-card" onclick="selectMoment(this,'empty-nest')" data-val="empty-nest">
       <div class="moment-card-check"></div>
       <div class="moment-icon">🏡</div>
       <div class="moment-title">The Kids Have Moved Out</div>
       <div class="moment-sub">The house feels bigger than we need. It's time to right-size and redeploy what we've built.</div>
-    </div>
-    <div class="moment-card" onclick="selectMoment(this,'next-chapter')" data-val="next-chapter">
+    </button>
+    <button type="button" class="moment-card" onclick="selectMoment(this,'next-chapter')" data-val="next-chapter">
       <div class="moment-card-check"></div>
       <div class="moment-icon">🌅</div>
       <div class="moment-title">We're Ready for Our Next Chapter</div>
       <div class="moment-sub">Life is shifting and the home needs to shift with it. We want freedom, not square footage.</div>
-    </div>
-    <div class="moment-card" onclick="selectMoment(this,'simplify')" data-val="simplify">
+    </button>
+    <button type="button" class="moment-card" onclick="selectMoment(this,'simplify')" data-val="simplify">
       <div class="moment-card-check"></div>
       <div class="moment-icon">⚡</div>
       <div class="moment-title">We Want to Simplify</div>
       <div class="moment-sub">Less house, less maintenance, more life. Without giving up what we've spent decades building financially.</div>
-    </div>
+    </button>
   </div>
 
   <div class="btn-nav">
@@ -524,9 +524,9 @@
   <div class="form-group">
     <label>Do you contribute to a 401K?</label>
     <div class="radio-group">
-      <div class="radio-card" onclick="selectRadio(this,'has401k')" data-val="yes">Yes</div>
-      <div class="radio-card" onclick="selectRadio(this,'has401k')" data-val="no">Not currently</div>
-      <div class="radio-card" onclick="selectRadio(this,'has401k')" data-val="unsure">Not sure</div>
+      <button type="button" class="radio-card" onclick="selectRadio(this,'has401k')" data-val="yes">Yes</button>
+      <button type="button" class="radio-card" onclick="selectRadio(this,'has401k')" data-val="no">Not currently</button>
+      <button type="button" class="radio-card" onclick="selectRadio(this,'has401k')" data-val="unsure">Not sure</button>
     </div>
   </div>
 
@@ -534,46 +534,46 @@
   <p style="font-size:14px;color:var(--text-mid);margin-bottom:20px;line-height:1.6;">Select everything that applies — this shapes the strategy and the final picture.</p>
 
   <div class="goal-grid">
-    <div class="goal-card" onclick="toggleGoal(this)" data-val="cashflow">
+    <button type="button" class="goal-card" onclick="toggleGoal(this)" data-val="cashflow">
       <div class="goal-icon">💰</div>
       <div class="goal-label">Free Up Cashflow</div>
       <div class="goal-sub">Money back in our pocket every month</div>
-    </div>
-    <div class="goal-card" onclick="toggleGoal(this)" data-val="lifestyle">
+    </button>
+    <button type="button" class="goal-card" onclick="toggleGoal(this)" data-val="lifestyle">
       <div class="goal-icon">🌴</div>
       <div class="goal-label">Fund Our Lifestyle</div>
       <div class="goal-sub">Travel, hobbies, experiences</div>
-    </div>
-    <div class="goal-card" onclick="toggleGoal(this)" data-val="retirement">
+    </button>
+    <button type="button" class="goal-card" onclick="toggleGoal(this)" data-val="retirement">
       <div class="goal-icon">🏦</div>
       <div class="goal-label">Accelerate Retirement</div>
       <div class="goal-sub">Put equity to work for the future</div>
-    </div>
-    <div class="goal-card" onclick="toggleGoal(this)" data-val="investment">
+    </button>
+    <button type="button" class="goal-card" onclick="toggleGoal(this)" data-val="investment">
       <div class="goal-icon">📊</div>
       <div class="goal-label">Build Investment Income</div>
       <div class="goal-sub">Generate monthly returns from deployed equity</div>
-    </div>
-    <div class="goal-card" onclick="toggleGoal(this)" data-val="legacy">
+    </button>
+    <button type="button" class="goal-card" onclick="toggleGoal(this)" data-val="legacy">
       <div class="goal-icon">🎁</div>
       <div class="goal-label">Build Legacy</div>
       <div class="goal-sub">Leave something real for family</div>
-    </div>
-    <div class="goal-card" onclick="toggleGoal(this)" data-val="cashreserve">
+    </button>
+    <button type="button" class="goal-card" onclick="toggleGoal(this)" data-val="cashreserve">
       <div class="goal-icon">🛡️</div>
       <div class="goal-label">Cash Reserve</div>
       <div class="goal-sub">A true financial cushion, finally</div>
-    </div>
-    <div class="goal-card" onclick="toggleGoal(this)" data-val="payoffdebt">
+    </button>
+    <button type="button" class="goal-card" onclick="toggleGoal(this)" data-val="payoffdebt">
       <div class="goal-icon">✂️</div>
       <div class="goal-label">Eliminate Debt</div>
       <div class="goal-sub">Enter retirement clean</div>
-    </div>
-    <div class="goal-card" onclick="toggleGoal(this)" data-val="all">
+    </button>
+    <button type="button" class="goal-card" onclick="toggleGoal(this)" data-val="all">
       <div class="goal-icon">🚀</div>
       <div class="goal-label">All of the Above</div>
       <div class="goal-sub">Show me everything possible</div>
-    </div>
+    </button>
   </div>
 
   <!-- DEBT LIST -->
@@ -771,9 +771,9 @@
       <div class="form-group">
         <label>Preferred Contact Method</label>
         <div class="radio-group">
-          <div class="radio-card" onclick="selectRadio(this,'contactPref')" data-val="call">Phone Call</div>
-          <div class="radio-card" onclick="selectRadio(this,'contactPref')" data-val="text">Text</div>
-          <div class="radio-card" onclick="selectRadio(this,'contactPref')" data-val="email">Email</div>
+          <button type="button" class="radio-card" onclick="selectRadio(this,'contactPref')" data-val="call">Phone Call</button>
+          <button type="button" class="radio-card" onclick="selectRadio(this,'contactPref')" data-val="text">Text</button>
+          <button type="button" class="radio-card" onclick="selectRadio(this,'contactPref')" data-val="email">Email</button>
         </div>
       </div>
       <div class="form-group">
@@ -1283,7 +1283,4 @@
 
   // Close appt modal on backdrop click
   document.getElementById('apptModal').addEventListener('click', function(e) {
-    if (e.target === this) this.style.display = 'none';
-  });
-
-  // ── SMS TAP-TO-VERIFY ──────────────────────────
+    if (e.target === this) this.style.dis
