@@ -1283,4 +1283,11 @@
 
   // Close appt modal on backdrop click
   document.getElementById('apptModal').addEventListener('click', function(e) {
-    if (e.target === this) this.style.dis
+    if (e.target === document.getElementById('apptModal')) {
+      document.getElementById('apptModal').style.display = 'none';
+    }
+  });
+
+</script>
+</body>
+</html>
