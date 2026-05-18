@@ -248,7 +248,7 @@
     phone:   '(832) 536-1016',
     email:   'phil@philliphimes.com',
     market:  'South Houston Suburbs',
-    webhook: 'https://services.leadconnectorhq.com/hooks/oyGNN4xzQ5FxZ2PQgFzE/webhook-trigger/HDR5P071JEBIXMHHvk3J',
+    webhook: 'https://services.leadconnectorhq.com/hooks/oyGNN4xzQ5FxZ2PQgFzE/webhook-trigger/21e03e07-c373-4a44-bdbf-4768bda1084c',
     rate:    0.06375,          // 30-yr fixed — update as market shifts
     tags: {
       verified:   'Rebalance — Verified',
@@ -1284,12 +1284,13 @@
       socialSecurityIncome:  state.socialSecurityIncome,
       dateOfBirth:           state.birthDate,
       has401k:               state.has401k,
-      monthlyContrib:        state.monthlyContrib,
-      employerAnnual:        state.employerAnnual,
-      goals:              state.goals.join(', '),
-      debts:              JSON.stringify(state.debts),
-      heroMonthlyCashflow:  state.heroMonthlyCashflow,
-      heroEquityProjection: state.heroEquityProjection
+      monthlyContrib401k:    state.monthlyContrib,
+      employerAnnual401k:    state.employerAnnual,
+      goals:                 state.goals.join(', '),
+      debts:                 state.debts.map(d => ({ type: d.type, payment: d.payment, balance: d.balance })),
+      heroMonthlyCashflow:   state.heroMonthlyCashflow,
+      heroProjectedWealth:   state.heroEquityProjection,
+      remainingEquity:       state.remainingEquity
     };
 
     if (AGENT.webhook) {
@@ -1314,15 +1315,53 @@
     const time = document.getElementById('apptTime').value;
 
     const payload = {
-      firstName: state.captureFirst, lastName: state.captureLast,
-      email:     state.captureEmail, phone:    state.capturePhone,
+      // ── Contact ──
+      firstName:     state.captureFirst,
+      lastName:      state.captureLast,
+      email:         state.captureEmail,
+      phone:         state.capturePhone,
+      dateOfBirth:   state.birthDate,
       source:        'Rebalance™ v1 — Strategy Session Request',
       meetingFormat: meetingFormat,
       preferredTime: time,
-      netEquity:          state.netEquity,
-      newHomePrice:       state.newHomePrice,
-      heroMonthlyCashflow: state.heroMonthlyCashflow,
-      goals:              state.goals.join(', ')
+
+      // ── Life Moment & Goals ──
+      lifeMoment:    state.moment,
+      goals:         state.goals.join(', '),
+
+      // ── Current Home ──
+      homeValue:       state.homeValue,
+      mortgageBalance: state.mortgageBalance,
+      grossEquity:     state.grossEquity,
+      netEquity:       state.netEquity,
+      currentPayment:  state.currentPayment,
+      currentBeds:     state.currentBeds,
+      currentBaths:    state.currentBaths,
+      currentSqft:     state.currentSqft,
+      currentYear:     state.currentYear,
+
+      // ── Target Home ──
+      newHomePrice:   state.newHomePrice,
+      newHomeType:    state.newHomeType,
+      preferredArea:  state.preferredArea,
+
+      // ── Financial Profile ──
+      householdIncome:      state.householdIncome,
+      retirementSavings:    state.retirementSavings,
+      socialSecurityIncome: state.socialSecurityIncome,
+      has401k:              state.has401k,
+      monthlyContrib401k:   state.monthlyContrib,
+      employerAnnual401k:   state.employerAnnual,
+
+      // ── Debts ──
+      debts: state.debts.map(d => ({
+        type: d.type, payment: d.payment, balance: d.balance
+      })),
+
+      // ── Results (Scenario B — Recommended) ──
+      heroMonthlyCashflow:  state.heroMonthlyCashflow,
+      heroProjectedWealth:  state.heroEquityProjection,
+      remainingEquity:      state.remainingEquity
     };
 
     if (AGENT.webhook) {
