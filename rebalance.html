@@ -804,19 +804,26 @@
 <div id="apptModal" style="display:none;position:fixed;inset:0;background:rgba(10,22,40,0.75);z-index:1000;align-items:center;justify-content:center;padding:24px;">
   <div style="background:var(--white);border-radius:20px;padding:48px 40px;max-width:480px;width:100%;box-shadow:0 20px 60px rgba(10,22,40,0.3);">
     <div id="apptFormWrap">
-      <div style="font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:10px;">Book Your Strategy Call</div>
+      <div style="font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:10px;">Book Your Strategy Session</div>
       <h2 style="font-family:'Playfair Display',serif;font-size:28px;color:var(--navy);margin-bottom:8px;">Let's build your real plan.</h2>
-      <p style="font-size:14px;color:var(--text-mid);margin-bottom:24px;line-height:1.6;"><span id="apptModalAgent"></span> will reach out within one business hour to schedule your strategy session.</p>
+      <p style="font-size:14px;color:var(--text-mid);margin-bottom:24px;line-height:1.6;"><span id="apptModalAgent"></span> will reach out within one business hour to confirm your session.</p>
       <div class="form-group">
-        <label>Preferred Contact Method</label>
+        <label>How Would You Like to Meet?</label>
         <div class="radio-group">
-          <button type="button" class="radio-card" onclick="selectRadio(this,'contactPref')" data-val="call">Phone Call</button>
-          <button type="button" class="radio-card" onclick="selectRadio(this,'contactPref')" data-val="text">Text</button>
-          <button type="button" class="radio-card" onclick="selectRadio(this,'contactPref')" data-val="email">Email</button>
+          <button type="button" class="radio-card" onclick="selectRadio(this,'contactPref')" data-val="zoom">
+            <div style="font-size:20px;margin-bottom:4px;">💻</div>
+            <div style="font-weight:600;">Zoom</div>
+            <div style="font-size:11px;color:var(--text-light);margin-top:3px;">Recommended</div>
+          </button>
+          <button type="button" class="radio-card" onclick="selectRadio(this,'contactPref')" data-val="call">
+            <div style="font-size:20px;margin-bottom:4px;">📞</div>
+            <div style="font-weight:600;">Phone Call</div>
+            <div style="font-size:11px;color:var(--text-light);margin-top:3px;">&nbsp;</div>
+          </button>
         </div>
       </div>
       <div class="form-group">
-        <label>Best Time to Reach You</label>
+        <label>Best Time to Meet</label>
         <select id="apptTime">
           <option value="">— select —</option>
           <option value="morning">Morning (8am – 12pm)</option>
@@ -826,14 +833,14 @@
         </select>
       </div>
       <button onclick="submitAppt()" style="width:100%;padding:16px;background:var(--navy);color:var(--white);border:none;border-radius:10px;font-size:16px;font-weight:600;font-family:'Inter',sans-serif;cursor:pointer;transition:background 0.2s;">
-        Book My Strategy Call
+        Request My Strategy Session
       </button>
-      <p style="font-size:11px;color:var(--text-light);text-align:center;margin-top:12px;">No spam. No pressure. One call that could change everything.</p>
+      <p style="font-size:11px;color:var(--text-light);text-align:center;margin-top:12px;">No spam. No pressure. One session that could change everything.</p>
     </div>
     <div id="apptSuccess" style="display:none;text-align:center;padding:20px 0;">
       <div style="font-size:48px;margin-bottom:16px;">🎉</div>
       <h3 style="font-family:'Playfair Display',serif;font-size:26px;color:var(--navy);margin-bottom:10px;">You're on the calendar.</h3>
-      <p style="font-size:15px;color:var(--text-mid);line-height:1.6;"><span id="apptSuccessAgent"></span> will reach out shortly to confirm your time.<br><br>In the meantime — look at what you've built. Most families in your position never see this picture. You do now.</p>
+      <p style="font-size:15px;color:var(--text-mid);line-height:1.6;"><span id="apptSuccessAgent"></span> will reach out shortly to confirm your session details.<br><br>In the meantime — look at what you've built. Most families in your position never see this picture. You do now.</p>
     </div>
   </div>
 </div>
@@ -1298,14 +1305,14 @@
   }
 
   function submitAppt() {
-    const pref = state.contactPref;
+    const meetingFormat = state.contactPref || 'zoom';
     const time = document.getElementById('apptTime').value;
 
     const payload = {
       firstName: state.captureFirst, lastName: state.captureLast,
       email:     state.captureEmail, phone:    state.capturePhone,
-      source:       'Rebalance™ v1 — Strategy Call Request',
-      contactPref:  pref,
+      source:        'Rebalance™ v1 — Strategy Session Request',
+      meetingFormat: meetingFormat,
       preferredTime: time,
       netEquity:          state.netEquity,
       newHomePrice:       state.newHomePrice,
