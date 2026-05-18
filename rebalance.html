@@ -249,6 +249,7 @@
     email:   'phil@philliphimes.com',
     market:  'South Houston Suburbs',
     webhook: 'https://services.leadconnectorhq.com/hooks/oyGNN4xzQ5FxZ2PQgFzE/webhook-trigger/HDR5P071JEBIXMHHvk3J',
+    rate:    0.06375,          // 30-yr fixed — update as market shifts
     tags: {
       verified:   'Rebalance — Verified',
       unverified: 'Rebalance — Unverified'
@@ -732,9 +733,10 @@
         <div class="pillar-val" id="pillarRetirement">—</div>
         <div class="pillar-name">Retirement Income</div>
         <div class="pillar-tag">Retire Strong</div>
+        <div class="pillar-sub">portfolio + social security</div>
       </div>
     </div>
-    <p class="pillar-disclaimer">Projected Wealth based on equity deployed at 7% annualized growth to age 70. Retirement Income uses 4% safe withdrawal rate. For illustrative purposes only — not financial advice.</p>
+    <p class="pillar-disclaimer">Projected Wealth based on equity deployed at 7% annualized growth to age 70. Retirement Income = 5% portfolio withdrawal + Social Security Income. For illustrative purposes only — not financial advice.</p>
   </div>
 
   <!-- DEBT PAYOFF -->
@@ -1078,7 +1080,7 @@
     // ── SCENARIO B: 20% Down — The Rebalance (HIGHLIGHTED) ──
     const downB      = Math.round(tgt * 0.20);
     const loanB      = tgt - downB;
-    const piB        = monthlyPayment(loanB, 0.07, 30);
+    const piB        = monthlyPayment(loanB, AGENT.rate, 30);
     const newPmtB    = piB + tiNew;
     const cashFlowB  = Math.max(0, curPmt - newPmtB);
     const closingB   = Math.round(tgt * 0.02);
@@ -1088,7 +1090,7 @@
     // ── SCENARIO C: 10% Down — The Deploy ──
     const downC      = Math.round(tgt * 0.10);
     const loanC      = tgt - downC;
-    const piC        = monthlyPayment(loanC, 0.07, 30);
+    const piC        = monthlyPayment(loanC, AGENT.rate, 30);
     const pmiC       = 150;
     const newPmtC    = piC + tiNew + pmiC;
     const cashFlowC  = Math.max(0, curPmt - newPmtC);
@@ -1097,7 +1099,7 @@
     const proj10C    = fv(remainC, 0.10, 10);
 
     // ── HERO NUMBERS (Step 5) ──
-    const heroMonthly = remainA >= 0 ? cashFlowA : cashFlowB;
+    const heroMonthly = cashFlowB; // Scenario B — The Rebalance (recommended)
 
     // Age-70 projection
     const currentYear       = new Date().getFullYear();
@@ -1113,7 +1115,7 @@
 
     const retirementBase    = remainB + state.retirementSavings;
     const projectedWealth   = fv(retirementBase, 0.07, yearsToRetirement) + retiro10;
-    const retirementIncome  = projectedWealth * 0.04 / 12; // 4% SWR monthly
+    const retirementIncome  = (projectedWealth * 0.05 / 12) + state.socialSecurityIncome; // 5% SWR + SSI
 
     state.heroMonthlyCashflow  = heroMonthly;
     state.heroEquityProjection = projectedWealth;
