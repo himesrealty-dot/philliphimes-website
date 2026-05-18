@@ -1,0 +1,1300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rebalance™ | reLifeIQ™</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: #F8F4EE; color: #1A1A2E; min-height: 100vh; overflow-x: hidden; }
+
+    :root {
+      --navy:       #0A1628;
+      --navy-mid:   #1B3A5C;
+      --gold:       #C9A84C;
+      --gold-light: #F0E6C8;
+      --gold-pale:  #FBF7EE;
+      --cream:      #F8F4EE;
+      --white:      #FFFFFF;
+      --text-dark:  #1A1A2E;
+      --text-mid:   #4A5568;
+      --text-light: #718096;
+      --green:      #276749;
+      --green-light:#E8F5EE;
+      --border:     #E2E8F0;
+      --teal:       #2089A0;
+      --shadow:     0 4px 24px rgba(10,22,40,0.10);
+      --shadow-sm:  0 2px 8px rgba(10,22,40,0.07);
+    }
+
+    /* ── HEADER ── */
+    .site-header { background: var(--navy); padding: 18px 40px; display: flex; align-items: center; justify-content: space-between; }
+    .logo { display: flex; align-items: baseline; gap: 6px; }
+    .logo-relifeiq { font-family: 'Playfair Display', serif; color: var(--white); font-size: 22px; font-weight: 600; }
+    .logo-relifeiq span { color: var(--gold); }
+    .logo-tool { font-family: 'Inter', sans-serif; color: var(--gold); font-size: 13px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; }
+    .agent-pill { display: flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 40px; padding: 7px 16px; }
+    .agent-pill-name { color: var(--white); font-size: 14px; font-weight: 500; }
+    .agent-pill-title { color: rgba(255,255,255,0.5); font-size: 12px; }
+
+    /* ── PROGRESS ── */
+    .progress-wrap { background: var(--navy-mid); padding: 16px 40px; }
+    .progress-labels { display: flex; justify-content: space-between; margin-bottom: 10px; }
+    .progress-step { font-size: 11px; font-weight: 500; letter-spacing: 0.5px; color: rgba(255,255,255,0.35); text-transform: uppercase; transition: color 0.3s; }
+    .progress-step.active { color: var(--gold); }
+    .progress-step.done { color: rgba(255,255,255,0.6); }
+    .progress-track { height: 3px; background: rgba(255,255,255,0.12); border-radius: 2px; overflow: hidden; }
+    .progress-fill { height: 100%; background: var(--gold); border-radius: 2px; transition: width 0.5s ease; }
+
+    /* ── FINISHED DISH (pre-tool) ── */
+    .finished-dish { background: var(--navy); padding: 32px 40px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .finished-dish-inner { max-width: 860px; margin: 0 auto; display: flex; align-items: center; gap: 40px; flex-wrap: wrap; }
+    .finished-dish-label { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+    .finished-dish-family { font-size: 12px; color: rgba(255,255,255,0.45); margin-bottom: 6px; letter-spacing: 0.3px; }
+    .finished-dish-result { font-family: 'Playfair Display', serif; font-size: clamp(16px,3vw,22px); color: var(--white); line-height: 1.4; margin-bottom: 8px; }
+    .finished-dish-result em { color: var(--gold); font-style: normal; font-weight: 600; }
+    .finished-dish-sub { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.6; max-width: 560px; }
+    .finished-dish-cta { font-size: 13px; color: var(--gold); font-weight: 600; margin-top: 16px; letter-spacing: 0.3px; }
+
+    /* ── MAIN ── */
+    .main { max-width: 860px; margin: 0 auto; padding: 48px 24px 80px; }
+
+    /* ── STAGES ── */
+    .stage { display: none; animation: stageFadeIn 0.4s ease; }
+    .stage.active { display: block; }
+    @keyframes stageFadeIn { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
+    .stage-eyebrow { font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+    .stage-headline { font-family: 'Playfair Display', serif; font-size: clamp(28px,5vw,42px); font-weight: 700; color: var(--navy); line-height: 1.2; margin-bottom: 12px; }
+    .stage-subhead { font-size: 17px; color: var(--text-mid); line-height: 1.6; margin-bottom: 40px; font-weight: 300; }
+    .section-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--text-light); margin: 36px 0 20px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+
+    /* ── LIFE MOMENT CARDS ── */
+    .moment-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-bottom: 40px; }
+    .moment-card { background: var(--white); border: 2px solid var(--border); border-radius: 16px; padding: 28px 20px; cursor: pointer; transition: all 0.2s; text-align: center; user-select: none; position: relative; }
+    .moment-card:hover { border-color: var(--gold); background: var(--gold-pale); transform: translateY(-3px); box-shadow: var(--shadow); }
+    .moment-card.selected { border-color: var(--gold); background: var(--gold-pale); box-shadow: var(--shadow); }
+    .moment-card-check { position: absolute; top: 14px; right: 14px; width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--border); background: var(--white); display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+    .moment-card.selected .moment-card-check { background: var(--gold); border-color: var(--gold); }
+    .moment-card-check::after { content:''; width:5px; height:9px; border-right:2px solid white; border-bottom:2px solid white; transform:rotate(45deg) translateY(-1px); opacity:0; transition:opacity 0.2s; }
+    .moment-card.selected .moment-card-check::after { opacity:1; }
+    .moment-icon { font-size: 36px; margin-bottom: 14px; }
+    .moment-title { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 600; color: var(--navy); margin-bottom: 8px; line-height: 1.3; }
+    .moment-sub { font-size: 13px; color: var(--text-light); line-height: 1.5; }
+
+    /* ── GOAL CARDS ── */
+    .goal-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(165px,1fr)); gap: 14px; margin-bottom: 24px; }
+    .goal-card { background: var(--white); border: 2px solid var(--border); border-radius: 12px; padding: 20px; cursor: pointer; transition: all 0.2s; text-align: center; user-select: none; }
+    .goal-card:hover { border-color: var(--gold); transform: translateY(-2px); box-shadow: var(--shadow-sm); }
+    .goal-card.selected { border-color: var(--gold); background: var(--gold-pale); }
+    .goal-icon { font-size: 26px; margin-bottom: 8px; }
+    .goal-label { font-size: 14px; font-weight: 600; color: var(--navy); }
+    .goal-sub { font-size: 12px; color: var(--text-light); margin-top: 3px; }
+
+    /* ── FORM ── */
+    .form-group { margin-bottom: 24px; }
+    .form-group label { display: block; font-size: 13px; font-weight: 600; color: var(--navy); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 10px; }
+    .form-group select, .form-group input { width: 100%; padding: 14px 18px; border: 2px solid var(--border); border-radius: 10px; font-size: 16px; font-family: 'Inter', sans-serif; color: var(--text-dark); background: var(--white); transition: border-color 0.2s; outline: none; }
+    .form-group select { cursor: pointer; }
+    .form-group select:focus, .form-group input:focus { border-color: var(--gold); }
+    .form-hint { font-size: 13px; color: var(--text-light); margin-top: 7px; line-height: 1.5; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+
+    /* ── RADIO GROUP ── */
+    .radio-group { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; }
+    .radio-card { background: var(--white); border: 2px solid var(--border); border-radius: 10px; padding: 13px 16px; cursor: pointer; transition: all 0.2s; text-align: center; font-size: 14px; font-weight: 500; color: var(--text-mid); user-select: none; }
+    .radio-card:hover { border-color: var(--gold); color: var(--navy); }
+    .radio-card.selected { border-color: var(--gold); background: var(--gold-pale); color: var(--navy); font-weight: 600; }
+
+    /* ── EQUITY REVEAL ── */
+    .equity-reveal { background: var(--navy); border-radius: 16px; padding: 32px 36px; text-align: center; margin: 32px 0; display: none; }
+    .equity-reveal.visible { display: block; animation: stageFadeIn 0.5s ease; }
+    .equity-reveal-label { font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 12px; }
+    .equity-reveal-number { font-family: 'Playfair Display', serif; font-size: clamp(40px,8vw,64px); font-weight: 700; color: var(--gold); line-height: 1; margin-bottom: 12px; }
+    .equity-reveal-sub { font-size: 14px; color: rgba(255,255,255,0.6); font-weight: 300; margin-bottom: 20px; }
+    .equity-stats { display: flex; justify-content: center; gap: 40px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); flex-wrap: wrap; }
+    .equity-stat-val { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--white); font-weight: 600; }
+    .equity-stat-lbl { font-size: 11px; color: rgba(255,255,255,0.4); margin-top: 3px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+    /* ── DEBT LIST ── */
+    #debtSection { display: none; margin-top: 8px; animation: stageFadeIn 0.3s ease; }
+    #debtSection.visible { display: block; }
+    .debt-entry { background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 16px; margin-bottom: 12px; position: relative; }
+    .debt-entry-remove { position: absolute; top: 12px; right: 12px; background: none; border: none; color: var(--text-light); font-size: 20px; cursor: pointer; line-height: 1; transition: color 0.2s; padding: 0; }
+    .debt-entry-remove:hover { color: #E53E3E; }
+    .add-debt-btn { display: flex; align-items: center; gap: 8px; padding: 12px 20px; background: transparent; border: 2px dashed var(--border); border-radius: 10px; font-size: 14px; font-weight: 600; color: var(--text-mid); cursor: pointer; transition: all 0.2s; width: 100%; }
+    .add-debt-btn:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* ── BUTTONS ── */
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 16px 36px; border-radius: 10px; font-size: 16px; font-weight: 600; font-family: 'Inter', sans-serif; cursor: pointer; border: none; transition: all 0.2s; text-decoration: none; }
+    .btn-primary { background: var(--gold); color: var(--navy); }
+    .btn-primary:hover { background: #b8922f; transform: translateY(-1px); box-shadow: 0 4px 16px rgba(201,168,76,0.35); }
+    .btn-ghost { background: transparent; color: var(--text-mid); padding: 16px 20px; }
+    .btn-ghost:hover { color: var(--navy); }
+    .btn-nav { display: flex; gap: 12px; align-items: center; margin-top: 32px; }
+
+    /* ── SCENARIOS ── */
+    .scenarios-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-bottom: 40px; }
+    @media (max-width:700px) { .scenarios-grid { grid-template-columns:1fr; } }
+    .scenario-card { background: var(--white); border: 2px solid var(--border); border-radius: 16px; padding: 28px 24px; position: relative; transition: all 0.2s; }
+    .scenario-card.highlighted { border-color: var(--gold); box-shadow: 0 0 0 4px rgba(201,168,76,0.12), var(--shadow); }
+    .scenario-badge { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--gold); color: var(--navy); font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 4px 14px; border-radius: 20px; white-space: nowrap; }
+    .scenario-label { font-size: 12px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-light); margin-bottom: 6px; }
+    .scenario-name { font-family: 'Playfair Display', serif; font-size: 20px; color: var(--navy); margin-bottom: 20px; }
+    .scenario-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 14px; }
+    .scenario-row:last-child { border-bottom: none; }
+    .scenario-row-label { color: var(--text-mid); }
+    .scenario-row-value { font-weight: 600; color: var(--text-dark); }
+    .scenario-row-value.green { color: var(--green); }
+    .scenario-row-value.gold { color: var(--gold); font-size: 15px; }
+    .scenario-desc { font-size: 13px; color: var(--text-light); margin-top: 16px; line-height: 1.5; font-style: italic; }
+
+    /* ── SELLING STRATEGY ── */
+    .strategy-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 28px; }
+    @media (max-width:600px) { .strategy-cards { grid-template-columns:1fr; } }
+    .strategy-card { background: var(--white); border: 2px solid var(--border); border-radius: 16px; padding: 28px 24px; opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s ease, border-color 0.2s; }
+    .strategy-card.revealed { opacity: 1; transform: translateY(0); }
+    .strategy-card:hover { border-color: var(--gold); }
+    .strategy-step-num { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+    .strategy-card-icon { font-size: 32px; margin-bottom: 12px; }
+    .strategy-card-title { font-family: 'Playfair Display', serif; font-size: 20px; color: var(--navy); margin-bottom: 10px; }
+    .strategy-card-body { font-size: 14px; color: var(--text-mid); line-height: 1.65; }
+    .strategy-tailored { opacity: 0; transform: translateY(16px); transition: opacity 0.5s ease, transform 0.5s ease; margin-top: 4px; border-left: 3px solid var(--gold); padding-left: 20px; padding-top: 8px; padding-bottom: 4px; }
+    .strategy-tailored.revealed { opacity: 1; transform: translateY(0); }
+    .strategy-tailored p { font-family: 'Inter', sans-serif; font-size: 14px; color: var(--text-mid); font-style: italic; font-weight: 400; line-height: 1.7; }
+
+    /* ── CAPTURE SECTION ── */
+    .capture-section { background: var(--navy); border-radius: 20px; padding: 44px 40px; text-align: center; margin-top: 48px; }
+    .capture-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+    .capture-headline { font-family: 'Playfair Display', serif; font-size: 30px; color: var(--white); margin-bottom: 10px; }
+    .capture-sub { font-size: 15px; color: rgba(255,255,255,0.6); margin-bottom: 32px; line-height: 1.6; font-weight: 300; }
+    .capture-btn { width: 100%; padding: 18px; background: var(--gold); color: var(--navy); border: none; border-radius: 10px; font-size: 17px; font-weight: 700; font-family: 'Inter', sans-serif; cursor: pointer; transition: all 0.2s; margin-top: 8px; }
+    .capture-btn:hover { background: #b8922f; transform: translateY(-1px); box-shadow: 0 4px 20px rgba(201,168,76,0.4); }
+    .capture-disclaimer { font-size: 11px; color: rgba(255,255,255,0.35); text-align: center; margin-top: 12px; line-height: 1.5; }
+
+    /* ── REBALANCE HERO (Step 5) ── */
+    .rebalance-hero { background: var(--navy); border-radius: 20px; padding: 48px 40px; text-align: center; margin-bottom: 32px; position: relative; overflow: hidden; }
+    .rebalance-hero::before { content:''; position:absolute; top:-60px; right:-60px; width:240px; height:240px; background:radial-gradient(circle,rgba(201,168,76,0.15) 0%,transparent 70%); border-radius:50%; }
+    .rebalance-hero-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; }
+    .rebalance-hero-number { font-family: 'Playfair Display', serif; font-size: clamp(52px,10vw,80px); font-weight: 700; color: var(--white); line-height: 1; margin-bottom: 8px; }
+    .rebalance-hero-number span { color: var(--gold); }
+    .rebalance-hero-label { font-size: 16px; color: rgba(255,255,255,0.6); font-weight: 300; max-width: 420px; margin: 0 auto 24px; line-height: 1.6; }
+    .rebalance-stat-row { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; margin-top: 28px; padding-top: 28px; border-top: 1px solid rgba(255,255,255,0.1); }
+    .rebalance-stat-val { font-family: 'Playfair Display', serif; font-size: 26px; color: var(--gold); font-weight: 600; }
+    .rebalance-stat-lbl { font-size: 12px; color: rgba(255,255,255,0.45); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+    /* ── DEBT PAYOFF BOX ── */
+    .debt-payoff-box { background: var(--green-light); border: 1px solid var(--green); border-radius: 14px; padding: 24px 28px; margin-bottom: 28px; }
+    .debt-payoff-box h4 { font-size: 13px; font-weight: 700; color: var(--green); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 14px; }
+    .debt-payoff-row { display: flex; justify-content: space-between; font-size: 14px; padding: 7px 0; border-bottom: 1px solid rgba(39,103,73,0.15); }
+    .debt-payoff-row:last-child { border-bottom: none; font-weight: 700; color: var(--green); }
+
+    /* ── APPOINTMENT CTA ── */
+    .appt-section { background: #2089A0; border-radius: 20px; padding: 48px 40px; text-align: center; box-shadow: var(--shadow); margin-top: 40px; }
+    .appt-section h3 { font-family: 'Playfair Display', serif; font-size: 30px; color: var(--white); margin-bottom: 12px; }
+    .appt-section p { color: rgba(255,255,255,0.85); margin-bottom: 28px; font-size: 15px; line-height: 1.7; max-width: 480px; margin-left: auto; margin-right: auto; }
+
+    /* ── CLOSING BOX ── */
+    .closing-box { background: var(--gold-light); border: 1px solid var(--gold); border-radius: 14px; padding: 28px 32px; text-align: center; margin-bottom: 32px; }
+    .closing-box p { font-size: 16px; color: var(--navy); line-height: 1.7; font-style: italic; font-family: 'Playfair Display', serif; }
+    .closing-box strong { font-style: normal; color: #8a6a1a; }
+
+    /* ── SUCCESS STATE ── */
+    .success-state { display: none; text-align: center; padding: 20px 0; }
+    .success-state.visible { display: block; animation: stageFadeIn 0.4s ease; }
+
+    /* ── DISCLAIMER ── */
+    .disclaimer { text-align: center; font-size: 11px; color: var(--text-light); padding: 32px 24px; line-height: 1.6; border-top: 1px solid var(--border); margin-top: 48px; }
+
+    /* ── MOBILE ── */
+    @media (max-width:600px) {
+      .site-header { padding: 14px 20px; }
+      .agent-pill { display: none; }
+      .progress-wrap { padding: 12px 20px; }
+      .main { padding: 32px 16px 60px; }
+      .moment-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .form-row-3 { grid-template-columns: 1fr; }
+      .rebalance-hero { padding: 32px 20px; }
+      .capture-section { padding: 32px 20px; }
+      .appt-section { padding: 32px 20px; }
+      .progress-labels { display: none; }
+      .finished-dish { padding: 24px 20px; }
+      .finished-dish-inner { flex-direction: column; gap: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<script>
+  const AGENT = {
+    name:    'Phil Himes',
+    title:   'Real Estate Advisor · eXp Realty',
+    phone:   '(832) 536-1016',
+    email:   'phil@philliphimes.com',
+    market:  'South Houston Suburbs',
+    webhook: '', // ← GHL webhook URL — wire before deploy
+    tags: {
+      verified:   'Rebalance — Verified',
+      unverified: 'Rebalance — Unverified'
+    }
+  };
+</script>
+
+<!-- ── HEADER ── -->
+<header class="site-header">
+  <div class="logo">
+    <div class="logo-relifeiq">re<span>Life</span>IQ™</div>
+    <div class="logo-tool">Rebalance</div>
+  </div>
+  <div class="agent-pill">
+    <div>
+      <div class="agent-pill-name" id="headerAgentName"></div>
+      <div class="agent-pill-title" id="headerAgentTitle"></div>
+    </div>
+  </div>
+</header>
+
+<!-- ── PROGRESS ── -->
+<div class="progress-wrap">
+  <div class="progress-labels">
+    <span class="progress-step active" id="pl-1">Your Moment</span>
+    <span class="progress-step" id="pl-2">Your Home</span>
+    <span class="progress-step" id="pl-3">Your Plan</span>
+    <span class="progress-step" id="pl-4">Your Strategy</span>
+    <span class="progress-step" id="pl-5">Your Picture</span>
+  </div>
+  <div class="progress-track">
+    <div class="progress-fill" id="progressFill" style="width:10%"></div>
+  </div>
+</div>
+
+<!-- ── PRE-TOOL: SHOW THE FINISHED DISH ── -->
+<div class="finished-dish">
+  <div class="finished-dish-inner">
+    <div>
+      <div class="finished-dish-label">What Rebalance™ Looks Like</div>
+      <div class="finished-dish-family">The Martinez Family · Ages 57 &amp; 59 · League City, TX</div>
+      <div class="finished-dish-result">
+        <em>$2,400/month freed</em> · $312,000 deployed · <em>$809,000 projected in 10 years</em>
+      </div>
+      <p class="finished-dish-sub">They sold their 4-bedroom home with $398,000 in equity, bought a low-maintenance patio home for $285,000 cash — and put the rest to work building their retirement. This is your equity working for your life, not the other way around.</p>
+      <p class="finished-dish-cta">Could your numbers look like this? Let's find out. ↓</p>
+    </div>
+  </div>
+</div>
+
+<main class="main">
+
+<!-- ══════════════════════════════════
+     STAGE 1 — YOUR MOMENT
+══════════════════════════════════ -->
+<div class="stage active" id="stage-1">
+  <div class="stage-eyebrow">Step 1 of 5</div>
+  <h1 class="stage-headline">You've built something real.<br><em>Now let it work for you.</em></h1>
+  <p class="stage-subhead">The equity locked in your home is one of the most powerful financial tools you have — and most homeowners never unlock it strategically. Tell us what's driving this moment.</p>
+
+  <div class="moment-grid">
+    <div class="moment-card" onclick="selectMoment(this,'empty-nest')" data-val="empty-nest">
+      <div class="moment-card-check"></div>
+      <div class="moment-icon">🏡</div>
+      <div class="moment-title">The Kids Have Moved Out</div>
+      <div class="moment-sub">The house feels bigger than we need. It's time to right-size and redeploy what we've built.</div>
+    </div>
+    <div class="moment-card" onclick="selectMoment(this,'next-chapter')" data-val="next-chapter">
+      <div class="moment-card-check"></div>
+      <div class="moment-icon">🌅</div>
+      <div class="moment-title">We're Ready for Our Next Chapter</div>
+      <div class="moment-sub">Life is shifting and the home needs to shift with it. We want freedom, not square footage.</div>
+    </div>
+    <div class="moment-card" onclick="selectMoment(this,'simplify')" data-val="simplify">
+      <div class="moment-card-check"></div>
+      <div class="moment-icon">⚡</div>
+      <div class="moment-title">We Want to Simplify</div>
+      <div class="moment-sub">Less house, less maintenance, more life. Without giving up what we've spent decades building financially.</div>
+    </div>
+  </div>
+
+  <div class="btn-nav">
+    <button class="btn btn-primary" onclick="goTo(2)">Show Me My Equity &rarr;</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     STAGE 2 — YOUR HOME
+══════════════════════════════════ -->
+<div class="stage" id="stage-2">
+  <div class="stage-eyebrow">Step 2 of 5</div>
+  <h1 class="stage-headline">Let's find out what<br><em>you're actually sitting on.</em></h1>
+  <p class="stage-subhead">Most homeowners underestimate what they've built. This is where the real number comes out — the equity that becomes your financial fuel for everything that comes next.</p>
+
+  <div class="form-row" style="margin-bottom:8px;">
+    <div class="form-group">
+      <label>How many bedrooms?</label>
+      <select id="currentBeds">
+        <option value="">— select —</option>
+        <option value="2">2 bedrooms</option>
+        <option value="3">3 bedrooms</option>
+        <option value="4">4 bedrooms</option>
+        <option value="5">5+ bedrooms</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>How many bathrooms?</label>
+      <select id="currentBaths">
+        <option value="">— select —</option>
+        <option value="1">1 bathroom</option>
+        <option value="2">2 bathrooms</option>
+        <option value="2.5">2.5 bathrooms</option>
+        <option value="3">3 bathrooms</option>
+        <option value="3.5">3.5+ bathrooms</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-row" style="margin-bottom:8px;">
+    <div class="form-group">
+      <label>Approximate square footage</label>
+      <select id="currentSqft">
+        <option value="">— select —</option>
+        <option value="1400">Under 1,600 sq ft</option>
+        <option value="1800">1,600 – 2,000 sq ft</option>
+        <option value="2200">2,000 – 2,400 sq ft</option>
+        <option value="2700">2,400 – 3,000 sq ft</option>
+        <option value="3200">3,000 – 3,600 sq ft</option>
+        <option value="3800">3,600+ sq ft</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Year built (approx.)</label>
+      <select id="currentYear">
+        <option value="">— select —</option>
+        <option value="2018">2015 or newer</option>
+        <option value="2010">2008 – 2014</option>
+        <option value="2003">2000 – 2007</option>
+        <option value="1996">1992 – 1999</option>
+        <option value="1988">1984 – 1991</option>
+        <option value="1980">Before 1984</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>What do you think your home could sell for?</label>
+    <select id="homeValue" onchange="calcEquity()">
+      <option value="">— select a range —</option>
+      <option value="225000">Under $250,000</option>
+      <option value="275000">$250,000 – $300,000</option>
+      <option value="325000">$300,000 – $350,000</option>
+      <option value="375000">$350,000 – $400,000</option>
+      <option value="425000">$400,000 – $450,000</option>
+      <option value="475000">$450,000 – $500,000</option>
+      <option value="525000">$500,000 – $550,000</option>
+      <option value="575000">$550,000 – $600,000</option>
+      <option value="650000">$600,000 – $700,000</option>
+      <option value="750000">$700,000 – $800,000</option>
+      <option value="875000">$800,000+</option>
+    </select>
+    <p class="form-hint">Zillow, a neighbor's recent sale, or your gut — any estimate works. Phil verifies the real number before any decisions are made.</p>
+  </div>
+
+  <div class="form-group">
+    <label>Remaining mortgage balance</label>
+    <input type="text" id="mortgageBalance" placeholder="e.g. $187,500" oninput="formatDollar(this); calcEquity()">
+    <p class="form-hint">Check your last statement or log in to your lender's portal. The closer the number, the sharper the picture.</p>
+  </div>
+
+  <div class="equity-reveal" id="equityReveal">
+    <div class="equity-reveal-label">Your Estimated Deployable Equity</div>
+    <div class="equity-reveal-number" id="equityNumber">$0</div>
+    <div class="equity-reveal-sub">After paying off your mortgage and estimated selling costs — this is your fuel for the next chapter.</div>
+    <div class="equity-stats">
+      <div>
+        <div class="equity-stat-val" id="statHomeVal">—</div>
+        <div class="equity-stat-lbl">Est. Sale Price</div>
+      </div>
+      <div>
+        <div class="equity-stat-val" id="statGross">—</div>
+        <div class="equity-stat-lbl">Gross Equity</div>
+      </div>
+      <div>
+        <div class="equity-stat-val" id="statSellingCost">—</div>
+        <div class="equity-stat-lbl">Selling Costs (~7%)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="btn-nav">
+    <button class="btn btn-ghost" onclick="goTo(1)">&larr; Back</button>
+    <button class="btn btn-primary" onclick="goTo(3)">Continue &rarr;</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     STAGE 3 — YOUR PLAN
+══════════════════════════════════ -->
+<div class="stage" id="stage-3">
+  <div class="stage-eyebrow">Step 3 of 5</div>
+  <h1 class="stage-headline">Now let's build<br><em>the right picture.</em></h1>
+  <p class="stage-subhead">The right move isn't just about finding a smaller home. It's about engineering a life where your money does the living too. Tell us what matters most in yours.</p>
+
+  <div class="section-label">About your next home</div>
+
+  <div class="form-row" style="margin-bottom:8px;">
+    <div class="form-group">
+      <label>Target New Home Price</label>
+      <select id="newHomePrice" onchange="updateNewHomeHint()">
+        <option value="">— select range —</option>
+        <option value="175000">Under $200,000</option>
+        <option value="225000">$200,000 – $250,000</option>
+        <option value="275000">$250,000 – $300,000</option>
+        <option value="325000">$300,000 – $350,000</option>
+        <option value="375000">$350,000 – $400,000</option>
+        <option value="425000">$400,000 – $450,000</option>
+        <option value="475000">$450,000 – $500,000</option>
+        <option value="550000">$500,000+</option>
+      </select>
+      <p class="form-hint" id="newHomePriceHint">Your strategy changes significantly based on this number — we'll show you exactly how.</p>
+    </div>
+    <div class="form-group">
+      <label>Type of Home You're Targeting</label>
+      <select id="newHomeType">
+        <option value="">— select —</option>
+        <option value="patio-home">Patio / Garden Home</option>
+        <option value="condo">Condo or Townhome</option>
+        <option value="smaller-sfh">Smaller Single-Family</option>
+        <option value="55-plus">55+ Community</option>
+        <option value="not-sure">Not sure yet</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>Preferred Area</label>
+    <select id="preferredArea">
+      <option value="">— select area —</option>
+      <option value="League City">League City</option>
+      <option value="Pearland">Pearland</option>
+      <option value="Friendswood">Friendswood</option>
+      <option value="Clear Lake">Clear Lake</option>
+      <option value="Dickinson">Dickinson</option>
+      <option value="Manvel">Manvel</option>
+      <option value="Other">Other — I have questions</option>
+    </select>
+  </div>
+
+  <div class="section-label">Your current financial picture</div>
+
+  <div class="form-row" style="margin-bottom:8px;">
+    <div class="form-group">
+      <label>Current Monthly Payment (PITI)</label>
+      <select id="currentPayment">
+        <option value="">— select range —</option>
+        <option value="800">Under $1,000/mo</option>
+        <option value="1200">$1,000 – $1,500/mo</option>
+        <option value="1750">$1,500 – $2,000/mo</option>
+        <option value="2250">$2,000 – $2,500/mo</option>
+        <option value="2750">$2,500 – $3,000/mo</option>
+        <option value="3250">$3,000 – $3,500/mo</option>
+        <option value="3750">$3,500 – $4,000/mo</option>
+        <option value="4500">$4,000+/mo</option>
+      </select>
+      <p class="form-hint">Principal, interest, taxes, and insurance — total monthly housing cost.</p>
+    </div>
+    <div class="form-group">
+      <label>Household Income</label>
+      <select id="householdIncome">
+        <option value="">— select range —</option>
+        <option value="60000">Under $75,000</option>
+        <option value="87500">$75,000 – $100,000</option>
+        <option value="115000">$100,000 – $130,000</option>
+        <option value="145000">$130,000 – $160,000</option>
+        <option value="180000">$160,000 – $200,000</option>
+        <option value="225000">Over $200,000</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-row" style="margin-bottom:8px;">
+    <div class="form-group">
+      <label>Current Retirement Savings</label>
+      <select id="retirementSavings">
+        <option value="">— select range —</option>
+        <option value="0">Just getting started</option>
+        <option value="25000">Under $50,000</option>
+        <option value="75000">$50,000 – $100,000</option>
+        <option value="150000">$100,000 – $200,000</option>
+        <option value="300000">$200,000 – $400,000</option>
+        <option value="500000">$400,000 – $600,000</option>
+        <option value="700000">$600,000+</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Do you contribute to a 401K?</label>
+      <div class="radio-group">
+        <div class="radio-card" onclick="selectRadio(this,'has401k')" data-val="yes">Yes</div>
+        <div class="radio-card" onclick="selectRadio(this,'has401k')" data-val="no">Not currently</div>
+        <div class="radio-card" onclick="selectRadio(this,'has401k')" data-val="unsure">Not sure</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-label" style="margin-top:32px;">What do you want this move to do for your life?</div>
+  <p style="font-size:14px;color:var(--text-mid);margin-bottom:20px;line-height:1.6;">Select everything that applies — this shapes the strategy and the final picture.</p>
+
+  <div class="goal-grid">
+    <div class="goal-card" onclick="toggleGoal(this)" data-val="cashflow">
+      <div class="goal-icon">💰</div>
+      <div class="goal-label">Free Up Cashflow</div>
+      <div class="goal-sub">Money back in our pocket every month</div>
+    </div>
+    <div class="goal-card" onclick="toggleGoal(this)" data-val="lifestyle">
+      <div class="goal-icon">🌴</div>
+      <div class="goal-label">Fund Our Lifestyle</div>
+      <div class="goal-sub">Travel, hobbies, experiences</div>
+    </div>
+    <div class="goal-card" onclick="toggleGoal(this)" data-val="retirement">
+      <div class="goal-icon">🏦</div>
+      <div class="goal-label">Accelerate Retirement</div>
+      <div class="goal-sub">Put equity to work for the future</div>
+    </div>
+    <div class="goal-card" onclick="toggleGoal(this)" data-val="investment">
+      <div class="goal-icon">📊</div>
+      <div class="goal-label">Build Investment Income</div>
+      <div class="goal-sub">Generate monthly returns from deployed equity</div>
+    </div>
+    <div class="goal-card" onclick="toggleGoal(this)" data-val="legacy">
+      <div class="goal-icon">🎁</div>
+      <div class="goal-label">Build Legacy</div>
+      <div class="goal-sub">Leave something real for family</div>
+    </div>
+    <div class="goal-card" onclick="toggleGoal(this)" data-val="cashreserve">
+      <div class="goal-icon">🛡️</div>
+      <div class="goal-label">Cash Reserve</div>
+      <div class="goal-sub">A true financial cushion, finally</div>
+    </div>
+    <div class="goal-card" onclick="toggleGoal(this)" data-val="payoffdebt">
+      <div class="goal-icon">✂️</div>
+      <div class="goal-label">Eliminate Debt</div>
+      <div class="goal-sub">Enter retirement clean</div>
+    </div>
+    <div class="goal-card" onclick="toggleGoal(this)" data-val="all">
+      <div class="goal-icon">🚀</div>
+      <div class="goal-label">All of the Above</div>
+      <div class="goal-sub">Show me everything possible</div>
+    </div>
+  </div>
+
+  <!-- DEBT LIST -->
+  <div id="debtSection">
+    <div class="section-label">Tell us about the debts you'd like to eliminate</div>
+    <p style="font-size:14px;color:var(--text-mid);margin-bottom:20px;line-height:1.6;">Add each debt below — we'll show you what eliminating them frees up every month, and whether your equity can cover it at closing.</p>
+    <div class="debt-list" id="debtList"></div>
+    <button class="add-debt-btn" onclick="addDebt()">+ Add a debt</button>
+  </div>
+
+  <div class="btn-nav">
+    <button class="btn btn-ghost" onclick="goTo(2)">&larr; Back</button>
+    <button class="btn btn-primary" onclick="buildOutput(); goTo(4)">Build My Strategy &rarr;</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     STAGE 4 — YOUR STRATEGY
+══════════════════════════════════ -->
+<div class="stage" id="stage-4">
+  <div class="stage-eyebrow">Step 4 of 5</div>
+  <h1 class="stage-headline">Here's your Rebalance<br><em>strategy.</em></h1>
+  <p class="stage-subhead">Three ways to move — each one built around your equity, your payment, and the life you're building next. The difference isn't your income. It's your approach.</p>
+
+  <!-- REBALANCE SCENARIOS -->
+  <div style="background:var(--white);border-radius:16px;padding:32px;margin-bottom:32px;box-shadow:var(--shadow-sm);">
+    <div style="margin-bottom:6px;">
+      <span style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);">Your Rebalance Scenarios</span>
+    </div>
+    <h2 style="font-family:'Playfair Display',serif;font-size:26px;color:var(--navy);margin-bottom:8px;">Three Ways to Rebalance Your Life</h2>
+    <p style="font-size:14px;color:var(--text-mid);margin-bottom:6px;line-height:1.6;">Same equity. Same move. <strong style="color:var(--navy);">Very different financial outcomes.</strong></p>
+    <p style="font-size:14px;color:var(--text-mid);margin-bottom:28px;line-height:1.6;">This is what changes when you stop thinking about buying a house and start thinking about deploying your equity.</p>
+    <div class="scenarios-grid" id="scenariosGrid"><!-- populated by JS --></div>
+  </div>
+
+  <!-- SELLING STRATEGY -->
+  <div style="background:var(--white);border-radius:16px;padding:32px;box-shadow:var(--shadow-sm);">
+    <div style="margin-bottom:6px;">
+      <span style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);">Home Selling Strategy</span>
+    </div>
+    <h2 style="font-family:'Playfair Display',serif;font-size:26px;color:var(--navy);margin-bottom:8px;">Phil's Proven Selling System</h2>
+    <p style="font-size:14px;color:var(--text-mid);margin-bottom:28px;line-height:1.6;">Before any of those scenarios can happen, the home you're leaving has to sell for what it's worth. Here's the system that makes that happen. Four steps. Every time.</p>
+
+    <div class="strategy-cards" id="strategyCards">
+      <div class="strategy-card" id="sc-1">
+        <div class="strategy-step-num">Step 01</div>
+        <div class="strategy-card-icon">🛡️</div>
+        <div class="strategy-card-title">Equity Protection</div>
+        <div class="strategy-card-body">Before we list, I walk every inch of the home identifying anything that could pull an offer below market or kill a deal at inspection. We address it first — before the buyer's inspector finds it. This is where equity is protected or permanently lost.</div>
+      </div>
+      <div class="strategy-card" id="sc-2">
+        <div class="strategy-step-num">Step 02</div>
+        <div class="strategy-card-icon">💎</div>
+        <div class="strategy-card-title">Value Maximization</div>
+        <div class="strategy-card-body">Strategic, low-cost upgrades that shift how buyers perceive value — without expensive renovation. The right refresh can move your home from market value to above it. Buyers decide in seconds. We make sure those seconds count for you.</div>
+      </div>
+      <div class="strategy-card" id="sc-3">
+        <div class="strategy-step-num">Step 03</div>
+        <div class="strategy-card-icon">📸</div>
+        <div class="strategy-card-title">Professional Presentation</div>
+        <div class="strategy-card-body">Staging, professional photography, and cinematic video. Most buyers make their shortlist before they ever step inside. Professional presentation is not optional — it's the difference between a showing and a scroll-past.</div>
+      </div>
+      <div class="strategy-card" id="sc-4">
+        <div class="strategy-step-num">Step 04</div>
+        <div class="strategy-card-icon">📡</div>
+        <div class="strategy-card-title">Maximum Exposure</div>
+        <div class="strategy-card-body">Your listing on every major platform, targeted social media campaigns, video marketing, and my network of active buyers ready to move. More qualified eyes means more competitive offers — and a stronger final number in your pocket to deploy.</div>
+      </div>
+    </div>
+
+    <div class="strategy-tailored" id="strategyTailored">
+      <p>One thing: to finalize your strategy, Phil will want to walk the home. That visit is free — and it's where the real numbers come together.</p>
+    </div>
+  </div>
+
+  <!-- CAPTURE GATE -->
+  <div class="capture-section" id="captureSection">
+    <div id="captureForm">
+      <div class="capture-eyebrow">Your Rebalance Picture Is Ready</div>
+      <h2 class="capture-headline">Ready to see your real numbers?</h2>
+      <p class="capture-sub">You've seen three scenarios. You've seen the selling system that protects your equity. The biggest number — your monthly cashflow and 10-year projection — is one step away. Where should we send your personalized Rebalance report?</p>
+      <button onclick="openCaptureModal()" class="capture-btn" style="max-width:300px;margin:0 auto;display:block;">Get My Rebalance Report &rarr;</button>
+      <p class="capture-disclaimer">No pressure. No spam. Just your numbers.</p>
+    </div>
+    <div class="success-state" id="captureSuccess">
+      <div style="font-size:48px;margin-bottom:16px;">✅</div>
+      <h3 style="font-family:'Playfair Display',serif;font-size:26px;color:var(--white);margin-bottom:10px;">You're in. Let's see what's possible.</h3>
+      <p style="font-size:15px;color:rgba(255,255,255,0.7);line-height:1.6;">Your complete Rebalance picture is waiting below.</p>
+      <button class="btn btn-primary" onclick="goTo(5)" style="margin-top:24px;">Show Me What's Possible &rarr;</button>
+    </div>
+  </div>
+
+  <div class="btn-nav" id="stage4Back">
+    <button class="btn btn-ghost" onclick="goTo(3)">&larr; Back</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     STAGE 5 — YOUR PICTURE
+══════════════════════════════════ -->
+<div class="stage" id="stage-5">
+  <div class="stage-eyebrow">The Power of reLifeIQ™</div>
+  <h1 class="stage-headline">Your Next Chapter<br><em style="color:var(--gold);">Starts Here.</em></h1>
+  <p class="stage-subhead">Life requires more than potential. It requires action.<br><strong style="color:var(--navy);">Your Move.</strong></p>
+
+  <!-- REBALANCE HERO -->
+  <div class="rebalance-hero">
+    <div class="rebalance-hero-eyebrow">Your Monthly Rebalance Potential</div>
+    <div class="rebalance-hero-number" id="rebalanceHeroNumber"><span>$</span>—</div>
+    <div class="rebalance-hero-label" id="rebalanceHeroLabel">freed up every month — money that was going to your mortgage, now going to your life.*</div>
+    <div class="rebalance-stat-row">
+      <div>
+        <div class="rebalance-stat-val" id="statNetEquity">—</div>
+        <div class="rebalance-stat-lbl">Net Equity</div>
+      </div>
+      <div>
+        <div class="rebalance-stat-val" id="statDeployedEquity">—</div>
+        <div class="rebalance-stat-lbl">Equity Deployed</div>
+      </div>
+      <div>
+        <div class="rebalance-stat-val" id="statProj10">—</div>
+        <div class="rebalance-stat-lbl">10-Year Projection</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DEBT PAYOFF -->
+  <div id="debtPayoffResult"></div>
+
+  <!-- CLOSING QUOTE -->
+  <div class="closing-box">
+    <p>"The difference between these scenarios isn't the home you choose.<br><strong>It's what you do with what you've built."</strong></p>
+  </div>
+
+  <!-- APPOINTMENT CTA -->
+  <div class="appt-section">
+    <h3>Let's make it real.</h3>
+    <p>That cashflow number on your screen isn't a projection. It's money that could be in your pocket every single month — instead of going toward a mortgage payment you no longer need. The families who build real financial freedom in this phase of life don't do it by accident. They do it with a plan.<br><br>Your plan starts with one conversation.</p>
+    <button class="btn btn-primary" onclick="openApptModal()" style="font-size:17px;padding:18px 48px;background:var(--gold);color:var(--navy);">
+      I'm Ready to Act &rarr;
+    </button>
+  </div>
+</div>
+
+</main>
+
+<div class="disclaimer">
+  *Projections are for illustrative purposes only. Monthly cashflow figures are estimates based on mortgage elimination or reduction and may not reflect taxes, insurance, HOA fees, or other expenses. S&P 500 projections use a 10% historical average annual return; past performance does not guarantee future results. This tool does not constitute financial, investment, or legal advice. Consult a licensed financial advisor before making investment decisions. Home valuations are estimates and may vary from actual market value. Selling costs estimated at 7% of sale price. Rebalance™ is a product of reLifeIQ™.
+</div>
+
+<!-- ── CAPTURE MODAL ── -->
+<div id="captureModal" style="display:none;position:fixed;inset:0;background:rgba(10,22,40,0.75);z-index:1000;align-items:center;justify-content:center;padding:24px;">
+  <div style="background:var(--white);border-radius:20px;padding:48px 40px;max-width:480px;width:100%;box-shadow:0 20px 60px rgba(10,22,40,0.3);">
+    <div id="captureModalFormWrap">
+      <div style="font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:10px;">Your Rebalance Report</div>
+      <h2 style="font-family:'Playfair Display',serif;font-size:28px;color:var(--navy);margin-bottom:8px;">Your numbers are ready.</h2>
+      <p style="font-size:14px;color:var(--text-mid);margin-bottom:24px;line-height:1.6;">Where should we send your personalized Rebalance report?</p>
+      <div class="form-row">
+        <div class="form-group">
+          <label>First Name</label>
+          <input type="text" id="captureFirst" placeholder="Sandra">
+        </div>
+        <div class="form-group">
+          <label>Last Name</label>
+          <input type="text" id="captureLast" placeholder="Martinez">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Best Email</label>
+        <input type="email" id="captureEmail" placeholder="sandra@email.com">
+      </div>
+      <div class="form-group">
+        <label>Best Phone</label>
+        <input type="tel" id="capturePhone" placeholder="(832) 555-0000" oninput="formatPhone(this)" maxlength="14">
+      </div>
+      <button onclick="submitCapture()" style="width:100%;padding:18px;background:var(--gold);color:var(--navy);border:none;border-radius:10px;font-size:17px;font-weight:700;font-family:'Inter',sans-serif;cursor:pointer;margin-top:8px;">Get My Rebalance Report &rarr;</button>
+      <p style="font-size:11px;color:var(--text-light);text-align:center;margin-top:12px;">No spam. No pressure. By submitting you agree to be contacted by <span id="captureAgentName"></span>.</p>
+    </div>
+    <div id="captureModalSuccess" style="display:none;text-align:center;padding:20px 0;">
+      <div style="font-size:48px;margin-bottom:16px;">✅</div>
+      <h3 style="font-family:'Playfair Display',serif;font-size:26px;color:var(--navy);margin-bottom:10px;">You're in.</h3>
+      <p style="font-size:15px;color:var(--text-mid);line-height:1.6;">Your Rebalance picture is ready. Let's see what's possible.</p>
+      <button onclick="closeCaptureAndProceed()" style="margin-top:24px;padding:14px 36px;background:var(--gold);color:var(--navy);border:none;border-radius:10px;font-size:16px;font-weight:700;font-family:'Inter',sans-serif;cursor:pointer;">Show Me What's Possible &rarr;</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── APPOINTMENT MODAL ── -->
+<div id="apptModal" style="display:none;position:fixed;inset:0;background:rgba(10,22,40,0.75);z-index:1000;align-items:center;justify-content:center;padding:24px;">
+  <div style="background:var(--white);border-radius:20px;padding:48px 40px;max-width:480px;width:100%;box-shadow:0 20px 60px rgba(10,22,40,0.3);">
+    <div id="apptFormWrap">
+      <div style="font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:10px;">Book Your Strategy Call</div>
+      <h2 style="font-family:'Playfair Display',serif;font-size:28px;color:var(--navy);margin-bottom:8px;">Let's build your real plan.</h2>
+      <p style="font-size:14px;color:var(--text-mid);margin-bottom:24px;line-height:1.6;"><span id="apptModalAgent"></span> will reach out within one business hour to schedule your strategy session.</p>
+      <div class="form-group">
+        <label>Preferred Contact Method</label>
+        <div class="radio-group">
+          <div class="radio-card" onclick="selectRadio(this,'contactPref')" data-val="call">Phone Call</div>
+          <div class="radio-card" onclick="selectRadio(this,'contactPref')" data-val="text">Text</div>
+          <div class="radio-card" onclick="selectRadio(this,'contactPref')" data-val="email">Email</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Best Time to Reach You</label>
+        <select id="apptTime">
+          <option value="">— select —</option>
+          <option value="morning">Morning (8am – 12pm)</option>
+          <option value="afternoon">Afternoon (12pm – 5pm)</option>
+          <option value="evening">Evening (5pm – 8pm)</option>
+          <option value="anytime">Anytime works</option>
+        </select>
+      </div>
+      <button onclick="submitAppt()" style="width:100%;padding:16px;background:var(--navy);color:var(--white);border:none;border-radius:10px;font-size:16px;font-weight:600;font-family:'Inter',sans-serif;cursor:pointer;transition:background 0.2s;">
+        Book My Strategy Call
+      </button>
+      <p style="font-size:11px;color:var(--text-light);text-align:center;margin-top:12px;">No spam. No pressure. One call that could change everything.</p>
+    </div>
+    <div id="apptSuccess" style="display:none;text-align:center;padding:20px 0;">
+      <div style="font-size:48px;margin-bottom:16px;">🎉</div>
+      <h3 style="font-family:'Playfair Display',serif;font-size:26px;color:var(--navy);margin-bottom:10px;">You're on the calendar.</h3>
+      <p style="font-size:15px;color:var(--text-mid);line-height:1.6;"><span id="apptSuccessAgent"></span> will reach out shortly to confirm your time.<br><br>In the meantime — look at what you've built. Most families in your position never see this picture. You do now.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     JAVASCRIPT
+══════════════════════════════════ -->
+<script>
+  // ── INIT ──
+  document.getElementById('headerAgentName').textContent  = AGENT.name;
+  document.getElementById('headerAgentTitle').textContent = AGENT.title;
+  document.getElementById('captureAgentName').textContent = AGENT.name;
+  document.getElementById('apptModalAgent').textContent   = AGENT.name;
+  document.getElementById('apptSuccessAgent').textContent = AGENT.name;
+
+  // ── STATE ──
+  const state = {
+    moment: '',
+    currentBeds: 0, currentBaths: 0, currentSqft: 0, currentYear: 0,
+    homeValue: 0, mortgageBalance: 0, grossEquity: 0, netEquity: 0,
+    newHomePrice: 0, newHomeType: '', preferredArea: '',
+    currentPayment: 0, householdIncome: 0, retirementSavings: 0, has401k: '',
+    goals: [], debts: [],
+    heroMonthlyCashflow: 0, heroEquityProjection: 0, remainingEquity: 0,
+    captureFirst: '', captureLast: '', captureEmail: '', capturePhone: '',
+    contactPref: ''
+  };
+
+  const progress = [0, 10, 30, 55, 77, 100];
+
+  // ── NAVIGATION ──
+  function goTo(step) {
+    document.querySelectorAll('.stage').forEach(s => s.classList.remove('active'));
+    document.getElementById('stage-' + step).classList.add('active');
+    document.getElementById('progressFill').style.width = progress[step] + '%';
+    for (let i = 1; i <= 5; i++) {
+      const el = document.getElementById('pl-' + i);
+      el.classList.remove('active','done');
+      if (i < step) el.classList.add('done');
+      if (i === step) el.classList.add('active');
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (step === 4) revealStrategyCards();
+  }
+
+  // ── LIFE MOMENT (single select) ──
+  function selectMoment(card, val) {
+    document.querySelectorAll('.moment-card').forEach(c => c.classList.remove('selected'));
+    card.classList.add('selected');
+    state.moment = val;
+  }
+
+  // ── GOALS ──
+  function toggleGoal(card) {
+    card.classList.toggle('selected');
+    const val = card.dataset.val;
+    const idx = state.goals.indexOf(val);
+    if (idx === -1) state.goals.push(val);
+    else state.goals.splice(idx, 1);
+    const showDebt = state.goals.includes('payoffdebt') || state.goals.includes('all');
+    document.getElementById('debtSection').classList.toggle('visible', showDebt);
+    if (showDebt && document.getElementById('debtList').children.length === 0) addDebt();
+  }
+
+  // ── RADIO ──
+  function selectRadio(card, group) {
+    card.closest('.radio-group').querySelectorAll('.radio-card').forEach(c => c.classList.remove('selected'));
+    card.classList.add('selected');
+    state[group] = card.dataset.val;
+  }
+
+  // ── FORMAT ──
+  function fmt(n) { return '$' + Math.round(n).toLocaleString(); }
+  function parseDollar(val) { return parseInt((val||'0').replace(/[^0-9]/g,'')) || 0; }
+  function formatPhone(input) {
+    let d = input.value.replace(/\D/g, '').substring(0, 10);
+    if (d.length >= 7)      input.value = '(' + d.substring(0,3) + ') ' + d.substring(3,6) + '-' + d.substring(6);
+    else if (d.length >= 4) input.value = '(' + d.substring(0,3) + ') ' + d.substring(3);
+    else if (d.length > 0)  input.value = '(' + d;
+    else                    input.value = '';
+  }
+  function formatDollar(input) {
+    let raw = input.value.replace(/[^0-9]/g,'');
+    if (raw) input.value = '$' + parseInt(raw).toLocaleString();
+    else input.value = '';
+  }
+
+  // ── EQUITY CALC ──
+  function calcEquity() {
+    const hv = parseInt(document.getElementById('homeValue').value) || 0;
+    const mb = parseDollar(document.getElementById('mortgageBalance').value);
+    if (!hv || !mb) return;
+    state.homeValue       = hv;
+    state.mortgageBalance = mb;
+    state.grossEquity     = hv - mb;
+    const sc              = Math.round(hv * 0.07);
+    state.netEquity       = state.grossEquity - sc;
+    const reveal = document.getElementById('equityReveal');
+    if (state.netEquity > 0) {
+      reveal.classList.add('visible');
+      animateCount(document.getElementById('equityNumber'), state.netEquity);
+      document.getElementById('statHomeVal').textContent      = fmt(hv);
+      document.getElementById('statGross').textContent        = fmt(state.grossEquity);
+      document.getElementById('statSellingCost').textContent  = fmt(sc);
+    } else {
+      reveal.classList.remove('visible');
+    }
+  }
+
+  // ── ANIMATE COUNT-UP ──
+  function animateCount(el, target) {
+    let start = 0;
+    const step = ts => {
+      if (!start) start = ts;
+      const p = Math.min((ts - start) / 900, 1);
+      const ease = 1 - Math.pow(1 - p, 3);
+      el.textContent = fmt(Math.round(ease * target));
+      if (p < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }
+
+  // ── NEW HOME PRICE HINT ──
+  function updateNewHomeHint() {
+    const val = parseInt(document.getElementById('newHomePrice').value) || 0;
+    const hint = document.getElementById('newHomePriceHint');
+    if (!val || !state.netEquity) return;
+    if (val < state.netEquity) {
+      hint.textContent = 'Your equity covers this home outright — cash purchase (Scenario A) may be on the table.';
+      hint.style.color = 'var(--green)';
+    } else {
+      hint.textContent = 'Your strategy changes significantly based on this number — we\'ll show you exactly how.';
+      hint.style.color = '';
+    }
+  }
+
+  // ── DEBT LIST ──
+  let debtCount = 0;
+  function addDebt() {
+    debtCount++;
+    const id = 'debt-' + debtCount;
+    document.getElementById('debtList').insertAdjacentHTML('beforeend', `
+      <div class="debt-entry" id="${id}">
+        <button class="debt-entry-remove" onclick="removeDebt('${id}')" title="Remove">&times;</button>
+        <div class="form-row-3">
+          <div class="form-group" style="margin-bottom:0;">
+            <label>Type of Debt</label>
+            <select>
+              <option value="">— select —</option>
+              <option value="Car / Auto">Car / Auto</option>
+              <option value="Credit Card">Credit Card</option>
+              <option value="Student Loan">Student Loan</option>
+              <option value="Personal Loan">Personal Loan</option>
+              <option value="Medical">Medical</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="form-group" style="margin-bottom:0;">
+            <label>Monthly Payment</label>
+            <select class="debt-payment">
+              <option value="0">— select —</option>
+              <option value="150">Under $200/mo</option>
+              <option value="300">$200 – $400/mo</option>
+              <option value="500">$400 – $600/mo</option>
+              <option value="750">$600 – $900/mo</option>
+              <option value="1000">$900 – $1,200/mo</option>
+              <option value="1500">$1,200+/mo</option>
+            </select>
+          </div>
+          <div class="form-group" style="margin-bottom:0;">
+            <label>Balance Owed</label>
+            <select class="debt-balance">
+              <option value="0">— select —</option>
+              <option value="5000">Under $10,000</option>
+              <option value="15000">$10,000 – $20,000</option>
+              <option value="30000">$20,000 – $40,000</option>
+              <option value="50000">$40,000 – $60,000</option>
+              <option value="75000">$60,000 – $90,000</option>
+              <option value="100000">$90,000+</option>
+            </select>
+          </div>
+        </div>
+      </div>`);
+  }
+
+  function removeDebt(id) {
+    const el = document.getElementById(id);
+    if (el) el.remove();
+  }
+
+  function collectDebts() {
+    state.debts = [];
+    document.querySelectorAll('.debt-entry').forEach(entry => {
+      const type    = entry.querySelector('select').value;
+      const payment = parseInt(entry.querySelector('.debt-payment').value) || 0;
+      const balance = parseInt(entry.querySelector('.debt-balance').value) || 0;
+      if (payment > 0 || balance > 0) state.debts.push({ type, payment, balance });
+    });
+  }
+
+  // ── MATH ──
+  function monthlyPayment(principal, rate, years) {
+    const r = rate / 12, n = years * 12;
+    return Math.round(principal * (r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1));
+  }
+  function fv(pv, rate, years) { return Math.round(pv * Math.pow(1 + rate, years)); }
+  function fvAnnuity(pmt, rate, years) { return Math.round(pmt * (Math.pow(1 + rate, years) - 1) / rate); }
+
+  // ── BUILD OUTPUT ──
+  function buildOutput() {
+    collectDebts();
+
+    state.newHomePrice      = parseInt(document.getElementById('newHomePrice').value) || 325000;
+    state.currentPayment    = parseInt(document.getElementById('currentPayment').value) || 2000;
+    state.householdIncome   = parseInt(document.getElementById('householdIncome').value) || 0;
+    state.retirementSavings = parseInt(document.getElementById('retirementSavings').value) || 0;
+
+    const net    = state.netEquity;
+    const tgt    = state.newHomePrice;
+    const curPmt = state.currentPayment;
+
+    // Taxes + insurance on new home: ~1.5% annually
+    const tiNew = Math.round(tgt * 0.015 / 12);
+
+    // ── SCENARIO A: 100% Cash — The Clean Slate ──
+    const downA      = tgt;
+    const newPmtA    = tiNew;
+    const cashFlowA  = Math.max(0, curPmt - newPmtA);
+    const remainA    = net - downA; // can be negative — we'll handle display
+    const proj10A    = remainA > 0 ? fv(remainA, 0.10, 10) : 0;
+
+    // ── SCENARIO B: 20% Down — The Rebalance (HIGHLIGHTED) ──
+    const downB      = Math.round(tgt * 0.20);
+    const loanB      = tgt - downB;
+    const piB        = monthlyPayment(loanB, 0.07, 30);
+    const newPmtB    = piB + tiNew;
+    const cashFlowB  = Math.max(0, curPmt - newPmtB);
+    const closingB   = Math.round(tgt * 0.02);
+    const remainB    = Math.max(0, net - downB - closingB);
+    const proj10B    = fv(remainB, 0.10, 10);
+
+    // ── SCENARIO C: 10% Down — The Deploy ──
+    const downC      = Math.round(tgt * 0.10);
+    const loanC      = tgt - downC;
+    const piC        = monthlyPayment(loanC, 0.07, 30);
+    const pmiC       = 150;
+    const newPmtC    = piC + tiNew + pmiC;
+    const cashFlowC  = Math.max(0, curPmt - newPmtC);
+    const closingC   = Math.round(tgt * 0.02);
+    const remainC    = Math.max(0, net - downC - closingC);
+    const proj10C    = fv(remainC, 0.10, 10);
+
+    // ── 401K PROJECTION ──
+    const annualContrib = state.householdIncome * 0.06;
+    const retiro10 = (state.has401k === 'yes' && state.householdIncome)
+      ? fvAnnuity(annualContrib, 0.10, 10) : 0;
+
+    // ── HERO NUMBERS (Step 5) ──
+    // Hero = cashflow freed (use Scenario A if feasible, else Scenario B)
+    const heroMonthly    = remainA >= 0 ? cashFlowA : cashFlowB;
+    const heroProjection = proj10B; // 20% down — the balanced, recommended scenario
+    state.heroMonthlyCashflow  = heroMonthly;
+    state.heroEquityProjection = heroProjection;
+    state.remainingEquity      = remainB;
+
+    // ── POPULATE SCENARIOS ──
+    const scenarioA_feasible = remainA >= 0;
+    document.getElementById('scenariosGrid').innerHTML = [
+      {
+        badge: null, label: 'Scenario A', name: 'The Clean Slate',
+        rows: [
+          { l: 'Down Payment',        v: fmt(downA) },
+          { l: 'New Monthly Payment', v: fmt(newPmtA) + '/mo' },
+          { l: 'Cashflow Freed',      v: cashFlowA > 0 ? '+' + fmt(cashFlowA) + '/mo' : 'Awaiting your current payment', cls: cashFlowA > 0 ? 'green' : '' },
+          { l: 'Equity Remaining',    v: remainA >= 0 ? fmt(remainA) : 'Home value covers purchase', cls: remainA >= 0 ? 'green' : '' },
+          { l: '10-Year Projection',  v: proj10A > 0 ? fmt(proj10A) : 'All equity in home', cls: 'gold' }
+        ],
+        desc: 'Zero mortgage. Just taxes and insurance. Maximum monthly freedom — and whatever equity remains grows in the market.', hi: false
+      },
+      {
+        badge: 'Recommended', label: 'Scenario B', name: 'The Rebalance',
+        rows: [
+          { l: 'Down Payment',        v: fmt(downB) },
+          { l: 'New Monthly Payment', v: fmt(newPmtB) + '/mo' },
+          { l: 'Cashflow Freed',      v: cashFlowB > 0 ? '+' + fmt(cashFlowB) + '/mo' : 'Close to breakeven', cls: cashFlowB > 0 ? 'green' : '' },
+          { l: 'Equity Deployed',     v: fmt(remainB), cls: 'green' },
+          { l: '10-Year Projection',  v: fmt(proj10B), cls: 'gold' }
+        ],
+        desc: 'The sweet spot. Lower payment, meaningful cashflow freed, and significant equity deployed outside the home to grow.', hi: true
+      },
+      {
+        badge: null, label: 'Scenario C', name: 'The Deploy',
+        rows: [
+          { l: 'Down Payment',        v: fmt(downC) },
+          { l: 'New Monthly Payment', v: fmt(newPmtC) + '/mo' },
+          { l: 'Cashflow Freed',      v: cashFlowC > 0 ? '+' + fmt(cashFlowC) + '/mo' : 'Close to breakeven', cls: cashFlowC > 0 ? 'green' : '' },
+          { l: 'Equity Deployed',     v: fmt(remainC), cls: 'green' },
+          { l: '10-Year Projection',  v: fmt(proj10C), cls: 'gold' }
+        ],
+        desc: 'Minimum cash to close. Maximum equity deployed and working. Best for building long-term investment income.', hi: false
+      }
+    ].map(sc => `
+      <div class="scenario-card ${sc.hi ? 'highlighted' : ''}">
+        ${sc.badge ? `<div class="scenario-badge">${sc.badge}</div>` : ''}
+        <div class="scenario-label">${sc.label}</div>
+        <div class="scenario-name">${sc.name}</div>
+        ${sc.rows.map(r => `<div class="scenario-row"><span class="scenario-row-label">${r.l}</span><span class="scenario-row-value ${r.cls || ''}">${r.v}</span></div>`).join('')}
+        <div class="scenario-desc">${sc.desc}</div>
+      </div>`).join('');
+
+    // ── POPULATE STEP 5 HERO ──
+    document.getElementById('rebalanceHeroNumber').innerHTML = '<span>$</span>' + Math.round(heroMonthly).toLocaleString();
+    document.getElementById('statNetEquity').textContent     = fmt(net);
+    document.getElementById('statDeployedEquity').textContent= fmt(remainB);
+    document.getElementById('statProj10').textContent        = fmt(heroProjection + retiro10);
+
+    // ── DEBT PAYOFF ──
+    const dpEl = document.getElementById('debtPayoffResult');
+    if (state.debts.length > 0) {
+      const totalPayment = state.debts.reduce((s, d) => s + d.payment, 0);
+      const totalBalance = state.debts.reduce((s, d) => s + d.balance, 0);
+      const canPayOff    = totalBalance <= net;
+      dpEl.innerHTML = `
+        <div class="debt-payoff-box">
+          <h4>💡 Debt Elimination Strategy</h4>
+          ${state.debts.map(d => `<div class="debt-payoff-row"><span>${d.type || 'Debt'} — ${fmt(d.balance)} balance</span><span>${fmt(d.payment)}/mo freed</span></div>`).join('')}
+          <div class="debt-payoff-row" style="margin-top:8px;"><span>Total cash flow freed monthly</span><span>${fmt(totalPayment)}/mo</span></div>
+          <div class="debt-payoff-row"><span>Total equity needed</span><span>${fmt(totalBalance)}</span></div>
+          <div class="debt-payoff-row"><span>Status</span><span>${canPayOff ? '✅ Your equity covers this' : 'Strategy call will map the right sequence'}</span></div>
+        </div>`;
+    } else {
+      dpEl.innerHTML = '';
+    }
+  }
+
+  // ── STRATEGY CARD REVEAL (staggered) ──
+  function revealStrategyCards() {
+    ['sc-1', 'sc-2', 'sc-3', 'sc-4', 'strategyTailored'].forEach((id, i) => {
+      setTimeout(() => {
+        const el = document.getElementById(id);
+        if (el) el.classList.add('revealed');
+      }, i * 220);
+    });
+  }
+
+  // ── CAPTURE MODAL ──
+  function openCaptureModal() {
+    document.getElementById('captureModal').style.display = 'flex';
+  }
+
+  function closeCaptureAndProceed() {
+    document.getElementById('captureModal').style.display = 'none';
+    document.getElementById('captureForm').style.display = 'none';
+    document.getElementById('captureSuccess').classList.add('visible');
+    document.getElementById('stage4Back').style.display = 'none';
+    goTo(5);
+  }
+
+  // ── VALIDATION ──
+  function validatePhone(phone) { return phone.replace(/\D/g, '').length === 10; }
+  function validateEmail(email) { return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email); }
+
+  function showFieldError(id, msg) {
+    const el = document.getElementById(id);
+    el.style.borderColor = '#E53E3E';
+    let err = el.parentNode.querySelector('.field-error');
+    if (!err) { err = document.createElement('p'); err.className = 'field-error'; err.style.cssText = 'color:#E53E3E;font-size:12px;margin-top:5px;'; el.parentNode.appendChild(err); }
+    err.textContent = msg;
+  }
+
+  function clearFieldErrors() {
+    document.querySelectorAll('.field-error').forEach(e => e.remove());
+    ['captureFirst', 'captureEmail', 'capturePhone'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.style.borderColor = '';
+    });
+  }
+
+  // ── SUBMIT CAPTURE ──
+  function submitCapture() {
+    clearFieldErrors();
+    const first = document.getElementById('captureFirst').value.trim();
+    const last  = document.getElementById('captureLast').value.trim();
+    const email = document.getElementById('captureEmail').value.trim();
+    const phone = document.getElementById('capturePhone').value.trim();
+
+    let valid = true;
+    if (!first)                  { showFieldError('captureFirst', 'Please enter your first name.'); valid = false; }
+    if (!email)                  { showFieldError('captureEmail', 'Please enter your email address.'); valid = false; }
+    else if (!validateEmail(email)) { showFieldError('captureEmail', 'Please enter a valid email address.'); valid = false; }
+    if (!phone)                  { showFieldError('capturePhone', 'Please enter your phone number.'); valid = false; }
+    else if (!validatePhone(phone)) { showFieldError('capturePhone', 'Please enter a valid 10-digit US phone number.'); valid = false; }
+    if (!valid) return;
+
+    state.captureFirst = first;
+    state.captureLast  = last;
+    state.captureEmail = email;
+    state.capturePhone = phone;
+
+    const payload = {
+      // Contact
+      firstName: first, lastName: last, email, phone,
+
+      // Meta
+      source:             'Rebalance™ v1 — philliphimes.com',
+      submittedAt:        new Date().toISOString(),
+      verificationStatus: 'unverified',
+      tags:               AGENT.tags.unverified,
+
+      // TCPA
+      smsConsent:          true,
+      smsConsentLanguage:  'I agree to receive text messages from Phil Himes. Msg & data rates may apply. Reply STOP to cancel.',
+      smsConsentTimestamp: new Date().toISOString(),
+
+      // Tool data
+      moment:             state.moment,
+      homeValue:          state.homeValue,
+      mortgageBalance:    state.mortgageBalance,
+      grossEquity:        state.grossEquity,
+      netEquity:          state.netEquity,
+      newHomePrice:       state.newHomePrice,
+      newHomeType:        document.getElementById('newHomeType').value,
+      preferredArea:      document.getElementById('preferredArea').value,
+      currentPayment:     state.currentPayment,
+      householdIncome:    state.householdIncome,
+      retirementSavings:  state.retirementSavings,
+      has401k:            state.has401k,
+      goals:              state.goals.join(', '),
+      debts:              JSON.stringify(state.debts),
+      heroMonthlyCashflow:  state.heroMonthlyCashflow,
+      heroEquityProjection: state.heroEquityProjection
+    };
+
+    if (AGENT.webhook) {
+      fetch(AGENT.webhook, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      }).catch(e => console.warn('Webhook error:', e));
+    }
+
+    document.getElementById('captureModalFormWrap').style.display = 'none';
+    document.getElementById('captureModalSuccess').style.display  = 'block';
+  }
+
+  // ── APPOINTMENT MODAL ──
+  function openApptModal() {
+    document.getElementById('apptModal').style.display = 'flex';
+  }
+
+  function submitAppt() {
+    const pref = state.contactPref;
+    const time = document.getElementById('apptTime').value;
+
+    const payload = {
+      firstName: state.captureFirst, lastName: state.captureLast,
+      email:     state.captureEmail, phone:    state.capturePhone,
+      source:       'Rebalance™ v1 — Strategy Call Request',
+      contactPref:  pref,
+      preferredTime: time,
+      netEquity:          state.netEquity,
+      newHomePrice:       state.newHomePrice,
+      heroMonthlyCashflow: state.heroMonthlyCashflow,
+      goals:              state.goals.join(', ')
+    };
+
+    if (AGENT.webhook) {
+      fetch(AGENT.webhook, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      }).catch(e => console.warn('Webhook error:', e));
+    }
+
+    document.getElementById('apptFormWrap').style.display = 'none';
+    document.getElementById('apptSuccess').style.display  = 'block';
+  }
+
+  // Close appt modal on backdrop click
+  document.getElementById('apptModal').addEventListener('click', function(e) {
+    if (e.target === this) this.style.display = 'none';
+  });
+
+  // ── SMS TAP-TO-VERIFY ─────────────────────────────────────────
+  // Placeholder for future tap-to-verify implementation.
+  // When wired: GHL workflow sends a signed link via SMS on lead creation.
+  // User taps → philliphimes.com/verify?t=[token] → GHL tag updated to "Rebalance — Verified".
+</script>
+
+</body>
+</html>
