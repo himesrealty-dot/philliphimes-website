@@ -820,6 +820,11 @@
             <div style="font-weight:600;">Phone Call</div>
             <div style="font-size:11px;color:var(--text-light);margin-top:3px;">&nbsp;</div>
           </button>
+          <button type="button" class="radio-card" onclick="selectRadio(this,'contactPref')" data-val="inperson">
+            <div style="font-size:20px;margin-bottom:4px;">🤝</div>
+            <div style="font-weight:600;">In Person</div>
+            <div style="font-size:11px;color:var(--text-light);margin-top:3px;">League City area</div>
+          </button>
         </div>
       </div>
       <div class="form-group">
@@ -1121,8 +1126,8 @@
           { l: 'Down Payment',        v: fmt(downA) },
           { l: 'New Monthly Payment', v: fmt(newPmtA) + '/mo' },
           { l: 'Cashflow Freed',      v: cashFlowA > 0 ? '+' + fmt(cashFlowA) + '/mo' : 'Awaiting your current payment', cls: cashFlowA > 0 ? 'green' : '' },
-          { l: 'Equity Remaining',    v: remainA >= 0 ? fmt(remainA) : 'Home value covers purchase', cls: remainA >= 0 ? 'green' : '' },
-          { l: '10-Year Projection',  v: proj10A > 0 ? fmt(proj10A) : 'All equity in home', cls: 'gold' }
+          { l: 'Equity in New Home',   v: fmt(downA), cls: 'green' },
+          { l: '10-Year Projection',  v: proj10A > 0 ? fmt(proj10A) : fmt(fv(downA, 0.10, 10)), cls: 'gold' }
         ],
         desc: 'Zero mortgage. Just taxes and insurance. Maximum monthly freedom — and whatever equity remains grows in the market.', hi: false
       },
