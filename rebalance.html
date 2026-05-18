@@ -185,6 +185,16 @@
     .rebalance-stat-row { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; margin-top: 28px; padding-top: 28px; border-top: 1px solid rgba(255,255,255,0.1); }
     .rebalance-stat-val { font-family: 'Playfair Display', serif; font-size: 26px; color: var(--gold); font-weight: 600; }
     .rebalance-stat-lbl { font-size: 12px; color: rgba(255,255,255,0.45); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+    /* ── THREE PILLARS ── */
+    .pillar-row { display: flex; justify-content: center; align-items: stretch; gap: 0; margin-top: 8px; }
+    .pillar { flex: 1; text-align: center; padding: 28px 16px; }
+    .pillar-divider { width: 1px; background: rgba(255,255,255,0.12); margin: 16px 0; }
+    .pillar-val { font-family: 'Playfair Display', serif; font-size: clamp(28px,5vw,42px); font-weight: 700; color: var(--gold); line-height: 1.1; }
+    .pillar-val.center-pillar { font-size: clamp(34px,6vw,52px); color: var(--white); }
+    .pillar-name { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.8); text-transform: uppercase; letter-spacing: 1px; margin-top: 10px; }
+    .pillar-tag { font-size: 11px; color: var(--gold); letter-spacing: 1.5px; text-transform: uppercase; margin-top: 5px; font-weight: 500; }
+    .pillar-sub { font-size: 11px; color: rgba(255,255,255,0.35); margin-top: 4px; }
+    .pillar-disclaimer { font-size: 11px; color: rgba(255,255,255,0.25); margin-top: 24px; line-height: 1.6; }
 
     /* ── DEBT PAYOFF BOX ── */
     .debt-payoff-box { background: var(--green-light); border: 1px solid var(--green); border-radius: 14px; padding: 24px 28px; margin-bottom: 28px; }
@@ -512,8 +522,16 @@
     <div class="form-group">
       <label>Current Retirement Savings</label>
       <input type="text" id="retirementSavings" placeholder="e.g. $284,000" oninput="formatDollar(this)">
-      <p class="form-hint">401K, IRA, pension — total combined. Check your last statement. This shapes your 10-year projection.</p>
+      <p class="form-hint">401K, IRA, pension — total combined. Check your last statement. This shapes your projected wealth.</p>
     </div>
+    <div class="form-group">
+      <label>Date of Birth</label>
+      <input type="date" id="birthDate" min="1940-01-01" max="2026-12-31" value="1960-01-01"
+             onchange="state.birthDate = this.value; state.birthYear = this.value ? parseInt(this.value.split('-')[0]) : 0">
+      <p class="form-hint">Used to personalize your wealth projection to age 70. Kept private — never shared.</p>
+    </div>
+  </div>
+  <div class="form-row" style="margin-bottom:8px;">
     <div class="form-group">
       <label>Est. Social Security Income</label>
       <input type="text" id="socialSecurityIncome" placeholder="e.g. $2,200/mo" oninput="formatDollar(this)">
@@ -681,23 +699,28 @@
 
   <!-- REBALANCE HERO -->
   <div class="rebalance-hero">
-    <div class="rebalance-hero-eyebrow">Your Monthly Rebalance Potential</div>
-    <div class="rebalance-hero-number" id="rebalanceHeroNumber"><span>$</span>—</div>
-    <div class="rebalance-hero-label" id="rebalanceHeroLabel">freed up every month — money that was going to your mortgage, now going to your life.*</div>
-    <div class="rebalance-stat-row">
-      <div>
-        <div class="rebalance-stat-val" id="statNetEquity">—</div>
-        <div class="rebalance-stat-lbl">Net Equity</div>
+    <div class="rebalance-hero-eyebrow">Your Rebalance Strategy — At a Glance</div>
+    <div class="pillar-row">
+      <div class="pillar">
+        <div class="pillar-val" id="pillarCashflow">—</div>
+        <div class="pillar-name">Monthly Cashflow</div>
+        <div class="pillar-tag">Live Better Now</div>
       </div>
-      <div>
-        <div class="rebalance-stat-val" id="statDeployedEquity">—</div>
-        <div class="rebalance-stat-lbl">Equity Deployed</div>
+      <div class="pillar-divider"></div>
+      <div class="pillar">
+        <div class="pillar-val center-pillar" id="pillarWealth">—</div>
+        <div class="pillar-name">Projected Wealth</div>
+        <div class="pillar-tag">Build Wealth</div>
+        <div class="pillar-sub" id="pillarWealthSub">by age 70</div>
       </div>
-      <div>
-        <div class="rebalance-stat-val" id="statProj10">—</div>
-        <div class="rebalance-stat-lbl">10-Year Projection</div>
+      <div class="pillar-divider"></div>
+      <div class="pillar">
+        <div class="pillar-val" id="pillarRetirement">—</div>
+        <div class="pillar-name">Retirement Income</div>
+        <div class="pillar-tag">Retire Strong</div>
       </div>
     </div>
+    <p class="pillar-disclaimer">Projected Wealth based on equity deployed at 7% annualized growth to age 70. Retirement Income uses 4% safe withdrawal rate. For illustrative purposes only — not financial advice.</p>
   </div>
 
   <!-- DEBT PAYOFF -->
@@ -817,7 +840,7 @@
     homeValue: 0, mortgageBalance: 0, grossEquity: 0, netEquity: 0,
     newHomePrice: 0, newHomeType: '', preferredArea: '',
     currentPayment: 0, householdIncome: 0, retirementSavings: 0,
-    socialSecurityIncome: 0, has401k: '',
+    socialSecurityIncome: 0, birthDate: '', birthYear: 0, has401k: '',
     goals: [], debts: [],
     heroMonthlyCashflow: 0, heroEquityProjection: 0, remainingEquity: 0,
     captureFirst: '', captureLast: '', captureEmail: '', capturePhone: '',
@@ -1055,11 +1078,18 @@
       ? fvAnnuity(annualContrib, 0.10, 10) : 0;
 
     // ── HERO NUMBERS (Step 5) ──
-    // Hero = cashflow freed (use Scenario A if feasible, else Scenario B)
-    const heroMonthly    = remainA >= 0 ? cashFlowA : cashFlowB;
-    const heroProjection = proj10B; // 20% down — the balanced, recommended scenario
+    const heroMonthly = remainA >= 0 ? cashFlowA : cashFlowB;
+
+    // Age-70 projection
+    const currentYear       = new Date().getFullYear();
+    const currentAge        = state.birthYear > 0 ? currentYear - state.birthYear : 60;
+    const yearsToRetirement = Math.max(5, 70 - currentAge);
+    const retirementBase    = remainB + state.retirementSavings; // equity deployed + existing savings
+    const projectedWealth   = fv(retirementBase, 0.07, yearsToRetirement);
+    const retirementIncome  = projectedWealth * 0.04 / 12; // 4% SWR monthly
+
     state.heroMonthlyCashflow  = heroMonthly;
-    state.heroEquityProjection = heroProjection;
+    state.heroEquityProjection = projectedWealth;
     state.remainingEquity      = remainB;
 
     // ── POPULATE SCENARIOS ──
@@ -1107,16 +1137,14 @@
         <div class="scenario-desc">${sc.desc}</div>
       </div>`).join('');
 
-    // ── POPULATE STEP 5 HERO ──
-    // Total monthly income freed = cashflow freed + SSI (if not yet receiving)
-    const ssi = state.socialSecurityIncome;
-    document.getElementById('rebalanceHeroNumber').innerHTML = '<span>$</span>' + Math.round(heroMonthly).toLocaleString();
-    document.getElementById('rebalanceHeroLabel').textContent = ssi > 0
-      ? 'freed up every month — on top of your $' + Math.round(ssi).toLocaleString() + '/mo Social Security income.*'
-      : 'freed up every month — money that was going to your mortgage, now going to your life.*';
-    document.getElementById('statNetEquity').textContent      = fmt(net);
-    document.getElementById('statDeployedEquity').textContent = fmt(remainB);
-    document.getElementById('statProj10').textContent         = fmt(heroProjection + retiro10);
+    // ── POPULATE STEP 5 HERO — THREE PILLARS ──
+    document.getElementById('pillarCashflow').textContent   = '$' + Math.round(heroMonthly).toLocaleString() + '/mo';
+    document.getElementById('pillarWealth').textContent     = fmt(projectedWealth);
+    document.getElementById('pillarRetirement').textContent = '$' + Math.round(retirementIncome).toLocaleString() + '/mo';
+    const ageLabel = state.birthYear > 0
+      ? 'by age 70 · in ' + yearsToRetirement + ' years'
+      : 'by age 70 (projected)';
+    document.getElementById('pillarWealthSub').textContent  = ageLabel;
 
     // ── DEBT PAYOFF ──
     const dpEl = document.getElementById('debtPayoffResult');
@@ -1229,6 +1257,7 @@
       householdIncome:       state.householdIncome,
       retirementSavings:     state.retirementSavings,
       socialSecurityIncome:  state.socialSecurityIncome,
+      dateOfBirth:           state.birthDate,
       has401k:               state.has401k,
       goals:              state.goals.join(', '),
       debts:              JSON.stringify(state.debts),
