@@ -249,7 +249,7 @@
     phone:   '(832) 536-1016',
     email:   'phil@philliphimes.com',
     market:  'South Houston Suburbs',
-    webhook: '', // GHL webhook URL goes here
+    webhook: 'https://services.leadconnectorhq.com/hooks/oyGNN4xzQ5FxZ2PQgFzE/webhook-trigger/fc97ba0e-2fad-40ed-9b76-f8e37474cd09',
     smsVerifyEndpoint: '/.netlify/functions/sms-verify',
     tags: {
       verified:   'Amplify — Verified',
@@ -826,15 +826,27 @@
 <div class="modal-overlay" id="apptModal" style="display:none;position:fixed;inset:0;background:rgba(10,22,40,0.75);z-index:1000;align-items:center;justify-content:center;padding:24px;">
   <div style="background:var(--white);border-radius:20px;padding:48px 40px;max-width:480px;width:100%;box-shadow:0 20px 60px rgba(10,22,40,0.3);">
     <div id="apptFormWrap">
-      <div style="font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:10px;">Book Your Strategy Call</div>
+      <div style="font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:10px;">Book Your Strategy Session</div>
       <h2 style="font-family:'Playfair Display',serif;font-size:28px;color:var(--navy);margin-bottom:8px;">Let's build your real plan.</h2>
-      <p style="font-size:14px;color:var(--text-mid);margin-bottom:24px;line-height:1.6;"><span id="apptModalAgent"></span> will reach out within one business hour to schedule your strategy session.</p>
+      <p style="font-size:14px;color:var(--text-mid);margin-bottom:24px;line-height:1.6;"><span id="apptModalAgent"></span> will reach out within one business hour to confirm your session.</p>
       <div class="form-group">
-        <label>Preferred Contact Method</label>
+        <label>How Would You Like to Meet?</label>
         <div class="radio-group">
-          <div class="radio-card" onclick="selectRadio(this,'contactPref')" data-val="call">Phone Call</div>
-          <div class="radio-card" onclick="selectRadio(this,'contactPref')" data-val="text">Text</div>
-          <div class="radio-card" onclick="selectRadio(this,'contactPref')" data-val="email">Email</div>
+          <div class="radio-card" onclick="selectRadio(this,'contactPref')" data-val="zoom">
+            <div style="font-size:20px;margin-bottom:4px;">💻</div>
+            <div style="font-weight:600;">Zoom</div>
+            <div style="font-size:11px;color:var(--text-light);margin-top:3px;">Recommended</div>
+          </div>
+          <div class="radio-card" onclick="selectRadio(this,'contactPref')" data-val="call">
+            <div style="font-size:20px;margin-bottom:4px;">📞</div>
+            <div style="font-weight:600;">Phone Call</div>
+            <div style="font-size:11px;color:var(--text-light);margin-top:3px;">&nbsp;</div>
+          </div>
+          <div class="radio-card" onclick="selectRadio(this,'contactPref')" data-val="inperson">
+            <div style="font-size:20px;margin-bottom:4px;">🤝</div>
+            <div style="font-weight:600;">In Person</div>
+            <div style="font-size:11px;color:var(--text-light);margin-top:3px;">League City area</div>
+          </div>
         </div>
       </div>
       <div class="form-group">
@@ -848,9 +860,9 @@
         </select>
       </div>
       <button onclick="submitAppt()" style="width:100%;padding:16px;background:var(--navy);color:var(--white);border:none;border-radius:10px;font-size:16px;font-weight:600;font-family:'Inter',sans-serif;cursor:pointer;transition:background 0.2s;">
-        Book My Strategy Call
+        Request My Strategy Session
       </button>
-      <p style="font-size:11px;color:var(--text-light);text-align:center;margin-top:12px;">No spam. No pressure. One call that could change everything.</p>
+      <p style="font-size:11px;color:var(--text-light);text-align:center;margin-top:12px;">No spam. No pressure. One session that could change everything.</p>
     </div>
     <div id="apptSuccess" style="display:none;text-align:center;padding:20px 0;">
       <div style="font-size:48px;margin-bottom:16px;">🎉</div>
@@ -1231,7 +1243,7 @@
       retirementSavings: state.retirementSavings,
       has401k: state.has401k,
       goals: state.goals.join(', '),
-      debts: JSON.stringify(state.debts),
+      debts: state.debts.map(d => ({ type: d.type, payment: d.payment, balance: d.balance })),
       dreamText: state.dreamText
     };
 
@@ -1254,17 +1266,32 @@
   }
 
   function submitAppt() {
-    const pref = state.contactPref;
+    const meetingFormat = state.contactPref || 'zoom';
     const time = document.getElementById('apptTime').value;
 
     const payload = {
-      firstName: state.captureFirst, lastName: state.captureLast,
-      email: state.captureEmail, phone: state.capturePhone,
-      dateOfBirth: state.birthDate,
-      source: 'Amplify™ v3 — Strategy Call Request',
-      contactPref: pref, preferredTime: time,
-      netEquity: state.netEquity, dreamPrice: state.dreamPrice,
-      goals: state.goals.join(', ')
+      firstName:     state.captureFirst,
+      lastName:      state.captureLast,
+      email:         state.captureEmail,
+      phone:         state.capturePhone,
+      dateOfBirth:   state.birthDate,
+      source:        'Amplify™ v3 — Strategy Session Request',
+      meetingFormat: meetingFormat,
+      preferredTime: time,
+      moment:        state.moment,
+      priorities:    state.priorities.join(', '),
+      goals:         state.goals.join(', '),
+      dreamPrice:    state.dreamPrice,
+      preferredArea: document.getElementById('preferredArea').value,
+      dreamBeds:     document.getElementById('dreamBeds').value,
+      dreamBaths:    document.getElementById('dreamBaths').value,
+      homeValue:     state.homeValue,
+      mortgageBalance: state.mortgageBalance,
+      netEquity:     state.netEquity,
+      householdIncome: state.householdIncome,
+      retirementSavings: state.retirementSavings,
+      has401k:       state.has401k,
+      debts:         state.debts.map(d => ({ type: d.type, payment: d.payment, balance: d.balance }))
     };
 
     if (AGENT.webhook) {
