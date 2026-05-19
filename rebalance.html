@@ -1397,8 +1397,9 @@
     if (AGENT.makeWebhook) {
       fetch(AGENT.makeWebhook, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
+        headers: { 'Content-Type': 'text/plain' },
+        body: JSON.stringify(payload),
+        mode: 'no-cors'
       }).catch(e => console.warn('Make webhook error:', e));
     }
 
