@@ -1322,6 +1322,8 @@
       monthlyContrib401k: state.monthlyContrib,
       employerAnnual401k: state.employerAnnual,
       debts:              state.debts.map(d => ({ type: d.type, payment: d.payment, balance: d.balance })),
+      totalDebtPayment:   state.debts.reduce((sum, d) => sum + (d.payment || 0), 0),
+      totalDebtBalance:   state.debts.reduce((sum, d) => sum + (d.balance || 0), 0),
 
       // ── Scenario numbers (for strategy deck) ──
       downA: state.downA, newPmtA: state.newPmtA, amp10A: state.amp10A, equityDeployedA: state.equityA,
