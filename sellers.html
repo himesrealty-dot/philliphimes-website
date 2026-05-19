@@ -3,205 +3,140 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sell Your Home in Houston Bay Area | SellerIQ™ | Phillip Himes</title>
-  <meta name="description" content="Know your home's real value, your market position, and exactly what you'll walk away with — before you decide anything. SellerIQ™ by Phillip Himes, brokered by eXp Realty." />
+  <title>Sell Smart | SellerIQ™ | Phillip Himes</title>
+  <meta name="description" content="Know your home's real value, your net proceeds, and exactly what to do next — before you decide anything. SellerIQ™ by Phillip Himes, brokered by eXp Realty." />
   <link rel="stylesheet" href="css/styles.css" />
   <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
 
   <style>
 
-    /* ─── TWO-DOOR SECTION ─────────────────────────────────────── */
-    .seller-doors {
-      background: var(--off-white, #f9f7f4);
-      padding: 4rem 0 5rem;
+    /* ─── HERO ─────────────────────────────────────────────── */
+    .siq-hero {
+      background: linear-gradient(135deg, #0a1c2e 0%, #0d2137 60%, #1a3a52 100%);
+      padding: 5rem 0 4rem; position: relative; overflow: hidden;
     }
-    .seller-doors__eyebrow {
-      text-align: center;
-      font-family: var(--font-heading); font-size: 0.78rem; font-weight: 700;
-      letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold);
-      margin-bottom: 0.85rem;
-    }
-    .seller-doors__heading {
-      text-align: center; font-family: var(--font-heading); font-weight: 900;
-      font-size: clamp(1.6rem, 3vw, 2.2rem); color: var(--navy);
-      margin-bottom: 2.5rem; line-height: 1.15;
-    }
-    .seller-doors__grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
-    }
-    @media (max-width: 768px) { .seller-doors__grid { grid-template-columns: 1fr; } }
-
-    .seller-door {
-      border-radius: var(--radius-xl); padding: 2.5rem 2rem;
-      text-decoration: none; display: block;
-      transition: transform 0.25s, box-shadow 0.25s;
-      position: relative; overflow: hidden;
-    }
-    .seller-door:hover { transform: translateY(-5px); box-shadow: 0 20px 50px rgba(0,0,0,0.15); }
-
-    .seller-door--value {
-      background: var(--white); border: 2px solid var(--light-gray);
-      box-shadow: var(--shadow-sm);
-    }
-    .seller-door--value:hover { border-color: var(--gold); }
-
-    .seller-door--iq {
-      background: linear-gradient(145deg, var(--navy) 0%, #0d2137 100%);
-    }
-    .seller-door--iq::after {
-      content: ''; position: absolute; bottom: -30px; right: -30px;
-      width: 160px; height: 160px; border-radius: 50%;
-      background: var(--gold); opacity: 0.06; pointer-events: none;
-    }
-
-    .seller-door__badge {
-      display: inline-block; font-family: var(--font-heading); font-size: 0.65rem;
-      font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em;
-      background: var(--gold); color: var(--navy);
-      padding: 0.22rem 0.8rem; border-radius: var(--radius-full); margin-bottom: 1.25rem;
-    }
-    .seller-door__icon { font-size: 2.5rem; margin-bottom: 1rem; display: block; }
-
-    .seller-door__title {
-      font-family: var(--font-heading); font-weight: 900;
-      font-size: clamp(1.4rem, 2.5vw, 1.8rem); line-height: 1.1; margin-bottom: 0.85rem;
-    }
-    .seller-door--value .seller-door__title { color: var(--navy); }
-    .seller-door--iq .seller-door__title { color: white; }
-
-    .seller-door__desc { font-size: 0.92rem; line-height: 1.7; margin-bottom: 1.5rem; }
-    .seller-door--value .seller-door__desc { color: var(--dark-gray); }
-    .seller-door--iq .seller-door__desc { color: rgba(255,255,255,0.78); }
-
-    .seller-door__list { list-style: none; padding: 0; margin: 0 0 1.75rem; }
-    .seller-door__list li {
-      font-size: 0.85rem; padding: 0.28rem 0;
-      display: flex; align-items: flex-start; gap: 0.5rem;
-    }
-    .seller-door--value .seller-door__list li { color: var(--dark-gray); }
-    .seller-door--iq .seller-door__list li { color: rgba(255,255,255,0.78); }
-    .seller-door__list li::before { content: '✓'; font-weight: 700; flex-shrink: 0; color: var(--gold); }
-
-    .seller-door__btn {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      padding: 0.8rem 1.5rem; border-radius: var(--radius-full);
-      font-family: var(--font-heading); font-weight: 800; font-size: 0.88rem;
-      letter-spacing: 0.03em; transition: all 0.2s;
-      background: var(--gold); color: var(--navy);
-    }
-    .seller-door__btn:hover { background: #d4b86a; transform: translateY(-1px); }
-
-    /* ─── LIFE STAGE SECTION ───────────────────────────────────── */
-    .lifestage-section {
-      background: linear-gradient(135deg, #0a1c2e 0%, #0d2137 80%, #0a1c2e 100%);
-      padding: 5rem 0; position: relative; overflow: hidden;
-    }
-    .lifestage-section::before {
+    .siq-hero::before {
       content: ''; position: absolute; inset: 0;
-      background: radial-gradient(ellipse at 60% 40%, rgba(201,164,85,0.07) 0%, transparent 60%);
+      background: radial-gradient(ellipse at 70% 50%, rgba(201,164,85,0.08) 0%, transparent 60%);
       pointer-events: none;
     }
-    .lifestage-section .section-header__eyebrow { color: var(--gold); }
-    .lifestage-section .section-header__title { color: white; }
-    .lifestage-section .section-header__subtitle { color: rgba(255,255,255,0.65); }
+    .siq-hero__inner {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+      position: relative; z-index: 1;
+    }
+    .siq-hero__eyebrow {
+      font-family: var(--font-heading); font-size: 0.72rem; font-weight: 800;
+      letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold);
+      margin-bottom: 1rem; display: block;
+    }
+    .siq-hero__title {
+      font-family: var(--font-heading); font-weight: 900;
+      font-size: clamp(2rem, 4.5vw, 3.2rem); color: white;
+      line-height: 1.05; margin-bottom: 1.25rem;
+    }
+    .siq-hero__title span { color: var(--gold); }
+    .siq-hero__subtitle {
+      font-size: 1.05rem; color: rgba(255,255,255,0.78); line-height: 1.75;
+      margin-bottom: 2.25rem; max-width: 480px;
+    }
+    .siq-hero__btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .siq-hero__btn-primary {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--gold); color: var(--navy);
+      font-family: var(--font-heading); font-weight: 800; font-size: 0.9rem;
+      letter-spacing: 0.04em; padding: 0.9rem 1.75rem; border-radius: 50px;
+      text-decoration: none; transition: all 0.2s;
+      box-shadow: 0 4px 20px rgba(201,164,85,0.35);
+    }
+    .siq-hero__btn-primary:hover { background: #d4b86a; transform: translateY(-2px); }
+    .siq-hero__btn-ghost {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: transparent; color: rgba(255,255,255,0.85);
+      font-family: var(--font-heading); font-weight: 700; font-size: 0.88rem;
+      letter-spacing: 0.04em; padding: 0.9rem 1.5rem; border-radius: 50px;
+      text-decoration: none; border: 1.5px solid rgba(255,255,255,0.25);
+      transition: all 0.2s;
+    }
+    .siq-hero__btn-ghost:hover { border-color: rgba(255,255,255,0.6); color: white; }
 
-    .lifestage-grid {
-      display: grid; grid-template-columns: repeat(3,1fr); gap: 1.25rem; margin-top: 3rem;
+    /* Right side — stage preview cards */
+    .siq-hero__stages { display: flex; flex-direction: column; gap: 0.75rem; }
+    .siq-hero__stage {
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 0.875rem; padding: 1rem 1.25rem;
+      display: flex; align-items: center; gap: 1rem;
+      transition: background 0.2s;
     }
-    @media (max-width: 900px) { .lifestage-grid { grid-template-columns: 1fr; } }
+    .siq-hero__stage:hover { background: rgba(255,255,255,0.1); }
+    .siq-hero__stage-num {
+      width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0;
+      background: rgba(201,164,85,0.15); border: 1.5px solid rgba(201,164,85,0.4);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-heading); font-weight: 800; font-size: 0.82rem; color: var(--gold);
+    }
+    .siq-hero__stage-label {
+      font-family: var(--font-heading); font-weight: 700; font-size: 0.88rem; color: white;
+    }
+    .siq-hero__stage-desc { font-size: 0.78rem; color: rgba(255,255,255,0.55); margin-top: 0.1rem; }
 
-    .lifestage-card {
-      border-radius: var(--radius-xl); padding: 2.25rem 2rem;
-      text-decoration: none; display: flex; flex-direction: column;
-      position: relative; overflow: hidden;
-      transition: transform 0.25s, box-shadow 0.25s;
-    }
-    .lifestage-card:hover { transform: translateY(-5px); box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
-    .lifestage-card__deco {
-      position: absolute; bottom: -30px; right: -30px;
-      width: 130px; height: 130px; border-radius: 50%; opacity: 0.07; pointer-events: none;
-    }
-
-    /* Gold — Rebalance */
-    .lifestage-card--gold { background: linear-gradient(145deg, var(--navy) 0%, #0d2137 100%); }
-    .lifestage-card--gold .lifestage-card__deco { background: var(--gold); }
-    .lifestage-card--gold .lifestage-card__brand { background: rgba(201,164,85,0.18); color: #d4b86a; border: 1px solid rgba(201,164,85,0.3); }
-    .lifestage-card--gold .lifestage-card__tagline { color: #d4b86a; }
-    .lifestage-card--gold .lifestage-card__btn { background: var(--gold); color: var(--navy); }
-    .lifestage-card--gold .lifestage-card__btn:hover { background: #d4b86a; }
-    .lifestage-card--gold .lifestage-card__list li::before { color: var(--gold); }
-
-    /* Teal — Amplify */
-    .lifestage-card--teal { background: linear-gradient(145deg, #0a5c6e 0%, var(--teal) 100%); }
-    .lifestage-card--teal .lifestage-card__deco { background: white; }
-    .lifestage-card--teal .lifestage-card__brand { background: rgba(255,255,255,0.15); color: rgba(255,255,255,0.9); border: 1px solid rgba(255,255,255,0.2); }
-    .lifestage-card--teal .lifestage-card__tagline { color: rgba(255,255,255,0.9); }
-    .lifestage-card--teal .lifestage-card__btn { background: rgba(255,255,255,0.9); color: #1a6f80; }
-    .lifestage-card--teal .lifestage-card__btn:hover { background: white; }
-    .lifestage-card--teal .lifestage-card__list li::before { color: var(--gold); }
-
-    /* Purple — Renew */
-    .lifestage-card--purple { background: linear-gradient(145deg, #1e1030 0%, #3d2060 100%); }
-    .lifestage-card--purple .lifestage-card__deco { background: #c4a0ff; }
-    .lifestage-card--purple .lifestage-card__brand { background: rgba(196,160,255,0.15); color: #c4a0ff; border: 1px solid rgba(196,160,255,0.3); }
-    .lifestage-card--purple .lifestage-card__tagline { color: #c4a0ff; }
-    .lifestage-card--purple .lifestage-card__btn { background: #9b6dff; color: white; }
-    .lifestage-card--purple .lifestage-card__btn:hover { background: #b08aff; }
-    .lifestage-card--purple .lifestage-card__list li::before { color: #c4a0ff; }
-
-    /* Shared card internals */
-    .lifestage-card__icon { font-size: 2rem; margin-bottom: 0.85rem; }
-    .lifestage-card__brand {
-      font-family: var(--font-heading); font-size: 0.68rem; font-weight: 800;
-      text-transform: uppercase; letter-spacing: 0.12em;
-      padding: 0.22rem 0.7rem; border-radius: var(--radius-full);
-      width: fit-content; margin-bottom: 0.9rem;
-    }
-    .lifestage-card__headline {
-      font-family: var(--font-heading); font-weight: 800; font-size: 0.98rem;
-      color: white; line-height: 1.35; margin-bottom: 1rem;
-    }
-    .lifestage-card__fits-title {
-      font-family: var(--font-heading); font-size: 0.68rem; font-weight: 700;
-      text-transform: uppercase; letter-spacing: 0.08em;
-      color: rgba(255,255,255,0.45); margin-bottom: 0.5rem;
-    }
-    .lifestage-card__list {
-      list-style: none; padding: 0; margin: 0 0 1rem; flex: 1;
-    }
-    .lifestage-card__list li {
-      font-size: 0.82rem; color: rgba(255,255,255,0.75);
-      line-height: 1.55; padding: 0.22rem 0;
-      display: flex; align-items: flex-start; gap: 0.5rem;
-    }
-    .lifestage-card__list li::before { content: '›'; font-weight: 900; flex-shrink: 0; }
-    .lifestage-card__result {
-      font-size: 0.82rem; color: rgba(255,255,255,0.65);
-      line-height: 1.6; font-style: italic; margin-bottom: 0.75rem;
-      padding-top: 0.75rem; border-top: 1px solid rgba(255,255,255,0.1);
-    }
-    .lifestage-card__tagline {
-      font-family: var(--font-heading); font-weight: 800; font-size: 0.78rem;
-      letter-spacing: 0.03em; margin-bottom: 1.25rem;
-    }
-    .lifestage-card__btn {
-      display: inline-flex; align-items: center; gap: 0.4rem;
-      font-family: var(--font-heading); font-weight: 800; font-size: 0.82rem;
-      padding: 0.65rem 1.25rem; border-radius: var(--radius-full);
-      transition: all 0.2s; letter-spacing: 0.03em; width: fit-content;
+    @media (max-width: 900px) {
+      .siq-hero__inner { grid-template-columns: 1fr; gap: 2.5rem; }
+      .siq-hero__subtitle { max-width: 100%; }
     }
 
-    /* ─── SELLER TESTIMONIAL ───────────────────────────────────── */
-    .seller-testimonial {
-      background: #f7f4ef; padding: 5rem 0; position: relative;
+    /* ─── STAGE STRIP ──────────────────────────────────────── */
+    .stage-strip {
+      background: var(--off-white, #f9f7f4); border-bottom: 1px solid #e8e3da;
+      padding: 0;
     }
-    .seller-testimonial::before {
-      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
-      background: linear-gradient(90deg, var(--gold), var(--teal));
+    .stage-strip__inner {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+    }
+    .stage-strip__item {
+      padding: 1.1rem 1.5rem; text-align: center;
+      display: flex; align-items: center; justify-content: center; gap: 0.6rem;
+      border-right: 1px solid #e8e3da; cursor: pointer; text-decoration: none;
+      transition: background 0.2s;
+    }
+    .stage-strip__item:last-child { border-right: none; }
+    .stage-strip__item:hover { background: rgba(201,164,85,0.08); }
+    .stage-strip__num {
+      width: 24px; height: 24px; border-radius: 50%; flex-shrink: 0;
+      background: var(--navy); color: var(--gold);
+      font-family: var(--font-heading); font-weight: 800; font-size: 0.7rem;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .stage-strip__label {
+      font-family: var(--font-heading); font-weight: 700; font-size: 0.78rem;
+      color: var(--navy); letter-spacing: 0.03em;
+    }
+    @media (max-width: 700px) {
+      .stage-strip__inner { grid-template-columns: repeat(2, 1fr); }
+      .stage-strip__item { border-bottom: 1px solid #e8e3da; }
+    }
+    @media (max-width: 420px) {
+      .stage-strip__inner { grid-template-columns: 1fr; }
     }
 
+    /* ─── SECTION LABEL ────────────────────────────────────── */
+    .stage-label {
+      display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.75rem;
+    }
+    .stage-label__num {
+      width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0;
+      background: var(--gold); color: var(--navy);
+      font-family: var(--font-heading); font-weight: 900; font-size: 1rem;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .stage-label__text {
+      font-family: var(--font-heading); font-size: 0.72rem; font-weight: 800;
+      letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold);
+    }
+    .stage-label__divider {
+      flex: 1; height: 1px; background: rgba(201,164,85,0.25);
+    }
 
-    /* ─── HOME VALUATION — TWO-STEP ────────────────────────── */
+    /* ─── STAGE 1 — HOME VALUATION ─────────────────────────── */
     .hv-section {
       background: linear-gradient(135deg, #1B3A5C 0%, #2089A0 100%);
       padding: 4.5rem 0; position: relative; overflow: hidden;
@@ -212,7 +147,6 @@
       color: rgba(255,255,255,0.04); pointer-events: none; white-space: nowrap; line-height: 1;
     }
 
-    /* ── STEP 1 ── */
     .hv-panel { max-width: 640px; margin: 0 auto; text-align: center; position: relative; z-index: 1; }
     .hv-panel--loading { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; }
     .hv-eyebrow {
@@ -248,14 +182,12 @@
     .hv-addr-btn:hover { background: #b8923e; transform: translateY(-1px); }
     .hv-disclaimer { font-size: 0.78rem; color: rgba(255,255,255,0.5); }
 
-    /* ── LOADING ── */
     .hv-spinner { width: 52px; height: 52px; }
     .hv-loading-text {
       font-family: var(--font-heading); font-size: 1.1rem; font-weight: 700;
       color: rgba(255,255,255,0.85); letter-spacing: 0.05em;
     }
 
-    /* ── STEP 2 ── */
     .hv-step2 { position: relative; z-index: 1; }
     .hv-step2-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start; }
 
@@ -316,11 +248,330 @@
     }
     .hv-capture-btn:hover { background: #b8923e; transform: translateY(-1px); }
 
+    .hv-next-hint {
+      text-align: center; margin-top: 2rem; position: relative; z-index: 1;
+    }
+    .hv-next-hint p {
+      font-size: 0.85rem; color: rgba(255,255,255,0.6); margin-bottom: 0.75rem;
+    }
+    .hv-next-hint a {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+      color: rgba(255,255,255,0.85); font-family: var(--font-heading); font-weight: 700;
+      font-size: 0.82rem; padding: 0.6rem 1.25rem; border-radius: 50px;
+      text-decoration: none; transition: all 0.2s;
+    }
+    .hv-next-hint a:hover { background: rgba(255,255,255,0.18); color: white; }
+
     @media (max-width: 768px) {
       .hv-input-row { flex-direction: column; }
       .hv-addr-input, .hv-addr-btn { width: 100%; border-radius: 0.75rem; }
       .hv-step2-grid { grid-template-columns: 1fr; }
       .hv-capture-row { flex-direction: column; }
+    }
+
+    /* ─── STAGE 2 — NET PROCEEDS ───────────────────────────── */
+    .proceeds-section {
+      background: white; padding: 5rem 0;
+    }
+    .proceeds-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 3.5rem; align-items: start;
+    }
+    .proceeds-intro h2 {
+      font-family: var(--font-heading); font-weight: 900;
+      font-size: clamp(1.7rem, 3vw, 2.4rem); color: var(--navy);
+      line-height: 1.1; margin-bottom: 1rem;
+    }
+    .proceeds-intro h2 span { color: var(--teal); }
+    .proceeds-intro p {
+      font-size: 0.96rem; color: var(--dark-gray); line-height: 1.75; margin-bottom: 1.5rem;
+    }
+    .proceeds-trust {
+      display: flex; flex-direction: column; gap: 0.75rem;
+    }
+    .proceeds-trust__item {
+      display: flex; align-items: flex-start; gap: 0.75rem;
+    }
+    .proceeds-trust__icon {
+      width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0;
+      background: rgba(32,137,160,0.1); display: flex; align-items: center;
+      justify-content: center; font-size: 0.9rem; margin-top: 0.1rem;
+    }
+    .proceeds-trust__text {
+      font-size: 0.88rem; color: var(--dark-gray); line-height: 1.6;
+    }
+    .proceeds-trust__text strong {
+      font-family: var(--font-heading); color: var(--navy); display: block; margin-bottom: 0.15rem;
+    }
+
+    /* Calculator card */
+    .proceeds-calc {
+      background: #f9f7f4; border: 1px solid #e8e3da; border-radius: 1.25rem;
+      padding: 2.25rem 2rem;
+    }
+    .proceeds-calc__title {
+      font-family: var(--font-heading); font-weight: 900; font-size: 1.15rem;
+      color: var(--navy); margin-bottom: 0.35rem;
+    }
+    .proceeds-calc__subtitle {
+      font-size: 0.82rem; color: var(--dark-gray); margin-bottom: 1.75rem; line-height: 1.55;
+    }
+    .proceeds-calc__field { margin-bottom: 1.15rem; }
+    .proceeds-calc__label {
+      font-family: var(--font-heading); font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase; color: var(--navy);
+      display: block; margin-bottom: 0.4rem;
+    }
+    .proceeds-calc__input {
+      width: 100%; padding: 0.8rem 1.1rem;
+      background: white; border: 1.5px solid #d8d0c5;
+      border-radius: 0.6rem; color: var(--navy); font-family: var(--font-body); font-size: 0.95rem;
+      outline: none; transition: border-color 0.2s; box-sizing: border-box;
+    }
+    .proceeds-calc__input:focus { border-color: var(--teal); }
+    .proceeds-calc__slider-row {
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .proceeds-calc__slider {
+      flex: 1; accent-color: var(--teal);
+    }
+    .proceeds-calc__slider-val {
+      font-family: var(--font-heading); font-weight: 700; font-size: 0.88rem;
+      color: var(--teal); min-width: 36px; text-align: right;
+    }
+    .proceeds-calc__result {
+      margin-top: 1.5rem; padding: 1.25rem 1.5rem;
+      background: var(--navy); border-radius: 0.875rem;
+    }
+    .proceeds-calc__result-label {
+      font-family: var(--font-heading); font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.6);
+      margin-bottom: 0.25rem;
+    }
+    .proceeds-calc__result-amount {
+      font-family: var(--font-heading); font-weight: 900; font-size: 2rem;
+      color: var(--gold); line-height: 1;
+    }
+    .proceeds-calc__result-note {
+      font-size: 0.75rem; color: rgba(255,255,255,0.5); margin-top: 0.5rem; line-height: 1.5;
+    }
+    .proceeds-calc__breakdown {
+      margin-top: 1rem; display: flex; flex-direction: column; gap: 0.4rem;
+    }
+    .proceeds-calc__line {
+      display: flex; justify-content: space-between;
+      font-size: 0.8rem; color: rgba(255,255,255,0.65);
+    }
+    .proceeds-calc__line--total {
+      font-family: var(--font-heading); font-weight: 800;
+      font-size: 0.85rem; color: var(--gold);
+      padding-top: 0.4rem; border-top: 1px solid rgba(255,255,255,0.1); margin-top: 0.2rem;
+    }
+    .proceeds-calc__cta {
+      margin-top: 1.25rem; width: 100%;
+      display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+      padding: 0.85rem; background: var(--gold); color: var(--navy);
+      border: none; border-radius: 50px; cursor: pointer;
+      font-family: var(--font-heading); font-size: 0.82rem; font-weight: 800;
+      letter-spacing: 0.04em; text-decoration: none;
+      transition: background 0.2s, transform 0.1s;
+    }
+    .proceeds-calc__cta:hover { background: #d4b86a; transform: translateY(-1px); }
+
+    @media (max-width: 860px) {
+      .proceeds-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    }
+
+    /* ─── STAGE 3 — MARKET REPORT ──────────────────────────── */
+    .market-section {
+      background: linear-gradient(135deg, #0a5c6e 0%, var(--teal) 100%);
+      padding: 5rem 0; position: relative; overflow: hidden;
+    }
+    .market-section::after {
+      content: 'Market'; position: absolute; bottom: -1.5rem; right: 1rem;
+      font-family: var(--font-heading); font-size: 8rem; font-weight: 900;
+      color: rgba(255,255,255,0.05); pointer-events: none; white-space: nowrap; line-height: 1;
+    }
+    .market-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 3.5rem; align-items: center;
+      position: relative; z-index: 1;
+    }
+    .market-copy h2 {
+      font-family: var(--font-heading); font-weight: 900;
+      font-size: clamp(1.7rem, 3vw, 2.4rem); color: white;
+      line-height: 1.1; margin-bottom: 1rem;
+    }
+    .market-copy p {
+      font-size: 0.96rem; color: rgba(255,255,255,0.82); line-height: 1.75;
+      margin-bottom: 1.25rem;
+    }
+    .market-bullets {
+      list-style: none; padding: 0; margin: 0 0 2rem; display: flex; flex-direction: column; gap: 0.6rem;
+    }
+    .market-bullets li {
+      display: flex; align-items: flex-start; gap: 0.65rem;
+      font-size: 0.9rem; color: rgba(255,255,255,0.85); line-height: 1.55;
+    }
+    .market-bullets li::before {
+      content: '✓'; font-weight: 800; color: #7eeeff; flex-shrink: 0; margin-top: 0.1rem;
+    }
+    .market-btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: white; color: var(--teal);
+      font-family: var(--font-heading); font-weight: 800; font-size: 0.9rem;
+      letter-spacing: 0.04em; padding: 0.9rem 1.75rem; border-radius: 50px;
+      text-decoration: none; transition: all 0.2s; box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    }
+    .market-btn:hover { background: #f0f0f0; transform: translateY(-2px); }
+
+    /* Market stats card */
+    .market-card {
+      background: rgba(255,255,255,0.1); backdrop-filter: blur(16px);
+      border: 1px solid rgba(255,255,255,0.18); border-radius: 1.25rem; padding: 2rem;
+    }
+    .market-card__eyebrow {
+      font-family: var(--font-heading); font-size: 0.68rem; font-weight: 800;
+      letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.6);
+      margin-bottom: 0.5rem;
+    }
+    .market-card__heading {
+      font-family: var(--font-heading); font-weight: 900; font-size: 1.1rem;
+      color: white; margin-bottom: 1.5rem; line-height: 1.25;
+    }
+    .market-card__items { display: flex; flex-direction: column; gap: 1rem; }
+    .market-card__item {
+      background: rgba(255,255,255,0.07); border-radius: 0.75rem; padding: 1rem 1.25rem;
+      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    }
+    .market-card__item-label { font-size: 0.82rem; color: rgba(255,255,255,0.72); }
+    .market-card__item-value {
+      font-family: var(--font-heading); font-weight: 800; font-size: 1rem;
+      color: white; white-space: nowrap;
+    }
+    .market-card__note {
+      font-size: 0.75rem; color: rgba(255,255,255,0.45); margin-top: 1.25rem; line-height: 1.5;
+    }
+
+    @media (max-width: 860px) {
+      .market-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    }
+
+    /* ─── STAGE 4 — YOUR NEXT MOVE ─────────────────────────── */
+    .nextmove-section {
+      background: linear-gradient(135deg, #0a1c2e 0%, #0d2137 80%, #0a1c2e 100%);
+      padding: 5rem 0; position: relative; overflow: hidden;
+    }
+    .nextmove-section::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 60% 40%, rgba(201,164,85,0.07) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .nextmove-header { text-align: center; margin-bottom: 3rem; position: relative; z-index: 1; }
+    .nextmove-header__eyebrow {
+      font-family: var(--font-heading); font-size: 0.72rem; font-weight: 800;
+      letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold);
+      margin-bottom: 0.85rem; display: block;
+    }
+    .nextmove-header h2 {
+      font-family: var(--font-heading); font-weight: 900;
+      font-size: clamp(1.7rem, 3.5vw, 2.5rem); color: white; line-height: 1.1;
+      margin-bottom: 0.85rem;
+    }
+    .nextmove-header p {
+      font-size: 1rem; color: rgba(255,255,255,0.65); max-width: 520px;
+      margin: 0 auto; line-height: 1.7;
+    }
+
+    .lifestage-grid {
+      display: grid; grid-template-columns: repeat(3,1fr); gap: 1.25rem; margin-top: 0;
+      position: relative; z-index: 1;
+    }
+    @media (max-width: 900px) { .lifestage-grid { grid-template-columns: 1fr; } }
+
+    .lifestage-card {
+      border-radius: var(--radius-xl); padding: 2.25rem 2rem;
+      text-decoration: none; display: flex; flex-direction: column;
+      position: relative; overflow: hidden;
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .lifestage-card:hover { transform: translateY(-5px); box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+    .lifestage-card__deco {
+      position: absolute; bottom: -30px; right: -30px;
+      width: 130px; height: 130px; border-radius: 50%; opacity: 0.07; pointer-events: none;
+    }
+
+    .lifestage-card--gold { background: linear-gradient(145deg, var(--navy) 0%, #0d2137 100%); }
+    .lifestage-card--gold .lifestage-card__deco { background: var(--gold); }
+    .lifestage-card--gold .lifestage-card__brand { background: rgba(201,164,85,0.18); color: #d4b86a; border: 1px solid rgba(201,164,85,0.3); }
+    .lifestage-card--gold .lifestage-card__tagline { color: #d4b86a; }
+    .lifestage-card--gold .lifestage-card__btn { background: var(--gold); color: var(--navy); }
+    .lifestage-card--gold .lifestage-card__btn:hover { background: #d4b86a; }
+    .lifestage-card--gold .lifestage-card__list li::before { color: var(--gold); }
+
+    .lifestage-card--teal { background: linear-gradient(145deg, #0a5c6e 0%, var(--teal) 100%); }
+    .lifestage-card--teal .lifestage-card__deco { background: white; }
+    .lifestage-card--teal .lifestage-card__brand { background: rgba(255,255,255,0.15); color: rgba(255,255,255,0.9); border: 1px solid rgba(255,255,255,0.2); }
+    .lifestage-card--teal .lifestage-card__tagline { color: rgba(255,255,255,0.9); }
+    .lifestage-card--teal .lifestage-card__btn { background: rgba(255,255,255,0.9); color: #1a6f80; }
+    .lifestage-card--teal .lifestage-card__btn:hover { background: white; }
+    .lifestage-card--teal .lifestage-card__list li::before { color: var(--gold); }
+
+    .lifestage-card--purple { background: linear-gradient(145deg, #1e1030 0%, #3d2060 100%); }
+    .lifestage-card--purple .lifestage-card__deco { background: #c4a0ff; }
+    .lifestage-card--purple .lifestage-card__brand { background: rgba(196,160,255,0.15); color: #c4a0ff; border: 1px solid rgba(196,160,255,0.3); }
+    .lifestage-card--purple .lifestage-card__tagline { color: #c4a0ff; }
+    .lifestage-card--purple .lifestage-card__btn { background: #9b6dff; color: white; }
+    .lifestage-card--purple .lifestage-card__btn:hover { background: #b08aff; }
+    .lifestage-card--purple .lifestage-card__list li::before { color: #c4a0ff; }
+
+    .lifestage-card__icon { font-size: 2rem; margin-bottom: 0.85rem; }
+    .lifestage-card__brand {
+      font-family: var(--font-heading); font-size: 0.68rem; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 0.12em;
+      padding: 0.22rem 0.7rem; border-radius: var(--radius-full);
+      width: fit-content; margin-bottom: 0.9rem;
+    }
+    .lifestage-card__headline {
+      font-family: var(--font-heading); font-weight: 800; font-size: 0.98rem;
+      color: white; line-height: 1.35; margin-bottom: 1rem;
+    }
+    .lifestage-card__fits-title {
+      font-family: var(--font-heading); font-size: 0.68rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.45); margin-bottom: 0.5rem;
+    }
+    .lifestage-card__list {
+      list-style: none; padding: 0; margin: 0 0 1rem; flex: 1;
+    }
+    .lifestage-card__list li {
+      font-size: 0.82rem; color: rgba(255,255,255,0.75);
+      line-height: 1.55; padding: 0.22rem 0;
+      display: flex; align-items: flex-start; gap: 0.5rem;
+    }
+    .lifestage-card__list li::before { content: '›'; font-weight: 900; flex-shrink: 0; }
+    .lifestage-card__result {
+      font-size: 0.82rem; color: rgba(255,255,255,0.65);
+      line-height: 1.6; font-style: italic; margin-bottom: 0.75rem;
+      padding-top: 0.75rem; border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    .lifestage-card__tagline {
+      font-family: var(--font-heading); font-weight: 800; font-size: 0.78rem;
+      letter-spacing: 0.03em; margin-bottom: 1.25rem;
+    }
+    .lifestage-card__btn {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font-family: var(--font-heading); font-weight: 800; font-size: 0.82rem;
+      padding: 0.65rem 1.25rem; border-radius: var(--radius-full);
+      transition: all 0.2s; letter-spacing: 0.03em; width: fit-content;
+    }
+
+    /* ─── TESTIMONIAL ──────────────────────────────────────── */
+    .seller-testimonial {
+      background: #f7f4ef; padding: 5rem 0; position: relative;
+    }
+    .seller-testimonial::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+      background: linear-gradient(90deg, var(--gold), var(--teal));
     }
 
   </style>
@@ -356,21 +607,21 @@
         <li class="nav__item nav__item--dropdown">
           <a href="marketiq.html" class="nav__link">Tools</a>
           <ul class="nav__dropdown" aria-label="Tools submenu">
-            <li><a href="buyeriq.html">BuyerIQ™ — Buyer's Edge</a></li>
-            <li><a href="selleriq.html">SellerIQ™ — Seller's Edge</a></li>
+            <li><a href="buyers.html">BuyerIQ™ — Buyer's Edge</a></li>
+            <li><a href="sellers.html">SellerIQ™ — Seller's Edge</a></li>
             <li><a href="marketiq.html">MarketIQ™ — Property Intelligence</a></li>
           </ul>
         </li>
         <li><a href="contact.html" class="nav__link">Ask Phil</a></li>
         <li class="nav__mobile-cta" style="display:none;">
           <a href="tel:8325361016" class="btn btn--secondary" style="width:100%;margin-top:var(--space-md);">📞 (832) 536-1016</a>
-          <a href="selleriq.html" class="btn btn--primary" style="width:100%;margin-top:var(--space-sm);">Start SellerIQ™</a>
+          <a href="#home-value" class="btn btn--primary" style="width:100%;margin-top:var(--space-sm);">Know My Number →</a>
         </li>
       </ul>
 
       <div class="nav__cta">
         <a href="tel:8325361016" class="nav__phone">📞 (832) 536-1016</a>
-        <a href="selleriq.html" class="btn btn--primary btn--sm">Start SellerIQ™</a>
+        <a href="#home-value" class="btn btn--primary btn--sm">Know My Number →</a>
       </div>
 
       <button class="nav__hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
@@ -380,23 +631,91 @@
   </nav>
 
   <!-- ── HERO ────────────────────────────────────────── -->
-  <section class="page-hero" aria-label="Selling hero">
+  <section class="siq-hero" aria-label="SellerIQ hero">
     <div class="container">
-      <div class="page-hero__content">
-        <p class="page-hero__eyebrow">For Sellers · League City · Friendswood · Pearland · Clear Lake</p>
-        <h1 class="page-hero__title">Sell Smart.<br />Move Forward.</h1>
-        <p class="page-hero__subtitle">Know your equity. Understand your options. Make a move that actually serves your next chapter — not just your transaction.</p>
+      <div class="siq-hero__inner">
+
+        <div class="siq-hero__copy">
+          <span class="siq-hero__eyebrow">SellerIQ™ · For Houston Bay Area Sellers</span>
+          <h1 class="siq-hero__title">Know Your Number<br />Before You Decide<br /><span>Anything.</span></h1>
+          <p class="siq-hero__subtitle">Most sellers start with a listing price. Smart sellers start with a strategy. Know your home's value, your net proceeds, and your best move — before you commit to anything.</p>
+          <div class="siq-hero__btns">
+            <a href="#home-value" class="siq-hero__btn-primary">Get My Home Value →</a>
+            <a href="contact.html" class="siq-hero__btn-ghost">Talk to Phil</a>
+          </div>
+        </div>
+
+        <div class="siq-hero__stages">
+          <a href="#home-value" class="siq-hero__stage" style="text-decoration:none;">
+            <div class="siq-hero__stage-num">1</div>
+            <div>
+              <div class="siq-hero__stage-label">Home Value</div>
+              <div class="siq-hero__stage-desc">Instant estimate powered by live market data</div>
+            </div>
+          </a>
+          <a href="#net-proceeds" class="siq-hero__stage" style="text-decoration:none;">
+            <div class="siq-hero__stage-num">2</div>
+            <div>
+              <div class="siq-hero__stage-label">Net Proceeds</div>
+              <div class="siq-hero__stage-desc">What you'll actually walk away with after closing</div>
+            </div>
+          </a>
+          <a href="#market-report" class="siq-hero__stage" style="text-decoration:none;">
+            <div class="siq-hero__stage-num">3</div>
+            <div>
+              <div class="siq-hero__stage-label">Market Report</div>
+              <div class="siq-hero__stage-desc">Your competition, your position, your timing</div>
+            </div>
+          </a>
+          <a href="#next-move" class="siq-hero__stage" style="text-decoration:none;">
+            <div class="siq-hero__stage-num">4</div>
+            <div>
+              <div class="siq-hero__stage-label">Your Next Move</div>
+              <div class="siq-hero__stage-desc">A strategy built around your life — not just your sale</div>
+            </div>
+          </a>
+        </div>
+
       </div>
     </div>
   </section>
 
-  <!-- ── INSTANT HOME VALUATION — TWO STEP ────────────── -->
-  <section class="hv-section" aria-label="Home valuation tool">
+  <!-- ── STAGE STRIP ──────────────────────────────────── -->
+  <nav class="stage-strip" aria-label="Page sections">
     <div class="container">
+      <div class="stage-strip__inner">
+        <a href="#home-value" class="stage-strip__item">
+          <div class="stage-strip__num">1</div>
+          <div class="stage-strip__label">Home Value</div>
+        </a>
+        <a href="#net-proceeds" class="stage-strip__item">
+          <div class="stage-strip__num">2</div>
+          <div class="stage-strip__label">Net Proceeds</div>
+        </a>
+        <a href="#market-report" class="stage-strip__item">
+          <div class="stage-strip__num">3</div>
+          <div class="stage-strip__label">Market Report</div>
+        </a>
+        <a href="#next-move" class="stage-strip__item">
+          <div class="stage-strip__num">4</div>
+          <div class="stage-strip__label">Your Next Move</div>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ── STAGE 1 — INSTANT HOME VALUATION ────────────── -->
+  <section class="hv-section" id="home-value" aria-label="Stage 1 — Home valuation tool">
+    <div class="container">
+
+      <div class="stage-label" style="max-width:640px;margin:0 auto 2rem;">
+        <div class="stage-label__num">1</div>
+        <div class="stage-label__text">Home Value</div>
+        <div class="stage-label__divider"></div>
+      </div>
 
       <!-- STEP 1: Address entry -->
       <div class="hv-panel" id="hv-step1">
-        <p class="hv-eyebrow">For Sellers &amp; Homeowners</p>
         <h2 class="hv-title">What's Your Home Worth?</h2>
         <p class="hv-desc">
           Get an instant value estimate powered by real market data —
@@ -470,6 +789,12 @@
         </div>
       </div>
 
+      <!-- Next stage prompt -->
+      <div class="hv-next-hint" id="hv-next-hint" style="display:none;">
+        <p>Got your number? Now find out what you'll actually walk away with.</p>
+        <a href="#net-proceeds">Calculate My Net Proceeds ↓</a>
+      </div>
+
     </div>
   </section>
 
@@ -479,22 +804,14 @@
       e.preventDefault();
       var addr = document.getElementById('hv-address-input').value.trim();
       if (!addr) return;
-
-      // Transition to loading state
       document.getElementById('hv-step1').style.display = 'none';
       document.getElementById('hv-loading').style.display = 'flex';
-
-      // Pre-populate capture form hidden field + address display
       document.getElementById('hv-capture-address').value = addr;
       document.getElementById('hv-result-address').textContent = addr;
-
-      // Dynamically inject IDXAddons script into the result host
       var host = document.getElementById('hv-plunk-host');
       var script = document.createElement('script');
       script.src = 'https://idxaddons.com/addon/plunkvaluation/NWJfWXV2c0ctOEQ%3DDbVFmnXAMYT';
       host.appendChild(script);
-
-      // After widget renders, try to pre-fill and auto-submit with the address
       setTimeout(function() {
         var inp = host.querySelector('input[type="text"],input[type="search"],input:not([type="submit"]):not([type="button"]):not([type="hidden"])');
         if (inp) {
@@ -504,21 +821,19 @@
           var btn = host.querySelector('button,input[type="submit"]');
           if (btn) btn.click();
         }
-        // Suppress widget's own heading
         host.querySelectorAll('h1,h2,h3,h4,h5').forEach(function(h){ h.style.display='none'; });
       }, 2500);
-
-      // Reveal Step 2 after 3s
       setTimeout(function() {
         document.getElementById('hv-loading').style.display = 'none';
         document.getElementById('hv-step2').style.display = 'block';
+        document.getElementById('hv-next-hint').style.display = 'block';
         document.getElementById('hv-step2').scrollIntoView({behavior:'smooth', block:'start'});
       }, 3000);
     };
-
     window.hvRestart = function(e) {
       e.preventDefault();
       document.getElementById('hv-step2').style.display = 'none';
+      document.getElementById('hv-next-hint').style.display = 'none';
       document.getElementById('hv-step1').style.display = 'block';
       document.getElementById('hv-address-input').value = '';
       document.getElementById('hv-plunk-host').innerHTML = '';
@@ -527,58 +842,208 @@
   })();
   </script>
 
-  <!-- ── TWO DOORS ─────────────────────────────────────── -->
-  <section class="seller-doors" aria-labelledby="seller-doors-heading">
+  <!-- ── STAGE 2 — NET PROCEEDS ───────────────────────── -->
+  <section class="proceeds-section" id="net-proceeds" aria-label="Stage 2 — Net proceeds estimator">
     <div class="container">
-      <p class="seller-doors__eyebrow">Where Do You Want to Start?</p>
-      <h2 class="seller-doors__heading" id="seller-doors-heading">Two Ways In. One Goal — Selling Smart.</h2>
 
-      <div class="seller-doors__grid">
+      <div class="stage-label">
+        <div class="stage-label__num">2</div>
+        <div class="stage-label__text">Net Proceeds</div>
+        <div class="stage-label__divider"></div>
+      </div>
 
-        <!-- Door 1: TruMarket Value -->
-        <a href="contact.html?topic=trumarket" class="seller-door seller-door--value">
-          <span class="seller-door__icon">🏡</span>
-          <h3 class="seller-door__title">Get My TruMarket™ Value</h3>
-          <p class="seller-door__desc">Want to know what your home is worth right now? Phil delivers a real market analysis — not an algorithm — backed by current comps and local expertise.</p>
-          <ul class="seller-door__list">
-            <li>Real market value range — not a Zestimate</li>
-            <li>Side-by-side comparison against active competitors</li>
-            <li>Strategic pricing discussion — no obligation</li>
-          </ul>
-          <span class="seller-door__btn">Request My TruMarket™ Report →</span>
-        </a>
+      <div class="proceeds-grid">
 
-        <!-- Door 2: SellerIQ -->
-        <a href="selleriq.html" class="seller-door seller-door--iq">
-          <span class="seller-door__badge">Recommended First Step</span>
-          <span class="seller-door__icon">🧠</span>
-          <h3 class="seller-door__title">Start SellerIQ™</h3>
-          <p class="seller-door__desc">Before you decide on price, timing, or even whether to sell — know exactly what you'll walk away with and what strategy gets you there. Smart sellers start here.</p>
-          <ul class="seller-door__list">
-            <li>Know your net proceeds before committing to anything</li>
-            <li>Understand your equity, your options, and your market position</li>
-            <li>Build a strategy around your life — not just your listing</li>
-          </ul>
-          <span class="seller-door__btn">Start SellerIQ™ →</span>
-        </a>
+        <div class="proceeds-intro">
+          <h2>What Will You Actually<br /><span>Walk Away With?</span></h2>
+          <p>Your home's value is just the headline. What actually matters is the number that hits your bank account — after your mortgage payoff, closing costs, and agent fees. Most sellers don't know this number until it's too late to change it.</p>
+          <p>Run a quick estimate below. When you're ready for an exact breakdown — use the TruMarket™ button and Phil will build your full net sheet.</p>
+
+          <div class="proceeds-trust">
+            <div class="proceeds-trust__item">
+              <div class="proceeds-trust__icon">💰</div>
+              <div class="proceeds-trust__text">
+                <strong>Equity is not profit</strong>
+                After mortgage payoff, agent fees (~6%), and closing costs, most sellers net 3–5% less than they expect.
+              </div>
+            </div>
+            <div class="proceeds-trust__item">
+              <div class="proceeds-trust__icon">📊</div>
+              <div class="proceeds-trust__text">
+                <strong>Timing changes everything</strong>
+                Your net proceeds affect your next down payment, your debt payoff capacity, and your retirement runway.
+              </div>
+            </div>
+            <div class="proceeds-trust__item">
+              <div class="proceeds-trust__icon">🎯</div>
+              <div class="proceeds-trust__text">
+                <strong>Know before you commit</strong>
+                Phil builds a complete net sheet — zero fluff — so you know exactly what you're working with before signing anything.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="proceeds-calc">
+          <div class="proceeds-calc__title">Quick Net Proceeds Estimate</div>
+          <div class="proceeds-calc__subtitle">Adjust the numbers to see your rough take-home. For a precise net sheet, request your TruMarket™ report.</div>
+
+          <div class="proceeds-calc__field">
+            <label class="proceeds-calc__label" for="pc-price">Estimated Sale Price</label>
+            <input class="proceeds-calc__input" type="text" id="pc-price" placeholder="$420,000" value="420000" oninput="pcCalc()" />
+          </div>
+
+          <div class="proceeds-calc__field">
+            <label class="proceeds-calc__label" for="pc-mortgage">Mortgage Payoff Balance</label>
+            <input class="proceeds-calc__input" type="text" id="pc-mortgage" placeholder="$145,000" value="145000" oninput="pcCalc()" />
+          </div>
+
+          <div class="proceeds-calc__field">
+            <label class="proceeds-calc__label">Agent Commission</label>
+            <div class="proceeds-calc__slider-row">
+              <input class="proceeds-calc__slider" type="range" id="pc-commission" min="3" max="8" step="0.5" value="6" oninput="pcCalc()" />
+              <span class="proceeds-calc__slider-val" id="pc-commission-val">6%</span>
+            </div>
+          </div>
+
+          <div class="proceeds-calc__field">
+            <label class="proceeds-calc__label">Estimated Closing Costs</label>
+            <div class="proceeds-calc__slider-row">
+              <input class="proceeds-calc__slider" type="range" id="pc-closing" min="500" max="5000" step="250" value="2000" oninput="pcCalc()" />
+              <span class="proceeds-calc__slider-val" id="pc-closing-val">$2,000</span>
+            </div>
+          </div>
+
+          <div class="proceeds-calc__result">
+            <div class="proceeds-calc__breakdown">
+              <div class="proceeds-calc__line">
+                <span>Sale Price</span>
+                <span id="pc-r-price">$420,000</span>
+              </div>
+              <div class="proceeds-calc__line">
+                <span>− Mortgage Payoff</span>
+                <span id="pc-r-mortgage">−$145,000</span>
+              </div>
+              <div class="proceeds-calc__line">
+                <span>− Agent Commission</span>
+                <span id="pc-r-commission">−$25,200</span>
+              </div>
+              <div class="proceeds-calc__line">
+                <span>− Closing Costs</span>
+                <span id="pc-r-closing">−$2,000</span>
+              </div>
+              <div class="proceeds-calc__line proceeds-calc__line--total">
+                <span>Estimated Net Proceeds</span>
+                <span id="pc-r-net">$247,800</span>
+              </div>
+            </div>
+            <div class="proceeds-calc__result-note">Estimate only. Taxes, HOA payoffs, repair credits, and other credits/debits not included. Request your TruMarket™ net sheet for an exact number.</div>
+          </div>
+
+          <a href="contact.html?topic=netproceeds" class="proceeds-calc__cta">Get My Exact Net Sheet →</a>
+        </div>
 
       </div>
     </div>
   </section>
 
-  <!-- ── LIFE STAGE PATHS ───────────────────────────────── -->
-  <section class="lifestage-section" aria-labelledby="lifestage-heading">
+  <script>
+  (function() {
+    function fmt(n) {
+      return '$' + Math.max(0, Math.round(n)).toLocaleString('en-US');
+    }
+    function fmtNeg(n) {
+      return '−$' + Math.max(0, Math.round(n)).toLocaleString('en-US');
+    }
+    function parseNum(str) {
+      return parseFloat(String(str).replace(/[^0-9.]/g, '')) || 0;
+    }
+    window.pcCalc = function() {
+      var price      = parseNum(document.getElementById('pc-price').value);
+      var mortgage   = parseNum(document.getElementById('pc-mortgage').value);
+      var commRate   = parseFloat(document.getElementById('pc-commission').value) || 6;
+      var closing    = parseFloat(document.getElementById('pc-closing').value) || 2000;
+      var commission = price * (commRate / 100);
+      var net        = price - mortgage - commission - closing;
+
+      document.getElementById('pc-commission-val').textContent = commRate + '%';
+      document.getElementById('pc-closing-val').textContent    = fmt(closing);
+      document.getElementById('pc-r-price').textContent        = fmt(price);
+      document.getElementById('pc-r-mortgage').textContent     = fmtNeg(mortgage);
+      document.getElementById('pc-r-commission').textContent   = fmtNeg(commission);
+      document.getElementById('pc-r-closing').textContent      = fmtNeg(closing);
+      document.getElementById('pc-r-net').textContent          = fmt(net);
+    };
+    pcCalc();
+  })();
+  </script>
+
+  <!-- ── STAGE 3 — MARKET REPORT ─────────────────────── -->
+  <section class="market-section" id="market-report" aria-label="Stage 3 — Market report">
     <div class="container">
-      <div class="section-header">
-        <span class="section-header__eyebrow">Which Path Fits Your Life?</span>
-        <h2 class="section-header__title" id="lifestage-heading">Every Selling Situation Is Different</h2>
-        <p class="section-header__subtitle">Tell us where you are — SellerIQ™ will meet you there.</p>
+
+      <div class="stage-label" style="--gold:#7eeeff;margin-bottom:2.5rem;">
+        <div class="stage-label__num" style="background:rgba(255,255,255,0.9);color:var(--teal);">3</div>
+        <div class="stage-label__text" style="color:#7eeeff;">Market Report</div>
+        <div class="stage-label__divider" style="background:rgba(255,255,255,0.15);"></div>
+      </div>
+
+      <div class="market-grid">
+
+        <div class="market-copy">
+          <h2>Is Now the Right Time — and the Right Price?</h2>
+          <p>Knowing your value is one thing. Knowing where your home stands <em>relative to the market right now</em> is what separates smart sellers from sellers who leave money on the table — or sit unsold for months.</p>
+          <ul class="market-bullets">
+            <li>How many competing homes are in your price range</li>
+            <li>What buyers are actually paying vs. list price</li>
+            <li>How fast homes are moving in your zip code</li>
+            <li>The right pricing strategy for your timeline</li>
+          </ul>
+          <a href="contact.html?topic=trumarket" class="market-btn">Request My TruMarket™ Report →</a>
+        </div>
+
+        <div class="market-card">
+          <div class="market-card__eyebrow">South Houston Suburbs · Live Market Snapshot</div>
+          <div class="market-card__heading">What the Market Looks Like Right Now</div>
+          <div class="market-card__items">
+            <div class="market-card__item">
+              <div class="market-card__item-label">Avg. Days on Market</div>
+              <div class="market-card__item-value">28 Days</div>
+            </div>
+            <div class="market-card__item">
+              <div class="market-card__item-label">List-to-Sale Price Ratio</div>
+              <div class="market-card__item-value">97.4%</div>
+            </div>
+            <div class="market-card__item">
+              <div class="market-card__item-label">Active Inventory Change</div>
+              <div class="market-card__item-value">+8% vs. 90 days ago</div>
+            </div>
+            <div class="market-card__item">
+              <div class="market-card__item-label">Months of Supply</div>
+              <div class="market-card__item-value">3.1 months</div>
+            </div>
+          </div>
+          <div class="market-card__note">Market snapshot for League City, Friendswood, Pearland, Clear Lake area. Data updated quarterly. Request your TruMarket™ report for live, address-specific data.</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── STAGE 4 — YOUR NEXT MOVE ─────────────────────── -->
+  <section class="nextmove-section" id="next-move" aria-labelledby="nextmove-heading">
+    <div class="container">
+
+      <div class="nextmove-header">
+        <span class="nextmove-header__eyebrow">Stage 4 · reLifeIQ™ Tools · Self-Select</span>
+        <h2 id="nextmove-heading">Now — What's Your Next Move?</h2>
+        <p>You know your value. You know your proceeds. You know the market. Now build a strategy around your life. Pick the path that fits where you are right now.</p>
       </div>
 
       <div class="lifestage-grid">
 
         <!-- REBALANCE -->
-        <a href="selleriq.html?event=rebalance" class="lifestage-card lifestage-card--gold">
+        <a href="rebalance.html" class="lifestage-card lifestage-card--gold">
           <div class="lifestage-card__deco"></div>
           <div class="lifestage-card__icon">🏡</div>
           <span class="lifestage-card__brand">Rebalance™</span>
@@ -596,7 +1061,7 @@
         </a>
 
         <!-- AMPLIFY -->
-        <a href="selleriq.html?event=amplify" class="lifestage-card lifestage-card--teal">
+        <a href="amplify.html" class="lifestage-card lifestage-card--teal">
           <div class="lifestage-card__deco"></div>
           <div class="lifestage-card__icon">📈</div>
           <span class="lifestage-card__brand">Amplify™</span>
@@ -614,7 +1079,7 @@
         </a>
 
         <!-- RENEW -->
-        <a href="selleriq.html?event=renew" class="lifestage-card lifestage-card--purple">
+        <a href="contact.html?topic=renew" class="lifestage-card lifestage-card--purple">
           <div class="lifestage-card__deco"></div>
           <div class="lifestage-card__icon">🌱</div>
           <span class="lifestage-card__brand">Renew™</span>
@@ -628,7 +1093,7 @@
           </ul>
           <div class="lifestage-card__result">You'll have a clear picture of your home's value, a fair path forward, and a plan that protects what matters most.</div>
           <div class="lifestage-card__tagline">Move Forward. Start Fresh. Build Tomorrow.</div>
-          <span class="lifestage-card__btn">Start Renew™ →</span>
+          <span class="lifestage-card__btn">Talk to Phil About Renew™ →</span>
         </a>
 
       </div>
@@ -652,7 +1117,7 @@
           </div>
         </div>
         <br />
-        <a href="selleriq.html" style="display:inline-flex;align-items:center;gap:0.4rem;font-family:var(--font-heading);font-weight:800;font-size:0.88rem;color:var(--teal);text-decoration:none;letter-spacing:0.03em;border-bottom:2px solid transparent;transition:border-color 0.2s,color 0.2s;" onmouseover="this.style.borderBottomColor='var(--gold)';this.style.color='var(--navy)';" onmouseout="this.style.borderBottomColor='transparent';this.style.color='var(--teal)';">
+        <a href="rebalance.html" style="display:inline-flex;align-items:center;gap:0.4rem;font-family:var(--font-heading);font-weight:800;font-size:0.88rem;color:var(--teal);text-decoration:none;letter-spacing:0.03em;border-bottom:2px solid transparent;transition:border-color 0.2s,color 0.2s;" onmouseover="this.style.borderBottomColor='var(--gold)';this.style.color='var(--navy)';" onmouseout="this.style.borderBottomColor='transparent';this.style.color='var(--teal)';">
           See What Your Home Could Do For You →
         </a>
       </div>
@@ -662,10 +1127,10 @@
   <!-- ── CTA BANNER ────────────────────────────────────── -->
   <section class="cta-banner" aria-labelledby="cta-heading">
     <div class="container">
-      <h2 id="cta-heading">Ready to Know What Your Home Is Worth?</h2>
-      <p>Start SellerIQ™ — know your equity, your options, and your strategy before you decide anything.</p>
+      <h2 id="cta-heading">Ready to Know Your Number?</h2>
+      <p>Start with your home value — then let SellerIQ™ walk you through everything you need before making your move.</p>
       <div class="cta-banner__btns">
-        <a href="selleriq.html" class="btn btn--white btn--lg">Start SellerIQ™ →</a>
+        <a href="#home-value" class="btn btn--white btn--lg">Get My Home Value →</a>
         <a href="tel:8325361016" class="btn btn--white-outline btn--lg">📞 (832) 536-1016</a>
       </div>
     </div>
@@ -685,21 +1150,21 @@
         <div>
           <div class="footer__heading">Selling</div>
           <ul class="footer__links">
-            <li><a href="selleriq.html">SellerIQ™ Suite</a></li>
-            <li><a href="contact.html?topic=trumarket">Get Home Value</a></li>
-            <li><a href="selleriq.html">Rebalance™</a></li>
-            <li><a href="selleriq.html">Amplify™</a></li>
-            <li><a href="selleriq.html">Renew™</a></li>
+            <li><a href="sellers.html">SellerIQ™ · Know Your Number</a></li>
+            <li><a href="contact.html?topic=trumarket">Get My TruMarket™ Report</a></li>
+            <li><a href="rebalance.html">Rebalance™</a></li>
+            <li><a href="amplify.html">Amplify™</a></li>
+            <li><a href="contact.html?topic=renew">Renew™</a></li>
           </ul>
         </div>
         <div>
           <div class="footer__heading">Buying</div>
           <ul class="footer__links">
-            <li><a href="buyeriq.html">BuyerIQ™ Suite</a></li>
+            <li><a href="buyers.html">BuyerIQ™ · Buyer's Edge</a></li>
             <li><a href="buyers.html#search">Search Homes</a></li>
             <li><a href="buyers.html#newbuild">New Construction</a></li>
-            <li><a href="buyeriq.html">First-Time Buyers</a></li>
-            <li><a href="buyeriq.html">Relocation</a></li>
+            <li><a href="buyers.html">First-Time Buyers</a></li>
+            <li><a href="buyers.html">Relocation</a></li>
           </ul>
         </div>
         <div>
@@ -707,7 +1172,7 @@
           <ul class="footer__links">
             <li><a href="marketiq.html">MarketIQ™</a></li>
             <li><a href="cities.html">Cities</a></li>
-            <li><a href="selleriq.html">reLifeIQ™</a></li>
+            <li><a href="sellers.html">reLifeIQ™</a></li>
             <li><a href="contact.html">Ask Phil</a></li>
             <li><a href="privacy-policy.html">Privacy Policy</a></li>
           </ul>
@@ -728,6 +1193,6 @@
 
   <script src="js/main.js"></script>
   <script src="https://widgets.leadconnectorhq.com/loader.js" data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" data-widget-id="69fba6dfba1fce1be5f73408" data-source="WEB_USER"></script>
-<script src="https://widgets.leadconnectorhq.com/loader.js" data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" data-widget-id="6a0623c7f127bb5833bc2697"></script>
+  <script src="https://widgets.leadconnectorhq.com/loader.js" data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" data-widget-id="6a0623c7f127bb5833bc2697"></script>
 </body>
 </html>
