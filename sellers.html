@@ -824,7 +824,6 @@
 
   <script>
   (function() {
-    var MAPBOX_TOKEN = 'pk.eyJ1IjoicHdoaW1lcyIsImEiOiJjbXBjczFibWwwNGdmMnNvajFreHN2aW1jIn0.PWd0cMKjYhLyWW844JnlMA';
     var verifiedAddress = null;
     var debounceTimer = null;
     var activeIndex = -1;
@@ -833,13 +832,9 @@
     var dropdown   = document.getElementById('hv-dropdown');
     var submitBtn  = document.getElementById('hv-submit-btn');
 
-    // ── Fetch suggestions from Mapbox ──────────────────────
+    // ── Fetch suggestions via Netlify proxy (token stays server-side) ──
     function fetchSuggestions(query) {
-      var url = 'https://api.mapbox.com/geocoding/v5/mapbox.places/'
-        + encodeURIComponent(query)
-        + '.json?access_token=' + MAPBOX_TOKEN
-        + '&autocomplete=true&country=US&types=address'
-        + '&proximity=-95.22,29.73';  // Houston Bay Area bias
+      var url = '/.netlify/functions/mapbox-geocode?q=' + encodeURIComponent(query);
       return fetch(url).then(function(r){ return r.json(); });
     }
 
