@@ -253,7 +253,8 @@
     phone:   '(832) 536-1016',
     email:   'phil@philliphimes.com',
     market:  'South Houston Suburbs',
-    webhook: 'https://services.leadconnectorhq.com/hooks/oyGNN4xzQ5FxZ2PQgFzE/webhook-trigger/fc97ba0e-2fad-40ed-9b76-f8e37474cd09',
+    webhook:     'https://services.leadconnectorhq.com/hooks/oyGNN4xzQ5FxZ2PQgFzE/webhook-trigger/fc97ba0e-2fad-40ed-9b76-f8e37474cd09',
+    makeWebhook: '',                // ← paste Make.com webhook URL here when ready
     smsVerifyEndpoint: '/.netlify/functions/sms-verify',
     tags: {
       verified:   'Amplify — Verified',
@@ -1117,6 +1118,20 @@
 
     const bigNum = amp10C + retiro10;
 
+    // ── Scenario numbers for strategy deck ──
+    state.downA      = Math.round(downA);
+    state.newPmtA    = Math.round(piA + tiA);
+    state.amp10A     = Math.round(amp10A);
+    state.equityA    = Math.round(leftA);
+    state.downB      = Math.round(downB);
+    state.newPmtB    = Math.round(piB + tiA);
+    state.amp10B     = Math.round(amp10B);
+    state.equityB    = Math.round(leftB);
+    state.downC      = Math.round(downC);
+    state.newPmtC    = Math.round(piC + tiA);
+    state.amp10C     = Math.round(amp10C);
+    state.equityC    = Math.round(leftC);
+
     // Hero
     document.getElementById('amplifyHeroNumber').innerHTML = '<span>$</span>' + Math.round(bigNum).toLocaleString();
     document.getElementById('statNetEquity').textContent = fmt(net);
@@ -1306,7 +1321,12 @@
       has401k:            state.has401k,
       monthlyContrib401k: state.monthlyContrib,
       employerAnnual401k: state.employerAnnual,
-      debts:              state.debts.map(d => ({ type: d.type, payment: d.payment, balance: d.balance }))
+      debts:              state.debts.map(d => ({ type: d.type, payment: d.payment, balance: d.balance })),
+
+      // ── Scenario numbers (for strategy deck) ──
+      downA: state.downA, newPmtA: state.newPmtA, amp10A: state.amp10A, equityDeployedA: state.equityA,
+      downB: state.downB, newPmtB: state.newPmtB, amp10B: state.amp10B, equityDeployedB: state.equityB,
+      downC: state.downC, newPmtC: state.newPmtC, amp10C: state.amp10C, equityDeployedC: state.equityC
     };
 
     if (AGENT.webhook) {
@@ -1314,6 +1334,12 @@
         method:'POST', headers:{'Content-Type':'application/json'},
         body: JSON.stringify(payload)
       }).catch(e => console.warn('Webhook error:', e));
+    }
+    if (AGENT.makeWebhook) {
+      fetch(AGENT.makeWebhook, {
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify(payload)
+      }).catch(e => console.warn('Make webhook error:', e));
     }
 
     document.getElementById('apptFormWrap').style.display = 'none';

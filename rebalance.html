@@ -248,8 +248,9 @@
     phone:   '(832) 536-1016',
     email:   'phil@philliphimes.com',
     market:  'South Houston Suburbs',
-    webhook: 'https://services.leadconnectorhq.com/hooks/oyGNN4xzQ5FxZ2PQgFzE/webhook-trigger/21e03e07-c373-4a44-bdbf-4768bda1084c',
-    rate:    0.06375,          // 30-yr fixed — update as market shifts
+    webhook:     'https://services.leadconnectorhq.com/hooks/oyGNN4xzQ5FxZ2PQgFzE/webhook-trigger/21e03e07-c373-4a44-bdbf-4768bda1084c',
+    makeWebhook: 'https://script.google.com/macros/s/AKfycbw11h8AcSW6DgFIAxVSBHJyUm_N_jWdT5kiDjJz7iN3SzexYqh48LhbE7TIYwk8ZW2eJg/exec',
+    rate:        0.06375,          // 30-yr fixed — update as market shifts
     tags: {
       verified:   'Rebalance — Verified',
       unverified: 'Rebalance — Unverified'
@@ -1117,6 +1118,19 @@
     state.heroEquityProjection = projectedWealth;
     state.remainingEquity      = remainB;
 
+    // ── Scenario numbers for strategy deck ──
+    state.downA          = downA;
+    state.newPmtA        = Math.round(newPmtA);
+    state.cashFlowA      = cashFlowA;
+    state.downB          = downB;
+    state.newPmtB        = Math.round(newPmtB);
+    state.cashFlowB      = cashFlowB;
+    state.downC          = downC;
+    state.newPmtC        = Math.round(newPmtC);
+    state.cashFlowC      = cashFlowC;
+    state.remainingEquityC = remainC;
+    state.retirementIncome = Math.round(retirementIncome);
+
     // ── POPULATE SCENARIOS ──
     const scenarioA_feasible = remainA >= 0;
     document.getElementById('scenariosGrid').innerHTML = [
@@ -1357,11 +1371,20 @@
       debts: state.debts.map(d => ({
         type: d.type, payment: d.payment, balance: d.balance
       })),
+      totalDebtPayment: state.debts.reduce((sum, d) => sum + (d.payment || 0), 0),
+      totalDebtBalance: state.debts.reduce((sum, d) => sum + (d.balance || 0), 0),
 
       // ── Results (Scenario B — Recommended) ──
       heroMonthlyCashflow:  state.heroMonthlyCashflow,
       heroProjectedWealth:  state.heroEquityProjection,
-      remainingEquity:      state.remainingEquity
+      remainingEquity:      state.remainingEquity,
+
+      // ── Scenario numbers (for strategy deck) ──
+      downA: state.downA, newPmtA: state.newPmtA, cashFlowA: state.cashFlowA,
+      downB: state.downB, newPmtB: state.newPmtB, cashFlowB: state.cashFlowB,
+      downC: state.downC, newPmtC: state.newPmtC, cashFlowC: state.cashFlowC,
+      remainingEquityC: state.remainingEquityC,
+      retirementIncome: state.retirementIncome
     };
 
     if (AGENT.webhook) {
@@ -1370,6 +1393,13 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       }).catch(e => console.warn('Webhook error:', e));
+    }
+    if (AGENT.makeWebhook) {
+      fetch(AGENT.makeWebhook, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      }).catch(e => console.warn('Make webhook error:', e));
     }
 
     document.getElementById('apptFormWrap').style.display = 'none';
