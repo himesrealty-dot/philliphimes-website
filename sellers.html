@@ -539,6 +539,113 @@
       font-size: 0.75rem; color: rgba(255,255,255,0.45); margin-top: 1.25rem; line-height: 1.5;
     }
 
+    /* MarketIQ™ Tool */
+    .miq-brand {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    .miq-brand__badge {
+      font-family: var(--font-heading); font-size: 0.68rem; font-weight: 800;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      background: rgba(126,238,255,0.15); color: #7eeeff;
+      border: 1px solid rgba(126,238,255,0.3); border-radius: 50px;
+      padding: 0.3rem 0.85rem;
+    }
+    .miq-input-wrap { position: relative; margin: 1.5rem 0 0.6rem; }
+    .miq-input {
+      width: 100%; padding: 1rem 1.25rem; border-radius: 0.75rem;
+      border: 1.5px solid rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.12); color: white;
+      font-size: 1rem; outline: none; transition: border-color 0.2s;
+      box-sizing: border-box;
+    }
+    .miq-input::placeholder { color: rgba(255,255,255,0.45); }
+    .miq-input:focus { border-color: #7eeeff; background: rgba(255,255,255,0.17); }
+    .miq-dropdown {
+      display: none; position: absolute; top: calc(100% + 4px); left: 0; right: 0;
+      background: white; border-radius: 0.75rem; box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+      z-index: 100; overflow: hidden;
+    }
+    .miq-dropdown.open { display: block; }
+    .miq-option {
+      padding: 0.85rem 1.25rem; cursor: pointer; border-bottom: 1px solid #f0f0f0;
+      transition: background 0.15s;
+    }
+    .miq-option:last-child { border-bottom: none; }
+    .miq-option:hover { background: #f9f7f4; }
+    .miq-option-main { font-weight: 600; font-size: 0.88rem; color: var(--navy); }
+    .miq-option-sub { font-size: 0.75rem; color: var(--dark-gray); }
+    .miq-btn {
+      width: 100%; padding: 1rem; border-radius: 0.75rem; border: none; cursor: pointer;
+      background: white; color: var(--teal);
+      font-family: var(--font-heading); font-weight: 800; font-size: 0.92rem;
+      letter-spacing: 0.04em; transition: all 0.2s; box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    }
+    .miq-btn:hover:not(:disabled) { background: #f0f0f0; transform: translateY(-1px); }
+    .miq-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+    /* Results card */
+    .miq-results {
+      display: none;
+    }
+    .miq-results.show { display: block; }
+    .miq-results-header {
+      margin-bottom: 1.25rem;
+    }
+    .miq-results-location {
+      font-family: var(--font-heading); font-weight: 900; font-size: 1.1rem;
+      color: white; margin-bottom: 0.25rem;
+    }
+    .miq-results-sub {
+      font-size: 0.78rem; color: rgba(255,255,255,0.55);
+    }
+    .miq-metrics { display: flex; flex-direction: column; gap: 0.75rem; }
+    .miq-metric {
+      background: rgba(255,255,255,0.08); border-radius: 0.75rem;
+      padding: 1rem 1.25rem;
+      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    }
+    .miq-metric__left { flex: 1; }
+    .miq-metric__label { font-size: 0.8rem; color: rgba(255,255,255,0.65); margin-bottom: 0.2rem; }
+    .miq-metric__value {
+      font-family: var(--font-heading); font-weight: 800; font-size: 1.15rem; color: white;
+    }
+    .miq-metric__interp {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em;
+      padding: 0.25rem 0.65rem; border-radius: 50px; white-space: nowrap;
+    }
+    .miq-metric__interp--hot { background: rgba(255,100,100,0.2); color: #ff9999; }
+    .miq-metric__interp--warm { background: rgba(201,164,85,0.2); color: var(--gold); }
+    .miq-metric__interp--cool { background: rgba(126,238,255,0.2); color: #7eeeff; }
+    .miq-results-cta {
+      margin-top: 1.25rem; padding: 1rem 1.5rem;
+      background: white; color: var(--teal);
+      font-family: var(--font-heading); font-weight: 800; font-size: 0.88rem;
+      border-radius: 0.75rem; text-align: center; text-decoration: none;
+      display: block; transition: all 0.2s; box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    }
+    .miq-results-cta:hover { background: #f0f0f0; transform: translateY(-1px); }
+    .miq-placeholder {
+      display: flex; flex-direction: column; gap: 0.75rem;
+    }
+    .miq-placeholder-item {
+      background: rgba(255,255,255,0.06); border-radius: 0.75rem;
+      padding: 1rem 1.25rem; display: flex; align-items: center; justify-content: space-between;
+    }
+    .miq-placeholder-label { font-size: 0.8rem; color: rgba(255,255,255,0.35); }
+    .miq-placeholder-dash { font-size: 1.1rem; color: rgba(255,255,255,0.2); font-weight: 800; }
+    .miq-loading { display: none; text-align: center; padding: 2rem 0; }
+    .miq-loading.show { display: block; }
+    .miq-loading-text { font-size: 0.88rem; color: rgba(255,255,255,0.65); margin-top: 0.75rem; }
+    .miq-error { display: none; font-size: 0.85rem; color: #ffaaaa; margin-top: 0.75rem; }
+    .miq-error.show { display: block; }
+    .miq-spinner {
+      width: 36px; height: 36px; border: 3px solid rgba(255,255,255,0.15);
+      border-top-color: #7eeeff; border-radius: 50%;
+      animation: miq-spin 0.8s linear infinite; margin: 0 auto;
+    }
+    @keyframes miq-spin { to { transform: rotate(360deg); } }
+
     @media (max-width: 860px) {
       .market-grid { grid-template-columns: 1fr; gap: 2.5rem; }
     }
@@ -1176,45 +1283,343 @@
 
       <div class="market-grid">
 
+        <!-- LEFT: MarketIQ™ input panel -->
         <div class="market-copy">
-          <h2>Is Now the Right Time — and the Right Price?</h2>
-          <p>Knowing your value is one thing. Knowing where your home stands <em>relative to the market right now</em> is what separates smart sellers from sellers who leave money on the table — or sit unsold for months.</p>
-          <ul class="market-bullets">
-            <li>How many competing homes are in your price range</li>
-            <li>What buyers are actually paying vs. list price</li>
-            <li>How fast homes are moving in your zip code</li>
-            <li>The right pricing strategy for your timeline</li>
-          </ul>
-          <a href="contact.html?topic=trumarket" class="market-btn">Request My TruMarket™ Report →</a>
+          <div class="miq-brand">
+            <span class="miq-brand__badge">MarketIQ™</span>
+          </div>
+          <h2>What's the Market<br>Doing Right Now?</h2>
+          <p>Don't guess — check. Enter your zip code, city, or neighborhood and see exactly what the market looks like for sellers in your area: average sale prices, days on market, price per square foot, active inventory, and months of supply.</p>
+          <p style="font-size:0.88rem;color:rgba(255,255,255,0.55);margin-top:0.75rem;">Powered by live MLS data. No signup required.</p>
+
+          <div class="miq-input-wrap">
+            <input
+              class="miq-input"
+              id="miq-input"
+              type="text"
+              placeholder="Enter zip code, city, or neighborhood…"
+              autocomplete="off"
+              aria-label="Location search"
+              aria-autocomplete="list"
+              aria-controls="miq-dropdown"
+            />
+            <div class="miq-dropdown" id="miq-dropdown" role="listbox"></div>
+          </div>
+          <div class="miq-error" id="miq-error">Unable to load market data for this area. Try a nearby zip code.</div>
+
+          <button class="miq-btn" id="miq-btn" disabled aria-label="Analyze market">
+            Analyze My Market →
+          </button>
         </div>
 
-        <div class="market-card">
-          <div class="market-card__eyebrow">South Houston Suburbs · Live Market Snapshot</div>
-          <div class="market-card__heading">What the Market Looks Like Right Now</div>
-          <div class="market-card__items">
-            <div class="market-card__item">
-              <div class="market-card__item-label">Avg. Days on Market</div>
-              <div class="market-card__item-value">28 Days</div>
+        <!-- RIGHT: Placeholder / Loading / Results -->
+        <div class="market-card" id="miq-panel">
+
+          <!-- Placeholder — shown before search -->
+          <div class="miq-placeholder" id="miq-placeholder">
+            <div class="miq-brand" style="margin-bottom:1rem;">
+              <span class="miq-brand__badge">MarketIQ™</span>
             </div>
-            <div class="market-card__item">
-              <div class="market-card__item-label">List-to-Sale Price Ratio</div>
-              <div class="market-card__item-value">97.4%</div>
+            <div style="font-size:0.88rem;color:rgba(255,255,255,0.45);margin-bottom:1.5rem;line-height:1.5;">Enter a zip code, city, or neighborhood<br>to see live market conditions.</div>
+            <div class="miq-placeholder-item">
+              <div class="miq-placeholder-label">Avg. Sale Price</div>
+              <div class="miq-placeholder-dash">—</div>
             </div>
-            <div class="market-card__item">
-              <div class="market-card__item-label">Active Inventory Change</div>
-              <div class="market-card__item-value">+8% vs. 90 days ago</div>
+            <div class="miq-placeholder-item">
+              <div class="miq-placeholder-label">Avg. Days on Market</div>
+              <div class="miq-placeholder-dash">—</div>
             </div>
-            <div class="market-card__item">
-              <div class="market-card__item-label">Months of Supply</div>
-              <div class="market-card__item-value">3.1 months</div>
+            <div class="miq-placeholder-item">
+              <div class="miq-placeholder-label">Price Per Sq Ft</div>
+              <div class="miq-placeholder-dash">—</div>
+            </div>
+            <div class="miq-placeholder-item">
+              <div class="miq-placeholder-label">Active Listings</div>
+              <div class="miq-placeholder-dash">—</div>
+            </div>
+            <div class="miq-placeholder-item">
+              <div class="miq-placeholder-label">Months of Supply</div>
+              <div class="miq-placeholder-dash">—</div>
             </div>
           </div>
-          <div class="market-card__note">Market snapshot for League City, Friendswood, Pearland, Clear Lake area. Data updated quarterly. Request your TruMarket™ report for live, address-specific data.</div>
+
+          <!-- Loading spinner — shown during fetch -->
+          <div class="miq-loading" id="miq-loading">
+            <div class="miq-spinner"></div>
+            <div class="miq-loading-text">Pulling live market data…</div>
+          </div>
+
+          <!-- Results — injected by JS after fetch -->
+          <div class="miq-results" id="miq-results">
+            <div class="miq-results-header">
+              <div class="miq-results-location" id="miq-results-location"></div>
+              <div class="miq-results-sub" id="miq-results-sub"></div>
+            </div>
+            <div class="miq-metrics" id="miq-metrics"></div>
+            <a href="trumarket.html" class="miq-results-cta">Get My Full TruMarket™ Report →</a>
+          </div>
+
         </div>
 
       </div>
     </div>
   </section>
+
+  <script>
+  (function() {
+    var input      = document.getElementById('miq-input');
+    var dropdown   = document.getElementById('miq-dropdown');
+    var btn        = document.getElementById('miq-btn');
+    var errorEl    = document.getElementById('miq-error');
+    var placeholder = document.getElementById('miq-placeholder');
+    var loading    = document.getElementById('miq-loading');
+    var results    = document.getElementById('miq-results');
+    var locEl      = document.getElementById('miq-results-location');
+    var subEl      = document.getElementById('miq-results-sub');
+    var metricsEl  = document.getElementById('miq-metrics');
+
+    var selectedZip   = null;
+    var selectedLabel = null;
+    var debounceTimer = null;
+
+    // ── Helpers ──────────────────────────────────────────────
+    function fmtDollars(n) {
+      if (n == null || isNaN(n)) return '—';
+      return '$' + Math.round(n).toLocaleString('en-US');
+    }
+    function fmtNum(n, decimals) {
+      if (n == null || isNaN(n)) return '—';
+      return parseFloat(n).toFixed(decimals || 0);
+    }
+    function fmtDate(str) {
+      if (!str) return '';
+      var d = new Date(str);
+      if (isNaN(d)) return '';
+      return 'Data as of ' + d.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+    }
+
+    // Market condition logic
+    function domCondition(days) {
+      if (days == null) return null;
+      if (days <= 20) return { label: 'Hot Market',      cls: '--hot',  tip: 'Homes sell fast — strong seller advantage.' };
+      if (days <= 40) return { label: 'Balanced Market', cls: '--warm', tip: 'Moderate pace — well-priced homes move.' };
+      return              { label: "Buyer's Market",    cls: '--cool', tip: 'More inventory — buyers have leverage.' };
+    }
+    function supplyCondition(mos) {
+      if (mos == null) return null;
+      if (mos < 3)  return { label: 'Low Supply',      cls: '--hot',  tip: 'Under 3 months — sellers hold the power.' };
+      if (mos <= 6) return { label: 'Balanced Supply', cls: '--warm', tip: '3–6 months — a healthy, stable market.' };
+      return              { label: 'High Supply',      cls: '--cool', tip: 'Over 6 months — buyers have more choices.' };
+    }
+    function priceCondition(price) {
+      if (price == null) return null;
+      if (price >= 400000) return { label: 'Premium Market',  cls: '--hot',  tip: 'Above $400K average — strong demand.' };
+      if (price >= 280000) return { label: 'Solid Market',    cls: '--warm', tip: '$280K–$400K range — healthy activity.' };
+      return                     { label: 'Entry Market',     cls: '--cool', tip: 'Under $280K average — value-focused buyers.' };
+    }
+
+    // ── Autocomplete ─────────────────────────────────────────
+    input.addEventListener('input', function() {
+      var q = input.value.trim();
+      selectedZip   = null;
+      selectedLabel = null;
+      btn.disabled  = true;
+      closeDropdown();
+      hideError();
+
+      // Allow manual 5-digit zip entry without autocomplete
+      if (/^\d{5}$/.test(q)) {
+        selectedZip   = q;
+        selectedLabel = q;
+        btn.disabled  = false;
+        return;
+      }
+
+      if (q.length < 2) return;
+
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(function() { fetchPlaces(q); }, 280);
+    });
+
+    function fetchPlaces(q) {
+      fetch('/.netlify/functions/mapbox-places?q=' + encodeURIComponent(q))
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          var features = data.features || [];
+          if (!features.length) { closeDropdown(); return; }
+          renderDropdown(features);
+        })
+        .catch(function() { closeDropdown(); });
+    }
+
+    function renderDropdown(features) {
+      dropdown.innerHTML = '';
+      features.slice(0, 6).forEach(function(f) {
+        var opt = document.createElement('div');
+        opt.className = 'miq-option';
+        opt.setAttribute('role', 'option');
+
+        var main = document.createElement('div');
+        main.className = 'miq-option-main';
+        main.textContent = f.text || f.place_name || '';
+
+        var sub = document.createElement('div');
+        sub.className = 'miq-option-sub';
+        // Show state/region context
+        var context = (f.context || []).map(function(c) { return c.text; });
+        sub.textContent = context.slice(0, 2).join(', ');
+
+        opt.appendChild(main);
+        opt.appendChild(sub);
+
+        opt.addEventListener('mousedown', function(e) {
+          e.preventDefault();
+          selectedZip   = f.zipCode || null;
+          selectedLabel = f.place_name || f.text || input.value;
+          input.value   = f.place_name || f.text || input.value;
+          closeDropdown();
+          if (selectedZip) {
+            btn.disabled = false;
+          } else {
+            showError('No zip code found for this location. Try entering a zip code directly.');
+            btn.disabled = true;
+          }
+        });
+
+        dropdown.appendChild(opt);
+      });
+
+      dropdown.classList.add('open');
+    }
+
+    function closeDropdown() {
+      dropdown.classList.remove('open');
+      dropdown.innerHTML = '';
+    }
+
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('#miq-input') && !e.target.closest('#miq-dropdown')) {
+        closeDropdown();
+      }
+    });
+
+    // ── Fetch market data ─────────────────────────────────────
+    btn.addEventListener('click', function() {
+      if (!selectedZip) return;
+      runMarketFetch(selectedZip, selectedLabel);
+    });
+
+    // Also allow Enter key
+    input.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' && !btn.disabled) {
+        closeDropdown();
+        if (selectedZip) runMarketFetch(selectedZip, selectedLabel);
+      }
+    });
+
+    function runMarketFetch(zip, label) {
+      hideError();
+      showState('loading');
+
+      fetch('/.netlify/functions/market-data?zipCode=' + encodeURIComponent(zip))
+        .then(function(r) {
+          if (!r.ok) throw new Error('API error ' + r.status);
+          return r.json();
+        })
+        .then(function(d) {
+          if (d.error) throw new Error(d.error);
+          renderResults(d, label);
+          showState('results');
+        })
+        .catch(function() {
+          showState('placeholder');
+          showError('Unable to load market data for this area. Try a nearby zip code.');
+        });
+    }
+
+    function renderResults(d, label) {
+      // Header
+      locEl.textContent = label || ('ZIP ' + d.zipCode);
+      subEl.textContent = fmtDate(d.lastUpdated) || 'Live Market Data';
+
+      // Build metrics
+      var metrics = [
+        {
+          label: 'Avg. Sale Price',
+          value: fmtDollars(d.averagePrice),
+          cond:  priceCondition(d.averagePrice)
+        },
+        {
+          label: 'Avg. Days on Market',
+          value: (d.averageDaysOnMarket != null ? fmtNum(d.averageDaysOnMarket, 0) + ' days' : '—'),
+          cond:  domCondition(d.averageDaysOnMarket)
+        },
+        {
+          label: 'Price Per Sq Ft',
+          value: (d.averagePricePerSqFt != null ? '$' + fmtNum(d.averagePricePerSqFt, 0) + '/sqft' : '—'),
+          cond:  null
+        },
+        {
+          label: 'Active Listings',
+          value: (d.totalListings != null ? d.totalListings.toLocaleString() : '—'),
+          cond:  null
+        },
+        {
+          label: 'Months of Supply',
+          value: (d.monthsOfSupply != null ? fmtNum(d.monthsOfSupply, 1) + ' mos' : '—'),
+          cond:  supplyCondition(d.monthsOfSupply)
+        }
+      ];
+
+      metricsEl.innerHTML = '';
+      metrics.forEach(function(m) {
+        var row = document.createElement('div');
+        row.className = 'miq-metric';
+
+        var left = document.createElement('div');
+        left.className = 'miq-metric__left';
+
+        var lbl = document.createElement('div');
+        lbl.className = 'miq-metric__label';
+        lbl.textContent = m.label;
+
+        var val = document.createElement('div');
+        val.className = 'miq-metric__value';
+        val.textContent = m.value;
+
+        left.appendChild(lbl);
+        left.appendChild(val);
+        row.appendChild(left);
+
+        if (m.cond) {
+          var tag = document.createElement('div');
+          tag.className = 'miq-metric__interp miq-metric__interp' + m.cond.cls;
+          tag.title = m.cond.tip;
+          tag.textContent = m.cond.label;
+          row.appendChild(tag);
+        }
+
+        metricsEl.appendChild(row);
+      });
+    }
+
+    // ── State switcher ────────────────────────────────────────
+    function showState(state) {
+      placeholder.style.display = state === 'placeholder' ? ''       : 'none';
+      loading.style.display     = state === 'loading'     ? 'block'  : 'none';
+      results.style.display     = state === 'results'     ? 'block'  : 'none';
+    }
+
+    function showError(msg) {
+      errorEl.textContent = msg;
+      errorEl.classList.add('show');
+    }
+    function hideError() {
+      errorEl.classList.remove('show');
+    }
+
+  })();
+  </script>
 
   <!-- ── STAGE 4 — YOUR NEXT MOVE ─────────────────────── -->
   <section class="nextmove-section" id="next-move" aria-labelledby="nextmove-heading">
