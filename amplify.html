@@ -125,6 +125,10 @@
     .add-debt-btn { display: flex; align-items: center; gap: 8px; padding: 12px 20px; background: transparent; border: 2px dashed var(--border); border-radius: 10px; font-size: 14px; font-weight: 600; color: var(--text-mid); cursor: pointer; transition: all 0.2s; width: 100%; }
     .add-debt-btn:hover { border-color: var(--gold); color: var(--gold); }
 
+    /* ── CONTRIB FIELDS ── */
+    .contrib-fields { display: none; margin-top: 16px; padding: 16px; background: var(--gold-pale); border: 1px solid var(--gold-light); border-radius: 10px; animation: stageFadeIn 0.3s ease; }
+    .contrib-fields.visible { display: block; }
+
     /* ── DREAM INPUT ── */
     #dreamInput { display: none; margin-top: 8px; animation: stageFadeIn 0.3s ease; }
     #dreamInput.visible { display: block; }
@@ -355,7 +359,7 @@
   <div class="form-row" style="margin-bottom:32px;">
     <div class="form-group" style="margin-bottom:0;">
       <label>Bedrooms</label>
-      <select id="dreamBeds">
+      <select id="dreamBeds" onchange="state.dreamBeds = parseInt(this.value)||0">
         <option value="">— select —</option>
         <option value="3">3 bedrooms</option>
         <option value="4">4 bedrooms</option>
@@ -365,7 +369,7 @@
     </div>
     <div class="form-group" style="margin-bottom:0;">
       <label>Bathrooms</label>
-      <select id="dreamBaths">
+      <select id="dreamBaths" onchange="state.dreamBaths = parseFloat(this.value)||0">
         <option value="">— select —</option>
         <option value="2">2 bathrooms</option>
         <option value="2.5">2.5 bathrooms</option>
@@ -575,6 +579,18 @@
       <div class="radio-card" onclick="selectRadio(this,'has401k')" data-val="yes">Yes</div>
       <div class="radio-card" onclick="selectRadio(this,'has401k')" data-val="no">Not currently</div>
       <div class="radio-card" onclick="selectRadio(this,'has401k')" data-val="unsure">Not sure</div>
+    </div>
+    <div class="contrib-fields" id="contribFields">
+      <div class="form-row">
+        <div class="form-group" style="margin-bottom:0;">
+          <label>Monthly Contribution</label>
+          <input type="text" id="monthlyContrib" placeholder="e.g. $500" oninput="formatDollar(this)">
+        </div>
+        <div class="form-group" style="margin-bottom:0;">
+          <label>Employer Annual Match</label>
+          <input type="text" id="employerAnnual" placeholder="e.g. $3,600" oninput="formatDollar(this)">
+        </div>
+      </div>
     </div>
   </div>
 
@@ -890,7 +906,7 @@
     priorities: [],
     currentBeds: 0, currentBaths: 0, currentSqft: 0, currentYear: 0,
     homeValue: 0, mortgageBalance: 0, grossEquity: 0, netEquity: 0,
-    householdIncome: 0, retirementSavings: 0, has401k: '',
+    householdIncome: 0, retirementSavings: 0, has401k: '', monthlyContrib: 0, employerAnnual: 0,
     goals: [], debts: [], dreamText: '',
     captureFirst: '', captureLast: '', captureEmail: '', capturePhone: '', birthDate: '', birthYear: 0,
     contactPref: ''
@@ -948,6 +964,15 @@
     card.closest('.radio-group').querySelectorAll('.radio-card').forEach(c => c.classList.remove('selected'));
     card.classList.add('selected');
     state[group] = card.dataset.val;
+    if (group === 'has401k') {
+      const show = card.dataset.val === 'yes';
+      document.getElementById('contribFields').classList.toggle('visible', show);
+      if (!show) {
+        state.monthlyContrib = 0; state.employerAnnual = 0;
+        document.getElementById('monthlyContrib').value = '';
+        document.getElementById('employerAnnual').value = '';
+      }
+    }
   }
 
   // ── FORMAT ──
@@ -1024,27 +1049,11 @@
           </div>
           <div class="form-group" style="margin-bottom:0;">
             <label>Monthly Payment</label>
-            <select class="debt-payment">
-              <option value="0">— select —</option>
-              <option value="150">Under $200/mo</option>
-              <option value="300">$200 – $400/mo</option>
-              <option value="500">$400 – $600/mo</option>
-              <option value="750">$600 – $900/mo</option>
-              <option value="1000">$900 – $1,200/mo</option>
-              <option value="1500">$1,200+/mo</option>
-            </select>
+            <input type="text" class="debt-payment" placeholder="e.g. $450" oninput="formatDollar(this)">
           </div>
           <div class="form-group" style="margin-bottom:0;">
             <label>Balance Owed</label>
-            <select class="debt-balance">
-              <option value="0">— select —</option>
-              <option value="5000">Under $10,000</option>
-              <option value="15000">$10,000 – $20,000</option>
-              <option value="30000">$20,000 – $40,000</option>
-              <option value="50000">$40,000 – $60,000</option>
-              <option value="75000">$60,000 – $90,000</option>
-              <option value="100000">$90,000+</option>
-            </select>
+            <input type="text" class="debt-balance" placeholder="e.g. $18,500" oninput="formatDollar(this)">
           </div>
         </div>
       </div>`);
@@ -1059,8 +1068,8 @@
     state.debts = [];
     document.querySelectorAll('.debt-entry').forEach(entry => {
       const type    = entry.querySelector('select').value;
-      const payment = parseInt(entry.querySelector('.debt-payment').value) || 0;
-      const balance = parseInt(entry.querySelector('.debt-balance').value) || 0;
+      const payment = parseDollar(entry.querySelector('.debt-payment').value) || 0;
+      const balance = parseDollar(entry.querySelector('.debt-balance').value) || 0;
       if (payment > 0 || balance > 0) state.debts.push({type, payment, balance});
     });
   }
@@ -1086,9 +1095,11 @@
     const tiA = Math.round((tgt*0.021)/12) + 175;
 
     // 401K projection
-    const annualContrib = state.householdIncome * 0.06;
-    const retiro10 = (state.has401k==='yes' && state.householdIncome)
-      ? fvAnnuity(annualContrib, 0.10, 10) : 0;
+    state.monthlyContrib = parseDollar(document.getElementById('monthlyContrib').value) || 0;
+    state.employerAnnual = parseDollar(document.getElementById('employerAnnual').value) || 0;
+    const annualContrib = (state.monthlyContrib * 12) + state.employerAnnual;
+    const retiro10 = (state.has401k === 'yes' && annualContrib > 0)
+      ? fvAnnuity(annualContrib, 0.07, 10) : 0;
 
     // Scenario A: 20% down
     const downA=tgt*0.20, loanA=tgt-downA, piA=monthlyPayment(loanA,0.07,30);
@@ -1241,10 +1252,12 @@
       netEquity: state.netEquity,
       householdIncome: state.householdIncome,
       retirementSavings: state.retirementSavings,
-      has401k: state.has401k,
-      goals: state.goals.join(', '),
-      debts: state.debts.map(d => ({ type: d.type, payment: d.payment, balance: d.balance })),
-      dreamText: state.dreamText
+      has401k:            state.has401k,
+      monthlyContrib401k: state.monthlyContrib,
+      employerAnnual401k: state.employerAnnual,
+      goals:              state.goals.join(', '),
+      debts:              state.debts.map(d => ({ type: d.type, payment: d.payment, balance: d.balance })),
+      dreamText:          state.dreamText
     };
 
     if (AGENT.webhook) {
@@ -1290,8 +1303,10 @@
       netEquity:     state.netEquity,
       householdIncome: state.householdIncome,
       retirementSavings: state.retirementSavings,
-      has401k:       state.has401k,
-      debts:         state.debts.map(d => ({ type: d.type, payment: d.payment, balance: d.balance }))
+      has401k:            state.has401k,
+      monthlyContrib401k: state.monthlyContrib,
+      employerAnnual401k: state.employerAnnual,
+      debts:              state.debts.map(d => ({ type: d.type, payment: d.payment, balance: d.balance }))
     };
 
     if (AGENT.webhook) {
