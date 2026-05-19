@@ -1474,9 +1474,20 @@
 
         opt.addEventListener('mousedown', function(e) {
           e.preventDefault();
-          selectedZip   = f.zipCode || null;
-          selectedLabel = f.place_name || f.text || input.value;
-          input.value   = f.place_name || f.text || input.value;
+          var label = f.place_name || f.text || input.value;
+
+          // Try zip from server-extracted field first
+          var zip = f.zipCode || null;
+
+          // Client-side fallback: extract 5-digit zip from place_name
+          if (!zip && label) {
+            var zm = label.match(/\b(\d{5})\b/);
+            if (zm) zip = zm[1];
+          }
+
+          selectedZip   = zip;
+          selectedLabel = label;
+          input.value   = label;
           closeDropdown();
           if (selectedZip) {
             btn.disabled = false;

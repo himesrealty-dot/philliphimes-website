@@ -40,12 +40,24 @@ exports.handler = async function(event) {
         zip = f.text;
       }
 
-      // Otherwise look in context for postcode
+      // Look in context for a postcode entry
+      // Mapbox context IDs look like "postcode.12345678" or "us-zip.12345678"
       if (!zip && f.context) {
         var postcodeCtx = f.context.find(function(c) {
-          return c.id && c.id.startsWith('postcode');
+          return c.id && (
+            c.id.startsWith('postcode') ||
+            c.id.indexOf('.postcode') !== -1 ||
+            c.id.startsWith('us-zip')
+          );
         });
         if (postcodeCtx) zip = postcodeCtx.text;
+      }
+
+      // Fallback: extract 5-digit US zip from the place_name string
+      // e.g. "Tuscan Lakes, League City, TX 77573" → "77573"
+      if (!zip && f.place_name) {
+        var zipMatch = f.place_name.match(/\b(\d{5})\b/);
+        if (zipMatch) zip = zipMatch[1];
       }
 
       return Object.assign({}, f, { zipCode: zip });

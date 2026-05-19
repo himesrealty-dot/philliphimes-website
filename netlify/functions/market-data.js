@@ -44,9 +44,22 @@ exports.handler = async function(event) {
 
     const data = await res.json();
 
-    // Extract the key metrics we need
+    // Log the raw response so we can see what Rentcast is actually returning
+    console.log('Rentcast raw response keys:', JSON.stringify(Object.keys(data)));
+    console.log('Rentcast raw response:', JSON.stringify(data).slice(0, 800));
+
+    // Rentcast /v1/markets response structure varies by plan.
+    // Check top-level fields first, then nested saleData, then saleData.averages.
     const saleData = data.saleData || {};
     const averages = saleData.averages || {};
+
+    function pick() {
+      for (var i = 0; i < arguments.length; i++) {
+        var v = arguments[i];
+        if (v !== null && v !== undefined && v !== '' && !isNaN(Number(v))) return v;
+      }
+      return null;
+    }
 
     return {
       statusCode: 200,
@@ -55,14 +68,15 @@ exports.handler = async function(event) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        zipCode:            zipCode,
-        averagePrice:       averages.price          || null,
-        medianPrice:        averages.pricePerSqFt   || null,
-        averageDaysOnMarket: averages.daysOnMarket  || null,
-        averagePricePerSqFt: averages.pricePerSqFt  || null,
-        totalListings:      saleData.totalListings  || null,
-        monthsOfSupply:     saleData.monthsOfSupply || null,
-        lastUpdated:        data.lastUpdated        || null
+        zipCode:             zipCode,
+        averagePrice:        pick(data.averagePrice,        saleData.averagePrice,        averages.price),
+        averageDaysOnMarket: pick(data.averageDaysOnMarket, saleData.averageDaysOnMarket, averages.daysOnMarket),
+        averagePricePerSqFt: pick(data.averagePricePerSqFt, saleData.averagePricePerSqFt, averages.pricePerSqFt),
+        totalListings:       pick(data.totalListings,       saleData.totalListings),
+        monthsOfSupply:      pick(data.monthsOfSupply,      saleData.monthsOfSupply),
+        lastUpdated:         data.lastUpdated || null,
+        // Debug: expose what we actually received (remove after confirming)
+        _debug: { keys: Object.keys(data), saleDataKeys: Object.keys(saleData) }
       })
     };
   } catch (err) {
