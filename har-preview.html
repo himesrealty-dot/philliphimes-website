@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HAR IDX Preview</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', sans-serif; background: #0a1628; color: #fff; }
+
+    .preview-bar {
+      background: #112240;
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .preview-bar .label {
+      font-size: 13px;
+      color: #a0aec0;
+    }
+    .preview-bar .label span {
+      color: #c9a84c;
+      font-weight: 600;
+    }
+    .preview-bar .note {
+      font-size: 12px;
+      color: #718096;
+    }
+
+    .embed-wrapper {
+      width: 100%;
+      height: calc(100vh - 49px);
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .blocked-msg {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: calc(100vh - 49px);
+      text-align: center;
+      padding: 40px;
+    }
+    .blocked-msg h2 {
+      font-size: 22px;
+      margin-bottom: 12px;
+      color: #c9a84c;
+    }
+    .blocked-msg p {
+      color: #a0aec0;
+      max-width: 500px;
+      line-height: 1.6;
+    }
+    .blocked-msg a {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 12px 28px;
+      background: #c9a84c;
+      color: #0a1628;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="preview-bar">
+    <div class="label">HAR IDX Widget Preview — <span>philliphimes.com</span></div>
+    <div class="note">Testing embed compatibility · cid=658644</div>
+  </div>
+
+  <div class="embed-wrapper">
+    <iframe
+      id="har-frame"
+      src="https://www.har.com/idx/mls/listing?sitetype=aws&cid=658644&mlsorgid=1&allmls=n"
+      title="HAR IDX Listings"
+      allowfullscreen
+    ></iframe>
+  </div>
+
+  <div class="blocked-msg" id="blocked">
+    <h2>Embed Blocked</h2>
+    <p>HAR is preventing this page from loading inside an iframe (X-Frame-Options). This means the widget cannot be embedded directly — you would need to link to it or use the SimplyRETS API approach to build a native version.</p>
+    <a href="https://www.har.com/idx/mls/listing?sitetype=aws&cid=658644&mlsorgid=1&allmls=n" target="_blank">Open HAR Listing Page →</a>
+  </div>
+
+  <script>
+    var frame = document.getElementById('har-frame');
+    var blocked = document.getElementById('blocked');
+
+    frame.addEventListener('error', function() {
+      frame.parentElement.style.display = 'none';
+      blocked.style.display = 'flex';
+    });
+
+    // Check after 5 seconds if the frame loaded anything
+    setTimeout(function() {
+      try {
+        var doc = frame.contentDocument || frame.contentWindow.document;
+        if (!doc || doc.body.innerHTML === '') {
+          frame.parentElement.style.display = 'none';
+          blocked.style.display = 'flex';
+        }
+      } catch(e) {
+        // Cross-origin block — frame loaded but we can't read it (that's fine)
+      }
+    }, 5000);
+  </script>
+
+</body>
+</html>
