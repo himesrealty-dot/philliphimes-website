@@ -188,12 +188,13 @@
       position: relative; z-index: 1;
     }
     .hv-plunk-col {
-      background: var(--navy);
+      background: white;
       border-radius: 1rem;
-      padding: 2rem;
+      padding: 0;
+      overflow: hidden;
     }
 
-    /* ── Plunk copy block ── */
+    /* Copy block sits above the white card */
     .hv-plunk-intro { margin-bottom: 1.5rem; }
     .hv-plunk-intro__title {
       font-family: var(--font-heading); font-weight: 900;
@@ -204,92 +205,9 @@
       font-size: 0.88rem; color: rgba(255,255,255,0.75); line-height: 1.7;
     }
 
-    /* ── Force Plunk widget to blend into section background ── */
+    /* Let Plunk render as-is — only suppress its heading */
     #hv-plunk-host h1, #hv-plunk-host h2, #hv-plunk-host h3,
     #hv-plunk-host h4, #hv-plunk-host h5 { display: none !important; }
-
-    /* Step 1 — kill ALL container backgrounds (the white box) */
-    #hv-plunk-host,
-    #hv-plunk-host div,
-    #hv-plunk-host form,
-    #hv-plunk-host section,
-    #hv-plunk-host article,
-    #hv-plunk-host header,
-    #hv-plunk-host footer {
-      background: transparent !important;
-      background-color: transparent !important;
-      box-shadow: none !important;
-      border: none !important;
-    }
-
-    /* Labels + text */
-    #hv-plunk-host label,
-    #hv-plunk-host p,
-    #hv-plunk-host span {
-      color: rgba(255,255,255,0.85) !important;
-      background: transparent !important;
-    }
-
-    /* Address input — restore frosted glass look */
-    #hv-plunk-host input[type="text"],
-    #hv-plunk-host input[type="search"],
-    #hv-plunk-host input:not([type="submit"]):not([type="button"]):not([type="checkbox"]):not([type="hidden"]) {
-      background: rgba(255,255,255,0.12) !important;
-      border: 2px solid rgba(255,255,255,0.25) !important;
-      border-radius: 50px !important;
-      color: white !important;
-      padding: 0.9rem 1.4rem !important;
-      font-size: 0.95rem !important;
-      outline: none !important;
-      width: 100% !important;
-      box-sizing: border-box !important;
-    }
-    #hv-plunk-host input::placeholder { color: rgba(255,255,255,0.45) !important; }
-    #hv-plunk-host input:focus {
-      border-color: rgba(255,255,255,0.55) !important;
-      background: rgba(255,255,255,0.18) !important;
-    }
-
-    /* Submit button — gold */
-    #hv-plunk-host button,
-    #hv-plunk-host input[type="submit"],
-    #hv-plunk-host input[type="button"] {
-      background: var(--gold) !important;
-      background-color: var(--gold) !important;
-      color: var(--navy) !important;
-      border: none !important;
-      border-radius: 50px !important;
-      font-family: var(--font-heading) !important;
-      font-weight: 800 !important;
-      letter-spacing: 0.06em !important;
-      cursor: pointer !important;
-      box-shadow: 0 4px 14px rgba(201,164,85,0.35) !important;
-    }
-
-    /* Suggestion dropdown — keep white so it's readable */
-    #hv-plunk-host [class*="suggestion"],
-    #hv-plunk-host [class*="autocomplete"],
-    #hv-plunk-host [class*="dropdown"],
-    #hv-plunk-host [role="listbox"] {
-      background: white !important;
-      background-color: white !important;
-      border-radius: 0.75rem !important;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.2) !important;
-    }
-    #hv-plunk-host [role="option"],
-    #hv-plunk-host [class*="suggestion"] > * {
-      background: transparent !important;
-      color: var(--navy) !important;
-    }
-    #hv-plunk-host [role="option"]:hover { background: #f9f7f4 !important; }
-
-    /* Value / result numbers */
-    #hv-plunk-host [class*="value"],
-    #hv-plunk-host [class*="result"],
-    #hv-plunk-host [class*="estimate"],
-    #hv-plunk-host [class*="price"] {
-      color: var(--gold) !important;
-    }
 
     .hv-capture-col {
       background: rgba(255,255,255,0.09); backdrop-filter: blur(12px);
@@ -793,14 +711,16 @@
 
       <div class="hv-native-grid">
 
-        <!-- Left: Plunk widget — native interaction -->
-        <div class="hv-plunk-col">
+        <!-- Left: copy + Plunk widget -->
+        <div>
           <div class="hv-plunk-intro">
             <h2 class="hv-plunk-intro__title">Your Instant Estimate —<br />A Smart Starting Point</h2>
             <p class="hv-plunk-intro__copy">This tool gives you a real-time data estimate based on recent sales activity in your neighborhood. It's a solid number to start with — but it's an algorithm. It doesn't know about your updates, your curb appeal, or what's quietly happening in your specific pocket of the market.</p>
             <p class="hv-plunk-intro__copy" style="margin-top:0.85rem;">When you're serious about selling, you need a TruMarket™ report. That's Phil pulling actual comps, walking your competition, and telling you exactly what price puts the most money in your pocket — and why.</p>
           </div>
-          <div id="hv-plunk-host"></div>
+          <div class="hv-plunk-col">
+            <div id="hv-plunk-host"></div>
+          </div>
         </div>
 
         <!-- Right: TruMarket lead capture — always visible -->
