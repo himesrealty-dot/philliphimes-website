@@ -111,4 +111,35 @@ exports.handler = async function(event) {
     return {
       statusCode: 200,
       headers: { 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json' },
-      body: JSON.stringify(
+      body: JSON.stringify({
+        zestimate:      zestimate,
+        listPrice:      listPrice,
+        beds:           beds,
+        baths:          baths,
+        sqft:           sqft,
+        pricePerSqft:   pricePerSqft,
+        daysOnMarket:   daysOnMarket,
+        yearBuilt:      yearBuilt,
+        floodZone:      floodZone,
+        floodDetail:    floodDetail,
+        schoolDistrict: schoolDistrict,
+        schools: {
+          elementary: elementary,
+          middle:     middle,
+          high:       high
+        },
+        propertyType:   propertyType,
+        description:    description,
+        source:         'zillow'
+      })
+    };
+
+  } catch (err) {
+    console.error('zillow-property error:', err);
+    return {
+      statusCode: 500,
+      headers: { 'Access-Control-Allow-Origin': '*' },
+      body: JSON.stringify({ error: err.message })
+    };
+  }
+};
