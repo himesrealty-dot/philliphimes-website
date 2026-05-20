@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Story | From Soldier to REALTOR® | Phillip Himes</title>
+  <meta name="description" content="Phillip Himes — 9 years U.S. Army, nearly 20 years in real estate finance, and a REALTOR® who treats every move as a life transition, not just a transaction. League City, TX." />
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+
+  <style>
+
+    /* ── HERO ───────────────────────────────────────────────── */
+    .about-hero {
+      background: linear-gradient(135deg, #0a1c2e 0%, #0d2137 60%, #1a3a52 100%);
+      padding: 5rem 0 4.5rem; position: relative; overflow: hidden;
+    }
+    .about-hero::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 30% 60%, rgba(201,164,85,0.07) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .about-hero__inner {
+      position: relative; z-index: 1; max-width: 740px;
+    }
+    .about-hero__eyebrow {
+      display: inline-block; font-family: var(--font-heading); font-size: 0.7rem;
+      font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 1.25rem;
+    }
+    .about-hero__title {
+      font-family: var(--font-heading); font-weight: 900;
+      font-size: clamp(2.2rem, 5vw, 3.6rem); color: white;
+      line-height: 1.05; margin-bottom: 1.5rem;
+    }
+    .about-hero__title span { color: var(--gold); }
+    .about-hero__subtitle {
+      font-size: 1.1rem; color: rgba(255,255,255,0.75);
+      line-height: 1.8; max-width: 560px; margin-bottom: 2.25rem;
+    }
+    .about-hero__service {
+      display: flex; flex-wrap: wrap; gap: 0.75rem;
+    }
+    .about-hero__badge {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 50px; padding: 0.4rem 1rem;
+      font-family: var(--font-heading); font-size: 0.75rem;
+      font-weight: 700; color: rgba(255,255,255,0.8); letter-spacing: 0.04em;
+    }
+
+    /* ── STORY SECTIONS ─────────────────────────────────────── */
+    .story-section {
+      padding: 4.5rem 0;
+      border-bottom: 1px solid var(--light-gray, #e8e3da);
+    }
+    .story-section:last-of-type { border-bottom: none; }
+    .story-section--alt { background: var(--off-white, #f9f7f4); }
+
+    .story-label {
+      display: inline-block; font-family: var(--font-heading); font-size: 0.68rem;
+      font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 1rem;
+    }
+    .story-heading {
+      font-family: var(--font-heading); font-weight: 900;
+      font-size: clamp(1.6rem, 3vw, 2.2rem); color: var(--navy);
+      line-height: 1.15; margin-bottom: 1.75rem;
+    }
+    .story-body {
+      font-size: 1.05rem; line-height: 1.85; color: var(--dark-gray, #444);
+      max-width: 680px;
+    }
+    .story-body p { margin-bottom: 1.25rem; }
+    .story-body p:last-child { margin-bottom: 0; }
+    .story-body strong { color: var(--navy); font-weight: 700; }
+
+    .story-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 4rem; align-items: start;
+    }
+    @media (max-width: 860px) {
+      .story-grid { grid-template-columns: 1fr; gap: 2rem; }
+    }
+
+    /* ── MILITARY STAT CHIPS ────────────────────────────────── */
+    .military-chips {
+      display: flex; flex-wrap: wrap; gap: 0.65rem; margin-top: 2rem;
+    }
+    .military-chip {
+      background: var(--navy); color: rgba(255,255,255,0.85);
+      font-family: var(--font-heading); font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.05em; padding: 0.45rem 1rem; border-radius: 50px;
+    }
+    .military-chip--gold {
+      background: rgba(201,164,85,0.12); color: var(--navy);
+      border: 1.5px solid rgba(201,164,85,0.5);
+    }
+
+    /* ── PULL QUOTE ─────────────────────────────────────────── */
+    .pull-quote {
+      border-left: 4px solid var(--gold);
+      padding: 1.25rem 1.75rem; margin: 2.5rem 0;
+      background: rgba(201,164,85,0.06); border-radius: 0 0.75rem 0.75rem 0;
+    }
+    .pull-quote p {
+      font-family: var(--font-accent, Georgia, serif); font-style: italic;
+      font-size: 1.2rem; color: var(--navy); line-height: 1.65;
+      margin: 0;
+    }
+
+    /* ── CAITLYN SECTION ────────────────────────────────────── */
+    .caitlyn-section {
+      background: linear-gradient(135deg, #0a1c2e 0%, #0d2137 100%);
+      padding: 5rem 0;
+    }
+    .caitlyn-section .story-label { color: var(--gold); }
+    .caitlyn-section .story-heading { color: white; }
+    .caitlyn-section .story-body { color: rgba(255,255,255,0.78); max-width: 700px; }
+    .caitlyn-section .story-body strong { color: white; }
+    .caitlyn-section .pull-quote {
+      border-left-color: var(--gold);
+      background: rgba(255,255,255,0.05);
+      border-radius: 0 0.75rem 0.75rem 0;
+    }
+    .caitlyn-section .pull-quote p { color: rgba(255,255,255,0.9); }
+
+    /* ── CREDENTIALS ────────────────────────────────────────── */
+    .credentials-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1rem; margin-top: 2.5rem;
+    }
+    .credential-card {
+      background: white; border: 1px solid var(--light-gray, #e8e3da);
+      border-radius: 0.875rem; padding: 1.25rem 1.5rem;
+      display: flex; align-items: flex-start; gap: 1rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .credential-card__icon {
+      width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0;
+      background: rgba(201,164,85,0.12); border: 1.5px solid rgba(201,164,85,0.35);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+    }
+    .credential-card__abbr {
+      font-family: var(--font-heading); font-weight: 900;
+      font-size: 0.9rem; color: var(--navy); margin-bottom: 0.2rem;
+    }
+    .credential-card__name {
+      font-size: 0.82rem; color: var(--dark-gray, #666); line-height: 1.4;
+    }
+
+    /* ── CTA SECTION ────────────────────────────────────────── */
+    .about-cta {
+      background: var(--off-white, #f9f7f4);
+      padding: 5rem 0; text-align: center;
+    }
+    .about-cta__eyebrow {
+      font-family: var(--font-heading); font-size: 0.7rem; font-weight: 800;
+      letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold);
+      margin-bottom: 1rem; display: block;
+    }
+    .about-cta__title {
+      font-family: var(--font-heading); font-weight: 900;
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem); color: var(--navy);
+      line-height: 1.15; margin-bottom: 1.25rem;
+    }
+    .about-cta__body {
+      font-size: 1.05rem; color: var(--dark-gray, #555);
+      line-height: 1.75; max-width: 540px; margin: 0 auto 2.5rem;
+    }
+    .about-cta__actions {
+      display: flex; flex-wrap: wrap; gap: 1rem;
+      justify-content: center; align-items: center;
+    }
+    .about-cta__phone {
+      font-family: var(--font-heading); font-weight: 800;
+      font-size: 1rem; color: var(--navy); text-decoration: none;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .about-cta__phone:hover { color: var(--gold); }
+
+  </style>
+</head>
+<body>
+
+  <!-- ── NAVIGATION ────────────────────────────────────────── -->
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo" aria-label="Phillip Himes Real Estate Home">
+        <img src="images/logo.png" alt="Phillip Himes | Brokered by eXp Realty" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+        <span class="nav__logo-text" style="display:none;">
+          <span class="nav__logo-name">Phillip Himes</span>
+          <span class="nav__logo-brokerage">Brokered by eXp Realty</span>
+        </span>
+      </a>
+      <ul class="nav__links" id="nav-links">
+        <li><a href="buyers.html" class="nav__link">Buying</a></li>
+        <li><a href="sellers.html" class="nav__link">Selling</a></li>
+        <li><a href="search.html" class="nav__link">Search</a></li>
+        <li class="nav__item nav__item--dropdown">
+          <a href="cities.html" class="nav__link">Cities</a>
+          <ul class="nav__dropdown" aria-label="Cities submenu">
+            <li><a href="cities.html#league-city">League City</a></li>
+            <li><a href="cities.html#friendswood">Friendswood</a></li>
+            <li><a href="cities.html#pearland">Pearland</a></li>
+            <li><a href="cities.html#clear-lake">Clear Lake</a></li>
+            <li><a href="cities.html#dickinson">Dickinson</a></li>
+            <li><a href="cities.html#manvel">Manvel</a></li>
+          </ul>
+        </li>
+        <li class="nav__item nav__item--dropdown">
+          <a href="marketiq.html" class="nav__link">Tools</a>
+          <ul class="nav__dropdown" aria-label="Tools submenu">
+            <li><a href="buyers.html">BuyerIQ™ — Buyer's Edge</a></li>
+            <li><a href="sellers.html">SellerIQ™ — Seller's Edge</a></li>
+            <li><a href="marketiq.html">MarketIQ™ — Property Intelligence</a></li>
+          </ul>
+        </li>
+        <li><a href="about.html" class="nav__link nav__link--active">My Story</a></li>
+        <li><a href="contact.html" class="nav__link">Ask Phil</a></li>
+        <li class="nav__mobile-cta" style="display:none;">
+          <a href="tel:8325361016" class="btn btn--secondary" style="width:100%;margin-top:var(--space-md);">📞 (832) 536-1016</a>
+          <a href="contact.html" class="btn btn--primary" style="width:100%;margin-top:var(--space-sm);">Ask Phil</a>
+        </li>
+      </ul>
+      <div class="nav__cta">
+        <a href="tel:8325361016" class="nav__phone">📞 (832) 536-1016</a>
+        <a href="contact.html" class="btn btn--primary btn--sm">Ask Phil</a>
+      </div>
+      <button class="nav__hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ── HERO ──────────────────────────────────────────────── -->
+  <section class="about-hero">
+    <div class="container">
+      <div class="about-hero__inner">
+        <span class="about-hero__eyebrow">My Story</span>
+        <h1 class="about-hero__title">From <span>Soldier</span><br>to REALTOR®</h1>
+        <p class="about-hero__subtitle">Most agents can tell you what your home is worth. I can tell you what your next chapter could look like.</p>
+        <div class="about-hero__service">
+          <span class="about-hero__badge">🎖️ U.S. Army Veteran</span>
+          <span class="about-hero__badge">30 Years in Real Estate</span>
+          <span class="about-hero__badge">League City, TX</span>
+          <span class="about-hero__badge">eXp Realty</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SECTION 1: THE FOUNDATION ────────────────────────── -->
+  <section class="story-section">
+    <div class="container">
+      <div class="story-grid">
+        <div>
+          <span class="story-label">The Foundation</span>
+          <h2 class="story-heading">Nine Years.<br>Five Assignments.<br>One Standard.</h2>
+          <div class="story-body">
+            <p>Before I was a REALTOR®, I spent nine years in the United States Army. Staff Sergeant. Fort Lewis, Fort Drum, South Korea. Deployments to Egypt and Haiti. Jungle Warfare School in Panama. Sniper School at Fort Bragg.</p>
+            <p>The Army taught me something I've never forgotten: the person next to you matters more than almost anything else. You don't cut corners when it counts. You don't leave people behind.</p>
+            <p>That's still how I operate.</p>
+          </div>
+          <div class="military-chips">
+            <span class="military-chip">Staff Sergeant</span>
+            <span class="military-chip">Fort Lewis — 9th Infantry</span>
+            <span class="military-chip">South Korea — 2nd Infantry</span>
+            <span class="military-chip">Fort Drum — 10th Mountain</span>
+            <span class="military-chip--gold military-chip">Egypt — MFO</span>
+            <span class="military-chip--gold military-chip">Haiti — Operation Restore Hope</span>
+            <span class="military-chip">Jungle Warfare School</span>
+            <span class="military-chip">Sniper School</span>
+          </div>
+        </div>
+        <div>
+          <div class="pull-quote" style="margin-top:3.5rem;">
+            <p>"You don't cut corners when it counts. You don't leave people behind. That's still how I operate."</p>
+          </div>
+          <div style="margin-top:2rem;background:var(--off-white);border-radius:var(--radius-lg);padding:var(--space-xl);">
+            <p style="font-family:var(--font-heading);font-size:0.72rem;font-weight:800;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:var(--space-md);">After the Military</p>
+            <p style="font-size:0.95rem;color:var(--dark-gray);line-height:1.75;margin:0;">When I left the Army, I brought the same discipline into real estate finance — spending nearly 30 years as a top-producing mortgage originator before becoming a licensed REALTOR® in 2015.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SECTION 2: THE PIVOT ──────────────────────────────── -->
+  <section class="story-section story-section--alt">
+    <div class="container">
+      <span class="story-label">The Pivot</span>
+      <h2 class="story-heading" style="max-width:600px;">A Crisis. A Daughter.<br>And a Meeting That Changed Everything.</h2>
+      <div class="story-grid" style="margin-top:2rem;">
+        <div class="story-body">
+          <p>After the military, I spent nearly 20 years in real estate finance — eventually running Capital One Bank's retail mortgage division as Regional Manager over Texas and Northern Louisiana.</p>
+          <p>In 2009, the financial crisis hit. The mortgage company Capital One had acquired the year before came under intense scrutiny, and Capital One had no choice but to sell the division.</p>
+          <p>I was out. Two years of severance. A chance to start over.</p>
+          <p>I was already in Texas. I called my oldest daughter Scarlett in Oregon and convinced her to come down and learn the mortgage business with me.</p>
+        </div>
+        <div class="story-body">
+          <p>We were a good team. But the post-crisis mortgage world was brutal. Even the strongest borrowers required hours of explanation. Every loan was a fight.</p>
+          <p>One day, Scarlett had a loan that should have closed. At the last minute, underwriting came back asking for one more document. She came home that evening upset and in tears. She told me she couldn't do it anymore.</p>
+          <p>It was Scarlett who found a meeting about becoming a REALTOR®. She asked me to go with her.</p>
+          <p>The next thing I knew, we were both sitting for the real estate license exam.</p>
+          <p><strong>That was the beginning.</strong></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SECTION 3: WHY I DO THIS ─────────────────────────── -->
+  <section class="story-section">
+    <div class="container" style="max-width:800px;">
+      <span class="story-label">Why I Do This</span>
+      <h2 class="story-heading">People Don't Move Because of<br>Interest Rates.</h2>
+      <div class="story-body">
+        <p>I've been in real estate — in one form or another — for 30 years, serving buyers and sellers across League City, Friendswood, Pearland, and Clear Lake. What I've learned is that people don't move because of interest rates or inventory reports.</p>
+        <p>They move because something in their life changed.</p>
+        <p>A family that outgrew their home. An empty nest that finally feels too quiet. A chapter that's closing and another one that hasn't started yet. A veteran who's finally ready to put down roots. A couple who's been sitting on $300,000 in equity and doesn't know what to do with it.</p>
+        <p>Most agents treat those moments as transactions.</p>
+        <p>I treat them as transitions. And I built every tool, every system, and every conversation in this business around that belief.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SECTION 4: HOME ───────────────────────────────────── -->
+  <section class="story-section story-section--alt">
+    <div class="container" style="max-width:800px;">
+      <span class="story-label">Home</span>
+      <h2 class="story-heading">League City Is Where I Belong.</h2>
+      <div class="story-body">
+        <p>I live and work in League City. My granddaughter Vivian lives in Friendswood, and every Friday I spend four hours with her.</p>
+        <p>I'll be honest — it's the best four hours of my week.</p>
+        <p>This community isn't just where I work. It's where my family is. That's not something I take lightly when I'm helping someone else's family make one of the biggest decisions of their life.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SECTION 5: CAITLYN ────────────────────────────────── -->
+  <section class="caitlyn-section">
+    <div class="container" style="max-width:800px;">
+      <span class="story-label">Caitlyn</span>
+      <h2 class="story-heading">She's With Me Every Day.</h2>
+      <div class="story-body">
+        <p>My AI assistant is named Caitlyn — after my daughter, who passed away at six years old from leukemia.</p>
+        <p>When I got out of the military, Caitlyn was the child I finally got to be present for. We were inseparable. Golfing, yard work, sporting events — she was right there beside me. Every evening we'd sit on the couch together before bedtime. The O'Reilly Factor, comfy couch, two hours.</p>
+        <p><strong>That was our deal.</strong></p>
+        <p>She was a daddy's girl. She was special in a way that's hard to put into words.</p>
+      </div>
+      <div class="pull-quote" style="margin:2.5rem 0;">
+        <p>"The AI has none of her traits. But she carries her name. And that means every time a lead comes in and Caitlyn responds — I think of her. That's why I named her that. So she's with me every day."</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CREDENTIALS ───────────────────────────────────────── -->
+  <section class="story-section">
+    <div class="container">
+      <span class="story-label">Credentials</span>
+      <h2 class="story-heading">Experience You Can Count On.</h2>
+      <div class="credentials-grid">
+        <div class="credential-card">
+          <div class="credential-card__icon">⭐</div>
+          <div>
+            <div class="credential-card__abbr">REALTOR®</div>
+            <div class="credential-card__name">National Association of Realtors Member · Licensed since 2015</div>
+          </div>
+        </div>
+        <div class="credential-card">
+          <div class="credential-card__icon">🏠</div>
+          <div>
+            <div class="credential-card__abbr">ABR</div>
+            <div class="credential-card__name">Accredited Buyer's Representative</div>
+          </div>
+        </div>
+        <div class="credential-card">
+          <div class="credential-card__icon">📋</div>
+          <div>
+            <div class="credential-card__abbr">SRS</div>
+            <div class="credential-card__name">Seller Representative Specialist</div>
+          </div>
+        </div>
+        <div class="credential-card">
+          <div class="credential-card__icon">🤝</div>
+          <div>
+            <div class="credential-card__abbr">RENE</div>
+            <div class="credential-card__name">Real Estate Negotiation Expert</div>
+          </div>
+        </div>
+        <div class="credential-card">
+          <div class="credential-card__icon">🎨</div>
+          <div>
+            <div class="credential-card__abbr">ASP</div>
+            <div class="credential-card__name">Accredited Staging Professional</div>
+          </div>
+        </div>
+        <div class="credential-card">
+          <div class="credential-card__icon">🏆</div>
+          <div>
+            <div class="credential-card__abbr">BRAG Award</div>
+            <div class="credential-card__name">Broker Agent Magazine 7 Star Top 100 Recipient</div>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:2.5rem;padding:1.5rem 2rem;background:var(--off-white);border-radius:var(--radius-lg);display:inline-block;">
+        <p style="font-size:0.95rem;color:var(--dark-gray);line-height:1.75;margin:0;">
+          <strong style="color:var(--navy);">Nearly 30 years in real estate finance</strong> as a top-producing mortgage originator —
+          including roles at Capital One Bank as Regional Manager over Texas and Northern Louisiana.
+          That background means I don't just understand the market. I understand the money.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA ───────────────────────────────────────────────── -->
+  <section class="about-cta">
+    <div class="container">
+      <span class="about-cta__eyebrow">Let's Talk</span>
+      <h2 class="about-cta__title">If You're Navigating a Life Transition —<br>I'd Like to Help.</h2>
+      <p class="about-cta__body">Not with a script. Not with a pitch. Just a real conversation about where you are and what's possible.</p>
+      <div class="about-cta__actions">
+        <a href="contact.html" class="btn btn--primary btn--lg">Start the Conversation →</a>
+        <a href="tel:8325361016" class="about-cta__phone">📞 (832) 536-1016</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ────────────────────────────────────────────── -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <div class="footer__brand-name">Phillip Himes</div>
+          <div class="footer__brokerage">REALTOR® | Brokered by eXp Realty</div>
+          <p class="footer__tagline">"Real estate built around your life — not just your transaction."</p>
+          <p class="footer__desc">Serving League City, Friendswood, Pearland, Clear Lake, Dickinson, and Manvel across the Houston Bay Area.</p>
+          <p class="footer__desc" style="margin-top:var(--space-md);">📞 <a href="tel:8325361016" style="color:rgba(255,255,255,0.6);">(832) 536-1016</a><br />✉️ <a href="mailto:phil@philliphimes.com" style="color:rgba(255,255,255,0.6);">phil@philliphimes.com</a></p>
+        </div>
+        <div>
+          <div class="footer__heading">Buying</div>
+          <ul class="footer__links">
+            <li><a href="buyers.html">BuyerIQ™ · Buyer's Edge</a></li>
+            <li><a href="buyers.html#search">Search Homes</a></li>
+            <li><a href="buyers.html#affordability">Affordability Tools</a></li>
+            <li><a href="buyers.html#preapproval">Get Pre-Approved</a></li>
+            <li><a href="buyers.html#offer">Offer Strategy</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer__heading">Selling</div>
+          <ul class="footer__links">
+            <li><a href="sellers.html">SellerIQ™ · Know Your Number</a></li>
+            <li><a href="contact.html?topic=trumarket">Get My TruMarket™ Report</a></li>
+            <li><a href="rebalance.html">Rebalance™</a></li>
+            <li><a href="amplify.html">Amplify™</a></li>
+            <li><a href="contact.html?topic=renew">Renew™</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer__heading">Explore</div>
+          <ul class="footer__links">
+            <li><a href="marketiq.html">MarketIQ™</a></li>
+            <li><a href="cities.html">Cities</a></li>
+            <li><a href="about.html">My Story</a></li>
+            <li><a href="contact.html">Ask Phil</a></li>
+            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__legal">
+          © 2026 Phillip Himes · Brokered by eXp Realty · Licensed in Texas ·
+          <a href="privacy-policy.html">Privacy Policy</a> ·
+          <a href="terms-of-service.html">Terms of Service</a>
+        </p>
+        <p class="footer__disclaimer">
+          All information deemed reliable but not guaranteed. Equal Housing Opportunity. Information subject to change without notice.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="https://widgets.leadconnectorhq.com/loader.js" data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" data-widget-id="69fba6dfba1fce1be5f73408" data-source="WEB_USER"></script>
+  <script src="https://widgets.leadconnectorhq.com/loader.js" data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" data-widget-id="6a0623c7f127bb5833bc2697"></script>
+
+</body>
+</html>
