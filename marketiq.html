@@ -1194,20 +1194,76 @@
     miqState.address = input;
     miqState.neighborhood = detectNeighborhood(input);
 
-    // Simulate async data fetch
-    setTimeout(() => {
-      document.getElementById('miq-loading').classList.remove('show');
-      renderResults();
-    }, 900);
+    // Fetch real property data from Zillow via Firecrawl
+    fetch('/.netlify/functions/zillow-property?address=' + encodeURIComponent(input))
+      .then(function(r) { return r.json(); })
+      .then(function(propertyData) {
+        document.getElementById('miq-loading').classList.remove('show');
+        renderResults(propertyData && !propertyData.error ? propertyData : null);
+      })
+      .catch(function() {
+        document.getElementById('miq-loading').classList.remove('show');
+        renderResults(null);
+      });
   }
 
   /* ── RENDER RESULTS ─────────────────────────────────────────── */
-  function renderResults() {
-    const data = MARKET_DATA[miqState.neighborhood];
+  function renderResults(propertyData) {
+    // Start with neighborhood static data (market notes, lifestyle tags, scenarios)
+    const data = Object.assign({}, MARKET_DATA[miqState.neighborhood]);
+
+    // Override with real Zillow data where available
+    if (propertyData) {
+      miqState.propertyData = propertyData;
+
+      // TruMarket value: use Zestimate as mid, ±7% for range
+      if (propertyData.zestimate) {
+        const z = propertyData.zestimate;
+        data.trumarket = { mid: z, low: Math.round(z * 0.93), high: Math.round(z * 1.07) };
+        data.priceTrend = data.priceTrend || 3.0; // keep neighborhood trend if no override
+      }
+
+      // Property intelligence
+      if (propertyData.daysOnMarket  != null) data.daysOnMarket     = propertyData.daysOnMarket;
+      if (propertyData.pricePerSqft  != null) data.pricePerSqft     = propertyData.pricePerSqft;
+
+      // Flood zone
+      if (propertyData.floodZone)   data.floodZone   = propertyData.floodZone;
+      if (propertyData.floodDetail) data.floodDetail = propertyData.floodDetail;
+
+      // Schools
+      if (propertyData.schoolDistrict) data.schoolDistrict = propertyData.schoolDistrict;
+      if (propertyData.schools) {
+        data.schools = Object.assign({}, data.schools || {}, {
+          elementary: propertyData.schools.elementary || (data.schools && data.schools.elementary) || 'Varies by address',
+          middle:     propertyData.schools.middle     || (data.schools && data.schools.middle)     || 'Varies by address',
+          high:       propertyData.schools.high       || (data.schools && data.schools.high)       || 'Varies by address'
+        });
+      }
+
+      // Store beds/baths/sqft for display in header
+      miqState.beds  = propertyData.beds;
+      miqState.baths = propertyData.baths;
+      miqState.sqft  = propertyData.sqft;
+
+      // Pre-fill list price if Zillow has it
+      if (propertyData.listPrice) miqState.listPrice = propertyData.listPrice;
+    }
 
     // Property header
     document.getElementById('res-address').textContent = miqState.address;
-    document.getElementById('res-neighborhood').textContent = data.name + ' · ' + data.city;
+    // Show real beds/baths/sqft if available, otherwise show neighborhood name
+    var subLine = '';
+    if (miqState.beds || miqState.baths || miqState.sqft) {
+      var parts = [];
+      if (miqState.beds)  parts.push(miqState.beds  + ' bed');
+      if (miqState.baths) parts.push(miqState.baths + ' bath');
+      if (miqState.sqft)  parts.push(miqState.sqft.toLocaleString() + ' sqft');
+      subLine = parts.join(' · ') + ' · ' + data.city;
+    } else {
+      subLine = data.name + ' · ' + data.city;
+    }
+    document.getElementById('res-neighborhood').textContent = subLine;
     document.getElementById('res-note-neighborhood').textContent = data.name;
 
     // Market temp badge
@@ -1243,10 +1299,14 @@
     document.getElementById('miq-results').classList.add('show');
     window.scrollTo({ top: document.getElementById('results-section').offsetTop - 80, behavior: 'smooth' });
 
-    // Reset list price comparison
-    miqState.listPrice = 0;
-    document.getElementById('res-listprice-input').value = '';
+    // Reset / pre-fill list price comparison
     document.getElementById('res-comparison-result').style.display = 'none';
+    if (miqState.listPrice) {
+      document.getElementById('res-listprice-input').value = miqState.listPrice.toLocaleString();
+    } else {
+      miqState.listPrice = 0;
+      document.getElementById('res-listprice-input').value = '';
+    }
   }
 
   /* ── MODE CONTENT ───────────────────────────────────────────── */
@@ -1428,69 +1488,4 @@
       ];
     }
 
-    // Grid class
-    const grid = document.getElementById('scen-grid');
-    grid.className = 'miq-scenarios-grid miq-scenarios-grid--' + (show4 ? '4' : '3');
-    grid.innerHTML = scenarios.map(s => `
-      <div class="miq-scenario-card ${s.nameColor !== 'white' ? 'miq-scenario-card--' + s.nameColor : ''}">
-        <div class="miq-scenario-card__name miq-scenario-card__name--${s.nameColor}">${s.name}</div>
-        <div class="miq-scenario-card__price">${fmt(s.price)}</div>
-        <div class="miq-scenario-card__desc">${s.desc}</div>
-      </div>`).join('');
-
-    // Disclosure
-    const disclosureText = isBuyer
-      ? 'These scenarios are based on neighborhood TruMarket™ data and current list-to-sale ratios. They do not account for property condition, seller motivation, recent upgrades, or active competition — factors that can shift the right number by 5–10% or more. That\'s exactly what Phil\'s analysis is for.'
-      : 'These pricing scenarios are based on neighborhood TruMarket™ data and current market conditions. They do not account for your home\'s specific condition, upgrades, curb appeal, or competitive timing — all of which influence where your home lands within this range. Phil\'s analysis accounts for all of it.';
-    document.getElementById('scen-disclosure').textContent = disclosureText;
-  }
-
-  /* ── FINAL CTA ──────────────────────────────────────────────── */
-  function renderFinalCta(data) {
-    const isBuyer = miqState.mode === 'buyer';
-    document.getElementById('cta-title').textContent = isBuyer
-      ? 'Get Phil\'s Expert Read on This Property'
-      : 'Get Phil\'s Expert Pricing Analysis';
-    document.getElementById('cta-sub').textContent = isBuyer
-      ? 'Data tells you what. Phil tells you what to do about it. Schedule a quick call and he\'ll walk you through exactly what these numbers mean for your offer strategy.'
-      : 'You\'ve seen the market position. Now let Phil build the full pricing plan — what to list at, how to prepare, and what you\'ll walk away with.';
-  }
-
-  /* ── COMMUTE CALCULATOR ─────────────────────────────────────── */
-  function calcCommute() {
-    const workAddr = document.getElementById('work-address').value.trim();
-    if (!workAddr || !miqState.address) return;
-
-    // Build a Google Maps directions URL and open it in a new tab
-    const origin = encodeURIComponent(miqState.address);
-    const dest   = encodeURIComponent(workAddr);
-    const mapsUrl = 'https://www.google.com/maps/dir/?api=1'
-      + '&origin=' + origin
-      + '&destination=' + dest
-      + '&travelmode=driving';
-
-    document.getElementById('commute-modes').innerHTML =
-      '<div class="miq-commute-mode" style="text-align:left;flex:1;">' +
-        '<div style="font-size:0.85rem;color:var(--navy);margin-bottom:0.5rem;">' +
-          'Click below to see live directions and commute time in Google Maps.' +
-        '</div>' +
-        '<a href="' + mapsUrl + '" target="_blank" rel="noopener" ' +
-           'style="display:inline-flex;align-items:center;gap:0.4rem;background:var(--navy);color:#fff;' +
-                  'padding:0.5rem 1rem;border-radius:var(--radius-md);font-size:0.85rem;' +
-                  'font-family:var(--font-heading);font-weight:700;text-decoration:none;">' +
-          '🗺️ View Directions in Google Maps →' +
-        '</a>' +
-      '</div>';
-
-    document.getElementById('commute-result').classList.add('show');
-  }
-
-  /* ── ADDRESS INPUT ENTER KEY ────────────────────────────────── */
-  document.getElementById('miq-address').addEventListener('keydown', function(e) {
-    if (e.key === 'Enter') analyzeAddress();
-  });
-  </script>
-
-<script src="https://widgets.leadconnectorhq.com/loader.js" data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" data-widget-id="6a0623c7f127bb5833bc2697"></script>
-</body>
-</html>
+    //
