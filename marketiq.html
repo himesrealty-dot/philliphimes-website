@@ -1480,4 +1480,105 @@
     // Hot market note
     const hotNote = document.getElementById('scen-hotmarket-note');
     if (isHotMarket) {
-      
+      hotNote.style.display = 'block';
+      hotNote.innerHTML = `<strong>🔥 Hot Market Alert:</strong> Homes in this area are selling at ${(lts * 100).toFixed(1)}% of list price — meaning offers at or above list are standard. Scenarios below reflect actual market expectations.`;
+    } else {
+      hotNote.style.display = 'none';
+    }
+
+    let scenarios = [];
+    if (isBuyer) {
+      // Buyer scenarios — anchored to TruMarket Value
+      const winPrice = isHotMarket ? Math.round(listPrice * lts) : Math.round(tm * 1.025);
+      scenarios = [
+        { name: 'Negotiating Room', nameColor: 'teal', price: Math.round(tm * 0.975),
+          desc: 'Best when the home is sitting or priced above market. Leaves room to negotiate toward fair value.' },
+        { name: 'Fair Market', nameColor: 'white', price: Math.round(tm),
+          desc: 'What the data says this home is worth. A clean, defensible offer that any seller can respect.' },
+        { name: 'Win It', nameColor: 'gold', price: winPrice,
+          desc: isHotMarket ? 'This market is moving fast — this puts you where actual sales are happening.' : 'Use when you expect competition or when this is the one you can\'t afford to lose.' }
+      ];
+      if (show4) {
+        scenarios.push({
+          name: 'Secure It', nameColor: 'purple', price: listPrice,
+          desc: 'You know what you want. Sometimes the right home is worth the premium. Use when fear of losing it outweighs the price difference.'
+        });
+      }
+    } else {
+      // Seller scenarios
+      scenarios = [
+        { name: 'Fast Sale', nameColor: 'teal', price: Math.round(tm * 0.975),
+          desc: 'Price below market to generate immediate activity and multiple offer potential. Best when speed matters.' },
+        { name: 'Fair Market', nameColor: 'white', price: Math.round(tm),
+          desc: 'List at what the data supports. Strong buyer interest, reasonable timeline to close.' },
+        { name: 'Aggressive', nameColor: 'gold', price: Math.round(tm * 1.025),
+          desc: 'Push the ceiling. Works in low-inventory markets when your home is in exceptional condition and shows well.' }
+      ];
+    }
+
+    // Grid class
+    const grid = document.getElementById('scen-grid');
+    grid.className = 'miq-scenarios-grid miq-scenarios-grid--' + (show4 ? '4' : '3');
+    grid.innerHTML = scenarios.map(s => `
+      <div class="miq-scenario-card ${s.nameColor !== 'white' ? 'miq-scenario-card--' + s.nameColor : ''}">
+        <div class="miq-scenario-card__name miq-scenario-card__name--${s.nameColor}">${s.name}</div>
+        <div class="miq-scenario-card__price">${fmt(s.price)}</div>
+        <div class="miq-scenario-card__desc">${s.desc}</div>
+      </div>`).join('');
+
+    // Disclosure
+    const disclosureText = isBuyer
+      ? 'These scenarios are based on neighborhood TruMarket™ data and current list-to-sale ratios. They do not account for property condition, seller motivation, recent upgrades, or active competition — factors that can shift the right number by 5–10% or more. That\'s exactly what Phil\'s analysis is for.'
+      : 'These pricing scenarios are based on neighborhood TruMarket™ data and current market conditions. They do not account for your home\'s specific condition, upgrades, curb appeal, or competitive timing — all of which influence where your home lands within this range. Phil\'s analysis accounts for all of it.';
+    document.getElementById('scen-disclosure').textContent = disclosureText;
+  }
+
+  /* ── FINAL CTA ──────────────────────────────────────────────── */
+  function renderFinalCta(data) {
+    const isBuyer = miqState.mode === 'buyer';
+    document.getElementById('cta-title').textContent = isBuyer
+      ? 'Get Phil\'s Expert Read on This Property'
+      : 'Get Phil\'s Expert Pricing Analysis';
+    document.getElementById('cta-sub').textContent = isBuyer
+      ? 'Data tells you what. Phil tells you what to do about it. Schedule a quick call and he\'ll walk you through exactly what these numbers mean for your offer strategy.'
+      : 'You\'ve seen the market position. Now let Phil build the full pricing plan — what to list at, how to prepare, and what you\'ll walk away with.';
+  }
+
+  /* ── COMMUTE CALCULATOR ─────────────────────────────────────── */
+  function calcCommute() {
+    const workAddr = document.getElementById('work-address').value.trim();
+    if (!workAddr || !miqState.address) return;
+
+    // Build a Google Maps directions URL and open it in a new tab
+    const origin = encodeURIComponent(miqState.address);
+    const dest   = encodeURIComponent(workAddr);
+    const mapsUrl = 'https://www.google.com/maps/dir/?api=1'
+      + '&origin=' + origin
+      + '&destination=' + dest
+      + '&travelmode=driving';
+
+    document.getElementById('commute-modes').innerHTML =
+      '<div class="miq-commute-mode" style="text-align:left;flex:1;">' +
+        '<div style="font-size:0.85rem;color:var(--navy);margin-bottom:0.5rem;">' +
+          'Click below to see live directions and commute time in Google Maps.' +
+        '</div>' +
+        '<a href="' + mapsUrl + '" target="_blank" rel="noopener" ' +
+           'style="display:inline-flex;align-items:center;gap:0.4rem;background:var(--navy);color:#fff;' +
+                  'padding:0.5rem 1rem;border-radius:var(--radius-md);font-size:0.85rem;' +
+                  'font-family:var(--font-heading);font-weight:700;text-decoration:none;">' +
+          '🗺️ View Directions in Google Maps →' +
+        '</a>' +
+      '</div>';
+
+    document.getElementById('commute-result').classList.add('show');
+  }
+
+  /* ── ADDRESS INPUT ENTER KEY ────────────────────────────────── */
+  document.getElementById('miq-address').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') analyzeAddress();
+  });
+  </script>
+
+<script src="https://widgets.leadconnectorhq.com/loader.js" data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" data-widget-id="6a0623c7f127bb5833bc2697"></script>
+</body>
+</html>
