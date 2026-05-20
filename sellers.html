@@ -1462,21 +1462,43 @@
           e.preventDefault();
           var label = f.place_name || f.text || input.value;
 
-          // Try zip from server-extracted field first
+          // Try server-extracted zip first
           var zip = f.zipCode || null;
 
-          // Client-side fallback: extract 5-digit zip from place_name
+          // Regex fallback: extract 5-digit zip from place_name
           if (!zip && label) {
             var zm = label.match(/\b(\d{5})\b/);
             if (zm) zip = zm[1];
           }
 
-          selectedZip   = zip;
           selectedLabel = label;
           input.value   = label;
           closeDropdown();
-          if (selectedZip) {
+          hideError();
+
+          if (zip) {
+            // Zip found directly — ready to go
+            selectedZip  = zip;
             btn.disabled = false;
+          } else if (f.center && f.center.length === 2) {
+            // City-level result with no zip — reverse geocode its center to find primary zip
+            btn.disabled = true;
+            selectedZip  = null;
+            var lat = f.center[1];
+            var lng = f.center[0];
+            fetch('/.netlify/functions/mapbox-places?lat=' + lat + '&lng=' + lng)
+              .then(function(r) { return r.json(); })
+              .then(function(d) {
+                if (d.zipCode) {
+                  selectedZip  = d.zipCode;
+                  btn.disabled = false;
+                } else {
+                  showError('Could not find a zip for this city. Try entering a zip code directly.');
+                }
+              })
+              .catch(function() {
+                showError('Could not find a zip for this city. Try entering a zip code directly.');
+              });
           } else {
             showError('No zip code found for this location. Try entering a zip code directly.');
             btn.disabled = true;

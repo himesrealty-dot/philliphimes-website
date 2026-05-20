@@ -1,22 +1,51 @@
 // MarketIQ™ — Mapbox Places Geocoding Proxy
-// Searches for zip codes, cities, and neighborhoods
-// Called by sellers.html MarketIQ tool: /.netlify/functions/mapbox-places?q=QUERY
+// Supports two modes:
+//   Forward:  ?q=QUERY                     → search by text (zip/city/neighborhood)
+//   Reverse:  ?lat=29.4831&lng=-95.0944    → get primary zip for coordinates
 
 exports.handler = async function(event) {
-  const q = (event.queryStringParameters && event.queryStringParameters.q) || '';
-  if (!q || q.length < 2) {
-    return {
-      statusCode: 400,
-      body: JSON.stringify({ features: [] })
-    };
+  const params = event.queryStringParameters || {};
+  const token  = process.env.MAPBOX_TOKEN;
+
+  if (!token) {
+    return { statusCode: 500, body: JSON.stringify({ error: 'Mapbox token not configured' }) };
   }
 
-  const token = process.env.MAPBOX_TOKEN;
-  if (!token) {
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ error: 'Mapbox token not configured' })
-    };
+  // ── REVERSE MODE: lat + lng → find the primary postcode ──────────────────
+  if (params.lat && params.lng) {
+    try {
+      var coord = encodeURIComponent(params.lng + ',' + params.lat);
+      var revUrl = 'https://api.mapbox.com/geocoding/v5/mapbox.places/'
+        + coord
+        + '.json?access_token=' + token
+        + '&types=postcode'
+        + '&limit=1';
+
+      var revRes  = await fetch(revUrl);
+      var revData = await revRes.json();
+      var zip     = null;
+      var feat    = (revData.features || [])[0];
+      if (feat && feat.place_type && feat.place_type.includes('postcode')) {
+        zip = feat.text;
+      }
+
+      return {
+        statusCode: 200,
+        headers: { 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json' },
+        body: JSON.stringify({ zipCode: zip })
+      };
+    } catch (err) {
+      return {
+        statusCode: 500,
+        body: JSON.stringify({ zipCode: null, error: err.message })
+      };
+    }
+  }
+
+  // ── FORWARD MODE: text → places autocomplete ─────────────────────────────
+  const q = params.q || '';
+  if (!q || q.length < 2) {
+    return { statusCode: 400, body: JSON.stringify({ features: [] }) };
   }
 
   try {
@@ -31,17 +60,15 @@ exports.handler = async function(event) {
     const res  = await fetch(url);
     const data = await res.json();
 
-    // Enhance each feature with extracted zip code
     const features = (data.features || []).map(function(f) {
       var zip = null;
 
-      // If the feature itself is a postcode
+      // Feature IS a postcode
       if (f.place_type && f.place_type.includes('postcode')) {
         zip = f.text;
       }
 
       // Look in context for a postcode entry
-      // Mapbox context IDs look like "postcode.12345678" or "us-zip.12345678"
       if (!zip && f.context) {
         var postcodeCtx = f.context.find(function(c) {
           return c.id && (
@@ -53,8 +80,7 @@ exports.handler = async function(event) {
         if (postcodeCtx) zip = postcodeCtx.text;
       }
 
-      // Fallback: extract 5-digit US zip from the place_name string
-      // e.g. "Tuscan Lakes, League City, TX 77573" → "77573"
+      // Fallback: extract 5-digit zip from place_name string
       if (!zip && f.place_name) {
         var zipMatch = f.place_name.match(/\b(\d{5})\b/);
         if (zipMatch) zip = zipMatch[1];
@@ -65,10 +91,7 @@ exports.handler = async function(event) {
 
     return {
       statusCode: 200,
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Content-Type': 'application/json'
-      },
+      headers: { 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json' },
       body: JSON.stringify({ features: features })
     };
   } catch (err) {
