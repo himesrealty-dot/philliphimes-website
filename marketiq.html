@@ -7,7 +7,6 @@
   <meta name="description" content="Enter any address and get instant property intelligence — TruMarket™ Value, market conditions, schools, flood zone, commute times, and expert offer strategy. Powered by Phillip Himes Real Estate." />
   <link rel="stylesheet" href="css/styles.css" />
   <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCd1RVsM6qieBMlv1b-C6Jo9M0_Riuy0jQ&libraries=places&callback=initMarketMap" async defer></script>
 
   <style>
 
@@ -573,10 +572,15 @@
 
       <div class="miq-search-card">
         <p class="miq-search-card__label">Enter a property address</p>
-        <div class="miq-address-row">
+        <div class="miq-address-row" style="position:relative;">
           <input type="text" id="miq-address" class="miq-address-input"
                  placeholder="e.g. 2847 Venetian Shores Dr, League City, TX"
                  autocomplete="off" />
+          <div id="miq-addr-dropdown" style="
+            display:none;position:absolute;top:100%;left:0;right:80px;
+            background:#fff;border:1px solid #dde3ee;border-radius:0.6rem;
+            box-shadow:0 8px 24px rgba(0,0,0,0.12);z-index:9999;overflow:hidden;
+          "></div>
           <button class="miq-analyze-btn" onclick="analyzeAddress()">Analyze →</button>
         </div>
 
@@ -1087,26 +1091,59 @@
     }
   };
 
-  /* ── GOOGLE MAPS INIT ───────────────────────────────────────── */
-  function initMarketMap() {
-    miqState.propertyAutocomplete = new google.maps.places.Autocomplete(
-      document.getElementById('miq-address'),
-      { componentRestrictions: { country: 'us' }, fields: ['formatted_address','geometry','name'] }
-    );
-    miqState.propertyAutocomplete.addListener('place_changed', () => {
-      const place = miqState.propertyAutocomplete.getPlace();
-      if (place.geometry) miqState.propertyLatLng = place.geometry.location;
+  /* ── MAPBOX ADDRESS AUTOCOMPLETE ───────────────────────────── */
+  (function() {
+    var addrInput    = document.getElementById('miq-address');
+    var addrDropdown = document.getElementById('miq-addr-dropdown');
+    var debounce     = null;
+
+    addrInput.addEventListener('input', function() {
+      var q = addrInput.value.trim();
+      if (q.length < 3) { addrDropdown.style.display = 'none'; return; }
+      clearTimeout(debounce);
+      debounce = setTimeout(function() { fetchAddressSuggestions(q); }, 280);
     });
 
-    miqState.workAutocomplete = new google.maps.places.Autocomplete(
-      document.getElementById('work-address'),
-      { componentRestrictions: { country: 'us' }, fields: ['formatted_address','geometry'] }
-    );
+    function fetchAddressSuggestions(q) {
+      fetch('/.netlify/functions/mapbox-geocode?q=' + encodeURIComponent(q))
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          var features = data.features || [];
+          if (!features.length) { addrDropdown.style.display = 'none'; return; }
+          renderAddrDropdown(features);
+        })
+        .catch(function() { addrDropdown.style.display = 'none'; });
+    }
 
-    // Restore saved work address
-    const savedWork = localStorage.getItem('miq_workAddress');
-    if (savedWork) document.getElementById('work-address').value = savedWork;
-  }
+    function renderAddrDropdown(features) {
+      addrDropdown.innerHTML = '';
+      features.slice(0, 5).forEach(function(f) {
+        var opt = document.createElement('div');
+        opt.style.cssText = 'padding:0.65rem 1rem;cursor:pointer;font-size:0.88rem;color:#1a2a44;border-bottom:1px solid #eef0f5;';
+        opt.textContent = f.place_name || f.text || '';
+        opt.addEventListener('mouseenter', function() { opt.style.background = '#f4f7ff'; });
+        opt.addEventListener('mouseleave', function() { opt.style.background = ''; });
+        opt.addEventListener('mousedown', function(e) {
+          e.preventDefault();
+          addrInput.value = f.place_name || f.text || '';
+          if (f.center) {
+            miqState.propertyLatLng = { lat: f.center[1], lng: f.center[0] };
+          }
+          addrDropdown.style.display = 'none';
+        });
+        addrDropdown.appendChild(opt);
+      });
+      addrDropdown.style.display = 'block';
+    }
+
+    document.addEventListener('click', function(e) {
+      if (e.target !== addrInput) addrDropdown.style.display = 'none';
+    });
+
+    addrInput.addEventListener('blur', function() {
+      setTimeout(function() { addrDropdown.style.display = 'none'; }, 150);
+    });
+  })();
 
   /* ── NEIGHBORHOOD DETECTION ─────────────────────────────────── */
   function detectNeighborhood(address) {
@@ -1424,44 +1461,14 @@
     const workAddr = document.getElementById('work-address').value.trim();
     if (!workAddr || !miqState.address) return;
 
-    // Save work address for cross-tool sync
-    localStorage.setItem('miq_workAddress', workAddr);
+    // Build a Google Maps directions URL and open it in a new tab
+    const origin = encodeURIComponent(miqState.address);
+    const dest   = encodeURIComponent(workAddr);
+    const mapsUrl = 'https://www.google.com/maps/dir/?api=1'
+      + '&origin=' + origin
+      + '&destination=' + dest
+      + '&travelmode=driving';
 
-    const service = new google.maps.DistanceMatrixService();
-    service.getDistanceMatrix({
-      origins: [miqState.address],
-      destinations: [workAddr],
-      travelMode: google.maps.TravelMode.DRIVING,
-      drivingOptions: { departureTime: new Date(Date.now() + 86400000), trafficModel: 'bestguess' }
-    }, (response, status) => {
-      if (status === 'OK') {
-        const el = response.rows[0].elements[0];
-        const driving = el.status === 'OK' ? el.duration_in_traffic
-          ? el.duration_in_traffic.text : el.duration.text : '—';
-        const dist = el.status === 'OK' ? el.distance.text : '—';
-
-        document.getElementById('commute-modes').innerHTML = `
-          <div class="miq-commute-mode">
-            <div class="miq-commute-mode__icon">🚗</div>
-            <div class="miq-commute-mode__time">${driving}</div>
-            <div class="miq-commute-mode__label">By Car (w/ traffic)</div>
-          </div>
-          <div class="miq-commute-mode">
-            <div class="miq-commute-mode__icon">📍</div>
-            <div class="miq-commute-mode__time">${dist}</div>
-            <div class="miq-commute-mode__label">Distance</div>
-          </div>`;
-        document.getElementById('commute-result').classList.add('show');
-      }
-    });
-  }
-
-  /* ── ADDRESS INPUT ENTER KEY ────────────────────────────────── */
-  document.getElementById('miq-address').addEventListener('keydown', function(e) {
-    if (e.key === 'Enter') analyzeAddress();
-  });
-  </script>
-
-<script src="https://widgets.leadconnectorhq.com/loader.js" data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" data-widget-id="6a0623c7f127bb5833bc2697"></script>
-</body>
-</html>
+    document.getElementById('commute-modes').innerHTML =
+      '<div class="miq-commute-mode" style="text-align:left;flex:1;">' +
+        '<
