@@ -1311,4 +1311,108 @@
       fetch(AGENT.webhook, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-     
+        body: JSON.stringify(payload)
+      }).catch(e => console.warn('Webhook error:', e));
+    }
+
+    document.getElementById('captureModalFormWrap').style.display = 'none';
+    document.getElementById('captureModalSuccess').style.display  = 'block';
+  }
+
+  // ── APPOINTMENT MODAL ──
+  function openApptModal() {
+    document.getElementById('apptModal').style.display = 'flex';
+  }
+
+  function submitAppt() {
+    const meetingFormat = state.contactPref || 'zoom';
+    const time = document.getElementById('apptTime').value;
+
+    const payload = {
+      // ── Contact ──
+      firstName:     state.captureFirst,
+      lastName:      state.captureLast,
+      email:         state.captureEmail,
+      phone:         state.capturePhone,
+      dateOfBirth:   state.birthDate,
+      source:        'Rebalance™ v1 — Strategy Session Request',
+      meetingFormat: meetingFormat,
+      preferredTime: time,
+
+      // ── Life Moment & Goals ──
+      lifeMoment:    state.moment,
+      goals:         state.goals.join(', '),
+
+      // ── Current Home ──
+      homeValue:       state.homeValue,
+      mortgageBalance: state.mortgageBalance,
+      grossEquity:     state.grossEquity,
+      netEquity:       state.netEquity,
+      currentPayment:  state.currentPayment,
+      currentBeds:     state.currentBeds,
+      currentBaths:    state.currentBaths,
+      currentSqft:     state.currentSqft,
+      currentYear:     state.currentYear,
+
+      // ── Target Home ──
+      newHomePrice:   state.newHomePrice,
+      newHomeType:    state.newHomeType,
+      preferredArea:  state.preferredArea,
+
+      // ── Financial Profile ──
+      householdIncome:      state.householdIncome,
+      retirementSavings:    state.retirementSavings,
+      socialSecurityIncome: state.socialSecurityIncome,
+      has401k:              state.has401k,
+      monthlyContrib401k:   state.monthlyContrib,
+      employerAnnual401k:   state.employerAnnual,
+
+      // ── Debts ──
+      debts: state.debts.map(d => ({
+        type: d.type, payment: d.payment, balance: d.balance
+      })),
+      totalDebtPayment: state.debts.reduce((sum, d) => sum + (d.payment || 0), 0),
+      totalDebtBalance: state.debts.reduce((sum, d) => sum + (d.balance || 0), 0),
+
+      // ── Results (Scenario B — Recommended) ──
+      heroMonthlyCashflow:  state.heroMonthlyCashflow,
+      heroProjectedWealth:  state.heroEquityProjection,
+      remainingEquity:      state.remainingEquity,
+
+      // ── Scenario numbers (for strategy deck) ──
+      downA: state.downA, newPmtA: state.newPmtA, cashFlowA: state.cashFlowA,
+      downB: state.downB, newPmtB: state.newPmtB, cashFlowB: state.cashFlowB,
+      downC: state.downC, newPmtC: state.newPmtC, cashFlowC: state.cashFlowC,
+      remainingEquityC: state.remainingEquityC,
+      retirementIncome: state.retirementIncome
+    };
+
+    if (AGENT.webhook) {
+      fetch(AGENT.webhook, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      }).catch(e => console.warn('Webhook error:', e));
+    }
+    if (AGENT.makeWebhook) {
+      fetch(AGENT.makeWebhook, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      }).catch(e => console.warn('Make webhook error:', e));
+    }
+
+    document.getElementById('apptFormWrap').style.display = 'none';
+    document.getElementById('apptSuccess').style.display  = 'block';
+  }
+
+  // Close appt modal on backdrop click
+  document.getElementById('apptModal').addEventListener('click', function(e) {
+    if (e.target === document.getElementById('apptModal')) {
+      document.getElementById('apptModal').style.display = 'none';
+    }
+  });
+
+</script>
+</body>
+</html>

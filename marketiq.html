@@ -1471,4 +1471,26 @@
 
     document.getElementById('commute-modes').innerHTML =
       '<div class="miq-commute-mode" style="text-align:left;flex:1;">' +
-        '<
+        '<div style="font-size:0.85rem;color:var(--navy);margin-bottom:0.5rem;">' +
+          'Click below to see live directions and commute time in Google Maps.' +
+        '</div>' +
+        '<a href="' + mapsUrl + '" target="_blank" rel="noopener" ' +
+           'style="display:inline-flex;align-items:center;gap:0.4rem;background:var(--navy);color:#fff;' +
+                  'padding:0.5rem 1rem;border-radius:var(--radius-md);font-size:0.85rem;' +
+                  'font-family:var(--font-heading);font-weight:700;text-decoration:none;">' +
+          '🗺️ View Directions in Google Maps →' +
+        '</a>' +
+      '</div>';
+
+    document.getElementById('commute-result').classList.add('show');
+  }
+
+  /* ── ADDRESS INPUT ENTER KEY ────────────────────────────────── */
+  document.getElementById('miq-address').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') analyzeAddress();
+  });
+  </script>
+
+<script src="https://widgets.leadconnectorhq.com/loader.js" data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" data-widget-id="6a0623c7f127bb5833bc2697"></script>
+</body>
+</html>
