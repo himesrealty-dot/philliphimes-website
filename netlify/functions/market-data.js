@@ -44,12 +44,8 @@ exports.handler = async function(event) {
 
     const data = await res.json();
 
-    // Log the raw response so we can see what Rentcast is actually returning
-    console.log('Rentcast raw response keys:', JSON.stringify(Object.keys(data)));
-    console.log('Rentcast raw response:', JSON.stringify(data).slice(0, 800));
-
-    // Rentcast /v1/markets response structure varies by plan.
-    // Check top-level fields first, then nested saleData, then saleData.averages.
+    // Rentcast /v1/markets response — check top-level fields first,
+    // then nested saleData paths for resilience across plan tiers.
     const saleData = data.saleData || {};
     const averages = saleData.averages || {};
 
@@ -71,12 +67,8 @@ exports.handler = async function(event) {
         zipCode:             zipCode,
         averagePrice:        pick(data.averagePrice,        saleData.averagePrice,        averages.price),
         averageDaysOnMarket: pick(data.averageDaysOnMarket, saleData.averageDaysOnMarket, averages.daysOnMarket),
-        averagePricePerSqFt: pick(data.averagePricePerSqFt, saleData.averagePricePerSqFt, averages.pricePerSqFt),
         totalListings:       pick(data.totalListings,       saleData.totalListings),
-        monthsOfSupply:      pick(data.monthsOfSupply,      saleData.monthsOfSupply),
-        lastUpdated:         data.lastUpdated || null,
-        // Debug: expose what we actually received (remove after confirming)
-        _debug: { keys: Object.keys(data), saleDataKeys: Object.keys(saleData) }
+        lastUpdated:         data.lastUpdated || null
       })
     };
   } catch (err) {

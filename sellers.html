@@ -1330,15 +1330,7 @@
               <div class="miq-placeholder-dash">—</div>
             </div>
             <div class="miq-placeholder-item">
-              <div class="miq-placeholder-label">Price Per Sq Ft</div>
-              <div class="miq-placeholder-dash">—</div>
-            </div>
-            <div class="miq-placeholder-item">
               <div class="miq-placeholder-label">Active Listings</div>
-              <div class="miq-placeholder-dash">—</div>
-            </div>
-            <div class="miq-placeholder-item">
-              <div class="miq-placeholder-label">Months of Supply</div>
               <div class="miq-placeholder-dash">—</div>
             </div>
           </div>
@@ -1404,12 +1396,6 @@
       if (days <= 20) return { label: 'Hot Market',      cls: '--hot',  tip: 'Homes sell fast — strong seller advantage.' };
       if (days <= 40) return { label: 'Balanced Market', cls: '--warm', tip: 'Moderate pace — well-priced homes move.' };
       return              { label: "Buyer's Market",    cls: '--cool', tip: 'More inventory — buyers have leverage.' };
-    }
-    function supplyCondition(mos) {
-      if (mos == null) return null;
-      if (mos < 3)  return { label: 'Low Supply',      cls: '--hot',  tip: 'Under 3 months — sellers hold the power.' };
-      if (mos <= 6) return { label: 'Balanced Supply', cls: '--warm', tip: '3–6 months — a healthy, stable market.' };
-      return              { label: 'High Supply',      cls: '--cool', tip: 'Over 6 months — buyers have more choices.' };
     }
     function priceCondition(price) {
       if (price == null) return null;
@@ -1553,7 +1539,7 @@
       locEl.textContent = label || ('ZIP ' + d.zipCode);
       subEl.textContent = fmtDate(d.lastUpdated) || 'Live Market Data';
 
-      // Build metrics
+      // Build metrics — only show fields confirmed in Rentcast response
       var metrics = [
         {
           label: 'Avg. Sale Price',
@@ -1566,19 +1552,9 @@
           cond:  domCondition(d.averageDaysOnMarket)
         },
         {
-          label: 'Price Per Sq Ft',
-          value: (d.averagePricePerSqFt != null ? '$' + fmtNum(d.averagePricePerSqFt, 0) + '/sqft' : '—'),
-          cond:  null
-        },
-        {
           label: 'Active Listings',
           value: (d.totalListings != null ? d.totalListings.toLocaleString() : '—'),
           cond:  null
-        },
-        {
-          label: 'Months of Supply',
-          value: (d.monthsOfSupply != null ? fmtNum(d.monthsOfSupply, 1) + ' mos' : '—'),
-          cond:  supplyCondition(d.monthsOfSupply)
         }
       ];
 
