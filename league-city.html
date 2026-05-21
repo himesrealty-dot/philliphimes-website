@@ -409,6 +409,20 @@
       color: rgba(255,255,255,0.75);
     }
     .hood-card__price span { color: var(--gold); }
+    a.hood-card { display: block; text-decoration: none; }
+    .hood-card__cta {
+      display: flex; align-items: center; gap: 0.4rem;
+      font-family: var(--font-heading); font-size: 0.78rem; font-weight: 700;
+      color: var(--teal); margin-top: 1rem;
+      padding-top: 0.85rem; border-top: 1px solid rgba(255,255,255,0.08);
+      transition: gap 0.2s;
+    }
+    a.hood-card:hover .hood-card__cta { gap: 0.65rem; }
+    .hood-card__soon {
+      font-family: var(--font-heading); font-size: 0.72rem; font-weight: 600;
+      color: rgba(255,255,255,0.28); margin-top: 1rem;
+      padding-top: 0.85rem; border-top: 1px solid rgba(255,255,255,0.08);
+    }
 
     /* ─── MARKET REPORT ─────────────────────────────────── */
     .city-market {
@@ -833,18 +847,20 @@
       </div>
       <div class="city-hoods__grid">
 
-        <div class="hood-card">
+        <a href="tuscan-lakes.html" class="hood-card">
           <div class="hood-card__name">Tuscan Lakes</div>
           <span class="hood-card__tag">Master-Planned</span>
           <p class="hood-card__desc">Resort-style amenities, scenic lakes, walking trails, and a clubhouse. One of League City's most in-demand communities with a strong HOA and meticulously maintained streets.</p>
-          <p class="hood-card__price">Homes from <span>$340K – $650K</span></p>
-        </div>
+          <p class="hood-card__price">Homes from <span>$300K – $2.2M</span></p>
+          <div class="hood-card__cta">View Full Neighborhood Guide →</div>
+        </a>
 
         <div class="hood-card">
           <div class="hood-card__name">South Shore Harbour</div>
           <span class="hood-card__tag">Waterfront · Golf</span>
           <p class="hood-card__desc">A premier waterfront golf community on Clear Lake. Custom homes, marina access, and a resort atmosphere — one of the most prestigious addresses in the Houston Bay Area.</p>
           <p class="hood-card__price">Homes from <span>$450K – $2M+</span></p>
+          <div class="hood-card__soon">Neighborhood guide coming soon</div>
         </div>
 
         <div class="hood-card">
@@ -852,6 +868,7 @@
           <span class="hood-card__tag">New Construction · Trails</span>
           <p class="hood-card__desc">Newer construction with modern floor plans, miles of hike-and-bike trails, and resort-style pool amenities. A top choice for families relocating from out of state.</p>
           <p class="hood-card__price">Homes from <span>$310K – $520K</span></p>
+          <div class="hood-card__soon">Neighborhood guide coming soon</div>
         </div>
 
         <div class="hood-card">
@@ -859,6 +876,7 @@
           <span class="hood-card__tag">Established · Lakeside</span>
           <p class="hood-card__desc">Mature trees, lakeside lots, and an active community feel. An established neighborhood offering excellent value, character, and a strong resale history.</p>
           <p class="hood-card__price">Homes from <span>$290K – $460K</span></p>
+          <div class="hood-card__soon">Neighborhood guide coming soon</div>
         </div>
 
         <div class="hood-card">
@@ -866,6 +884,7 @@
           <span class="hood-card__tag">Family · Schools</span>
           <p class="hood-card__desc">Convenient I-45 and Hwy 96 access, zoned to top-rated Clear Creek ISD schools. A smart choice for families who prioritize commute, schools, and neighborhood stability.</p>
           <p class="hood-card__price">Homes from <span>$270K – $420K</span></p>
+          <div class="hood-card__soon">Neighborhood guide coming soon</div>
         </div>
 
         <div class="hood-card">
@@ -873,6 +892,7 @@
           <span class="hood-card__tag">Master-Planned · Value</span>
           <p class="hood-card__desc">An affordable master-planned community with great amenities and easy Gulf Freeway access. Popular with first-time buyers, young families, and value-focused buyers.</p>
           <p class="hood-card__price">Homes from <span>$255K – $380K</span></p>
+          <div class="hood-card__soon">Neighborhood guide coming soon</div>
         </div>
 
       </div>
