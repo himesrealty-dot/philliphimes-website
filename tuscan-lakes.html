@@ -545,6 +545,32 @@
       color: var(--gold); font-size: 0.75rem; top: 0.1rem;
     }
     .lifestyle-card__list li strong { color: var(--navy); }
+    /* Photo-based item layout */
+    .lifestyle-item {
+      display: flex; align-items: flex-start; gap: 0.85rem;
+      padding: 0.85rem 0; border-bottom: 1px solid #f0ece4;
+    }
+    .lifestyle-item:first-child { padding-top: 0; }
+    .lifestyle-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .lifestyle-item__photo {
+      width: 72px; height: 58px; object-fit: cover;
+      border-radius: 6px; flex-shrink: 0;
+    }
+    .lifestyle-item__info { flex: 1; min-width: 0; }
+    .lifestyle-item__name {
+      font-weight: 700; color: var(--navy);
+      font-size: 0.875rem; line-height: 1.3;
+    }
+    .lifestyle-item__desc {
+      font-size: 0.8rem; color: #666; margin-top: 0.15rem; line-height: 1.4;
+    }
+    .lifestyle-item__meta {
+      font-size: 0.76rem; color: #999; margin-top: 0.25rem;
+    }
+    .lifestyle-item__meta a {
+      color: var(--teal); text-decoration: none;
+    }
+    .lifestyle-item__meta a:hover { text-decoration: underline; }
     @media (max-width: 700px) {
       .lifestyle-grid { grid-template-columns: 1fr; }
     }
@@ -902,52 +928,248 @@
 
       <div class="lifestyle-grid">
 
+        <!-- DINING -->
         <div class="lifestyle-card">
           <div class="lifestyle-card__icon">🍽️</div>
           <div class="lifestyle-card__category">Dining</div>
-          <ul class="lifestyle-card__list">
-            <li><strong>Craft 96 Draught House + Kitchen</strong> — local craft beer and great food, a League City staple</li>
-            <li><strong>Lupe Tortilla</strong> — legendary Texas Tex-Mex, fajitas worth the wait</li>
-            <li><strong>Ocean Sushi & Grill</strong> — Asian fusion, fresh sushi and creative rolls right in the area</li>
-          </ul>
+
+          <div class="lifestyle-item">
+            <img src="images/lifestyle/Craft 96.jpg" alt="Craft 96 Draught House + Kitchen" class="lifestyle-item__photo" loading="lazy">
+            <div class="lifestyle-item__info">
+              <div class="lifestyle-item__name">Craft 96 Draught House + Kitchen</div>
+              <div class="lifestyle-item__desc">Local craft beer and elevated bar food — a League City staple</div>
+              <div class="lifestyle-item__meta">2575 E League City Pkwy &nbsp;·&nbsp; <a href="tel:2815496095">(281) 549-6095</a></div>
+            </div>
+          </div>
+
+          <div class="lifestyle-item">
+            <img src="images/lifestyle/Lupe Tortilla.jpg" alt="Lupe Tortilla" class="lifestyle-item__photo" loading="lazy">
+            <div class="lifestyle-item__info">
+              <div class="lifestyle-item__name">Lupe Tortilla</div>
+              <div class="lifestyle-item__desc">Legendary Texas Tex-Mex — fajitas worth the wait</div>
+              <div class="lifestyle-item__meta">5165 TX-96, Kemah &nbsp;·&nbsp; <a href="tel:2813360750">(281) 336-0750</a></div>
+            </div>
+          </div>
+
+          <div class="lifestyle-item">
+            <img src="images/lifestyle/Ocean Grill & Sushi.jpg" alt="Ocean Sushi & Grill" class="lifestyle-item__photo" loading="lazy">
+            <div class="lifestyle-item__info">
+              <div class="lifestyle-item__name">Ocean Sushi & Grill</div>
+              <div class="lifestyle-item__desc">Fresh sushi and creative rolls right in the area</div>
+              <div class="lifestyle-item__meta">3020 Marina Bay Dr &nbsp;·&nbsp; <a href="tel:2819579122">(281) 957-9122</a></div>
+            </div>
+          </div>
+
+          <div class="lifestyle-item">
+            <img src="images/lifestyle/Asian Fusion.jpg" alt="Asian Fusion" class="lifestyle-item__photo" loading="lazy">
+            <div class="lifestyle-item__info">
+              <div class="lifestyle-item__name">Asian Fusion</div>
+              <div class="lifestyle-item__desc">Authentic Chinese and Japanese cuisine, dine-in and takeout</div>
+              <div class="lifestyle-item__meta">6640 S Shore Blvd, Ste 160 &nbsp;·&nbsp; <a href="tel:2815326558">(281) 532-6558</a></div>
+            </div>
+          </div>
+
+          <div class="lifestyle-item">
+            <img src="images/lifestyle/The Spot.jpg" alt="The Spot" class="lifestyle-item__photo" loading="lazy">
+            <div class="lifestyle-item__info">
+              <div class="lifestyle-item__name">The Spot</div>
+              <div class="lifestyle-item__desc">Casual waterfront vibes, great burgers and cold drinks</div>
+              <div class="lifestyle-item__meta">2502 Gulf Fwy S &nbsp;·&nbsp; <a href="tel:8329322292">(832) 932-2292</a></div>
+            </div>
+          </div>
+
+          <div class="lifestyle-item">
+            <img src="images/lifestyle/Kings Biergarden.jpg" alt="Kings Biergarten" class="lifestyle-item__photo" loading="lazy">
+            <div class="lifestyle-item__info">
+              <div class="lifestyle-item__name">Kings Biergarten</div>
+              <div class="lifestyle-item__desc">German-inspired beer garden with live music and a great patio</div>
+              <div class="lifestyle-item__meta">828 FM 646 Rd, Dickinson &nbsp;·&nbsp; <a href="tel:8328208264">(832) 820-8264</a></div>
+            </div>
+          </div>
+
         </div>
 
+        <!-- GROCERIES & ESSENTIALS -->
         <div class="lifestyle-card">
           <div class="lifestyle-card__icon">🛒</div>
           <div class="lifestyle-card__category">Groceries & Essentials</div>
-          <ul class="lifestyle-card__list">
-            <li><strong>H-E-B</strong> — Texas grocery royalty, minutes away on League City Pkwy</li>
-            <li><strong>Kroger</strong> — full-service grocery with pharmacy and fuel</li>
-            <li><strong>CVS Pharmacy</strong> — quick pharmacy and everyday essentials</li>
-            <li><strong>Walgreens</strong> — another convenient pharmacy option nearby</li>
-            <li><strong>Chase Bank</strong> — full-service banking close to home</li>
-            <li><strong>Wells Fargo</strong> — additional banking convenient to the community</li>
-          </ul>
+
+          <div class="lifestyle-item">
+            <img src="images/lifestyle/HEB (1).jpg" alt="H-E-B" class="lifestyle-item__photo" loading="lazy">
+            <div class="lifestyle-item__info">
+              <div class="lifestyle-item__name">H-E-B</div>
+              <div class="lifestyle-item__desc">Texas grocery royalty — full market, pharmacy, and curbside pickup</div>
+              <div class="lifestyle-item__meta">2755 E League City Pkwy, League City</div>
+            </div>
+          </div>
+
+          <div class="lifestyle-item">
+            <img src="images/lifestyle/Kroger.jpg" alt="Kroger" class="lifestyle-item__photo" loading="lazy">
+            <div class="lifestyle-item__info">
+              <div class="lifestyle-item__name">Kroger</div>
+              <div class="lifestyle-item__desc">Full-service grocery with pharmacy, fuel center, and pickup</div>
+              <div class="lifestyle-item__meta">2750 E League City Pkwy, League City</div>
+            </div>
+          </div>
+
+          <div class="lifestyle-item">
+            <img src="images/lifestyle/CVS (1).jpg" alt="CVS Pharmacy" class="lifestyle-item__photo" loading="lazy">
+            <div class="lifestyle-item__info">
+              <div class="lifestyle-item__name">CVS Pharmacy</div>
+              <div class="lifestyle-item__desc">Pharmacy, health essentials, and drive-through pickup</div>
+              <div class="lifestyle-item__meta">1295 E League City Pkwy, League City</div>
+            </div>
+          </div>
+
+          <div class="lifestyle-item">
+            <img src="images/lifestyle/Walgreens.jpg" alt="Walgreens" class="lifestyle-item__photo" loading="lazy">
+            <div class="lifestyle-item__info">
+              <div class="lifestyle-item__name">Walgreens</div>
+              <div class="lifestyle-item__desc">Convenient pharmacy, photo printing, and everyday essentials</div>
+              <div class="lifestyle-item__meta">2585 E League City Pkwy, League City</div>
+            </div>
+          </div>
+
+          <div class="lifestyle-item">
+            <img src="images/lifestyle/Chase.jpg" alt="Chase Bank" class="lifestyle-item__photo" loading="lazy">
+            <div class="lifestyle-item__info">
+              <div class="lifestyle-item__name">Chase Bank</div>
+              <div class="lifestyle-item__desc">Full-service branch with ATM, in-person banking and safe deposit</div>
+              <div class="lifestyle-item__meta">120 S FM 270 Rd &nbsp;·&nbsp; <a href="tel:2813165093">(281) 316-5093</a></div>
+            </div>
+          </div>
+
+          <div class="lifestyle-item">
+            <img src="images/lifestyle/Wells Fargo.jpg" alt="Wells Fargo" class="lifestyle-item__photo" loading="lazy">
+            <div class="lifestyle-item__info">
+              <div class="lifestyle-item__name">Wells Fargo</div>
+              <div class="lifestyle-item__desc">Branch banking, ATM access, and mortgage services</div>
+              <div class="lifestyle-item__meta">710 E Main St, League City</div>
+            </div>
+          </div>
+
         </div>
 
+        <!-- ENTERTAINMENT & ATTRACTIONS -->
         <div class="lifestyle-card">
           <div class="lifestyle-card__icon">🎡</div>
           <div class="lifestyle-card__category">Entertainment & Attractions</div>
-          <ul class="lifestyle-card__list">
-            <li><strong>Kemah Boardwalk</strong> — waterfront amusement rides and dining, 20 min away</li>
-            <li><strong>NASA Space Center Houston</strong> — world-class attraction, 15 min. Out-of-town guests won't believe how close it is.</li>
-            <li><strong>Great Wolf Lodge</strong> — indoor water park and resort, perfect for families</li>
-            <li><strong>Moody Gardens</strong> — aquarium, rainforest, and IMAX in Galveston, 35 min south</li>
-            <li><strong>Lagoon Fest</strong> — local festival and community event, a neighborhood favorite</li>
-          </ul>
+
+          <div class="lifestyle-item">
+            <img src="images/lifestyle/Kemah Boardwalk.jpg" alt="Kemah Boardwalk" class="lifestyle-item__photo" loading="lazy">
+            <div class="lifestyle-item__info">
+              <div class="lifestyle-item__name">Kemah Boardwalk</div>
+              <div class="lifestyle-item__desc">Waterfront amusement rides, seafood, and live entertainment — 20 min away</div>
+              <div class="lifestyle-item__meta">215 Kipp Ave, Kemah &nbsp;·&nbsp; <a href="tel:2815358100">(281) 535-8100</a></div>
+            </div>
+          </div>
+
+          <div class="lifestyle-item">
+            <img src="images/lifestyle/Space Center Houston.jpg" alt="Space Center Houston" class="lifestyle-item__photo" loading="lazy">
+            <div class="lifestyle-item__info">
+              <div class="lifestyle-item__name">Space Center Houston</div>
+              <div class="lifestyle-item__desc">World-class NASA attraction, 15 min away — out-of-town guests are always impressed</div>
+              <div class="lifestyle-item__meta">1601 NASA Pkwy, Houston &nbsp;·&nbsp; <a href="tel:2812442100">(281) 244-2100</a></div>
+            </div>
+          </div>
+
+          <div class="lifestyle-item">
+            <img src="images/lifestyle/Great Wolf Lodge.jpg" alt="Great Wolf Lodge" class="lifestyle-item__photo" loading="lazy">
+            <div class="lifestyle-item__info">
+              <div class="lifestyle-item__name">Great Wolf Lodge</div>
+              <div class="lifestyle-item__desc">Indoor water park resort — a family weekend getaway without the drive</div>
+              <div class="lifestyle-item__meta">1000 Great Wolf Way, Webster &nbsp;·&nbsp; <a href="tel:8889819653">(888) 981-9653</a></div>
+            </div>
+          </div>
+
+          <div class="lifestyle-item">
+            <img src="images/lifestyle/Moody Gardens.jpg" alt="Moody Gardens" class="lifestyle-item__photo" loading="lazy">
+            <div class="lifestyle-item__info">
+              <div class="lifestyle-item__name">Moody Gardens</div>
+              <div class="lifestyle-item__desc">Aquarium, rainforest pyramid, and IMAX — 35 min south in Galveston</div>
+              <div class="lifestyle-item__meta">1 Hope Blvd, Galveston &nbsp;·&nbsp; <a href="tel:8005824673">(800) 582-4673</a></div>
+            </div>
+          </div>
+
+          <div class="lifestyle-item">
+            <img src="images/lifestyle/Lagoon Fest.jpg" alt="Lagoon Fest" class="lifestyle-item__photo" loading="lazy">
+            <div class="lifestyle-item__info">
+              <div class="lifestyle-item__name">Lagoon Fest</div>
+              <div class="lifestyle-item__desc">Annual community festival right in the neighborhood — a local tradition</div>
+              <div class="lifestyle-item__meta">League City (annual event)</div>
+            </div>
+          </div>
+
+          <div class="lifestyle-item">
+            <img src="images/lifestyle/League City Historical District.jpg" alt="League City Historical District" class="lifestyle-item__photo" loading="lazy">
+            <div class="lifestyle-item__info">
+              <div class="lifestyle-item__name">League City Historical District</div>
+              <div class="lifestyle-item__desc">Walkable historic downtown with shops, murals, and local character</div>
+              <div class="lifestyle-item__meta">512 2nd St, League City &nbsp;·&nbsp; <a href="tel:2815542994">(281) 554-2994</a></div>
+            </div>
+          </div>
+
         </div>
 
+        <!-- MEDICAL & SERVICES -->
         <div class="lifestyle-card">
           <div class="lifestyle-card__icon">🏥</div>
           <div class="lifestyle-card__category">Medical & Services</div>
-          <ul class="lifestyle-card__list">
-            <li><strong>UTMB Health League City</strong> — full UT Medical Branch campus, 10 min. Level II trauma center and major employer.</li>
-            <li><strong>Kelsey-Seybold Clinic</strong> — highly regarded multi-specialty medical group serving the area</li>
-            <li><strong>LA Fitness</strong> — anchors the Tuscan Lakes Shopping Center</li>
-            <li><strong>Crunch Fitness</strong> — additional gym option nearby</li>
-            <li><strong>Pawsh Pet Grooming & Boarding</strong> — local pet care for your four-legged residents</li>
-            <li><strong>Bay Glen Animal Hospital</strong> — trusted veterinary care in the community</li>
-          </ul>
+
+          <div class="lifestyle-item">
+            <img src="images/lifestyle/UTMB.jpg" alt="UTMB Health League City" class="lifestyle-item__photo" loading="lazy">
+            <div class="lifestyle-item__info">
+              <div class="lifestyle-item__name">UTMB Health League City Campus</div>
+              <div class="lifestyle-item__desc">Full UT Medical Branch hospital campus, 10 min — Level II trauma, specialists, and major employer</div>
+              <div class="lifestyle-item__meta">2240 Gulf Fwy S &nbsp;·&nbsp; <a href="tel:8325053368">(832) 505-3368</a></div>
+            </div>
+          </div>
+
+          <div class="lifestyle-item">
+            <img src="images/lifestyle/Kelsey-Seybold.jpg" alt="Kelsey-Seybold Clinic" class="lifestyle-item__photo" loading="lazy">
+            <div class="lifestyle-item__info">
+              <div class="lifestyle-item__name">Kelsey-Seybold Clinic</div>
+              <div class="lifestyle-item__desc">Houston's top multi-specialty medical group — primary care to subspecialties in one location</div>
+              <div class="lifestyle-item__meta">3625 E League City Pkwy &nbsp;·&nbsp; <a href="tel:7134422826">(713) 442-2826</a></div>
+            </div>
+          </div>
+
+          <div class="lifestyle-item">
+            <img src="images/lifestyle/LA Fitness.jpg" alt="LA Fitness" class="lifestyle-item__photo" loading="lazy">
+            <div class="lifestyle-item__info">
+              <div class="lifestyle-item__name">LA Fitness</div>
+              <div class="lifestyle-item__desc">Full-service gym with pool, racquetball, and group fitness classes</div>
+              <div class="lifestyle-item__meta">1220 E League City Pkwy &nbsp;·&nbsp; <a href="tel:7138935986">(713) 893-5986</a></div>
+            </div>
+          </div>
+
+          <div class="lifestyle-item">
+            <img src="images/lifestyle/Crunch Fitness.jpg" alt="Crunch Fitness" class="lifestyle-item__photo" loading="lazy">
+            <div class="lifestyle-item__info">
+              <div class="lifestyle-item__name">Crunch Fitness</div>
+              <div class="lifestyle-item__desc">High-energy gym with classes, tanning, and hydromassage — affordable rates</div>
+              <div class="lifestyle-item__meta">200 Gulf Fwy, League City &nbsp;·&nbsp; <a href="tel:3462785030">(346) 278-5030</a></div>
+            </div>
+          </div>
+
+          <div class="lifestyle-item">
+            <img src="images/lifestyle/Pawsh.jpg" alt="Pawsh Dog House" class="lifestyle-item__photo" loading="lazy">
+            <div class="lifestyle-item__info">
+              <div class="lifestyle-item__name">Pawsh Dog House</div>
+              <div class="lifestyle-item__desc">Professional pet grooming, boarding, and daycare — four-legged residents welcome</div>
+              <div class="lifestyle-item__meta">1101 W Main St, Ste A &nbsp;·&nbsp; <a href="tel:2815577297">(281) 557-7297</a></div>
+            </div>
+          </div>
+
+          <div class="lifestyle-item">
+            <img src="images/lifestyle/Bay Glen Animal Hospital.jpg" alt="Bay Glen Animal Hospital" class="lifestyle-item__photo" loading="lazy">
+            <div class="lifestyle-item__info">
+              <div class="lifestyle-item__name">Bay Glen Animal Hospital</div>
+              <div class="lifestyle-item__desc">Trusted veterinary care serving the Clear Lake and League City area</div>
+              <div class="lifestyle-item__meta">1616 Clear Lake City Blvd, Houston &nbsp;·&nbsp; <a href="tel:2814808800">(281) 480-8800</a></div>
+            </div>
+          </div>
+
         </div>
 
       </div>
