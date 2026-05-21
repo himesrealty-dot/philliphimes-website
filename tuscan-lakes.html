@@ -143,7 +143,8 @@
 
     /* ─── HERO ─────────────────────────────────────────────── */
     .tl-hero {
-      background: linear-gradient(135deg, #0a1c2e 0%, #0d2137 60%, #1a3a52 100%);
+      background: linear-gradient(135deg, rgba(10,28,46,0.88) 0%, rgba(13,33,55,0.82) 60%, rgba(26,58,82,0.78) 100%),
+                  url('images/Tuscan-Lakes-Hero.png') center center / cover no-repeat;
       padding: 5rem 0 4rem;
       position: relative;
       overflow: hidden;
@@ -183,20 +184,39 @@
       font-size: clamp(1rem, 2vw, 1.2rem);
       color: rgba(255,255,255,0.65); margin-bottom: 1.75rem;
     }
-    .tl-hero__stats {
-      display: flex; flex-wrap: wrap; gap: 0.75rem;
-      margin-bottom: 2rem;
+    .tl-hero__btns { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 2rem; }
+
+    /* ─── STATS BAR ────────────────────────────────────────── */
+    .nh-stats {
+      background: var(--navy);
+      padding: 1.5rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
     }
-    .tl-hero__stat {
-      background: rgba(255,255,255,0.07);
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: var(--radius-full);
-      padding: 0.45rem 1rem;
-      font-family: var(--font-heading); font-size: 0.78rem; font-weight: 700;
-      color: white;
+    .nh-stats__grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
     }
-    .tl-hero__stat span { color: var(--gold); margin-right: 0.3rem; }
-    .tl-hero__btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .nh-stats__item {
+      text-align: center;
+      padding: 0.5rem 0;
+      border-right: 1px solid rgba(255,255,255,0.1);
+    }
+    .nh-stats__item:last-child { border-right: none; }
+    .nh-stats__value {
+      font-family: var(--font-heading); font-weight: 800;
+      font-size: clamp(0.95rem, 1.8vw, 1.15rem);
+      color: var(--gold); line-height: 1.2;
+    }
+    .nh-stats__label {
+      font-family: var(--font-heading); font-size: 0.68rem;
+      font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+      color: rgba(255,255,255,0.5); margin-top: 0.25rem;
+    }
+    @media (max-width: 600px) {
+      .nh-stats__grid { grid-template-columns: repeat(2, 1fr); }
+      .nh-stats__item:nth-child(2) { border-right: none; }
+      .nh-stats__item:nth-child(3) { border-right: 1px solid rgba(255,255,255,0.1); }
+    }
     .tl-hero__btn-primary {
       display: inline-flex; align-items: center; gap: 0.5rem;
       background: var(--gold); color: var(--navy);
@@ -713,12 +733,6 @@
           <span class="tl-hero__eyebrow">League City, TX · Est. 2005</span>
           <h1 class="tl-hero__title">Tuscan Lakes</h1>
           <p class="tl-hero__subtitle">Where Tuscany meets the Texas Gulf Coast</p>
-          <div class="tl-hero__stats">
-            <div class="tl-hero__stat"><span>💰</span> $300K – $2.2M</div>
-            <div class="tl-hero__stat"><span>🏘️</span> HOA ~$750/yr</div>
-            <div class="tl-hero__stat"><span>🏫</span> CCISD / Dickinson ISD</div>
-            <div class="tl-hero__stat"><span>🚗</span> 35 min to Houston</div>
-          </div>
           <div class="tl-hero__btns">
             <a href="https://philliphimes.idxbroker.com/idx/results/listings?idxID=a001&pt=1,2,3,4,5,6&a_subdivisionName[]=Tuscan%20Lakes" target="_blank" rel="noopener" class="tl-hero__btn-primary">View Active Listings →</a>
             <a href="contact.html?topic=tuscan-lakes" class="tl-hero__btn-ghost">Ask Phil About This Neighborhood</a>
@@ -758,6 +772,30 @@
       </div>
     </div>
   </section>
+
+  <!-- ── STATS BAR ───────────────────────────────────────────── -->
+  <div class="nh-stats" aria-label="Tuscan Lakes at a glance">
+    <div class="container">
+      <div class="nh-stats__grid">
+        <div class="nh-stats__item">
+          <div class="nh-stats__value">$300K – $2.2M</div>
+          <div class="nh-stats__label">Price Range</div>
+        </div>
+        <div class="nh-stats__item">
+          <div class="nh-stats__value">~$750/yr</div>
+          <div class="nh-stats__label">HOA Dues</div>
+        </div>
+        <div class="nh-stats__item">
+          <div class="nh-stats__value">CCISD / Dickinson ISD</div>
+          <div class="nh-stats__label">School Districts</div>
+        </div>
+        <div class="nh-stats__item">
+          <div class="nh-stats__value">35 min</div>
+          <div class="nh-stats__label">To Downtown Houston</div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- ── QUICK FACTS STRIP ─────────────────────────────────── -->
   <div class="facts-strip" aria-label="Tuscan Lakes quick facts">
