@@ -26,12 +26,12 @@
         <li class="nav__item nav__item--dropdown">
           <a href="cities.html" class="nav__link">Cities</a>
           <ul class="nav__dropdown" aria-label="Cities submenu">
-            <li><a href="cities.html#league-city">League City</a></li>
-            <li><a href="cities.html#friendswood">Friendswood</a></li>
-            <li><a href="cities.html#pearland">Pearland</a></li>
-            <li><a href="cities.html#clear-lake">Clear Lake</a></li>
-            <li><a href="cities.html#dickinson">Dickinson</a></li>
-            <li><a href="cities.html#manvel">Manvel</a></li>
+            <li><a href="league-city.html">League City</a></li>
+            <li><a href="friendswood.html">Friendswood</a></li>
+            <li><a href="pearland.html">Pearland</a></li>
+            <li><a href="clear-lake.html">Clear Lake</a></li>
+            <li><a href="dickinson.html">Dickinson</a></li>
+            <li><a href="manvel.html">Manvel</a></li>
           </ul>
         </li>
         <li class="nav__item nav__item--dropdown">
@@ -277,47 +277,33 @@
 <script src="https://widgets.leadconnectorhq.com/loader.js" data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" data-widget-id="6a0623c7f127bb5833bc2697"></script>
 
   <script>
-    const GHL_WEBHOOK = 'https://services.leadconnectorhq.com/hooks/oyGNN4xzQ5FxZ2PQgFzE/webhook-trigger/976f3746-112a-4474-862f-1085e0ddb196';
-
-    // Contact form → GHL Mashore Method
-    document.querySelector('form[name="contact"]').addEventListener('submit', function () {
-      const fd = new FormData(this);
-      fetch('https://services.leadconnectorhq.com/hooks/oyGNN4xzQ5FxZ2PQgFzE/webhook-trigger/98389946-a183-40c7-8df3-f997da22cb50', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        keepalive: true,
-        body: JSON.stringify({
-          firstName: fd.get('first_name'),
-          lastName: fd.get('last_name'),
-          email: fd.get('email'),
-          phone: fd.get('phone'),
-          sms_consent: fd.get('sms_consent') === 'yes' ? 'yes' : 'no',
-          subject: fd.get('subject'),
-          message: fd.get('message'),
-          source: 'Contact Form'
-        })
-      }).catch(() => {});
-    });
-
-    // TruMarket form → GHL Mashore Method
-    document.querySelector('form[name="trumarket"]').addEventListener('submit', function () {
-      const fd = new FormData(this);
-      fetch(GHL_WEBHOOK, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        keepalive: true,
-        body: JSON.stringify({
-          firstName: fd.get('first_name'),
-          lastName: fd.get('last_name'),
-          email: fd.get('email'),
-          phone: fd.get('phone'),
-          sms_consent: fd.get('sms_consent') === 'yes' ? 'yes' : 'no',
-          property_address: fd.get('property_address'),
-          source: 'TruMarket'
-        })
-      }).catch(() => {});
-    });
-  </script>
-</body>
-</html>
-                                                                                                                                                                                               
+    // ── Pre-fill topic dropdown from ?topic= URL param ────────────────────────
+    (function () {
+      const topic = new URLSearchParams(window.location.search).get('topic');
+      if (!topic) return;
+      const sel = document.getElementById('subject');
+      if (!sel) return;
+      // Map URL topic slugs → dropdown option values
+      const topicMap = {
+        'buy':                       "I'm ready to buy a home",
+        'sell':                      "I want to sell my home",
+        'trumarket':                 "I'm interested in my TruMarket™ Home Value Report",
+        'rebalance':                 "I'm interested in Rebalance",
+        'amplify':                   "I'm interested in Amplify",
+        'renew':                     "I'm interested in Renew",
+        'preapproval':               "I'm ready to buy a home",
+        'offer':                     "I'm ready to buy a home",
+        'marketiq-schedule':         "General Question",
+        'buyer-guide':               "I'm ready to buy a home",
+        'seller-guide':              "I want to sell my home",
+        'guide-30day':               "I'm ready to buy a home",
+        'guide-buyer-advantage':     "I'm ready to buy a home",
+        'guide-seller-edge':         "I want to sell my home",
+      };
+      // Neighborhood topics — all map to "I'm ready to buy a home" with neighborhood in message
+      const neighborhoodSlugs = [
+        'avalon-friendswood','friendswood-lakes','falcon-ridge-friendswood',
+        'west-ranch-friendswood','heritage-park-friendswood','wilderness-trails-friendswood',
+        'shadow-creek-ranch-pearland','silverlake-pearland','pomona-pearland',
+        'meridiana-iowa-colony','southgate-pearland','country-place-pearland',
+        'tuscan-lakes','westover-park','south-shore-harbour','magnolia-c
