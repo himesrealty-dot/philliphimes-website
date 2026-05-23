@@ -980,4 +980,114 @@
           <div class="footer__heading">Selling</div>
           <ul class="footer__links">
             <li><a href="sellers.html">SellerIQ™ · Know Your Number</a></li>
-            <li><a href="contac
+            <li><a href="contact.html?topic=trumarket">Get My TruMarket™ Report</a></li>
+            <li><a href="rebalance.html">Rebalance™</a></li>
+            <li><a href="amplify.html">Amplify™</a></li>
+            <li><a href="contact.html?topic=renew">Renew™</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer__heading">Explore</div>
+          <ul class="footer__links">
+            <li><a href="marketiq.html">MarketIQ™</a></li>
+            <li><a href="cities.html">Cities</a></li>
+            <li><a href="sellers.html">reLifeIQ™</a></li>
+            <li><a href="contact.html">Ask Phil</a></li>
+            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__legal">
+          © 2026 Phillip Himes · Brokered by eXp Realty · Licensed in Texas ·
+          <a href="privacy-policy.html">Privacy Policy</a> ·
+          <a href="terms-of-service.html">Terms of Service</a>
+        </p>
+        <p class="footer__disclaimer">
+          All information deemed reliable but not guaranteed. Equal Housing Opportunity. Information subject to change without notice.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+
+  <!-- GHL Chat Widget -->
+  <script src="https://widgets.leadconnectorhq.com/loader.js" data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" data-widget-id="69fba6dfba1fce1be5f73408" data-source="WEB_USER"></script>
+  <script src="https://widgets.leadconnectorhq.com/loader.js" data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" data-widget-id="6a0623c7f127bb5833bc2697"></script>
+
+  <script>
+    /* ── Showing request — dynamic property rows ────────── */
+
+    function addPropRow() {
+      var template = document.querySelector('#property-rows .property-row');
+      var clone = template.cloneNode(true);
+      // Clear values in clone
+      clone.querySelector('.prop-address').value = '';
+      clone.querySelector('.prop-date').value = '';
+      clone.querySelector('.prop-time').value = '';
+      // Show remove button on all rows once there are 2+
+      clone.querySelector('.prop-remove').style.display = 'flex';
+      document.getElementById('property-rows').appendChild(clone);
+      // Also show remove on the first row now that there are 2+
+      document.querySelectorAll('.prop-remove').forEach(function(btn) {
+        btn.style.display = 'flex';
+      });
+      clone.querySelector('.prop-address').focus();
+    }
+
+    function removePropRow(btn) {
+      var row = btn.closest('.property-row');
+      var container = document.getElementById('property-rows');
+      if (container.querySelectorAll('.property-row').length <= 1) return; // keep at least one
+      container.removeChild(row);
+      // Hide remove button if only one row left
+      if (container.querySelectorAll('.property-row').length === 1) {
+        container.querySelector('.prop-remove').style.display = 'none';
+      }
+    }
+
+    function submitShowingRequest(e) {
+      e.preventDefault();
+      var form = e.target;
+
+      // Collect standard fields
+      var data = {
+        firstName: form.querySelector('[name="firstName"]').value.trim(),
+        lastName:  form.querySelector('[name="lastName"]').value.trim(),
+        email:     form.querySelector('[name="email"]').value.trim(),
+        phone:     form.querySelector('[name="phone"]').value.trim(),
+        message:   form.querySelector('[name="message"]').value.trim()
+      };
+
+      // Build properties string from dynamic rows
+      var rows = form.querySelectorAll('.property-row');
+      var propLines = [];
+      rows.forEach(function(row, i) {
+        var addr = row.querySelector('.prop-address').value.trim();
+        var date = row.querySelector('.prop-date').value;
+        var time = row.querySelector('.prop-time').value;
+        if (!addr) return;
+        var line = (i + 1) + '. ' + addr;
+        if (date) line += ' | ' + date;
+        if (time) line += ' @ ' + time;
+        propLines.push(line);
+      });
+      data.properties = propLines.join('\n');
+
+      var webhookUrl = 'https://services.leadconnectorhq.com/hooks/oyGNN4xzQ5FxZ2PQgFzE/webhook-trigger/08d54881-5f42-4fd2-96d4-4108322fde0e';
+
+      fetch(webhookUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      }).catch(function() {
+        // Silently fail — still show success to user
+      }).finally(function() {
+        document.getElementById('schedule-form-wrap').style.display = 'none';
+        document.getElementById('schedule-success').classList.add('show');
+      });
+    }
+  </script>
+
+</bo
