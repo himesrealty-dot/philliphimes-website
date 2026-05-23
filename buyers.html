@@ -303,6 +303,35 @@
     }
     .schedule-submit-btn:hover { background: #1a7a90; transform: translateY(-1px); }
     .schedule-form__note { font-size: 0.72rem; color: rgba(255,255,255,0.4); text-align: center; line-height: 1.5; }
+    .schedule-props-label {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--teal); margin-top: 0.25rem; margin-bottom: 0.25rem;
+    }
+    .property-row {
+      display: flex; flex-direction: column; gap: 0.5rem;
+      border: 1px solid rgba(255,255,255,0.12); border-radius: 0.75rem;
+      padding: 0.85rem 1rem; margin-bottom: 0.5rem;
+      background: rgba(255,255,255,0.04);
+    }
+    .property-row__addr input { width: 100%; box-sizing: border-box; }
+    .property-row__datetime {
+      display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;
+    }
+    .property-row__datetime .prop-date { flex: 1 1 130px; min-width: 0; }
+    .property-row__datetime .prop-time { flex: 1 1 110px; min-width: 0; }
+    .prop-remove {
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.55); border-radius: 50%; width: 2rem; height: 2rem;
+      cursor: pointer; font-size: 0.9rem; flex-shrink: 0; transition: background 0.2s;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .prop-remove:hover { background: rgba(220,60,60,0.35); color: white; }
+    .schedule-add-btn {
+      background: transparent; border: 1.5px dashed rgba(255,255,255,0.25); color: rgba(255,255,255,0.6);
+      border-radius: 0.6rem; padding: 0.6rem 1rem; font-size: 0.82rem; cursor: pointer;
+      transition: border-color 0.2s, color 0.2s; width: 100%; text-align: center;
+    }
+    .schedule-add-btn:hover { border-color: var(--teal); color: var(--teal); }
     .schedule-success { display: none; text-align: center; padding: 2.5rem 1rem; }
     .schedule-success.show { display: block; }
     .schedule-success__icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
@@ -714,22 +743,47 @@
             <p class="schedule-form-card__desc">Send Phil the address and your preferred times. He'll take care of the rest.</p>
 
             <form class="schedule-form" id="schedule-form" onsubmit="submitShowingRequest(event)">
+
+              <!-- Contact info -->
               <div class="schedule-form-row">
                 <input type="text" name="firstName" placeholder="First Name" required />
                 <input type="text" name="lastName" placeholder="Last Name" required />
               </div>
-              <input type="email" name="email" placeholder="Email Address" required />
-              <input type="tel" name="phone" placeholder="Phone Number" required />
-              <input type="text" name="address" placeholder="Property Address or MLS #" required />
-              <select name="timing">
-                <option value="" disabled selected>Preferred Timing</option>
-                <option>As soon as possible</option>
-                <option>This week</option>
-                <option>This weekend</option>
-                <option>Within 2 weeks</option>
-                <option>Just exploring — flexible</option>
-              </select>
-              <textarea name="message" placeholder="Anything Phil should know? (optional)"></textarea>
+              <div class="schedule-form-row">
+                <input type="email" name="email" placeholder="Email Address" required />
+                <input type="tel" name="phone" placeholder="Phone Number" required />
+              </div>
+
+              <!-- Dynamic property rows -->
+              <div class="schedule-props-label">Properties to Show</div>
+              <div id="property-rows">
+                <div class="property-row">
+                  <div class="property-row__addr">
+                    <input type="text" placeholder="Address or MLS #" class="prop-address" required />
+                  </div>
+                  <div class="property-row__datetime">
+                    <input type="date" class="prop-date" />
+                    <select class="prop-time">
+                      <option value="">Any time</option>
+                      <option>8:00am</option>
+                      <option>9:00am</option>
+                      <option>10:00am</option>
+                      <option>11:00am</option>
+                      <option>12:00pm</option>
+                      <option>1:00pm</option>
+                      <option>2:00pm</option>
+                      <option>3:00pm</option>
+                      <option>4:00pm</option>
+                      <option>5:00pm</option>
+                      <option>6:00pm</option>
+                    </select>
+                    <button type="button" class="prop-remove" onclick="removePropRow(this)" aria-label="Remove" style="display:none;">✕</button>
+                  </div>
+                </div>
+              </div>
+              <button type="button" class="schedule-add-btn" onclick="addPropRow()">+ Add Another Property</button>
+
+              <textarea name="message" placeholder="Anything else Phil should know? (optional)"></textarea>
               <button type="submit" class="schedule-submit-btn">Request a Showing →</button>
               <p class="schedule-form__note">Phil will follow up within a few hours. No obligation.</p>
             </form>
@@ -926,63 +980,4 @@
           <div class="footer__heading">Selling</div>
           <ul class="footer__links">
             <li><a href="sellers.html">SellerIQ™ · Know Your Number</a></li>
-            <li><a href="contact.html?topic=trumarket">Get My TruMarket™ Report</a></li>
-            <li><a href="rebalance.html">Rebalance™</a></li>
-            <li><a href="amplify.html">Amplify™</a></li>
-            <li><a href="contact.html?topic=renew">Renew™</a></li>
-          </ul>
-        </div>
-        <div>
-          <div class="footer__heading">Explore</div>
-          <ul class="footer__links">
-            <li><a href="marketiq.html">MarketIQ™</a></li>
-            <li><a href="cities.html">Cities</a></li>
-            <li><a href="sellers.html">reLifeIQ™</a></li>
-            <li><a href="contact.html">Ask Phil</a></li>
-            <li><a href="privacy-policy.html">Privacy Policy</a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="footer__bottom">
-        <p class="footer__legal">
-          © 2026 Phillip Himes · Brokered by eXp Realty · Licensed in Texas ·
-          <a href="privacy-policy.html">Privacy Policy</a> ·
-          <a href="terms-of-service.html">Terms of Service</a>
-        </p>
-        <p class="footer__disclaimer">
-          All information deemed reliable but not guaranteed. Equal Housing Opportunity. Information subject to change without notice.
-        </p>
-      </div>
-    </div>
-  </footer>
-
-  <script src="js/main.js"></script>
-
-  <!-- GHL Chat Widget -->
-  <script src="https://widgets.leadconnectorhq.com/loader.js" data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" data-widget-id="69fba6dfba1fce1be5f73408" data-source="WEB_USER"></script>
-  <script src="https://widgets.leadconnectorhq.com/loader.js" data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" data-widget-id="6a0623c7f127bb5833bc2697"></script>
-
-  <script>
-    /* ── Showing request form ─────────────────────────── */
-    function submitShowingRequest(e) {
-      e.preventDefault();
-      var form = e.target;
-      var data = {};
-      new FormData(form).forEach(function(v, k) { data[k] = v; });
-
-      var webhookUrl = 'https://services.leadconnectorhq.com/hooks/oyGNN4xzQ5FxZ2PQgFzE/webhook-trigger/08d54881-5f42-4fd2-96d4-4108322fde0e';
-
-      fetch(webhookUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
-      }).catch(function() {
-        // Silently fail — still show success to user
-      }).finally(function() {
-        document.getElementById('schedule-form-wrap').style.display = 'none';
-        document.getElementById('schedule-success').classList.add('show');
-      });
-    }
-  </script>
-
-</bo
+            <li><a href="contac
