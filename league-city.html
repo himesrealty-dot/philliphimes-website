@@ -195,6 +195,42 @@
       border-color: rgba(255,255,255,0.65);
     }
 
+    /* ─── SEARCH CTA STRIPS ─────────────────────────────── */
+    .city-search-cta {
+      background: var(--navy);
+      padding: 2.5rem 0;
+      text-align: center;
+    }
+    .city-search-cta--light {
+      background: #f0f4f7;
+    }
+    .city-search-cta__text {
+      font-family: var(--font-heading);
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 1.1rem;
+    }
+    .city-search-cta--light .city-search-cta__text {
+      color: var(--navy);
+    }
+    .city-search-cta__btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--gold);
+      color: var(--navy);
+      padding: 0.9rem 2.2rem;
+      border-radius: var(--radius-full);
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 0.95rem;
+      text-decoration: none;
+      letter-spacing: 0.03em;
+      transition: background 0.2s;
+    }
+    .city-search-cta__btn:hover { background: #d4b86a; }
+
     /* ─── STATS BAR ─────────────────────────────────────── */
     .city-stats {
       background: var(--navy);
@@ -812,24 +848,6 @@
     </div>
   </div>
 
-  <!-- ── MAP SEARCH ────────────────────────────────────── -->
-  <section class="city-map" id="map" aria-labelledby="map-heading">
-    <div class="container">
-      <div class="city-map__header">
-        <span class="city-map__eyebrow">Explore the Map</span>
-        <h2 class="city-map__title" id="map-heading">Search <span>League City</span> by Neighborhood</h2>
-        <p class="city-map__sub">Draw a boundary around any neighborhood — Tuscan Lakes, South Shore Harbour, Mar Bella — and see exactly what's available on the map.</p>
-      </div>
-      <div class="city-map__widget">
-        <script charset="UTF-8" type="text/javascript" id="idxwidgetsrc-155562" src="//philliphimes.idxbroker.com/idx/widgets/155562"></script>
-      </div>
-      <!-- TEST: Redmond map template widget -->
-      <div class="city-map__widget" style="margin-top:2rem;">
-        <script charset="UTF-8" type="text/javascript" id="idxwidgetsrc-157145" src="//search.philliphimes.com/idx/widgets/157145"></script>
-      </div>
-    </div>
-  </section>
-
   <!-- ── NEIGHBORHOODS ────────────────────────────────── -->
   <section class="city-hoods" aria-labelledby="hoods-heading">
     <div class="container">
@@ -907,6 +925,14 @@
     </div>
   </section>
 
+  <!-- ── SEARCH CTA #1 — after neighborhoods ─────────── -->
+  <div class="city-search-cta">
+    <div class="container">
+      <p class="city-search-cta__text">See what's available in these neighborhoods right now</p>
+      <a href="https://search.philliphimes.com/idx/map/mapsearch" target="_blank" rel="noopener" class="city-search-cta__btn">🏠 Search League City Homes →</a>
+    </div>
+  </div>
+
   <!-- ── MARKET REPORT ─────────────────────────────────── -->
   <section class="city-market" aria-labelledby="market-heading">
     <div class="container">
@@ -920,6 +946,14 @@
       </div>
     </div>
   </section>
+
+  <!-- ── SEARCH CTA #2 — after market data ────────────── -->
+  <div class="city-search-cta city-search-cta--light">
+    <div class="container">
+      <p class="city-search-cta__text">Ready to search at your price point? Browse active listings on the map.</p>
+      <a href="https://search.philliphimes.com/idx/map/mapsearch" target="_blank" rel="noopener" class="city-search-cta__btn">🗺️ Open Map Search →</a>
+    </div>
+  </div>
 
   <!-- ── LOCAL GUIDE + FAQ ─────────────────────────────── -->
   <section class="city-guide" aria-labelledby="guide-heading">
@@ -980,6 +1014,14 @@
       </div>
     </div>
   </section>
+
+  <!-- ── SEARCH CTA #3 — final bottom CTA ────────────── -->
+  <div class="city-search-cta">
+    <div class="container">
+      <p class="city-search-cta__text">Done reading? Start your League City home search — filter by neighborhood, price, and size.</p>
+      <a href="https://search.philliphimes.com/idx/map/mapsearch" target="_blank" rel="noopener" class="city-search-cta__btn">🏠 Start My Home Search →</a>
+    </div>
+  </div>
 
   <!-- ── RELIFEIQ CTA ──────────────────────────────────── -->
   <section class="city-relifeiq" aria-labelledby="relifeiq-heading">
@@ -1068,27 +1110,4 @@
             <li><a href="contact.html">Ask Phil</a></li>
             <li><a href="contact.html?topic=buyer-guide">Free Buyer's Guide</a></li>
             <li><a href="contact.html?topic=seller-guide">Free Seller's Playbook</a></li>
-          </ul>
-        </div>
-
-      </div>
-
-      <div class="footer__bottom">
-        <p class="footer__legal">
-          © 2026 Phillip Himes · Brokered by eXp Realty · Licensed in Texas ·
-          <a href="privacy-policy.html">Privacy Policy</a> ·
-          <a href="terms-of-service.html">Terms of Service</a>
-        </p>
-        <p class="footer__disclaimer">
-          All information deemed reliable but not guaranteed. Equal Housing Opportunity. Information subject to change without notice.
-        </p>
-      </div>
-    </div>
-  </footer>
-
-  <script src="js/main.js"></script>
-  <script src="https://widgets.leadconnectorhq.com/loader.js" data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" data-widget-id="6a0623c7f127bb5833bc2697"></script>
-
-</body>
-</html>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+         

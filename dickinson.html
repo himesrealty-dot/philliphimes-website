@@ -697,6 +697,42 @@
       line-height: 1.5;
     }
 
+
+    /* ─── SEARCH CTA STRIPS ─────────────────────────────── */
+    .city-search-cta {
+      background: var(--navy);
+      padding: 2.5rem 0;
+      text-align: center;
+    }
+    .city-search-cta--light {
+      background: #f0f4f7;
+    }
+    .city-search-cta__text {
+      font-family: var(--font-heading);
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 1.1rem;
+    }
+    .city-search-cta--light .city-search-cta__text {
+      color: var(--navy);
+    }
+    .city-search-cta__btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--gold);
+      color: var(--navy);
+      padding: 0.9rem 2.2rem;
+      border-radius: var(--radius-full);
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 0.95rem;
+      text-decoration: none;
+      letter-spacing: 0.03em;
+      transition: background 0.2s;
+    }
+    .city-search-cta__btn:hover { background: #d4b86a; }
   </style>
 </head>
 <body>
@@ -798,20 +834,6 @@
     </div>
   </div>
 
-  <!-- ── MAP SEARCH ────────────────────────────────────── -->
-  <section class="city-map" id="map" aria-labelledby="map-heading">
-    <div class="container">
-      <div class="city-map__header">
-        <span class="city-map__eyebrow">Explore the Map</span>
-        <h2 class="city-map__title" id="map-heading">Search <span>Dickinson</span> by Neighborhood</h2>
-        <p class="city-map__sub">Draw a boundary around Lago Mar, Bay Colony, or Centerpointe and see exactly what's available.</p>
-      </div>
-      <div class="city-map__widget">
-        <script charset="UTF-8" type="text/javascript" id="idxwidgetsrc-155562" src="//philliphimes.idxbroker.com/idx/widgets/155562"></script>
-      </div>
-    </div>
-  </section>
-
   <!-- ── NEIGHBORHOODS ────────────────────────────────── -->
   <section class="city-hoods" aria-labelledby="hoods-heading">
     <div class="container">
@@ -867,7 +889,15 @@
     </div>
   </section>
 
-  <!-- ── MARKET REPORT ─────────────────────────────────── -->
+  
+  <!-- ── SEARCH CTA #1 — after neighborhoods ─────────── -->
+  <div class="city-search-cta">
+    <div class="container">
+      <p class="city-search-cta__text">See what's available in these neighborhoods right now</p>
+      <a href="https://search.philliphimes.com/idx/map/mapsearch" target="_blank" rel="noopener" class="city-search-cta__btn">🏠 Search Dickinson Homes →</a>
+    </div>
+  </div>
+<!-- ── MARKET REPORT ─────────────────────────────────── -->
   <section class="city-market" aria-labelledby="market-heading">
     <div class="container">
       <div class="city-market__header">
@@ -881,7 +911,15 @@
     </div>
   </section>
 
-  <!-- ── LOCAL GUIDE + FAQ ─────────────────────────────── -->
+  
+  <!-- ── SEARCH CTA #2 — after market data ────────────── -->
+  <div class="city-search-cta city-search-cta--light">
+    <div class="container">
+      <p class="city-search-cta__text">Ready to search at your price point? Browse active listings on the map.</p>
+      <a href="https://search.philliphimes.com/idx/map/mapsearch" target="_blank" rel="noopener" class="city-search-cta__btn">🗺️ Open Map Search →</a>
+    </div>
+  </div>
+<!-- ── LOCAL GUIDE + FAQ ─────────────────────────────── -->
   <section class="city-guide" aria-labelledby="guide-heading">
     <div class="container">
       <div class="city-guide__inner">
@@ -941,7 +979,15 @@
     </div>
   </section>
 
-  <!-- ── RELIFEIQ CTA ──────────────────────────────────── -->
+  
+  <!-- ── SEARCH CTA #3 — final bottom CTA ────────────── -->
+  <div class="city-search-cta">
+    <div class="container">
+      <p class="city-search-cta__text">Done reading? Start your Dickinson home search — filter by neighborhood, price, and size.</p>
+      <a href="https://search.philliphimes.com/idx/map/mapsearch" target="_blank" rel="noopener" class="city-search-cta__btn">🏠 Start My Home Search →</a>
+    </div>
+  </div>
+<!-- ── RELIFEIQ CTA ──────────────────────────────────── -->
   <section class="city-relifeiq" aria-labelledby="relifeiq-heading">
     <div class="container">
       <div class="city-relifeiq__inner">
