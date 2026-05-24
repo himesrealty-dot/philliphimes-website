@@ -368,7 +368,7 @@
     /* ─── NEIGHBORHOODS ──────────────────────────────────── */
     .city-hoods {
       padding: 5rem 0;
-      background: var(--navy);
+      background: #FAF8F5;
     }
     .city-hoods__header {
       text-align: center;
@@ -388,10 +388,10 @@
       font-family: var(--font-heading);
       font-weight: 900;
       font-size: clamp(1.8rem, 4vw, 2.6rem);
-      color: white;
+      color: var(--navy);
       line-height: 1.1;
     }
-    .city-hoods__title span { color: #5cc8dc; }
+    .city-hoods__title span { color: var(--teal); }
     .city-hoods__grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -400,22 +400,24 @@
     @media (max-width: 900px) { .city-hoods__grid { grid-template-columns: repeat(2, 1fr); } }
     @media (max-width: 560px) { .city-hoods__grid { grid-template-columns: 1fr; } }
     .hood-card {
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.1);
+      background: #FFFFFF;
+      border: 1px solid rgba(27,58,92,0.1);
       border-radius: var(--radius-xl);
       padding: 1.75rem 1.65rem;
       transition: all 0.25s;
+      box-shadow: 0 2px 12px rgba(27,58,92,0.06);
     }
     .hood-card:hover {
-      background: rgba(255,255,255,0.1);
-      border-color: rgba(32,137,160,0.4);
+      background: #FFFFFF;
+      border-color: rgba(32,137,160,0.45);
       transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(27,58,92,0.12);
     }
     .hood-card__name {
       font-family: var(--font-heading);
       font-weight: 900;
       font-size: 1.15rem;
-      color: var(--gold);
+      color: var(--navy);
       margin-bottom: 0.4rem;
     }
     .hood-card__tag {
@@ -425,16 +427,16 @@
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.1em;
-      color: #5cc8dc;
-      background: rgba(32,137,160,0.15);
-      border: 1px solid rgba(32,137,160,0.3);
+      color: #2089A0;
+      background: rgba(32,137,160,0.1);
+      border: 1px solid rgba(32,137,160,0.25);
       border-radius: var(--radius-full);
       padding: 0.2rem 0.65rem;
       margin-bottom: 0.9rem;
     }
     .hood-card__desc {
       font-size: 0.88rem;
-      color: rgba(255,255,255,0.65);
+      color: #4A5568;
       line-height: 1.68;
       margin-bottom: 1.1rem;
     }
@@ -442,7 +444,7 @@
       font-family: var(--font-heading);
       font-weight: 700;
       font-size: 0.85rem;
-      color: rgba(255,255,255,0.75);
+      color: var(--navy);
     }
     .hood-card__price span { color: var(--gold); }
     a.hood-card { display: block; text-decoration: none; }
@@ -450,14 +452,14 @@
       display: flex; align-items: center; gap: 0.4rem;
       font-family: var(--font-heading); font-size: 0.78rem; font-weight: 700;
       color: var(--teal); margin-top: 1rem;
-      padding-top: 0.85rem; border-top: 1px solid rgba(255,255,255,0.08);
+      padding-top: 0.85rem; border-top: 1px solid rgba(27,58,92,0.08);
       transition: gap 0.2s;
     }
     a.hood-card:hover .hood-card__cta { gap: 0.65rem; }
     .hood-card__soon {
       font-family: var(--font-heading); font-size: 0.72rem; font-weight: 600;
-      color: rgba(255,255,255,0.28); margin-top: 1rem;
-      padding-top: 0.85rem; border-top: 1px solid rgba(255,255,255,0.08);
+      color: rgba(27,58,92,0.35); margin-top: 1rem;
+      padding-top: 0.85rem; border-top: 1px solid rgba(27,58,92,0.08);
     }
 
     /* ─── MARKET REPORT ─────────────────────────────────── */
@@ -1109,28 +1111,4 @@
             <li><a href="primequity.html">reLifeIQ™</a></li>
             <li><a href="contact.html">Ask Phil</a></li>
             <li><a href="contact.html?topic=buyer-guide">Free Buyer's Guide</a></li>
-            <li><a href="contact.html?topic=seller-guide">Free Seller's Playbook</a></li>
-          </ul>
-        </div>
-
-      </div>
-
-      <div class="footer__bottom">
-        <p class="footer__legal">
-          © 2026 Phillip Himes · Brokered by eXp Realty · Licensed in Texas ·
-          <a href="privacy-policy.html">Privacy Policy</a> ·
-          <a href="terms-of-service.html">Terms of Service</a>
-        </p>
-        <p class="footer__disclaimer">
-          All information deemed reliable but not guaranteed. Equal Housing Opportunity. Information subject to change without notice.
-        </p>
-      </div>
-    </div>
-  </footer>
-
-  <script src="js/main.js"></script>
-  <script src="https://widgets.leadconnectorhq.com/loader.js" data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" data-widget-id="6a0623c7f127bb5833bc2697"></script>
-
-</body>
-</html>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+            <li><a href="contact.html?topic=seller-guide">F

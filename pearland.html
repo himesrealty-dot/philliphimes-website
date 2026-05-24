@@ -192,7 +192,7 @@
     }
     .city-hero__cta-secondary:hover {
       background: rgba(255,255,255,0.2);
-      border-color: rgba(255,255,255,0.65);
+      border-color: #4A5568;
     }
 
     /* ─── STATS BAR ─────────────────────────────────────── */
@@ -332,7 +332,7 @@
     /* ─── NEIGHBORHOODS ──────────────────────────────────── */
     .city-hoods {
       padding: 5rem 0;
-      background: var(--navy);
+      background: #FAF8F5;
     }
     .city-hoods__header {
       text-align: center;
@@ -352,10 +352,10 @@
       font-family: var(--font-heading);
       font-weight: 900;
       font-size: clamp(1.8rem, 4vw, 2.6rem);
-      color: white;
+      color: var(--navy);
       line-height: 1.1;
     }
-    .city-hoods__title span { color: #5cc8dc; }
+    .city-hoods__title span { color: var(--teal); }
     .city-hoods__grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -364,22 +364,22 @@
     @media (max-width: 900px) { .city-hoods__grid { grid-template-columns: repeat(2, 1fr); } }
     @media (max-width: 560px) { .city-hoods__grid { grid-template-columns: 1fr; } }
     .hood-card {
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.1);
+      background: #FFFFFF;
+      border: 1px solid rgba(27,58,92,0.1);
       border-radius: var(--radius-xl);
       padding: 1.75rem 1.65rem;
       transition: all 0.25s;
     }
     .hood-card:hover {
-      background: rgba(255,255,255,0.1);
-      border-color: rgba(32,137,160,0.4);
+      background: #FFFFFF;
+      border-color: rgba(32,137,160,0.45);
       transform: translateY(-3px);
     }
     .hood-card__name {
       font-family: var(--font-heading);
       font-weight: 900;
       font-size: 1.15rem;
-      color: var(--gold);
+      color: var(--navy);
       margin-bottom: 0.4rem;
     }
     .hood-card__tag {
@@ -398,7 +398,7 @@
     }
     .hood-card__desc {
       font-size: 0.88rem;
-      color: rgba(255,255,255,0.65);
+      color: #4A5568;
       line-height: 1.68;
       margin-bottom: 1.1rem;
     }
@@ -406,7 +406,7 @@
       font-family: var(--font-heading);
       font-weight: 700;
       font-size: 0.85rem;
-      color: rgba(255,255,255,0.75);
+      color: var(--navy);
     }
     .hood-card__price span { color: var(--gold); }
     a.hood-card { text-decoration: none; color: inherit; display: block; }
@@ -679,8 +679,8 @@
       gap: 0.85rem;
     }
     .city-relifeiq__tool {
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.1);
+      background: #FFFFFF;
+      border: 1px solid rgba(27,58,92,0.1);
       border-radius: var(--radius-lg);
       padding: 1.1rem 1.2rem;
       text-decoration: none;
