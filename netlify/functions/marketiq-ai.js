@@ -221,6 +221,18 @@ exports.handler = async function(event) {
     callRentcastMarket(zip)
   ]);
 
+  // Diagnostic logging — remove after confirming RentCast AVM is working
+  console.log('RentCast AVM:', avm ? JSON.stringify({
+    price:          avm.price,
+    low:            avm.priceRangeLow,
+    high:           avm.priceRangeHigh,
+    compsCount:     (avm.listings || []).length,
+    firstCompPrice: avm.listings && avm.listings[0] ? avm.listings[0].price : null
+  }) : 'null — AVM call returned nothing');
+  console.log('RentCast Market:', market ? JSON.stringify({
+    topLevelKeys: Object.keys(market).slice(0, 8)
+  }) : 'null — Market call returned nothing');
+
   const rentcastContext = buildRentcastContext(avm, market, zip, isSeller);
   const hasRealData     = rentcastContext.length > 0;
 
