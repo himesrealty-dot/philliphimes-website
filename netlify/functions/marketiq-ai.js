@@ -326,4 +326,40 @@ INSTRUCTIONS:
       iterations++;
       const resp = await callClaude(messages, systemPrompt);
 
-      
+      if (resp.stop_reason === 'end_turn') {
+        finalReport = resp.content
+          .filter(b => b.type === 'text')
+          .map(b => b.text)
+          .join('\n');
+        break;
+      }
+
+      if (resp.stop_reason === 'tool_use') {
+        messages.push({ role: 'assistant', content: resp.content });
+        const toolResults = [];
+        for (const block of resp.content) {
+          if (block.type !== 'tool_use') continue;
+          let result;
+          try   { result = await executeTool(block.name, block.input); }
+          catch (err) { result = { error: err.message }; }
+          toolResults.push({ type: 'tool_result', tool_use_id: block.id, content: JSON.stringify(result) });
+        }
+        messages.push({ role: 'user', content: toolResults });
+      } else {
+        break; // unexpected stop
+      }
+    }
+
+    if (!finalReport) throw new Error('Report generation failed — no output from Claude');
+
+    return {
+      statusCode: 200,
+      headers,
+      body: JSON.stringify({ report: finalReport, area, zip })
+    };
+
+  } catch (err) {
+    console.error('marketiq-ai error:', err);
+    return { statusCode: 500, headers, body: JSON.stringify({ error: err.message }) };
+  }
+};
