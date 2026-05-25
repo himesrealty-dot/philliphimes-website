@@ -1,10 +1,12 @@
-// MarketIQ™ v2 — AI-Powered Pricing Strategy Tool
-// Anthropic Claude + static area intelligence
+// MarketIQ™ v3 — AI-Powered Pricing Strategy Tool
+// Anthropic Claude + RentCast live market data
 // POST { address, mode, beds, baths, sqft, condition, timeline, budget }
+// Returns structured JSON — no markdown, direct template injection
 
 const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY;
+const RENTCAST_API_KEY  = process.env.RENTCAST_API_KEY;
 
-// ─── NEIGHBORHOOD / SCHOOL DISTRICT LOOKUP ───────────────────────
+// ─── AREA DATA ────────────────────────────────────────────────────
 const AREA_DATA = {
   '77573': { city: 'League City',    county: 'Galveston County',  district: 'Clear Creek ISD',  flood: 'Most of 77573 is Zone X (minimal risk). Verify specific parcel on FEMA flood map.', market: 'One of the most balanced markets in the Bay Area — steady demand across all price points.' },
   '77565': { city: 'League City',    county: 'Galveston County',  district: 'Clear Creek ISD',  flood: 'Mostly Zone X. Verify specific parcel.', market: 'League City waterfront corridor — strong lifestyle buyer demand.' },
@@ -33,7 +35,116 @@ function getAreaData(zip) {
   };
 }
 
-// ─── ANTHROPIC API ───────────────────────────────────────────────
+// ─── RENTCAST: PROPERTY AVM + COMPARABLE SALES ───────────────────
+async function callRentcastAVM(address, beds, baths, sqft, lookupAttrs) {
+  if (!RENTCAST_API_KEY) return null;
+  try {
+    const params = new URLSearchParams({
+      address,
+      propertyType: 'Single Family',
+      compCount: '5'
+    });
+    if (lookupAttrs) {
+      params.set('lookupSubjectAttributes', 'true');
+    } else {
+      if (beds)              params.set('bedrooms',      String(beds));
+      if (baths)             params.set('bathrooms',     String(baths));
+      if (sqft && +sqft > 0) params.set('squareFootage', String(parseInt(sqft)));
+    }
+    const res = await fetch(`https://api.rentcast.io/v1/avm/value?${params}`, {
+      headers: { 'X-Api-Key': RENTCAST_API_KEY, 'Accept': 'application/json' }
+    });
+    if (!res.ok) {
+      console.error(`RentCast AVM ${res.status}:`, await res.text());
+      return null;
+    }
+    return await res.json();
+  } catch (e) {
+    console.error('RentCast AVM error:', e.message);
+    return null;
+  }
+}
+
+// ─── RENTCAST: ZIP-LEVEL MARKET STATISTICS ────────────────────────
+async function callRentcastMarket(zip) {
+  if (!RENTCAST_API_KEY) return null;
+  try {
+    const res = await fetch(
+      `https://api.rentcast.io/v1/markets?zipCode=${zip}&dataType=Sale`,
+      { headers: { 'X-Api-Key': RENTCAST_API_KEY, 'Accept': 'application/json' } }
+    );
+    if (!res.ok) {
+      console.error(`RentCast Market ${res.status}:`, await res.text());
+      return null;
+    }
+    return await res.json();
+  } catch (e) {
+    console.error('RentCast Market error:', e.message);
+    return null;
+  }
+}
+
+// ─── FORMAT RENTCAST DATA FOR CLAUDE PROMPT ──────────────────────
+function buildRentcastContext(avm, market, zip, isSeller) {
+  const parts = [];
+
+  if (market) {
+    // Handle both nested (market.saleData) and flat response shapes
+    const sd  = market.saleData || market.sale || market;
+    const dom = sd.averageDaysOnMarket  ?? sd.medianDaysOnMarket   ?? null;
+    const lts = sd.saleToListRatio      ?? null;
+    const tot = sd.totalListings        ?? sd.activeSaleListings   ?? null;
+    const avg = sd.averageSalePrice     ?? sd.medianSalePrice      ?? null;
+
+    // Derive inventory + market type from real data
+    let inventory   = 'Balanced';
+    let marketLabel = isSeller ? 'Balanced' : 'Moderate';
+    if (dom !== null) {
+      if (dom < 28)  { inventory = 'Low';  marketLabel = isSeller ? "Seller's" : 'High'; }
+      else if (dom > 55) { inventory = 'High'; marketLabel = isSeller ? "Buyer's" : 'Low'; }
+    } else if (tot !== null) {
+      if (tot < 15)  { inventory = 'Low';  marketLabel = isSeller ? "Seller's" : 'High'; }
+      else if (tot > 60) { inventory = 'High'; marketLabel = isSeller ? "Buyer's" : 'Low'; }
+    }
+
+    const domStr = dom !== null ? `${dom} days` : null;
+    const ltsStr = lts !== null ? `${(lts * 100).toFixed(1)}%` : null;
+
+    parts.push(`REAL MARKET DATA FOR ZIP ${zip} — copy these EXACT values into the snapshot JSON:`);
+    if (domStr) parts.push(`  "dom": "${domStr}"`);
+    if (ltsStr) parts.push(`  "listToSale": "${ltsStr}"`);
+    parts.push(`  "inventory": "${inventory}"`);
+    parts.push(`  "market": "${marketLabel}"`);
+    if (avg) parts.push(`  Context: avg/median sale price in ZIP = $${avg.toLocaleString()}`);
+  }
+
+  if (avm) {
+    parts.push('');
+    if (avm.price) {
+      const lo = avm.priceRangeLow  ? `$${avm.priceRangeLow.toLocaleString()}`  : '?';
+      const hi = avm.priceRangeHigh ? `$${avm.priceRangeHigh.toLocaleString()}` : '?';
+      parts.push(`RENTCAST AVM ESTIMATE: $${avm.price.toLocaleString()} (range: ${lo}–${hi})`);
+      parts.push('Anchor your pricing/offer strategies to this estimate and the comps below.');
+    }
+    const comps = (avm.listings || []).filter(c => c.price).slice(0, 5);
+    if (comps.length) {
+      parts.push('RECENT COMPARABLE SALES:');
+      comps.forEach((c, i) => {
+        const ppsf = c.squareFootage ? ` | $${Math.round(c.price / c.squareFootage)}/sqft` : '';
+        const sqftStr = c.squareFootage ? `${c.squareFootage.toLocaleString()} sqft` : '? sqft';
+        parts.push(
+          `  ${i + 1}. ${c.address || 'Nearby'} — Sold $${c.price.toLocaleString()}` +
+          ` | ${c.bedrooms || '?'}bd/${c.bathrooms || '?'}ba | ${sqftStr}${ppsf}` +
+          ` | ${c.daysOnMarket || '?'} DOM | ${Math.round((c.correlation || 0) * 100)}% match`
+        );
+      });
+    }
+  }
+
+  return parts.length ? parts.join('\n') : '';
+}
+
+// ─── ANTHROPIC API ────────────────────────────────────────────────
 async function callClaude(systemPrompt, userPrompt) {
   const res = await fetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
@@ -44,7 +155,7 @@ async function callClaude(systemPrompt, userPrompt) {
     },
     body: JSON.stringify({
       model: 'claude-haiku-4-5-20251001',
-      max_tokens: 2500,
+      max_tokens: 2000,
       system: systemPrompt,
       messages: [{ role: 'user', content: userPrompt }]
     })
@@ -62,14 +173,13 @@ async function callClaude(systemPrompt, userPrompt) {
     .join('\n');
 }
 
-// ─── SIX-MONTH CUTOFF ────────────────────────────────────────────
-function sixMonthsAgo() {
-  const d = new Date();
-  d.setMonth(d.getMonth() - 6);
-  return d.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+// ─── STRIP CODE FENCES IF CLAUDE WRAPS IN ```json ────────────────
+function extractJSON(raw) {
+  const match = raw.match(/```(?:json)?\s*([\s\S]*?)```/);
+  return match ? match[1].trim() : raw.trim();
 }
 
-// ─── MAIN HANDLER ────────────────────────────────────────────────
+// ─── MAIN HANDLER ─────────────────────────────────────────────────
 exports.handler = async function(event) {
   const headers = {
     'Access-Control-Allow-Origin': '*',
@@ -102,128 +212,179 @@ exports.handler = async function(event) {
   const zip      = zipMatch ? zipMatch[1] : '77573';
   const area     = getAreaData(zip);
   const isSeller = mode === 'seller';
-  const cutoff   = sixMonthsAgo();
   const today    = new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
 
-  // ── SYSTEM PROMPT ────────────────────────────────────────────
-  const systemPrompt = `You are MarketIQ™, a real estate pricing strategy tool built for Phillip Himes, REALTOR® at eXp Realty. You serve the South Houston suburbs: League City, Friendswood, Pearland, Clear Lake, Dickinson, and Manvel.
+  // ── FETCH RENTCAST DATA IN PARALLEL ────────────────────────────
+  // Seller: pass beds/baths/sqft from form; Buyer: let RentCast look up property attributes
+  const [avm, market] = await Promise.all([
+    callRentcastAVM(address, isSeller ? beds : null, isSeller ? baths : null, isSeller ? sqft : null, !isSeller),
+    callRentcastMarket(zip)
+  ]);
+
+  const rentcastContext = buildRentcastContext(avm, market, zip, isSeller);
+  const hasRealData     = rentcastContext.length > 0;
+
+  // ── SYSTEM PROMPT ───────────────────────────────────────────────
+  const systemPrompt = `You are MarketIQ™, a real estate pricing strategy AI built for Phillip Himes, REALTOR® at eXp Realty. You serve the South Houston suburbs: League City, Friendswood, Pearland, Clear Lake, Dickinson, and Manvel.
 
 CURRENT DATE: ${today}
-REPORT FOR: ${address}
+PROPERTY/AREA: ${address}
 NEIGHBORHOOD CONTEXT:
 - City: ${area.city}
 - School District: ${area.district}
 - County: ${area.county}
 - Market Character: ${area.market}
-- Flood Zone Note: ${area.flood}
 
-RULES:
-1. Generate specific price points — never vague ranges like "$400K–$450K". Pick a number.
-2. Base strategies on your knowledge of recent sales in ${area.city} (${area.district}) for the given home specs.
-3. Be direct and confident. No disclaimers, no hedging, no asking for more info.
-4. The report is the deliverable. Generate it fully and completely every time.
-5. Format using markdown with ## section headers exactly as specified.`;
+CRITICAL RULES:
+1. Output ONLY valid JSON — no markdown, no explanation, no code fences, no intro text.
+2. Generate SPECIFIC price points — never vague ranges. Pick one number.
+3. Be direct and confident. No hedging. No disclaimers.
+4. Every text value must be a plain string — no markdown formatting inside strings.
+5. Keep all text values short and scannable — bullet text max 15 words.${hasRealData ? `
+6. REAL DATA IS PROVIDED BELOW. Use the exact dom, listToSale, inventory, and market values specified — do not substitute your own estimates for these fields. Anchor price strategies to the RentCast AVM and comps provided.` : `
+6. No live data available — use your knowledge of ${area.city} (${area.district}) market conditions.`}`;
 
-  // ── USER PROMPT ──────────────────────────────────────────────
+  // ── USER PROMPT ─────────────────────────────────────────────────
+  const realDataBlock = hasRealData
+    ? `\n\n--- LIVE RENTCAST DATA ---\n${rentcastContext}\n--- END LIVE DATA ---\n`
+    : '';
+
   const userPrompt = isSeller
-    ? `Generate a MarketIQ™ Seller Pricing Report. Write for a homeowner, not an agent. Short sentences. Plain language. Numbers beat adjectives. Every section must be scannable in 5 seconds.
+    ? `Generate a MarketIQ™ Seller Pricing Report for this property:
 
-PROPERTY:
 Address: ${address}
-Bedrooms: ${beds || 4} | Bathrooms: ${baths || 2.5} | Sqft: ${sqft || 'not provided'}
+Bedrooms: ${beds || 4} | Bathrooms: ${baths || 2.5} | Square Feet: ${sqft || 'not provided'}
 Condition: ${condition || 'Updated'} | Timeline: ${timeline || '1-3 months'}
-District: ${area.district} | Market: ${area.market}
+School District: ${area.district}
+${realDataBlock}
+Return ONLY this JSON structure — no other text:
 
-OUTPUT THIS EXACT STRUCTURE — no extra text, no intro, no sign-off:
+{
+  "snapshot": {
+    "dom": "[use real data if provided, else estimate for this ZIP/specs]",
+    "listToSale": "[use real data if provided, else estimate]",
+    "inventory": "[use real data if provided: Low / Balanced / High]",
+    "market": "[use real data if provided: Seller's / Balanced / Buyer's]",
+    "summary": "[One punchy sentence, max 20 words, telling the seller what this market means for them right now]"
+  },
+  "strategies": [
+    {
+      "name": "Price to Move",
+      "price": "$[specific number anchored to RentCast AVM/comps if available]",
+      "row1": { "label": "Expect", "text": "[what happens in week 1 — max 12 words]" },
+      "row2": { "label": "Best for", "text": "[who this strategy is for — max 10 words]" },
+      "row3": { "label": "Risk", "text": "[one specific downside — max 12 words]" }
+    },
+    {
+      "name": "Price to Sell",
+      "price": "$[specific number]",
+      "row1": { "label": "Expect", "text": "[what happens — max 12 words]" },
+      "row2": { "label": "Best for", "text": "[who — max 10 words]" },
+      "row3": { "label": "Risk", "text": "[downside — max 12 words]" }
+    },
+    {
+      "name": "Price to Test",
+      "price": "$[specific number]",
+      "row1": { "label": "Expect", "text": "[what happens — max 12 words]" },
+      "row2": { "label": "Best for", "text": "[who — max 10 words]" },
+      "row3": { "label": "Risk", "text": "[downside — max 12 words]" }
+    }
+  ],
+  "factors": [
+    { "emoji": "✅", "label": "[Factor name]", "text": "[One plain-language sentence, max 15 words]" },
+    { "emoji": "✅", "label": "[Factor name]", "text": "[One sentence]" },
+    { "emoji": "⚡", "label": "[Factor name]", "text": "[One sentence]" },
+    { "emoji": "⚠️", "label": "[Factor name]", "text": "[One sentence]" }
+  ],
+  "cantTell": "[Two sentences max. What Phil's in-person walkthrough covers that this tool cannot. End with a line about booking a call with Phil.]"
+}`
+    : `Generate a MarketIQ™ Buyer Market Report for this property:
 
-## Market Snapshot
-STATS: DOM: [X days] | List-to-Sale: [X%] | Inventory: [Low/Balanced/High] | Market: [Seller's/Balanced/Buyer's]
-[One bold sentence — max 20 words — telling the seller what the market means for them right now.]
+Address: ${address} | ZIP: ${zip}
+Budget: ${budget || 'not specified'} | Minimum Bedrooms: ${beds || 3}
+School District: ${area.district}
+${realDataBlock}
+Return ONLY this JSON structure — no other text:
 
-## Your Three Strategies
-
-**Strategy 1 — Price to Move**
-PRICE: $[specific number]
-• Expect: [what happens in week 1 — max 12 words]
-• Best for: [who this is for — max 10 words]
-• Risk: [one specific downside — max 12 words]
-
-**Strategy 2 — Price to Sell**
-PRICE: $[specific number]
-• Expect: [what happens — max 12 words]
-• Best for: [who — max 10 words]
-• Risk: [downside — max 12 words]
-
-**Strategy 3 — Price to Test**
-PRICE: $[specific number]
-• Expect: [what happens — max 12 words]
-• Best for: [who — max 10 words]
-• Risk: [downside — max 12 words]
-
-## What Affects Your Price
-[4-5 factors, one per line, using this format exactly:]
-✅ **[Factor name]:** [One sentence — plain language, max 15 words]
-✅ **[Factor name]:** [One sentence]
-⚡ **[Factor name]:** [One sentence]
-⚠️ **[Factor name]:** [One sentence]
-
-## What This Report Can't Tell You
-[Two sentences max. Tell the seller what Phil's eyes-on analysis covers that this tool can't. End with one sentence about booking a call.]`
-    : `Generate a MarketIQ™ Buyer Market Report. Write for a homebuyer, not an agent. Short sentences. Plain language. Scannable in 30 seconds.
-
-SEARCH:
-Area: ${address} | ZIP: ${zip}
-Budget: ${budget || 'not specified'} | Min Beds: ${beds || 3}
-District: ${area.district} | Market: ${area.market}
-
-OUTPUT THIS EXACT STRUCTURE — no extra text, no intro, no sign-off:
-
-## Market Snapshot
-STATS: DOM: [X days] | List-to-Sale: [X%] | Inventory: [Low/Balanced/High] | Competition: [High/Moderate/Low]
-[One bold sentence — max 20 words — what a buyer needs to know about this market right now.]
-
-## Your Four Offer Strategies
-
-**Strategy 1 — Win It**
-PRICE: [List price + X% or specific approach]
-• When: [what situation calls for this — max 12 words]
-• How: [key offer terms — max 12 words]
-• Risk: [downside — max 12 words]
-
-**Strategy 2 — Clean Offer**
-PRICE: [approach]
-• When: [max 12 words]
-• How: [max 12 words]
-• Risk: [max 12 words]
-
-**Strategy 3 — Test the Seller**
-PRICE: [approach]
-• When: [max 12 words]
-• How: [max 12 words]
-• Risk: [max 12 words]
-
-**Strategy 4 — Wait & Watch**
-PRICE: Not offering yet
-• When: [what you're waiting for — max 12 words]
-• Signal: [what tells you to move — max 12 words]
-• Risk: [cost of waiting — max 12 words]
-
-## What to Know Before You Offer
-[4-5 factors, one per line:]
-✅ **[Factor]:** [One sentence — max 15 words]
-✅ **[Factor]:** [One sentence]
-⚡ **[Factor]:** [One sentence]
-⚠️ **[Factor]:** [One sentence]
-
-## What This Report Can't Tell You
-[Two sentences max. What Phil sees in person that this tool can't — condition, seller motivation, competition. End with one sentence about booking a call.]`;
+{
+  "snapshot": {
+    "dom": "[use real data if provided, else estimate for this ZIP]",
+    "listToSale": "[use real data if provided, else estimate]",
+    "inventory": "[use real data if provided: Low / Balanced / High]",
+    "market": "[use real data if provided: High / Moderate / Low competition]",
+    "summary": "[One punchy sentence, max 20 words, what a buyer needs to know about this market right now]"
+  },
+  "strategies": [
+    {
+      "name": "Win It",
+      "price": "[List price + X% or specific guidance anchored to AVM if available]",
+      "row1": { "label": "When", "text": "[what situation calls for this — max 12 words]" },
+      "row2": { "label": "How", "text": "[key offer terms to include — max 12 words]" },
+      "row3": { "label": "Risk", "text": "[downside — max 12 words]" }
+    },
+    {
+      "name": "Clean Offer",
+      "price": "[approach]",
+      "row1": { "label": "When", "text": "[max 12 words]" },
+      "row2": { "label": "How", "text": "[max 12 words]" },
+      "row3": { "label": "Risk", "text": "[max 12 words]" }
+    },
+    {
+      "name": "Test the Seller",
+      "price": "[approach]",
+      "row1": { "label": "When", "text": "[max 12 words]" },
+      "row2": { "label": "How", "text": "[max 12 words]" },
+      "row3": { "label": "Risk", "text": "[max 12 words]" }
+    },
+    {
+      "name": "Wait & Watch",
+      "price": "Not offering yet",
+      "row1": { "label": "When", "text": "[what you're waiting for — max 12 words]" },
+      "row2": { "label": "Signal", "text": "[what tells you it's time to move — max 12 words]" },
+      "row3": { "label": "Risk", "text": "[cost of waiting — max 12 words]" }
+    }
+  ],
+  "factors": [
+    { "emoji": "✅", "label": "[Factor name]", "text": "[One plain-language sentence, max 15 words]" },
+    { "emoji": "✅", "label": "[Factor name]", "text": "[One sentence]" },
+    { "emoji": "⚡", "label": "[Factor name]", "text": "[One sentence]" },
+    { "emoji": "⚠️", "label": "[Factor name]", "text": "[One sentence]" }
+  ],
+  "cantTell": "[Two sentences max. What Phil sees in person that this tool can't — condition, seller motivation, competition level. End with a line about booking a call.]"
+}`;
 
   try {
-    const report = await callClaude(systemPrompt, userPrompt);
+    const raw   = await callClaude(systemPrompt, userPrompt);
+    const clean = extractJSON(raw);
+    let report;
+    try {
+      report = JSON.parse(clean);
+    } catch (parseErr) {
+      console.error('JSON parse failed. Raw output:', raw);
+      return { statusCode: 500, headers, body: JSON.stringify({ error: 'AI returned invalid JSON. Please try again.' }) };
+    }
+
+    // ── Prepare comps for frontend display ────────────────────────
+    const comps = avm
+      ? (avm.listings || []).filter(c => c.price).slice(0, 5).map(c => ({
+          address : c.address   || '',
+          price   : c.price,
+          beds    : c.bedrooms  || null,
+          baths   : c.bathrooms || null,
+          sqft    : c.squareFootage || null,
+          dom     : c.daysOnMarket  || null,
+          match   : Math.round((c.correlation || 0) * 100)
+        }))
+      : [];
+
+    const avmData = (avm && avm.price)
+      ? { price: avm.price, low: avm.priceRangeLow || null, high: avm.priceRangeHigh || null }
+      : null;
+
     return {
       statusCode: 200,
       headers,
-      body: JSON.stringify({ report, area, zip })
+      body: JSON.stringify({ report, area, zip, mode, comps, avm: avmData })
     };
   } catch (err) {
     console.error('marketiq-ai error:', err);

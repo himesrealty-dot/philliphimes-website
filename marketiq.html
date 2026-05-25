@@ -656,7 +656,7 @@
           <button class="miq-submit-btn" id="miq-submit-btn" onclick="submitReport()">
             Generate My Report →
           </button>
-          <p class="miq-search-hint">Searches live HAR.com sales data · Powered by Claude AI</p>
+          <p class="miq-search-hint">Live comps from RentCast · AI analysis by Claude · South Houston markets</p>
         </div>
 
       </div><!-- /miq-search-card -->
@@ -667,12 +667,12 @@
   <div id="miq-loading">
     <div class="miq-loading__spinner"></div>
     <p class="miq-loading__message" id="miq-loading-msg">Searching recent comparable sales…</p>
-    <p class="miq-loading__sub">This takes 15–30 seconds — real data takes real time.</p>
+    <p class="miq-loading__sub">This takes 8–12 seconds — give it a moment.</p>
     <div class="miq-loading__steps">
-      <span class="miq-loading__step active" id="lstep-1">Searching HAR.com</span>
-      <span class="miq-loading__step" id="lstep-2">Pulling comp details</span>
-      <span class="miq-loading__step" id="lstep-3">Analyzing the market</span>
-      <span class="miq-loading__step" id="lstep-4">Building your report</span>
+      <span class="miq-loading__step active" id="lstep-1">Live market data</span>
+      <span class="miq-loading__step" id="lstep-2">RentCast comps</span>
+      <span class="miq-loading__step" id="lstep-3">AI analysis</span>
+      <span class="miq-loading__step" id="lstep-4">Building report</span>
     </div>
   </div>
 
@@ -915,12 +915,11 @@
   var loadingTimer = null;
 
   var loadingMessages = [
-    { msg: 'Searching recent comparable sales on HAR.com…',   step: 1 },
-    { msg: 'Found listings — pulling property details…',      step: 2 },
-    { msg: 'Reviewing sold dates and price ranges…',          step: 2 },
-    { msg: 'Analyzing market conditions for your ZIP…',       step: 3 },
-    { msg: 'Calculating pricing strategies from comp data…',  step: 3 },
-    { msg: 'Building your custom report…',                    step: 4 }
+    { msg: 'Fetching live market stats for your ZIP…',         step: 1 },
+    { msg: 'Pulling recent comparable sales from RentCast…',   step: 2 },
+    { msg: 'Running AI analysis on real comp data…',           step: 3 },
+    { msg: 'Calculating your pricing strategies…',             step: 3 },
+    { msg: 'Building your personalized report…',               step: 4 }
   ];
 
   function startLoadingAnimation() {
@@ -1013,7 +1012,7 @@
         showError(data.error);
         return;
       }
-      renderReport(data.report, data.area, data.zip);
+      renderReport(data.report, data.area, data.zip, data.mode || miqState.mode, data.comps || [], data.avm || null);
     })
     .catch(function(err) {
       stopLoadingAnimation();
@@ -1041,35 +1040,42 @@
     }, 400);
   }
 
-  /* ── RENDER REPORT ──────────────────────────────────────────────── */
-  function renderReport(report, area, zip) {
-    // Property header
+  /* ── HELPERS ────────────────────────────────────────────────────── */
+  function escHtml(str) {
+    if (!str) return '';
+    return String(str)
+      .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  /* ── RENDER REPORT (JSON template injection) ─────────────────────── */
+  function renderReport(report, area, zip, mode, comps, avm) {
+    var isSeller = (mode || miqState.mode) === 'seller';
+
+    // ── Property header
     document.getElementById('res-address').textContent = miqState.address;
     document.getElementById('res-area').textContent =
       (area ? area.city + ' · ' + area.county : 'South Houston') +
-      (zip ? ' · ZIP ' + zip : '');
+      (zip  ? ' · ZIP ' + zip : '');
     document.getElementById('res-district').textContent =
       area ? area.district : 'School District';
     var pill = document.getElementById('res-mode-pill');
-    if (miqState.mode === 'seller') {
+    if (isSeller) {
       pill.textContent = '🏠 Seller Report';
-      pill.className = 'miq-mode-pill miq-mode-pill--seller';
+      pill.className   = 'miq-mode-pill miq-mode-pill--seller';
     } else {
       pill.textContent = '🔍 Buyer Report';
-      pill.className = 'miq-mode-pill miq-mode-pill--buyer';
+      pill.className   = 'miq-mode-pill miq-mode-pill--buyer';
     }
 
-    // Debug: log raw report
-    console.log('RAW REPORT:', report);
+    // ── Build report HTML from JSON
+    document.getElementById('miq-report-container').innerHTML =
+      buildReportHTML(report, area, isSeller, comps, avm);
 
-    // Render the markdown report
-    document.getElementById('miq-report-container').innerHTML = markdownToHtml(report, miqState.mode);
-
-    // CTA content
-    if (miqState.mode === 'seller') {
+    // ── CTA content
+    if (isSeller) {
       document.getElementById('cta-title').textContent = 'Ready for Phil\'s Full Pricing Plan?';
       document.getElementById('cta-sub').textContent =
-        'MarketIQ built your strategy from the data. Phil turns it into an action plan — ' +
+        'MarketIQ built your strategy from market data. Phil turns it into a complete action plan — ' +
         'exact list price, prep recommendations, timeline, and what you\'ll net at closing. ' +
         'It\'s a 15-minute call that pays for itself.';
       document.getElementById('cta-primary-btn').textContent = 'Get Phil\'s Full Pricing Analysis →';
@@ -1081,193 +1087,187 @@
       document.getElementById('cta-primary-btn').textContent = 'Book Your Offer Strategy Call →';
     }
 
-    // Show results
+    // ── Show results
     document.getElementById('miq-results').classList.add('show');
     window.scrollTo({ top: document.getElementById('miq-results').offsetTop - 80, behavior: 'smooth' });
   }
 
   /* ═══════════════════════════════════════════════════════════════
-     MARKDOWN → HTML RENDERER
+     JSON → HTML TEMPLATE BUILDER
+     No markdown parsing. Direct JSON injection into pre-built template.
      ═══════════════════════════════════════════════════════════════ */
 
-  function markdownToHtml(md, mode) {
-    md = md.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
-    var sections = ('\n' + md).split('\n## ').slice(1).map(function(s) { return '## ' + s; });
-    console.log('MarketIQ sections:', sections.length);
+  function buildReportHTML(r, area, isSeller, comps, avm) {
     var html = '';
-    sections.forEach(function(section) {
-      var nl    = section.indexOf('\n');
-      var title = (nl > 0 ? section.slice(0, nl) : section).replace(/^## /, '').trim();
-      var body  = nl > 0 ? section.slice(nl + 1) : '';
-      var tl    = title.toLowerCase();
-      if      (/snapshot|intelligence|selling right now/i.test(tl)) html += buildSnapshotSection(title, body);
-      else if (/strateg/i.test(tl))                                  html += buildStrategiesSection(title, body, mode);
-      else if (/affects|drive|know before|need to know/i.test(tl))   html += buildFactorsSection(title, body);
-      else if (/can't tell|cannot tell/i.test(tl))                   html += buildCantSection(title, body);
-      else                                                            html += buildTextSection(title, body);
-    });
+    comps = comps || [];
+
+    // ── 1. MARKET SNAPSHOT ──────────────────────────────────────────
+    if (r.snapshot) {
+      var s = r.snapshot;
+      var chip4label = isSeller ? 'Market' : 'Competition';
+      var chip4value = escHtml(s.market || '—');
+
+      html += '<div class="miq-snapshot-card">' +
+        '<div class="miq-snapshot-card__eyebrow">📍 Market Snapshot</div>' +
+        '<div class="miq-stat-chips">' +
+          buildChip('Days on Market', s.dom) +
+          buildChip('List-to-Sale', s.listToSale) +
+          buildChip('Inventory', s.inventory) +
+          buildChip(chip4label, chip4value) +
+        '</div>' +
+        (s.summary ? '<p class="miq-snapshot-summary">' + escHtml(s.summary) + '</p>' : '') +
+      '</div>';
+    }
+
+    // ── 1b. COMPARABLE SALES TABLE (when RentCast data is available) ──
+    if (comps.length > 0) {
+      var avmBadge = '';
+      if (avm && avm.price) {
+        var lo = avm.low  ? '$' + avm.low.toLocaleString()  : '';
+        var hi = avm.high ? '$' + avm.high.toLocaleString() : '';
+        var range = (lo && hi) ? ' <span style="font-weight:400;color:var(--mid-gray);font-size:0.78rem;">(range: ' + lo + '–' + hi + ')</span>' : '';
+        avmBadge = '<div style="margin-bottom:1rem;padding:0.6rem 1rem;background:rgba(32,137,160,0.07);border:1px solid rgba(32,137,160,0.2);border-radius:var(--radius-lg);display:inline-block;">' +
+          '<span style="font-family:var(--font-heading);font-size:0.68rem;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;color:var(--teal);">RentCast AVM Estimate</span> ' +
+          '<span style="font-family:var(--font-heading);font-weight:800;font-size:1rem;color:var(--navy);">$' + avm.price.toLocaleString() + '</span>' + range +
+        '</div>';
+      }
+
+      var compTitle = isSeller
+        ? '🏘️ Recent Comparable Sales'
+        : '🏘️ What Similar Homes Sold For';
+
+      var rows = comps.map(function(c) {
+        var ppsf = (c.price && c.sqft) ? '$' + Math.round(c.price / c.sqft).toLocaleString() : '—';
+        var addr = c.address ? c.address.replace(/, TX.*$/, '') : '—';
+        return '<tr>' +
+          '<td style="font-weight:600;color:var(--navy);max-width:200px;">' + escHtml(addr) + '</td>' +
+          '<td style="font-weight:700;color:var(--navy);">$' + (c.price ? c.price.toLocaleString() : '—') + '</td>' +
+          '<td>' + (c.beds || '—') + ' / ' + (c.baths || '—') + '</td>' +
+          '<td>' + (c.sqft ? c.sqft.toLocaleString() : '—') + '</td>' +
+          '<td>' + ppsf + '</td>' +
+          '<td>' + (c.dom !== null ? c.dom + 'd' : '—') + '</td>' +
+          '<td>' +
+            '<div style="display:flex;align-items:center;gap:0.35rem;">' +
+              '<div style="flex:1;height:4px;background:var(--light-gray);border-radius:2px;min-width:40px;">' +
+                '<div style="width:' + (c.match || 0) + '%;height:100%;background:var(--teal);border-radius:2px;"></div>' +
+              '</div>' +
+              '<span style="font-size:0.72rem;color:var(--mid-gray);white-space:nowrap;">' + (c.match || 0) + '%</span>' +
+            '</div>' +
+          '</td>' +
+        '</tr>';
+      }).join('');
+
+      html += '<div class="miq-report-section">' +
+        '<div class="miq-report-section__title">' + compTitle + '</div>' +
+        avmBadge +
+        '<div class="miq-report-table-wrap">' +
+          '<table class="miq-report-table">' +
+            '<thead><tr>' +
+              '<th>Address</th>' +
+              '<th>Sale Price</th>' +
+              '<th>Bed/Bath</th>' +
+              '<th>SqFt</th>' +
+              '<th>$/SqFt</th>' +
+              '<th>DOM</th>' +
+              '<th>Match</th>' +
+            '</tr></thead>' +
+            '<tbody>' + rows + '</tbody>' +
+          '</table>' +
+        '</div>' +
+        '<p style="font-size:0.72rem;color:var(--mid-gray);margin:0.75rem 0 0;line-height:1.5;">Source: RentCast · Comparable sales within radius, sorted by similarity to subject property.</p>' +
+      '</div>';
+    }
+
+    // ── 2. STRATEGIES ───────────────────────────────────────────────
+    if (r.strategies && r.strategies.length) {
+      var districtName = area ? escHtml(area.district) : 'this district';
+      var disc = isSeller
+        ? 'Strategies reflect current ' + districtName + ' market conditions. Exact positioning depends on your home\'s condition, staging, and competition at time of listing.'
+        : 'Offer strategies reflect current market dynamics. Exact positioning depends on the property, seller motivation, and competing offers.';
+      var stratLabel = isSeller ? 'Pricing Strategies' : 'Offer Strategies';
+
+      var cardsHtml = r.strategies.map(function(strat, i) {
+        var rowsHtml = [strat.row1, strat.row2, strat.row3].filter(Boolean).map(function(row) {
+          return '<div class="miq-strat-bullet">' +
+            '<span class="miq-strat-bullet__label">' + escHtml(row.label) + '</span>' +
+            '<span class="miq-strat-bullet__text">' + escHtml(row.text) + '</span>' +
+          '</div>';
+        }).join('');
+
+        return '<div class="miq-strategy-card miq-strategy-card--' + (i + 1) + '">' +
+          '<div class="miq-strategy-card__label">' + escHtml(strat.name) + '</div>' +
+          '<div class="miq-strategy-card__price">' + escHtml(strat.price || '—') + '</div>' +
+          '<div class="miq-strat-bullets">' + rowsHtml + '</div>' +
+        '</div>';
+      }).join('');
+
+      html += '<div class="miq-strategies-wrap">' +
+        '<div class="miq-strategies-eyebrow">Your ' + stratLabel + '</div>' +
+        '<div class="miq-strategies-title">' +
+          (isSeller ? 'Three ways to approach your list price.' : 'Four ways to approach your offer.') +
+        '</div>' +
+        '<div class="miq-strategies-grid">' + cardsHtml + '</div>' +
+        '<p class="miq-strategies-disclosure">' + disc + '</p>' +
+      '</div>';
+    }
+
+    // ── 3. FACTORS CHECKLIST ────────────────────────────────────────
+    if (r.factors && r.factors.length) {
+      var factorTitle = isSeller ? '🔑 What Affects Your Price' : '🔑 What to Know Before You Offer';
+      var factorsHtml = r.factors.map(function(f) {
+        return '<div class="miq-factor-item">' +
+          '<span class="miq-factor-item__emoji">' + (f.emoji || '•') + '</span>' +
+          '<div class="miq-factor-item__body">' +
+            '<strong>' + escHtml(f.label) + '</strong> ' +
+            escHtml(f.text) +
+          '</div>' +
+        '</div>';
+      }).join('');
+
+      html += '<div class="miq-report-section">' +
+        '<div class="miq-report-section__title">' + factorTitle + '</div>' +
+        '<div class="miq-factors-list">' + factorsHtml + '</div>' +
+      '</div>';
+    }
+
+    // ── 4. WHAT THIS REPORT CAN'T TELL YOU ─────────────────────────
+    if (r.cantTell) {
+      html += '<div class="miq-report-section miq-report-section--cant">' +
+        '<div class="miq-report-section__title">💡 What This Report Can\'t Tell You</div>' +
+        '<p style="font-size:0.92rem;color:var(--dark-gray);line-height:1.7;margin:0;">' +
+          escHtml(r.cantTell) +
+        '</p>' +
+      '</div>';
+    }
+
+    // ── 5. STATIC FLOOD DISCLOSURE ──────────────────────────────────
+    if (area && area.flood) {
+      html += '<div class="miq-report-section" style="border-left:3px solid rgba(32,137,160,0.4);border-radius:0 var(--radius-xl) var(--radius-xl) 0;background:rgba(32,137,160,0.03);">' +
+        '<div class="miq-report-section__title" style="font-size:0.82rem;">🌊 Flood Zone Note</div>' +
+        '<p style="font-size:0.84rem;color:var(--dark-gray);line-height:1.65;margin:0;">' +
+          escHtml(area.flood) +
+          ' Always verify the specific parcel on the <a href="https://msc.fema.gov/portal/home" target="_blank" rel="noopener" style="color:var(--teal);">FEMA Flood Map Service Center</a>.' +
+        '</p>' +
+      '</div>';
+    }
+
+    // ── 6. STATIC DISCLAIMER ────────────────────────────────────────
+    html += '<p style="font-size:0.72rem;color:var(--mid-gray);line-height:1.6;text-align:center;padding:0 1rem;">' +
+      'MarketIQ™ reports are generated by AI using Phillip Himes\'s market knowledge and are for informational purposes only. ' +
+      'This is not a formal appraisal or CMA. Price estimates reflect market conditions as of the report date and may change. ' +
+      'Verify all data with a licensed REALTOR® before making financial decisions. ' +
+      '© 2026 Phillip Himes | Brokered by eXp Realty.' +
+    '</p>';
+
     return html;
   }
 
-  /* ── MARKET SNAPSHOT ────────────────────────────────────────────── */
-  function buildSnapshotSection(title, body) {
-    var lines = body.trim().split('\n');
-    var stats = [], summary = '';
-    lines.forEach(function(line) {
-      var t = line.trim();
-      if (/^STATS:/i.test(t)) {
-        t.replace(/^STATS:\s*/i, '').split('|').forEach(function(chunk) {
-          var colon = chunk.indexOf(':');
-          if (colon > 0) stats.push({ label: chunk.slice(0, colon).trim(), value: chunk.slice(colon + 1).trim() });
-        });
-      } else if (t && !summary) {
-        summary = t;
-      }
-    });
-    var chips = stats.map(function(s) {
-      return '<div class="miq-stat-chip"><div class="miq-stat-chip__label">' + escHtml(s.label) +
-             '</div><div class="miq-stat-chip__value">' + escHtml(s.value) + '</div></div>';
-    }).join('');
-    return '<div class="miq-snapshot-card">' +
-      '<div class="miq-snapshot-card__eyebrow">📍 Market Snapshot</div>' +
-      (chips   ? '<div class="miq-stat-chips">' + chips + '</div>' : '') +
-      (summary ? '<p class="miq-snapshot-summary">' + inlineFormat(summary) + '</p>' : '') +
+  /* ── CHIP BUILDER ───────────────────────────────────────────────── */
+  function buildChip(label, value) {
+    return '<div class="miq-stat-chip">' +
+      '<div class="miq-stat-chip__label">' + escHtml(label) + '</div>' +
+      '<div class="miq-stat-chip__value">' + escHtml(String(value || '—')) + '</div>' +
     '</div>';
-  }
-
-  /* ── STRATEGIES ─────────────────────────────────────────────────── */
-  function buildStrategiesSection(title, body, mode) {
-    var isSeller = mode === 'seller';
-    var blocks = [], current = null, cLines = [];
-
-    body.trim().split('\n').forEach(function(line) {
-      var t = line.trim();
-      var m = t.match(/^\*\*(.+?)\*\*\s*$/) || t.match(/^###\s+(.+)$/);
-      if (m && /strateg|win it|clean offer|test the|wait/i.test(m[1])) {
-        if (current) { blocks.push({ name: current, lines: cLines }); cLines = []; }
-        current = m[1].replace(/\*\*/g, '').trim();
-      } else if (current) {
-        cLines.push(line);
-      }
-    });
-    if (current) blocks.push({ name: current, lines: cLines });
-    if (!blocks.length) return buildTextSection(title, body);
-
-    var cardsHtml = blocks.map(function(b, i) {
-      var price = '', bullets = [];
-      b.lines.forEach(function(line) {
-        var t = line.trim();
-        if (/^PRICE:/i.test(t)) {
-          price = t.replace(/^PRICE:\s*/i, '').trim();
-        } else if (/^[•\-]\s/.test(t)) {
-          bullets.push(t.replace(/^[•\-]\s*/, ''));
-        } else if (!price) {
-          var pm = t.match(/^\$[\d,]+/);
-          if (pm) price = pm[0];
-        }
-      });
-
-      var bullHtml = bullets.map(function(b) {
-        var colon = b.indexOf(':');
-        if (colon > 0 && colon < 20) {
-          return '<div class="miq-strat-bullet">' +
-            '<span class="miq-strat-bullet__label">' + escHtml(b.slice(0, colon).trim()) + '</span>' +
-            '<span class="miq-strat-bullet__text">' + inlineFormat(b.slice(colon + 1).trim()) + '</span>' +
-          '</div>';
-        }
-        return '<div class="miq-strat-bullet"><span class="miq-strat-bullet__text">' + inlineFormat(b) + '</span></div>';
-      }).join('');
-
-      return '<div class="miq-strategy-card miq-strategy-card--' + (i + 1) + '">' +
-        '<div class="miq-strategy-card__label">' + escHtml(b.name) + '</div>' +
-        (price    ? '<div class="miq-strategy-card__price">' + escHtml(price) + '</div>' : '') +
-        (bullHtml ? '<div class="miq-strat-bullets">' + bullHtml + '</div>' : '') +
-      '</div>';
-    }).join('');
-
-    var disc = isSeller
-      ? 'Strategies reflect current ' + escHtml(document.getElementById('res-district').textContent) + ' market conditions. Exact positioning depends on your home\'s condition, staging, and competition at time of listing.'
-      : 'Offer strategies reflect current market dynamics. Exact positioning depends on the specific property, seller motivation, and competing offers.';
-
-    return '<div class="miq-strategies-wrap">' +
-      '<div class="miq-strategies-eyebrow">' + (isSeller ? 'Your Pricing Strategies' : 'Your Offer Strategies') + '</div>' +
-      '<div class="miq-strategies-grid">' + cardsHtml + '</div>' +
-      '<p class="miq-strategies-disclosure">' + disc + '</p>' +
-    '</div>';
-  }
-
-  /* ── FACTORS CHECKLIST ──────────────────────────────────────────── */
-  function buildFactorsSection(title, body) {
-    var lines = body.trim().split('\n'), items = [], pre = [], started = false;
-    lines.forEach(function(line) {
-      var t = line.trim();
-      if (/^[✅⚡⚠️❌🏡🏘️📋💡🔑•\-]/.test(t)) { started = true; items.push(t); }
-      else if (!started && t) pre.push(t);
-    });
-
-    var itemsHtml = items.map(function(item) {
-      var em   = (item.match(/^([✅⚡⚠️❌🏡🏘️📋💡🔑])/) || ['','•'])[1];
-      var rest = item.replace(/^[✅⚡⚠️❌🏡🏘️📋💡🔑•\-]+\s*/, '').trim();
-      var bm   = rest.match(/^\*\*([^*]+)\*\*:?\s*(.*)/);
-      if (bm) {
-        return '<div class="miq-factor-item">' +
-          '<span class="miq-factor-item__emoji">' + em + '</span>' +
-          '<div class="miq-factor-item__body"><strong>' + escHtml(bm[1]) + '</strong>' +
-          (bm[2] ? ' ' + inlineFormat(bm[2]) : '') + '</div></div>';
-      }
-      return '<div class="miq-factor-item"><span class="miq-factor-item__emoji">' + em + '</span>' +
-        '<div class="miq-factor-item__body">' + inlineFormat(rest) + '</div></div>';
-    }).join('');
-
-    return '<div class="miq-report-section">' +
-      '<div class="miq-report-section__title">🔑 ' + escHtml(title) + '</div>' +
-      (pre.length   ? '<p>' + inlineFormat(pre.join(' ')) + '</p>' : '') +
-      (itemsHtml    ? '<div class="miq-factors-list">' + itemsHtml + '</div>' : '') +
-    '</div>';
-  }
-
-  /* ── CAN'T TELL YOU ─────────────────────────────────────────────── */
-  function buildCantSection(title, body) {
-    return '<div class="miq-report-section miq-report-section--cant">' +
-      '<div class="miq-report-section__title">💡 ' + escHtml(title) + '</div>' +
-      formatBody(body) +
-    '</div>';
-  }
-
-  /* ── PLAIN TEXT SECTION ─────────────────────────────────────────── */
-  function buildTextSection(title, body) {
-    return '<div class="miq-report-section">' +
-      '<div class="miq-report-section__title">' + escHtml(title) + '</div>' +
-      formatBody(body) +
-    '</div>';
-  }
-
-  /* ── HELPERS ────────────────────────────────────────────────────── */
-  function inlineFormat(text) {
-    if (!text) return '';
-    return String(text)
-      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
-      .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
-      .replace(/\*([^*]+)\*/g, '<em>$1</em>');
-  }
-
-  function formatBody(text) {
-    if (!text || !text.trim()) return '';
-    return text.trim().split(/\n{2,}/).map(function(para) {
-      var p = para.trim();
-      if (!p) return '';
-      var ls = p.split('\n');
-      if (ls.every(function(l) { return /^[-•]/.test(l.trim()); })) {
-        return '<ul class="miq-report-list">' +
-          ls.map(function(l) { return '<li>' + inlineFormat(l.trim().replace(/^[-•]\s*/, '')) + '</li>'; }).join('') + '</ul>';
-      }
-      return '<p>' + ls.map(function(l) { return inlineFormat(l.trim()); }).join(' ') + '</p>';
-    }).join('');
-  }
-
-  function escHtml(str) {
-    if (!str) return '';
-    return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
   }
 
   </script>
