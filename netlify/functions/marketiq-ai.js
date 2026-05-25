@@ -126,71 +126,97 @@ RULES:
 
   // ── USER PROMPT ──────────────────────────────────────────────
   const userPrompt = isSeller
-    ? `Generate a MarketIQ™ Seller Pricing Report for this property:
+    ? `Generate a MarketIQ™ Seller Pricing Report. Write for a homeowner, not an agent. Short sentences. Plain language. Numbers beat adjectives. Every section must be scannable in 5 seconds.
 
+PROPERTY:
 Address: ${address}
-Bedrooms: ${beds || 4}
-Bathrooms: ${baths || 2.5}
-Square Footage: ${sqft || 'not provided'}
-Condition: ${condition || 'Updated'}
-Timeline to Sell: ${timeline || '1-3 months'}
-School District: ${area.district}
-Market: ${area.market}
+Bedrooms: ${beds || 4} | Bathrooms: ${baths || 2.5} | Sqft: ${sqft || 'not provided'}
+Condition: ${condition || 'Updated'} | Timeline: ${timeline || '1-3 months'}
+District: ${area.district} | Market: ${area.market}
 
-Write the full report in this exact structure:
+OUTPUT THIS EXACT STRUCTURE — no extra text, no intro, no sign-off:
 
-## Market Intelligence
-(2-3 sentences on current conditions in ${area.city} for a ${beds || 4}-bed home at this price point. Include what buyers are competing for, typical days on market, and list-to-sale ratio patterns.)
+## Market Snapshot
+STATS: DOM: [X days] | List-to-Sale: [X%] | Inventory: [Low/Balanced/High] | Market: [Seller's/Balanced/Buyer's]
+[One bold sentence — max 20 words — telling the seller what the market means for them right now.]
 
-## Three Pricing Strategies
+## Your Three Strategies
 
 **Strategy 1 — Price to Move**
-[specific price] · [what to expect in terms of activity and timeline] · [who this strategy is for] · Risk: [one specific risk]
+PRICE: $[specific number]
+• Expect: [what happens in week 1 — max 12 words]
+• Best for: [who this is for — max 10 words]
+• Risk: [one specific downside — max 12 words]
 
 **Strategy 2 — Price to Sell**
-[specific price] · [what to expect] · [who this is for] · Risk: [one risk]
+PRICE: $[specific number]
+• Expect: [what happens — max 12 words]
+• Best for: [who — max 10 words]
+• Risk: [downside — max 12 words]
 
 **Strategy 3 — Price to Test**
-[specific price] · [what to expect] · [who this is for] · Risk: [one risk]
+PRICE: $[specific number]
+• Expect: [what happens — max 12 words]
+• Best for: [who — max 10 words]
+• Risk: [downside — max 12 words]
 
-## What Will Drive Your Sale
-(school district value, flood zone status, condition premium/discount, HOA notes if applicable, anything specific to ${area.city} that affects buyer decisions)
+## What Affects Your Price
+[4-5 factors, one per line, using this format exactly:]
+✅ **[Factor name]:** [One sentence — plain language, max 15 words]
+✅ **[Factor name]:** [One sentence]
+⚡ **[Factor name]:** [One sentence]
+⚠️ **[Factor name]:** [One sentence]
 
 ## What This Report Can't Tell You
-(one honest paragraph explaining what requires a real conversation with Phil — property-specific factors, current competition, timing, prep decisions)`
-    : `Generate a MarketIQ™ Buyer Market Report for this area:
+[Two sentences max. Tell the seller what Phil's eyes-on analysis covers that this tool can't. End with one sentence about booking a call.]`
+    : `Generate a MarketIQ™ Buyer Market Report. Write for a homebuyer, not an agent. Short sentences. Plain language. Scannable in 30 seconds.
 
-Address / Area: ${address}
-ZIP: ${zip}
-Max Budget: ${budget || 'not specified'}
-Min Bedrooms: ${beds || 3}
-School District: ${area.district}
-Market: ${area.market}
+SEARCH:
+Area: ${address} | ZIP: ${zip}
+Budget: ${budget || 'not specified'} | Min Beds: ${beds || 3}
+District: ${area.district} | Market: ${area.market}
 
-Write the full report in this exact structure:
+OUTPUT THIS EXACT STRUCTURE — no extra text, no intro, no sign-off:
 
-## What's Selling Right Now
-(2-3 sentences on current activity in ${area.city} at this price point — inventory, competition, how fast homes are moving)
+## Market Snapshot
+STATS: DOM: [X days] | List-to-Sale: [X%] | Inventory: [Low/Balanced/High] | Competition: [High/Moderate/Low]
+[One bold sentence — max 20 words — what a buyer needs to know about this market right now.]
 
-## Four Offer Strategies
+## Your Four Offer Strategies
 
-**Strategy 1 — Aggressive (Win It)**
-[specific offer amount relative to list price] · [when to use this] · [what to include — escalation, waived contingencies, etc.] · Risk: [one risk]
+**Strategy 1 — Win It**
+PRICE: [List price + X% or specific approach]
+• When: [what situation calls for this — max 12 words]
+• How: [key offer terms — max 12 words]
+• Risk: [downside — max 12 words]
 
-**Strategy 2 — Market Rate (Clean Offer)**
-[specific offer] · [when to use] · [what a clean offer looks like here] · Risk: [one risk]
+**Strategy 2 — Clean Offer**
+PRICE: [approach]
+• When: [max 12 words]
+• How: [max 12 words]
+• Risk: [max 12 words]
 
-**Strategy 3 — Below Ask (Test the Seller)**
-[specific offer] · [when this works] · [conditions that make this viable] · Risk: [one risk]
+**Strategy 3 — Test the Seller**
+PRICE: [approach]
+• When: [max 12 words]
+• How: [max 12 words]
+• Risk: [max 12 words]
 
 **Strategy 4 — Wait & Watch**
-[not an offer — a strategy] · [what you're waiting for] · [signals that tell you to move] · Risk: [one risk]
+PRICE: Not offering yet
+• When: [what you're waiting for — max 12 words]
+• Signal: [what tells you to move — max 12 words]
+• Risk: [cost of waiting — max 12 words]
 
-## What You Need to Know Before Offering
-(school district impact on value, flood zone notes, HOA considerations, what ${area.city} sellers typically respond to)
+## What to Know Before You Offer
+[4-5 factors, one per line:]
+✅ **[Factor]:** [One sentence — max 15 words]
+✅ **[Factor]:** [One sentence]
+⚡ **[Factor]:** [One sentence]
+⚠️ **[Factor]:** [One sentence]
 
 ## What This Report Can't Tell You
-(one honest paragraph on what requires Phil's read — seller motivation, property condition, active competition)`;
+[Two sentences max. What Phil sees in person that this tool can't — condition, seller motivation, competition. End with one sentence about booking a call.]`;
 
   try {
     const report = await callClaude(systemPrompt, userPrompt);
@@ -204,3 +230,4 @@ Write the full report in this exact structure:
     return { statusCode: 500, headers, body: JSON.stringify({ error: err.message }) };
   }
 };
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
