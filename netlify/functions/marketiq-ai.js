@@ -36,22 +36,44 @@ function getAreaData(zip) {
 
 // ─── HAR SCRAPING ────────────────────────────────────────────────
 async function searchHarSold(zip, bedsMin, bedsMax, sqftMin, sqftMax) {
-  // Use Firecrawl — HAR search pages are JS-rendered
-  let url = `https://www.har.com/search/dosearch?all_status=closd&property_class_id=1&zip_code=${zip}&sort=listdate%20desc`;
-  if (bedsMin) url += `&bedrooms_min=${bedsMin}`;
-  if (bedsMax) url += `&bedrooms_max=${bedsMax}`;
-  if (sqftMin) url += `&building_sqft_min=${sqftMin}`;
-  if (sqftMax) url += `&building_sqft_max=${sqftMax}`;
+  // Try two HAR URL patterns — the second is a more stable listings path
+  const urls = [
+    `https://www.har.com/search/dosearch?all_status=closd&property_class_id=1&zip_code=${zip}&sort=listdate%20desc` +
+      (bedsMin ? `&bedrooms_min=${bedsMin}` : '') +
+      (bedsMax ? `&bedrooms_max=${bedsMax}` : '') +
+      (sqftMin ? `&building_sqft_min=${sqftMin}` : '') +
+      (sqftMax ? `&building_sqft_max=${sqftMax}` : ''),
+    `https://www.har.com/real_estate/listings/?market=0&all_status=closd&zip_code=${zip}` +
+      (bedsMin ? `&bedrooms_min=${bedsMin}` : '') +
+      (bedsMax ? `&bedrooms_max=${bedsMax}` : '')
+  ];
 
-  const res = await fetch('https://api.firecrawl.dev/v1/scrape', {
-    method: 'POST',
-    headers: { 'Authorization': `Bearer ${FIRECRAWL_API_KEY}`, 'Content-Type': 'application/json' },
-    body: JSON.stringify({ url, formats: ['markdown'], onlyMainContent: false, waitFor: 3000 })
-  });
-  const data = await res.json();
-  const md = data.markdown || (data.data && data.data.markdown) || '';
-  // Return first 8000 chars — enough for Claude to identify comps
-  return md.substring(0, 8000);
+  for (const url of urls) {
+    try {
+      const res = await fetch('https://api.firecrawl.dev/v1/scrape', {
+        method: 'POST',
+        headers: { 'Authorization': `Bearer ${FIRECRAWL_API_KEY}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          url,
+          formats: ['markdown'],
+          onlyMainContent: false,
+          waitFor: 8000,
+          actions: [{ type: 'wait', milliseconds: 6000 }]
+        })
+      });
+      const data = await res.json();
+      const md = data.markdown || (data.data && data.data.markdown) || '';
+      // Check if we got actual listing content (look for HAR homedetail URLs or address patterns)
+      if (md.includes('homedetail') || md.includes('har.com/homedetail')) {
+        return md.substring(0, 10000);
+      }
+    } catch (e) {
+      console.error('Firecrawl attempt failed:', e.message);
+    }
+  }
+
+  // Return empty — Claude will fall back to market knowledge per system prompt
+  return 'No HAR search results retrieved. Use your knowledge of recent market conditions for this ZIP code.';
 }
 
 async function getHarPropertyDetail(harUrl) {
@@ -212,12 +234,12 @@ exports.handler = async function(event) {
   const systemPrompt = `You are MarketIQ™, a real estate market intelligence tool for Phillip Himes, REALTOR® at eXp Realty, serving the South Houston suburbs (League City, Friendswood, Pearland, Clear Lake, Dickinson, Manvel).
 
 RULES:
-- Only report facts confirmed by HAR data — never fabricate prices, dates, or addresses
-- Use HAR sold price RANGES exactly as shown (e.g. "$420,001 – $482,000") — never invent exact figures
-- Only use comps sold after ${cutoff} (within 6 months) — flag and discard older sales
-- Flag comps with pools, oversized lots, or premium features that make them less comparable to a standard home
+- Attempt to search for real HAR.com comps first using the search tool
+- If real comp data IS available: use it. Report sold price RANGES exactly as shown (e.g. "$420,001 – $482,000") — never invent exact figures. Only use comps sold after ${cutoff}. Flag comps with pools or premium features.
+- If HAR search returns no results or the search tool fails: DO NOT stop. Instead, generate the full report using your knowledge of current market conditions in ${area.city}, ${area.district}. Clearly note at the top of the Comparable Sales section: "Live comp data unavailable — strategies based on ${area.city} market knowledge (Clear Creek ISD corridor, ZIP ${zip})."
+- Either way, provide specific price points in the strategies — never give ranges like "$400K–$450K". Pick a specific number.
 - Be direct and specific — no fluff, no generic real estate language
-- When you note a comp has a pool or premium lot, adjust the strategy accordingly
+- Never ask the user to provide data. Always generate the full report.
 
 NEIGHBORHOOD CONTEXT FOR ${address}:
 - City: ${area.city}
@@ -304,40 +326,4 @@ INSTRUCTIONS:
       iterations++;
       const resp = await callClaude(messages, systemPrompt);
 
-      if (resp.stop_reason === 'end_turn') {
-        finalReport = resp.content
-          .filter(b => b.type === 'text')
-          .map(b => b.text)
-          .join('\n');
-        break;
-      }
-
-      if (resp.stop_reason === 'tool_use') {
-        messages.push({ role: 'assistant', content: resp.content });
-        const toolResults = [];
-        for (const block of resp.content) {
-          if (block.type !== 'tool_use') continue;
-          let result;
-          try   { result = await executeTool(block.name, block.input); }
-          catch (err) { result = { error: err.message }; }
-          toolResults.push({ type: 'tool_result', tool_use_id: block.id, content: JSON.stringify(result) });
-        }
-        messages.push({ role: 'user', content: toolResults });
-      } else {
-        break; // unexpected stop
-      }
-    }
-
-    if (!finalReport) throw new Error('Report generation failed — no output from Claude');
-
-    return {
-      statusCode: 200,
-      headers,
-      body: JSON.stringify({ report: finalReport, area, zip })
-    };
-
-  } catch (err) {
-    console.error('marketiq-ai error:', err);
-    return { statusCode: 500, headers, body: JSON.stringify({ error: err.message }) };
-  }
-};
+      
