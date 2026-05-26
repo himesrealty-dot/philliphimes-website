@@ -443,3 +443,5 @@ if __name__ == '__main__':
     print("Running CMA phases:")
     result = run_cma(SUBJECT, sold_comps, verbose=True)
     print_report(SUBJECT, result)
+    print("Running CMA...\n")
+    run_cma(SUBJECT, verbose=True)

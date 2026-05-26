@@ -12,7 +12,8 @@ const path = require('path');
 const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY;
 
 // Module-level comp cache — persists across warm Lambda invocations
-let _soldComps = null;
+let _soldComps   = null;
+let _failedComps = null;
 
 // ─── CSV PARSER (no npm deps) ─────────────────────────────────────────────────
 function parseCSV(text) {
@@ -133,6 +134,140 @@ function loadSoldComps() {
   console.log(`MarketIQ: loaded ${sold.length} sold comps from CSV`);
   _soldComps = sold;
   return _soldComps;
+}
+
+// ─── LOAD AND CACHE FAILED LISTINGS (Terminated / Expired / Withdrawn) ────────
+function loadFailedComps() {
+  if (_failedComps) return _failedComps;
+
+  let text;
+  try { text = fs.readFileSync(DATA_PATH, 'utf-8'); }
+  catch (e) { _failedComps = []; return _failedComps; }
+
+  const rows   = parseCSV(text);
+  const today  = new Date();
+  const failed = [];
+  const FAILED_STATUSES = new Set(['terminated', 'expired', 'withdrawn']);
+
+  for (const r of rows) {
+    const status = (r.Status || '').trim().toLowerCase();
+    if (!FAILED_STATUSES.has(status)) continue;
+    try {
+      const lat  = parseFloat(r.Latitude  || 0);
+      const lon  = parseFloat(r.Longitude || 0);
+      if (!lat || !lon) continue;
+
+      const sqft = parseFloat(r.SqFtTotal || 0);
+      const lp   = parseFloat(r.OriginalListPrice || r.ListPrice || 0);
+      if (sqft < 100 || lp < 1000) continue;
+
+      // Use OffMarketDate → ListingContractDate → skip
+      const dateStr = (r.OffMarketDate || r.ListingContractDate || '').slice(0, 10);
+      if (!dateStr || dateStr.length < 10) continue;
+      const offDate  = new Date(dateStr + 'T12:00:00Z');
+      const daysAgo  = Math.round((today - offDate) / 86400000);
+      if (daysAgo < 0 || daysAgo > 730) continue; // keep up to 2 years, filter tighter in getDeadZone
+
+      const poolRaw  = (r.PoolPrivate      || '').trim().toLowerCase();
+      const mpRaw    = (r.MasterPlannedCommunityYN || '').trim().toLowerCase();
+      const gatedRaw = (r.Access            || '').trim().toLowerCase();
+      const waterRaw = (r.WaterAmenity      || '').trim();
+      const newcoRaw = (r.NewConstruction   || '').trim().toLowerCase();
+      const subd     = (r.Subdivision   || '').trim();
+      const community= (r.CommunityName || '').trim() || subd;
+
+      failed.push({
+        mls:       r.MLSNumber || '',
+        subd,
+        community,
+        daysAgo,
+        lat,  lon,
+        sqft,
+        beds:    parseFloat(r.BedsTotal     || 0) || 0,
+        baths:   parseFloat(r.BathsTotal    || 0) || 0,
+        garage:  parseFloat(r.NoOfGarageCap || 0) || 0,
+        stories: parseFloat(r.Stories || '1') || 1.0,
+        yr:      parseInt(parseFloat(r.YearBuilt || 0)) || 0,
+        pool:    BOOL_VALS.has(poolRaw),
+        mp:      BOOL_VALS.has(mpRaw),
+        gated:   gatedRaw.includes('gated'),
+        water:   !!waterRaw && waterRaw !== '0',
+        newco:   BOOL_VALS.has(newcoRaw),
+        listPrice: lp,
+        dom:     parseInt(r.DOM || 0) || 0,
+        status:  (r.Status || '').trim(),
+        city:    (r.City || '').trim(),
+      });
+    } catch (_) { continue; }
+  }
+
+  console.log(`MarketIQ: loaded ${failed.length} failed listings from CSV`);
+  _failedComps = failed;
+  return _failedComps;
+}
+
+// ─── DEAD ZONE: find comparable failed listings near subject ──────────────────
+function getDeadZone(subject) {
+  const failed = loadFailedComps();
+  const RADIUS_MI   = 2.0;
+  const SQFT_MARGIN = 0.30;   // ±30%
+  const MAX_DAYS    = 365;    // last 12 months
+  const TOP_N       = 3;
+
+  const sqftLo = subject.sqft * (1 - SQFT_MARGIN);
+  const sqftHi = subject.sqft * (1 + SQFT_MARGIN);
+
+  const candidates = [];
+
+  for (const f of failed) {
+    // Recency
+    if (f.daysAgo > MAX_DAYS) continue;
+    // Hard filters — must match subject exactly
+    if (!passesHard(f, subject)) continue;
+    // Size filter
+    if (f.sqft < sqftLo || f.sqft > sqftHi) continue;
+    // Distance filter
+    const dist = haversine(f.lat, f.lon, subject.lat, subject.lon);
+    if (dist > RADIUS_MI) continue;
+
+    // Similarity score (lower = better match)
+    let score = dist * 8;
+    score += Math.abs(f.sqft - subject.sqft) / Math.max(subject.sqft, 1) * 20;
+    score += Math.abs(f.yr   - subject.yr)   * 0.4;
+    score += Math.abs(f.beds - subject.beds) * 3;
+    if (f.pool !== subject.pool) score += 2;
+
+    candidates.push({ ...f, dist, score });
+  }
+
+  if (!candidates.length) return null;
+
+  // Sort by similarity, take top N
+  candidates.sort((a, b) => a.score - b.score);
+  const top = candidates.slice(0, TOP_N);
+
+  // Price ceiling = highest list price among matched failed comps
+  const priceCeiling = Math.max(...top.map(f => f.listPrice));
+  const avgDom       = Math.round(top.reduce((s, f) => s + f.dom, 0) / top.length);
+
+  return {
+    failedComps: top.map(f => ({
+      sqft:       Math.round(f.sqft),
+      beds:       f.beds,
+      baths:      f.baths,
+      stories:    f.stories,
+      yr:         f.yr,
+      pool:       f.pool,
+      listPrice:  f.listPrice,
+      dom:        f.dom,
+      outcome:    f.status,
+      community:  f.community,
+      dist:       parseFloat(f.dist.toFixed(2)),
+    })),
+    priceCeiling,
+    failCount:   top.length,
+    avgDom,
+  };
 }
 
 // ─── STORIES PREMIUM ($/sf: 1-story premium over 2-story) ────────────────────
@@ -582,8 +717,9 @@ exports.handler = async function(event) {
     if (cent) { lat = cent.lat; lon = cent.lon; }
   }
 
-  // Run CMA
-  var cma = null;
+  // Run CMA + dead zone
+  var cma      = null;
+  var deadZone = null;
   var compContext = '';
 
   if (lat && lon && sqft && parseFloat(sqft) > 100) {
@@ -613,6 +749,13 @@ exports.handler = async function(event) {
       console.log('MarketIQ CMA: ' + (cma ? cma.compCount + ' comps, phase=' + cma.phase : 'no result'));
     } catch (e) {
       console.error('CMA error:', e.message);
+    }
+
+    try {
+      deadZone = getDeadZone(subject);
+      console.log('MarketIQ dead zone: ' + (deadZone ? deadZone.failCount + ' failed comps, ceiling=$' + deadZone.priceCeiling : 'none found'));
+    } catch (e) {
+      console.error('Dead zone error:', e.message);
     }
   } else {
     console.log('MarketIQ: skipping CMA -- missing lat/lon or sqft');
@@ -693,7 +836,6 @@ exports.handler = async function(event) {
       '  "factors": [\n' +
       '    { "emoji": "checkmark", "label": "Factor name", "text": "One plain-language sentence max 15 words" },\n' +
       '    { "emoji": "checkmark", "label": "Factor name", "text": "One sentence" },\n' +
-      '    { "emoji": "lightning", "label": "Factor name", "text": "One sentence" },\n' +
       '    { "emoji": "warning", "label": "Factor name", "text": "One sentence" }\n' +
       '  ],\n' +
       '  "cantTell": "Two sentences max. What Phils in-person walkthrough covers that this tool cannot. End with a line about booking a call with Phil."\n' +
@@ -717,96 +859,110 @@ exports.handler = async function(event) {
       '  "strategies": [\n' +
       '    {\n' +
       '      "name": "Win It",\n' +
-      '      "price": "' + (hasCompData ? 'List price +2-3%. Comps support $' + priceMkt.toLocaleString() + ' market value' : 'List price + X%') + '",\n' +
-      '      "row1": { "label": "When", "text": "what situation calls for this max 12 words" },\n' +
-      '      "row2": { "label": "How", "text": "key offer terms max 12 words" },\n' +
-      '      "row3": { "label": "Risk", "text": "downside max 12 words" }\n' +
+      '      "price": "' + (hasCompData ? '$' + priceMkt.toLocaleString() : '$[your estimate]') + ' or above",\n' +
+      '      "row1": { "label": "When to use", "text": "max 12 words" },\n' +
+      '      "row2": { "label": "What to include", "text": "max 12 words" },\n' +
+      '      "row3": { "label": "Risk", "text": "max 10 words" }\n' +
       '    },\n' +
       '    {\n' +
       '      "name": "Clean Offer",\n' +
-      '      "price": "List price",\n' +
-      '      "row1": { "label": "When", "text": "max 12 words" },\n' +
-      '      "row2": { "label": "How", "text": "max 12 words" },\n' +
-      '      "row3": { "label": "Risk", "text": "max 12 words" }\n' +
+      '      "price": "' + (hasCompData ? '$' + priceMkt.toLocaleString() : '$[your estimate]') + '",\n' +
+      '      "row1": { "label": "When to use", "text": "max 12 words" },\n' +
+      '      "row2": { "label": "What to include", "text": "max 12 words" },\n' +
+      '      "row3": { "label": "Risk", "text": "max 10 words" }\n' +
       '    },\n' +
       '    {\n' +
       '      "name": "Test the Seller",\n' +
-      '      "price": "List price minus 3-5%",\n' +
-      '      "row1": { "label": "When", "text": "max 12 words" },\n' +
-      '      "row2": { "label": "How", "text": "max 12 words" },\n' +
-      '      "row3": { "label": "Risk", "text": "max 12 words" }\n' +
+      '      "price": "' + (hasCompData ? '$' + priceLow.toLocaleString() : '$[your estimate]') + '",\n' +
+      '      "row1": { "label": "When to use", "text": "max 12 words" },\n' +
+      '      "row2": { "label": "What to include", "text": "max 12 words" },\n' +
+      '      "row3": { "label": "Risk", "text": "max 10 words" }\n' +
       '    },\n' +
       '    {\n' +
-      '      "name": "Wait and Watch",\n' +
-      '      "price": "Not offering yet",\n' +
-      '      "row1": { "label": "When", "text": "what you are waiting for max 12 words" },\n' +
-      '      "row2": { "label": "Signal", "text": "what tells you it is time to move max 12 words" },\n' +
-      '      "row3": { "label": "Risk", "text": "cost of waiting max 12 words" }\n' +
+      '      "name": "Wait & Watch",\n' +
+      '      "price": "N/A",\n' +
+      '      "row1": { "label": "When to use", "text": "max 12 words" },\n' +
+      '      "row2": { "label": "What to include", "text": "N/A" },\n' +
+      '      "row3": { "label": "Risk", "text": "max 10 words" }\n' +
       '    }\n' +
       '  ],\n' +
       '  "factors": [\n' +
       '    { "emoji": "checkmark", "label": "Factor name", "text": "One plain-language sentence max 15 words" },\n' +
       '    { "emoji": "checkmark", "label": "Factor name", "text": "One sentence" },\n' +
       '    { "emoji": "lightning", "label": "Factor name", "text": "One sentence" },\n' +
-      '    { "emoji": "warning", "label": "Factor name", "text": "One sentence" }\n' +
+      '    { "emoji": "warning",   "label": "Factor name", "text": "One sentence" }\n' +
       '  ],\n' +
-      '  "cantTell": "Two sentences max. What Phil sees in person that this tool cannot -- condition seller motivation competition. End with a line about booking a call."\n' +
+      '  "cantTell": "Two sentences max. What Phils in-person walkthrough covers that this tool cannot. End with a line about booking a call with Phil."\n' +
       '}';
   }
 
   // Call Claude
-  try {
-    var raw   = await callClaude(systemPrompt, userPrompt);
-    var clean = extractJSON(raw);
-    var report;
-    try {
-      report = JSON.parse(clean);
-    } catch (parseErr) {
-      console.error('JSON parse failed. Raw output:', raw);
-      return { statusCode: 500, headers: headers, body: JSON.stringify({ error: 'AI returned invalid JSON. Please try again.' }) };
-    }
+  var claudeRes = await fetch('https://api.anthropic.com/v1/messages', {
+    method:  'POST',
+    headers: {
+      'x-api-key':         ANTHROPIC_API_KEY,
+      'anthropic-version': '2023-06-01',
+      'content-type':      'application/json',
+    },
+    body: JSON.stringify({
+      model:      'claude-haiku-4-5-20251001',
+      max_tokens: 1500,
+      system:     systemPrompt,
+      messages:   [{ role: 'user', content: userPrompt }],
+    }),
+  });
 
-    // Format comps for frontend
-    var comps = cma
-      ? cma.comps.slice(0, 6).map(function(c) {
-          return {
-            address:   c.mls ? 'MLS# ' + c.mls : (c.community || c.subd),
-            price:     Math.round(c.net),
-            beds:      c.beds,
-            baths:     c.baths,
-            sqft:      Math.round(c.sqft),
-            dom:       c.dom || null,
-            ppsf:      parseFloat(c.ppsf.toFixed(2)),
-            adjPpsf:   parseFloat(c.adjPpsf.toFixed(2)),
-            daysAgo:   c.daysAgo,
-            dist:      parseFloat(c.dist.toFixed(1)),
-            community: c.community || c.subd,
-          };
-        })
-      : [];
+  if (!claudeRes.ok) {
+    var errText = await claudeRes.text();
+    console.error('Claude API error:', claudeRes.status, errText);
+    return { statusCode: 502, headers: headers, body: JSON.stringify({ error: 'Claude API error: ' + claudeRes.status }) };
+  }
 
-    var cmaData = cma
-      ? {
-          baseline:    Math.round(cma.baseline),
-          wPpsf:       parseFloat(cma.wPpsf.toFixed(2)),
-          rangeLow:    parseFloat(cma.rangeLow.toFixed(2)),
-          rangeHigh:   parseFloat(cma.rangeHigh.toFixed(2)),
-          compCount:   cma.compCount,
-          phase:       cma.phase,
-          thinMarket:  cma.thinMarket,
-          priceLow:    priceLow,
-          priceMkt:    priceMkt,
-          priceHigh:   priceHigh,
-        }
-      : null;
+  var claudeData = await claudeRes.json();
+  var rawText    = (claudeData.content && claudeData.content[0] && claudeData.content[0].text) || '';
+
+  var jsonMatch = rawText.match(/\{[\s\S]*\}/);
+  var report    = null;
+  if (jsonMatch) {
+    try { report = JSON.parse(jsonMatch[0]); } catch (_) { report = null; }
+  }
+
+  var comps = cma ? cma.comps.slice(0, 5).map(function(c) {
+    return {
+      mls:       c.mls,
+      community: c.community,
+      sqft:      Math.round(c.sqft),
+      beds:      c.beds,
+      baths:     c.baths,
+      yr:        c.yr,
+      pool:      c.pool,
+      close:     Math.round(c.close),
+      net:       Math.round(c.net),
+      ppsf:      parseFloat(c.ppsf.toFixed(2)),
+      adjPpsf:   parseFloat(c.adjPpsf.toFixed(2)),
+      daysAgo:   c.daysAgo,
+      dom:       c.dom,
+    };
+  }) : [];
+
+  var cmaData = cma
+    ? {
+        baseline:    parseFloat(cma.baseline.toFixed(2)),
+        weightedPpsf:parseFloat(cma.weightedPpsf.toFixed(2)),
+        rangeLow:    parseFloat(cma.rangeLow.toFixed(2)),
+        rangeHigh:   parseFloat(cma.rangeHigh.toFixed(2)),
+        compCount:   cma.compCount,
+        phase:       cma.phase,
+        thinMarket:  cma.thinMarket,
+        priceLow:    priceLow,
+        priceMkt:    priceMkt,
+        priceHigh:   priceHigh,
+      }
+    : null;
 
     return {
       statusCode: 200,
       headers:    headers,
-      body:       JSON.stringify({ report: report, area: area, zip: zip, mode: mode, comps: comps, cma: cmaData }),
+      body:       JSON.stringify({ report: report, area: area, zip: zip, mode: mode, comps: comps, cma: cmaData, deadZone: deadZone }),
     };
-  } catch (err) {
-    console.error('marketiq-ai error:', err);
-    return { statusCode: 500, headers: headers, body: JSON.stringify({ error: err.message }) };
-  }
 };

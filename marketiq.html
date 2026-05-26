@@ -329,6 +329,84 @@
       flex-shrink: 0; margin-top: 0.05em;
     }
 
+    /* ─── DEAD ZONE ────────────────────────────────────────────── */
+    .miq-dz-wrap {
+      background: #fff; border: 1px solid #e8e0e0;
+      border-radius: var(--radius-xl); padding: 1.75rem 2rem;
+      margin-bottom: 2rem;
+    }
+    .miq-dz-eyebrow {
+      font-size: 0.68rem; font-weight: 800; letter-spacing: 0.12em;
+      text-transform: uppercase; color: #c0392b; margin-bottom: 0.3rem;
+    }
+    .miq-dz-title {
+      font-family: var(--font-heading); font-size: 1.15rem; font-weight: 700;
+      color: var(--navy); margin: 0 0 0.35rem;
+    }
+    .miq-dz-sub {
+      font-size: 0.82rem; color: var(--mid-gray); margin: 0 0 1.5rem; line-height: 1.5;
+    }
+    .miq-dz-stats {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+    @media (max-width: 640px) { .miq-dz-stats { grid-template-columns: repeat(2, 1fr); } }
+    .miq-dz-stat {
+      background: #fdf5f5; border-radius: var(--radius-lg); padding: 0.9rem 1rem;
+    }
+    .miq-dz-stat__label { font-size: 0.72rem; color: var(--mid-gray); margin-bottom: 0.2rem; }
+    .miq-dz-stat__value { font-family: var(--font-heading); font-size: 1.35rem; font-weight: 800; color: #c0392b; line-height: 1.1; }
+    .miq-dz-stat__sub { font-size: 0.7rem; color: var(--mid-gray); margin-top: 0.15rem; }
+    .miq-dz-bars { margin-bottom: 1.5rem; }
+    .miq-dz-bars-label { font-size: 0.76rem; font-weight: 700; color: var(--mid-gray); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.65rem; }
+    .miq-dz-bar-row { display: flex; align-items: center; gap: 0.65rem; margin-bottom: 0.5rem; }
+    .miq-dz-bar-name { font-size: 0.8rem; color: var(--dark-gray); width: 110px; flex-shrink: 0; }
+    .miq-dz-bar-track { flex: 1; background: var(--light-gray); border-radius: 3px; height: 20px; overflow: hidden; }
+    .miq-dz-bar-fill { height: 100%; border-radius: 3px; display: flex; align-items: center; padding-left: 8px; }
+    .miq-dz-bar-fill span { font-size: 0.7rem; font-weight: 700; white-space: nowrap; }
+    .miq-dz-bar-fill--right { background: #27ae60; }
+    .miq-dz-bar-fill--right span { color: #e8f8ef; }
+    .miq-dz-bar-fill--mid { background: #95a5a6; }
+    .miq-dz-bar-fill--mid span { color: #f0f3f4; }
+    .miq-dz-bar-fill--danger { background: #c0392b; }
+    .miq-dz-bar-fill--danger span { color: #fdecea; }
+    .miq-dz-callout {
+      border-left: 3px solid #c0392b; background: #fdecea;
+      border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+      padding: 1rem 1.25rem; margin-bottom: 1.5rem;
+    }
+    .miq-dz-callout__label {
+      font-size: 0.68rem; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 0.09em; color: #922b21; margin-bottom: 0.5rem;
+    }
+    .miq-dz-callout__comp {
+      font-size: 0.83rem; color: #922b21; padding: 0.45rem 0;
+      border-bottom: 1px solid rgba(192,57,43,0.12); line-height: 1.5;
+    }
+    .miq-dz-callout__comp:last-of-type { border-bottom: none; padding-bottom: 0; }
+    .miq-dz-callout__comp strong { font-weight: 700; }
+    .miq-dz-callout__summary {
+      font-size: 0.83rem; color: #922b21; font-weight: 700;
+      margin-top: 0.65rem; padding-top: 0.65rem;
+      border-top: 1px solid rgba(192,57,43,0.2);
+    }
+    .miq-dz-cost {
+      background: #fdf9f9; border: 1px solid #f0e0e0;
+      border-radius: var(--radius-lg); overflow: hidden; margin-bottom: 0.75rem;
+    }
+    .miq-dz-cost-label { font-size: 0.76rem; font-weight: 700; color: var(--mid-gray); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.75rem; }
+    .miq-dz-cost-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0.65rem 1.1rem; border-bottom: 1px solid #f0e0e0; gap: 1rem;
+    }
+    .miq-dz-cost-row:last-child { border-bottom: none; }
+    .miq-dz-cost-row__desc { font-size: 0.82rem; color: var(--dark-gray); }
+    .miq-dz-cost-row__val { font-size: 0.88rem; font-weight: 700; color: #c0392b; white-space: nowrap; }
+    .miq-dz-cost-row--total { background: #fdecea; }
+    .miq-dz-cost-row--total .miq-dz-cost-row__desc { font-size: 0.9rem; font-weight: 700; color: var(--navy); }
+    .miq-dz-cost-row--total .miq-dz-cost-row__val { font-size: 1rem; }
+    .miq-dz-footnote { font-size: 0.7rem; color: var(--mid-gray); line-height: 1.55; margin: 0; }
+
     /* ─── WHAT THIS REPORT CANT TELL YOU ──────────────────────── */
     .miq-report-section--cant {
       background: rgba(201,164,85,0.06);
@@ -1012,7 +1090,7 @@
         showError(data.error);
         return;
       }
-      renderReport(data.report, data.area, data.zip, data.mode || miqState.mode, data.comps || [], data.avm || null);
+      renderReport(data.report, data.area, data.zip, data.mode || miqState.mode, data.comps || [], data.avm || null, data.deadZone || null, data.cma || null);
     })
     .catch(function(err) {
       stopLoadingAnimation();
@@ -1048,7 +1126,7 @@
   }
 
   /* ── RENDER REPORT (JSON template injection) ─────────────────────── */
-  function renderReport(report, area, zip, mode, comps, avm) {
+  function renderReport(report, area, zip, mode, comps, avm, deadZone, cma) {
     var isSeller = (mode || miqState.mode) === 'seller';
 
     // ── Property header
@@ -1069,7 +1147,7 @@
 
     // ── Build report HTML from JSON
     document.getElementById('miq-report-container').innerHTML =
-      buildReportHTML(report, area, isSeller, comps, avm);
+      buildReportHTML(report, area, isSeller, comps, avm, deadZone, cma);
 
     // ── CTA content
     if (isSeller) {
@@ -1097,7 +1175,7 @@
      No markdown parsing. Direct JSON injection into pre-built template.
      ═══════════════════════════════════════════════════════════════ */
 
-  function buildReportHTML(r, area, isSeller, comps, avm) {
+  function buildReportHTML(r, area, isSeller, comps, avm, deadZone, cma) {
     var html = '';
     comps = comps || [];
 
@@ -1211,7 +1289,12 @@
       '</div>';
     }
 
-    // ── 3. FACTORS CHECKLIST ────────────────────────────────────────
+    // ── 3. DEAD ZONE (seller mode only) ────────────────────────────
+    if (isSeller) {
+      html += buildDeadZoneHTML(deadZone, cma);
+    }
+
+    // ── 4. FACTORS CHECKLIST ────────────────────────────────────────
     if (r.factors && r.factors.length) {
       var factorTitle = isSeller ? '🔑 What Affects Your Price' : '🔑 What to Know Before You Offer';
       var factorsHtml = r.factors.map(function(f) {
@@ -1230,7 +1313,7 @@
       '</div>';
     }
 
-    // ── 4. WHAT THIS REPORT CAN'T TELL YOU ─────────────────────────
+    // ── 5. WHAT THIS REPORT CAN'T TELL YOU ─────────────────────────
     if (r.cantTell) {
       html += '<div class="miq-report-section miq-report-section--cant">' +
         '<div class="miq-report-section__title">💡 What This Report Can\'t Tell You</div>' +
@@ -1240,7 +1323,7 @@
       '</div>';
     }
 
-    // ── 5. STATIC FLOOD DISCLOSURE ──────────────────────────────────
+    // ── 6. STATIC FLOOD DISCLOSURE ──────────────────────────────────
     if (area && area.flood) {
       html += '<div class="miq-report-section" style="border-left:3px solid rgba(32,137,160,0.4);border-radius:0 var(--radius-xl) var(--radius-xl) 0;background:rgba(32,137,160,0.03);">' +
         '<div class="miq-report-section__title" style="font-size:0.82rem;">🌊 Flood Zone Note</div>' +
@@ -1260,6 +1343,83 @@
     '</p>';
 
     return html;
+  }
+
+  /* ── DEAD ZONE BUILDER ──────────────────────────────────────────── */
+  function buildDeadZoneHTML(deadZone, cma) {
+    // Market-wide stats (from research across 3,075 listings)
+    var listPrice = cma && cma.priceMkt ? cma.priceMkt : 0;
+    var extraDays = 179;
+    var extraMonths = extraDays / 30;
+    var carryingCost = listPrice ? Math.round(listPrice * 0.005 * extraMonths) : null;
+    var netPpsfLoss = 17917;
+    var extraConc = 1667;
+    var totalCost = carryingCost ? (netPpsfLoss + extraConc + carryingCost) : (netPpsfLoss + extraConc);
+
+    var statsHtml =
+      '<div class="miq-dz-stats">' +
+        '<div class="miq-dz-stat"><div class="miq-dz-stat__label">Listings that never sold</div><div class="miq-dz-stat__value">39.2%</div><div class="miq-dz-stat__sub">4 in 10 fail completely</div></div>' +
+        '<div class="miq-dz-stat"><div class="miq-dz-stat__label">Overpriced sellers who cut</div><div class="miq-dz-stat__value">99%</div><div class="miq-dz-stat__sub">Of homes sitting 120+ days</div></div>' +
+        '<div class="miq-dz-stat"><div class="miq-dz-stat__label">Avg price cut taken</div><div class="miq-dz-stat__value">$72,441</div><div class="miq-dz-stat__sub">12.3% off original list</div></div>' +
+        '<div class="miq-dz-stat"><div class="miq-dz-stat__label">Avg days waiting</div><div class="miq-dz-stat__value">190 days</div><div class="miq-dz-stat__sub">vs. 11 days when priced right</div></div>' +
+      '</div>';
+
+    var barsHtml =
+      '<div class="miq-dz-bars">' +
+        '<div class="miq-dz-bars-label">How homes sell in this market</div>' +
+        '<div class="miq-dz-bar-row"><div class="miq-dz-bar-name">Priced right</div><div class="miq-dz-bar-track"><div class="miq-dz-bar-fill miq-dz-bar-fill--right" style="width:51.7%"><span>51.7% — sold in 30 days</span></div></div></div>' +
+        '<div class="miq-dz-bar-row"><div class="miq-dz-bar-name">Slightly high</div><div class="miq-dz-bar-track"><div class="miq-dz-bar-fill miq-dz-bar-fill--mid" style="width:36.7%"><span>36.7% — sold in 31–120 days</span></div></div></div>' +
+        '<div class="miq-dz-bar-row"><div class="miq-dz-bar-name">Overpriced</div><div class="miq-dz-bar-track"><div class="miq-dz-bar-fill miq-dz-bar-fill--danger" style="width:11.6%"><span>11.6% — 120+ days, then cut</span></div></div></div>' +
+      '</div>';
+
+    // Dynamic dead zone callout
+    var calloutHtml = '';
+    if (deadZone && deadZone.failedComps && deadZone.failedComps.length) {
+      var compLines = deadZone.failedComps.map(function(fc) {
+        var storyStr = fc.stories === 1 ? '1-story' : (fc.stories === 2 ? '2-story' : fc.stories + '-story');
+        var poolStr  = fc.pool ? 'pool' : 'no pool';
+        var baths    = fc.baths % 1 === 0 ? fc.baths + ' bath' : fc.baths + ' bath';
+        return '<div class="miq-dz-callout__comp">' +
+          '<strong>' + fc.sqft.toLocaleString() + ' sf · ' + fc.beds + ' bed / ' + fc.baths + ' bath · ' + storyStr + ' · ' + fc.yr + ' · ' + poolStr + '</strong>' +
+          ' — listed at $' + fc.listPrice.toLocaleString() + ', sat ' + fc.dom + ' days, came off the market unsold' +
+        '</div>';
+      }).join('');
+
+      var ceilStr = '$' + deadZone.priceCeiling.toLocaleString();
+      var community = deadZone.failedComps[0].community || 'this area';
+
+      calloutHtml =
+        '<div class="miq-dz-callout">' +
+          '<div class="miq-dz-callout__label">⚠ What failed near this property in the last 12 months</div>' +
+          compLines +
+          '<div class="miq-dz-callout__summary">Comparable homes have not sold above ' + ceilStr + ' in this area in the last 12 months.</div>' +
+        '</div>';
+    }
+
+    // Cost of overpricing
+    var costRows =
+      '<div class="miq-dz-cost-row"><div class="miq-dz-cost-row__desc">Sold below market (overpriced sellers net $6.48/sf less than right-priced sellers)</div><div class="miq-dz-cost-row__val">−$17,917</div></div>' +
+      '<div class="miq-dz-cost-row"><div class="miq-dz-cost-row__desc">Extra concessions given at closing</div><div class="miq-dz-cost-row__val">−$1,667</div></div>' +
+      (carryingCost
+        ? '<div class="miq-dz-cost-row"><div class="miq-dz-cost-row__desc">Holding cost while waiting — 179 extra days (taxes &amp; insurance only, not your mortgage)</div><div class="miq-dz-cost-row__val">−$' + carryingCost.toLocaleString() + '</div></div>'
+        : '') +
+      '<div class="miq-dz-cost-row miq-dz-cost-row--total"><div class="miq-dz-cost-row__desc">Total measurable cost of overpricing</div><div class="miq-dz-cost-row__val">−$' + totalCost.toLocaleString() + '</div></div>';
+
+    var footnote = carryingCost
+      ? 'Holding cost estimated at 0.5% of list price per month — taxes and insurance only. Does not include mortgage payments, maintenance, or opportunity cost.'
+      : 'Holding cost estimate requires comp-engine pricing data. Other figures based on actual outcomes across 1,825 sold listings in this market.';
+
+    return '<div class="miq-dz-wrap">' +
+      '<div class="miq-dz-eyebrow">MarketIQ™ Seller Intelligence</div>' +
+      '<div class="miq-dz-title">What the market tells sellers who don\'t listen</div>' +
+      '<div class="miq-dz-sub">Based on 3,075 listings across Seabrook and surrounding markets. Real outcomes, not projections.</div>' +
+      statsHtml +
+      barsHtml +
+      calloutHtml +
+      '<div class="miq-dz-cost-label">The real cost of overpricing' + (listPrice ? ' — this home listed at $' + listPrice.toLocaleString() : '') + '</div>' +
+      '<div class="miq-dz-cost">' + costRows + '</div>' +
+      '<p class="miq-dz-footnote">' + footnote + '</p>' +
+    '</div>';
   }
 
   /* ── CHIP BUILDER ───────────────────────────────────────────────── */
