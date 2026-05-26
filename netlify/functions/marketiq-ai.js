@@ -281,12 +281,13 @@ function median(arr) {
 
 // ─── MARKET STATS: real comp-based snapshot ───────────────────────────────────
 function getMarketStats(subject, soldComps) {
-  const RADIUS_MI = 4.0;
+  // Market stats measure macro neighborhood health — distance only, no hard-feature filtering
+  // (passesHard is too strict for gated/water properties; market conditions are area-wide)
+  const RADIUS_MI = 5.0;
 
-  const nearby = soldComps.filter(c => {
-    if (!passesHard(c, subject)) return false;
-    return haversine(c.lat, c.lon, subject.lat, subject.lon) <= RADIUS_MI;
-  });
+  const nearby = soldComps.filter(c =>
+    haversine(c.lat, c.lon, subject.lat, subject.lon) <= RADIUS_MI
+  );
 
   const recent = nearby.filter(c => c.daysAgo <= 90);
   const prior  = nearby.filter(c => c.daysAgo > 90 && c.daysAgo <= 180);
@@ -329,7 +330,6 @@ function getMarketStats(subject, soldComps) {
   // Listing success rate — sold vs failed in same radius, last 12 months
   const failed12 = loadFailedComps().filter(f =>
     f.daysAgo <= 365 &&
-    passesHard(f, subject) &&
     haversine(f.lat, f.lon, subject.lat, subject.lon) <= RADIUS_MI
   );
   const sold12    = nearby.filter(c => c.daysAgo <= 365);
