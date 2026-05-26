@@ -1,405 +1,809 @@
-// MarketIQ™ v3 — AI-Powered Pricing Strategy Tool
-// Anthropic Claude + RentCast live market data
-// POST { address, mode, beds, baths, sqft, condition, timeline, budget }
-// Returns structured JSON — no markdown, direct template injection
+// MarketIQ™ v4 — AI-Powered Pricing Strategy Tool
+// Anthropic Claude + Local Comp Engine (HAR MLS data — no RentCast)
+// POST { address, mode, beds, baths, sqft, condition, timeline, budget,
+//        lat?, lon?, stories?, yr?, pool?, garage?, community?, mp?, gated?, water?, newco? }
+// Returns { report, area, zip, mode, comps, cma }
+
+'use strict';
+
+const fs   = require('fs');
+const path = require('path');
 
 const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY;
-const RENTCAST_API_KEY  = process.env.RENTCAST_API_KEY;
 
-// ─── AREA DATA ────────────────────────────────────────────────────
+// Module-level comp cache — persists across warm Lambda invocations
+let _soldComps = null;
+
+// ─── CSV PARSER (no npm deps) ─────────────────────────────────────────────────
+function parseCSV(text) {
+  if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1); // strip BOM
+  const lines = text.split(/\r?\n/);
+  if (!lines.length) return [];
+
+  function parseLine(line) {
+    const fields = [];
+    let cur = '', inQ = false;
+    for (let i = 0; i < line.length; i++) {
+      const ch = line[i];
+      if (ch === '"') {
+        if (inQ && line[i + 1] === '"') { cur += '"'; i++; }
+        else { inQ = !inQ; }
+      } else if (ch === ',' && !inQ) {
+        fields.push(cur); cur = '';
+      } else {
+        cur += ch;
+      }
+    }
+    fields.push(cur);
+    return fields;
+  }
+
+  const headers = parseLine(lines[0]).map(h => h.trim());
+  const rows = [];
+  for (let i = 1; i < lines.length; i++) {
+    if (!lines[i].trim()) continue;
+    const vals = parseLine(lines[i]);
+    const row = {};
+    headers.forEach((h, idx) => { row[h] = (vals[idx] || '').trim(); });
+    rows.push(row);
+  }
+  return rows;
+}
+
+// ─── LOAD AND CACHE SOLD COMPS ────────────────────────────────────────────────
+const DATA_PATH = path.join(__dirname, '../../data/MarketIQ.csv');
+const BOOL_VALS = new Set(['true', 'yes', '1', 'y']);
+
+function loadSoldComps() {
+  if (_soldComps) return _soldComps;
+
+  let text;
+  try { text = fs.readFileSync(DATA_PATH, 'utf-8'); }
+  catch (e) {
+    console.error('MarketIQ: cannot read CSV:', e.message);
+    _soldComps = [];
+    return _soldComps;
+  }
+
+  const rows  = parseCSV(text);
+  const today = new Date();
+  const sold  = [];
+
+  for (const r of rows) {
+    if ((r.Status || '').trim() !== 'Sold') continue;
+    try {
+      const lat = parseFloat(r.Latitude  || 0);
+      const lon = parseFloat(r.Longitude || 0);
+      if (!lat || !lon) continue;
+
+      const sqft  = parseFloat(r.SqFtTotal  || 0);
+      const close = parseFloat(r.ClosePrice || 0);
+      if (sqft < 100 || close < 1000) continue;
+
+      const closeDateStr = (r.CloseDate || '').slice(0, 10);
+      if (!closeDateStr || closeDateStr.length < 10) continue;
+      const closeDate = new Date(closeDateStr + 'T12:00:00Z');
+      const daysAgo   = Math.round((today - closeDate) / 86400000);
+      if (daysAgo < 0) continue;
+
+      let conc = (parseFloat(r.RepairSeller || 0) || 0)
+               + (parseFloat(r.SellerToClosingCosts || 0) || 0);
+      if (conc > close * 0.15) conc = 0;
+      const net  = close - conc;
+      const ppsf = net / sqft;
+
+      const stories  = parseFloat(r.Stories || '1') || 1.0;
+      const subd     = (r.Subdivision   || '').trim();
+      const community= (r.CommunityName || '').trim() || subd;
+      const poolRaw  = (r.PoolPrivate      || '').trim().toLowerCase();
+      const mpRaw    = (r.MasterPlannedCommunityYN || '').trim().toLowerCase();
+      const gatedRaw = (r.Access            || '').trim().toLowerCase();
+      const waterRaw = (r.WaterAmenity      || '').trim();
+      const newcoRaw = (r.NewConstruction   || '').trim().toLowerCase();
+      const yr       = parseInt(parseFloat(r.YearBuilt || 0)) || 0;
+
+      sold.push({
+        mls:       r.MLSNumber || '',
+        subd,
+        community,
+        daysAgo,
+        lat,  lon,
+        sqft,
+        beds:    parseFloat(r.BedsTotal     || 0) || 0,
+        baths:   parseFloat(r.BathsTotal    || 0) || 0,
+        garage:  parseFloat(r.NoOfGarageCap || 0) || 0,
+        pool:    BOOL_VALS.has(poolRaw),
+        stories,
+        yr,
+        ppsf,
+        net,
+        close,
+        conc,
+        mp:    BOOL_VALS.has(mpRaw),
+        gated: gatedRaw.includes('gated'),
+        water: !!waterRaw && waterRaw !== '0',
+        newco: BOOL_VALS.has(newcoRaw),
+        closeDate: closeDateStr,
+        dom:   r.DOM  || '',
+        city:  (r.City || '').trim(),
+      });
+    } catch (_) { continue; }
+  }
+
+  console.log(`MarketIQ: loaded ${sold.length} sold comps from CSV`);
+  _soldComps = sold;
+  return _soldComps;
+}
+
+// ─── STORIES PREMIUM ($/sf: 1-story premium over 2-story) ────────────────────
+const STORIES_PREMIUM = {
+  // League City
+  'westland ranch': 29.30,  'hidden lakes': 18.84,     'brittany lakes': 18.16,
+  'south shore harbour': 16.53, 'south shore lake': 16.53, 'westover park': 13.86,
+  'victory lakes': 13.00,   'magnolia creek': 11.96,   'westwood': 11.04,
+  'mar bella': 2.50,        'tuscan lakes': -1.63,
+  // Pearland
+  'riverstone ranch': 34.45, 'southwyck': 21.55,       'shadow creek ranch': 17.99,
+  'silverlake': 10.89,      'southern trails': 10.89,  'ashford cove': 10.89,
+  'sedgefield': 10.89,      'lakepointe': 10.89,       'parkside': 10.89,
+  'fieldstone village': 10.89, 'shadow grove': 10.89,  'the gardens': 10.89,
+  'countryplace': 12.00,    'highland glen': 12.00,
+  // Friendswood
+  'heritage park': 12.92,   'west ranch': 6.50,
+  'avalon at friendswood': 4.56, 'avalon': 4.56,
+  // Clear Lake
+  'university green': 27.01, 'the reserve at clear lake': 22.04, 'the reserve': 22.04,
+  'brookwood': 12.75,       'el dorado clear lake city': 11.97, 'pine brook': 8.14,
+  'northfork': 5.02,        'brook forest': 2.16,      'bay oaks': 15.00,
+  'middlebrook': 10.00,     'nassau bay': 0.00,
+};
+const DEFAULT_STORIES_PREMIUM = 10.00;
+
+function getStoriesPremium(community) {
+  const c = (community || '').toLowerCase().trim();
+  for (const [key, val] of Object.entries(STORIES_PREMIUM)) {
+    if (c.includes(key) || key.includes(c)) return val;
+  }
+  return DEFAULT_STORIES_PREMIUM;
+}
+
+// ─── HAVERSINE (miles) ────────────────────────────────────────────────────────
+function haversine(lat1, lon1, lat2, lon2) {
+  const R    = 3958.8;
+  const toR  = d => d * Math.PI / 180;
+  const dLat = toR(lat2 - lat1);
+  const dLon = toR(lon2 - lon1);
+  const a = Math.sin(dLat / 2) ** 2
+          + Math.cos(toR(lat1)) * Math.cos(toR(lat2)) * Math.sin(dLon / 2) ** 2;
+  return R * 2 * Math.asin(Math.sqrt(a));
+}
+
+// ─── HARD FILTERS (never relaxed) ────────────────────────────────────────────
+function passesHard(comp, subject) {
+  return comp.newco === subject.newco
+      && comp.water === subject.water
+      && comp.gated === subject.gated
+      && comp.mp    === subject.mp;
+}
+
+// ─── SIMILARITY SCORE (lower = more similar) ─────────────────────────────────
+function scoreComp(comp, subject) {
+  const dist = haversine(comp.lat, comp.lon, subject.lat, subject.lon);
+  let pts = dist * 8;
+  pts += Math.abs(comp.sqft  - subject.sqft)  / Math.max(subject.sqft, 1) * 20;
+  pts += Math.abs(comp.yr    - subject.yr)    * 0.4;
+  pts += Math.abs(comp.beds  - subject.beds)  * 3;
+  pts += Math.abs(comp.baths - subject.baths) * 2;
+  if (comp.pool !== subject.pool)                       pts += 2;
+  if (Math.abs(comp.stories - subject.stories) > 0.5)  pts += 5;
+  return pts;
+}
+
+// ─── ADJUSTMENTS ──────────────────────────────────────────────────────────────
+function adjustPpsf(comp, subject) {
+  let adj   = 0;
+  const sqft = subject.sqft;
+  const notes = [];
+
+  // Pool ($22,500 flat)
+  if (comp.pool !== subject.pool) {
+    const d = (subject.pool ? 22500 : -22500) / sqft;
+    adj += d;
+    notes.push(`Pool: ${subject.pool ? '+' : '-'}$22,500`);
+  }
+
+  // Stories (community-specific $/sf premium)
+  const storyDiff = comp.stories - subject.stories;
+  if (Math.abs(storyDiff) > 0.5) {
+    const premium = getStoriesPremium(subject.community || subject.subd || '');
+    if (Math.abs(premium) >= 3.0) {
+      const d = premium * storyDiff;
+      adj += d;
+      notes.push(`Stories: ${d >= 0 ? '+' : ''}${d.toFixed(2)}/sf`);
+    }
+  }
+
+  // Bedrooms ($2,500 each)
+  const bedDiff = subject.beds - comp.beds;
+  if (bedDiff !== 0) {
+    const d = bedDiff * 2500 / sqft;
+    adj += d;
+    notes.push(`Beds: ${d >= 0 ? '+' : ''}${d.toFixed(2)}/sf (${bedDiff > 0 ? '+' : ''}${bedDiff}br)`);
+  }
+
+  // Bathrooms ($1,500 full / $750 half)
+  const bathDiff = subject.baths - comp.baths;
+  if (Math.abs(bathDiff) >= 0.1) {
+    const full   = Math.trunc(bathDiff);
+    const half   = Math.round((bathDiff - full) / 0.1);
+    const dollar = full * 1500 + half * 750;
+    const d = dollar / sqft;
+    adj += d;
+    notes.push(`Baths: ${d >= 0 ? '+' : ''}${d.toFixed(2)}/sf (${bathDiff >= 0 ? '+' : ''}${bathDiff.toFixed(1)}ba)`);
+  }
+
+  // Square footage ($37/sf marginal)
+  const sqftDiff = subject.sqft - comp.sqft;
+  if (sqftDiff !== 0) {
+    const d = sqftDiff * 37 / sqft;
+    adj += d;
+    notes.push(`Sqft: ${d >= 0 ? '+' : ''}${d.toFixed(2)}/sf (${sqftDiff > 0 ? '+' : ''}${Math.round(sqftDiff)}sf)`);
+  }
+
+  // Garage ($6,500/stall, capped ±2)
+  const garageDiff = (subject.garage || 0) - (comp.garage || 0);
+  if (garageDiff !== 0) {
+    const stalls = Math.max(-2, Math.min(2, garageDiff));
+    const d = stalls * 6500 / sqft;
+    adj += d;
+    notes.push(`Garage: ${d >= 0 ? '+' : ''}${d.toFixed(2)}/sf (${stalls > 0 ? '+' : ''}${stalls} stall)`);
+  }
+
+  return { adjPpsf: comp.ppsf + adj, notes };
+}
+
+// ─── INVERSE-SCORE WEIGHTED PPSF (10% floor) ─────────────────────────────────
+function weightedPpsf(ppsfVals, scores, floor = 0.10) {
+  const raw   = scores.map(s => 1.0 / Math.max(s, 0.001));
+  const total = raw.reduce((a, b) => a + b, 0);
+  let weights = raw.map(w => w / total);
+
+  for (let iter = 0; iter < 20; iter++) {
+    const below = weights.reduce((acc, w, i) => (w < floor ? [...acc, i] : acc), []);
+    if (!below.length) break;
+    below.forEach(i => { weights[i] = floor; });
+    const leftover = 1.0 - below.length * floor;
+    const above    = weights.reduce((acc, w, i) => (w > floor ? [...acc, i] : acc), []);
+    const atSum    = above.reduce((a, i) => a + weights[i], 0);
+    if (atSum > 0) above.forEach(i => { weights[i] = weights[i] / atSum * leftover; });
+  }
+
+  const wPpsf = ppsfVals.reduce((a, p, i) => a + p * weights[i], 0);
+  return { wPpsf, weights };
+}
+
+// ─── THIN MARKET DETECTION ────────────────────────────────────────────────────
+function countNearby(subject, sold, maxDist = 4.0, maxDays = 365) {
+  return sold.filter(c =>
+    c.daysAgo <= maxDays
+    && passesHard(c, subject)
+    && haversine(c.lat, c.lon, subject.lat, subject.lon) <= maxDist
+  ).length;
+}
+
+// ─── PHASE RUNNER ─────────────────────────────────────────────────────────────
+function runPhase(subject, sold, maxDist, maxDays, tight, adjustments,
+                  communityOnly = false, n = 6) {
+  const subjCommunity = (subject.community || subject.subd || '').toLowerCase();
+  const candidates = [];
+
+  for (const comp of sold) {
+    if (comp.daysAgo > maxDays) continue;
+    const dist = haversine(subject.lat, subject.lon, comp.lat, comp.lon);
+    if (dist > maxDist) continue;
+
+    if (communityOnly) {
+      const cc = (comp.community || comp.subd || '').toLowerCase();
+      if (cc !== subjCommunity) continue;
+    }
+
+    if (tight) {
+      if (Math.abs(comp.sqft - subject.sqft) / subject.sqft > 0.20) continue;
+      if (Math.abs(comp.yr   - subject.yr)   > 10)                   continue;
+      if (comp.beds !== subject.beds)                                 continue;
+    }
+
+    if (!passesHard(comp, subject)) continue;
+
+    const sc = scoreComp(comp, subject);
+    let adjPpsf, notes;
+    if (adjustments) {
+      const a = adjustPpsf(comp, subject);
+      adjPpsf = a.adjPpsf; notes = a.notes;
+    } else {
+      adjPpsf = comp.ppsf; notes = [];
+    }
+
+    candidates.push({ ...comp, score: sc, adjPpsf, adjNotes: notes, dist });
+  }
+
+  candidates.sort((a, b) => a.score - b.score);
+  return candidates.slice(0, n);
+}
+
+// ─── CMA PHASES ───────────────────────────────────────────────────────────────
+const BASE_PHASES = [
+  { label: 'Ph1: Same community, 90d, tight',  commOnly: true,  maxDist: 0.5, maxDays:  90, tight: true,  adj: false },
+  { label: 'Ph2: Same community, 90d, adj',    commOnly: true,  maxDist: 0.5, maxDays:  90, tight: false, adj: true  },
+  { label: 'Ph3: 2mi, 90d, tight',             commOnly: false, maxDist: 2.0, maxDays:  90, tight: true,  adj: false },
+  { label: 'Ph4: 2mi, 90d, adj',               commOnly: false, maxDist: 2.0, maxDays:  90, tight: false, adj: true  },
+  { label: 'Ph5: 4mi, 180d, adj',              commOnly: false, maxDist: 4.0, maxDays: 180, tight: false, adj: true  },
+];
+const THIN_PHASE = {
+  label: 'Ph6: 4mi, 365d, adj [thin market]', commOnly: false, maxDist: 4.0, maxDays: 365, tight: false, adj: true
+};
+const THIN_THRESHOLD = 50;
+const MIN_COMPS = 3;
+
+// ─── MAIN CMA RUNNER ──────────────────────────────────────────────────────────
+function runCma(subject, sold) {
+  const nearby  = countNearby(subject, sold);
+  const thin    = nearby < THIN_THRESHOLD;
+  const phases  = thin ? [...BASE_PHASES, THIN_PHASE] : [...BASE_PHASES];
+
+  let bestComps = [], bestLabel = '';
+  for (const ph of phases) {
+    const comps = runPhase(subject, sold, ph.maxDist, ph.maxDays,
+                           ph.tight, ph.adj, ph.commOnly);
+    if (comps.length >= MIN_COMPS) {
+      bestComps = comps; bestLabel = ph.label; break;
+    }
+  }
+
+  if (!bestComps.length) {
+    bestComps = runPhase(subject, sold, 4.0, 365, false, true, false);
+    bestLabel = 'Fallback: 4mi/365d';
+  }
+  if (!bestComps.length) return null;
+
+  const ppsfVals  = bestComps.map(c => c.adjPpsf);
+  const scoreVals = bestComps.map(c => c.score);
+  const { wPpsf, weights } = weightedPpsf(ppsfVals, scoreVals);
+  const baseline = wPpsf * subject.sqft;
+
+  return {
+    phase:       bestLabel,
+    comps:       bestComps,
+    weights,
+    wPpsf,
+    baseline,
+    compCount:   bestComps.length,
+    rangeLow:    Math.min(...ppsfVals),
+    rangeHigh:   Math.max(...ppsfVals),
+    thinMarket:  thin,
+    nearbyComps: nearby,
+  };
+}
+
+// ─── GEOCODE (Nominatim) ──────────────────────────────────────────────────────
+const ZIP_CENTROIDS = {
+  '77573': { lat: 29.4953, lon: -95.0941 },
+  '77565': { lat: 29.5490, lon: -95.0290 },
+  '77546': { lat: 29.5089, lon: -95.2024 },
+  '77584': { lat: 29.5675, lon: -95.3225 },
+  '77581': { lat: 29.5568, lon: -95.2743 },
+  '77089': { lat: 29.6178, lon: -95.2158 },
+  '77058': { lat: 29.5651, lon: -95.1168 },
+  '77059': { lat: 29.5782, lon: -95.0936 },
+  '77062': { lat: 29.5895, lon: -95.1423 },
+  '77539': { lat: 29.4511, lon: -95.0586 },
+  '77578': { lat: 29.4761, lon: -95.3582 },
+  '77583': { lat: 29.4418, lon: -95.3749 },
+};
+
+async function geocodeAddress(address) {
+  try {
+    const res = await fetch(
+      `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}&limit=1&countrycodes=us`,
+      { headers: { 'User-Agent': 'MarketIQ-CMA/1.0 (phil@philliphimes.com)' } }
+    );
+    if (!res.ok) return null;
+    const data = await res.json();
+    if (!data.length) return null;
+    return { lat: parseFloat(data[0].lat), lon: parseFloat(data[0].lon) };
+  } catch (_) { return null; }
+}
+
+// ─── AREA DATA ────────────────────────────────────────────────────────────────
 const AREA_DATA = {
-  '77573': { city: 'League City',    county: 'Galveston County',  district: 'Clear Creek ISD',  flood: 'Most of 77573 is Zone X (minimal risk). Verify specific parcel on FEMA flood map.', market: 'One of the most balanced markets in the Bay Area — steady demand across all price points.' },
-  '77565': { city: 'League City',    county: 'Galveston County',  district: 'Clear Creek ISD',  flood: 'Mostly Zone X. Verify specific parcel.', market: 'League City waterfront corridor — strong lifestyle buyer demand.' },
-  '77546': { city: 'Friendswood',    county: 'Galveston/Harris',  district: 'Friendswood ISD',  flood: 'Friendswood sits on higher ground — most areas Zone X, one of the lowest flood risk communities in the Bay Area.', market: 'Friendswood ISD is the #1 demand driver. One of the tightest markets in the region — buyers compete, sellers are in control.' },
-  '77584': { city: 'Pearland',       county: 'Brazoria County',   district: 'Pearland ISD',     flood: 'Most areas Zone X. Verify specific parcel.', market: 'Master-planned living at accessible price points. Shadow Creek Ranch and Silverlake drive strong resale demand.' },
-  '77581': { city: 'Pearland',       county: 'Brazoria County',   district: 'Pearland ISD',     flood: 'Verify flood zone for specific parcel.', market: 'Established Pearland neighborhoods with mature trees and consistent buyer demand.' },
-  '77089': { city: 'Houston / Pearland area', county: 'Harris County', district: 'Pasadena/Pearland ISD', flood: 'Verify flood zone carefully — mixed designations in this ZIP.', market: 'Southeast Houston suburban corridor.' },
-  '77058': { city: 'Clear Lake / Houston', county: 'Harris County', district: 'Clear Creek ISD', flood: 'Clear Lake area — many parcels near water carry AE (moderate risk) designation. Verify carefully.', market: 'NASA corridor drives consistent professional buyer demand. Aerospace and medical buyers dominate.' },
-  '77059': { city: 'Clear Lake / Houston', county: 'Harris County', district: 'Clear Creek ISD', flood: 'Verify flood zone — proximity to Clear Lake varies by parcel.', market: 'Bay Oaks, Bay Forest — some of the most established neighborhoods in the Houston Bay Area.' },
-  '77062': { city: 'Clear Lake / Houston', county: 'Harris County', district: 'Clear Creek ISD', flood: 'Verify flood zone carefully.', market: 'Taylor Lake Village corridor — waterfront access drives premium pricing.' },
-  '77539': { city: 'Dickinson',      county: 'Galveston County',  district: 'Dickinson ISD',    flood: 'Galveston County coastal area — flood zones vary significantly. Verify each parcel carefully. Some areas Zone AE.', market: 'Affordable Galveston County access. Bay Colony and Lago Mar drive newer buyer interest.' },
-  '77510': { city: 'Santa Fe',       county: 'Galveston County',  district: 'Santa Fe ISD',     flood: 'Verify flood zone — coastal county, varies by location.', market: 'Rural Galveston County — larger lots, country feel.' },
-  '77578': { city: 'Manvel',         county: 'Brazoria County',   district: 'Alvin ISD',        flood: 'Most areas Zone X. Some low-lying areas vary.', market: 'One of the fastest-growing markets in Brazoria County. Meridiana, Pomona, and Rodeo Palms drive strong new buyer traffic.' },
-  '77583': { city: 'Iowa Colony / Manvel', county: 'Brazoria County', district: 'Alvin ISD',   flood: 'Mostly Zone X. Verify.', market: 'Iowa Colony growth corridor — new construction at accessible prices.' },
-  '77568': { city: 'La Marque',      county: 'Galveston County',  district: 'La Marque ISD',    flood: 'Coastal county — verify flood zone carefully.', market: 'Galveston County growth corridor near I-45.' },
-  '77590': { city: 'Texas City',     county: 'Galveston County',  district: 'Texas City ISD',   flood: 'Texas City area — verify flood zone carefully.', market: 'Galveston County industrial/residential corridor.' },
+  '77573': { city: 'League City',           county: 'Galveston County', district: 'Clear Creek ISD',   flood: 'Most of 77573 is Zone X (minimal risk). Verify specific parcel on FEMA flood map.', market: 'One of the most balanced markets in the Bay Area — steady demand across all price points.' },
+  '77565': { city: 'League City',           county: 'Galveston County', district: 'Clear Creek ISD',   flood: 'Mostly Zone X. Verify specific parcel.', market: 'League City waterfront corridor — strong lifestyle buyer demand.' },
+  '77546': { city: 'Friendswood', county: 'Galveston/Harris', district: 'Friendswood ISD', flood: 'Friendswood sits on higher ground. Most areas Zone X, lowest flood risk in the Bay Area.', market: 'Friendswood ISD is the #1 demand driver. One of the tightest markets in the region.' },
+  '77584': { city: 'Pearland', county: 'Brazoria County', district: 'Pearland ISD', flood: 'Most areas Zone X. Verify specific parcel.', market: 'Master-planned living at accessible price points. Shadow Creek Ranch and Silverlake drive strong resale demand.' },
+  '77581': { city: 'Pearland', county: 'Brazoria County', district: 'Pearland ISD', flood: 'Verify flood zone for specific parcel.', market: 'Established Pearland neighborhoods with mature trees and consistent buyer demand.' },
+  '77089': { city: 'Houston / Pearland area', county: 'Harris County', district: 'Pasadena/Pearland ISD', flood: 'Verify flood zone carefully. Mixed designations in this ZIP.', market: 'Southeast Houston suburban corridor.' },
+  '77058': { city: 'Clear Lake / Houston', county: 'Harris County', district: 'Clear Creek ISD', flood: 'Clear Lake area. Many parcels near water carry AE designation. Verify carefully.', market: 'NASA corridor drives consistent professional buyer demand. Aerospace and medical buyers dominate.' },
+  '77059': { city: 'Clear Lake / Houston', county: 'Harris County', district: 'Clear Creek ISD', flood: 'Verify flood zone. Proximity to Clear Lake varies by parcel.', market: 'Bay Oaks, Bay Forest. Some of the most established neighborhoods in the Houston Bay Area.' },
+  '77062': { city: 'Clear Lake / Houston', county: 'Harris County', district: 'Clear Creek ISD', flood: 'Verify flood zone carefully.', market: 'Taylor Lake Village corridor. Waterfront access drives premium pricing.' },
+  '77539': { city: 'Dickinson', county: 'Galveston County', district: 'Dickinson ISD', flood: 'Galveston County coastal area. Flood zones vary significantly. Verify each parcel carefully.', market: 'Affordable Galveston County access. Bay Colony and Lago Mar drive newer buyer interest.' },
+  '77510': { city: 'Santa Fe', county: 'Galveston County', district: 'Santa Fe ISD', flood: 'Verify flood zone. Coastal county, varies by location.', market: 'Rural Galveston County. Larger lots, country feel.' },
+  '77578': { city: 'Manvel', county: 'Brazoria County', district: 'Alvin ISD', flood: 'Most areas Zone X. Some low-lying areas vary.', market: 'One of the fastest-growing markets in Brazoria County. Meridiana, Pomona, and Rodeo Palms drive strong new buyer traffic.' },
+  '77583': { city: 'Iowa Colony / Manvel', county: 'Brazoria County', district: 'Alvin ISD', flood: 'Mostly Zone X. Verify.', market: 'Iowa Colony growth corridor. New construction at accessible prices.' },
+  '77568': { city: 'La Marque', county: 'Galveston County', district: 'La Marque ISD', flood: 'Coastal county. Verify flood zone carefully.', market: 'Galveston County growth corridor near I-45.' },
+  '77590': { city: 'Texas City', county: 'Galveston County', district: 'Texas City ISD', flood: 'Texas City area. Verify flood zone carefully.', market: 'Galveston County industrial/residential corridor.' },
 };
 
 function getAreaData(zip) {
   return AREA_DATA[zip] || {
-    city: 'South Houston Area',
-    county: 'Verify',
+    city:     'South Houston Area',
+    county:   'Verify',
     district: 'Verify with listing agent',
-    flood: 'Verify flood zone on FEMA flood map for specific parcel.',
-    market: 'South Houston suburban market — strong long-term demand fundamentals.'
+    flood:    'Verify flood zone on FEMA flood map for specific parcel.',
+    market:   'South Houston suburban market. Strong long-term demand fundamentals.',
   };
 }
 
-// ─── RENTCAST: PROPERTY AVM + COMPARABLE SALES ───────────────────
-async function callRentcastAVM(address, beds, baths, sqft, lookupAttrs) {
-  if (!RENTCAST_API_KEY) return null;
-  try {
-    const params = new URLSearchParams({
-      address,
-      propertyType: 'Single Family',
-      compCount: '5'
-    });
-    if (lookupAttrs) {
-      params.set('lookupSubjectAttributes', 'true');
-    } else {
-      if (beds)              params.set('bedrooms',      String(beds));
-      if (baths)             params.set('bathrooms',     String(baths));
-      if (sqft && +sqft > 0) params.set('squareFootage', String(parseInt(sqft)));
-    }
-    const res = await fetch(`https://api.rentcast.io/v1/avm/value?${params}`, {
-      headers: { 'X-Api-Key': RENTCAST_API_KEY, 'Accept': 'application/json' }
-    });
-    if (!res.ok) {
-      console.error(`RentCast AVM ${res.status}:`, await res.text());
-      return null;
-    }
-    return await res.json();
-  } catch (e) {
-    console.error('RentCast AVM error:', e.message);
-    return null;
-  }
-}
-
-// ─── RENTCAST: ZIP-LEVEL MARKET STATISTICS ────────────────────────
-async function callRentcastMarket(zip) {
-  if (!RENTCAST_API_KEY) return null;
-  try {
-    const res = await fetch(
-      `https://api.rentcast.io/v1/markets?zipCode=${zip}&dataType=Sale`,
-      { headers: { 'X-Api-Key': RENTCAST_API_KEY, 'Accept': 'application/json' } }
-    );
-    if (!res.ok) {
-      console.error(`RentCast Market ${res.status}:`, await res.text());
-      return null;
-    }
-    return await res.json();
-  } catch (e) {
-    console.error('RentCast Market error:', e.message);
-    return null;
-  }
-}
-
-// ─── FORMAT RENTCAST DATA FOR CLAUDE PROMPT ──────────────────────
-function buildRentcastContext(avm, market, zip, isSeller) {
-  const parts = [];
-
-  if (market) {
-    // Handle both nested (market.saleData) and flat response shapes
-    const sd  = market.saleData || market.sale || market;
-    const dom = sd.averageDaysOnMarket  ?? sd.medianDaysOnMarket   ?? null;
-    const lts = sd.saleToListRatio      ?? null;
-    const tot = sd.totalListings        ?? sd.activeSaleListings   ?? null;
-    const avg = sd.averageSalePrice     ?? sd.medianSalePrice      ?? null;
-
-    // Derive inventory + market type from real data
-    let inventory   = 'Balanced';
-    let marketLabel = isSeller ? 'Balanced' : 'Moderate';
-    if (dom !== null) {
-      if (dom < 28)  { inventory = 'Low';  marketLabel = isSeller ? "Seller's" : 'High'; }
-      else if (dom > 55) { inventory = 'High'; marketLabel = isSeller ? "Buyer's" : 'Low'; }
-    } else if (tot !== null) {
-      if (tot < 15)  { inventory = 'Low';  marketLabel = isSeller ? "Seller's" : 'High'; }
-      else if (tot > 60) { inventory = 'High'; marketLabel = isSeller ? "Buyer's" : 'Low'; }
-    }
-
-    const domStr = dom !== null ? `${dom} days` : null;
-    const ltsStr = lts !== null ? `${(lts * 100).toFixed(1)}%` : null;
-
-    parts.push(`REAL MARKET DATA FOR ZIP ${zip} — copy these EXACT values into the snapshot JSON:`);
-    if (domStr) parts.push(`  "dom": "${domStr}"`);
-    if (ltsStr) parts.push(`  "listToSale": "${ltsStr}"`);
-    parts.push(`  "inventory": "${inventory}"`);
-    parts.push(`  "market": "${marketLabel}"`);
-    if (avg) parts.push(`  Context: avg/median sale price in ZIP = $${avg.toLocaleString()}`);
-  }
-
-  if (avm) {
-    parts.push('');
-    if (avm.price) {
-      const lo = avm.priceRangeLow  ? `$${avm.priceRangeLow.toLocaleString()}`  : '?';
-      const hi = avm.priceRangeHigh ? `$${avm.priceRangeHigh.toLocaleString()}` : '?';
-      parts.push(`RENTCAST AVM ESTIMATE: $${avm.price.toLocaleString()} (range: ${lo}–${hi})`);
-      parts.push('Anchor your pricing/offer strategies to this estimate and the comps below.');
-    }
-    const comps = (avm.listings || []).filter(c => c.price).slice(0, 5);
-    if (comps.length) {
-      parts.push('RECENT COMPARABLE SALES:');
-      comps.forEach((c, i) => {
-        const ppsf = c.squareFootage ? ` | $${Math.round(c.price / c.squareFootage)}/sqft` : '';
-        const sqftStr = c.squareFootage ? `${c.squareFootage.toLocaleString()} sqft` : '? sqft';
-        parts.push(
-          `  ${i + 1}. ${c.address || 'Nearby'} — Sold $${c.price.toLocaleString()}` +
-          ` | ${c.bedrooms || '?'}bd/${c.bathrooms || '?'}ba | ${sqftStr}${ppsf}` +
-          ` | ${c.daysOnMarket || '?'} DOM | ${Math.round((c.correlation || 0) * 100)}% match`
-        );
-      });
-    }
-  }
-
-  return parts.length ? parts.join('\n') : '';
-}
-
-// ─── ANTHROPIC API ────────────────────────────────────────────────
+// --- ANTHROPIC API -----------------------------------------------------------
 async function callClaude(systemPrompt, userPrompt) {
   const res = await fetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
     headers: {
-      'x-api-key': ANTHROPIC_API_KEY,
+      'x-api-key':         ANTHROPIC_API_KEY,
       'anthropic-version': '2023-06-01',
-      'content-type': 'application/json'
+      'content-type':      'application/json',
     },
     body: JSON.stringify({
-      model: 'claude-haiku-4-5-20251001',
+      model:      'claude-haiku-4-5-20251001',
       max_tokens: 2000,
-      system: systemPrompt,
-      messages: [{ role: 'user', content: userPrompt }]
-    })
+      system:     systemPrompt,
+      messages:   [{ role: 'user', content: userPrompt }],
+    }),
   });
-
-  if (!res.ok) {
-    const err = await res.text();
-    throw new Error(`Anthropic API error ${res.status}: ${err}`);
-  }
-
+  if (!res.ok) throw new Error('Anthropic API error ' + res.status + ': ' + (await res.text()));
   const data = await res.json();
-  return data.content
-    .filter(b => b.type === 'text')
-    .map(b => b.text)
-    .join('\n');
+  return data.content.filter(b => b.type === 'text').map(b => b.text).join('\n');
 }
 
-// ─── STRIP CODE FENCES IF CLAUDE WRAPS IN ```json ────────────────
 function extractJSON(raw) {
   const match = raw.match(/```(?:json)?\s*([\s\S]*?)```/);
   return match ? match[1].trim() : raw.trim();
 }
 
-// ─── MAIN HANDLER ─────────────────────────────────────────────────
+// --- FORMAT CMA FOR CLAUDE ---------------------------------------------------
+function buildCompContext(cma) {
+  if (!cma) return '';
+  const b = cma.baseline;
+  const priceMkt  = Math.round(b / 5000) * 5000;
+  const priceLow  = Math.round(b * 0.975 / 5000) * 5000;
+  const priceHigh = Math.round(b * 1.025 / 5000) * 5000;
+
+  const lines = [
+    'COMP ENGINE RESULTS -- use these EXACT numbers in your pricing strategies (do not substitute):',
+    '  Weighted PPSF:        $' + cma.wPpsf.toFixed(2) + '/sf  (' + cma.compCount + ' comps, ' + cma.phase + ')',
+    '  Baseline value:       $' + Math.round(b).toLocaleString(),
+    '  Price to Move (-2.5%):$' + priceLow.toLocaleString(),
+    '  Price to Sell (mkt):  $' + priceMkt.toLocaleString(),
+    '  Price to Test (+2.5%):$' + priceHigh.toLocaleString(),
+    '  Adj $/sf range:       $' + cma.rangeLow.toFixed(2) + ' -- $' + cma.rangeHigh.toFixed(2) + '/sf',
+    cma.thinMarket ? '  WARNING: THIN MARKET -- only ' + cma.nearbyComps + ' nearby comps. Wider confidence range.' : null,
+    '',
+    'COMPARABLE SALES USED (' + cma.compCount + '):',
+  ];
+
+  cma.comps.slice(0, 6).forEach(function(c, i) {
+    var wt = cma.weights[i] != null ? ' | Wt ' + (cma.weights[i] * 100).toFixed(1) + '%' : '';
+    lines.push(
+      '  ' + (i + 1) + '. ' + (c.community || c.subd) +
+      ' | Sold $' + Math.round(c.net).toLocaleString() +
+      ' | ' + Math.round(c.sqft).toLocaleString() + 'sf' +
+      ' | ' + c.beds + 'bd/' + c.baths + 'ba' +
+      ' | ' + (c.pool ? 'Pool' : 'No Pool') +
+      ' | ' + c.stories + '-story | Built ' + c.yr +
+      ' | $' + c.ppsf.toFixed(2) + '/sf raw -> $' + c.adjPpsf.toFixed(2) + '/sf adj' + wt +
+      ' | ' + c.daysAgo + 'd ago | ' + c.dist.toFixed(1) + 'mi'
+    );
+    if (c.adjNotes && c.adjNotes.length) {
+      lines.push('     Adjustments: ' + c.adjNotes.join(' | '));
+    }
+  });
+
+  return lines.filter(function(l) { return l !== null; }).join('\n');
+}
+
+// --- MAIN HANDLER ------------------------------------------------------------
 exports.handler = async function(event) {
-  const headers = {
+  var headers = {
     'Access-Control-Allow-Origin': '*',
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
   };
 
   if (event.httpMethod === 'OPTIONS') {
     return {
       statusCode: 200,
-      headers: { ...headers, 'Access-Control-Allow-Headers': 'Content-Type', 'Access-Control-Allow-Methods': 'POST, OPTIONS' },
-      body: ''
+      headers: Object.assign({}, headers, {
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Access-Control-Allow-Methods': 'POST, OPTIONS',
+      }),
+      body: '',
     };
   }
-  if (event.httpMethod !== 'POST') {
-    return { statusCode: 405, headers, body: JSON.stringify({ error: 'Method not allowed' }) };
-  }
-  if (!ANTHROPIC_API_KEY) {
-    return { statusCode: 500, headers, body: JSON.stringify({ error: 'ANTHROPIC_API_KEY not configured' }) };
-  }
+  if (event.httpMethod !== 'POST')
+    return { statusCode: 405, headers: headers, body: JSON.stringify({ error: 'Method not allowed' }) };
+  if (!ANTHROPIC_API_KEY)
+    return { statusCode: 500, headers: headers, body: JSON.stringify({ error: 'ANTHROPIC_API_KEY not configured' }) };
 
-  let body;
+  var body;
   try { body = JSON.parse(event.body); }
-  catch (e) { return { statusCode: 400, headers, body: JSON.stringify({ error: 'Invalid JSON' }) }; }
+  catch (_) { return { statusCode: 400, headers: headers, body: JSON.stringify({ error: 'Invalid JSON' }) }; }
 
-  const { address, mode = 'seller', beds, baths, sqft, condition, timeline, budget } = body;
-  if (!address) return { statusCode: 400, headers, body: JSON.stringify({ error: 'Address required' }) };
+  var address   = body.address;
+  var mode      = body.mode      || 'seller';
+  var beds      = body.beds      || 4;
+  var baths     = body.baths     || 2.5;
+  var sqft      = body.sqft;
+  var condition = body.condition || 'Updated';
+  var timeline  = body.timeline  || '1-3 months';
+  var budget    = body.budget;
+  var reqLat    = body.lat;
+  var reqLon    = body.lon;
+  var stories   = body.stories   || 1.0;
+  var yr        = body.yr        || 2005;
+  var pool      = body.pool      || false;
+  var garage    = body.garage    || 2;
+  var community = body.community || '';
+  var mp        = body.mp        || false;
+  var gated     = body.gated     || false;
+  var water     = body.water     || false;
+  var newco     = body.newco     || false;
 
-  // Extract ZIP
-  const zipMatch = address.match(/\b(7[0-9]{4})\b/);
-  const zip      = zipMatch ? zipMatch[1] : '77573';
-  const area     = getAreaData(zip);
-  const isSeller = mode === 'seller';
-  const today    = new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+  if (!address)
+    return { statusCode: 400, headers: headers, body: JSON.stringify({ error: 'Address required' }) };
 
-  // ── FETCH RENTCAST DATA IN PARALLEL ────────────────────────────
-  // Seller: pass beds/baths/sqft from form; Buyer: let RentCast look up property attributes
-  const [avm, market] = await Promise.all([
-    callRentcastAVM(address, isSeller ? beds : null, isSeller ? baths : null, isSeller ? sqft : null, !isSeller),
-    callRentcastMarket(zip)
-  ]);
+  var zipMatch = address.match(/\b(7[0-9]{4})\b/);
+  var zip      = zipMatch ? zipMatch[1] : '77573';
+  var area     = getAreaData(zip);
+  var isSeller = mode === 'seller';
+  var today    = new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
 
-  // Diagnostic logging — remove after confirming RentCast AVM is working
-  console.log('RentCast AVM:', avm ? JSON.stringify({
-    price:          avm.price,
-    low:            avm.priceRangeLow,
-    high:           avm.priceRangeHigh,
-    compsCount:     (avm.listings || []).length,
-    firstCompPrice: avm.listings && avm.listings[0] ? avm.listings[0].price : null
-  }) : 'null — AVM call returned nothing');
-  console.log('RentCast Market:', market ? JSON.stringify({
-    topLevelKeys: Object.keys(market).slice(0, 8)
-  }) : 'null — Market call returned nothing');
+  // Resolve lat/lon
+  var lat = reqLat ? parseFloat(reqLat) : 0;
+  var lon = reqLon ? parseFloat(reqLon) : 0;
 
-  const rentcastContext = buildRentcastContext(avm, market, zip, isSeller);
-  const hasRealData     = rentcastContext.length > 0;
+  if (!lat || !lon) {
+    var geo = await geocodeAddress(address);
+    if (geo) { lat = geo.lat; lon = geo.lon; }
+  }
+  if (!lat || !lon) {
+    var cent = ZIP_CENTROIDS[zip];
+    if (cent) { lat = cent.lat; lon = cent.lon; }
+  }
 
-  // ── SYSTEM PROMPT ───────────────────────────────────────────────
-  const systemPrompt = `You are MarketIQ™, a real estate pricing strategy AI built for Phillip Himes, REALTOR® at eXp Realty. You serve the South Houston suburbs: League City, Friendswood, Pearland, Clear Lake, Dickinson, and Manvel.
+  // Run CMA
+  var cma = null;
+  var compContext = '';
 
-CURRENT DATE: ${today}
-PROPERTY/AREA: ${address}
-NEIGHBORHOOD CONTEXT:
-- City: ${area.city}
-- School District: ${area.district}
-- County: ${area.county}
-- Market Character: ${area.market}
+  if (lat && lon && sqft && parseFloat(sqft) > 100) {
+    var toBool = function(v) { return v === true || v === 'true' || v === '1' || v === 'yes'; };
+    var subject = {
+      lat:       lat,
+      lon:       lon,
+      sqft:      parseFloat(sqft),
+      beds:      parseFloat(beds)    || 4,
+      baths:     parseFloat(baths)   || 2.5,
+      stories:   parseFloat(stories) || 1.0,
+      yr:        parseInt(yr)        || 2005,
+      pool:      toBool(pool),
+      garage:    parseFloat(garage)  || 2,
+      community: (community || '').trim(),
+      subd:      (community || '').trim(),
+      mp:        toBool(mp),
+      gated:     toBool(gated),
+      water:     toBool(water),
+      newco:     toBool(newco),
+    };
 
-CRITICAL RULES:
-1. Output ONLY valid JSON — no markdown, no explanation, no code fences, no intro text.
-2. Generate SPECIFIC price points — never vague ranges. Pick one number.
-3. Be direct and confident. No hedging. No disclaimers.
-4. Every text value must be a plain string — no markdown formatting inside strings.
-5. Keep all text values short and scannable — bullet text max 15 words.${hasRealData ? `
-6. REAL DATA IS PROVIDED BELOW. Use the exact dom, listToSale, inventory, and market values specified — do not substitute your own estimates for these fields. Anchor price strategies to the RentCast AVM and comps provided.` : `
-6. No live data available — use your knowledge of ${area.city} (${area.district}) market conditions.`}`;
+    try {
+      var sold = loadSoldComps();
+      cma = runCma(subject, sold);
+      if (cma) compContext = buildCompContext(cma);
+      console.log('MarketIQ CMA: ' + (cma ? cma.compCount + ' comps, phase=' + cma.phase : 'no result'));
+    } catch (e) {
+      console.error('CMA error:', e.message);
+    }
+  } else {
+    console.log('MarketIQ: skipping CMA -- missing lat/lon or sqft');
+  }
 
-  // ── USER PROMPT ─────────────────────────────────────────────────
-  const realDataBlock = hasRealData
-    ? `\n\n--- LIVE RENTCAST DATA ---\n${rentcastContext}\n--- END LIVE DATA ---\n`
+  var hasCompData = !!cma;
+
+  var priceLow  = cma ? (Math.round(cma.baseline * 0.975 / 5000) * 5000) : 0;
+  var priceMkt  = cma ? (Math.round(cma.baseline / 5000) * 5000)          : 0;
+  var priceHigh = cma ? (Math.round(cma.baseline * 1.025 / 5000) * 5000)  : 0;
+
+  // System prompt
+  var systemPrompt = 'You are MarketIQ(tm), a real estate pricing strategy AI built for Phillip Himes, REALTOR(r) at eXp Realty. You serve the South Houston suburbs: League City, Friendswood, Pearland, Clear Lake, Dickinson, and Manvel.\n\n' +
+    'CURRENT DATE: ' + today + '\n' +
+    'PROPERTY/AREA: ' + address + '\n' +
+    'NEIGHBORHOOD CONTEXT:\n' +
+    '- City: ' + area.city + '\n' +
+    '- School District: ' + area.district + '\n' +
+    '- County: ' + area.county + '\n' +
+    '- Market Character: ' + area.market + '\n\n' +
+    'CRITICAL RULES:\n' +
+    '1. Output ONLY valid JSON -- no markdown, no explanation, no code fences, no intro text.\n' +
+    '2. Generate SPECIFIC price points -- never vague ranges. Pick one number.\n' +
+    '3. Be direct and confident. No hedging. No disclaimers.\n' +
+    '4. Every text value must be a plain string -- no markdown formatting inside strings.\n' +
+    '5. Keep all text values short and scannable -- bullet text max 15 words.\n' +
+    (hasCompData
+      ? '6. REAL COMP DATA IS PROVIDED. The prices in the comp engine block are AUTHORITATIVE -- copy them exactly into your pricing strategies. Do not substitute your own price estimates.'
+      : '6. No comp data available -- use your knowledge of ' + area.city + ' (' + area.district + ') market conditions to estimate realistic prices.');
+
+  var compBlock = hasCompData
+    ? '\n\n--- MARKETIQ COMP ENGINE DATA ---\n' + compContext + '\n--- END COMP DATA ---\n'
     : '';
 
-  const userPrompt = isSeller
-    ? `Generate a MarketIQ™ Seller Pricing Report for this property:
+  var userPrompt;
+  if (isSeller) {
+    userPrompt =
+      'Generate a MarketIQ(tm) Seller Pricing Report for this property:\n\n' +
+      'Address: ' + address + '\n' +
+      'Bedrooms: ' + beds + ' | Bathrooms: ' + baths + ' | Square Feet: ' + (sqft || 'not provided') + '\n' +
+      'Stories: ' + stories + ' | Year Built: ' + yr + ' | Pool: ' + (pool ? 'Yes' : 'No') + ' | Garage: ' + garage + ' cars\n' +
+      'Community: ' + (community || 'not specified') + ' | Master Planned: ' + (mp ? 'Yes' : 'No') + '\n' +
+      'Condition: ' + condition + ' | Timeline: ' + timeline + '\n' +
+      'School District: ' + area.district + '\n' +
+      compBlock + '\n' +
+      'Return ONLY this JSON structure -- no other text:\n\n' +
+      '{\n' +
+      '  "snapshot": {\n' +
+      '    "dom": "estimate based on current ' + area.city + ' market",\n' +
+      '    "listToSale": "estimate",\n' +
+      '    "inventory": "Low / Balanced / High",\n' +
+      '    "market": "Sellers / Balanced / Buyers",\n' +
+      '    "summary": "One punchy sentence max 20 words what this market means for this seller"\n' +
+      '  },\n' +
+      '  "strategies": [\n' +
+      '    {\n' +
+      '      "name": "Price to Move",\n' +
+      '      "price": "' + (hasCompData ? '$' + priceLow.toLocaleString() : '$[your estimate]') + '",\n' +
+      '      "row1": { "label": "Expect", "text": "what happens in week 1 max 12 words" },\n' +
+      '      "row2": { "label": "Best for", "text": "who this strategy is for max 10 words" },\n' +
+      '      "row3": { "label": "Risk", "text": "one specific downside max 12 words" }\n' +
+      '    },\n' +
+      '    {\n' +
+      '      "name": "Price to Sell",\n' +
+      '      "price": "' + (hasCompData ? '$' + priceMkt.toLocaleString() : '$[your estimate]') + '",\n' +
+      '      "row1": { "label": "Expect", "text": "what happens max 12 words" },\n' +
+      '      "row2": { "label": "Best for", "text": "who max 10 words" },\n' +
+      '      "row3": { "label": "Risk", "text": "downside max 12 words" }\n' +
+      '    },\n' +
+      '    {\n' +
+      '      "name": "Price to Test",\n' +
+      '      "price": "' + (hasCompData ? '$' + priceHigh.toLocaleString() : '$[your estimate]') + '",\n' +
+      '      "row1": { "label": "Expect", "text": "what happens max 12 words" },\n' +
+      '      "row2": { "label": "Best for", "text": "who max 10 words" },\n' +
+      '      "row3": { "label": "Risk", "text": "downside max 12 words" }\n' +
+      '    }\n' +
+      '  ],\n' +
+      '  "factors": [\n' +
+      '    { "emoji": "checkmark", "label": "Factor name", "text": "One plain-language sentence max 15 words" },\n' +
+      '    { "emoji": "checkmark", "label": "Factor name", "text": "One sentence" },\n' +
+      '    { "emoji": "lightning", "label": "Factor name", "text": "One sentence" },\n' +
+      '    { "emoji": "warning", "label": "Factor name", "text": "One sentence" }\n' +
+      '  ],\n' +
+      '  "cantTell": "Two sentences max. What Phils in-person walkthrough covers that this tool cannot. End with a line about booking a call with Phil."\n' +
+      '}';
+  } else {
+    userPrompt =
+      'Generate a MarketIQ(tm) Buyer Market Report for this property:\n\n' +
+      'Address: ' + address + ' | ZIP: ' + zip + '\n' +
+      'Budget: ' + (budget || 'not specified') + ' | Minimum Bedrooms: ' + beds + '\n' +
+      'School District: ' + area.district + '\n' +
+      compBlock + '\n' +
+      'Return ONLY this JSON structure -- no other text:\n\n' +
+      '{\n' +
+      '  "snapshot": {\n' +
+      '    "dom": "estimate for this ZIP",\n' +
+      '    "listToSale": "estimate",\n' +
+      '    "inventory": "Low / Balanced / High",\n' +
+      '    "market": "High / Moderate / Low competition",\n' +
+      '    "summary": "One punchy sentence max 20 words what a buyer needs to know right now"\n' +
+      '  },\n' +
+      '  "strategies": [\n' +
+      '    {\n' +
+      '      "name": "Win It",\n' +
+      '      "price": "' + (hasCompData ? 'List price +2-3%. Comps support $' + priceMkt.toLocaleString() + ' market value' : 'List price + X%') + '",\n' +
+      '      "row1": { "label": "When", "text": "what situation calls for this max 12 words" },\n' +
+      '      "row2": { "label": "How", "text": "key offer terms max 12 words" },\n' +
+      '      "row3": { "label": "Risk", "text": "downside max 12 words" }\n' +
+      '    },\n' +
+      '    {\n' +
+      '      "name": "Clean Offer",\n' +
+      '      "price": "List price",\n' +
+      '      "row1": { "label": "When", "text": "max 12 words" },\n' +
+      '      "row2": { "label": "How", "text": "max 12 words" },\n' +
+      '      "row3": { "label": "Risk", "text": "max 12 words" }\n' +
+      '    },\n' +
+      '    {\n' +
+      '      "name": "Test the Seller",\n' +
+      '      "price": "List price minus 3-5%",\n' +
+      '      "row1": { "label": "When", "text": "max 12 words" },\n' +
+      '      "row2": { "label": "How", "text": "max 12 words" },\n' +
+      '      "row3": { "label": "Risk", "text": "max 12 words" }\n' +
+      '    },\n' +
+      '    {\n' +
+      '      "name": "Wait and Watch",\n' +
+      '      "price": "Not offering yet",\n' +
+      '      "row1": { "label": "When", "text": "what you are waiting for max 12 words" },\n' +
+      '      "row2": { "label": "Signal", "text": "what tells you it is time to move max 12 words" },\n' +
+      '      "row3": { "label": "Risk", "text": "cost of waiting max 12 words" }\n' +
+      '    }\n' +
+      '  ],\n' +
+      '  "factors": [\n' +
+      '    { "emoji": "checkmark", "label": "Factor name", "text": "One plain-language sentence max 15 words" },\n' +
+      '    { "emoji": "checkmark", "label": "Factor name", "text": "One sentence" },\n' +
+      '    { "emoji": "lightning", "label": "Factor name", "text": "One sentence" },\n' +
+      '    { "emoji": "warning", "label": "Factor name", "text": "One sentence" }\n' +
+      '  ],\n' +
+      '  "cantTell": "Two sentences max. What Phil sees in person that this tool cannot -- condition seller motivation competition. End with a line about booking a call."\n' +
+      '}';
+  }
 
-Address: ${address}
-Bedrooms: ${beds || 4} | Bathrooms: ${baths || 2.5} | Square Feet: ${sqft || 'not provided'}
-Condition: ${condition || 'Updated'} | Timeline: ${timeline || '1-3 months'}
-School District: ${area.district}
-${realDataBlock}
-Return ONLY this JSON structure — no other text:
-
-{
-  "snapshot": {
-    "dom": "[use real data if provided, else estimate for this ZIP/specs]",
-    "listToSale": "[use real data if provided, else estimate]",
-    "inventory": "[use real data if provided: Low / Balanced / High]",
-    "market": "[use real data if provided: Seller's / Balanced / Buyer's]",
-    "summary": "[One punchy sentence, max 20 words, telling the seller what this market means for them right now]"
-  },
-  "strategies": [
-    {
-      "name": "Price to Move",
-      "price": "$[specific number anchored to RentCast AVM/comps if available]",
-      "row1": { "label": "Expect", "text": "[what happens in week 1 — max 12 words]" },
-      "row2": { "label": "Best for", "text": "[who this strategy is for — max 10 words]" },
-      "row3": { "label": "Risk", "text": "[one specific downside — max 12 words]" }
-    },
-    {
-      "name": "Price to Sell",
-      "price": "$[specific number]",
-      "row1": { "label": "Expect", "text": "[what happens — max 12 words]" },
-      "row2": { "label": "Best for", "text": "[who — max 10 words]" },
-      "row3": { "label": "Risk", "text": "[downside — max 12 words]" }
-    },
-    {
-      "name": "Price to Test",
-      "price": "$[specific number]",
-      "row1": { "label": "Expect", "text": "[what happens — max 12 words]" },
-      "row2": { "label": "Best for", "text": "[who — max 10 words]" },
-      "row3": { "label": "Risk", "text": "[downside — max 12 words]" }
-    }
-  ],
-  "factors": [
-    { "emoji": "✅", "label": "[Factor name]", "text": "[One plain-language sentence, max 15 words]" },
-    { "emoji": "✅", "label": "[Factor name]", "text": "[One sentence]" },
-    { "emoji": "⚡", "label": "[Factor name]", "text": "[One sentence]" },
-    { "emoji": "⚠️", "label": "[Factor name]", "text": "[One sentence]" }
-  ],
-  "cantTell": "[Two sentences max. What Phil's in-person walkthrough covers that this tool cannot. End with a line about booking a call with Phil.]"
-}`
-    : `Generate a MarketIQ™ Buyer Market Report for this property:
-
-Address: ${address} | ZIP: ${zip}
-Budget: ${budget || 'not specified'} | Minimum Bedrooms: ${beds || 3}
-School District: ${area.district}
-${realDataBlock}
-Return ONLY this JSON structure — no other text:
-
-{
-  "snapshot": {
-    "dom": "[use real data if provided, else estimate for this ZIP]",
-    "listToSale": "[use real data if provided, else estimate]",
-    "inventory": "[use real data if provided: Low / Balanced / High]",
-    "market": "[use real data if provided: High / Moderate / Low competition]",
-    "summary": "[One punchy sentence, max 20 words, what a buyer needs to know about this market right now]"
-  },
-  "strategies": [
-    {
-      "name": "Win It",
-      "price": "[List price + X% or specific guidance anchored to AVM if available]",
-      "row1": { "label": "When", "text": "[what situation calls for this — max 12 words]" },
-      "row2": { "label": "How", "text": "[key offer terms to include — max 12 words]" },
-      "row3": { "label": "Risk", "text": "[downside — max 12 words]" }
-    },
-    {
-      "name": "Clean Offer",
-      "price": "[approach]",
-      "row1": { "label": "When", "text": "[max 12 words]" },
-      "row2": { "label": "How", "text": "[max 12 words]" },
-      "row3": { "label": "Risk", "text": "[max 12 words]" }
-    },
-    {
-      "name": "Test the Seller",
-      "price": "[approach]",
-      "row1": { "label": "When", "text": "[max 12 words]" },
-      "row2": { "label": "How", "text": "[max 12 words]" },
-      "row3": { "label": "Risk", "text": "[max 12 words]" }
-    },
-    {
-      "name": "Wait & Watch",
-      "price": "Not offering yet",
-      "row1": { "label": "When", "text": "[what you're waiting for — max 12 words]" },
-      "row2": { "label": "Signal", "text": "[what tells you it's time to move — max 12 words]" },
-      "row3": { "label": "Risk", "text": "[cost of waiting — max 12 words]" }
-    }
-  ],
-  "factors": [
-    { "emoji": "✅", "label": "[Factor name]", "text": "[One plain-language sentence, max 15 words]" },
-    { "emoji": "✅", "label": "[Factor name]", "text": "[One sentence]" },
-    { "emoji": "⚡", "label": "[Factor name]", "text": "[One sentence]" },
-    { "emoji": "⚠️", "label": "[Factor name]", "text": "[One sentence]" }
-  ],
-  "cantTell": "[Two sentences max. What Phil sees in person that this tool can't — condition, seller motivation, competition level. End with a line about booking a call.]"
-}`;
-
+  // Call Claude
   try {
-    const raw   = await callClaude(systemPrompt, userPrompt);
-    const clean = extractJSON(raw);
-    let report;
+    var raw   = await callClaude(systemPrompt, userPrompt);
+    var clean = extractJSON(raw);
+    var report;
     try {
       report = JSON.parse(clean);
     } catch (parseErr) {
       console.error('JSON parse failed. Raw output:', raw);
-      return { statusCode: 500, headers, body: JSON.stringify({ error: 'AI returned invalid JSON. Please try again.' }) };
+      return { statusCode: 500, headers: headers, body: JSON.stringify({ error: 'AI returned invalid JSON. Please try again.' }) };
     }
 
-    // ── Prepare comps for frontend display ────────────────────────
-    const comps = avm
-      ? (avm.listings || []).filter(c => c.price).slice(0, 5).map(c => ({
-          address : c.address   || '',
-          price   : c.price,
-          beds    : c.bedrooms  || null,
-          baths   : c.bathrooms || null,
-          sqft    : c.squareFootage || null,
-          dom     : c.daysOnMarket  || null,
-          match   : Math.round((c.correlation || 0) * 100)
-        }))
+    // Format comps for frontend
+    var comps = cma
+      ? cma.comps.slice(0, 6).map(function(c) {
+          return {
+            address:   c.mls ? 'MLS# ' + c.mls : (c.community || c.subd),
+            price:     Math.round(c.net),
+            beds:      c.beds,
+            baths:     c.baths,
+            sqft:      Math.round(c.sqft),
+            dom:       c.dom || null,
+            ppsf:      parseFloat(c.ppsf.toFixed(2)),
+            adjPpsf:   parseFloat(c.adjPpsf.toFixed(2)),
+            daysAgo:   c.daysAgo,
+            dist:      parseFloat(c.dist.toFixed(1)),
+            community: c.community || c.subd,
+          };
+        })
       : [];
 
-    const avmData = (avm && avm.price)
-      ? { price: avm.price, low: avm.priceRangeLow || null, high: avm.priceRangeHigh || null }
+    var cmaData = cma
+      ? {
+          baseline:    Math.round(cma.baseline),
+          wPpsf:       parseFloat(cma.wPpsf.toFixed(2)),
+          rangeLow:    parseFloat(cma.rangeLow.toFixed(2)),
+          rangeHigh:   parseFloat(cma.rangeHigh.toFixed(2)),
+          compCount:   cma.compCount,
+          phase:       cma.phase,
+          thinMarket:  cma.thinMarket,
+          nearbyComps: cma.nearbyComps,
+          priceLow:    priceLow,
+          priceMkt:    priceMkt,
+          priceHigh:   priceHigh,
+        }
       : null;
 
     return {
       statusCode: 200,
-      headers,
-      body: JSON.stringify({ report, area, zip, mode, comps, avm: avmData })
+      headers:    headers,
+      body:       JSON.stringify({ report: report, area: area, zip: zip, mode: mode, comps: comps, cma: cmaData }),
     };
   } catch (err) {
     console.error('marketiq-ai error:', err);
-    return { statusCode: 500, headers, body: JSON.stringify({ error: err.message }) };
+    return { statusCode: 500, headers: headers, body: JSON.stringify({ error: err.message }) };
   }
 };
