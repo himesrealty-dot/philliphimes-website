@@ -799,6 +799,7 @@ async function _handlerInner(event) {
   var condition = body.condition || 'Updated';
   var timeline  = body.timeline  || '1-3 months';
   var budget    = body.budget;
+  var listPrice = body.listPrice ? parseFloat(String(body.listPrice).replace(/[$,]/g, '')) : 0;
   var reqLat    = body.lat;
   var reqLon    = body.lon;
   var stories   = body.stories   || 1.0;
@@ -897,6 +898,40 @@ async function _handlerInner(event) {
   var priceLow  = cma ? (Math.round(cma.baseline * 0.975 / 5000) * 5000) : 0;
   var priceMkt  = cma ? (Math.round(cma.baseline / 5000) * 5000)          : 0;
   var priceHigh = cma ? (Math.round(cma.baseline * 1.025 / 5000) * 5000)  : 0;
+
+  // ── BUYER: verdict + offer range ──────────────────────────────────
+  var verdict = null, verdictPct = 0, offerRangeLow = 0, offerRangeHigh = 0, urgencyScore = 50;
+  if (!isSeller && cma && listPrice > 0) {
+    var diff = (listPrice - cma.baseline) / cma.baseline;
+    verdictPct = Math.round(diff * 100);
+    verdict = diff > 0.04 ? 'above' : diff < -0.04 ? 'below' : 'fair';
+
+    // Urgency: based on DOM + market temp
+    var domNow = marketStats && marketStats.recent && marketStats.recent.medDom != null
+      ? marketStats.recent.medDom : 30;
+    var temp = marketStats ? marketStats.temp : 'Balanced';
+    if (temp === 'Hot')           urgencyScore = 80;
+    else if (temp === 'Warm')     urgencyScore = 60;
+    else if (temp === 'Balanced') urgencyScore = 40;
+    else                          urgencyScore = 20;
+    if (domNow < 15) urgencyScore = Math.min(urgencyScore + 20, 95);
+    if (domNow > 45) urgencyScore = Math.max(urgencyScore - 20, 10);
+
+    // Offer range: anchored to CMA baseline
+    var discountLow, discountHigh;
+    if (urgencyScore >= 70)      { discountLow = 0.00; discountHigh = 0.01; }
+    else if (urgencyScore >= 50) { discountLow = 0.01; discountHigh = 0.025; }
+    else if (urgencyScore >= 30) { discountLow = 0.02; discountHigh = 0.04; }
+    else                         { discountLow = 0.03; discountHigh = 0.06; }
+
+    offerRangeLow  = Math.round(cma.baseline * (1 - discountHigh) / 1000) * 1000;
+    offerRangeHigh = Math.round(cma.baseline * (1 - discountLow)  / 1000) * 1000;
+    // If market value > list price, it's a deal — offer near list
+    if (cma.baseline > listPrice) {
+      offerRangeLow  = Math.round(listPrice * 0.985 / 1000) * 1000;
+      offerRangeHigh = listPrice;
+    }
+  }
 
   // System prompt
   var systemPrompt = 'You are MarketIQ(tm), a real estate pricing strategy AI built for Phillip Himes, REALTOR(r) at eXp Realty. You serve the South Houston suburbs: League City, Friendswood, Pearland, Clear Lake, Dickinson, and Manvel.\n\n' +
@@ -1000,58 +1035,74 @@ async function _handlerInner(event) {
       '  "cantTell": "Two sentences max. What Phils in-person walkthrough covers that this tool cannot. End with a line about booking a call with Phil."\n' +
       '}';
   } else {
+    var buyerSnapDom = marketStats && marketStats.recent && marketStats.recent.medDom != null
+      ? marketStats.recent.medDom + ' days' : (area.city + ' market estimate');
+    var buyerSnapLts = marketStats && marketStats.recent && marketStats.recent.avgLts != null
+      ? marketStats.recent.avgLts.toFixed(1) + '%' : 'market estimate';
+    var buyerSnapInventory = marketStats ? (marketStats.temp === 'Hot' || marketStats.temp === 'Warm' ? 'Low' : marketStats.temp === 'Balanced' ? 'Balanced' : 'High') : 'Balanced';
+    var buyerSnapMarket    = marketStats ? (marketStats.temp === 'Hot' ? "Seller's Market" : marketStats.temp === 'Warm' ? "Seller's Market (Cooling)" : marketStats.temp === 'Balanced' ? 'Balanced Market' : "Buyer's Market") : 'Balanced Market';
+
+    var verdictContext = verdict
+      ? 'Pricing verdict: ' + (verdict === 'above' ? verdictPct + '% above market value' : verdict === 'below' ? Math.abs(verdictPct) + '% below market — potential deal' : 'fairly priced at market') + '\n'
+      : '';
+    var offerContext = offerRangeLow
+      ? 'Data-based offer range: $' + offerRangeLow.toLocaleString() + ' – $' + offerRangeHigh.toLocaleString() + '\n'
+      : '';
+
     userPrompt =
-      'Generate a MarketIQ(tm) Buyer Market Report for this property:\n\n' +
-      'Address: ' + address + ' | ZIP: ' + zip + '\n' +
-      'Budget: ' + (budget || 'not specified') + ' | Minimum Bedrooms: ' + beds + '\n' +
+      'Generate a MarketIQ(tm) Buyer Offer Analysis for this specific property:\n\n' +
+      'Address: ' + address + '\n' +
+      'List Price: $' + (listPrice ? listPrice.toLocaleString() : 'not provided') + '\n' +
+      'Property: ' + beds + ' bed / ' + baths + ' bath / ' + (sqft || 'unknown') + ' sf / ' + (pool ? 'Pool' : 'No pool') + '\n' +
       'School District: ' + area.district + '\n' +
-      compBlock + '\n' +
-      'Return ONLY this JSON structure -- no other text:\n\n' +
+      verdictContext + offerContext +
+      compBlock + statsBlock + '\n' +
+      'Return ONLY this JSON -- no markdown, no code fences:\n\n' +
       '{\n' +
       '  "snapshot": {\n' +
-      '    "dom": "estimate for this ZIP",\n' +
-      '    "listToSale": "estimate",\n' +
-      '    "inventory": "Low / Balanced / High",\n' +
-      '    "market": "High / Moderate / Low competition",\n' +
-      '    "summary": "One punchy sentence max 20 words what a buyer needs to know right now"\n' +
+      '    "dom": "' + buyerSnapDom + '",\n' +
+      '    "listToSale": "' + buyerSnapLts + '",\n' +
+      '    "inventory": "' + buyerSnapInventory + '",\n' +
+      '    "market": "' + buyerSnapMarket + '",\n' +
+      '    "summary": "One punchy sentence max 20 words — what a buyer needs to know about this market right now"\n' +
       '  },\n' +
+      '  "signals": [\n' +
+      '    { "type": "positive OR caution OR warning", "text": "specific market signal relevant to this buyer max 15 words" },\n' +
+      '    { "type": "positive OR caution OR warning", "text": "another signal max 15 words" },\n' +
+      '    { "type": "positive OR caution OR warning", "text": "another signal max 15 words" },\n' +
+      '    { "type": "positive OR caution OR warning", "text": "another signal max 15 words" }\n' +
+      '  ],\n' +
       '  "strategies": [\n' +
       '    {\n' +
       '      "name": "Win It",\n' +
-      '      "price": "' + (hasCompData ? '$' + priceMkt.toLocaleString() : '$[your estimate]') + ' or above",\n' +
-      '      "row1": { "label": "When to use", "text": "max 12 words" },\n' +
-      '      "row2": { "label": "What to include", "text": "max 12 words" },\n' +
-      '      "row3": { "label": "Risk", "text": "max 10 words" }\n' +
+      '      "price": "' + (offerRangeHigh ? '$' + (offerRangeHigh + 5000).toLocaleString() + '+' : '$[above market]') + '",\n' +
+      '      "row1": { "label": "When to use", "text": "hot competition or must-have home max 12 words" },\n' +
+      '      "row2": { "label": "Include",     "text": "escalation clause, short option period max 12 words" },\n' +
+      '      "row3": { "label": "Risk",        "text": "may overpay if no competing offers max 10 words" }\n' +
       '    },\n' +
       '    {\n' +
       '      "name": "Clean Offer",\n' +
-      '      "price": "' + (hasCompData ? '$' + priceMkt.toLocaleString() : '$[your estimate]') + '",\n' +
-      '      "row1": { "label": "When to use", "text": "max 12 words" },\n' +
-      '      "row2": { "label": "What to include", "text": "max 12 words" },\n' +
-      '      "row3": { "label": "Risk", "text": "max 10 words" }\n' +
+      '      "price": "' + (offerRangeHigh ? '$' + offerRangeHigh.toLocaleString() : '$[market value]') + '",\n' +
+      '      "row1": { "label": "When to use", "text": "moderate competition, strong terms win max 12 words" },\n' +
+      '      "row2": { "label": "Include",     "text": "standard contingencies, flexible close date max 12 words" },\n' +
+      '      "row3": { "label": "Risk",        "text": "may lose in multi-offer situation max 10 words" }\n' +
       '    },\n' +
       '    {\n' +
-      '      "name": "Test the Seller",\n' +
-      '      "price": "' + (hasCompData ? '$' + priceLow.toLocaleString() : '$[your estimate]') + '",\n' +
-      '      "row1": { "label": "When to use", "text": "max 12 words" },\n' +
-      '      "row2": { "label": "What to include", "text": "max 12 words" },\n' +
-      '      "row3": { "label": "Risk", "text": "max 10 words" }\n' +
+      '      "name": "Negotiate",\n' +
+      '      "price": "' + (offerRangeLow ? '$' + offerRangeLow.toLocaleString() : '$[below list]') + '",\n' +
+      '      "row1": { "label": "When to use", "text": "property sitting or overpriced max 12 words" },\n' +
+      '      "row2": { "label": "Include",     "text": "standard contingencies, request closing cost help max 12 words" },\n' +
+      '      "row3": { "label": "Risk",        "text": "seller may reject if anchored to list price max 10 words" }\n' +
       '    },\n' +
       '    {\n' +
       '      "name": "Wait & Watch",\n' +
       '      "price": "N/A",\n' +
-      '      "row1": { "label": "When to use", "text": "max 12 words" },\n' +
-      '      "row2": { "label": "What to include", "text": "N/A" },\n' +
-      '      "row3": { "label": "Risk", "text": "max 10 words" }\n' +
+      '      "row1": { "label": "When to use", "text": "significantly overpriced or better options available max 12 words" },\n' +
+      '      "row2": { "label": "Include",     "text": "N/A" },\n' +
+      '      "row3": { "label": "Risk",        "text": "another buyer may move first max 10 words" }\n' +
       '    }\n' +
       '  ],\n' +
-      '  "factors": [\n' +
-      '    { "emoji": "checkmark", "label": "Factor name", "text": "One plain-language sentence max 15 words" },\n' +
-      '    { "emoji": "checkmark", "label": "Factor name", "text": "One sentence" },\n' +
-      '    { "emoji": "lightning", "label": "Factor name", "text": "One sentence" },\n' +
-      '    { "emoji": "warning",   "label": "Factor name", "text": "One sentence" }\n' +
-      '  ],\n' +
-      '  "cantTell": "Two sentences max. What Phils in-person walkthrough covers that this tool cannot. End with a line about booking a call with Phil."\n' +
+      '  "cantTell": "Two sentences. What an in-person walkthrough reveals about value that this data cannot show. End with a call to schedule with Phil."\n' +
       '}';
   }
 
@@ -1119,9 +1170,20 @@ async function _handlerInner(event) {
       }
     : null;
 
+  var buyerPayload = !isSeller ? {
+    verdict:        verdict,
+    verdictPct:     verdictPct,
+    listPrice:      listPrice,
+    marketValueLow:  priceLow,
+    marketValueHigh: priceHigh,
+    offerRangeLow:  offerRangeLow,
+    offerRangeHigh: offerRangeHigh,
+    urgencyScore:   urgencyScore,
+  } : null;
+
   return {
     statusCode: 200,
     headers:    headers,
-    body:       JSON.stringify({ report: report, area: area, zip: zip, mode: mode, comps: comps, cma: cmaData, deadZone: deadZone, marketStats: marketStats, _debug: { lat: lat, lon: lon, soldCompsLoaded: loadSoldComps().length } }),
+    body:       JSON.stringify({ report: report, area: area, zip: zip, mode: mode, comps: comps, cma: cmaData, deadZone: deadZone, marketStats: marketStats, buyer: buyerPayload, _debug: { lat: lat, lon: lon, soldCompsLoaded: loadSoldComps().length } }),
   };
 }

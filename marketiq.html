@@ -781,20 +781,34 @@
 
           <!-- BUYER FIELDS -->
           <div id="qualify-buyer" style="display:none;">
-            <p class="miq-qualify-intro">Tell me what you're looking for</p>
+            <p class="miq-qualify-intro">Tell me about this property</p>
 
             <div class="miq-qualify-row">
               <div class="miq-qualify-group">
-                <div class="miq-qualify-label">Max Budget</div>
-                <input type="text" id="buy-budget" class="miq-qualify-input" placeholder="e.g. $450,000" />
+                <div class="miq-qualify-label">List Price <span style="color:#dc322f">*</span></div>
+                <input type="text" id="buy-listprice" class="miq-qualify-input" placeholder="e.g. $450,000" />
               </div>
               <div class="miq-qualify-group">
-                <div class="miq-qualify-label">Min Bedrooms</div>
+                <div class="miq-qualify-label">Square Footage <span style="color:#dc322f">*</span></div>
+                <input type="text" id="buy-sqft" class="miq-qualify-input" placeholder="e.g. 2400" />
+              </div>
+            </div>
+
+            <div class="miq-qualify-row">
+              <div class="miq-qualify-group">
+                <div class="miq-qualify-label">Bedrooms</div>
                 <div class="miq-opt-btns" id="buy-beds-btns">
-                  <button class="miq-opt-btn" onclick="selectOpt('buy-beds-btns','2')">2</button>
-                  <button class="miq-opt-btn selected" onclick="selectOpt('buy-beds-btns','3')">3</button>
-                  <button class="miq-opt-btn" onclick="selectOpt('buy-beds-btns','4')">4</button>
-                  <button class="miq-opt-btn" onclick="selectOpt('buy-beds-btns','5')">5+</button>
+                  <button class="miq-opt-btn" onclick="selectOpt('buy-beds-btns','3')">3</button>
+                  <button class="miq-opt-btn selected" onclick="selectOpt('buy-beds-btns','4')">4</button>
+                  <button class="miq-opt-btn" onclick="selectOpt('buy-beds-btns','5')">5</button>
+                  <button class="miq-opt-btn" onclick="selectOpt('buy-beds-btns','6')">6+</button>
+                </div>
+              </div>
+              <div class="miq-qualify-group">
+                <div class="miq-qualify-label">Pool?</div>
+                <div class="miq-opt-btns" id="buy-pool-btns">
+                  <button class="miq-opt-btn selected" onclick="selectOpt('buy-pool-btns','No')">No</button>
+                  <button class="miq-opt-btn" onclick="selectOpt('buy-pool-btns','Yes')">Yes</button>
                 </div>
               </div>
             </div>
@@ -1137,8 +1151,30 @@
       payload.condition = getSelectedOpt('sel-condition-btns') || 'Updated';
       payload.timeline  = getSelectedOpt('sel-timeline-btns')  || '1-3 months';
     } else {
-      payload.budget = document.getElementById('buy-budget').value.trim() || '';
-      payload.beds   = getSelectedOpt('buy-beds-btns') || '3';
+      // List price — required
+      var lpRaw = document.getElementById('buy-listprice').value.trim().replace(/[$,]/g, '');
+      if (!lpRaw || isNaN(parseFloat(lpRaw)) || parseFloat(lpRaw) < 10000) {
+        var lpEl = document.getElementById('buy-listprice');
+        lpEl.style.borderColor = '#c0392b';
+        lpEl.placeholder = 'Required — e.g. 450000';
+        lpEl.focus();
+        setTimeout(function() { lpEl.style.borderColor = ''; }, 2000);
+        return;
+      }
+      // Sqft — required for CMA
+      var bSqftRaw = document.getElementById('buy-sqft').value.trim();
+      if (!bSqftRaw || isNaN(parseFloat(bSqftRaw)) || parseFloat(bSqftRaw) < 100) {
+        var bSqftEl = document.getElementById('buy-sqft');
+        bSqftEl.style.borderColor = '#c0392b';
+        bSqftEl.placeholder = 'Required — e.g. 2400';
+        bSqftEl.focus();
+        setTimeout(function() { bSqftEl.style.borderColor = ''; }, 2000);
+        return;
+      }
+      payload.listPrice = parseFloat(lpRaw);
+      payload.sqft      = bSqftRaw;
+      payload.beds      = getSelectedOpt('buy-beds-btns') || '4';
+      payload.pool      = getSelectedOpt('buy-pool-btns') === 'Yes';
     }
 
     // Pass geocoded lat/lon if user selected from autocomplete dropdown
@@ -1185,7 +1221,7 @@
       }
       console.log('[MIQ] marketStats in response:', JSON.stringify(data.marketStats).slice(0,200));
       console.log('[MIQ] debug:', JSON.stringify(data._debug));
-      renderReport(data.report, data.area, data.zip, data.mode || miqState.mode, data.comps || [], data.avm || null, data.deadZone || null, data.cma || null, data.marketStats || null);
+      renderReport(data.report, data.area, data.zip, data.mode || miqState.mode, data.comps || [], data.avm || null, data.deadZone || null, data.cma || null, data.marketStats || null, data.buyer || null);
     })
     .catch(function(err) {
       stopLoadingAnimation();
@@ -1224,7 +1260,7 @@
   }
 
   /* ── RENDER REPORT (JSON template injection) ─────────────────────── */
-  function renderReport(report, area, zip, mode, comps, avm, deadZone, cma, marketStats) {
+  function renderReport(report, area, zip, mode, comps, avm, deadZone, cma, marketStats, buyerData) {
     var isSeller = (mode || miqState.mode) === 'seller';
 
     // ── Property header
@@ -1245,7 +1281,7 @@
 
     // ── Build report HTML from JSON
     document.getElementById('miq-report-container').innerHTML =
-      buildReportHTML(report, area, zip, isSeller, comps, avm, deadZone, cma, marketStats);
+      buildReportHTML(report, area, zip, isSeller, comps, avm, deadZone, cma, marketStats, buyerData);
 
     // ── CTA content
     if (isSeller) {
@@ -1273,7 +1309,7 @@
      No markdown parsing. Direct JSON injection into pre-built template.
      ═══════════════════════════════════════════════════════════════ */
 
-  function buildReportHTML(r, area, zip, isSeller, comps, avm, deadZone, cma, marketStats) {
+  function buildReportHTML(r, area, zip, isSeller, comps, avm, deadZone, cma, marketStats, buyerData) {
     var html = '';
     comps = comps || [];
 
@@ -1282,7 +1318,12 @@
       html += buildSnapshotHTML(r.snapshot, marketStats, isSeller, area, zip);
     }
 
-    // ── 1b. COMPARABLE SALES TABLE (CMA engine comps) ──────────────────
+    // ── 1b. BUYER VERDICT (buyer mode only) ────────────────────────────
+    if (!isSeller && buyerData) {
+      html += buildBuyerVerdictHTML(buyerData, r.signals || []);
+    }
+
+    // ── 1c. COMPARABLE SALES TABLE (CMA engine comps) ──────────────────
     if (comps.length > 0) {
       var avmBadge = ''; // RentCast AVM removed — CMA engine provides pricing
 
@@ -1369,18 +1410,33 @@
     // Factors checklist removed for seller report
 
     // ── 5. WHAT THIS REPORT CAN'T TELL YOU ─────────────────────────
-    html += '<div class="miq-report-section miq-report-section--cant">' +
-      '<div class="miq-report-section__title">💡 What This Report Can\'t Tell You</div>' +
-      '<p style="font-size:0.95rem;color:var(--dark-gray);line-height:1.8;margin:0 0 0.75rem;">' +
-        'This report is built on hard data — every comp, every price-per-square-foot, every market trend comes directly from MLS sales in your area. But data has limits.' +
-      '</p>' +
-      '<p style="font-size:0.95rem;color:var(--dark-gray);line-height:1.8;margin:0 0 0.75rem;">' +
-        'It can\'t see your outdoor kitchen, your custom finishes, the way your backyard feels on a Saturday afternoon, or the story behind why your home is worth more than the numbers suggest. That\'s where a conversation with a local expert changes everything.' +
-      '</p>' +
-      '<p style="font-size:0.95rem;color:var(--dark-gray);line-height:1.8;margin:0;font-weight:600;">' +
-        'The data gets you in the right ballpark — a great agent gets you to the right number.' +
-      '</p>' +
-    '</div>';
+    if (isSeller) {
+      html += '<div class="miq-report-section miq-report-section--cant">' +
+        '<div class="miq-report-section__title">💡 What This Report Can\'t Tell You</div>' +
+        '<p style="font-size:0.95rem;color:var(--dark-gray);line-height:1.8;margin:0 0 0.75rem;">' +
+          'This report is built on hard data — every comp, every price-per-square-foot, every market trend comes directly from MLS sales in your area. But data has limits.' +
+        '</p>' +
+        '<p style="font-size:0.95rem;color:var(--dark-gray);line-height:1.8;margin:0 0 0.75rem;">' +
+          'It can\'t see your outdoor kitchen, your custom finishes, the way your backyard feels on a Saturday afternoon, or the story behind why your home is worth more than the numbers suggest. That\'s where a conversation with a local expert changes everything.' +
+        '</p>' +
+        '<p style="font-size:0.95rem;color:var(--dark-gray);line-height:1.8;margin:0;font-weight:600;">' +
+          'The data gets you in the right ballpark — a great agent gets you to the right number.' +
+        '</p>' +
+      '</div>';
+    } else {
+      html += '<div class="miq-report-section miq-report-section--cant">' +
+        '<div class="miq-report-section__title">💡 What This Report Can\'t Tell You</div>' +
+        '<p style="font-size:0.95rem;color:var(--dark-gray);line-height:1.8;margin:0 0 0.75rem;">' +
+          'This report tells you what the data knows — comparable sales, market temperature, and whether the price is defensible. But the data can\'t walk through the front door.' +
+        '</p>' +
+        '<p style="font-size:0.95rem;color:var(--dark-gray);line-height:1.8;margin:0 0 0.75rem;">' +
+          'It can\'t see the condition of the roof, how the neighborhood sounds on a weekday morning, whether the seller is motivated, or what\'s been disclosed and what hasn\'t. Those things move the number just as much as the comps do.' +
+        '</p>' +
+        '<p style="font-size:0.95rem;color:var(--dark-gray);line-height:1.8;margin:0;font-weight:600;">' +
+          'The data tells you what to offer. A great agent tells you whether you should.' +
+        '</p>' +
+      '</div>';
+    }
 
     // Flood zone removed for seller report
 
@@ -1393,6 +1449,92 @@
     '</p>';
 
     return html;
+  }
+
+  /* ── BUYER VERDICT BUILDER ──────────────────────────────────────── */
+  function buildBuyerVerdictHTML(bd, signals) {
+    if (!bd || !bd.listPrice) return '';
+    var listPrice = bd.listPrice;
+    var mvLow     = bd.marketValueLow  || 0;
+    var mvHigh    = bd.marketValueHigh || 0;
+    var offerLow  = bd.offerRangeLow   || 0;
+    var offerHigh = bd.offerRangeHigh  || 0;
+    var verdict   = bd.verdict || 'fair';
+    var pct       = Math.abs(bd.verdictPct || 0);
+    var urgency   = bd.urgencyScore || 50;
+
+    var verdictLabel, verdictClass, verdictBg, verdictColor;
+    if (verdict === 'above') {
+      verdictLabel = pct + '% above market';
+      verdictBg    = '#fef2f2'; verdictColor = '#991b1b';
+    } else if (verdict === 'below') {
+      verdictLabel = pct + '% below market — potential deal';
+      verdictBg    = '#eff6ff'; verdictColor = '#1e40af';
+    } else {
+      verdictLabel = 'Fairly priced at market';
+      verdictBg    = '#f0fdf4'; verdictColor = '#166534';
+    }
+
+    var urgencyLabel = urgency >= 70 ? 'High — move quickly' : urgency >= 40 ? 'Moderate' : 'Low — you have leverage';
+    var urgencyWidth = urgency + '%';
+    var urgencyColor = urgency >= 70 ? '#dc2626' : urgency >= 40 ? '#d97706' : '#16a34a';
+
+    var signalIcons = { 'positive': '✓', 'caution': '⚠', 'warning': '⚑' };
+    var signalColors = { 'positive': '#16a34a', 'caution': '#d97706', 'warning': '#dc2626' };
+    var signalsHtml = (signals || []).map(function(s) {
+      var ic = signalIcons[s.type] || '·';
+      var sc = signalColors[s.type] || 'var(--dark-gray)';
+      return '<div style="display:flex;align-items:flex-start;gap:10px;font-size:0.88rem;color:var(--dark-gray);line-height:1.55;margin-bottom:0.5rem;">' +
+        '<span style="color:' + sc + ';font-weight:700;font-size:1rem;flex-shrink:0;margin-top:-1px;">' + ic + '</span>' +
+        '<span>' + escHtml(s.text) + '</span>' +
+      '</div>';
+    }).join('');
+
+    return '<div class="miq-report-section" style="padding:0;overflow:hidden;">' +
+
+      // Verdict header
+      '<div style="padding:1.1rem 1.4rem 1rem;border-bottom:1px solid rgba(0,0,0,0.07);">' +
+        '<div style="display:flex;align-items:center;gap:10px;margin-bottom:1rem;flex-wrap:wrap;">' +
+          '<span style="font-size:1rem;font-weight:700;color:var(--navy);">Is this home fairly priced?</span>' +
+          '<span style="font-size:0.78rem;font-weight:700;padding:4px 12px;border-radius:20px;background:' + verdictBg + ';color:' + verdictColor + ';">' + verdictLabel + '</span>' +
+        '</div>' +
+
+        // Price comparison row
+        '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:1rem;">' +
+          '<div style="text-align:center;padding:0.7rem 0.5rem;border-radius:8px;background:var(--off-white);">' +
+            '<div style="font-size:0.72rem;color:var(--mid-gray);margin-bottom:0.2rem;">List price</div>' +
+            '<div style="font-size:1.05rem;font-weight:700;color:var(--navy);">$' + listPrice.toLocaleString() + '</div>' +
+            '<div style="font-size:0.7rem;color:var(--mid-gray);">Seller\'s ask</div>' +
+          '</div>' +
+          '<div style="text-align:center;padding:0.7rem 0.5rem;border-radius:8px;background:var(--off-white);border:2px solid var(--teal);">' +
+            '<div style="font-size:0.72rem;color:var(--mid-gray);margin-bottom:0.2rem;">Market value</div>' +
+            '<div style="font-size:1.05rem;font-weight:700;color:var(--navy);">' + (mvLow ? '$' + mvLow.toLocaleString() + '–$' + mvHigh.toLocaleString() : '—') + '</div>' +
+            '<div style="font-size:0.7rem;color:var(--mid-gray);">Based on comps</div>' +
+          '</div>' +
+          '<div style="text-align:center;padding:0.7rem 0.5rem;border-radius:8px;background:var(--off-white);">' +
+            '<div style="font-size:0.72rem;color:var(--mid-gray);margin-bottom:0.2rem;">Suggested offer</div>' +
+            '<div style="font-size:1.05rem;font-weight:700;color:var(--navy);">' + (offerLow ? '$' + offerLow.toLocaleString() + '–$' + offerHigh.toLocaleString() : '—') + '</div>' +
+            '<div style="font-size:0.7rem;color:var(--mid-gray);">Data-based range</div>' +
+          '</div>' +
+        '</div>' +
+
+        // Urgency bar
+        '<div style="display:flex;align-items:center;gap:10px;margin-bottom:0.3rem;">' +
+          '<div style="font-size:0.72rem;color:var(--mid-gray);width:65px;flex-shrink:0;">Urgency</div>' +
+          '<div style="flex:1;height:6px;background:var(--off-white);border-radius:3px;overflow:hidden;">' +
+            '<div style="height:100%;width:' + urgencyWidth + ';background:' + urgencyColor + ';border-radius:3px;"></div>' +
+          '</div>' +
+          '<div style="font-size:0.72rem;color:var(--mid-gray);white-space:nowrap;">' + urgencyLabel + '</div>' +
+        '</div>' +
+      '</div>' +
+
+      // Signals
+      (signalsHtml ? '<div style="padding:1rem 1.4rem;">' +
+        '<div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:var(--mid-gray);margin-bottom:0.75rem;">What the market is telling you</div>' +
+        signalsHtml +
+      '</div>' : '') +
+
+    '</div>';
   }
 
   /* ── DEAD ZONE BUILDER ──────────────────────────────────────────── */
