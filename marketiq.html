@@ -314,6 +314,25 @@
       border-top: 1px solid rgba(255,255,255,0.1);
     }
 
+    /* ─── BUYER STRATEGY NOTES ─────────────────────────────────── */
+    .miq-buyer-strategy-notes {
+      margin-top: 1.5rem; padding: 1.25rem 1.5rem;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 10px;
+      display: flex; flex-direction: column; gap: 1rem;
+    }
+    .miq-buyer-strategy-notes__row {
+      display: flex; gap: 0.85rem; align-items: flex-start;
+      font-size: 0.88rem; color: rgba(255,255,255,0.75); line-height: 1.65;
+    }
+    .miq-buyer-strategy-notes__icon {
+      font-size: 1.1rem; flex-shrink: 0; margin-top: 0.05rem;
+    }
+    .miq-buyer-strategy-notes__row strong {
+      color: rgba(255,255,255,0.92);
+    }
+
     /* ─── KEY FACTORS LIST ──────────────────────────────────────── */
     .miq-report-list {
       list-style: none; padding: 0; margin: 0;
@@ -1395,10 +1414,28 @@
       html += '<div class="miq-strategies-wrap">' +
         '<div class="miq-strategies-eyebrow">Your ' + stratLabel + '</div>' +
         '<div class="miq-strategies-title">' +
-          (isSeller ? 'Three ways to approach your list price.' : 'Four ways to approach your offer.') +
+          (isSeller ? 'Three ways to approach your list price.' : 'Three ways to approach your offer.') +
         '</div>' +
         '<div class="miq-strategies-grid">' + cardsHtml + '</div>' +
         '<p class="miq-strategies-disclosure">' + disc + '</p>' +
+        (!isSeller ? '<div class="miq-buyer-strategy-notes">' +
+          '<div class="miq-buyer-strategy-notes__row">' +
+            '<span class="miq-buyer-strategy-notes__icon">🛡️</span>' +
+            '<div><strong>Protect yourself with contingencies.</strong> Always include an inspection period (option period in Texas) and a financing contingency unless you\'re paying cash and waiving voluntarily. These are your exit ramps if something unexpected surfaces.</div>' +
+          '</div>' +
+          '<div class="miq-buyer-strategy-notes__row">' +
+            '<span class="miq-buyer-strategy-notes__icon">📋</span>' +
+            '<div><strong>Ask for a Seller\'s Disclosure.</strong> Texas law requires sellers to disclose known defects. Review it carefully — it often reveals repairs, flood history, or HOA issues that affect your offer.</div>' +
+          '</div>' +
+          '<div class="miq-buyer-strategy-notes__row">' +
+            '<span class="miq-buyer-strategy-notes__icon">🏦</span>' +
+            '<div><strong>Get pre-approved before you offer.</strong> A pre-approval letter makes your offer credible in any market condition. In competitive situations, it can be the difference between accepted and ignored.</div>' +
+          '</div>' +
+          '<div class="miq-buyer-strategy-notes__row">' +
+            '<span class="miq-buyer-strategy-notes__icon">💬</span>' +
+            '<div><strong>The data tells you what to offer. A great agent tells you how to win.</strong> Pricing strategy is only half the equation — terms, timing, and relationship with the listing agent matter just as much. Let\'s talk before you write the offer.</div>' +
+          '</div>' +
+        '</div>' : '') +
       '</div>';
     }
 
@@ -1619,9 +1656,9 @@
 
     // ── location header
     var locParts = [];
-    if (area) locParts.push(area);
-    if (zip)  locParts.push(zip);
-    var locStr = locParts.length ? ' — ' + locParts.join(', TX ') : '';
+    if (area && area.city) locParts.push(area.city);
+    if (zip)               locParts.push('TX ' + zip);
+    var locStr = locParts.length ? ' — ' + locParts.join(', ') : '';
 
     // ── market temp badge
     var tClass = 'balanced';

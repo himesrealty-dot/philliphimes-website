@@ -1081,7 +1081,7 @@ async function _handlerInner(event) {
       '      "row3": { "label": "Risk",        "text": "may overpay if no competing offers max 10 words" }\n' +
       '    },\n' +
       '    {\n' +
-      '      "name": "Clean Offer",\n' +
+      '      "name": "Market Offer",\n' +
       '      "price": "' + (offerRangeHigh ? '$' + offerRangeHigh.toLocaleString() : '$[market value]') + '",\n' +
       '      "row1": { "label": "When to use", "text": "moderate competition, strong terms win max 12 words" },\n' +
       '      "row2": { "label": "Include",     "text": "standard contingencies, flexible close date max 12 words" },\n' +
@@ -1093,13 +1093,6 @@ async function _handlerInner(event) {
       '      "row1": { "label": "When to use", "text": "property sitting or overpriced max 12 words" },\n' +
       '      "row2": { "label": "Include",     "text": "standard contingencies, request closing cost help max 12 words" },\n' +
       '      "row3": { "label": "Risk",        "text": "seller may reject if anchored to list price max 10 words" }\n' +
-      '    },\n' +
-      '    {\n' +
-      '      "name": "Wait & Watch",\n' +
-      '      "price": "N/A",\n' +
-      '      "row1": { "label": "When to use", "text": "significantly overpriced or better options available max 12 words" },\n' +
-      '      "row2": { "label": "Include",     "text": "N/A" },\n' +
-      '      "row3": { "label": "Risk",        "text": "another buyer may move first max 10 words" }\n' +
       '    }\n' +
       '  ],\n' +
       '  "cantTell": "Two sentences. What an in-person walkthrough reveals about value that this data cannot show. End with a call to schedule with Phil."\n' +
