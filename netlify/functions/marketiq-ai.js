@@ -280,11 +280,12 @@ function median(arr) {
 }
 
 // ─── MARKET STATS: real comp-based snapshot ───────────────────────────────────
-function getMarketStats(subject, soldComps) {
+function getMarketStats(subject) {
   // Market stats measure macro neighborhood health — distance only, no hard-feature filtering
   // (passesHard is too strict for gated/water properties; market conditions are area-wide)
   const RADIUS_MI = 5.0;
 
+  const soldComps = loadSoldComps();   // uses module-level cache
   const nearby = soldComps.filter(c =>
     haversine(c.lat, c.lon, subject.lat, subject.lon) <= RADIUS_MI
   );
@@ -313,9 +314,18 @@ function getMarketStats(subject, soldComps) {
     };
   }
 
-  const recentStats = bucketStats(recent);
-  const priorStats  = bucketStats(prior);
-  if (!recentStats) return null;
+  let recentStats, priorStats;
+  try {
+    recentStats = bucketStats(recent);
+    priorStats  = bucketStats(prior);
+  } catch (buckErr) {
+    console.error('getMarketStats bucketStats error:', buckErr.message, buckErr.stack);
+    return null;
+  }
+  if (!recentStats) {
+    console.log('getMarketStats: no recent comps (nearby=' + nearby.length + ', recent=' + recent.length + ')');
+    return null;
+  }
 
   const ppsfChgPct = priorStats && priorStats.avgPpsf
     ? parseFloat(((recentStats.avgPpsf - priorStats.avgPpsf) / priorStats.avgPpsf * 100).toFixed(1))
@@ -853,7 +863,7 @@ exports.handler = async function(event) {
     }
 
     try {
-      marketStats = getMarketStats(subject, sold);
+      marketStats = getMarketStats(subject);
       console.log('MarketIQ market stats: temp=' + (marketStats ? marketStats.temp : 'n/a') + ', medDom=' + (marketStats ? (marketStats.recent && marketStats.recent.medDom) : 'n/a'));
     } catch (e) {
       console.error('Market stats error:', e.message);

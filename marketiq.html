@@ -1080,6 +1080,12 @@
       payload.beds   = getSelectedOpt('buy-beds-btns') || '3';
     }
 
+    // Pass geocoded lat/lon if user selected from autocomplete dropdown
+    if (miqState.addressLatLng) {
+      payload.lat = miqState.addressLatLng.lat;
+      payload.lon = miqState.addressLatLng.lng;
+    }
+
     // Show loading, hide everything else
     document.getElementById('miq-error').classList.remove('show');
     document.getElementById('miq-results').classList.remove('show');
@@ -1130,6 +1136,7 @@
     document.getElementById('miq-results').classList.remove('show');
     document.getElementById('miq-error').classList.remove('show');
     document.getElementById('miq-loading').classList.remove('show');
+    miqState.addressLatLng = null;
     window.scrollTo({ top: 0, behavior: 'smooth' });
     setTimeout(function() {
       document.getElementById('miq-address').focus();
