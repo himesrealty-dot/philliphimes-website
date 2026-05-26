@@ -576,12 +576,17 @@ function runPhase(subject, sold, maxDist, maxDays, tight, adjustments,
 }
 
 // ─── CMA PHASES ───────────────────────────────────────────────────────────────
+// Community phases run first and exhaust all neighborhood options before going outside.
+// "tight" = hard filter on sqft/yr/beds; "adj" = adjustments applied for adjustable traits.
+// We stay in-community as long as possible — traits we can adjust (sqft, beds, pool, stories)
+// should never be a reason to leave the neighborhood.
 const BASE_PHASES = [
-  { label: 'Ph1: Same community, 90d, tight',   commOnly: true,  maxDist: 2.0, maxDays:  90, tight: true,  adj: false },
-  { label: 'Ph2: Same community, 180d, adj',    commOnly: true,  maxDist: 2.0, maxDays: 180, tight: false, adj: true  },
-  { label: 'Ph3: 2mi, 90d, tight',              commOnly: false, maxDist: 2.0, maxDays:  90, tight: true,  adj: false },
-  { label: 'Ph4: 2mi, 90d, adj',                commOnly: false, maxDist: 2.0, maxDays:  90, tight: false, adj: true  },
-  { label: 'Ph5: 4mi, 180d, adj',               commOnly: false, maxDist: 4.0, maxDays: 180, tight: false, adj: true  },
+  { label: 'Ph1: Same community, 90d, tight',  commOnly: true,  maxDist: 2.0, maxDays:  90, tight: true,  adj: false },
+  { label: 'Ph2: Same community, 90d, adj',    commOnly: true,  maxDist: 2.0, maxDays:  90, tight: false, adj: true  },
+  { label: 'Ph3: Same community, 180d, adj',   commOnly: true,  maxDist: 2.0, maxDays: 180, tight: false, adj: true  },
+  { label: 'Ph4: 2mi, 90d, tight',             commOnly: false, maxDist: 2.0, maxDays:  90, tight: true,  adj: false },
+  { label: 'Ph5: 2mi, 90d, adj',               commOnly: false, maxDist: 2.0, maxDays:  90, tight: false, adj: true  },
+  { label: 'Ph6: 4mi, 180d, adj',              commOnly: false, maxDist: 4.0, maxDays: 180, tight: false, adj: true  },
 ];
 const THIN_PHASE = {
   label: 'Ph6: 4mi, 365d, adj [thin market]', commOnly: false, maxDist: 4.0, maxDays: 365, tight: false, adj: true
@@ -591,6 +596,27 @@ const MIN_COMPS = 3;
 
 // ─── MAIN CMA RUNNER ──────────────────────────────────────────────────────────
 function runCma(subject, sold) {
+  // Auto-detect community from nearest sold comps when the caller didn't supply one.
+  // This is the common case for web-form submissions where the community field is blank.
+  if (!subject.community || !subject.community.trim()) {
+    const nearest = sold
+      .filter(c => haversine(c.lat, c.lon, subject.lat, subject.lon) < 0.5)
+      .sort((a, b) => haversine(a.lat, a.lon, subject.lat, subject.lon)
+                    - haversine(b.lat, b.lon, subject.lat, subject.lon));
+    if (nearest.length > 0) {
+      const freq = {};
+      nearest.slice(0, 15).forEach(c => {
+        const n = (c.community || '').trim();
+        if (n) freq[n] = (freq[n] || 0) + 1;
+      });
+      const best = Object.entries(freq).sort((a, b) => b[1] - a[1])[0];
+      if (best) {
+        subject = { ...subject, community: best[0], subd: best[0] };
+        console.log('MarketIQ: auto-detected community →', best[0], '(', best[1], 'of', nearest.slice(0,15).length, 'nearest comps)');
+      }
+    }
+  }
+
   const nearby  = countNearby(subject, sold);
   const thin    = nearby < THIN_THRESHOLD;
   const phases  = thin ? [...BASE_PHASES, THIN_PHASE] : [...BASE_PHASES];
@@ -1145,38 +1171,35 @@ async function _handlerInner(event) {
       adjPpsf:   parseFloat(c.adjPpsf.toFixed(2)),
       daysAgo:   c.daysAgo,
       dom:       c.dom,
+      dist:      parseFloat(c.dist.toFixed(2)),
+      score:     parseFloat(c.score.toFixed(2)),
+      adjNotes:  c.adjNotes || [],
     };
   }) : [];
 
-  var cmaData = cma
-    ? {
-        baseline:    parseFloat(cma.baseline.toFixed(2)),
-        weightedPpsf:parseFloat(cma.wPpsf.toFixed(2)),
-        rangeLow:    parseFloat(cma.rangeLow.toFixed(2)),
-        rangeHigh:   parseFloat(cma.rangeHigh.toFixed(2)),
-        compCount:   cma.compCount,
-        phase:       cma.phase,
-        thinMarket:  cma.thinMarket,
-        priceLow:    priceLow,
-        priceMkt:    priceMkt,
-        priceHigh:   priceHigh,
-      }
-    : null;
-
-  var buyerPayload = !isSeller ? {
-    verdict:        verdict,
-    verdictPct:     verdictPct,
-    listPrice:      listPrice,
-    marketValueLow:  priceLow,
-    marketValueHigh: priceHigh,
-    offerRangeLow:  offerRangeLow,
-    offerRangeHigh: offerRangeHigh,
-    urgencyScore:   urgencyScore,
+  var cmaData = cma ? {
+    baseline:       Math.round(cma.baseline),
+    low:            Math.round(cma.baseline * 0.975 / 5000) * 5000,
+    high:           Math.round(cma.baseline * 1.025 / 5000) * 5000,
+    wPpsf:          parseFloat(cma.wPpsf.toFixed(2)),
+    phase:          cma.phase,
+    comps:          comps,
   } : null;
 
   return {
     statusCode: 200,
     headers:    headers,
-    body:       JSON.stringify({ report: report, area: area, zip: zip, mode: mode, comps: comps, cma: cmaData, deadZone: deadZone, marketStats: marketStats, buyer: buyerPayload, _debug: { lat: lat, lon: lon, soldCompsLoaded: loadSoldComps().length } }),
+    body:       JSON.stringify({
+      report:      report,
+      area:        area,
+      zip:         zip,
+      mode:        mode,
+      comps:       comps,
+      cma:         cmaData,
+      deadZone:    deadZone,
+      marketStats: marketStats,
+      buyer:       buyerPayload,
+      _debug:      { lat: lat, lon: lon, soldCompsLoaded: loadSoldComps().length },
+    }),
   };
 }
