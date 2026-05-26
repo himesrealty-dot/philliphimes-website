@@ -917,8 +917,8 @@ exports.handler = async function(event) {
   if (isSeller) {
     var snapDom       = marketStats && marketStats.recent.medDom    !== null ? marketStats.recent.medDom + ' days'         : '"estimate for ' + area.city + '"';
     var snapLts       = marketStats && marketStats.recent.avgLts     !== null ? marketStats.recent.avgLts.toFixed(1) + '%'  : '"estimate"';
-    var snapInventory = marketStats ? (marketStats.temp === 'Hot' || marketStats.temp === 'Warm' ? 'Low' : marketStats.temp === 'Balanced' ? 'Balanced' : 'High') : '"Low / Balanced / High"';
-    var snapMarket    = marketStats ? (marketStats.temp === 'Hot' ? "Seller\'s Market" : marketStats.temp === 'Warm' ? "Seller\'s Market (Cooling)" : marketStats.temp === 'Balanced' ? 'Balanced Market' : "Buyer\'s Market") : '"Sellers / Balanced / Buyers"';
+    var snapInventory = marketStats ? (marketStats.temp === 'Hot' || marketStats.temp === 'Warm' ? 'Low' : marketStats.temp === 'Balanced' ? 'Balanced' : 'High') : 'Low / Balanced / High';
+    var snapMarket    = marketStats ? (marketStats.temp === 'Hot' ? "Seller's Market" : marketStats.temp === 'Warm' ? "Seller's Market (Cooling)" : marketStats.temp === 'Balanced' ? 'Balanced Market' : "Buyer's Market") : 'Sellers / Balanced / Buyers';
     userPrompt =
       'Generate a MarketIQ(tm) Seller Pricing Report for this property:\n\n' +
       'Address: ' + address + '\n' +

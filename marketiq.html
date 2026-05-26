@@ -752,7 +752,7 @@
           <button class="miq-submit-btn" id="miq-submit-btn" onclick="submitReport()">
             Generate My Report →
           </button>
-          <p class="miq-search-hint">Live comps from RentCast · AI analysis by Claude · South Houston markets</p>
+          <p class="miq-search-hint">MLS comp engine · AI analysis by Claude · South Houston markets</p>
         </div>
 
       </div><!-- /miq-search-card -->
@@ -766,7 +766,7 @@
     <p class="miq-loading__sub">This takes 8–12 seconds — give it a moment.</p>
     <div class="miq-loading__steps">
       <span class="miq-loading__step active" id="lstep-1">Live market data</span>
-      <span class="miq-loading__step" id="lstep-2">RentCast comps</span>
+      <span class="miq-loading__step" id="lstep-2">MLS comps</span>
       <span class="miq-loading__step" id="lstep-3">AI analysis</span>
       <span class="miq-loading__step" id="lstep-4">Building report</span>
     </div>
@@ -1012,7 +1012,7 @@
 
   var loadingMessages = [
     { msg: 'Fetching live market stats for your ZIP…',         step: 1 },
-    { msg: 'Pulling recent comparable sales from RentCast…',   step: 2 },
+    { msg: 'Running comp engine on MLS data…',                  step: 2 },
     { msg: 'Running AI analysis on real comp data…',           step: 3 },
     { msg: 'Calculating your pricing strategies…',             step: 3 },
     { msg: 'Building your personalized report…',               step: 4 }
@@ -1202,41 +1202,28 @@
       html += buildSnapshotHTML(r.snapshot, marketStats, isSeller);
     }
 
-    // ── 1b. COMPARABLE SALES TABLE (when RentCast data is available) ──
+    // ── 1b. COMPARABLE SALES TABLE (CMA engine comps) ──────────────────
     if (comps.length > 0) {
-      var avmBadge = '';
-      if (avm && avm.price) {
-        var lo = avm.low  ? '$' + avm.low.toLocaleString()  : '';
-        var hi = avm.high ? '$' + avm.high.toLocaleString() : '';
-        var range = (lo && hi) ? ' <span style="font-weight:400;color:var(--mid-gray);font-size:0.78rem;">(range: ' + lo + '–' + hi + ')</span>' : '';
-        avmBadge = '<div style="margin-bottom:1rem;padding:0.6rem 1rem;background:rgba(32,137,160,0.07);border:1px solid rgba(32,137,160,0.2);border-radius:var(--radius-lg);display:inline-block;">' +
-          '<span style="font-family:var(--font-heading);font-size:0.68rem;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;color:var(--teal);">RentCast AVM Estimate</span> ' +
-          '<span style="font-family:var(--font-heading);font-weight:800;font-size:1rem;color:var(--navy);">$' + avm.price.toLocaleString() + '</span>' + range +
-        '</div>';
-      }
+      var avmBadge = ''; // RentCast AVM removed — CMA engine provides pricing
 
       var compTitle = isSeller
         ? '🏘️ Recent Comparable Sales'
         : '🏘️ What Similar Homes Sold For';
 
       var rows = comps.map(function(c) {
-        var ppsf = (c.price && c.sqft) ? '$' + Math.round(c.price / c.sqft).toLocaleString() : '—';
-        var addr = c.address ? c.address.replace(/, TX.*$/, '') : '—';
+        var salePrice = c.close || c.net || 0;
+        var ppsf = (salePrice && c.sqft) ? '$' + Math.round(salePrice / c.sqft).toLocaleString() : (c.ppsf ? '$' + c.ppsf : '—');
+        var label = c.community || c.subd || '—';
+        var yr    = c.yr ? ' (' + c.yr + ')' : '';
+        var pool  = c.pool ? ' · Pool' : '';
         return '<tr>' +
-          '<td style="font-weight:600;color:var(--navy);max-width:200px;">' + escHtml(addr) + '</td>' +
-          '<td style="font-weight:700;color:var(--navy);">$' + (c.price ? c.price.toLocaleString() : '—') + '</td>' +
+          '<td style="font-weight:600;color:var(--navy);max-width:200px;">' + escHtml(label + yr + pool) + '</td>' +
+          '<td style="font-weight:700;color:var(--navy);">$' + (salePrice ? salePrice.toLocaleString() : '—') + '</td>' +
           '<td>' + (c.beds || '—') + ' / ' + (c.baths || '—') + '</td>' +
-          '<td>' + (c.sqft ? c.sqft.toLocaleString() : '—') + '</td>' +
+          '<td>' + (c.sqft ? Math.round(c.sqft).toLocaleString() : '—') + '</td>' +
           '<td>' + ppsf + '</td>' +
-          '<td>' + (c.dom !== null ? c.dom + 'd' : '—') + '</td>' +
-          '<td>' +
-            '<div style="display:flex;align-items:center;gap:0.35rem;">' +
-              '<div style="flex:1;height:4px;background:var(--light-gray);border-radius:2px;min-width:40px;">' +
-                '<div style="width:' + (c.match || 0) + '%;height:100%;background:var(--teal);border-radius:2px;"></div>' +
-              '</div>' +
-              '<span style="font-size:0.72rem;color:var(--mid-gray);white-space:nowrap;">' + (c.match || 0) + '%</span>' +
-            '</div>' +
-          '</td>' +
+          '<td>' + (c.dom !== null && c.dom !== undefined ? c.dom + 'd' : (c.daysAgo ? c.daysAgo + 'd ago' : '—')) + '</td>' +
+          '<td style="color:var(--mid-gray);font-size:0.8rem;">' + (c.adjPpsf ? '$' + c.adjPpsf + '/sf adj' : '—') + '</td>' +
         '</tr>';
       }).join('');
 
@@ -1246,18 +1233,18 @@
         '<div class="miq-report-table-wrap">' +
           '<table class="miq-report-table">' +
             '<thead><tr>' +
-              '<th>Address</th>' +
+              '<th>Community / Yr / Pool</th>' +
               '<th>Sale Price</th>' +
               '<th>Bed/Bath</th>' +
               '<th>SqFt</th>' +
               '<th>$/SqFt</th>' +
               '<th>DOM</th>' +
-              '<th>Match</th>' +
+              '<th>Adj $/SqFt</th>' +
             '</tr></thead>' +
             '<tbody>' + rows + '</tbody>' +
           '</table>' +
         '</div>' +
-        '<p style="font-size:0.72rem;color:var(--mid-gray);margin:0.75rem 0 0;line-height:1.5;">Source: RentCast · Comparable sales within radius, sorted by similarity to subject property.</p>' +
+        '<p style="font-size:0.72rem;color:var(--mid-gray);margin:0.75rem 0 0;line-height:1.5;">Source: MLS · Top comparable sales from MarketIQ comp engine, ranked by similarity score.</p>' +
       '</div>';
     }
 
@@ -1460,7 +1447,7 @@
       var r = ms.recent;
       // Row 1: core market metrics with trends
       var domVal  = r.medDom    !== null ? r.medDom + 'd'  : (s.dom         || '—');
-      var ltsVal  = r.avgLts    !== null ? r.avgLts.toFixed(1) + '%' : (s.listToSale || '—');
+      var ltsVal  = r.avgLts    != null  ? r.avgLts.toFixed(1) + '%' : (s.listToSale || '—');
       var ppsfVal = r.medPpsf   !== null ? '$' + r.medPpsf + '/sf'   : '—';
       var mktVal  = ms.temp === 'Hot' ? "Sellers'" : ms.temp === 'Warm' ? "Sellers' (Cooling)" : ms.temp === 'Balanced' ? 'Balanced' : "Buyers'";
 
