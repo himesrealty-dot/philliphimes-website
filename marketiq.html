@@ -754,8 +754,8 @@
 
             <div class="miq-qualify-row">
               <div class="miq-qualify-group">
-                <div class="miq-qualify-label">Square Footage (approx.)</div>
-                <input type="text" id="sel-sqft" class="miq-qualify-input" placeholder="e.g. 2400" />
+                <div class="miq-qualify-label">Square Footage (approx.) <span style="color:#dc322f">*</span></div>
+                <input type="text" id="sel-sqft" class="miq-qualify-input" placeholder="e.g. 2400" required />
               </div>
             </div>
 
@@ -1124,7 +1124,16 @@
     if (miqState.mode === 'seller') {
       payload.beds      = getSelectedOpt('sel-beds-btns')     || '4';
       payload.baths     = getSelectedOpt('sel-baths-btns')    || '2.5';
-      payload.sqft      = document.getElementById('sel-sqft').value.trim() || '';
+      var sqftVal = document.getElementById('sel-sqft').value.trim();
+      if (!sqftVal || isNaN(parseFloat(sqftVal)) || parseFloat(sqftVal) < 100) {
+        var sqftEl = document.getElementById('sel-sqft');
+        sqftEl.style.borderColor = '#c0392b';
+        sqftEl.placeholder = 'Required — e.g. 2400';
+        sqftEl.focus();
+        setTimeout(function() { sqftEl.style.borderColor = ''; }, 2000);
+        return;
+      }
+      payload.sqft      = sqftVal;
       payload.condition = getSelectedOpt('sel-condition-btns') || 'Updated';
       payload.timeline  = getSelectedOpt('sel-timeline-btns')  || '1-3 months';
     } else {
@@ -1357,24 +1366,7 @@
       html += buildDeadZoneHTML(deadZone, cma);
     }
 
-    // ── 4. FACTORS CHECKLIST ────────────────────────────────────────
-    if (r.factors && r.factors.length) {
-      var factorTitle = isSeller ? '🔑 What Affects Your Price' : '🔑 What to Know Before You Offer';
-      var factorsHtml = r.factors.map(function(f) {
-        return '<div class="miq-factor-item">' +
-          '<span class="miq-factor-item__emoji">' + (f.emoji || '•') + '</span>' +
-          '<div class="miq-factor-item__body">' +
-            '<strong>' + escHtml(f.label) + '</strong> ' +
-            escHtml(f.text) +
-          '</div>' +
-        '</div>';
-      }).join('');
-
-      html += '<div class="miq-report-section">' +
-        '<div class="miq-report-section__title">' + factorTitle + '</div>' +
-        '<div class="miq-factors-list">' + factorsHtml + '</div>' +
-      '</div>';
-    }
+    // Factors checklist removed for seller report
 
     // ── 5. WHAT THIS REPORT CAN'T TELL YOU ─────────────────────────
     if (r.cantTell) {
@@ -1386,16 +1378,7 @@
       '</div>';
     }
 
-    // ── 6. STATIC FLOOD DISCLOSURE ──────────────────────────────────
-    if (area && area.flood) {
-      html += '<div class="miq-report-section" style="border-left:3px solid rgba(32,137,160,0.4);border-radius:0 var(--radius-xl) var(--radius-xl) 0;background:rgba(32,137,160,0.03);">' +
-        '<div class="miq-report-section__title" style="font-size:0.82rem;">🌊 Flood Zone Note</div>' +
-        '<p style="font-size:0.84rem;color:var(--dark-gray);line-height:1.65;margin:0;">' +
-          escHtml(area.flood) +
-          ' Always verify the specific parcel on the <a href="https://msc.fema.gov/portal/home" target="_blank" rel="noopener" style="color:var(--teal);">FEMA Flood Map Service Center</a>.' +
-        '</p>' +
-      '</div>';
-    }
+    // Flood zone removed for seller report
 
     // ── 6. STATIC DISCLAIMER ────────────────────────────────────────
     html += '<p style="font-size:0.72rem;color:var(--mid-gray);line-height:1.6;text-align:center;padding:0 1rem;">' +
