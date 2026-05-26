@@ -826,6 +826,17 @@ exports.handler = async function(event) {
   var marketStats = null;
   var compContext = '';
 
+  // Market stats only need lat/lon — run whenever we have coordinates
+  if (lat && lon) {
+    try {
+      marketStats = getMarketStats({ lat: lat, lon: lon });
+      console.log('MarketIQ market stats: temp=' + (marketStats ? marketStats.temp : 'n/a') + ', medDom=' + (marketStats ? (marketStats.recent && marketStats.recent.medDom) : 'n/a'));
+    } catch (e) {
+      console.error('Market stats error:', e.message);
+    }
+  }
+
+  // CMA + dead zone require sqft as well
   if (lat && lon && sqft && parseFloat(sqft) > 100) {
     var toBool = function(v) { return v === true || v === 'true' || v === '1' || v === 'yes'; };
     var subject = {
@@ -862,14 +873,10 @@ exports.handler = async function(event) {
       console.error('Dead zone error:', e.message);
     }
 
-    try {
-      marketStats = getMarketStats(subject);
-      console.log('MarketIQ market stats: temp=' + (marketStats ? marketStats.temp : 'n/a') + ', medDom=' + (marketStats ? (marketStats.recent && marketStats.recent.medDom) : 'n/a'));
-    } catch (e) {
-      console.error('Market stats error:', e.message);
-    }
+  } else if (!lat || !lon) {
+    console.log('MarketIQ: skipping CMA -- missing lat/lon');
   } else {
-    console.log('MarketIQ: skipping CMA -- missing lat/lon or sqft');
+    console.log('MarketIQ: skipping CMA -- missing sqft');
   }
 
   var hasCompData = !!cma;
