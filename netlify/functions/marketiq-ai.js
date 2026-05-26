@@ -898,25 +898,27 @@ exports.handler = async function(event) {
     var r  = ms.recent;
     var tempLabel = ms.temp === 'Hot' ? "Seller's Market" : ms.temp === 'Warm' ? "Seller's Market (Cooling)" : ms.temp === 'Balanced' ? 'Balanced Market' : "Buyer's Market";
     statsBlock =
-      '\n\n--- REAL MARKET DATA (4-mile radius, last 90 days, ' + r.n + ' sales) ---\n' +
+      '\n\n--- MARKET CONTEXT (for snapshot summary only — DO NOT use for pricing) ---\n' +
       'Market Temperature: ' + ms.temp + ' (' + tempLabel + ')\n' +
       'Median Days on Market: ' + (r.medDom !== null ? r.medDom + ' days' : 'n/a') +
         (ms.domChgDays !== null ? ' (' + (ms.domChgDays > 0 ? '+' : '') + ms.domChgDays + ' vs prior 90d)' : '') + '\n' +
       'Avg List-to-Sale Ratio: ' + (r.avgLts !== null ? r.avgLts.toFixed(1) + '%' : 'n/a') +
         (ms.ltsChgPts !== null ? ' (' + (ms.ltsChgPts > 0 ? '+' : '') + ms.ltsChgPts + 'pts vs prior 90d)' : '') + '\n' +
-      'Median Price/SF: $' + r.medPpsf + '/sf' +
-        (ms.ppsfChgPct !== null ? ' (' + (ms.ppsfChgPct > 0 ? '+' : '') + ms.ppsfChgPct + '% vs prior 90d)' : '') + '\n' +
       'Sales Velocity: ' + r.velocityPerMonth + ' homes/month\n' +
       'Fast Sales (≤30 days): ' + (r.fastPct !== null ? r.fastPct + '%' : 'n/a') + ' of sales\n' +
       'Listing Success Rate: ' + (ms.successRate !== null ? ms.successRate + '%' : 'n/a') + ' of listings sold in 12mo\n' +
-      'INSTRUCTION: Use these EXACT numbers in the snapshot section. Do not estimate -- the data is provided.\n' +
-      '--- END MARKET DATA ---\n';
+      'CRITICAL: These are broad area stats. For pricing strategy prices, use ONLY the comp engine data above.\n' +
+      '--- END MARKET CONTEXT ---\n';
   }
 
   var userPrompt;
   if (isSeller) {
-    var snapDom       = marketStats && marketStats.recent.medDom    !== null ? marketStats.recent.medDom + ' days'         : '"estimate for ' + area.city + '"';
-    var snapLts       = marketStats && marketStats.recent.avgLts     !== null ? marketStats.recent.avgLts.toFixed(1) + '%'  : '"estimate"';
+    var snapDom = marketStats && marketStats.recent && marketStats.recent.medDom != null
+      ? marketStats.recent.medDom + ' days'
+      : (area.city + ' market estimate');
+    var snapLts = marketStats && marketStats.recent && marketStats.recent.avgLts != null
+      ? marketStats.recent.avgLts.toFixed(1) + '%'
+      : 'market estimate';
     var snapInventory = marketStats ? (marketStats.temp === 'Hot' || marketStats.temp === 'Warm' ? 'Low' : marketStats.temp === 'Balanced' ? 'Balanced' : 'High') : 'Low / Balanced / High';
     var snapMarket    = marketStats ? (marketStats.temp === 'Hot' ? "Seller's Market" : marketStats.temp === 'Warm' ? "Seller's Market (Cooling)" : marketStats.temp === 'Balanced' ? 'Balanced Market' : "Buyer's Market") : 'Sellers / Balanced / Buyers';
     userPrompt =
