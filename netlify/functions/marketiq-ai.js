@@ -1177,6 +1177,18 @@ async function _handlerInner(event) {
     };
   }) : [];
 
+  // ── BUYER PAYLOAD ────────────────────────────────────────────────────────
+  var buyerPayload = !isSeller ? {
+    verdict:         verdict,
+    verdictPct:      verdictPct,
+    listPrice:       listPrice,
+    marketValueLow:  priceLow,
+    marketValueHigh: priceHigh,
+    offerRangeLow:   offerRangeLow,
+    offerRangeHigh:  offerRangeHigh,
+    urgencyScore:    urgencyScore,
+  } : null;
+
   var cmaData = cma ? {
     baseline:       Math.round(cma.baseline),
     low:            Math.round(cma.baseline * 0.975 / 5000) * 5000,
