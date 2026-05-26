@@ -127,6 +127,7 @@ function loadSoldComps() {
         closeDate: closeDateStr,
         dom:   r.DOM  || '',
         city:  (r.City || '').trim(),
+        orig:  parseFloat(r.OriginalListPrice || r.ListPrice || 0) || 0,
       });
     } catch (_) { continue; }
   }
@@ -267,6 +268,98 @@ function getDeadZone(subject) {
     priceCeiling,
     failCount:   top.length,
     avgDom,
+  };
+}
+
+// ─── MEDIAN HELPER ───────────────────────────────────────────────────────────
+function median(arr) {
+  if (!arr.length) return null;
+  const s = arr.slice().sort((a, b) => a - b);
+  const m = Math.floor(s.length / 2);
+  return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2;
+}
+
+// ─── MARKET STATS: real comp-based snapshot ───────────────────────────────────
+function getMarketStats(subject, soldComps) {
+  const RADIUS_MI = 4.0;
+
+  const nearby = soldComps.filter(c => {
+    if (!passesHard(c, subject)) return false;
+    return haversine(c.lat, c.lon, subject.lat, subject.lon) <= RADIUS_MI;
+  });
+
+  const recent = nearby.filter(c => c.daysAgo <= 90);
+  const prior  = nearby.filter(c => c.daysAgo > 90 && c.daysAgo <= 180);
+
+  function bucketStats(comps) {
+    if (!comps.length) return null;
+    const ppsfs = comps.map(c => c.ppsf);
+    const doms  = comps.filter(c => c.dom && parseInt(c.dom) > 0).map(c => parseInt(c.dom));
+    const ltss  = comps.filter(c => c.orig && c.orig > c.close * 0.5 && c.orig < c.close * 2)
+                       .map(c => c.close / c.orig * 100);
+    const fast  = doms.filter(d => d <= 30);
+    const sumPpsf = ppsfs.reduce((s, v) => s + v, 0);
+    const sumLts  = ltss.reduce((s, v) => s + v, 0);
+    return {
+      n:               comps.length,
+      medPpsf:         parseFloat((median(ppsfs) || 0).toFixed(2)),
+      avgPpsf:         parseFloat((sumPpsf / ppsfs.length).toFixed(2)),
+      medDom:          doms.length ? Math.round(median(doms)) : null,
+      avgDom:          doms.length ? Math.round(doms.reduce((s, v) => s + v, 0) / doms.length) : null,
+      avgLts:          ltss.length ? parseFloat((sumLts / ltss.length).toFixed(1)) : null,
+      velocityPerMonth:parseFloat((comps.length / 3).toFixed(1)),
+      fastPct:         doms.length ? Math.round(fast.length / doms.length * 100) : null,
+    };
+  }
+
+  const recentStats = bucketStats(recent);
+  const priorStats  = bucketStats(prior);
+  if (!recentStats) return null;
+
+  const ppsfChgPct = priorStats && priorStats.avgPpsf
+    ? parseFloat(((recentStats.avgPpsf - priorStats.avgPpsf) / priorStats.avgPpsf * 100).toFixed(1))
+    : null;
+  const domChgDays = (priorStats && priorStats.medDom && recentStats.medDom)
+    ? recentStats.medDom - priorStats.medDom
+    : null;
+  const ltsChgPts  = (priorStats && priorStats.avgLts && recentStats.avgLts)
+    ? parseFloat((recentStats.avgLts - priorStats.avgLts).toFixed(1))
+    : null;
+
+  // Listing success rate — sold vs failed in same radius, last 12 months
+  const failed12 = loadFailedComps().filter(f =>
+    f.daysAgo <= 365 &&
+    passesHard(f, subject) &&
+    haversine(f.lat, f.lon, subject.lat, subject.lon) <= RADIUS_MI
+  );
+  const sold12    = nearby.filter(c => c.daysAgo <= 365);
+  const total12   = sold12.length + failed12.length;
+  const successRate = total12 ? Math.round(sold12.length / total12 * 100) : null;
+
+  // Market temperature from real data
+  const md  = recentStats.medDom;
+  const lts = recentStats.avgLts;
+  let temp = 'Balanced';
+  if      (md !== null && lts !== null && md <= 30 && lts >= 98) temp = 'Hot';
+  else if (md !== null && lts !== null && md <= 45 && lts >= 96) temp = 'Warm';
+  else if (md !== null && lts !== null && md <= 70 && lts >= 93) temp = 'Balanced';
+  else if (md !== null && lts !== null)                           temp = 'Soft';
+  else if (md !== null && md <= 30)                               temp = 'Warm';
+  else if (md !== null && md <= 60)                               temp = 'Balanced';
+  else                                                            temp = 'Soft';
+
+  return {
+    recent:       recentStats,
+    prior:        priorStats,
+    ppsfChgPct,
+    domChgDays,
+    ltsChgPts,
+    successRate,
+    failureRate:  successRate !== null ? 100 - successRate : null,
+    failedCount:  failed12.length,
+    soldCount12:  sold12.length,
+    temp,
+    radiusMi:     RADIUS_MI,
   };
 }
 
@@ -718,8 +811,9 @@ exports.handler = async function(event) {
   }
 
   // Run CMA + dead zone
-  var cma      = null;
-  var deadZone = null;
+  var cma         = null;
+  var deadZone    = null;
+  var marketStats = null;
   var compContext = '';
 
   if (lat && lon && sqft && parseFloat(sqft) > 100) {
@@ -757,6 +851,13 @@ exports.handler = async function(event) {
     } catch (e) {
       console.error('Dead zone error:', e.message);
     }
+
+    try {
+      marketStats = getMarketStats(subject, sold);
+      console.log('MarketIQ market stats: temp=' + (marketStats ? marketStats.temp : 'n/a') + ', medDom=' + (marketStats ? (marketStats.recent && marketStats.recent.medDom) : 'n/a'));
+    } catch (e) {
+      console.error('Market stats error:', e.message);
+    }
   } else {
     console.log('MarketIQ: skipping CMA -- missing lat/lon or sqft');
   }
@@ -790,8 +891,34 @@ exports.handler = async function(event) {
     ? '\n\n--- MARKETIQ COMP ENGINE DATA ---\n' + compContext + '\n--- END COMP DATA ---\n'
     : '';
 
+  // Build market stats block for Claude prompt
+  var statsBlock = '';
+  if (marketStats) {
+    var ms = marketStats;
+    var r  = ms.recent;
+    var tempLabel = ms.temp === 'Hot' ? "Seller's Market" : ms.temp === 'Warm' ? "Seller's Market (Cooling)" : ms.temp === 'Balanced' ? 'Balanced Market' : "Buyer's Market";
+    statsBlock =
+      '\n\n--- REAL MARKET DATA (4-mile radius, last 90 days, ' + r.n + ' sales) ---\n' +
+      'Market Temperature: ' + ms.temp + ' (' + tempLabel + ')\n' +
+      'Median Days on Market: ' + (r.medDom !== null ? r.medDom + ' days' : 'n/a') +
+        (ms.domChgDays !== null ? ' (' + (ms.domChgDays > 0 ? '+' : '') + ms.domChgDays + ' vs prior 90d)' : '') + '\n' +
+      'Avg List-to-Sale Ratio: ' + (r.avgLts !== null ? r.avgLts.toFixed(1) + '%' : 'n/a') +
+        (ms.ltsChgPts !== null ? ' (' + (ms.ltsChgPts > 0 ? '+' : '') + ms.ltsChgPts + 'pts vs prior 90d)' : '') + '\n' +
+      'Median Price/SF: $' + r.medPpsf + '/sf' +
+        (ms.ppsfChgPct !== null ? ' (' + (ms.ppsfChgPct > 0 ? '+' : '') + ms.ppsfChgPct + '% vs prior 90d)' : '') + '\n' +
+      'Sales Velocity: ' + r.velocityPerMonth + ' homes/month\n' +
+      'Fast Sales (≤30 days): ' + (r.fastPct !== null ? r.fastPct + '%' : 'n/a') + ' of sales\n' +
+      'Listing Success Rate: ' + (ms.successRate !== null ? ms.successRate + '%' : 'n/a') + ' of listings sold in 12mo\n' +
+      'INSTRUCTION: Use these EXACT numbers in the snapshot section. Do not estimate -- the data is provided.\n' +
+      '--- END MARKET DATA ---\n';
+  }
+
   var userPrompt;
   if (isSeller) {
+    var snapDom       = marketStats && marketStats.recent.medDom    !== null ? marketStats.recent.medDom + ' days'         : '"estimate for ' + area.city + '"';
+    var snapLts       = marketStats && marketStats.recent.avgLts     !== null ? marketStats.recent.avgLts.toFixed(1) + '%'  : '"estimate"';
+    var snapInventory = marketStats ? (marketStats.temp === 'Hot' || marketStats.temp === 'Warm' ? 'Low' : marketStats.temp === 'Balanced' ? 'Balanced' : 'High') : '"Low / Balanced / High"';
+    var snapMarket    = marketStats ? (marketStats.temp === 'Hot' ? "Seller\'s Market" : marketStats.temp === 'Warm' ? "Seller\'s Market (Cooling)" : marketStats.temp === 'Balanced' ? 'Balanced Market' : "Buyer\'s Market") : '"Sellers / Balanced / Buyers"';
     userPrompt =
       'Generate a MarketIQ(tm) Seller Pricing Report for this property:\n\n' +
       'Address: ' + address + '\n' +
@@ -800,14 +927,14 @@ exports.handler = async function(event) {
       'Community: ' + (community || 'not specified') + ' | Master Planned: ' + (mp ? 'Yes' : 'No') + '\n' +
       'Condition: ' + condition + ' | Timeline: ' + timeline + '\n' +
       'School District: ' + area.district + '\n' +
-      compBlock + '\n' +
+      compBlock + statsBlock + '\n' +
       'Return ONLY this JSON structure -- no other text:\n\n' +
       '{\n' +
       '  "snapshot": {\n' +
-      '    "dom": "estimate based on current ' + area.city + ' market",\n' +
-      '    "listToSale": "estimate",\n' +
-      '    "inventory": "Low / Balanced / High",\n' +
-      '    "market": "Sellers / Balanced / Buyers",\n' +
+      '    "dom": "' + snapDom + '",\n' +
+      '    "listToSale": "' + snapLts + '",\n' +
+      '    "inventory": "' + snapInventory + '",\n' +
+      '    "market": "' + snapMarket + '",\n' +
       '    "summary": "One punchy sentence max 20 words what this market means for this seller"\n' +
       '  },\n' +
       '  "strategies": [\n' +
@@ -960,9 +1087,9 @@ exports.handler = async function(event) {
       }
     : null;
 
-    return {
-      statusCode: 200,
-      headers:    headers,
-      body:       JSON.stringify({ report: report, area: area, zip: zip, mode: mode, comps: comps, cma: cmaData, deadZone: deadZone }),
-    };
+  return {
+    statusCode: 200,
+    headers:    headers,
+    body:       JSON.stringify({ report: report, area: area, zip: zip, mode: mode, comps: comps, cma: cmaData, deadZone: deadZone, marketStats: marketStats }),
+  };
 };
