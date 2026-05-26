@@ -758,6 +758,15 @@ function buildCompContext(cma) {
 
 // --- MAIN HANDLER ------------------------------------------------------------
 exports.handler = async function(event) {
+  try {
+    return await _handlerInner(event);
+  } catch (fatalErr) {
+    console.error('MarketIQ FATAL:', fatalErr.message, fatalErr.stack);
+    return { statusCode: 500, headers: { 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json' }, body: JSON.stringify({ error: 'Server error: ' + fatalErr.message }) };
+  }
+};
+
+async function _handlerInner(event) {
   var headers = {
     'Access-Control-Allow-Origin': '*',
     'Content-Type': 'application/json',
@@ -1115,4 +1124,4 @@ exports.handler = async function(event) {
     headers:    headers,
     body:       JSON.stringify({ report: report, area: area, zip: zip, mode: mode, comps: comps, cma: cmaData, deadZone: deadZone, marketStats: marketStats, _debug: { lat: lat, lon: lon, soldCompsLoaded: loadSoldComps().length } }),
   };
-};
+}
