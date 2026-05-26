@@ -1107,7 +1107,7 @@ async function _handlerInner(event) {
   var cmaData = cma
     ? {
         baseline:    parseFloat(cma.baseline.toFixed(2)),
-        weightedPpsf:parseFloat(cma.weightedPpsf.toFixed(2)),
+        weightedPpsf:parseFloat(cma.wPpsf.toFixed(2)),
         rangeLow:    parseFloat(cma.rangeLow.toFixed(2)),
         rangeHigh:   parseFloat(cma.rangeHigh.toFixed(2)),
         compCount:   cma.compCount,
