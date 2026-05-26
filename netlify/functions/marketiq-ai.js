@@ -424,10 +424,13 @@ function haversine(lat1, lon1, lat2, lon2) {
 
 // ─── HARD FILTERS (never relaxed) ────────────────────────────────────────────
 function passesHard(comp, subject) {
+  // Hard filters: only block on traits that fundamentally change comparability.
+  // mp (master planned) is NOT a hard filter — it's a soft community trait that
+  // varies within the same neighborhood and doesn't make homes incomparable.
+  // water, gated, newco DO fundamentally change value and buyer pool.
   return comp.newco === subject.newco
       && comp.water === subject.water
-      && comp.gated === subject.gated
-      && comp.mp    === subject.mp;
+      && comp.gated === subject.gated;
 }
 
 // ─── SIMILARITY SCORE (lower = more similar) ─────────────────────────────────
