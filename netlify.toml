@@ -29,3 +29,4 @@
 
 [functions]
   included_files = ["data/**"]
+  timeout = 26

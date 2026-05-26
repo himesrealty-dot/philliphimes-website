@@ -1157,7 +1157,15 @@
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
     })
-    .then(function(r) { return r.json(); })
+    .then(function(r) {
+      if (!r.ok) {
+        return r.text().then(function(t) {
+          var snippet = t.slice(0, 200).replace(/<[^>]+>/g, '').trim();
+          throw new Error('HTTP ' + r.status + (snippet ? ': ' + snippet : ''));
+        });
+      }
+      return r.json();
+    })
     .then(function(data) {
       stopLoadingAnimation();
       document.getElementById('miq-loading').classList.remove('show');
@@ -1173,7 +1181,9 @@
     .catch(function(err) {
       stopLoadingAnimation();
       document.getElementById('miq-loading').classList.remove('show');
-      showError('Network error — please try again.');
+      console.error('[MIQ] report error:', err);
+      var msg = err && err.message ? err.message : 'Network error';
+      showError(msg.length > 120 ? msg.slice(0, 120) + '…' : msg);
     });
   }
 
