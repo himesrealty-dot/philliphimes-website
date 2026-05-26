@@ -236,7 +236,7 @@ function getDeadZone(subject) {
     if (dist > RADIUS_MI) continue;
 
     // Similarity score (lower = better match)
-    let score = dist * 8;
+    let score = dist * 2;
     score += Math.abs(f.sqft - subject.sqft) / Math.max(subject.sqft, 1) * 20;
     score += Math.abs(f.yr   - subject.yr)   * 0.4;
     score += Math.abs(f.beds - subject.beds) * 3;
@@ -433,7 +433,7 @@ function passesHard(comp, subject) {
 // ─── SIMILARITY SCORE (lower = more similar) ─────────────────────────────────
 function scoreComp(comp, subject) {
   const dist = haversine(comp.lat, comp.lon, subject.lat, subject.lon);
-  let pts = dist * 8;
+  let pts = dist * 2;  // reduced from 8 — avoids over-penalizing adjacent communities
   pts += Math.abs(comp.sqft  - subject.sqft)  / Math.max(subject.sqft, 1) * 20;
   pts += Math.abs(comp.yr    - subject.yr)    * 0.4;
   pts += Math.abs(comp.beds  - subject.beds)  * 3;
@@ -577,11 +577,11 @@ function runPhase(subject, sold, maxDist, maxDays, tight, adjustments,
 
 // ─── CMA PHASES ───────────────────────────────────────────────────────────────
 const BASE_PHASES = [
-  { label: 'Ph1: Same community, 90d, tight',  commOnly: true,  maxDist: 0.5, maxDays:  90, tight: true,  adj: false },
-  { label: 'Ph2: Same community, 90d, adj',    commOnly: true,  maxDist: 0.5, maxDays:  90, tight: false, adj: true  },
-  { label: 'Ph3: 2mi, 90d, tight',             commOnly: false, maxDist: 2.0, maxDays:  90, tight: true,  adj: false },
-  { label: 'Ph4: 2mi, 90d, adj',               commOnly: false, maxDist: 2.0, maxDays:  90, tight: false, adj: true  },
-  { label: 'Ph5: 4mi, 180d, adj',              commOnly: false, maxDist: 4.0, maxDays: 180, tight: false, adj: true  },
+  { label: 'Ph1: Same community, 90d, tight',   commOnly: true,  maxDist: 2.0, maxDays:  90, tight: true,  adj: false },
+  { label: 'Ph2: Same community, 180d, adj',    commOnly: true,  maxDist: 2.0, maxDays: 180, tight: false, adj: true  },
+  { label: 'Ph3: 2mi, 90d, tight',              commOnly: false, maxDist: 2.0, maxDays:  90, tight: true,  adj: false },
+  { label: 'Ph4: 2mi, 90d, adj',                commOnly: false, maxDist: 2.0, maxDays:  90, tight: false, adj: true  },
+  { label: 'Ph5: 4mi, 180d, adj',               commOnly: false, maxDist: 4.0, maxDays: 180, tight: false, adj: true  },
 ];
 const THIN_PHASE = {
   label: 'Ph6: 4mi, 365d, adj [thin market]', commOnly: false, maxDist: 4.0, maxDays: 365, tight: false, adj: true
