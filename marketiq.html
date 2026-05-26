@@ -1369,14 +1369,18 @@
     // Factors checklist removed for seller report
 
     // ── 5. WHAT THIS REPORT CAN'T TELL YOU ─────────────────────────
-    if (r.cantTell) {
-      html += '<div class="miq-report-section miq-report-section--cant">' +
-        '<div class="miq-report-section__title">💡 What This Report Can\'t Tell You</div>' +
-        '<p style="font-size:0.92rem;color:var(--dark-gray);line-height:1.7;margin:0;">' +
-          escHtml(r.cantTell) +
-        '</p>' +
-      '</div>';
-    }
+    html += '<div class="miq-report-section miq-report-section--cant">' +
+      '<div class="miq-report-section__title">💡 What This Report Can\'t Tell You</div>' +
+      '<p style="font-size:0.95rem;color:var(--dark-gray);line-height:1.8;margin:0 0 0.75rem;">' +
+        'This report is built on hard data — every comp, every price-per-square-foot, every market trend comes directly from MLS sales in your area. But data has limits.' +
+      '</p>' +
+      '<p style="font-size:0.95rem;color:var(--dark-gray);line-height:1.8;margin:0 0 0.75rem;">' +
+        'It can\'t see your outdoor kitchen, your custom finishes, the way your backyard feels on a Saturday afternoon, or the story behind why your home is worth more than the numbers suggest. That\'s where a conversation with a local expert changes everything.' +
+      '</p>' +
+      '<p style="font-size:0.95rem;color:var(--dark-gray);line-height:1.8;margin:0;font-weight:600;">' +
+        'The data gets you in the right ballpark — a great agent gets you to the right number.' +
+      '</p>' +
+    '</div>';
 
     // Flood zone removed for seller report
 
