@@ -1270,7 +1270,7 @@
 
     // ── 1. MARKET SNAPSHOT ──────────────────────────────────────────
     if (r.snapshot) {
-      html += buildSnapshotHTML(r.snapshot, marketStats, isSeller);
+      html += buildSnapshotHTML(r.snapshot, marketStats, isSeller, area, zip);
     }
 
     // ── 1b. COMPARABLE SALES TABLE (CMA engine comps) ──────────────────
@@ -1486,7 +1486,7 @@
   }
 
   /* ── SNAPSHOT BUILDER — dark theme with real marketStats ─────── */
-  function buildSnapshotHTML(s, ms, isSeller) {
+  function buildSnapshotHTML(s, ms, isSeller, area, zip) {
 
     // ── location header
     var locParts = [];
