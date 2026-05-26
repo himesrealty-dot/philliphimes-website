@@ -58,6 +58,9 @@ STORIES_PREMIUM = {
     'bay oaks':                  15.00,
     'middlebrook':               10.00,
     'nassau bay':                 0.00,
+    # Seabrook (77586)
+    'mystic village at lake mija': 16.58,
+    'clear lake forest':           5.45,
     # Default
     '__default__':               10.00,
 }

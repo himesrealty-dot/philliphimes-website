@@ -449,3 +449,85 @@ New section added between hero and two-door section on sellers.html:
 - Test the two-step flow after push to GitHub
 - If IDXAddons pre-fill works → great. If not → widget shows with blank input, user re-enters address (acceptable)
 - Consider replacing IDXAddons with IDX Broker's native valuation once configured
+
+---
+
+## 18. MARKETIQ™ COMP ENGINE — BUILT MAY 2026
+
+### What It Is
+MarketIQ™ is an AI-powered CMA (Comparative Market Analysis) tool embedded in the site at `/marketiq.html`. It takes a property address + basic attributes, runs a real comp engine against actual HAR MLS sold data, and delivers a fully structured pricing strategy report written by Claude Haiku. No third-party AVM. No RentCast. Pure HAR data + our logic.
+
+### The Data
+| File | What It Is |
+|------|-----------|
+| `data/MarketIQ.csv` | Master sold comps dataset — 4,394 records total, 1,763 sold comps |
+| `data/comp_engine.py` | Python comp engine v1.1 — used for data analysis and testing |
+| `data/data_prep.py` | Normalizer + merger script — run when new HAR exports arrive |
+
+**Markets covered:** League City (77573, 77565), Friendswood (77546), Pearland (77584, 77581), Clear Lake / Houston (77058, 77059), Seabrook (77586), Dickinson (77539), Manvel (77578, 77583)
+
+**Total sold comps:** 1,870 across all markets.
+
+**Data refresh workflow:** Export new sold data from HAR MLS → run `python data_prep.py new_export.csv` → commit updated `MarketIQ.csv` to GitHub → Netlify redeploys.
+
+### The Netlify Function
+`netlify/functions/marketiq-ai.js` — v4 (no RentCast, pure comp engine)
+
+**Request:** `POST { address, mode, beds, baths, sqft, condition, timeline, budget, lat?, lon?, stories?, yr?, pool?, garage?, community?, mp?, gated?, water?, newco? }`
+
+**Response:** `{ report, area, zip, mode, comps, cma }`
+
+**How it works:**
+1. Geocodes address via Nominatim (free) if lat/lon not in request; falls back to ZIP centroid
+2. Loads `MarketIQ.csv` at cold start, caches at module level for warm invocations (1,763 comps)
+3. Runs 5-phase cascading CMA (+ Phase 6 thin-market extension if < 50 nearby comps)
+4. Injects calculated prices directly into Claude Haiku prompt — Claude writes narrative only
+5. Returns three price points, comp details, weighted PPSF, and CMA metadata
+
+**Current status:** Seller mode working. Buyer mode prompt present but not yet CMA-powered (needs work — see Command Center).
+
+### The Comp Engine Logic
+| Concept | Detail |
+|---------|--------|
+| Hard filters (never relaxed) | NewConstruction, WaterAmenity, Gated, MasterPlanned — all must match subject |
+| Phases | Ph1: same community 90d tight → Ph2: same community 90d adj → Ph3: 2mi 90d tight → Ph4: 2mi 90d adj → Ph5: 4mi 180d adj → Ph6 (thin market only): 4mi 365d adj |
+| Thin market | < 50 hard-filter-passing comps within 4mi/365d → adds Phase 6 automatically |
+| Scoring | dist×8 + sqft%diff×20 + yr diff×0.4 + beds diff×3 + baths diff×2 + pool mismatch+2 + stories mismatch+5 |
+| Weighting | Inverse-score weighted PPSF with 10% minimum weight floor per comp |
+| Adjustments | Pool ±$22,500 flat; Stories: community-specific $/sf table; Beds $2,500/ea; Baths $1,500 full / $750 half; Sqft $37/sf marginal; Garage $6,500/stall capped ±2 stalls |
+| Net price | ClosePrice − (RepairSeller + SellerToClosingCosts), concessions capped at 15% of close price |
+| CommunityName | Normalized from Subdivision using data_prep.py — groups all section variants together (e.g., "Westland Ranch Sec 01" + "Westland Ranch Sec 02" both become "Westland Ranch") |
+| Stories premium table | 45+ communities with empirically derived $/sf values from the HAR data; default $10.00/sf |
+
+### Price Output
+```
+Price to Move:  baseline × 0.975, rounded to nearest $5,000
+Price to Sell:  baseline × 1.000, rounded to nearest $5,000
+Price to Test:  baseline × 1.025, rounded to nearest $5,000
+```
+These three prices are hardcoded into the Claude prompt — Claude cannot override them, only write narrative around them.
+
+### Key Data Files
+| Column | Source | Notes |
+|--------|--------|-------|
+| Status | HAR export | Filter = "Sold" |
+| CommunityName | Computed by data_prep.py | Normalized from Subdivision |
+| MasterPlannedCommunityYN | Computed by data_prep.py | Auto-applied from community name |
+| YearBuilt | HAR export (normalized) | Stored as int; pandas float-string bug fixed in data_prep.py |
+| WaterAmenity | HAR export | Hard filter — non-empty = waterfront |
+| Access | HAR export | Hard filter — contains "Gated" = gated community |
+| Stories | HAR export | 1.0 or 2.0 |
+
+---
+
+## 19. MARKETIQ™ — BUYER SIDE (TO DO)
+
+The buyer-mode prompt in `marketiq-ai.js` currently exists but is not CMA-powered. It generates buyer offer strategies using Claude's general knowledge of the market rather than real comp data.
+
+**What needs to happen:**
+1. The form on `marketiq.html` (buyer mode) needs to collect the subject property's attributes — when a buyer enters an address they're considering, we need beds/baths/sqft/stories from them or from geocoding
+2. The buyer CMA runs identically to the seller CMA — same engine, same data, same phases — but the context shifts: instead of "what should I list at" it becomes "what should I offer and what is this home worth"
+3. The buyer prompt should surface: estimated market value, offer strategy anchored to that value, and relevant comp details
+4. Consider adding a "days on market" and "price reduction history" read from the MLS data as additional buyer negotiation context
+
+**Key difference from seller mode:** The buyer enters the address of someone else's listing. We may not have all property attributes — we'll need either the form to collect them or a property lookup. For now, the existing form fields (address, beds, baths, sqft) plus geocoding are sufficient for a first version.

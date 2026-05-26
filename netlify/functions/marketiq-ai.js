@@ -156,6 +156,8 @@ const STORIES_PREMIUM = {
   'brookwood': 12.75,       'el dorado clear lake city': 11.97, 'pine brook': 8.14,
   'northfork': 5.02,        'brook forest': 2.16,      'bay oaks': 15.00,
   'middlebrook': 10.00,     'nassau bay': 0.00,
+  // Seabrook (77586)
+  'mystic village at lake mija': 16.58, 'clear lake forest': 5.45,
 };
 const DEFAULT_STORIES_PREMIUM = 10.00;
 
@@ -399,6 +401,7 @@ const ZIP_CENTROIDS = {
   '77539': { lat: 29.4511, lon: -95.0586 },
   '77578': { lat: 29.4761, lon: -95.3582 },
   '77583': { lat: 29.4418, lon: -95.3749 },
+  '77586': { lat: 29.5656, lon: -95.0207 },
 };
 
 async function geocodeAddress(address) {
@@ -431,6 +434,7 @@ const AREA_DATA = {
   '77583': { city: 'Iowa Colony / Manvel', county: 'Brazoria County', district: 'Alvin ISD', flood: 'Mostly Zone X. Verify.', market: 'Iowa Colony growth corridor. New construction at accessible prices.' },
   '77568': { city: 'La Marque', county: 'Galveston County', district: 'La Marque ISD', flood: 'Coastal county. Verify flood zone carefully.', market: 'Galveston County growth corridor near I-45.' },
   '77590': { city: 'Texas City', county: 'Galveston County', district: 'Texas City ISD', flood: 'Texas City area. Verify flood zone carefully.', market: 'Galveston County industrial/residential corridor.' },
+  '77586': { city: 'Seabrook', county: 'Harris County', district: 'Clear Creek ISD', flood: 'Seabrook sits on Galveston Bay. Many parcels carry AE or VE flood designations. Verify every parcel carefully.', market: 'Waterfront community feel with Clear Creek ISD schools. Strong buyer demand for canal and bay-access properties.' },
 };
 
 function getAreaData(zip) {
@@ -790,7 +794,6 @@ exports.handler = async function(event) {
           compCount:   cma.compCount,
           phase:       cma.phase,
           thinMarket:  cma.thinMarket,
-          nearbyComps: cma.nearbyComps,
           priceLow:    priceLow,
           priceMkt:    priceMkt,
           priceHigh:   priceHigh,
