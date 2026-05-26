@@ -52,7 +52,11 @@ function parseCSV(text) {
 }
 
 // ─── LOAD AND CACHE SOLD COMPS ────────────────────────────────────────────────
-const DATA_PATH = path.join(__dirname, '../../data/MarketIQ.csv');
+// In Netlify Lambda, LAMBDA_TASK_ROOT=/var/task and included_files land there
+// Locally, the CSV is two levels up from netlify/functions/
+const DATA_PATH = process.env.LAMBDA_TASK_ROOT
+  ? path.join(process.env.LAMBDA_TASK_ROOT, 'data/MarketIQ.csv')
+  : path.join(__dirname, '../../data/MarketIQ.csv');
 const BOOL_VALS = new Set(['true', 'yes', '1', 'y']);
 
 function loadSoldComps() {

@@ -26,3 +26,6 @@
 
 [build]
   publish = "."
+
+[functions]
+  included_files = ["data/**"]
