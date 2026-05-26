@@ -1111,6 +1111,7 @@
         return;
       }
       console.log('[MIQ] marketStats in response:', JSON.stringify(data.marketStats).slice(0,200));
+      console.log('[MIQ] debug:', JSON.stringify(data._debug));
       renderReport(data.report, data.area, data.zip, data.mode || miqState.mode, data.comps || [], data.avm || null, data.deadZone || null, data.cma || null, data.marketStats || null);
     })
     .catch(function(err) {

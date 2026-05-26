@@ -1109,6 +1109,6 @@ exports.handler = async function(event) {
   return {
     statusCode: 200,
     headers:    headers,
-    body:       JSON.stringify({ report: report, area: area, zip: zip, mode: mode, comps: comps, cma: cmaData, deadZone: deadZone, marketStats: marketStats }),
+    body:       JSON.stringify({ report: report, area: area, zip: zip, mode: mode, comps: comps, cma: cmaData, deadZone: deadZone, marketStats: marketStats, _debug: { lat: lat, lon: lon, soldCompsLoaded: loadSoldComps().length } }),
   };
 };
