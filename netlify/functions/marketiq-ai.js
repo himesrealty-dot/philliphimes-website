@@ -599,21 +599,27 @@ function runCma(subject, sold) {
   // Auto-detect community from nearest sold comps when the caller didn't supply one.
   // This is the common case for web-form submissions where the community field is blank.
   if (!subject.community || !subject.community.trim()) {
-    const nearest = sold
-      .filter(c => haversine(c.lat, c.lon, subject.lat, subject.lon) < 0.5)
-      .sort((a, b) => haversine(a.lat, a.lon, subject.lat, subject.lon)
-                    - haversine(b.lat, b.lon, subject.lat, subject.lon));
-    if (nearest.length > 0) {
-      const freq = {};
-      nearest.slice(0, 15).forEach(c => {
-        const n = (c.community || '').trim();
-        if (n) freq[n] = (freq[n] || 0) + 1;
-      });
-      const best = Object.entries(freq).sort((a, b) => b[1] - a[1])[0];
-      if (best) {
-        subject = { ...subject, community: best[0], subd: best[0] };
-        console.log('MarketIQ: auto-detected community →', best[0], '(', best[1], 'of', nearest.slice(0,15).length, 'nearest comps)');
+    // Try progressively wider radii until we find enough nearby comps to vote on community
+    const DETECT_RADII = [0.5, 1.0, 1.5];
+    let detected = null;
+    for (const radius of DETECT_RADII) {
+      const nearest = sold
+        .filter(c => haversine(c.lat, c.lon, subject.lat, subject.lon) < radius)
+        .sort((a, b) => haversine(a.lat, a.lon, subject.lat, subject.lon)
+                      - haversine(b.lat, b.lon, subject.lat, subject.lon));
+      if (nearest.length >= 3) {
+        const freq = {};
+        nearest.slice(0, 15).forEach(c => {
+          const n = (c.community || '').trim();
+          if (n) freq[n] = (freq[n] || 0) + 1;
+        });
+        const best = Object.entries(freq).sort((a, b) => b[1] - a[1])[0];
+        if (best && best[1] >= 2) { detected = { name: best[0], count: best[1], total: nearest.slice(0,15).length, radius }; break; }
       }
+    }
+    if (detected) {
+      subject = { ...subject, community: detected.name, subd: detected.name };
+      console.log('MarketIQ: auto-detected community →', detected.name, '(', detected.count, 'of', detected.total, 'nearest comps, radius='+detected.radius+'mi)');
     }
   }
 
