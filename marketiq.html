@@ -654,13 +654,8 @@
         <div class="miq-address-row">
           <input type="text" id="miq-address" class="miq-address-input"
                  placeholder="e.g. 2847 Venetian Shores Dr, League City, TX"
-                 autocomplete="off" />
-          <div id="miq-addr-dropdown" style="
-            display:none;position:absolute;top:100%;left:0;right:0;
-            background:#fff;border:1px solid #dde3ee;border-radius:0.6rem;
-            box-shadow:0 8px 24px rgba(0,0,0,0.12);z-index:9999;overflow:hidden;
-            margin-top:4px;
-          "></div>
+                 autocomplete="off" list="miq-addr-datalist" />
+          <datalist id="miq-addr-datalist"></datalist>
         </div>
 
         <!-- Mode toggle -->
@@ -956,55 +951,50 @@
     }
   });
 
-  /* ── MAPBOX ADDRESS AUTOCOMPLETE ────────────────────────────────── */
+  /* ── MAPBOX ADDRESS AUTOCOMPLETE (datalist) ─────────────────── */
   (function() {
     var addrInput    = document.getElementById('miq-address');
-    var addrDropdown = document.getElementById('miq-addr-dropdown');
+    var addrDatalist = document.getElementById('miq-addr-datalist');
+    var addrFeatures = [];
     var debounce     = null;
 
     addrInput.addEventListener('input', function() {
       var q = addrInput.value.trim();
-      if (q.length < 3) { addrDropdown.style.display = 'none'; return; }
+      if (q.length < 3) return;
       clearTimeout(debounce);
-      debounce = setTimeout(function() { fetchAddressSuggestions(q); }, 280);
+      debounce = setTimeout(function() { fetchAddressSuggestions(q); }, 300);
+    });
+
+    // Capture lat/lon when user picks a suggestion and show qualify fields
+    addrInput.addEventListener('change', function() {
+      var val = addrInput.value;
+      for (var i = 0; i < addrFeatures.length; i++) {
+        if ((addrFeatures[i].place_name || addrFeatures[i].text || '') === val) {
+          if (addrFeatures[i].center) {
+            miqState.addressLatLng = { lat: addrFeatures[i].center[1], lng: addrFeatures[i].center[0] };
+          }
+          break;
+        }
+      }
+      if (val.length > 8) {
+        document.getElementById('qualify-fields').classList.add('show');
+      }
     });
 
     function fetchAddressSuggestions(q) {
       fetch('/.netlify/functions/mapbox-geocode?q=' + encodeURIComponent(q))
         .then(function(r) { return r.json(); })
         .then(function(data) {
-          var features = data.features || [];
-          if (!features.length) { addrDropdown.style.display = 'none'; return; }
-          renderAddrDropdown(features);
+          addrFeatures = data.features || [];
+          addrDatalist.innerHTML = '';
+          addrFeatures.slice(0, 6).forEach(function(f) {
+            var opt = document.createElement('option');
+            opt.value = f.place_name || f.text || '';
+            addrDatalist.appendChild(opt);
+          });
         })
-        .catch(function() { addrDropdown.style.display = 'none'; });
+        .catch(function() {});
     }
-
-    function renderAddrDropdown(features) {
-      addrDropdown.innerHTML = '';
-      features.slice(0, 5).forEach(function(f) {
-        var opt = document.createElement('div');
-        opt.style.cssText = 'padding:0.65rem 1rem;cursor:pointer;font-size:0.88rem;color:#1a2a44;border-bottom:1px solid #eef0f5;';
-        opt.textContent = f.place_name || f.text || '';
-        opt.addEventListener('mouseenter', function() { opt.style.background = '#f4f7ff'; });
-        opt.addEventListener('mouseleave', function() { opt.style.background = ''; });
-        opt.addEventListener('mousedown', function(e) {
-          e.preventDefault();
-          addrInput.value = f.place_name || f.text || '';
-          if (f.center) {
-            miqState.addressLatLng = { lat: f.center[1], lng: f.center[0] };
-          }
-          addrDropdown.style.display = 'none';
-          document.getElementById('qualify-fields').classList.add('show');
-        });
-        addrDropdown.appendChild(opt);
-      });
-      addrDropdown.style.display = 'block';
-    }
-
-    document.addEventListener('click', function(e) {
-      if (e.target !== addrInput) addrDropdown.style.display = 'none';
-    });
   })();
 
   /* ── LOADING ANIMATION ──────────────────────────────────────────── */
