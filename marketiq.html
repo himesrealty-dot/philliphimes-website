@@ -333,6 +333,39 @@
       color: rgba(255,255,255,0.92);
     }
 
+    /* ─── BUYER'S GUIDE CTA ─────────────────────────────────────── */
+    .miq-buyers-guide-cta {
+      margin: 1.5rem 0;
+      background: linear-gradient(135deg, rgba(32,137,160,0.15), rgba(32,137,160,0.05));
+      border: 1px solid rgba(32,137,160,0.4);
+      border-radius: 12px;
+      padding: 1.5rem;
+    }
+    .miq-buyers-guide-cta__inner {
+      display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+    }
+    .miq-buyers-guide-cta__icon {
+      font-size: 2rem; flex-shrink: 0;
+    }
+    .miq-buyers-guide-cta__body {
+      flex: 1; min-width: 200px;
+    }
+    .miq-buyers-guide-cta__title {
+      font-size: 1rem; font-weight: 700; color: rgba(255,255,255,0.95);
+      margin-bottom: 0.35rem;
+    }
+    .miq-buyers-guide-cta__text {
+      font-size: 0.85rem; color: rgba(255,255,255,0.7); line-height: 1.6;
+    }
+    .miq-buyers-guide-cta__btn {
+      display: inline-block; padding: 0.65rem 1.4rem;
+      background: #2089a0; color: #fff; font-weight: 700;
+      font-size: 0.88rem; border-radius: 8px; text-decoration: none;
+      white-space: nowrap; transition: background 0.2s;
+      flex-shrink: 0;
+    }
+    .miq-buyers-guide-cta__btn:hover { background: #187a90; }
+
     /* ─── KEY FACTORS LIST ──────────────────────────────────────── */
     .miq-report-list {
       list-style: none; padding: 0; margin: 0;
@@ -1342,52 +1375,6 @@
       html += buildBuyerVerdictHTML(buyerData, r.signals || []);
     }
 
-    // ── 1c. COMPARABLE SALES TABLE (CMA engine comps) ──────────────────
-    if (comps.length > 0) {
-      var avmBadge = ''; // RentCast AVM removed — CMA engine provides pricing
-
-      var compTitle = isSeller
-        ? '🏘️ Recent Comparable Sales'
-        : '🏘️ What Similar Homes Sold For';
-
-      var rows = comps.map(function(c) {
-        var salePrice = c.close || c.net || 0;
-        var ppsf = (salePrice && c.sqft) ? '$' + Math.round(salePrice / c.sqft).toLocaleString() : (c.ppsf ? '$' + c.ppsf : '—');
-        var label = c.community || c.subd || '—';
-        var yr    = c.yr ? ' (' + c.yr + ')' : '';
-        var pool  = c.pool ? ' · Pool' : '';
-        return '<tr>' +
-          '<td style="font-weight:600;color:var(--navy);max-width:200px;">' + escHtml(label + yr + pool) + '</td>' +
-          '<td style="font-weight:700;color:var(--navy);">$' + (salePrice ? salePrice.toLocaleString() : '—') + '</td>' +
-          '<td>' + (c.beds || '—') + ' / ' + (c.baths || '—') + '</td>' +
-          '<td>' + (c.sqft ? Math.round(c.sqft).toLocaleString() : '—') + '</td>' +
-          '<td>' + ppsf + '</td>' +
-          '<td>' + (c.dom !== null && c.dom !== undefined ? c.dom + 'd' : (c.daysAgo ? c.daysAgo + 'd ago' : '—')) + '</td>' +
-          '<td style="color:var(--mid-gray);font-size:0.8rem;">' + (c.adjPpsf ? '$' + c.adjPpsf + '/sf adj' : '—') + '</td>' +
-        '</tr>';
-      }).join('');
-
-      html += '<div class="miq-report-section">' +
-        '<div class="miq-report-section__title">' + compTitle + '</div>' +
-        avmBadge +
-        '<div class="miq-report-table-wrap">' +
-          '<table class="miq-report-table">' +
-            '<thead><tr>' +
-              '<th>Community / Yr / Pool</th>' +
-              '<th>Sale Price</th>' +
-              '<th>Bed/Bath</th>' +
-              '<th>SqFt</th>' +
-              '<th>$/SqFt</th>' +
-              '<th>DOM</th>' +
-              '<th>Adj $/SqFt</th>' +
-            '</tr></thead>' +
-            '<tbody>' + rows + '</tbody>' +
-          '</table>' +
-        '</div>' +
-        '<p style="font-size:0.72rem;color:var(--mid-gray);margin:0.75rem 0 0;line-height:1.5;">Source: MLS · Top comparable sales from MarketIQ comp engine, ranked by similarity score.</p>' +
-      '</div>';
-    }
-
     // ── 2. STRATEGIES ───────────────────────────────────────────────
     if (r.strategies && r.strategies.length) {
       var districtName = area ? escHtml(area.district) : 'this district';
@@ -1439,6 +1426,42 @@
       '</div>';
     }
 
+    // ── 2b. COMPARABLE SALES TABLE (after strategies) ──────────────
+    if (comps.length > 0) {
+      var avmBadge = '';
+      var compTitle = isSeller ? '🏘️ Recent Comparable Sales' : '🏘️ What Similar Homes Sold For';
+      var rows = comps.map(function(c) {
+        var salePrice = c.close || c.net || 0;
+        var ppsf = (salePrice && c.sqft) ? '$' + Math.round(salePrice / c.sqft).toLocaleString() : (c.ppsf ? '$' + c.ppsf : '—');
+        var label = c.community || c.subd || '—';
+        var yr    = c.yr ? ' (' + c.yr + ')' : '';
+        var pool  = c.pool ? ' · Pool' : '';
+        return '<tr>' +
+          '<td style="font-weight:600;color:var(--navy);max-width:200px;">' + escHtml(label + yr + pool) + '</td>' +
+          '<td style="font-weight:700;color:var(--navy);">$' + (salePrice ? salePrice.toLocaleString() : '—') + '</td>' +
+          '<td>' + (c.beds || '—') + ' / ' + (c.baths || '—') + '</td>' +
+          '<td>' + (c.sqft ? Math.round(c.sqft).toLocaleString() : '—') + '</td>' +
+          '<td>' + ppsf + '</td>' +
+          '<td>' + (c.dom !== null && c.dom !== undefined ? c.dom + 'd' : (c.daysAgo ? c.daysAgo + 'd ago' : '—')) + '</td>' +
+          '<td style="color:var(--mid-gray);font-size:0.8rem;">' + (c.adjPpsf ? '$' + c.adjPpsf + '/sf adj' : '—') + '</td>' +
+        '</tr>';
+      }).join('');
+      html += '<div class="miq-report-section">' +
+        '<div class="miq-report-section__title">' + compTitle + '</div>' +
+        avmBadge +
+        '<div class="miq-report-table-wrap">' +
+          '<table class="miq-report-table">' +
+            '<thead><tr>' +
+              '<th>Community / Yr / Pool</th><th>Sale Price</th><th>Bed/Bath</th>' +
+              '<th>SqFt</th><th>$/SqFt</th><th>DOM</th><th>Adj $/SqFt</th>' +
+            '</tr></thead>' +
+            '<tbody>' + rows + '</tbody>' +
+          '</table>' +
+        '</div>' +
+        '<p style="font-size:0.72rem;color:var(--mid-gray);margin:0.75rem 0 0;line-height:1.5;">Source: MLS · Top comparable sales from MarketIQ comp engine, ranked by similarity score.</p>' +
+      '</div>';
+    }
+
     // ── 3. DEAD ZONE (seller mode only) ────────────────────────────
     if (isSeller) {
       html += buildDeadZoneHTML(deadZone, cma);
@@ -1472,6 +1495,20 @@
         '<p style="font-size:0.95rem;color:var(--dark-gray);line-height:1.8;margin:0;font-weight:600;">' +
           'The data tells you what to offer. A great agent tells you whether you should.' +
         '</p>' +
+      '</div>';
+    }
+
+    // ── 5b. BUYER'S GUIDE CTA (buyer mode only) ────────────────────
+    if (!isSeller) {
+      html += '<div class="miq-buyers-guide-cta">' +
+        '<div class="miq-buyers-guide-cta__inner">' +
+          '<div class="miq-buyers-guide-cta__icon">📘</div>' +
+          '<div class="miq-buyers-guide-cta__body">' +
+            '<div class="miq-buyers-guide-cta__title">Get the Free Buyer\'s Guide</div>' +
+            '<div class="miq-buyers-guide-cta__text">Phil\'s complete guide to buying in the South Houston suburbs — what to inspect, how to negotiate in this market, and the questions most buyers forget to ask.</div>' +
+          '</div>' +
+          '<a href="https://philliphimes.com/buyers-guide" target="_blank" class="miq-buyers-guide-cta__btn">Download Free →</a>' +
+        '</div>' +
       '</div>';
     }
 

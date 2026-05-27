@@ -645,14 +645,19 @@ function runCma(subject, sold) {
   }
   if (!bestComps.length) return null;
 
-  const ppsfVals  = bestComps.map(c => c.adjPpsf);
-  const scoreVals = bestComps.map(c => c.score);
+  // Use only the top 3 scoring comps for the weighted baseline.
+  // Fetching 6 candidates then trimming to 3 gives a better pool to score against
+  // without diluting accuracy with weaker matches.
+  const TOP_N = 3;
+  const topComps  = bestComps.slice(0, TOP_N);
+  const ppsfVals  = topComps.map(c => c.adjPpsf);
+  const scoreVals = topComps.map(c => c.score);
   const { wPpsf, weights } = weightedPpsf(ppsfVals, scoreVals);
   const baseline = wPpsf * subject.sqft;
 
   return {
     phase:       bestLabel,
-    comps:       bestComps,
+    comps:       topComps,
     weights,
     wPpsf,
     baseline,
