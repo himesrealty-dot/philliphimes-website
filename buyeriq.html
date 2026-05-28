@@ -2200,4 +2200,274 @@
       if (selectedCities.size === 0) {
         document.getElementById('city-error').classList.add('show');
         document.getElementById('city-grid').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        r
+        return;
+      }
+      // If neighborhood cards are visible, require at least one selection
+      const panel = document.getElementById('neighborhood-panel');
+      const cards = document.querySelectorAll('#neighborhood-cards .be-hood-card');
+      if (panel.style.display !== 'none' && cards.length > 0 && selectedNeighborhoods.size === 0) {
+        document.getElementById('nbhd-error').classList.add('show');
+        panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        return;
+      }
+      document.getElementById('city-error').classList.remove('show');
+      document.getElementById('nbhd-error').classList.remove('show');
+      goToStage(2);
+    });
+
+    // ─────────────────────────────────────────────────────────
+    //  STAGE 2 — HOME WANTS (beds, baths, must-haves, year built)
+    // ─────────────────────────────────────────────────────────
+    document.getElementById('beds-grid').addEventListener('click', e => {
+      const btn = e.target.closest('.be-timeline-btn');
+      if (!btn) return;
+      document.querySelectorAll('#beds-grid .be-timeline-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      selectedBeds = btn.dataset.val;
+      document.getElementById('beds-error').classList.remove('show');
+    });
+
+    document.getElementById('baths-grid').addEventListener('click', e => {
+      const btn = e.target.closest('.be-timeline-btn');
+      if (!btn) return;
+      document.querySelectorAll('#baths-grid .be-timeline-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      selectedBaths = btn.dataset.val;
+      document.getElementById('baths-error').classList.remove('show');
+    });
+
+    document.getElementById('musthaves-grid').addEventListener('click', e => {
+      const btn = e.target.closest('.be-priority-btn');
+      if (!btn) return;
+      btn.classList.toggle('selected');
+      const mh = btn.dataset.mh;
+      if (btn.classList.contains('selected')) { selectedMustHaves.add(mh); }
+      else { selectedMustHaves.delete(mh); }
+    });
+
+    document.getElementById('yearbuilt-grid').addEventListener('click', e => {
+      const btn = e.target.closest('.be-timeline-btn');
+      if (!btn) return;
+      document.querySelectorAll('#yearbuilt-grid .be-timeline-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      selectedYearBuilt = btn.dataset.val;
+    });
+
+    document.getElementById('stage2-back').addEventListener('click', () => goToStage(1));
+    document.getElementById('stage2-next').addEventListener('click', () => {
+      let valid = true;
+      if (!selectedBeds)  { document.getElementById('beds-error').classList.add('show');  valid = false; }
+      if (!selectedBaths) { document.getElementById('baths-error').classList.add('show'); valid = false; }
+      if (!valid) return;
+      goToStage(3);
+    });
+
+    // ─────────────────────────────────────────────────────────
+    //  STAGE 3 — PRICE & TIMELINE
+    // ─────────────────────────────────────────────────────────
+    document.getElementById('price-grid').addEventListener('click', e => {
+      const btn = e.target.closest('.be-price-btn');
+      if (!btn) return;
+      document.querySelectorAll('.be-price-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      selectedPrice = btn.dataset.price;
+      document.getElementById('price-error').classList.remove('show');
+    });
+
+    document.getElementById('timeline-grid').addEventListener('click', e => {
+      const btn = e.target.closest('.be-timeline-btn');
+      if (!btn) return;
+      document.querySelectorAll('#timeline-grid .be-timeline-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      selectedTimeline = btn.dataset.timeline;
+      document.getElementById('timeline-error').classList.remove('show');
+    });
+
+    document.getElementById('stage3-back').addEventListener('click', () => goToStage(2));
+    document.getElementById('stage3-next').addEventListener('click', () => {
+      let valid = true;
+      if (!selectedPrice)    { document.getElementById('price-error').classList.add('show');    valid = false; }
+      if (!selectedTimeline) { document.getElementById('timeline-error').classList.add('show'); valid = false; }
+      if (!valid) return;
+      buildSummary();
+      goToStage(4);
+    });
+
+    // ─────────────────────────────────────────────────────────
+    //  STAGE 4 — CLOSING COST CALCULATOR
+    // ─────────────────────────────────────────────────────────
+    document.getElementById('dp-grid').addEventListener('click', e => {
+      const btn = e.target.closest('.be-dp-btn');
+      if (!btn) return;
+      document.querySelectorAll('.be-dp-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      calcDpPct = parseFloat(btn.dataset.dp);
+      calcClosingCosts();
+    });
+
+    document.getElementById('calc-price').addEventListener('input', calcClosingCosts);
+    document.getElementById('calc-rate').addEventListener('input', calcClosingCosts);
+    document.getElementById('calc-hoa').addEventListener('input', calcClosingCosts);
+
+    function calcClosingCosts() {
+      const rawPrice = document.getElementById('calc-price').value.replace(/[^0-9.]/g, '');
+      const price    = parseFloat(rawPrice);
+      const rate     = parseFloat(document.getElementById('calc-rate').value) || 7.0;
+      const hoa      = parseFloat(document.getElementById('calc-hoa').value)  || 0;
+      const hint     = document.getElementById('calc-hint');
+      const results  = document.getElementById('calc-results');
+      const disc     = document.getElementById('calc-disclaimer');
+
+      if (!price || price < 10000) {
+        results.style.display = 'none'; hint.style.display = 'block'; disc.style.display = 'none';
+        return;
+      }
+
+      const dpAmt        = price * (calcDpPct / 100);
+      const closingCosts = price * 0.025;
+      const totalCash    = dpAmt + closingCosts;
+      const loanAmt      = price - dpAmt;
+      const mr           = rate / 100 / 12;
+      const n            = 360;
+      const pi           = mr > 0
+        ? loanAmt * (mr * Math.pow(1 + mr, n)) / (Math.pow(1 + mr, n) - 1)
+        : loanAmt / n;
+      const taxes        = price * 0.022 / 12;
+      const insurance    = 175;
+      const pmi          = calcDpPct < 20 ? loanAmt * 0.008 / 12 : 0;
+      const totalMonthly = pi + taxes + insurance + pmi + hoa;
+      const fmt = v => '$' + Math.round(v).toLocaleString();
+
+      document.getElementById('r-downpayment').textContent  = fmt(dpAmt);
+      document.getElementById('r-closingcosts').textContent = fmt(closingCosts);
+      document.getElementById('r-totalcash').textContent    = fmt(totalCash);
+      document.getElementById('r-pi').textContent           = fmt(pi);
+      document.getElementById('r-taxes').textContent        = fmt(taxes) + '/mo';
+      document.getElementById('r-insurance').textContent    = fmt(insurance) + '/mo';
+
+      const pmiRow = document.getElementById('r-pmi-row');
+      if (pmi > 0) { pmiRow.style.display = 'flex'; document.getElementById('r-pmi').textContent = fmt(pmi) + '/mo'; }
+      else { pmiRow.style.display = 'none'; }
+
+      const hoaRow = document.getElementById('r-hoa-row');
+      if (hoa > 0) { hoaRow.style.display = 'flex'; document.getElementById('r-hoa-val').textContent = fmt(hoa) + '/mo'; }
+      else { hoaRow.style.display = 'none'; }
+
+      document.getElementById('r-totalmonthly').textContent = fmt(totalMonthly) + '/mo';
+      results.style.display = 'grid'; hint.style.display = 'none'; disc.style.display = 'block';
+    }
+
+    // ─────────────────────────────────────────────────────────
+    //  STAGE 4 — SUMMARY & OPT-IN
+    // ─────────────────────────────────────────────────────────
+    function buildSummary() {
+      const nbhdNames  = NEIGHBORHOODS.filter(n => selectedNeighborhoods.has(n.id)).map(n => n.name);
+      const cityNames  = CITY_DATA.filter(c => selectedCities.has(c.id)).map(c => c.name);
+      const allAreas   = nbhdNames.length ? nbhdNames : cityNames;
+
+      const priorityLabels = { schools: 'School Quality', commute: 'Short Commute', space: 'Lot Size & Space', lifestyle: 'Amenities & Lifestyle', value: 'Best Value', 'new-construction': 'New Construction' };
+      const mustHaveLabels = { pool: 'Pool', '2car-garage': '2+ Car Garage', '1story': '1 Story', 'new-construction': 'New Construction', gated: 'Gated Community', waterfront: 'Waterfront / Water View' };
+      const priorities = [...selectedPriorities].map(p => priorityLabels[p] || p).join(', ');
+      const mustHaves  = [...selectedMustHaves].map(m => mustHaveLabels[m] || m).join(', ');
+
+      const grid = document.getElementById('summary-grid');
+      grid.innerHTML = `
+        <div class="be-summary__item">
+          <div class="be-summary__item-label">📍 Neighborhoods / Areas</div>
+          <div class="be-summary__item-value">${allAreas.join(', ') || '—'}</div>
+        </div>
+        <div class="be-summary__item">
+          <div class="be-summary__item-label">🛏 Bedrooms</div>
+          <div class="be-summary__item-value">${selectedBeds || '—'}</div>
+        </div>
+        <div class="be-summary__item">
+          <div class="be-summary__item-label">🚿 Bathrooms</div>
+          <div class="be-summary__item-value">${selectedBaths || '—'}</div>
+        </div>
+        <div class="be-summary__item">
+          <div class="be-summary__item-label">💰 Price Range</div>
+          <div class="be-summary__item-value">${selectedPrice || '—'}</div>
+        </div>
+        <div class="be-summary__item">
+          <div class="be-summary__item-label">📅 Timeline</div>
+          <div class="be-summary__item-value">${selectedTimeline || '—'}</div>
+        </div>
+        ${selectedYearBuilt ? `<div class="be-summary__item"><div class="be-summary__item-label">📅 Home Age</div><div class="be-summary__item-value">${selectedYearBuilt}</div></div>` : ''}
+        ${mustHaves  ? `<div class="be-summary__item" style="grid-column:1/-1;"><div class="be-summary__item-label">✅ Must-Haves</div><div class="be-summary__item-value">${mustHaves}</div></div>` : ''}
+        ${priorities ? `<div class="be-summary__item" style="grid-column:1/-1;"><div class="be-summary__item-label">⭐ What Matters Most</div><div class="be-summary__item-value">${priorities}</div></div>` : ''}
+      `;
+
+      // Populate hidden fields
+      document.getElementById('hidden-neighborhoods').value = allAreas.join(', ');
+      document.getElementById('hidden-price').value         = selectedPrice;
+      document.getElementById('hidden-timeline').value      = selectedTimeline;
+      document.getElementById('hidden-seed').value          = allAreas[0] || '';
+      document.getElementById('hidden-priorities').value    = priorities;
+      const hCities    = document.getElementById('hidden-cities');    if (hCities)    hCities.value    = cityNames.join(', ');
+      const hBeds      = document.getElementById('hidden-beds');      if (hBeds)      hBeds.value      = selectedBeds;
+      const hBaths     = document.getElementById('hidden-baths');     if (hBaths)     hBaths.value     = selectedBaths;
+      const hMustHaves = document.getElementById('hidden-musthaves'); if (hMustHaves) hMustHaves.value = mustHaves;
+      const hYrBuilt   = document.getElementById('hidden-yearbuilt'); if (hYrBuilt)   hYrBuilt.value   = selectedYearBuilt;
+    }
+
+    document.getElementById('stage4-back').addEventListener('click', () => goToStage(3));
+
+    // Form submission
+    document.getElementById('optin-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      let valid = true;
+      const fn      = document.getElementById('first-name').value.trim();
+      const ln      = document.getElementById('last-name').value.trim();
+      const em      = document.getElementById('email').value.trim();
+      const ph      = document.getElementById('phone').value.trim();
+      const consent = document.getElementById('sms-consent').checked;
+
+      if (!fn) { document.getElementById('fname-error').classList.add('show');   valid = false; } else { document.getElementById('fname-error').classList.remove('show'); }
+      if (!ln) { document.getElementById('lname-error').classList.add('show');   valid = false; } else { document.getElementById('lname-error').classList.remove('show'); }
+      if (!em || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) { document.getElementById('email-error').classList.add('show'); valid = false; } else { document.getElementById('email-error').classList.remove('show'); }
+      if (!ph) { document.getElementById('phone-error').classList.add('show');   valid = false; } else { document.getElementById('phone-error').classList.remove('show'); }
+      if (!consent) { document.getElementById('consent-error').classList.add('show'); valid = false; } else { document.getElementById('consent-error').classList.remove('show'); }
+      if (!valid) return;
+
+      const btn = document.getElementById('submit-btn');
+      btn.textContent = 'Sending…';
+      btn.disabled = true;
+
+      const mustHaveLabels = { pool: 'Pool', '2car-garage': '2+ Car Garage', '1story': '1 Story', 'new-construction': 'New Construction', gated: 'Gated Community', waterfront: 'Waterfront / Water View' };
+      const mustHavesStr = [...selectedMustHaves].map(m => mustHaveLabels[m] || m).join(', ');
+
+      const formData = new FormData(this);
+      fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(formData).toString()
+      })
+      .then(() => { buildConfirmationScreen(); goToStage(5); })
+      .catch(() => { buildConfirmationScreen(); goToStage(5); });
+
+      // GHL Mashore Method webhook
+      fetch('https://services.leadconnectorhq.com/hooks/oyGNN4xzQ5FxZ2PQgFzE/webhook-trigger/976f3746-112a-4474-862f-1085e0ddb196', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          firstName: fn, lastName: ln, email: em, phone: ph,
+          sms_consent: consent ? 'yes' : 'no',
+          source: 'BuyerIQ',
+          cities: [...selectedCities].join(', '),
+          neighborhoods: document.getElementById('hidden-neighborhoods').value,
+          beds: selectedBeds, baths: selectedBaths,
+          mustHaves: mustHavesStr, yearBuilt: selectedYearBuilt,
+          price_range: selectedPrice, timeline: selectedTimeline,
+          priorities: document.getElementById('hidden-priorities').value
+        })
+      }).catch(() => {});
+    });
+
+    // ─────────────────────────────────────────────────────────
+    //  INIT
+    // ─────────────────────────────────────────────────────────
+    buildCityGrid();
+    updateProgress(1);
+
+  </script>
+<script src="https://widgets.leadconnectorhq.com/loader.js" data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" data-widget-id="6a0623c7f127bb5833bc2697"></script>
+</body>
+</html>
