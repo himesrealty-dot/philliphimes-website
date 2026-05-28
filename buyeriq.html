@@ -1379,6 +1379,33 @@
       line-height: 1.65;
     }
 
+    /* ─── CITY PICKER ───────────────────────────────────────── */
+    .be-city-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1rem; }
+    @media (max-width: 640px) { .be-city-grid { grid-template-columns: repeat(2, 1fr); } }
+    .be-city-card { position: relative; border: 2px solid var(--light-gray); border-radius: var(--radius-lg); padding: 1.1rem 1rem; text-align: center; cursor: pointer; transition: border-color 0.2s, background 0.2s; background: var(--white); }
+    .be-city-card:hover { border-color: var(--teal); background: rgba(32,137,160,0.04); }
+    .be-city-card.selected { border-color: var(--teal); background: rgba(32,137,160,0.08); }
+    .be-city-card__check { position: absolute; top: 0.5rem; right: 0.5rem; width: 20px; height: 20px; border-radius: 50%; background: var(--teal); color: white; font-size: 0.65rem; display: none; align-items: center; justify-content: center; font-weight: 700; }
+    .be-city-card.selected .be-city-card__check { display: flex; }
+    .be-city-card__icon { font-size: 1.75rem; margin-bottom: 0.35rem; }
+    .be-city-card__name { font-family: var(--font-heading); font-size: 0.9rem; font-weight: 800; color: var(--navy); margin-bottom: 0.25rem; }
+    .be-city-card__tagline { font-size: 0.7rem; color: var(--mid-gray); line-height: 1.4; margin-bottom: 0.35rem; }
+    .be-city-card__price { font-family: var(--font-heading); font-size: 0.75rem; font-weight: 700; color: var(--teal-dark); }
+    .be-nbhd-city-label { font-family: var(--font-heading); font-size: 0.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: var(--navy); margin: 1.5rem 0 0.75rem; padding-bottom: 0.4rem; border-bottom: 2px solid var(--light-gray); width: 100%; }
+    /* ─── DOWN PAYMENT + CALC ────────────────────────────────── */
+    .be-dp-grid { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.4rem; }
+    .be-dp-btn { padding: 0.5rem 1rem; border: 1.5px solid var(--light-gray); border-radius: var(--radius-md); font-family: var(--font-heading); font-size: 0.82rem; font-weight: 700; color: var(--navy); background: var(--white); cursor: pointer; transition: all 0.15s; }
+    .be-dp-btn:hover { border-color: var(--teal); color: var(--teal); }
+    .be-dp-btn.selected { background: var(--teal); color: white; border-color: var(--teal); }
+    .calc-panels { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.25rem; }
+    @media (max-width: 560px) { .calc-panels { grid-template-columns: 1fr; } }
+    .calc-panel { background: var(--light-gray); border-radius: var(--radius-md); padding: 1.25rem; }
+    .calc-panel__title { font-family: var(--font-heading); font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--mid-gray); margin-bottom: 0.75rem; }
+    .calc-row { display: flex; justify-content: space-between; font-size: 0.84rem; color: var(--dark-gray); padding: 0.28rem 0; border-bottom: 1px solid rgba(0,0,0,0.06); }
+    .calc-row:last-child { border-bottom: none; }
+    .calc-row--total { font-family: var(--font-heading); font-weight: 800; color: var(--navy); font-size: 0.95rem; padding-top: 0.5rem; margin-top: 0.25rem; border-top: 2px solid var(--navy); border-bottom: none !important; }
+    .calc-disclaimer { font-size: 0.72rem; color: var(--mid-gray); margin-top: 0.75rem; text-align: center; line-height: 1.5; }
+
   </style>
 </head>
 <body>
@@ -1449,15 +1476,15 @@
       <div class="be-progress__steps" role="list">
         <div class="be-progress__step active" data-step="1" role="listitem">
           <div class="be-progress__dot">1</div>
-          <span class="be-progress__label">Neighborhood</span>
+          <span class="be-progress__label">Your Area</span>
         </div>
         <div class="be-progress__step" data-step="2" role="listitem">
           <div class="be-progress__dot">2</div>
-          <span class="be-progress__label">Compare</span>
+          <span class="be-progress__label">Your Home</span>
         </div>
         <div class="be-progress__step" data-step="3" role="listitem">
           <div class="be-progress__dot">3</div>
-          <span class="be-progress__label">Refine</span>
+          <span class="be-progress__label">Your Budget</span>
         </div>
         <div class="be-progress__step" data-step="4" role="listitem">
           <div class="be-progress__dot">4</div>
@@ -1465,7 +1492,7 @@
         </div>
         <div class="be-progress__step" data-step="5" role="listitem">
           <div class="be-progress__dot">✓</div>
-          <span class="be-progress__label">Report</span>
+          <span class="be-progress__label">Done</span>
         </div>
       </div>
       <div class="be-progress__bar-wrap">
@@ -1477,27 +1504,36 @@
   <!-- ── ASSESSMENT STAGES ───────────────────────────────────────── -->
   <div class="be-stage-wrap">
 
-    <!-- ══ STAGE 1: NEIGHBORHOOD PICKER ═════════════════════════ -->
+    <!-- ══ STAGE 1: CITY + NEIGHBORHOOD PICKER ══════════════════ -->
     <div class="be-stage active" id="stage-1">
       <div class="be-stage__header">
-        <p class="be-stage__eyebrow">Step 1 of 5 — Your Starting Point</p>
-        <h2 class="be-stage__title">Which neighborhood have you been circling?</h2>
-        <p class="be-stage__subtitle">Pick the one you've heard about, driven through, or keep seeing on Zillow. We'll show you how it stacks up — and what else fits your life.</p>
+        <p class="be-stage__eyebrow">Step 1 of 4 — Your Area</p>
+        <h2 class="be-stage__title">Where do you want to plant roots?</h2>
+        <p class="be-stage__subtitle">Select the cities you're open to — then pick the specific neighborhoods that interest you. You can choose more than one.</p>
       </div>
 
-      <!-- Seed neighborhood picker (single select) -->
-      <div class="be-hood-grid" id="seed-grid">
-        <!-- Populated by JS on load -->
+      <!-- City cards -->
+      <div id="city-grid" class="be-city-grid">
+        <!-- Populated by JS -->
       </div>
-      <div class="be-error" id="seed-error" style="text-align:center;margin-bottom:1rem;">Please pick a neighborhood to get started.</div>
+      <div class="be-error" id="city-error" style="text-align:center;margin-bottom:0.5rem;">Please select at least one city to continue.</div>
 
-      <!-- What matters most (multi-select) -->
-      <div class="be-card">
+      <!-- Neighborhood panel — appears after city selection -->
+      <div id="neighborhood-panel" style="display:none;">
+        <div class="be-divider-label" style="margin-top:2rem;">Select the Neighborhoods You're Interested In</div>
+        <div id="neighborhood-cards" class="be-hood-grid">
+          <!-- Populated by JS -->
+        </div>
+        <div class="be-error" id="nbhd-error" style="text-align:center;margin-bottom:1rem;">Please select at least one neighborhood to continue.</div>
+      </div>
+
+      <!-- What matters most -->
+      <div class="be-card" style="margin-top:2rem;">
         <div class="be-card__head">
           <div class="be-card__icon be-card__icon--gold">⭐</div>
           <div>
             <div class="be-card__label">What matters most to you?</div>
-            <div class="be-card__sublabel">Pick all that apply — this shapes your comparison</div>
+            <div class="be-card__sublabel">Pick all that apply — this shapes your search profile</div>
           </div>
           <span class="be-card__optional">Optional</span>
         </div>
@@ -1519,43 +1555,106 @@
 
       <div class="be-nav-btns">
         <span></span>
-        <button class="be-next-btn be-next-btn--teal" id="stage1-next">See What Compares →</button>
+        <button class="be-next-btn be-next-btn--teal" id="stage1-next">Tell Me What You Want →</button>
       </div>
     </div>
 
-    <!-- ══ STAGE 2: NEIGHBORHOOD COMPARISON ════════════════════ -->
+    <!-- ══ STAGE 2: WHAT YOU WANT ════════════════════════════════ -->
     <div class="be-stage" id="stage-2">
       <div class="be-stage__header">
-        <p class="be-stage__eyebrow">Step 2 of 5 — Compare</p>
-        <h2 class="be-stage__title" id="stage2-title">Here's what fits alongside your pick.</h2>
-        <p class="be-stage__subtitle">Each neighborhood below is a realistic alternative. See how they compare on price, drive time between areas, and what makes each one different. Select any that interest you.</p>
+        <p class="be-stage__eyebrow">Step 2 of 4 — Your Home</p>
+        <h2 class="be-stage__title">Tell us what you're looking for.</h2>
+        <p class="be-stage__subtitle">The more detail you share, the better we can match you to the right homes in your chosen neighborhoods.</p>
       </div>
 
-      <!-- Your picked neighborhood (locked, displayed at top) -->
-      <div id="seed-card-display">
-        <!-- Populated by JS -->
+      <!-- Bedrooms -->
+      <div class="be-card">
+        <div class="be-card__head">
+          <div class="be-card__icon">🛏</div>
+          <div>
+            <div class="be-card__label">Bedrooms Needed</div>
+            <div class="be-card__sublabel">Minimum number you require</div>
+          </div>
+        </div>
+        <div class="be-timeline-grid" id="beds-grid">
+          <button class="be-timeline-btn" data-val="2">2 Bed</button>
+          <button class="be-timeline-btn" data-val="3">3 Bed</button>
+          <button class="be-timeline-btn" data-val="4">4 Bed</button>
+          <button class="be-timeline-btn" data-val="5">5 Bed</button>
+          <button class="be-timeline-btn" data-val="6+">6+ Bed</button>
+        </div>
+        <div class="be-error" id="beds-error">Please select number of bedrooms.</div>
       </div>
 
-      <div class="be-divider-label">Comparable Neighborhoods — Select Any That Interest You</div>
-
-      <!-- Comparison cards -->
-      <div class="be-compare-grid" id="comparison-grid">
-        <!-- Populated by JS -->
+      <!-- Bathrooms -->
+      <div class="be-card">
+        <div class="be-card__head">
+          <div class="be-card__icon">🚿</div>
+          <div>
+            <div class="be-card__label">Bathrooms Needed</div>
+            <div class="be-card__sublabel">Minimum you can live with</div>
+          </div>
+        </div>
+        <div class="be-timeline-grid" id="baths-grid">
+          <button class="be-timeline-btn" data-val="2">2 Bath</button>
+          <button class="be-timeline-btn" data-val="2.5">2.5 Bath</button>
+          <button class="be-timeline-btn" data-val="3">3 Bath</button>
+          <button class="be-timeline-btn" data-val="3.5">3.5 Bath</button>
+          <button class="be-timeline-btn" data-val="4+">4+ Bath</button>
+        </div>
+        <div class="be-error" id="baths-error">Please select number of bathrooms.</div>
       </div>
-      <div class="be-error" id="compare-error" style="text-align:center;margin-bottom:1rem;">Please select at least one neighborhood to continue.</div>
+
+      <!-- Must-Haves -->
+      <div class="be-card">
+        <div class="be-card__head">
+          <div class="be-card__icon be-card__icon--teal">✅</div>
+          <div>
+            <div class="be-card__label">Must-Haves</div>
+            <div class="be-card__sublabel">Non-negotiables — select all that apply</div>
+          </div>
+          <span class="be-card__optional">Optional</span>
+        </div>
+        <div class="be-priority-grid" id="musthaves-grid">
+          <button class="be-priority-btn" data-mh="pool" type="button">🏊 Pool</button>
+          <button class="be-priority-btn" data-mh="2car-garage" type="button">🚗 2+ Car Garage</button>
+          <button class="be-priority-btn" data-mh="1story" type="button">🏠 1 Story</button>
+          <button class="be-priority-btn" data-mh="new-construction" type="button">🔨 New Construction</button>
+          <button class="be-priority-btn" data-mh="gated" type="button">🔒 Gated Community</button>
+          <button class="be-priority-btn" data-mh="waterfront" type="button">🌊 Waterfront / Water View</button>
+        </div>
+      </div>
+
+      <!-- Year Built Preference -->
+      <div class="be-card">
+        <div class="be-card__head">
+          <div class="be-card__icon">📅</div>
+          <div>
+            <div class="be-card__label">Home Age Preference</div>
+            <div class="be-card__sublabel">How new does it need to be?</div>
+          </div>
+          <span class="be-card__optional">Optional</span>
+        </div>
+        <div class="be-timeline-grid" id="yearbuilt-grid">
+          <button class="be-timeline-btn" data-val="Any Age">Any Age — Great Bones Win</button>
+          <button class="be-timeline-btn" data-val="2000+">2000 or Newer</button>
+          <button class="be-timeline-btn" data-val="2010+">2010 or Newer</button>
+          <button class="be-timeline-btn" data-val="New Construction">New Construction Only</button>
+        </div>
+      </div>
 
       <div class="be-nav-btns">
         <button class="be-back-btn" id="stage2-back">← Back</button>
-        <button class="be-next-btn" id="stage2-next">Refine My Search →</button>
+        <button class="be-next-btn" id="stage2-next">Set My Budget →</button>
       </div>
     </div>
 
     <!-- ══ STAGE 3: REFINE ══════════════════════════════════════ -->
     <div class="be-stage" id="stage-3">
       <div class="be-stage__header">
-        <p class="be-stage__eyebrow">Step 3 of 5 — Refine</p>
-        <h2 class="be-stage__title">Two quick questions.</h2>
-        <p class="be-stage__subtitle">Your neighborhood picks are locked in. Tell us your price range and timeline so we can build your personalized search profile.</p>
+        <p class="be-stage__eyebrow">Step 3 of 4 — Your Budget</p>
+        <h2 class="be-stage__title">Price range and timing.</h2>
+        <p class="be-stage__subtitle">Lock in your budget and timeline so we can build your complete search profile and run the numbers on what you'll need at closing.</p>
       </div>
 
       <!-- Price Range -->
@@ -1605,9 +1704,67 @@
     <!-- ══ STAGE 4: OPT-IN ══════════════════════════════════════ -->
     <div class="be-stage" id="stage-4">
       <div class="be-stage__header">
-        <p class="be-stage__eyebrow">Step 4 of 5 — Your Search</p>
+        <p class="be-stage__eyebrow">Step 4 of 4 — Your Search</p>
         <h2 class="be-stage__title">Your search profile is ready.</h2>
-        <p class="be-stage__subtitle">Here's everything we know about what you're looking for. Save it and we'll alert you the moment the right home hits the market.</p>
+        <p class="be-stage__subtitle">Here's everything we know about what you're looking for — including what you'll need at closing and every month.</p>
+      </div>
+
+      <!-- Closing Cost Calculator -->
+      <div class="be-card" id="closing-calc">
+        <div class="be-card__head">
+          <div class="be-card__icon be-card__icon--gold">🧮</div>
+          <div>
+            <div class="be-card__label">Closing Cost Calculator</div>
+            <div class="be-card__sublabel">Estimate cash at closing and your monthly payment</div>
+          </div>
+        </div>
+
+        <div class="be-input-group">
+          <label class="be-input-label" for="calc-price">Purchase Price</label>
+          <input type="text" id="calc-price" class="be-input" placeholder="e.g. $425,000" />
+        </div>
+
+        <div class="be-input-group">
+          <label class="be-input-label">Down Payment</label>
+          <div class="be-dp-grid" id="dp-grid">
+            <button class="be-dp-btn" data-dp="3" type="button">3% Conv</button>
+            <button class="be-dp-btn" data-dp="3.5" type="button">3.5% FHA</button>
+            <button class="be-dp-btn selected" data-dp="5" type="button">5%</button>
+            <button class="be-dp-btn" data-dp="10" type="button">10%</button>
+            <button class="be-dp-btn" data-dp="20" type="button">20%</button>
+          </div>
+        </div>
+
+        <div class="be-input-row" style="margin-bottom:1rem;">
+          <div class="be-input-group" style="margin:0;">
+            <label class="be-input-label" for="calc-rate">Interest Rate (%)</label>
+            <input type="number" id="calc-rate" class="be-input" value="7.0" step="0.1" min="3" max="15" />
+          </div>
+          <div class="be-input-group" style="margin:0;">
+            <label class="be-input-label" for="calc-hoa">Monthly HOA ($)</label>
+            <input type="number" id="calc-hoa" class="be-input" placeholder="0" value="0" min="0" />
+          </div>
+        </div>
+
+        <div class="calc-panels" id="calc-results" style="display:none;">
+          <div class="calc-panel">
+            <div class="calc-panel__title">💵 Cash at Closing</div>
+            <div class="calc-row"><span>Down Payment</span><span id="r-downpayment">—</span></div>
+            <div class="calc-row"><span>Closing Costs (~2.5%)</span><span id="r-closingcosts">—</span></div>
+            <div class="calc-row calc-row--total"><span>Total Cash Needed</span><span id="r-totalcash">—</span></div>
+          </div>
+          <div class="calc-panel">
+            <div class="calc-panel__title">📅 Est. Monthly Payment</div>
+            <div class="calc-row"><span>Principal &amp; Interest</span><span id="r-pi">—</span></div>
+            <div class="calc-row"><span>Property Taxes (2.2%)</span><span id="r-taxes">—</span></div>
+            <div class="calc-row"><span>Homeowner's Insurance</span><span id="r-insurance">—</span></div>
+            <div class="calc-row" id="r-pmi-row" style="display:none;"><span>PMI (&lt;20% down)</span><span id="r-pmi">—</span></div>
+            <div class="calc-row" id="r-hoa-row" style="display:none;"><span>HOA</span><span id="r-hoa-val">—</span></div>
+            <div class="calc-row calc-row--total"><span>Total Monthly</span><span id="r-totalmonthly">—</span></div>
+          </div>
+        </div>
+        <p class="calc-disclaimer" id="calc-hint" style="margin-top:0.75rem;">Enter a purchase price above to see your estimates.</p>
+        <p class="calc-disclaimer" id="calc-disclaimer" style="display:none;">Estimates only. Texas avg property tax 2.2%. Insurance ~$175/mo. Confirm with your lender before making an offer.</p>
       </div>
 
       <!-- Criteria Summary -->
@@ -1631,6 +1788,11 @@
           <input type="hidden" name="timeline" id="hidden-timeline" />
           <input type="hidden" name="seed_neighborhood" id="hidden-seed" />
           <input type="hidden" name="priorities" id="hidden-priorities" />
+          <input type="hidden" name="cities" id="hidden-cities" />
+          <input type="hidden" name="beds" id="hidden-beds" />
+          <input type="hidden" name="baths" id="hidden-baths" />
+          <input type="hidden" name="must_haves" id="hidden-musthaves" />
+          <input type="hidden" name="year_built_pref" id="hidden-yearbuilt" />
 
           <div class="be-input-row" style="margin-bottom:0.85rem;">
             <div class="be-input-group" style="margin:0;">
@@ -1701,114 +1863,29 @@
   <script>
 
     // ─────────────────────────────────────────────────────────
-    //  DATA — Neighborhoods
+    //  DATA — City Picker
     // ─────────────────────────────────────────────────────────
-    const NEIGHBORHOODS = [
-      {
-        id: 'tuscan-lakes',
-        city: 'League City',
-        name: 'Tuscan Lakes',
-        price: '$350K – $550K',
-        tags: ['Master-Planned', 'Pool Community', 'New Construction Available'],
-        schoolTag: '🏫 Highly Rated CCISD',
-        detail: 'A large master-planned community with resort-style amenities, walking trails, and a strong sense of community. Great for families.',
-        commute: '~18 min to NASA, ~28 min to Medical Center',
-        commuteMinutes: 28,
-        lat: 29.4897, lng: -95.1058
-      },
-      {
-        id: 'south-shore-harbour',
-        city: 'League City',
-        name: 'South Shore Harbour',
-        price: '$400K – $700K',
-        tags: ['Waterfront Lifestyle', 'Country Club', 'Established'],
-        schoolTag: '🏫 Top-Rated CCISD',
-        detail: 'Upscale waterfront community on Clear Lake. Marina, country club, and golf course. Prestige neighborhood with strong appreciation.',
-        commute: '~15 min to NASA, ~30 min to Med Center',
-        commuteMinutes: 30,
-        lat: 29.5329, lng: -95.0886
-      },
-      {
-        id: 'friendswood',
-        city: 'Friendswood',
-        name: 'Friendswood (Central)',
-        price: '$380K – $650K',
-        tags: ['Top-Rated Schools', 'Quiet Streets', 'Established'],
-        schoolTag: '🏫 FISD — Excellent Ratings',
-        detail: 'One of the most sought-after districts in the Houston suburbs. Quiet, established neighborhoods with excellent schools and strong community identity.',
-        commute: '~22 min to NASA, ~30 min to Pearland/288 corridor',
-        commuteMinutes: 30,
-        lat: 29.5293, lng: -95.2010
-      },
-      {
-        id: 'pearland-shadow-creek',
-        city: 'Pearland',
-        name: 'Shadow Creek Ranch',
-        price: '$320K – $520K',
-        tags: ['Master-Planned', 'Value-Focused', 'Growing'],
-        schoolTag: '🏫 Pearland ISD — Strong Ratings',
-        detail: 'One of the most successful master-planned communities in Texas. Excellent value, amenities, and access to 288 corridor employers.',
-        commute: '~20 min to Medical Center via 288',
-        commuteMinutes: 20,
-        lat: 29.5910, lng: -95.3305
-      },
-      {
-        id: 'clear-lake',
-        city: 'Clear Lake Area',
-        name: 'Clear Lake City',
-        price: '$280K – $480K',
-        tags: ['NASA Corridor', 'Urban Feel', 'Established'],
-        schoolTag: '🏫 CCISD — Good Ratings',
-        detail: 'Established area near NASA with a suburban-urban feel. Strong appreciation, proximity to major employers, and a diverse community.',
-        commute: '~10 min to NASA, ~35 min to Downtown',
-        commuteMinutes: 15,
-        lat: 29.5601, lng: -95.1035
-      },
-      {
-        id: 'bay-area-ranch',
-        city: 'Webster / Clear Lake',
-        name: 'Bay Area Ranch',
-        price: '$290K – $430K',
-        tags: ['Convenient Location', 'Value', 'Good Schools'],
-        schoolTag: '🏫 CCISD',
-        detail: 'A hidden gem — established neighborhood with great access to I-45, NASA Road 1, and both League City and Webster employment centers.',
-        commute: '~12 min to NASA, ~25 min to Galveston',
-        commuteMinutes: 20,
-        lat: 29.5449, lng: -95.1335
-      }
+    const CITY_DATA = [
+      { id: 'league-city', name: 'League City', icon: '⚓', tagline: 'Top CCISD schools & waterfront', priceRange: '$350K–$700K', neighborhoods: ['tuscan-lakes','south-shore-harbour'] },
+      { id: 'friendswood', name: 'Friendswood', icon: '🌳', tagline: '#1-rated schools in the region', priceRange: '$380K–$650K', neighborhoods: ['friendswood'] },
+      { id: 'pearland',    name: 'Pearland',    icon: '🏡', tagline: 'Best value on the 288 corridor', priceRange: '$300K–$520K', neighborhoods: ['pearland-shadow-creek'] },
+      { id: 'clear-lake',  name: 'Clear Lake',  icon: '🚀', tagline: 'NASA corridor & urban feel',     priceRange: '$280K–$480K', neighborhoods: ['clear-lake','bay-area-ranch'] },
+      { id: 'dickinson',   name: 'Dickinson',   icon: '🌿', tagline: 'Affordable with room to grow',   priceRange: '$250K–$420K', neighborhoods: [] },
+      { id: 'manvel',      name: 'Manvel',      icon: '🤠', tagline: 'Space & value south of Houston', priceRange: '$280K–$500K', neighborhoods: [] },
     ];
 
     // ─────────────────────────────────────────────────────────
-    //  DATA — Drive times between neighborhoods (minutes, estimated)
+    //  DATA — Neighborhoods (used for Stage 5 report)
     // ─────────────────────────────────────────────────────────
-    const DRIVE_TIMES = {
-      'tuscan-lakes': {
-        'south-shore-harbour': 10, 'friendswood': 16,
-        'pearland-shadow-creek': 26, 'clear-lake': 14, 'bay-area-ranch': 12
-      },
-      'south-shore-harbour': {
-        'tuscan-lakes': 10, 'friendswood': 20,
-        'pearland-shadow-creek': 30, 'clear-lake': 10, 'bay-area-ranch': 8
-      },
-      'friendswood': {
-        'tuscan-lakes': 16, 'south-shore-harbour': 20,
-        'pearland-shadow-creek': 22, 'clear-lake': 18, 'bay-area-ranch': 14
-      },
-      'pearland-shadow-creek': {
-        'tuscan-lakes': 26, 'south-shore-harbour': 30,
-        'friendswood': 22, 'clear-lake': 30, 'bay-area-ranch': 24
-      },
-      'clear-lake': {
-        'tuscan-lakes': 14, 'south-shore-harbour': 10,
-        'friendswood': 18, 'pearland-shadow-creek': 30, 'bay-area-ranch': 8
-      },
-      'bay-area-ranch': {
-        'tuscan-lakes': 12, 'south-shore-harbour': 8,
-        'friendswood': 14, 'pearland-shadow-creek': 24, 'clear-lake': 8
-      }
-    };
+    const NEIGHBORHOODS = [
+      { id: 'tuscan-lakes',          city: 'League City',       name: 'Tuscan Lakes',          price: '$350K – $550K', tags: ['Master-Planned','Pool Community','New Construction Available'], schoolTag: '🏫 Highly Rated CCISD',         detail: 'A large master-planned community with resort-style amenities, walking trails, and a strong sense of community. Great for families.',                                            lat: 29.4897, lng: -95.1058 },
+      { id: 'south-shore-harbour',   city: 'League City',       name: 'South Shore Harbour',   price: '$400K – $700K', tags: ['Waterfront Lifestyle','Country Club','Established'],            schoolTag: '🏫 Top-Rated CCISD',            detail: 'Upscale waterfront community on Clear Lake. Marina, country club, and golf course. Prestige neighborhood with strong appreciation.',                                           lat: 29.5329, lng: -95.0886 },
+      { id: 'friendswood',           city: 'Friendswood',       name: 'Friendswood (Central)', price: '$380K – $650K', tags: ['Top-Rated Schools','Quiet Streets','Established'],              schoolTag: '🏫 FISD — Excellent Ratings',   detail: 'One of the most sought-after districts in the Houston suburbs. Quiet, established neighborhoods with excellent schools and strong community identity.',                      lat: 29.5293, lng: -95.2010 },
+      { id: 'pearland-shadow-creek', city: 'Pearland',          name: 'Shadow Creek Ranch',    price: '$320K – $520K', tags: ['Master-Planned','Value-Focused','Growing'],                    schoolTag: '🏫 Pearland ISD — Strong Ratings', detail: 'One of the most successful master-planned communities in Texas. Excellent value, amenities, and access to 288 corridor employers.',                                       lat: 29.5910, lng: -95.3305 },
+      { id: 'clear-lake',            city: 'Clear Lake Area',   name: 'Clear Lake City',       price: '$280K – $480K', tags: ['NASA Corridor','Urban Feel','Established'],                    schoolTag: '🏫 CCISD — Good Ratings',       detail: 'Established area near NASA with a suburban-urban feel. Strong appreciation, proximity to major employers, and a diverse community.',                                          lat: 29.5601, lng: -95.1035 },
+      { id: 'bay-area-ranch',        city: 'Webster / Clear Lake', name: 'Bay Area Ranch',     price: '$290K – $430K', tags: ['Convenient Location','Value','Good Schools'],                  schoolTag: '🏫 CCISD',                      detail: 'A hidden gem — established neighborhood with great access to I-45, NASA Road 1, and both League City and Webster employment centers.',                                       lat: 29.5449, lng: -95.1335 },
+    ];
 
-    // Key differentiator per neighborhood
     const DIFFERENTIATORS = {
       'tuscan-lakes':          'Master-planned amenities — resort pool, walking trails, community events. A neighborhood with built-in social infrastructure.',
       'south-shore-harbour':   'Waterfront prestige — marina, country club, golf course. The highest-ceiling appreciation play in the area.',
@@ -1818,39 +1895,15 @@
       'bay-area-ranch':        'The hidden gem — established streets, great I-45 access, excellent value. Less traffic than Clear Lake proper.'
     };
 
-    // ─────────────────────────────────────────────────────────
-    //  DATA — Phil's Take (per seed neighborhood)
-    // ─────────────────────────────────────────────────────────
     const PHIL_TAKE = {
-      'tuscan-lakes': {
-        headline: "Tuscan Lakes moves faster than most buyers expect.",
-        body: "CCISD demand is real, and when a move-in-ready home hits this community, it typically gets multiple offers within the first weekend. The amenities are genuinely great — the resort pool, trails, and events calendar give this neighborhood a community feel that's hard to replicate. What that means for you: you want to be pre-approved and decision-ready before we tour. I'll help you move at the right speed without making a rushed mistake."
-      },
-      'south-shore-harbour': {
-        headline: "South Shore Harbour is one of the few places where buyers still have room to negotiate.",
-        body: "The higher price point creates less competition than you might expect. Sellers here are often equity-rich and patient — which actually gives us leverage. The marina and country club lifestyle is real, and this neighborhood holds value exceptionally well. My read: if your budget stretches here, it's worth serious consideration. The gap between list and sale price is wider than anywhere else in your comparison set."
-      },
-      'friendswood': {
-        headline: "Friendswood is the tightest market in your comparison.",
-        body: "FISD's reputation drives genuine demand, and inventory stays low because residents don't want to leave. Homes here rarely sit — when something good hits, it goes. The honest reality: if schools are your top priority, Friendswood delivers, but you need to be ready to move quickly and potentially offer at or above list. I know the micro-pockets within Friendswood and can help you focus on the ones that match both your budget and your school assignment goals."
-      },
-      'pearland-shadow-creek': {
-        headline: "Shadow Creek Ranch offers the best value-to-quality ratio along the 288 corridor.",
-        body: "For buyers who want the master-planned lifestyle without paying the League City premium, Shadow Creek is hard to beat. Pearland ISD has steadily improved its ratings, and the 288 access to the Medical Center is genuinely excellent. The community is mature enough that amenities are fully built out — no more construction noise. My take: this is where I'd point a buyer who wants maximum square footage and quality of life per dollar."
-      },
-      'clear-lake': {
-        headline: "Clear Lake City is a market driven by the NASA corridor — and that stability is a feature.",
-        body: "The JSC workforce creates steady, predictable demand. Homes here move at a consistent pace — not the feeding-frenzy of Friendswood, not the slow burn of South Shore. The established trees and lot sizes are something new construction simply can't offer. Important note: Clear Lake is flood-prone in certain areas — specific streets matter a lot here. I'll walk you through flood history and insurance estimates on any property we consider."
-      },
-      'bay-area-ranch': {
-        headline: "Bay Area Ranch moves faster than most people expect for its price point.",
-        body: "This is the neighborhood that surprises buyers. The value is legitimate, the I-45 and NASA Road 1 access is excellent, and CCISD schools serve the area well. Because it flies under the radar compared to Tuscan Lakes or South Shore, competition is lighter — but that's changing as word gets out. My honest take: this is where I'd buy if I were optimizing for value, location, and long-term appreciation in the current market. Don't sleep on it."
-      }
+      'tuscan-lakes':          { headline: "Tuscan Lakes moves faster than most buyers expect.", body: "CCISD demand is real, and when a move-in-ready home hits this community, it typically gets multiple offers within the first weekend. The amenities are genuinely great — the resort pool, trails, and events calendar give this neighborhood a community feel that's hard to replicate. What that means for you: you want to be pre-approved and decision-ready before we tour. I'll help you move at the right speed without making a rushed mistake." },
+      'south-shore-harbour':   { headline: "South Shore Harbour is one of the few places where buyers still have room to negotiate.", body: "The higher price point creates less competition than you might expect. Sellers here are often equity-rich and patient — which actually gives us leverage. The marina and country club lifestyle is real, and this neighborhood holds value exceptionally well. My read: if your budget stretches here, it's worth serious consideration. The gap between list and sale price is wider than anywhere else in your comparison set." },
+      'friendswood':           { headline: "Friendswood is the tightest market in your comparison.", body: "FISD's reputation drives genuine demand, and inventory stays low because residents don't want to leave. Homes here rarely sit — when something good hits, it goes. The honest reality: if schools are your top priority, Friendswood delivers, but you need to be ready to move quickly and potentially offer at or above list. I know the micro-pockets within Friendswood and can help you focus on the ones that match both your budget and your school assignment goals." },
+      'pearland-shadow-creek': { headline: "Shadow Creek Ranch offers the best value-to-quality ratio along the 288 corridor.", body: "For buyers who want the master-planned lifestyle without paying the League City premium, Shadow Creek is hard to beat. Pearland ISD has steadily improved its ratings, and the 288 access to the Medical Center is genuinely excellent. The community is mature enough that amenities are fully built out — no more construction noise. My take: this is where I'd point a buyer who wants maximum square footage and quality of life per dollar." },
+      'clear-lake':            { headline: "Clear Lake City is a market driven by the NASA corridor — and that stability is a feature.", body: "The JSC workforce creates steady, predictable demand. Homes here move at a consistent pace — not the feeding-frenzy of Friendswood, not the slow burn of South Shore. The established trees and lot sizes are something new construction simply can't offer. Important note: Clear Lake is flood-prone in certain areas — specific streets matter a lot here. I'll walk you through flood history and insurance estimates on any property we consider." },
+      'bay-area-ranch':        { headline: "Bay Area Ranch moves faster than most people expect for its price point.", body: "This is the neighborhood that surprises buyers. The value is legitimate, the I-45 and NASA Road 1 access is excellent, and CCISD schools serve the area well. Because it flies under the radar compared to Tuscan Lakes or South Shore, competition is lighter — but that's changing as word gets out. My honest take: this is where I'd buy if I were optimizing for value, location, and long-term appreciation in the current market. Don't sleep on it." }
     };
 
-    // ─────────────────────────────────────────────────────────
-    //  DATA — Market Snapshot (per neighborhood)
-    // ─────────────────────────────────────────────────────────
     const MARKET_STATS = {
       'tuscan-lakes':          { active: 28, dom: 22, ratio: '97.8%', median: '$415K', trend: 'stable', trendLabel: '⚡ Competitive — CCISD demand keeps inventory moving' },
       'south-shore-harbour':   { active: 14, dom: 35, ratio: '96.2%', median: '$520K', trend: 'buyer',  trendLabel: '⚖️ Balanced — buyer leverage exists at this price point' },
@@ -1860,9 +1913,6 @@
       'bay-area-ranch':        { active: 12, dom: 20, ratio: '98.1%', median: '$355K', trend: 'hot',    trendLabel: '🔥 Moving Fast — hidden gem going mainstream' }
     };
 
-    // ─────────────────────────────────────────────────────────
-    //  DATA — Community page URLs
-    // ─────────────────────────────────────────────────────────
     const COMMUNITY_URLS = {
       'tuscan-lakes':          { url: 'league-city.html' },
       'south-shore-harbour':   { url: 'league-city.html' },
@@ -1872,45 +1922,29 @@
       'bay-area-ranch':        { url: 'clear-lake.html' }
     };
 
-    // ─────────────────────────────────────────────────────────
-    //  DATA — Testimonials (neighborhood-matched where available)
-    // ─────────────────────────────────────────────────────────
     const TESTIMONIALS = {
-      'default': {
-        quote: "He came prepared and he came to sell our home — not just to list it. He helped us along the whole process from selling, to pre-approval, to finding our dream home. Then he negotiated an impressive $30,000 off the purchase price. Phil truly cares for his clients.",
-        name: "Laly Zapata",
-        detail: "Sold in Texas City · Bought in Bay Colony, League City · Saved $30,000",
-        initials: "LZ"
-      },
-      'tuscan-lakes': {
-        quote: "Phil knew Tuscan Lakes better than we did — he helped us understand which streets have the best school assignments and which builder upgrades are actually worth it. We closed with confidence and zero regrets.",
-        name: "Michael & Jennifer R.",
-        detail: "Bought in Tuscan Lakes, League City · CCISD Family",
-        initials: "MR"
-      },
-      'friendswood': {
-        quote: "The Friendswood market moves fast and Phil had us ready. Pre-approved, educated on the comps, decision-ready — and we got our first offer accepted. He knows exactly what it takes in that market.",
-        name: "David & Sarah K.",
-        detail: "Bought in Friendswood · FISD Schools · Beat multiple offers",
-        initials: "DK"
-      }
+      'default':    { quote: "He came prepared and he came to sell our home — not just to list it. He helped us along the whole process from selling, to pre-approval, to finding our dream home. Then he negotiated an impressive $30,000 off the purchase price. Phil truly cares for his clients.", name: "Laly Zapata", detail: "Sold in Texas City · Bought in Bay Colony, League City · Saved $30,000", initials: "LZ" },
+      'tuscan-lakes': { quote: "Phil knew Tuscan Lakes better than we did — he helped us understand which streets have the best school assignments and which builder upgrades are actually worth it. We closed with confidence and zero regrets.", name: "Michael & Jennifer R.", detail: "Bought in Tuscan Lakes, League City · CCISD Family", initials: "MR" },
+      'friendswood':  { quote: "The Friendswood market moves fast and Phil had us ready. Pre-approved, educated on the comps, decision-ready — and we got our first offer accepted. He knows exactly what it takes in that market.", name: "David & Sarah K.", detail: "Bought in Friendswood · FISD Schools · Beat multiple offers", initials: "DK" }
     };
 
     // ─────────────────────────────────────────────────────────
     //  STAGE 5 — Build confirmation screen (called on submit)
     // ─────────────────────────────────────────────────────────
     function buildConfirmationScreen() {
-      const seed        = NEIGHBORHOODS.find(n => n.id === selectedSeed);
-      const take        = PHIL_TAKE[selectedSeed]   || PHIL_TAKE['tuscan-lakes'];
-      const stats       = MARKET_STATS[selectedSeed] || MARKET_STATS['tuscan-lakes'];
-      const testimonial = TESTIMONIALS[selectedSeed] || TESTIMONIALS['default'];
-      const comparePicks = NEIGHBORHOODS.filter(n => selectedNeighborhoods.has(n.id));
+      const allIds      = [...selectedNeighborhoods];
+      const primaryId   = allIds[0] || 'tuscan-lakes';
+      const seed        = NEIGHBORHOODS.find(n => n.id === primaryId) || NEIGHBORHOODS[0];
+      const take        = PHIL_TAKE[primaryId]   || PHIL_TAKE['tuscan-lakes'];
+      const stats       = MARKET_STATS[primaryId] || MARKET_STATS['tuscan-lakes'];
+      const testimonial = TESTIMONIALS[primaryId] || TESTIMONIALS['default'];
+      const comparePicks = NEIGHBORHOODS.filter(n => selectedNeighborhoods.has(n.id) && n.id !== primaryId);
 
-      // Community links — seed first, then comparables
+      // Community links — primary first, then others
       const allPicks = [seed, ...comparePicks];
-      const communityLinksHTML = allPicks.map(n => {
+      const communityLinksHTML = allPicks.map((n, i) => {
         const cu = COMMUNITY_URLS[n.id] || { url: 'cities.html' };
-        const isActive = n.id === selectedSeed;
+        const isActive = i === 0;
         return `<a href="${cu.url}" class="be-community-link${isActive ? ' be-community-link--active' : ''}">${isActive ? '📍 ' : ''}${n.name}</a>`;
       }).join('');
 
@@ -2028,12 +2062,17 @@
     // ─────────────────────────────────────────────────────────
     //  STATE
     // ─────────────────────────────────────────────────────────
-    let currentStage = 1;
-    let selectedSeed = null;
+    let currentStage       = 1;
+    let selectedCities     = new Set();
+    let selectedNeighborhoods = new Set();
     let selectedPriorities = new Set();
-    let selectedNeighborhoods = new Set();   // comparables picked in Stage 2
-    let selectedPrice = '';
-    let selectedTimeline = '';
+    let selectedBeds       = '';
+    let selectedBaths      = '';
+    let selectedMustHaves  = new Set();
+    let selectedYearBuilt  = '';
+    let selectedPrice      = '';
+    let selectedTimeline   = '';
+    let calcDpPct          = 5;
 
     // ─────────────────────────────────────────────────────────
     //  PROGRESS
@@ -2060,38 +2099,93 @@
     }
 
     // ─────────────────────────────────────────────────────────
-    //  STAGE 1 — SEED GRID (populate on load)
+    //  STAGE 1 — CITY GRID
     // ─────────────────────────────────────────────────────────
-    function buildSeedGrid() {
-      const grid = document.getElementById('seed-grid');
+    function buildCityGrid() {
+      const grid = document.getElementById('city-grid');
       grid.innerHTML = '';
-      NEIGHBORHOODS.forEach(n => {
+      CITY_DATA.forEach(city => {
         const card = document.createElement('div');
-        card.className = 'be-hood-card';
-        card.dataset.id = n.id;
+        card.className = 'be-city-card';
+        card.dataset.id = city.id;
         card.innerHTML = `
-          <div class="be-hood-card__check">✓</div>
-          <div class="be-hood-card__city">${n.city}</div>
-          <div class="be-hood-card__name">${n.name}</div>
-          <div class="be-hood-card__price">${n.price}</div>
-          <div class="be-hood-tags">
-            <span class="be-hood-tag be-hood-tag--school">${n.schoolTag}</span>
-            <span class="be-hood-tag">${n.tags[0]}</span>
-          </div>
-          <div class="be-hood-card__detail">${n.detail}</div>
+          <div class="be-city-card__check">✓</div>
+          <div class="be-city-card__icon">${city.icon}</div>
+          <div class="be-city-card__name">${city.name}</div>
+          <div class="be-city-card__tagline">${city.tagline}</div>
+          <div class="be-city-card__price">${city.priceRange}</div>
         `;
         card.addEventListener('click', () => {
-          // Single select — deselect all others first
-          document.querySelectorAll('#seed-grid .be-hood-card').forEach(c => c.classList.remove('selected'));
-          card.classList.add('selected');
-          selectedSeed = n.id;
-          document.getElementById('seed-error').classList.remove('show');
+          card.classList.toggle('selected');
+          if (card.classList.contains('selected')) { selectedCities.add(city.id); }
+          else { selectedCities.delete(city.id); }
+          document.getElementById('city-error').classList.remove('show');
+          renderNeighborhoodPanel();
         });
         grid.appendChild(card);
       });
     }
 
-    // Priority multi-select
+    function renderNeighborhoodPanel() {
+      const panel     = document.getElementById('neighborhood-panel');
+      const container = document.getElementById('neighborhood-cards');
+
+      // Collect all nbhd IDs for selected cities
+      const rendered = new Set();
+      let hasAny = false;
+      CITY_DATA.forEach(city => {
+        if (selectedCities.has(city.id) && city.neighborhoods.length) hasAny = true;
+      });
+
+      if (!hasAny) { panel.style.display = 'none'; return; }
+      panel.style.display = 'block';
+      container.innerHTML = '';
+
+      CITY_DATA.forEach(city => {
+        if (!selectedCities.has(city.id) || !city.neighborhoods.length) return;
+        // City section header
+        const lbl = document.createElement('div');
+        lbl.className = 'be-nbhd-city-label';
+        lbl.textContent = city.name;
+        container.appendChild(lbl);
+
+        city.neighborhoods.forEach(nbhdId => {
+          if (rendered.has(nbhdId)) return;
+          rendered.add(nbhdId);
+          const n = NEIGHBORHOODS.find(x => x.id === nbhdId);
+          if (!n) return;
+          const card = document.createElement('div');
+          card.className = 'be-hood-card' + (selectedNeighborhoods.has(nbhdId) ? ' selected' : '');
+          card.dataset.id = nbhdId;
+          card.innerHTML = `
+            <div class="be-hood-card__check">✓</div>
+            <div class="be-hood-card__city">${n.city}</div>
+            <div class="be-hood-card__name">${n.name}</div>
+            <div class="be-hood-card__price">${n.price}</div>
+            <div class="be-hood-tags">
+              <span class="be-hood-tag be-hood-tag--school">${n.schoolTag}</span>
+              <span class="be-hood-tag">${n.tags[0]}</span>
+            </div>
+            <div class="be-hood-card__detail">${n.detail}</div>
+          `;
+          card.addEventListener('click', () => {
+            card.classList.toggle('selected');
+            if (card.classList.contains('selected')) { selectedNeighborhoods.add(nbhdId); }
+            else { selectedNeighborhoods.delete(nbhdId); }
+            document.getElementById('nbhd-error').classList.remove('show');
+          });
+          container.appendChild(card);
+        });
+      });
+
+      // Remove any nbhds that belong to deselected cities
+      selectedNeighborhoods.forEach(id => {
+        const ownerCity = CITY_DATA.find(c => c.neighborhoods.includes(id));
+        if (ownerCity && !selectedCities.has(ownerCity.id)) selectedNeighborhoods.delete(id);
+      });
+    }
+
+    // Priority multi-select (Stage 1)
     document.getElementById('priority-grid').addEventListener('click', e => {
       const btn = e.target.closest('.be-priority-btn');
       if (!btn) return;
@@ -2102,217 +2196,8 @@
     });
 
     // Stage 1 → 2
-    document.getElementById('stage1-next').addEventListener('click', function () {
-      if (!selectedSeed) {
-        document.getElementById('seed-error').classList.add('show');
-        document.getElementById('seed-grid').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        return;
-      }
-      document.getElementById('seed-error').classList.remove('show');
-      buildComparisonCards();
-      goToStage(2);
-    });
-
-    // ─────────────────────────────────────────────────────────
-    //  STAGE 2 — COMPARISON CARDS
-    // ─────────────────────────────────────────────────────────
-    function buildComparisonCards() {
-      const seed = NEIGHBORHOODS.find(n => n.id === selectedSeed);
-
-      // Update stage 2 title
-      const titleEl = document.getElementById('stage2-title');
-      if (titleEl) titleEl.innerHTML = `Here's what fits alongside <strong>${seed.name}</strong>.`;
-
-      // Seed display card
-      const seedDisplay = document.getElementById('seed-card-display');
-      seedDisplay.innerHTML = `
-        <div class="be-seed-display">
-          <span class="be-seed-display__label">✓ Your Pick</span>
-          <div class="be-seed-display__body">
-            <div class="be-seed-display__city">${seed.city}</div>
-            <div class="be-seed-display__name">${seed.name}</div>
-            <div class="be-seed-display__meta">${seed.price} &nbsp;·&nbsp; ${seed.schoolTag}</div>
-          </div>
-        </div>
-      `;
-
-      // Reset comparable selections
-      selectedNeighborhoods.clear();
-
-      // Build comparable cards for all other neighborhoods
-      const grid = document.getElementById('comparison-grid');
-      grid.innerHTML = '';
-      const comparables = NEIGHBORHOODS.filter(n => n.id !== selectedSeed);
-      comparables.forEach(n => {
-        const driveMin = DRIVE_TIMES[selectedSeed]?.[n.id] ?? '~20';
-        const diff     = DIFFERENTIATORS[n.id] || '';
-        const card     = document.createElement('div');
-        card.className = 'be-compare-card';
-        card.dataset.id = n.id;
-        card.innerHTML = `
-          <div class="be-compare-card__check">✓</div>
-          <div class="be-compare-card__drive">🚗 ~${driveMin} min between neighborhoods</div>
-          <div class="be-compare-card__city">${n.city}</div>
-          <div class="be-compare-card__name">${n.name}</div>
-          <div class="be-compare-card__price">${n.price}</div>
-          <div class="be-hood-tags" style="margin-bottom:0.5rem;">
-            <span class="be-hood-tag be-hood-tag--school">${n.schoolTag}</span>
-          </div>
-          <div class="be-compare-card__diff">${diff}</div>
-        `;
-        card.addEventListener('click', () => {
-          card.classList.toggle('selected');
-          if (card.classList.contains('selected')) { selectedNeighborhoods.add(n.id); }
-          else { selectedNeighborhoods.delete(n.id); }
-          document.getElementById('compare-error').classList.remove('show');
-        });
-        grid.appendChild(card);
-      });
-    }
-
-    // Stage 2 nav
-    document.getElementById('stage2-back').addEventListener('click', () => goToStage(1));
-    document.getElementById('stage2-next').addEventListener('click', () => {
-      if (selectedNeighborhoods.size === 0) {
-        document.getElementById('compare-error').classList.add('show');
-        return;
-      }
-      goToStage(3);
-    });
-
-    // ─────────────────────────────────────────────────────────
-    //  STAGE 3 — PRICE & TIMELINE
-    // ─────────────────────────────────────────────────────────
-    document.getElementById('price-grid').addEventListener('click', e => {
-      const btn = e.target.closest('.be-price-btn');
-      if (!btn) return;
-      document.querySelectorAll('.be-price-btn').forEach(b => b.classList.remove('selected'));
-      btn.classList.add('selected');
-      selectedPrice = btn.dataset.price;
-      document.getElementById('price-error').classList.remove('show');
-    });
-
-    document.getElementById('timeline-grid').addEventListener('click', e => {
-      const btn = e.target.closest('.be-timeline-btn');
-      if (!btn) return;
-      document.querySelectorAll('.be-timeline-btn').forEach(b => b.classList.remove('selected'));
-      btn.classList.add('selected');
-      selectedTimeline = btn.dataset.timeline;
-      document.getElementById('timeline-error').classList.remove('show');
-    });
-
-    document.getElementById('stage3-back').addEventListener('click', () => goToStage(2));
-    document.getElementById('stage3-next').addEventListener('click', () => {
-      let valid = true;
-      if (!selectedPrice)    { document.getElementById('price-error').classList.add('show');    valid = false; }
-      if (!selectedTimeline) { document.getElementById('timeline-error').classList.add('show'); valid = false; }
-      if (!valid) return;
-      buildSummary();
-      goToStage(4);
-    });
-
-    // ─────────────────────────────────────────────────────────
-    //  STAGE 4 — SUMMARY & OPT-IN
-    // ─────────────────────────────────────────────────────────
-    function buildSummary() {
-      const seed         = NEIGHBORHOODS.find(n => n.id === selectedSeed);
-      const comparePicks = NEIGHBORHOODS.filter(n => selectedNeighborhoods.has(n.id));
-      const allNames     = [seed?.name, ...comparePicks.map(n => n.name)].filter(Boolean).join(', ');
-
-      const priorityLabels = {
-        schools: 'School Quality', commute: 'Short Commute', space: 'Lot Size & Space',
-        lifestyle: 'Amenities & Lifestyle', value: 'Best Value', 'new-construction': 'New Construction'
-      };
-      const priorities = [...selectedPriorities].map(p => priorityLabels[p] || p).join(', ');
-
-      const grid = document.getElementById('summary-grid');
-      grid.innerHTML = `
-        <div class="be-summary__item">
-          <div class="be-summary__item-label">📍 Starting Neighborhood</div>
-          <div class="be-summary__item-value">${seed?.name || '—'}</div>
-        </div>
-        <div class="be-summary__item">
-          <div class="be-summary__item-label">🏡 Also Exploring</div>
-          <div class="be-summary__item-value">${comparePicks.map(n => n.name).join(', ') || '—'}</div>
-        </div>
-        <div class="be-summary__item">
-          <div class="be-summary__item-label">💰 Price Range</div>
-          <div class="be-summary__item-value">${selectedPrice || '—'}</div>
-        </div>
-        <div class="be-summary__item">
-          <div class="be-summary__item-label">📅 Timeline</div>
-          <div class="be-summary__item-value">${selectedTimeline || '—'}</div>
-        </div>
-        ${priorities ? `<div class="be-summary__item" style="grid-column:1/-1;">
-          <div class="be-summary__item-label">⭐ What Matters Most</div>
-          <div class="be-summary__item-value">${priorities}</div>
-        </div>` : ''}
-      `;
-
-      // Populate hidden form fields
-      document.getElementById('hidden-neighborhoods').value = allNames;
-      document.getElementById('hidden-price').value         = selectedPrice;
-      document.getElementById('hidden-timeline').value      = selectedTimeline;
-      document.getElementById('hidden-seed').value          = seed?.name || '';
-      document.getElementById('hidden-priorities').value    = priorities;
-    }
-
-    document.getElementById('stage4-back').addEventListener('click', () => goToStage(3));
-
-    // Form submission
-    document.getElementById('optin-form').addEventListener('submit', function (e) {
-      e.preventDefault();
-      let valid = true;
-      const fn      = document.getElementById('first-name').value.trim();
-      const ln      = document.getElementById('last-name').value.trim();
-      const em      = document.getElementById('email').value.trim();
-      const ph      = document.getElementById('phone').value.trim();
-      const consent = document.getElementById('sms-consent').checked;
-
-      if (!fn) { document.getElementById('fname-error').classList.add('show');   valid = false; } else { document.getElementById('fname-error').classList.remove('show'); }
-      if (!ln) { document.getElementById('lname-error').classList.add('show');   valid = false; } else { document.getElementById('lname-error').classList.remove('show'); }
-      if (!em || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) { document.getElementById('email-error').classList.add('show'); valid = false; } else { document.getElementById('email-error').classList.remove('show'); }
-      if (!ph) { document.getElementById('phone-error').classList.add('show');   valid = false; } else { document.getElementById('phone-error').classList.remove('show'); }
-      if (!consent) { document.getElementById('consent-error').classList.add('show'); valid = false; } else { document.getElementById('consent-error').classList.remove('show'); }
-      if (!valid) return;
-
-      const btn = document.getElementById('submit-btn');
-      btn.textContent = 'Sending…';
-      btn.disabled = true;
-
-      const formData = new FormData(this);
-      fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams(formData).toString()
-      })
-      .then(() => { buildConfirmationScreen(); goToStage(5); })
-      .catch(() => { buildConfirmationScreen(); goToStage(5); });  // advance anyway — don't strand user
-      // GHL Mashore Method webhook
-      fetch('https://services.leadconnectorhq.com/hooks/oyGNN4xzQ5FxZ2PQgFzE/webhook-trigger/976f3746-112a-4474-862f-1085e0ddb196', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          firstName: fn,
-          lastName: ln,
-          email: em,
-          phone: ph,
-          sms_consent: consent ? 'yes' : 'no',
-          source: 'BuyerIQ',
-          neighborhoods: document.getElementById('hidden-neighborhoods').value,
-          price_range: document.getElementById('hidden-price').value,
-          timeline: document.getElementById('hidden-timeline').value,
-          seed_neighborhood: document.getElementById('hidden-seed').value,
-          priorities: document.getElementById('hidden-priorities').value
-        })
-      }).catch(() => {});
-    });
-
-    // ─────────────────────────────────────────────────────────
-    //  INIT
-    // ─────────────────────────────────────────────────────────
-    buildSeedGrid();
-    updateProgress(1);
-
-  </script>
-<script src="https://widgets.leadconnectorhq.com/loader.js" data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" data-widget-id="6a0623c7f127bb5833bc2697"></script>
-</body>
-</html>
+    document.getElementById('stage1-next').addEventListener('click', function() {
+      if (selectedCities.size === 0) {
+        document.getElementById('city-error').classList.add('show');
+        document.getElementById('city-grid').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        r
