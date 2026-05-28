@@ -849,57 +849,8 @@
         <span class="city-hoods__eyebrow">Where Do You Want to Live?</span>
         <h2 class="city-hoods__title" id="hoods-heading">Friendswood's Best <span>Neighborhoods</span></h2>
       </div>
-      <div class="city-hoods__grid">
-
-        <a href="avalon.html" class="hood-card">
-          <div class="hood-card__name">Avalon</div>
-          <span class="hood-card__tag">Master-Planned · Lakes</span>
-          <p class="hood-card__desc">Friendswood's most prestigious address — resort-style amenities, stocked lakes, and homes that hold their value. The zip code everyone recognizes.</p>
-          <p class="hood-card__price">Homes from <span>$390K – $750K</span></p>
-          <span class="hood-card__link">Explore Avalon →</span>
-        </a>
-
-        <a href="friendswood-lakes.html" class="hood-card">
-          <div class="hood-card__name">Friendswood Lakes</div>
-          <span class="hood-card__tag">Lakeside · Family</span>
-          <p class="hood-card__desc">Waterfront lots, neighborhood fishing piers, and top-rated Friendswood ISD schools — a rare combination that keeps demand high and inventory low.</p>
-          <p class="hood-card__price">Homes from <span>$350K – $600K</span></p>
-          <span class="hood-card__link">Explore Friendswood Lakes →</span>
-        </a>
-
-        <a href="falcon-ridge.html" class="hood-card">
-          <div class="hood-card__name">Falcon Ridge</div>
-          <span class="hood-card__tag">Established · Value</span>
-          <p class="hood-card__desc">Generous lots, mature trees, and solid construction in a quiet Friendswood neighborhood. Great entry point into the district without sacrificing quality.</p>
-          <p class="hood-card__price">Homes from <span>$290K – $460K</span></p>
-          <span class="hood-card__link">Explore Falcon Ridge →</span>
-        </a>
-
-        <a href="west-ranch.html" class="hood-card">
-          <div class="hood-card__name">West Ranch</div>
-          <span class="hood-card__tag">New Builds · Modern</span>
-          <p class="hood-card__desc">One of Friendswood's newest master-planned communities — resort amenities, modern floor plans, and top-tier Friendswood ISD schools all in one address.</p>
-          <p class="hood-card__price">Homes from <span>$380K – $700K</span></p>
-          <span class="hood-card__link">Explore West Ranch →</span>
-        </a>
-
-        <a href="heritage-park.html" class="hood-card">
-          <div class="hood-card__name">Heritage Park</div>
-          <span class="hood-card__tag">Established · Trees</span>
-          <p class="hood-card__desc">Mature oak trees, generous lots, and a strong sense of community. Heritage Park offers timeless character and excellent resale history near Clear Creek ISD schools.</p>
-          <p class="hood-card__price">Homes from <span>$320K – $500K</span></p>
-          <span class="hood-card__link">Explore Heritage Park →</span>
-        </a>
-
-        <a href="wilderness-trails.html" class="hood-card">
-          <div class="hood-card__name">Wilderness Trails</div>
-          <span class="hood-card__tag">Nature · Trails</span>
-          <p class="hood-card__desc">Wooded lots, hike-and-bike trails, and a peaceful pace — Wilderness Trails is Friendswood's hidden gem for buyers who want nature without giving up top schools.</p>
-          <p class="hood-card__price">Homes from <span>$310K – $490K</span></p>
-          <span class="hood-card__link">Explore Wilderness Trails →</span>
-        </a>
-
-      </div>
+      <div class="city-hoods__grid" id="hoods-grid"></div>
+  <script>renderNeighborhoodCards('hoods-grid', 'friendswood');</script>
     </div>
   </section>
 
@@ -1106,6 +1057,7 @@
     </div>
   </footer>
 
+  <script src="js/neighborhoods.js"></script>
   <script src="js/main.js"></script>
   <script src="https://widgets.leadconnectorhq.com/loader.js" data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" data-widget-id="6a0623c7f127bb5833bc2697"></script>
 

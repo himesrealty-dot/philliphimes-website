@@ -1859,6 +1859,7 @@
   </footer>
 
   <!-- ── MAIN SCRIPT ─────────────────────────────────────────────── -->
+  <script src="js/neighborhoods.js"></script>
   <script src="js/main.js"></script>
   <script>
 
@@ -1866,60 +1867,100 @@
     //  DATA — City Picker
     // ─────────────────────────────────────────────────────────
     const CITY_DATA = [
-      { id: 'league-city', name: 'League City', icon: '⚓', tagline: 'Top CCISD schools & waterfront', priceRange: '$350K–$700K', neighborhoods: ['tuscan-lakes','south-shore-harbour'] },
-      { id: 'friendswood', name: 'Friendswood', icon: '🌳', tagline: '#1-rated schools in the region', priceRange: '$380K–$650K', neighborhoods: ['friendswood'] },
-      { id: 'pearland',    name: 'Pearland',    icon: '🏡', tagline: 'Best value on the 288 corridor', priceRange: '$300K–$520K', neighborhoods: ['pearland-shadow-creek'] },
-      { id: 'clear-lake',  name: 'Clear Lake',  icon: '🚀', tagline: 'NASA corridor & urban feel',     priceRange: '$280K–$480K', neighborhoods: ['clear-lake','bay-area-ranch'] },
-      { id: 'dickinson',   name: 'Dickinson',   icon: '🌿', tagline: 'Affordable with room to grow',   priceRange: '$250K–$420K', neighborhoods: [] },
-      { id: 'manvel',      name: 'Manvel',      icon: '🤠', tagline: 'Space & value south of Houston', priceRange: '$280K–$500K', neighborhoods: [] },
+      { id: 'league-city', name: 'League City', icon: '⚓', tagline: 'Top CCISD schools & waterfront', priceRange: '$350K–$700K', neighborhoods: ['tuscan-lakes','south-shore-harbour','westover-park','magnolia-creek'] },
+      { id: 'friendswood', name: 'Friendswood', icon: '🌳', tagline: '#1-rated schools in the region', priceRange: '$380K–$650K', neighborhoods: ['avalon','friendswood-lakes','west-ranch'] },
+      { id: 'pearland',    name: 'Pearland',    icon: '🏡', tagline: 'Best value on the 288 corridor', priceRange: '$300K–$520K', neighborhoods: ['shadow-creek-ranch','silverlake'] },
+      { id: 'clear-lake',  name: 'Clear Lake',  icon: '🚀', tagline: 'NASA corridor & urban feel',     priceRange: '$280K–$480K', neighborhoods: ['bay-oaks','bay-forest','taylor-lake'] },
+      { id: 'dickinson',   name: 'Dickinson',   icon: '🌿', tagline: 'Affordable with room to grow',   priceRange: '$250K–$420K', neighborhoods: ['bay-colony','nicholstone','pedregal'] },
+      { id: 'manvel',      name: 'Manvel',      icon: '🤠', tagline: 'Space & value south of Houston', priceRange: '$280K–$500K', neighborhoods: ['pomona','meridiana','del-bello-lakes'] },
     ];
 
     // ─────────────────────────────────────────────────────────
     //  DATA — Neighborhoods (used for Stage 5 report)
     // ─────────────────────────────────────────────────────────
     const NEIGHBORHOODS = [
-      { id: 'tuscan-lakes',          city: 'League City',       name: 'Tuscan Lakes',          price: '$350K – $550K', tags: ['Master-Planned','Pool Community','New Construction Available'], schoolTag: '🏫 Highly Rated CCISD',         detail: 'A large master-planned community with resort-style amenities, walking trails, and a strong sense of community. Great for families.',                                            lat: 29.4897, lng: -95.1058 },
-      { id: 'south-shore-harbour',   city: 'League City',       name: 'South Shore Harbour',   price: '$400K – $700K', tags: ['Waterfront Lifestyle','Country Club','Established'],            schoolTag: '🏫 Top-Rated CCISD',            detail: 'Upscale waterfront community on Clear Lake. Marina, country club, and golf course. Prestige neighborhood with strong appreciation.',                                           lat: 29.5329, lng: -95.0886 },
-      { id: 'friendswood',           city: 'Friendswood',       name: 'Friendswood (Central)', price: '$380K – $650K', tags: ['Top-Rated Schools','Quiet Streets','Established'],              schoolTag: '🏫 FISD — Excellent Ratings',   detail: 'One of the most sought-after districts in the Houston suburbs. Quiet, established neighborhoods with excellent schools and strong community identity.',                      lat: 29.5293, lng: -95.2010 },
-      { id: 'pearland-shadow-creek', city: 'Pearland',          name: 'Shadow Creek Ranch',    price: '$320K – $520K', tags: ['Master-Planned','Value-Focused','Growing'],                    schoolTag: '🏫 Pearland ISD — Strong Ratings', detail: 'One of the most successful master-planned communities in Texas. Excellent value, amenities, and access to 288 corridor employers.',                                       lat: 29.5910, lng: -95.3305 },
-      { id: 'clear-lake',            city: 'Clear Lake Area',   name: 'Clear Lake City',       price: '$280K – $480K', tags: ['NASA Corridor','Urban Feel','Established'],                    schoolTag: '🏫 CCISD — Good Ratings',       detail: 'Established area near NASA with a suburban-urban feel. Strong appreciation, proximity to major employers, and a diverse community.',                                          lat: 29.5601, lng: -95.1035 },
-      { id: 'bay-area-ranch',        city: 'Webster / Clear Lake', name: 'Bay Area Ranch',     price: '$290K – $430K', tags: ['Convenient Location','Value','Good Schools'],                  schoolTag: '🏫 CCISD',                      detail: 'A hidden gem — established neighborhood with great access to I-45, NASA Road 1, and both League City and Webster employment centers.',                                       lat: 29.5449, lng: -95.1335 },
+      // League City
+      { id: 'tuscan-lakes',        city: 'League City',  name: 'Tuscan Lakes',          price: '$300K – $2.2M', tags: ['Master-Planned','Pool & Trails','Resort Amenities'], schoolTag: '🏫 Top-Rated CCISD',           detail: 'Resort-style amenities, scenic lakes, walking trails, and a clubhouse. One of League City's most in-demand communities.' },
+      { id: 'south-shore-harbour', city: 'League City',  name: 'South Shore Harbour',   price: '$370K – $3M+',  tags: ['Waterfront','Golf & Marina','Prestige Address'],    schoolTag: '🏫 Top-Rated CCISD',           detail: 'Premier waterfront golf community on Clear Lake — marina access, 27-hole golf, and a resort atmosphere.' },
+      { id: 'westover-park',       city: 'League City',  name: 'Westover Park',         price: '$325K – $700K', tags: ['Master-Planned','Family-Friendly','Two Pools'],     schoolTag: '🏫 Top-Rated CCISD',           detail: 'Family-oriented community with two pools, tennis complex, parks, lakes, and trails — fully within CCISD.' },
+      { id: 'magnolia-creek',      city: 'League City',  name: 'Magnolia Creek',        price: '$345K – $800K', tags: ['Golf Community','Master-Planned','CCISD'],          schoolTag: '🏫 Clear Springs HS (CCISD)',   detail: 'League City's only golf-course community — 27-hole private club, pools, and the Lone Pine Grill clubhouse.' },
+      // Friendswood
+      { id: 'avalon',              city: 'Friendswood',  name: 'Avalon',                price: '$390K – $750K', tags: ['Master-Planned','Lakes','Prestige'],                schoolTag: '🏫 Friendswood ISD — Excellent', detail: 'Friendswood's most prestigious address — resort amenities, stocked lakes, and strong resale values.' },
+      { id: 'friendswood-lakes',   city: 'Friendswood',  name: 'Friendswood Lakes',     price: '$350K – $600K', tags: ['Lakeside','Fishing Piers','Top Schools'],           schoolTag: '🏫 Friendswood ISD — Excellent', detail: 'Waterfront lots, neighborhood fishing piers, and top-rated Friendswood ISD schools.' },
+      { id: 'west-ranch',          city: 'Friendswood',  name: 'West Ranch',            price: '$380K – $700K', tags: ['New Builds','Modern Floorplans','Resort Pool'],     schoolTag: '🏫 Friendswood ISD — Excellent', detail: 'One of Friendswood's newest master-planned communities — resort amenities and top-tier schools.' },
+      // Pearland
+      { id: 'shadow-creek-ranch',  city: 'Pearland',     name: 'Shadow Creek Ranch',    price: '$330K – $600K', tags: ['Master-Planned','Value','288 Access'],              schoolTag: '🏫 Pearland ISD — Strong',      detail: 'Pearland's flagship master-planned community — resort pools, lakes, and amenities that hold resale values.' },
+      { id: 'silverlake',          city: 'Pearland',     name: 'Silverlake',            price: '$290K – $500K', tags: ['Golf','Lakes','Established'],                       schoolTag: '🏫 Pearland ISD — Strong',      detail: 'Golf and lake community with winding streets, mature landscaping, and an active HOA.' },
+      // Clear Lake
+      { id: 'bay-oaks',            city: 'Clear Lake',   name: 'Bay Oaks',              price: '$380K – $700K', tags: ['Golf Country Club','Prestige','Established'],       schoolTag: '🏫 Top-Rated CCISD',           detail: 'One of Clear Lake's most prestigious communities — mature trees, generous lots, and country club atmosphere.' },
+      { id: 'bay-forest',          city: 'Clear Lake',   name: 'Bay Forest',            price: '$320K – $550K', tags: ['Waterfront-Adjacent','Mature Trees','NASA Corridor'], schoolTag: '🏫 Top-Rated CCISD',         detail: 'Serene community popular with NASA professionals — winding streets and strong community identity.' },
+      { id: 'taylor-lake',         city: 'Clear Lake',   name: 'Taylor Lake',           price: '$350K – $750K', tags: ['Lakefront','Boat Access','Waterfront Living'],      schoolTag: '🏫 Top-Rated CCISD',           detail: 'Scenic lakefront community offering waterfront living, boat access, and a relaxed pace.' },
+      // Dickinson
+      { id: 'bay-colony',          city: 'Dickinson',    name: 'Bay Colony',            price: '$260K – $420K', tags: ['Canal Front','Boat Access','Outdoor Lifestyle'],    schoolTag: '🏫 Dickinson ISD',             detail: 'Canal-front community with direct Galveston Bay waterway access — ideal for boaters and anglers.' },
+      { id: 'nicholstone',         city: 'Dickinson',    name: 'Nicholstone',           price: '$230K – $370K', tags: ['Established','Affordable','Family'],                schoolTag: '🏫 Dickinson ISD',             detail: 'Established Dickinson neighborhood with solid homes, good schools, and strong community feel.' },
+      { id: 'pedregal',            city: 'Dickinson',    name: 'Pedregal',              price: '$250K – $420K', tags: ['Waterfront','Bay Access','Coastal Vibe'],           schoolTag: '🏫 Dickinson ISD',             detail: 'Waterfront community near Galveston Bay with canal access and a relaxed coastal vibe.' },
+      // Manvel
+      { id: 'pomona',              city: 'Manvel',       name: 'Pomona',                price: '$320K – $550K', tags: ['Lagoon Community','Master-Planned','New Builds'],   schoolTag: '🏫 Alvin ISD — Growing',       detail: 'Manvel's premier master-planned community built around a stunning lagoon with resort-style amenities.' },
+      { id: 'meridiana',           city: 'Manvel',       name: 'Meridiana',             price: '$340K – $580K', tags: ['Surf Wave Pool','Luxury Amenities','New Builds'],   schoolTag: '🏫 Alvin ISD — Growing',       detail: 'Premier community with a surf wave pool, resort amenities, and upscale new construction.' },
+      { id: 'del-bello-lakes',     city: 'Manvel',       name: 'Del Bello Lakes',       price: '$310K – $520K', tags: ['Lakefront','New Construction','Brazoria County'],  schoolTag: '🏫 Alvin ISD — Growing',       detail: 'Scenic lakefront master-planned community with resort amenities and new construction from top builders.' },
     ];
 
     const DIFFERENTIATORS = {
+      // League City
       'tuscan-lakes':          'Master-planned amenities — resort pool, walking trails, community events. A neighborhood with built-in social infrastructure.',
       'south-shore-harbour':   'Waterfront prestige — marina, country club, golf course. The highest-ceiling appreciation play in the area.',
-      'friendswood':           'Top-rated FISD schools — consistently #1 or #2 in the region. The strongest school district if that\'s your priority.',
-      'pearland-shadow-creek': 'Best value per square foot in the corridor. Strong access to 288 employers and Pearland\'s growing dining scene.',
-      'clear-lake':            'NASA corridor location — closest to JSC and Ellington Airport. Urban feel with established neighborhood character.',
-      'bay-area-ranch':        'The hidden gem — established streets, great I-45 access, excellent value. Less traffic than Clear Lake proper.'
+      'westover-park':         'Best value in League City master-planned. Two pools, tennis, CCISD schools — without the Tuscan Lakes price tag.',
+      'magnolia-creek':        'Golf-course living in League City. A 27-hole private club winds through the streets — unique and in-demand.',
+      // Friendswood
+      'avalon':                'Friendswood\'s most recognized address. Resort lakes, strong HOA, and homes that consistently hold their value.',
+      'friendswood-lakes':     'Top-rated FISD schools — consistently #1 or #2 in the region. The strongest school district if that\'s your priority.',
+      'west-ranch':            'Modern master-planned with Friendswood ISD schools. Resort amenities and newer floor plans in a tight supply market.',
+      // Pearland
+      'shadow-creek-ranch':    'Best value per square foot on the 288 corridor. Resort amenities and Pearland ISD schools at an accessible price point.',
+      'silverlake':            'Golf and lake lifestyle in Pearland — winding streets, mature trees, and an active HOA that protects values.',
+      // Clear Lake
+      'bay-oaks':              'Clear Lake\'s most prestigious address. Country club atmosphere, mature trees, and consistently high resale values.',
+      'bay-forest':            'NASA corridor living — popular with JSC professionals. Mature landscaping and a strong community identity.',
+      'taylor-lake':           'Lakefront living with boat access. One of the most sought-after water-access communities in the Clear Lake area.',
+      // Dickinson
+      'bay-colony':            'Canal-front living with direct Galveston Bay access. Keep your boat in the backyard without paying waterfront premium.',
+      'nicholstone':           'Established Dickinson neighborhood — solid entry into Galveston County at an accessible price point.',
+      'pedregal':              'Coastal vibe near Galveston Bay with canal access. Popular with boaters and outdoor enthusiasts.',
+      // Manvel
+      'pomona':                'Manvel\'s standout lagoon community. Resort-style amenities and modern builders in one of Brazoria County\'s fastest-growing areas.',
+      'meridiana':             'The most amenity-rich community in south Houston — surf wave pool, resort amenities, and upscale new construction.',
+      'del-bello-lakes':       'Lakefront master-planned in Manvel with new construction from top builders and strong community amenities.'
     };
 
     const PHIL_TAKE = {
       'tuscan-lakes':          { headline: "Tuscan Lakes moves faster than most buyers expect.", body: "CCISD demand is real, and when a move-in-ready home hits this community, it typically gets multiple offers within the first weekend. The amenities are genuinely great — the resort pool, trails, and events calendar give this neighborhood a community feel that's hard to replicate. What that means for you: you want to be pre-approved and decision-ready before we tour. I'll help you move at the right speed without making a rushed mistake." },
       'south-shore-harbour':   { headline: "South Shore Harbour is one of the few places where buyers still have room to negotiate.", body: "The higher price point creates less competition than you might expect. Sellers here are often equity-rich and patient — which actually gives us leverage. The marina and country club lifestyle is real, and this neighborhood holds value exceptionally well. My read: if your budget stretches here, it's worth serious consideration. The gap between list and sale price is wider than anywhere else in your comparison set." },
       'friendswood':           { headline: "Friendswood is the tightest market in your comparison.", body: "FISD's reputation drives genuine demand, and inventory stays low because residents don't want to leave. Homes here rarely sit — when something good hits, it goes. The honest reality: if schools are your top priority, Friendswood delivers, but you need to be ready to move quickly and potentially offer at or above list. I know the micro-pockets within Friendswood and can help you focus on the ones that match both your budget and your school assignment goals." },
-      'pearland-shadow-creek': { headline: "Shadow Creek Ranch offers the best value-to-quality ratio along the 288 corridor.", body: "For buyers who want the master-planned lifestyle without paying the League City premium, Shadow Creek is hard to beat. Pearland ISD has steadily improved its ratings, and the 288 access to the Medical Center is genuinely excellent. The community is mature enough that amenities are fully built out — no more construction noise. My take: this is where I'd point a buyer who wants maximum square footage and quality of life per dollar." },
+      'shadow-creek-ranch':    { headline: "Shadow Creek Ranch offers the best value-to-quality ratio along the 288 corridor.", body: "For buyers who want the master-planned lifestyle without paying the League City premium, Shadow Creek is hard to beat. Pearland ISD has steadily improved its ratings, and the 288 access to the Medical Center is genuinely excellent. The community is mature enough that amenities are fully built out — no more construction noise. My take: this is where I'd point a buyer who wants maximum square footage and quality of life per dollar." },
       'clear-lake':            { headline: "Clear Lake City is a market driven by the NASA corridor — and that stability is a feature.", body: "The JSC workforce creates steady, predictable demand. Homes here move at a consistent pace — not the feeding-frenzy of Friendswood, not the slow burn of South Shore. The established trees and lot sizes are something new construction simply can't offer. Important note: Clear Lake is flood-prone in certain areas — specific streets matter a lot here. I'll walk you through flood history and insurance estimates on any property we consider." },
-      'bay-area-ranch':        { headline: "Bay Area Ranch moves faster than most people expect for its price point.", body: "This is the neighborhood that surprises buyers. The value is legitimate, the I-45 and NASA Road 1 access is excellent, and CCISD schools serve the area well. Because it flies under the radar compared to Tuscan Lakes or South Shore, competition is lighter — but that's changing as word gets out. My honest take: this is where I'd buy if I were optimizing for value, location, and long-term appreciation in the current market. Don't sleep on it." }
+      'bay-oaks':              { headline: "Bay Oaks is one of Clear Lake's most prestigious communities — country club lifestyle, strong resale.", body: "This is the neighborhood that surprises buyers. The value is legitimate, the I-45 and NASA Road 1 access is excellent, and CCISD schools serve the area well. Because it flies under the radar compared to Tuscan Lakes or South Shore, competition is lighter — but that's changing as word gets out. My honest take: this is where I'd buy if I were optimizing for value, location, and long-term appreciation in the current market. Don't sleep on it." }
     };
 
     const MARKET_STATS = {
       'tuscan-lakes':          { active: 28, dom: 22, ratio: '97.8%', median: '$415K', trend: 'stable', trendLabel: '⚡ Competitive — CCISD demand keeps inventory moving' },
       'south-shore-harbour':   { active: 14, dom: 35, ratio: '96.2%', median: '$520K', trend: 'buyer',  trendLabel: '⚖️ Balanced — buyer leverage exists at this price point' },
       'friendswood':           { active: 18, dom: 18, ratio: '98.5%', median: '$475K', trend: 'hot',    trendLabel: '🔥 Seller\'s Market — FISD demand keeps this hot year-round' },
-      'pearland-shadow-creek': { active: 35, dom: 28, ratio: '97.1%', median: '$390K', trend: 'stable', trendLabel: '⚡ Steady — best value corridor, consistent demand' },
+      'shadow-creek-ranch':    { active: 35, dom: 28, ratio: '97.1%', median: '$390K', trend: 'stable', trendLabel: '⚡ Steady — best value corridor, consistent demand' },
       'clear-lake':            { active: 22, dom: 24, ratio: '97.5%', median: '$345K', trend: 'stable', trendLabel: '⚡ Steady — NASA corridor provides a reliable demand floor' },
-      'bay-area-ranch':        { active: 12, dom: 20, ratio: '98.1%', median: '$355K', trend: 'hot',    trendLabel: '🔥 Moving Fast — hidden gem going mainstream' }
+      'bay-oaks':              { active: 12, dom: 20, ratio: '98.1%', median: '$355K', trend: 'hot',    trendLabel: '🔥 Moving Fast — hidden gem going mainstream' }
     };
 
     const COMMUNITY_URLS = {
       'tuscan-lakes':          { url: 'league-city.html' },
       'south-shore-harbour':   { url: 'league-city.html' },
-      'friendswood':           { url: 'friendswood.html' },
-      'pearland-shadow-creek': { url: 'pearland.html' },
+      'avalon':                { url: 'friendswood.html' },
+      'friendswood-lakes':     { url: 'friendswood.html' },
+      'west-ranch':            { url: 'friendswood.html' },
+      'shadow-creek-ranch':    { url: 'pearland.html' },
+      'bay-forest':            { url: 'clear-lake.html' },
+      'taylor-lake':           { url: 'clear-lake.html' },
       'clear-lake':            { url: 'clear-lake.html' },
-      'bay-area-ranch':        { url: 'clear-lake.html' }
+      'bay-oaks':              { url: 'clear-lake.html' }
     };
 
     const TESTIMONIALS = {

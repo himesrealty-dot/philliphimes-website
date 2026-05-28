@@ -846,56 +846,8 @@
         <span class="city-hoods__eyebrow">Where Do You Want to Live?</span>
         <h2 class="city-hoods__title" id="hoods-heading">Dickinson's Best <span>Neighborhoods</span></h2>
       </div>
-      <div class="city-hoods__grid">
-
-        <div class="hood-card">
-          <div class="hood-card__name">Nicholstone</div>
-          <span class="hood-card__tag">Established · Family</span>
-          <p class="hood-card__desc">An established Dickinson neighborhood with solid single-family homes, good school access, and a strong community feel. A reliable, affordable entry point into Galveston County real estate.</p>
-          <p class="hood-card__price">Homes from <span>$230K – $370K</span></p>
-          <div class="hood-card__soon">Neighborhood guide coming soon</div>
-        </div>
-
-        <div class="hood-card">
-          <div class="hood-card__name">Bay Colony</div>
-          <span class="hood-card__tag">Waterway Access</span>
-          <p class="hood-card__desc">A canal-front community with direct Galveston Bay waterway access. Bay Colony attracts boaters, anglers, and outdoor enthusiasts who want to keep their boat in the backyard without paying waterfront premium prices.</p>
-          <p class="hood-card__price">Homes from <span>$260K – $420K</span></p>
-        </div>
-
-        <div class="hood-card">
-          <div class="hood-card__name">Pedregal</div>
-          <span class="hood-card__tag">Waterfront · Bay Access</span>
-          <p class="hood-card__desc">A waterfront community near Galveston Bay with canal access and a relaxed coastal vibe. Popular with boaters and outdoor enthusiasts seeking waterfront living at accessible price points.</p>
-          <p class="hood-card__price">Homes from <span>$250K – $420K</span></p>
-          <div class="hood-card__soon">Neighborhood guide coming soon</div>
-        </div>
-
-        <div class="hood-card">
-          <div class="hood-card__name">Peacock Isle</div>
-          <span class="hood-card__tag">Waterfront · Boating</span>
-          <p class="hood-card__desc">A scenic waterfront community with canal access and a laid-back coastal atmosphere. Peacock Isle offers an affordable path to water-access living in Galveston County.</p>
-          <p class="hood-card__price">Homes from <span>$260K – $420K</span></p>
-          <div class="hood-card__soon">Neighborhood guide coming soon</div>
-        </div>
-
-        <div class="hood-card">
-          <div class="hood-card__name">Bayou Maison</div>
-          <span class="hood-card__tag">Waterfront · Bayou</span>
-          <p class="hood-card__desc">A charming community along Dickinson Bayou with a quiet, water-adjacent lifestyle. Bayou Maison appeals to buyers seeking a peaceful retreat with easy access to Galveston County amenities.</p>
-          <p class="hood-card__price">Homes from <span>$255K – $400K</span></p>
-          <div class="hood-card__soon">Neighborhood guide coming soon</div>
-        </div>
-
-        <div class="hood-card">
-          <div class="hood-card__name">Bayou Bend Estate</div>
-          <span class="hood-card__tag">Bayou · Value</span>
-          <p class="hood-card__desc">A residential community offering affordable single-family homes near Dickinson Bayou. Bayou Bend Estate draws first-time buyers and families looking for value in Galveston County.</p>
-          <p class="hood-card__price">Homes from <span>$220K – $340K</span></p>
-          <div class="hood-card__soon">Neighborhood guide coming soon</div>
-        </div>
-
-      </div>
+      <div class="city-hoods__grid" id="hoods-grid"></div>
+  <script>renderNeighborhoodCards('hoods-grid', 'dickinson');</script>
     </div>
   </section>
 
@@ -1102,6 +1054,7 @@
     </div>
   </footer>
 
+  <script src="js/neighborhoods.js"></script>
   <script src="js/main.js"></script>
   <script src="https://widgets.leadconnectorhq.com/loader.js" data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" data-widget-id="6a0623c7f127bb5833bc2697"></script>
 

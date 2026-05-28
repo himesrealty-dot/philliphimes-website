@@ -855,57 +855,8 @@
         <span class="city-hoods__eyebrow">Where Do You Want to Live?</span>
         <h2 class="city-hoods__title" id="hoods-heading">Pearland's Best <span>Neighborhoods</span></h2>
       </div>
-      <div class="city-hoods__grid">
-
-        <a href="shadow-creek-ranch.html" class="hood-card">
-          <div class="hood-card__name">Shadow Creek Ranch</div>
-          <span class="hood-card__tag">Master-Planned · Resort</span>
-          <p class="hood-card__desc">Pearland's flagship master-planned community — resort pools, scenic lakes, top-rated schools, and the kind of amenities that keep resale values strong year after year.</p>
-          <p class="hood-card__price">Homes from <span>$330K – $600K</span></p>
-          <span class="hood-card__link">Explore Shadow Creek Ranch →</span>
-        </a>
-
-        <a href="silverlake.html" class="hood-card">
-          <div class="hood-card__name">Silverlake</div>
-          <span class="hood-card__tag">Golf · Lakes</span>
-          <p class="hood-card__desc">A golf and lake community with winding streets, mature landscaping, and an active HOA. Resort lifestyle at a price point well below comparable communities north of Houston.</p>
-          <p class="hood-card__price">Homes from <span>$290K – $500K</span></p>
-          <span class="hood-card__link">Explore Silverlake →</span>
-        </a>
-
-        <div class="hood-card">
-          <div class="hood-card__name">Riverstone Ranch</div>
-          <span class="hood-card__tag">Master-Planned · Lakes</span>
-          <p class="hood-card__desc">A scenic master-planned community with resort-style amenities, walking trails, and lakes. One of Pearland's most popular newer communities with strong builder variety and resale values.</p>
-          <p class="hood-card__price">Homes from <span>$290K – $480K</span></p>
-          <div class="hood-card__soon">Neighborhood guide coming soon</div>
-        </div>
-
-        <div class="hood-card">
-          <div class="hood-card__name">Southern Trails</div>
-          <span class="hood-card__tag">Master-Planned · New Construction</span>
-          <p class="hood-card__desc">A well-planned community in south Pearland with resort pool, splash pad, hike-and-bike trails, and easy highway access. Popular with families and move-up buyers seeking newer construction.</p>
-          <p class="hood-card__price">Homes from <span>$310K – $520K</span></p>
-          <div class="hood-card__soon">Neighborhood guide coming soon</div>
-        </div>
-
-        <a href="southgate.html" class="hood-card">
-          <div class="hood-card__name">Southgate</div>
-          <span class="hood-card__tag">Established · Value</span>
-          <p class="hood-card__desc">One of Pearland's original neighborhoods — mature trees, wide lots, and genuine character. Great for buyers who want Pearland ISD schools without the master-planned premium.</p>
-          <p class="hood-card__price">Homes from <span>$260K – $390K</span></p>
-          <span class="hood-card__link">Explore Southgate →</span>
-        </a>
-
-        <a href="country-place.html" class="hood-card">
-          <div class="hood-card__name">Country Place</div>
-          <span class="hood-card__tag">55+ · Golf Community</span>
-          <p class="hood-card__desc">Pearland's premier 55+ active adult community — golf-cart-friendly streets, tree-lined fairways, and a peaceful pace. Popular with empty nesters and retirees seeking an active lifestyle.</p>
-          <p class="hood-card__price">Homes from <span>$280K – $420K</span></p>
-          <span class="hood-card__link">Explore Country Place →</span>
-        </a>
-
-      </div>
+      <div class="city-hoods__grid" id="hoods-grid"></div>
+  <script>renderNeighborhoodCards('hoods-grid', 'pearland');</script>
     </div>
   </section>
 
@@ -1112,6 +1063,7 @@
     </div>
   </footer>
 
+  <script src="js/neighborhoods.js"></script>
   <script src="js/main.js"></script>
   <script src="https://widgets.leadconnectorhq.com/loader.js" data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" data-widget-id="6a0623c7f127bb5833bc2697"></script>
 

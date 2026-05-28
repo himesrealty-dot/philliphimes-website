@@ -846,54 +846,8 @@
         <span class="city-hoods__eyebrow">Where Do You Want to Live?</span>
         <h2 class="city-hoods__title" id="hoods-heading">Clear Lake's Best <span>Neighborhoods</span></h2>
       </div>
-      <div class="city-hoods__grid">
-
-        <div class="hood-card">
-          <div class="hood-card__name">Bay Oaks</div>
-          <span class="hood-card__tag">Established · Golf</span>
-          <p class="hood-card__desc">One of Clear Lake's most prestigious established communities — mature trees, generous lots, and an active country club atmosphere. Bay Oaks has some of the highest resale values in the 77059 ZIP code.</p>
-          <p class="hood-card__price">Homes from <span>$380K – $700K</span></p>
-        </div>
-
-        <div class="hood-card">
-          <div class="hood-card__name">Bay Forest</div>
-          <span class="hood-card__tag">Waterfront · Trees</span>
-          <p class="hood-card__desc">A serene waterfront-adjacent community with mature landscaping, winding streets, and a strong community identity. Popular with NASA professionals and long-term Clear Lake residents.</p>
-          <p class="hood-card__price">Homes from <span>$320K – $550K</span></p>
-        </div>
-
-        <div class="hood-card">
-          <div class="hood-card__name">Bay Knoll</div>
-          <span class="hood-card__tag">Family · Value</span>
-          <p class="hood-card__desc">A well-maintained neighborhood offering Clear Creek ISD schools at a more accessible price point. Bay Knoll attracts families who want the Clear Lake lifestyle without the Bay Oaks premium.</p>
-          <p class="hood-card__price">Homes from <span>$280K – $420K</span></p>
-        </div>
-
-        <div class="hood-card">
-          <div class="hood-card__name">Brookwood</div>
-          <span class="hood-card__tag">Established · CCISD</span>
-          <p class="hood-card__desc">A well-established Clear Lake neighborhood with mature trees, solid lot sizes, and easy access to NASA Rd 1 and I-45. Popular with families and long-time Houston Bay Area residents.</p>
-          <p class="hood-card__price">Homes from <span>$290K – $480K</span></p>
-          <div class="hood-card__soon">Neighborhood guide coming soon</div>
-        </div>
-
-        <div class="hood-card">
-          <div class="hood-card__name">Taylor Lake</div>
-          <span class="hood-card__tag">Lakefront · Waterfront</span>
-          <p class="hood-card__desc">A scenic lakefront community offering waterfront living, boat access, and a relaxed pace. One of the most sought-after water-access neighborhoods in the Clear Lake area.</p>
-          <p class="hood-card__price">Homes from <span>$350K – $750K</span></p>
-          <div class="hood-card__soon">Neighborhood guide coming soon</div>
-        </div>
-
-        <div class="hood-card">
-          <div class="hood-card__name">The Reserve at Clear Lake</div>
-          <span class="hood-card__tag">Gated · Upscale</span>
-          <p class="hood-card__desc">A private gated community offering upscale homes, manicured grounds, and a quiet retreat from the surrounding urban activity. One of Clear Lake's premier addresses for discerning buyers.</p>
-          <p class="hood-card__price">Homes from <span>$420K – $900K</span></p>
-          <div class="hood-card__soon">Neighborhood guide coming soon</div>
-        </div>
-
-      </div>
+      <div class="city-hoods__grid" id="hoods-grid"></div>
+  <script>renderNeighborhoodCards('hoods-grid', 'clear-lake');</script>
     </div>
   </section>
 
@@ -1100,6 +1054,7 @@
     </div>
   </footer>
 
+  <script src="js/neighborhoods.js"></script>
   <script src="js/main.js"></script>
   <script src="https://widgets.leadconnectorhq.com/loader.js" data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" data-widget-id="6a0623c7f127bb5833bc2697"></script>
 

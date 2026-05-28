@@ -846,57 +846,8 @@
         <span class="city-hoods__eyebrow">Where Do You Want to Live?</span>
         <h2 class="city-hoods__title" id="hoods-heading">Manvel's Best <span>Neighborhoods</span></h2>
       </div>
-      <div class="city-hoods__grid">
-
-        <a href="pomona.html" class="hood-card">
-          <div class="hood-card__name">Pomona</div>
-          <span class="hood-card__tag">Master-Planned · Lagoon</span>
-          <p class="hood-card__desc">Manvel's premier master-planned community — built around a stunning lagoon, resort-style amenities, and modern home designs from top Houston builders. One of the most talked-about new communities in Brazoria County.</p>
-          <p class="hood-card__price">Homes from <span>$320K – $550K</span></p>
-          <div class="hood-card__cta">View Full Neighborhood Guide →</div>
-        </a>
-
-        <div class="hood-card">
-          <div class="hood-card__name">Rodeo Palms</div>
-          <span class="hood-card__tag">Established · Value</span>
-          <p class="hood-card__desc">One of Manvel's original master-planned communities with mature landscaping, community amenities, and a proven track record. Rodeo Palms offers genuine value for buyers who want the master-planned lifestyle at accessible prices.</p>
-          <p class="hood-card__price">Homes from <span>$270K – $420K</span></p>
-          <div class="hood-card__soon">Neighborhood guide coming soon</div>
-        </div>
-
-        <div class="hood-card">
-          <div class="hood-card__name">Del Bello Lakes</div>
-          <span class="hood-card__tag">Master-Planned · Lakes</span>
-          <p class="hood-card__desc">A scenic lakefront master-planned community in Manvel with resort-style amenities, walking trails, and new construction from top Houston builders. One of the fastest-growing communities in Brazoria County.</p>
-          <p class="hood-card__price">Homes from <span>$310K – $520K</span></p>
-          <div class="hood-card__soon">Neighborhood guide coming soon</div>
-        </div>
-
-        <a href="meridiana.html" class="hood-card">
-          <div class="hood-card__name">Meridiana</div>
-          <span class="hood-card__tag">Luxury · Amenities</span>
-          <p class="hood-card__desc">A premier master-planned community straddling the Manvel/Iowa Colony border — featuring a surf wave pool, resort amenities, and upscale new construction. One of the most amenity-rich communities in the entire south Houston market.</p>
-          <p class="hood-card__price">Homes from <span>$340K – $580K</span></p>
-          <div class="hood-card__cta">View Full Neighborhood Guide →</div>
-        </a>
-
-        <div class="hood-card">
-          <div class="hood-card__name">Sedona Lakes</div>
-          <span class="hood-card__tag">Master-Planned · Lakes</span>
-          <p class="hood-card__desc">A well-maintained master-planned community in Manvel featuring scenic lakes, resort amenities, and a relaxed suburban pace. Sedona Lakes offers strong value for families seeking space and community in Brazoria County.</p>
-          <p class="hood-card__price">Homes from <span>$290K – $470K</span></p>
-          <div class="hood-card__soon">Neighborhood guide coming soon</div>
-        </div>
-
-        <div class="hood-card">
-          <div class="hood-card__name">Valencia</div>
-          <span class="hood-card__tag">New Construction · Master-Planned</span>
-          <p class="hood-card__desc">One of Manvel's newest master-planned communities offering modern new construction, resort-style amenities, and easy highway access. Valencia is attracting buyers who want brand-new at accessible Brazoria County prices.</p>
-          <p class="hood-card__price">Homes from <span>$300K – $490K</span></p>
-          <div class="hood-card__soon">Neighborhood guide coming soon</div>
-        </div>
-
-      </div>
+      <div class="city-hoods__grid" id="hoods-grid"></div>
+  <script>renderNeighborhoodCards('hoods-grid', 'manvel');</script>
     </div>
   </section>
 
@@ -1103,6 +1054,7 @@
     </div>
   </footer>
 
+  <script src="js/neighborhoods.js"></script>
   <script src="js/main.js"></script>
   <script src="https://widgets.leadconnectorhq.com/loader.js" data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" data-widget-id="6a0623c7f127bb5833bc2697"></script>
 

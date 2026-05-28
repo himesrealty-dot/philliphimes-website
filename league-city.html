@@ -857,58 +857,8 @@
         <span class="city-hoods__eyebrow">Where Do You Want to Live?</span>
         <h2 class="city-hoods__title" id="hoods-heading">League City's Best <span>Neighborhoods</span></h2>
       </div>
-      <div class="city-hoods__grid">
-
-        <a href="tuscan-lakes.html" class="hood-card">
-          <div class="hood-card__name">Tuscan Lakes</div>
-          <span class="hood-card__tag">Master-Planned</span>
-          <p class="hood-card__desc">Resort-style amenities, scenic lakes, walking trails, and a clubhouse. One of League City's most in-demand communities with a strong HOA and meticulously maintained streets.</p>
-          <p class="hood-card__price">Homes from <span>$300K – $2.2M</span></p>
-          <div class="hood-card__cta">View Full Neighborhood Guide →</div>
-        </a>
-
-        <a href="westover-park.html" class="hood-card">
-          <div class="hood-card__name">Westover Park</div>
-          <span class="hood-card__tag">Master-Planned · CCISD</span>
-          <p class="hood-card__desc">Family-oriented master-planned community with two pools, tennis complex, parks, lakes, and trails. Fully within top-rated Clear Creek ISD — and more attainable than most League City master-planned options.</p>
-          <p class="hood-card__price">Homes from <span>$325K – $700K</span></p>
-          <div class="hood-card__cta">View Full Neighborhood Guide →</div>
-        </a>
-
-        <a href="south-shore-harbour.html" class="hood-card">
-          <div class="hood-card__name">South Shore Harbour</div>
-          <span class="hood-card__tag">Waterfront · Golf · Marina</span>
-          <p class="hood-card__desc">A premier waterfront golf community on Clear Lake. Custom homes, marina access, 27-hole golf, and a resort atmosphere — one of the most prestigious addresses in the Houston Bay Area.</p>
-          <p class="hood-card__price">Homes from <span>$370K – $3M+</span></p>
-          <div class="hood-card__cta">View Full Neighborhood Guide →</div>
-        </a>
-
-        <a href="mar-bella.html" class="hood-card">
-          <div class="hood-card__name">Mar Bella</div>
-          <span class="hood-card__tag">Mediterranean · Lakes · CCISD</span>
-          <p class="hood-card__desc">Spanish Mediterranean–inspired master-planned community with 40 acres of lakes, resort pool and splash pad, and palm-lined streets. The most visually distinctive neighborhood in League City — fully within top-rated CCISD.</p>
-          <p class="hood-card__price">Homes from <span>$370K – $1M+</span></p>
-          <div class="hood-card__cta">View Full Neighborhood Guide →</div>
-        </a>
-
-        <a href="brittany-lakes.html" class="hood-card">
-          <div class="hood-card__name">Brittany Lakes</div>
-          <span class="hood-card__tag">Established · Lakes · CCISD</span>
-          <p class="hood-card__desc">Mature, tree-lined community with three kayakable lakes, resort pool with splash pad, and miles of walking trails. One of the lowest HOA fees in League City's established neighborhoods — and fully within top-rated CCISD.</p>
-          <p class="hood-card__price">Homes from <span>$300K – $700K+</span></p>
-          <div class="hood-card__cta">View Full Neighborhood Guide →</div>
-        </a>
-
-        <a href="magnolia-creek.html" class="hood-card">
-          <div class="hood-card__name">Magnolia Creek</div>
-          <span class="hood-card__tag">Golf · Master-Planned · CCISD</span>
-          <p class="hood-card__desc">League City&#39;s only golf-course community. A 27-hole private club winds through the neighborhood, with pools, walking trails, and a clubhouse restaurant — Lone Pine Grill. Zoned to Clear Springs High School.</p>
-          <p class="hood-card__price">Homes from <span>$345K – $800K+</span></p>
-          <div class="hood-card__cta">View Full Neighborhood Guide →</div>
-        </a>
-
-
-      </div>
+      <div class="city-hoods__grid" id="hoods-grid"></div>
+  <script>renderNeighborhoodCards('hoods-grid', 'league-city');</script>
     </div>
   </section>
 
@@ -1115,6 +1065,7 @@
     </div>
   </footer>
 
+  <script src="js/neighborhoods.js"></script>
   <script src="js/main.js"></script>
   <script src="https://widgets.leadconnectorhq.com/loader.js" data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" data-widget-id="6a0623c7f127bb5833bc2697"></script>
 
