@@ -6,7 +6,6 @@
   <title>Seller's Edge™ | SellerIQ™ | Phillip Himes Real Estate</title>
   <meta name="description" content="Know your home's real value, your market position, and exactly what you'll walk away with — before you decide anything. The Seller's Edge assessment by Phillip Himes." />
   <link rel="stylesheet" href="css/styles.css" />
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCgOWDQthJrU9JiVbShzlfgLON9WXCxuNU&libraries=places&callback=initSellerMap" async defer></script>
   <style>
 
     /* ─── SELLER HERO ───────────────────────────────────────────── */
@@ -1303,7 +1302,8 @@
       lifeEvent: '',
       bedrooms: '', bathrooms: '', condition: '', timeline: '',
       upgrades: new Set(),
-      pricingStrategy: ''
+      pricingStrategy: '',
+      lat: null, lon: null   // set when Mapbox address is selected
     };
 
     // ─────────────────────────────────────────────────────────
@@ -1438,30 +1438,68 @@
       if (!state.bathrooms) { document.getElementById('baths-error').classList.add('show'); valid = false; }
       if (!state.condition) { document.getElementById('condition-error').classList.add('show'); valid = false; }
       if (!valid) return;
-      updateTruMarket();
+      // Show loading placeholders immediately, then fetch real data
+      setTruMarketLoading();
       goToStage(3);
+      fetchTruMarketStats();
     });
 
     // ─────────────────────────────────────────────────────────
     //  STAGE 3 — TRUMARKET + CALCULATOR
     // ─────────────────────────────────────────────────────────
-    function updateTruMarket() {
-      // In production: geocode address → look up actual MLS data for the zip/neighborhood
-      // For prototype: show realistic Houston Bay Area suburban data
-      const addr = document.getElementById('home-address').value.toLowerCase();
-      let data = { neighborhood: 'Houston Bay Area Suburbs', avgPrice: '$412K', dom: '28', lts: '97.2%', active: '14', sold: '38', market: 'Balanced' };
-      if (addr.includes('friendswood')) data = { neighborhood: 'Friendswood, TX', avgPrice: '$438K', dom: '24', lts: '98.1%', active: '9', sold: '29', market: 'Seller\'s Market' };
-      else if (addr.includes('pearland')) data = { neighborhood: 'Pearland, TX', avgPrice: '$375K', dom: '31', lts: '96.8%', active: '22', sold: '51', market: 'Balanced' };
-      else if (addr.includes('league city') || addr.includes('league')) data = { neighborhood: 'League City, TX', avgPrice: '$425K', dom: '26', lts: '97.5%', active: '18', sold: '44', market: 'Balanced' };
-      else if (addr.includes('clear lake')) data = { neighborhood: 'Clear Lake Area', avgPrice: '$362K', dom: '33', lts: '96.5%', active: '16', sold: '36', market: 'Balanced' };
+    // ── TruMarket™ real-data functions ──────────────────────────────────────────
 
-      document.getElementById('tm-neighborhood').textContent = data.neighborhood + ' — Recent 90-Day Comps';
-      document.getElementById('tm-avg-price').textContent = data.avgPrice;
-      document.getElementById('tm-dom').textContent = data.dom;
-      document.getElementById('tm-lts').textContent = data.lts;
-      document.getElementById('tm-active').textContent = data.active;
-      document.getElementById('tm-sold').textContent = data.sold;
-      document.getElementById('tm-market').textContent = data.market;
+    function setTruMarketLoading() {
+      document.getElementById('tm-neighborhood').textContent = 'Loading market data…';
+      document.getElementById('tm-avg-price').textContent   = '—';
+      document.getElementById('tm-dom').textContent         = '—';
+      document.getElementById('tm-lts').textContent         = '—';
+      document.getElementById('tm-active').textContent      = '—';
+      document.getElementById('tm-sold').textContent        = '—';
+      document.getElementById('tm-market').textContent      = '—';
+    }
+
+    function populateTruMarket(d) {
+      document.getElementById('tm-neighborhood').textContent = d.neighborhood + ' — Recent 90-Day Comps';
+      document.getElementById('tm-avg-price').textContent   = d.avgPrice;
+      document.getElementById('tm-dom').textContent         = d.medDom;
+      document.getElementById('tm-lts').textContent         = d.avgLts;
+      document.getElementById('tm-active').textContent      = d.activeEstimate;
+      document.getElementById('tm-sold').textContent        = d.soldLast90;
+      document.getElementById('tm-market').textContent      = d.tempLabel;
+    }
+
+    async function fetchTruMarketStats() {
+      // If no coordinates (user typed address manually without selecting from dropdown),
+      // fall back to address-string matching so the widget still shows something useful
+      if (!state.lat || !state.lon) {
+        const addr = (document.getElementById('home-address').value || '').toLowerCase();
+        let fallback = { neighborhood: 'Houston Bay Area', avgPrice: '$412K', medDom: '28', avgLts: '97.2%', activeEstimate: '14', soldLast90: '38', tempLabel: 'Balanced Market' };
+        if      (addr.includes('friendswood'))                              fallback = { neighborhood: 'Friendswood, TX',  avgPrice: '$438K', medDom: '24', avgLts: '98.1%', activeEstimate: '9',  soldLast90: '29', tempLabel: "Seller's Market" };
+        else if (addr.includes('pearland'))                                 fallback = { neighborhood: 'Pearland, TX',     avgPrice: '$375K', medDom: '31', avgLts: '96.8%', activeEstimate: '22', soldLast90: '51', tempLabel: 'Balanced Market' };
+        else if (addr.includes('league city') || addr.includes('league'))   fallback = { neighborhood: 'League City, TX',  avgPrice: '$425K', medDom: '26', avgLts: '97.5%', activeEstimate: '18', soldLast90: '44', tempLabel: 'Balanced Market' };
+        else if (addr.includes('clear lake'))                               fallback = { neighborhood: 'Clear Lake Area',  avgPrice: '$362K', medDom: '33', avgLts: '96.5%', activeEstimate: '16', soldLast90: '36', tempLabel: 'Balanced Market' };
+        populateTruMarket(fallback);
+        return;
+      }
+
+      try {
+        const res  = await fetch('/.netlify/functions/marketiq-stats', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ lat: state.lat, lon: state.lon }),
+        });
+        const data = await res.json();
+        if (data && data.neighborhood && !data.error) {
+          populateTruMarket(data);
+        } else {
+          // API responded but no comps — fall back silently
+          populateTruMarket({ neighborhood: 'Your Area', avgPrice: '—', medDom: '—', avgLts: '—', activeEstimate: '—', soldLast90: '—', tempLabel: '—' });
+        }
+      } catch (err) {
+        console.warn('TruMarket fetch failed:', err);
+        populateTruMarket({ neighborhood: 'Your Area', avgPrice: '—', medDom: '—', avgLts: '—', activeEstimate: '—', soldLast90: '—', tempLabel: '—' });
+      }
     }
 
     // Price slider
@@ -1825,17 +1863,73 @@
     }
 
     // ─────────────────────────────────────────────────────────
-    //  GOOGLE MAPS
+    //  MAPBOX ADDRESS AUTOCOMPLETE
     // ─────────────────────────────────────────────────────────
-    function initSellerMap() {
-      if (typeof google === 'undefined') return;
-      const input = document.getElementById('home-address');
-      if (!input) return;
-      new google.maps.places.Autocomplete(input, {
-        componentRestrictions: { country: 'us' },
-        fields: ['formatted_address', 'geometry', 'address_components']
+    (function() {
+      var addrInput    = document.getElementById('home-address');
+      if (!addrInput) return;
+
+      // Inject dropdown container right after the input
+      var dropdown = document.createElement('div');
+      dropdown.id = 'se-addr-dropdown';
+      dropdown.style.cssText = [
+        'display:none', 'position:absolute', 'top:100%', 'left:0', 'right:0',
+        'background:#fff', 'border:1px solid #dde3ee', 'border-radius:0.6rem',
+        'box-shadow:0 8px 24px rgba(0,0,0,0.12)', 'z-index:9999',
+        'overflow:hidden', 'margin-top:4px'
+      ].join(';');
+      var inputWrap = addrInput.parentElement;
+      inputWrap.style.position = 'relative';
+      inputWrap.appendChild(dropdown);
+
+      var debounce = null;
+
+      addrInput.addEventListener('input', function() {
+        var q = addrInput.value.trim();
+        if (q.length < 3) { dropdown.style.display = 'none'; return; }
+        clearTimeout(debounce);
+        debounce = setTimeout(function() { fetchSuggestions(q); }, 280);
       });
-    }
+
+      function fetchSuggestions(q) {
+        fetch('/.netlify/functions/mapbox-geocode?q=' + encodeURIComponent(q))
+          .then(function(r) { return r.json(); })
+          .then(function(data) {
+            var features = data.features || [];
+            if (!features.length) { dropdown.style.display = 'none'; return; }
+            renderDropdown(features);
+          })
+          .catch(function() { dropdown.style.display = 'none'; });
+      }
+
+      function renderDropdown(features) {
+        dropdown.innerHTML = '';
+        features.slice(0, 5).forEach(function(f) {
+          var opt = document.createElement('div');
+          opt.style.cssText = 'padding:0.65rem 1rem;cursor:pointer;font-size:0.88rem;color:#1a2a44;border-bottom:1px solid #eef0f5;';
+          opt.textContent = f.place_name || f.text || '';
+          opt.addEventListener('mouseenter', function() { opt.style.background = '#f4f7ff'; });
+          opt.addEventListener('mouseleave', function() { opt.style.background = ''; });
+          opt.addEventListener('mousedown', function(e) {
+            e.preventDefault();
+            addrInput.value = f.place_name || f.text || '';
+            dropdown.style.display = 'none';
+            // Store coordinates for TruMarket real-data lookup
+            if (f.center && f.center.length === 2) {
+              state.lon = f.center[0];
+              state.lat = f.center[1];
+            }
+            addrInput.dispatchEvent(new Event('change'));
+          });
+          dropdown.appendChild(opt);
+        });
+        dropdown.style.display = 'block';
+      }
+
+      document.addEventListener('click', function(e) {
+        if (e.target !== addrInput) dropdown.style.display = 'none';
+      });
+    })();
 
     updateProgress(1);
 

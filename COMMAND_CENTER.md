@@ -1,5 +1,5 @@
 # MarketIQ™ Command Center
-**Last Updated:** May 2026 | Start every session by reading this file first.
+**Last Updated:** May 26 2026 | Start every session by reading this file first.
 
 ---
 
@@ -15,13 +15,14 @@
 |--------|--------|-------|
 | philliphimes.com | ✅ LIVE | GitHub → Netlify auto-deploy |
 | MarketIQ™ Seller Mode | ✅ WORKING | Real comp engine, no RentCast |
-| MarketIQ™ Buyer Mode | ⚠️ NEXT UP | Prompt exists, not CMA-powered yet |
+| MarketIQ™ Buyer Mode | ✅ WORKING | CMA-powered as of May 26 2026 |
 | Comp Engine (Python) | ✅ DONE | v1.1 — used for testing/data work |
-| Comp Engine (JS) | ✅ DONE | Ported into marketiq-ai.js v4 |
-| MarketIQ.csv | ✅ CURRENT | 4,394 records / 1,763 sold comps |
+| Comp Engine (JS) | ✅ DONE | Ported into marketiq-ai.js v5 |
+| MarketIQ.csv | ✅ CURRENT | 4,394 records / 1,870 sold comps |
 | data_prep.py | ✅ DONE | Normalizer + merger for new HAR exports |
 | IDX Broker | ✅ LIVE | philliphimes.idxbroker.com |
 | GHL / CRM | ⏳ PENDING | A2P 10DLC approval in progress |
+| Buyers_Guide_2026.pdf | ✅ BUILT | 12-page PDF — needs landing page at /buyers-guide |
 
 ---
 
@@ -76,13 +77,17 @@ Price to Test  = baseline × 1.025  → round to $5,000
 |-------|-------|-------|
 | Ph1 | Same community, 90d, tight (±20% sqft, ±10yr, exact beds) | No adjustments |
 | Ph2 | Same community, 90d, loose | With adjustments |
-| Ph3 | 2mi, 90d, tight | No adjustments |
-| Ph4 | 2mi, 90d, loose | With adjustments |
-| Ph5 | 4mi, 180d, loose | With adjustments |
-| Ph6 | 4mi, 365d, loose (thin market only) | Adds when < 50 nearby comps |
+| Ph3 | Same community, 180d, loose | With adjustments — exhausts community before going wide |
+| Ph4 | 2mi, 90d, tight | No adjustments |
+| Ph5 | 2mi, 90d, loose | With adjustments |
+| Ph6 | 4mi, 180d, loose | With adjustments |
+
+**Community auto-detect:** If no community is passed in the request, the engine looks at the nearest 15 sold comps within progressive radii (0.5mi → 1.0mi → 1.5mi) and votes by frequency. If ≥2 of the nearest comps share a community name, that community is used for Ph1–Ph3. This means community phases reliably fire even when the form doesn't send a community.
+
+**Top 3 comps only:** Engine fetches up to 6 scored candidates but uses only the best 3 for the weighted PPSF baseline. This avoids diluting the average with weaker matches.
 
 ### Hard Filters (never relaxed)
-NewConstruction, WaterAmenity (waterfront), Gated, MasterPlanned — all must match subject exactly.
+NewConstruction, WaterAmenity (waterfront), Gated — all must match subject exactly. **MasterPlanned removed from hard filters** (was silently blocking all MP community comps when the form didn't send the mp field).
 
 ### Adjustments
 | Item | Value |
@@ -114,22 +119,23 @@ NewConstruction, WaterAmenity (waterfront), Gated, MasterPlanned — all must ma
 
 ---
 
-## NEXT SESSION: BUYER SIDE OF MARKETIQ
+## NEXT SESSION: PENDING WORK
 
-**Goal:** Power the buyer mode with the same comp engine.
+### High Priority
+1. **GHL webhook + calendar for MarketIQ lead capture** — When a user runs a report, capture name/phone/email/address, tag as "MarketIQ Seller Lead" or "MarketIQ Buyer Lead", trigger appointment calendar + prep guide send + add to nurture sequence
+2. **Buyers Guide landing page** — Build `philliphimes.com/buyers-guide` with name + email capture form, deliver the PDF, tag lead in GHL as buyer lead. The CTA on buyer reports already links to this URL.
 
-**What the buyer is doing:** Entering an address they want to *offer on* (someone else's listing). They want to know what the home is actually worth and what to offer.
-
-**Inputs needed (already in form):** address, beds, baths, sqft (these drive the CMA)
-**Missing from form:** stories, yr, pool, garage, community, mp, gated, water, newco
-
-**Plan:**
-1. The CMA runs the same way — subject is the listed property, engine finds comps
-2. Buyer prompt shifts language: "estimated market value" → offer strategy anchored to that value
-3. Buyer strategies (Win It / Clean Offer / Test the Seller / Wait & Watch) get real price anchors
-4. Optional enhancement: add price reduction history / DOM to buyer negotiation context
-
-**The form already sends `beds, baths, sqft` for buyer mode** — the CMA will run with geocoded lat/lon + defaults for the optional fields. That's enough for a first version.
+### Done This Session (May 26 2026)
+- ✅ Buyer mode fully CMA-powered — same comp engine as seller, real price anchors on offer strategies
+- ✅ Offer strategies reduced to 3 cards: **Win It / Market Offer / Negotiate** (removed "Wait & Watch")
+- ✅ Static buyer notes below strategy cards (contingencies, disclosure, pre-approval, CTA)
+- ✅ CMA phases reordered — community-first (Ph1–Ph3 exhaust neighborhood before going wide)
+- ✅ Community auto-detect from nearest comps (no form field needed)
+- ✅ MasterPlanned removed from hard filters (was blocking all MP comps)
+- ✅ Top 3 comps only for baseline (fetch 6, use best 3)
+- ✅ Buyer report layout: Snapshot → Verdict → Strategies → Comps → Dead Zone → Can't Tell → Buyer Guide CTA
+- ✅ Buyers_Guide_2026.pdf built — 12 pages, brand colors, updated 2026 stats
+- ✅ Validated CMA accuracy: 2818 Soffiano Lane — engine $297,921 vs Phillip's CMA $312,850 (<5% apart; both confirm $379k list is overpriced)
 
 ---
 

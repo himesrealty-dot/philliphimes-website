@@ -1,5 +1,5 @@
 # Phillip Himes Real Estate — Website Project Instructions
-**Last Updated:** May 2026 | **Status:** Live at philliphimes.com
+**Last Updated:** May 26 2026 | **Status:** Live at philliphimes.com
 
 ---
 
@@ -484,14 +484,15 @@ MarketIQ™ is an AI-powered CMA (Comparative Market Analysis) tool embedded in 
 4. Injects calculated prices directly into Claude Haiku prompt — Claude writes narrative only
 5. Returns three price points, comp details, weighted PPSF, and CMA metadata
 
-**Current status:** Seller mode working. Buyer mode prompt present but not yet CMA-powered (needs work — see Command Center).
+**Current status:** Both seller and buyer modes fully CMA-powered as of May 26 2026.
 
 ### The Comp Engine Logic
 | Concept | Detail |
 |---------|--------|
-| Hard filters (never relaxed) | NewConstruction, WaterAmenity, Gated, MasterPlanned — all must match subject |
-| Phases | Ph1: same community 90d tight → Ph2: same community 90d adj → Ph3: 2mi 90d tight → Ph4: 2mi 90d adj → Ph5: 4mi 180d adj → Ph6 (thin market only): 4mi 365d adj |
-| Thin market | < 50 hard-filter-passing comps within 4mi/365d → adds Phase 6 automatically |
+| Hard filters (never relaxed) | NewConstruction, WaterAmenity, Gated — all must match subject. **MasterPlanned removed** (was silently blocking all MP comps when form didn't send mp field) |
+| Phases | Ph1: same community 90d tight → Ph2: same community 90d adj → Ph3: same community 180d adj → Ph4: 2mi 90d tight → Ph5: 2mi 90d adj → Ph6: 4mi 180d adj |
+| Community auto-detect | If community not passed, engine votes from nearest 15 sold comps at 0.5mi→1.0mi→1.5mi radii. ≥2 matching = auto-detected community for Ph1–Ph3 |
+| Top N comps | Engine fetches 6 scored candidates, uses best 3 for weighted PPSF baseline. Avoids diluting with weaker matches |
 | Scoring | dist×8 + sqft%diff×20 + yr diff×0.4 + beds diff×3 + baths diff×2 + pool mismatch+2 + stories mismatch+5 |
 | Weighting | Inverse-score weighted PPSF with 10% minimum weight floor per comp |
 | Adjustments | Pool ±$22,500 flat; Stories: community-specific $/sf table; Beds $2,500/ea; Baths $1,500 full / $750 half; Sqft $37/sf marginal; Garage $6,500/stall capped ±2 stalls |
@@ -520,14 +521,22 @@ These three prices are hardcoded into the Claude prompt — Claude cannot overri
 
 ---
 
-## 19. MARKETIQ™ — BUYER SIDE (TO DO)
+## 19. MARKETIQ™ — BUYER SIDE (COMPLETE AS OF MAY 26 2026)
 
-The buyer-mode prompt in `marketiq-ai.js` currently exists but is not CMA-powered. It generates buyer offer strategies using Claude's general knowledge of the market rather than real comp data.
+Buyer mode is fully CMA-powered. Same comp engine, same phases, same data as seller mode.
 
-**What needs to happen:**
-1. The form on `marketiq.html` (buyer mode) needs to collect the subject property's attributes — when a buyer enters an address they're considering, we need beds/baths/sqft/stories from them or from geocoding
-2. The buyer CMA runs identically to the seller CMA — same engine, same data, same phases — but the context shifts: instead of "what should I list at" it becomes "what should I offer and what is this home worth"
-3. The buyer prompt should surface: estimated market value, offer strategy anchored to that value, and relevant comp details
-4. Consider adding a "days on market" and "price reduction history" read from the MLS data as additional buyer negotiation context
+**What was built:**
+- Form collects: address, list price, beds, baths, sqft, pool (yes/no)
+- Engine runs the same 6-phase CMA; community is auto-detected if not supplied
+- Buyer verdict: compares list price to CMA baseline → "Fairly Priced / Slightly Over / Significantly Over / Underpriced"
+- verdictPct = (listPrice − baseline) / baseline × 100
+- Urgency score (1–10) derived from DOM + price reduction signals in market stats
+- Offer range: Win It (list price or above), Market Offer (at baseline), Negotiate (below baseline)
+- 3 offer strategy cards: **Win It / Market Offer / Negotiate** — each with real price anchors
+- Static buyer notes below strategy cards: contingencies, disclosure, pre-approval, CTA
+- Report layout: Snapshot → Buyer Verdict → Strategies → Comps → Dead Zone → Can't Tell → Buyer's Guide CTA → Disclaimer
+- Buyer's Guide CTA links to `philliphimes.com/buyers-guide` (landing page still needs to be built)
 
-**Key difference from seller mode:** The buyer enters the address of someone else's listing. We may not have all property attributes — we'll need either the form to collect them or a property lookup. For now, the existing form fields (address, beds, baths, sqft) plus geocoding are sufficient for a first version.
+**Validated:** 2818 Soffiano Lane — engine $297,921 vs Phillip's independent CMA $312,850 (<5% apart). Both confirm $379k list price is significantly overpriced.
+
+**Pending:** GHL webhook for buyer lead capture + `/buyers-guide` landing page with PDF delivery.
