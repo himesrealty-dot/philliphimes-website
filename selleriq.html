@@ -999,6 +999,11 @@
             <label class="be-input-label" for="year-built">Year Built (Approx.)</label>
             <input type="number" id="year-built" class="be-input" placeholder="e.g. 2005" min="1900" max="2026" />
           </div>
+          <div class="be-input-group" style="margin:0; grid-column: 1 / -1;">
+            <label class="be-input-label" for="neighborhood">Subdivision / Neighborhood <span style="color:#c04040;">*</span></label>
+            <input type="text" id="neighborhood" class="be-input" placeholder="e.g. Tuscan Lakes, Westover Park, Shadow Creek Ranch" autocomplete="off" />
+            <div class="be-error" id="neighborhood-error">Please enter your subdivision or neighborhood name.</div>
+          </div>
         </div>
       </div>
 
@@ -1303,6 +1308,7 @@
       bedrooms: '', bathrooms: '', condition: '', timeline: '',
       upgrades: new Set(),
       pricingStrategy: '',
+      neighborhood: '',
       lat: null, lon: null   // set when Mapbox address is selected
     };
 
@@ -1437,6 +1443,9 @@
       if (!state.bedrooms) { document.getElementById('beds-error').classList.add('show'); valid = false; }
       if (!state.bathrooms) { document.getElementById('baths-error').classList.add('show'); valid = false; }
       if (!state.condition) { document.getElementById('condition-error').classList.add('show'); valid = false; }
+      const nbhd = document.getElementById('neighborhood').value.trim();
+      if (!nbhd) { document.getElementById('neighborhood-error').classList.add('show'); valid = false; }
+      else { document.getElementById('neighborhood-error').classList.remove('show'); state.neighborhood = nbhd; }
       if (!valid) return;
       // Show loading placeholders immediately, then fetch real data
       setTruMarketLoading();
@@ -1479,6 +1488,7 @@
         else if (addr.includes('pearland'))                                 fallback = { neighborhood: 'Pearland, TX',     avgPrice: '$375K', medDom: '31', avgLts: '96.8%', activeEstimate: '22', soldLast90: '51', tempLabel: 'Balanced Market' };
         else if (addr.includes('league city') || addr.includes('league'))   fallback = { neighborhood: 'League City, TX',  avgPrice: '$425K', medDom: '26', avgLts: '97.5%', activeEstimate: '18', soldLast90: '44', tempLabel: 'Balanced Market' };
         else if (addr.includes('clear lake'))                               fallback = { neighborhood: 'Clear Lake Area',  avgPrice: '$362K', medDom: '33', avgLts: '96.5%', activeEstimate: '16', soldLast90: '36', tempLabel: 'Balanced Market' };
+        fallback.neighborhood = state.neighborhood || fallback.neighborhood;
         populateTruMarket(fallback);
         return;
       }
@@ -1490,15 +1500,16 @@
           body: JSON.stringify({ lat: state.lat, lon: state.lon }),
         });
         const data = await res.json();
-        if (data && data.neighborhood && !data.error) {
+        // Always use the user-entered neighborhood name — they know better than any algorithm
+        data.neighborhood = state.neighborhood || data.neighborhood || 'Your Area';
+        if (data && data.avgPrice && !data.error) {
           populateTruMarket(data);
         } else {
-          // API responded but no comps — fall back silently
-          populateTruMarket({ neighborhood: 'Your Area', avgPrice: '—', medDom: '—', avgLts: '—', activeEstimate: '—', soldLast90: '—', tempLabel: '—' });
+          populateTruMarket({ neighborhood: state.neighborhood || 'Your Area', avgPrice: '—', medDom: '—', avgLts: '—', activeEstimate: '—', soldLast90: '—', tempLabel: '—' });
         }
       } catch (err) {
         console.warn('TruMarket fetch failed:', err);
-        populateTruMarket({ neighborhood: 'Your Area', avgPrice: '—', medDom: '—', avgLts: '—', activeEstimate: '—', soldLast90: '—', tempLabel: '—' });
+        populateTruMarket({ neighborhood: state.neighborhood || 'Your Area', avgPrice: '—', medDom: '—', avgLts: '—', activeEstimate: '—', soldLast90: '—', tempLabel: '—' });
       }
     }
 
