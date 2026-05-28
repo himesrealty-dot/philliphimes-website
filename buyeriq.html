@@ -2202,7 +2202,7 @@
         document.getElementById('city-grid').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         return;
       }
-      // If neighborhood cards are visible, require at least one selection
+      // If neighborhood cards are visible and have cards, require at least one selection
       const panel = document.getElementById('neighborhood-panel');
       const cards = document.querySelectorAll('#neighborhood-cards .be-hood-card');
       if (panel.style.display !== 'none' && cards.length > 0 && selectedNeighborhoods.size === 0) {
@@ -2319,7 +2319,9 @@
       const disc     = document.getElementById('calc-disclaimer');
 
       if (!price || price < 10000) {
-        results.style.display = 'none'; hint.style.display = 'block'; disc.style.display = 'none';
+        results.style.display = 'none';
+        hint.style.display = 'block';
+        disc.style.display = 'none';
         return;
       }
 
@@ -2346,68 +2348,89 @@
       document.getElementById('r-insurance').textContent    = fmt(insurance) + '/mo';
 
       const pmiRow = document.getElementById('r-pmi-row');
-      if (pmi > 0) { pmiRow.style.display = 'flex'; document.getElementById('r-pmi').textContent = fmt(pmi) + '/mo'; }
-      else { pmiRow.style.display = 'none'; }
+      if (pmi > 0) {
+        pmiRow.style.display = 'flex';
+        document.getElementById('r-pmi').textContent = fmt(pmi) + '/mo';
+      } else {
+        pmiRow.style.display = 'none';
+      }
 
       const hoaRow = document.getElementById('r-hoa-row');
-      if (hoa > 0) { hoaRow.style.display = 'flex'; document.getElementById('r-hoa-val').textContent = fmt(hoa) + '/mo'; }
-      else { hoaRow.style.display = 'none'; }
+      if (hoa > 0) {
+        hoaRow.style.display = 'flex';
+        document.getElementById('r-hoa-val').textContent = fmt(hoa) + '/mo';
+      } else {
+        hoaRow.style.display = 'none';
+      }
 
       document.getElementById('r-totalmonthly').textContent = fmt(totalMonthly) + '/mo';
-      results.style.display = 'grid'; hint.style.display = 'none'; disc.style.display = 'block';
+      results.style.display = 'grid';
+      hint.style.display = 'none';
+      disc.style.display = 'block';
     }
 
     // ─────────────────────────────────────────────────────────
     //  STAGE 4 — SUMMARY & OPT-IN
     // ─────────────────────────────────────────────────────────
     function buildSummary() {
-      const nbhdNames  = NEIGHBORHOODS.filter(n => selectedNeighborhoods.has(n.id)).map(n => n.name);
-      const cityNames  = CITY_DATA.filter(c => selectedCities.has(c.id)).map(c => c.name);
-      const allAreas   = nbhdNames.length ? nbhdNames : cityNames;
+      const nbhdNames = NEIGHBORHOODS.filter(n => selectedNeighborhoods.has(n.id)).map(n => n.name);
+      const cityNames = CITY_DATA.filter(c => selectedCities.has(c.id)).map(c => c.name);
+      const allAreas  = nbhdNames.length ? nbhdNames : cityNames;
 
-      const priorityLabels = { schools: 'School Quality', commute: 'Short Commute', space: 'Lot Size & Space', lifestyle: 'Amenities & Lifestyle', value: 'Best Value', 'new-construction': 'New Construction' };
-      const mustHaveLabels = { pool: 'Pool', '2car-garage': '2+ Car Garage', '1story': '1 Story', 'new-construction': 'New Construction', gated: 'Gated Community', waterfront: 'Waterfront / Water View' };
+      const priorityLabels = {
+        schools: 'School Quality', commute: 'Short Commute', space: 'Lot Size & Space',
+        lifestyle: 'Amenities & Lifestyle', value: 'Best Value', 'new-construction': 'New Construction'
+      };
+      const mustHaveLabels = {
+        pool: 'Pool', '2car-garage': '2+ Car Garage', '1story': '1 Story',
+        'new-construction': 'New Construction', gated: 'Gated Community', waterfront: 'Waterfront / Water View'
+      };
       const priorities = [...selectedPriorities].map(p => priorityLabels[p] || p).join(', ');
       const mustHaves  = [...selectedMustHaves].map(m => mustHaveLabels[m] || m).join(', ');
 
       const grid = document.getElementById('summary-grid');
       grid.innerHTML = `
         <div class="be-summary__item">
-          <div class="be-summary__item-label">📍 Neighborhoods / Areas</div>
-          <div class="be-summary__item-value">${allAreas.join(', ') || '—'}</div>
+          <div class="be-summary__item-label">Neighborhoods / Areas</div>
+          <div class="be-summary__item-value">${allAreas.join(', ') || '&mdash;'}</div>
         </div>
         <div class="be-summary__item">
-          <div class="be-summary__item-label">🛏 Bedrooms</div>
-          <div class="be-summary__item-value">${selectedBeds || '—'}</div>
+          <div class="be-summary__item-label">Bedrooms</div>
+          <div class="be-summary__item-value">${selectedBeds || '&mdash;'}</div>
         </div>
         <div class="be-summary__item">
-          <div class="be-summary__item-label">🚿 Bathrooms</div>
-          <div class="be-summary__item-value">${selectedBaths || '—'}</div>
+          <div class="be-summary__item-label">Bathrooms</div>
+          <div class="be-summary__item-value">${selectedBaths || '&mdash;'}</div>
         </div>
         <div class="be-summary__item">
-          <div class="be-summary__item-label">💰 Price Range</div>
-          <div class="be-summary__item-value">${selectedPrice || '—'}</div>
+          <div class="be-summary__item-label">Price Range</div>
+          <div class="be-summary__item-value">${selectedPrice || '&mdash;'}</div>
         </div>
         <div class="be-summary__item">
-          <div class="be-summary__item-label">📅 Timeline</div>
-          <div class="be-summary__item-value">${selectedTimeline || '—'}</div>
+          <div class="be-summary__item-label">Timeline</div>
+          <div class="be-summary__item-value">${selectedTimeline || '&mdash;'}</div>
         </div>
-        ${selectedYearBuilt ? `<div class="be-summary__item"><div class="be-summary__item-label">📅 Home Age</div><div class="be-summary__item-value">${selectedYearBuilt}</div></div>` : ''}
-        ${mustHaves  ? `<div class="be-summary__item" style="grid-column:1/-1;"><div class="be-summary__item-label">✅ Must-Haves</div><div class="be-summary__item-value">${mustHaves}</div></div>` : ''}
-        ${priorities ? `<div class="be-summary__item" style="grid-column:1/-1;"><div class="be-summary__item-label">⭐ What Matters Most</div><div class="be-summary__item-value">${priorities}</div></div>` : ''}
+        ${selectedYearBuilt ? `<div class="be-summary__item"><div class="be-summary__item-label">Home Age Pref.</div><div class="be-summary__item-value">${selectedYearBuilt}</div></div>` : ''}
+        ${mustHaves  ? `<div class="be-summary__item" style="grid-column:1/-1;"><div class="be-summary__item-label">Must-Haves</div><div class="be-summary__item-value">${mustHaves}</div></div>` : ''}
+        ${priorities ? `<div class="be-summary__item" style="grid-column:1/-1;"><div class="be-summary__item-label">What Matters Most</div><div class="be-summary__item-value">${priorities}</div></div>` : ''}
       `;
 
-      // Populate hidden fields
+      // Populate hidden form fields
       document.getElementById('hidden-neighborhoods').value = allAreas.join(', ');
       document.getElementById('hidden-price').value         = selectedPrice;
       document.getElementById('hidden-timeline').value      = selectedTimeline;
       document.getElementById('hidden-seed').value          = allAreas[0] || '';
       document.getElementById('hidden-priorities').value    = priorities;
-      const hCities    = document.getElementById('hidden-cities');    if (hCities)    hCities.value    = cityNames.join(', ');
-      const hBeds      = document.getElementById('hidden-beds');      if (hBeds)      hBeds.value      = selectedBeds;
-      const hBaths     = document.getElementById('hidden-baths');     if (hBaths)     hBaths.value     = selectedBaths;
-      const hMustHaves = document.getElementById('hidden-musthaves'); if (hMustHaves) hMustHaves.value = mustHaves;
-      const hYrBuilt   = document.getElementById('hidden-yearbuilt'); if (hYrBuilt)   hYrBuilt.value   = selectedYearBuilt;
+      const hCities    = document.getElementById('hidden-cities');
+      const hBeds      = document.getElementById('hidden-beds');
+      const hBaths     = document.getElementById('hidden-baths');
+      const hMustHaves = document.getElementById('hidden-musthaves');
+      const hYrBuilt   = document.getElementById('hidden-yearbuilt');
+      if (hCities)    hCities.value    = cityNames.join(', ');
+      if (hBeds)      hBeds.value      = selectedBeds;
+      if (hBaths)     hBaths.value     = selectedBaths;
+      if (hMustHaves) hMustHaves.value = mustHaves;
+      if (hYrBuilt)   hYrBuilt.value   = selectedYearBuilt;
     }
 
     document.getElementById('stage4-back').addEventListener('click', () => goToStage(3));
@@ -2422,22 +2445,33 @@
       const ph      = document.getElementById('phone').value.trim();
       const consent = document.getElementById('sms-consent').checked;
 
-      if (!fn) { document.getElementById('fname-error').classList.add('show');   valid = false; } else { document.getElementById('fname-error').classList.remove('show'); }
-      if (!ln) { document.getElementById('lname-error').classList.add('show');   valid = false; } else { document.getElementById('lname-error').classList.remove('show'); }
-      if (!em || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) { document.getElementById('email-error').classList.add('show'); valid = false; } else { document.getElementById('email-error').classList.remove('show'); }
-      if (!ph) { document.getElementById('phone-error').classList.add('show');   valid = false; } else { document.getElementById('phone-error').classList.remove('show'); }
-      if (!consent) { document.getElementById('consent-error').classList.add('show'); valid = false; } else { document.getElementById('consent-error').classList.remove('show'); }
+      if (!fn) { document.getElementById('fname-error').classList.add('show');   valid = false; }
+      else     { document.getElementById('fname-error').classList.remove('show'); }
+      if (!ln) { document.getElementById('lname-error').classList.add('show');   valid = false; }
+      else     { document.getElementById('lname-error').classList.remove('show'); }
+      if (!em || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) {
+        document.getElementById('email-error').classList.add('show'); valid = false;
+      } else { document.getElementById('email-error').classList.remove('show'); }
+      if (!ph) { document.getElementById('phone-error').classList.add('show');   valid = false; }
+      else     { document.getElementById('phone-error').classList.remove('show'); }
+      if (!consent) { document.getElementById('consent-error').classList.add('show'); valid = false; }
+      else          { document.getElementById('consent-error').classList.remove('show'); }
       if (!valid) return;
 
       const btn = document.getElementById('submit-btn');
-      btn.textContent = 'Sending…';
+      btn.textContent = 'Sending...';
       btn.disabled = true;
 
-      const mustHaveLabels = { pool: 'Pool', '2car-garage': '2+ Car Garage', '1story': '1 Story', 'new-construction': 'New Construction', gated: 'Gated Community', waterfront: 'Waterfront / Water View' };
+      const mustHaveLabels = {
+        pool: 'Pool', '2car-garage': '2+ Car Garage', '1story': '1 Story',
+        'new-construction': 'New Construction', gated: 'Gated Community', waterfront: 'Waterfront / Water View'
+      };
       const mustHavesStr = [...selectedMustHaves].map(m => mustHaveLabels[m] || m).join(', ');
 
       const formData = new FormData(this);
-      fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: new URLSearchParams(formData).toString()
       })
       .then(() => { buildConfirmationScreen(); goToStage(5); })
@@ -2448,15 +2482,21 @@
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          firstName: fn, lastName: ln, email: em, phone: ph,
-          sms_consent: consent ? 'yes' : 'no',
-          source: 'BuyerIQ',
-          cities: [...selectedCities].join(', '),
-          neighborhoods: document.getElementById('hidden-neighborhoods').value,
-          beds: selectedBeds, baths: selectedBaths,
-          mustHaves: mustHavesStr, yearBuilt: selectedYearBuilt,
-          price_range: selectedPrice, timeline: selectedTimeline,
-          priorities: document.getElementById('hidden-priorities').value
+          firstName:        fn,
+          lastName:         ln,
+          email:            em,
+          phone:            ph,
+          sms_consent:      consent ? 'yes' : 'no',
+          source:           'BuyerIQ',
+          cities:           [...selectedCities].join(', '),
+          neighborhoods:    document.getElementById('hidden-neighborhoods').value,
+          beds:             selectedBeds,
+          baths:            selectedBaths,
+          mustHaves:        mustHavesStr,
+          yearBuilt:        selectedYearBuilt,
+          price_range:      selectedPrice,
+          timeline:         selectedTimeline,
+          priorities:       document.getElementById('hidden-priorities').value
         })
       }).catch(() => {});
     });
