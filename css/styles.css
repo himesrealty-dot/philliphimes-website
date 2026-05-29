@@ -1323,7 +1323,7 @@ p {
   font-size: 0.75rem;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: var(--gold);
+  color: var(--gold-light);
   margin-bottom: var(--space-lg);
 }
 
@@ -1371,6 +1371,26 @@ p {
 
 .footer__legal-link:hover {
   color: var(--gold);
+}
+
+.footer__legal {
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.65);
+}
+
+.footer__legal a {
+  color: var(--gold-light);
+  transition: color var(--transition);
+}
+
+.footer__legal a:hover {
+  color: var(--white);
+}
+
+.footer__disclaimer {
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.45);
+  line-height: 1.6;
 }
 
 /* =========================================
