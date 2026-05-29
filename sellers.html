@@ -294,6 +294,54 @@
     }
     .hv-widget__restart:hover { color: var(--gold); }
 
+    /* ── Plunk valuation widget container ───────────────────── */
+    .plunk-widget-wrap {
+      margin-top: 1.5rem;
+      border-radius: 0.875rem;
+      overflow: hidden;
+    }
+    /* Broad overrides — Plunk injects its own HTML at this location */
+    .plunk-widget-wrap input[type="text"],
+    .plunk-widget-wrap input[type="search"],
+    .plunk-widget-wrap input[type="email"],
+    .plunk-widget-wrap input[type="tel"] {
+      background: rgba(255,255,255,0.12) !important;
+      border: 2px solid rgba(255,255,255,0.25) !important;
+      border-radius: 50px !important;
+      color: #fff !important;
+      font-family: var(--font-body) !important;
+      font-size: 0.92rem !important;
+      padding: 0.85rem 1.25rem !important;
+    }
+    .plunk-widget-wrap input::placeholder { color: rgba(255,255,255,0.45) !important; }
+    .plunk-widget-wrap button,
+    .plunk-widget-wrap input[type="submit"],
+    .plunk-widget-wrap input[type="button"] {
+      background: var(--gold) !important;
+      color: var(--navy) !important;
+      border: none !important;
+      border-radius: 50px !important;
+      font-family: var(--font-heading) !important;
+      font-weight: 800 !important;
+      font-size: 0.8rem !important;
+      letter-spacing: 0.07em !important;
+      text-transform: uppercase !important;
+      padding: 0.85rem 1.5rem !important;
+      cursor: pointer !important;
+    }
+    .plunk-widget-wrap button:hover { background: #b8923e !important; }
+    .plunk-widget-wrap a { color: var(--gold) !important; }
+    .plunk-widget-wrap p,
+    .plunk-widget-wrap label,
+    .plunk-widget-wrap span,
+    .plunk-widget-wrap div { color: rgba(255,255,255,0.85); }
+    .plunk-widget-wrap h1,
+    .plunk-widget-wrap h2,
+    .plunk-widget-wrap h3 {
+      color: #fff !important;
+      font-family: var(--font-heading) !important;
+    }
+
     /* Error state */
     .hv-widget__error {
       display: none; margin-top: 0.75rem;
@@ -919,44 +967,9 @@
             <p class="hv-widget__copy" style="margin-top:0.75rem;">When you're serious about selling, you need a TruMarket™ report. That's Phil pulling actual comps, walking your competition, and telling you exactly what price puts the most money in your pocket — and why.</p>
           </div>
 
-          <div class="hv-widget__form" id="hv-widget-form">
-            <div class="hv-widget__input-row">
-              <input
-                type="text"
-                id="hv-widget-input"
-                class="hv-widget__input"
-                placeholder="Start typing your address…"
-                autocomplete="off"
-              />
-              <button class="hv-widget__btn" id="hv-widget-btn" disabled>GET ESTIMATE →</button>
-            </div>
-            <div class="hv-widget__dropdown" id="hv-widget-dropdown" role="listbox"></div>
-          </div>
-
-          <div class="hv-widget__loading" id="hv-widget-loading">
-            <svg class="hv-widget__spinner" viewBox="0 0 50 50">
-              <circle cx="25" cy="25" r="20" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="5"/>
-              <circle cx="25" cy="25" r="20" fill="none" stroke="#C9A455" stroke-width="5"
-                stroke-dasharray="80 100" stroke-linecap="round">
-                <animateTransform attributeName="transform" type="rotate"
-                  from="0 25 25" to="360 25 25" dur="0.9s" repeatCount="indefinite"/>
-              </circle>
-            </svg>
-            <span class="hv-widget__loading-text">Pulling your estimate…</span>
-          </div>
-
-          <div class="hv-widget__result" id="hv-widget-result">
-            <div class="hv-widget__result-label">Estimate for</div>
-            <div class="hv-widget__result-address" id="hv-result-address"></div>
-            <div class="hv-widget__estimate-label">Estimated Market Value</div>
-            <div class="hv-widget__estimate-value" id="hv-result-value"></div>
-            <div class="hv-widget__estimate-range" id="hv-result-range"></div>
-            <div class="hv-widget__disclaimer">Estimate based on recent comparable sales in your area. Actual value varies by condition, upgrades, and current market activity. Request a TruMarket™ report for a precise analysis.</div>
-            <a href="#" class="hv-widget__restart" id="hv-widget-restart">← Try a different address</a>
-          </div>
-
-          <div class="hv-widget__error" id="hv-widget-error">
-            We couldn't find an estimate for that address. Try a nearby address or request a TruMarket™ report for a manual analysis.
+          <!-- Plunk Valuation Widget — powered by IDXAddons -->
+          <div class="plunk-widget-wrap">
+            <script src="https://idxaddons.com/addon/plunkvaluation/NWJfWXV2c0ctOEQ%3DDbVFmnXAMYT"></script>
           </div>
         </div>
 
@@ -994,147 +1007,6 @@
     </div>
   </section>
 
-  <script>
-  (function() {
-    var input     = document.getElementById('hv-widget-input');
-    var btn       = document.getElementById('hv-widget-btn');
-    var dropdown  = document.getElementById('hv-widget-dropdown');
-    var loading   = document.getElementById('hv-widget-loading');
-    var result    = document.getElementById('hv-widget-result');
-    var errorBox  = document.getElementById('hv-widget-error');
-    var restart   = document.getElementById('hv-widget-restart');
-
-    var verifiedAddress = null;
-    var debounceTimer   = null;
-    var activeIndex     = -1;
-
-    function fmt(n) {
-      return '$' + Math.round(n).toLocaleString('en-US');
-    }
-
-    // ── Mapbox autocomplete ────────────────────────────────
-    function fetchSuggestions(q) {
-      return fetch('/.netlify/functions/mapbox-geocode?q=' + encodeURIComponent(q))
-        .then(function(r){ return r.json(); });
-    }
-
-    function renderDropdown(features) {
-      dropdown.innerHTML = '';
-      activeIndex = -1;
-      if (!features || !features.length) { dropdown.classList.remove('open'); return; }
-      features.slice(0, 6).forEach(function(f) {
-        var parts = f.place_name.split(',');
-        var main  = parts[0].trim();
-        var sub   = parts.slice(1).join(',').trim();
-        var item  = document.createElement('div');
-        item.className = 'hv-widget__option';
-        item.setAttribute('role', 'option');
-        item.innerHTML =
-          '<div><div class="hv-widget__option-main">' + main + '</div>' +
-          '<div class="hv-widget__option-sub">' + sub + '</div></div>';
-        item.addEventListener('mousedown', function(e) {
-          e.preventDefault();
-          verifiedAddress = f.place_name;
-          input.value     = f.place_name;
-          dropdown.classList.remove('open');
-          btn.disabled    = false;
-        });
-        dropdown.appendChild(item);
-      });
-      dropdown.classList.add('open');
-    }
-
-    input.addEventListener('input', function() {
-      verifiedAddress  = null;
-      var q = input.value.trim();
-      btn.disabled     = q.length < 5;
-      if (q.length < 4) { dropdown.classList.remove('open'); return; }
-      clearTimeout(debounceTimer);
-      debounceTimer = setTimeout(function() {
-        fetchSuggestions(q).then(function(data) { renderDropdown(data.features || []); });
-      }, 300);
-    });
-
-    input.addEventListener('keydown', function(e) {
-      var items = dropdown.querySelectorAll('.hv-widget__option');
-      if (!items.length) return;
-      if (e.key === 'ArrowDown') {
-        e.preventDefault();
-        activeIndex = Math.min(activeIndex + 1, items.length - 1);
-        items.forEach(function(it, i){ it.classList.toggle('active', i === activeIndex); });
-      } else if (e.key === 'ArrowUp') {
-        e.preventDefault();
-        activeIndex = Math.max(activeIndex - 1, 0);
-        items.forEach(function(it, i){ it.classList.toggle('active', i === activeIndex); });
-      } else if (e.key === 'Escape') {
-        dropdown.classList.remove('open');
-      }
-    });
-
-    document.addEventListener('click', function(e) {
-      if (!e.target.closest('#hv-widget-form')) dropdown.classList.remove('open');
-    });
-
-    // ── Get estimate ───────────────────────────────────────
-    btn.addEventListener('click', function() {
-      var addr = verifiedAddress || input.value.trim();
-      if (!addr) return;
-      getEstimate(addr);
-    });
-
-    function getEstimate(addr) {
-      // Show loading
-      document.getElementById('hv-widget-form').style.display = 'none';
-      loading.classList.add('show');
-      result.classList.remove('show');
-      errorBox.classList.remove('show');
-
-      fetch('/.netlify/functions/home-value?address=' + encodeURIComponent(addr))
-        .then(function(r){ return r.json(); })
-        .then(function(data) {
-          loading.classList.remove('show');
-          if (data.error || !data.price) {
-            errorBox.classList.add('show');
-            document.getElementById('hv-widget-form').style.display = '';
-            btn.disabled = false;
-            return;
-          }
-          // Populate result
-          document.getElementById('hv-result-address').textContent = addr;
-          document.getElementById('hv-result-value').textContent   = fmt(data.price);
-          document.getElementById('hv-result-range').textContent   =
-            'Estimated range: ' + fmt(data.priceRangeLow) + ' – ' + fmt(data.priceRangeHigh);
-
-          // Pre-fill TruMarket form address field
-          var captureAddr = document.getElementById('hv-capture-address');
-          if (captureAddr) captureAddr.value = addr;
-
-          result.classList.add('show');
-
-          // Scroll to next stage hint
-          document.getElementById('hv-next-hint').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        })
-        .catch(function() {
-          loading.classList.remove('show');
-          errorBox.classList.add('show');
-          document.getElementById('hv-widget-form').style.display = '';
-        });
-    }
-
-    // ── Restart ────────────────────────────────────────────
-    restart.addEventListener('click', function(e) {
-      e.preventDefault();
-      result.classList.remove('show');
-      errorBox.classList.remove('show');
-      document.getElementById('hv-widget-form').style.display = '';
-      input.value      = '';
-      verifiedAddress  = null;
-      btn.disabled     = true;
-      input.focus();
-    });
-
-  })();
-  </script>
 
   <!-- ── STAGE 2 — NET PROCEEDS ───────────────────────── -->
   <section class="proceeds-section" id="net-proceeds" aria-label="Stage 2 — Net proceeds estimator">
