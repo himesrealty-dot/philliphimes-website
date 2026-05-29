@@ -297,49 +297,8 @@
     /* ── Plunk valuation widget container ───────────────────── */
     .plunk-widget-wrap {
       margin-top: 1.5rem;
-      border-radius: 0.875rem;
-      overflow: hidden;
-    }
-    /* Broad overrides — Plunk injects its own HTML at this location */
-    .plunk-widget-wrap input[type="text"],
-    .plunk-widget-wrap input[type="search"],
-    .plunk-widget-wrap input[type="email"],
-    .plunk-widget-wrap input[type="tel"] {
-      background: rgba(255,255,255,0.12) !important;
-      border: 2px solid rgba(255,255,255,0.25) !important;
-      border-radius: 50px !important;
-      color: #fff !important;
-      font-family: var(--font-body) !important;
-      font-size: 0.92rem !important;
-      padding: 0.85rem 1.25rem !important;
-    }
-    .plunk-widget-wrap input::placeholder { color: rgba(255,255,255,0.45) !important; }
-    .plunk-widget-wrap button,
-    .plunk-widget-wrap input[type="submit"],
-    .plunk-widget-wrap input[type="button"] {
-      background: var(--gold) !important;
-      color: var(--navy) !important;
-      border: none !important;
-      border-radius: 50px !important;
-      font-family: var(--font-heading) !important;
-      font-weight: 800 !important;
-      font-size: 0.8rem !important;
-      letter-spacing: 0.07em !important;
-      text-transform: uppercase !important;
-      padding: 0.85rem 1.5rem !important;
-      cursor: pointer !important;
-    }
-    .plunk-widget-wrap button:hover { background: #b8923e !important; }
-    .plunk-widget-wrap a { color: var(--gold) !important; }
-    .plunk-widget-wrap p,
-    .plunk-widget-wrap label,
-    .plunk-widget-wrap span,
-    .plunk-widget-wrap div { color: rgba(255,255,255,0.85); }
-    .plunk-widget-wrap h1,
-    .plunk-widget-wrap h2,
-    .plunk-widget-wrap h3 {
-      color: #fff !important;
-      font-family: var(--font-heading) !important;
+      /* no overflow:hidden — would clip the address autocomplete dropdown */
+      position: relative;
     }
 
     /* Error state */
