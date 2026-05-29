@@ -180,8 +180,8 @@ const NEIGHBORHOODS = [
     tag:      'Master-Planned · Lakes',
     desc:     'A scenic master-planned community with resort-style amenities, walking trails, and lakes. One of Pearland\'s most popular newer communities with strong builder variety and resale values.',
     price:    '$290K – $480K',
-    href:     '',
-    live:     false,
+    href:     'riverstone-ranch.html',
+    live:     true,
   },
   {
     id:       'southern-trails',
@@ -191,8 +191,8 @@ const NEIGHBORHOODS = [
     tag:      'Master-Planned · New Construction',
     desc:     'A well-planned community in south Pearland with resort pool, splash pad, hike-and-bike trails, and easy highway access. Popular with families and move-up buyers seeking newer construction.',
     price:    '$310K – $520K',
-    href:     '',
-    live:     false,
+    href:     'southern-trails.html',
+    live:     true,
   },
   {
     id:       'southgate',
@@ -226,8 +226,8 @@ const NEIGHBORHOODS = [
     tag:      'Established · Golf',
     desc:     'One of Clear Lake\'s most prestigious established communities — mature trees, generous lots, and an active country club atmosphere. Bay Oaks has some of the highest resale values in the 77059 ZIP code.',
     price:    '$380K – $700K',
-    href:     '',
-    live:     false,
+    href:     'bay-oaks.html',
+    live:     true,
   },
   {
     id:       'bay-forest',
@@ -237,8 +237,8 @@ const NEIGHBORHOODS = [
     tag:      'Waterfront · Trees',
     desc:     'A serene waterfront-adjacent community with mature landscaping, winding streets, and a strong community identity. Popular with NASA professionals and long-term Clear Lake residents.',
     price:    '$320K – $550K',
-    href:     '',
-    live:     false,
+    href:     'bay-forest.html',
+    live:     true,
   },
   {
     id:       'bay-knoll',
@@ -248,8 +248,8 @@ const NEIGHBORHOODS = [
     tag:      'Family · Value',
     desc:     'A well-maintained neighborhood offering Clear Creek ISD schools at a more accessible price point. Bay Knoll attracts families who want the Clear Lake lifestyle without the Bay Oaks premium.',
     price:    '$280K – $420K',
-    href:     '',
-    live:     false,
+    href:     'bay-knoll.html',
+    live:     true,
   },
   {
     id:       'brookwood',
@@ -259,8 +259,8 @@ const NEIGHBORHOODS = [
     tag:      'Established · CCISD',
     desc:     'A well-established Clear Lake neighborhood with mature trees, solid lot sizes, and easy access to NASA Rd 1 and I-45. Popular with families and long-time Houston Bay Area residents.',
     price:    '$290K – $480K',
-    href:     '',
-    live:     false,
+    href:     'brookwood.html',
+    live:     true,
   },
   {
     id:       'taylor-lake',
@@ -270,8 +270,8 @@ const NEIGHBORHOODS = [
     tag:      'Lakefront · Waterfront',
     desc:     'A scenic lakefront community offering waterfront living, boat access, and a relaxed pace. One of the most sought-after water-access neighborhoods in the Clear Lake area.',
     price:    '$350K – $750K',
-    href:     '',
-    live:     false,
+    href:     'taylor-lake.html',
+    live:     true,
   },
   {
     id:       'the-reserve-at-clear-lake',
@@ -281,8 +281,8 @@ const NEIGHBORHOODS = [
     tag:      'Gated · Upscale',
     desc:     'A private gated community offering upscale homes, manicured grounds, and a quiet retreat from the surrounding urban activity. One of Clear Lake\'s premier addresses for discerning buyers.',
     price:    '$420K – $900K',
-    href:     '',
-    live:     false,
+    href:     'the-reserve-at-clear-lake.html',
+    live:     true,
   },
 
   /* ─── DICKINSON ─────────────────────────────────────────── */
@@ -294,8 +294,8 @@ const NEIGHBORHOODS = [
     tag:      'Established · Family',
     desc:     'An established Dickinson neighborhood with solid single-family homes, good school access, and a strong community feel. A reliable, affordable entry point into Galveston County real estate.',
     price:    '$230K – $370K',
-    href:     '',
-    live:     false,
+    href:     'nicholstone.html',
+    live:     true,
   },
   {
     id:       'bay-colony',
@@ -305,8 +305,8 @@ const NEIGHBORHOODS = [
     tag:      'Waterway Access',
     desc:     'A canal-front community with direct Galveston Bay waterway access. Bay Colony attracts boaters, anglers, and outdoor enthusiasts who want to keep their boat in the backyard without paying waterfront premium prices.',
     price:    '$260K – $420K',
-    href:     '',
-    live:     false,
+    href:     'bay-colony.html',
+    live:     true,
   },
   {
     id:       'pedregal',
@@ -316,8 +316,8 @@ const NEIGHBORHOODS = [
     tag:      'Waterfront · Bay Access',
     desc:     'A waterfront community near Galveston Bay with canal access and a relaxed coastal vibe. Popular with boaters and outdoor enthusiasts seeking waterfront living at accessible price points.',
     price:    '$250K – $420K',
-    href:     '',
-    live:     false,
+    href:     'pedregal.html',
+    live:     true,
   },
   {
     id:       'peacock-isle',
@@ -327,8 +327,8 @@ const NEIGHBORHOODS = [
     tag:      'Waterfront · Boating',
     desc:     'A scenic waterfront community with canal access and a laid-back coastal atmosphere. Peacock Isle offers an affordable path to water-access living in Galveston County.',
     price:    '$260K – $420K',
-    href:     '',
-    live:     false,
+    href:     'peacock-isle.html',
+    live:     true,
   },
   {
     id:       'bayou-maison',
@@ -338,8 +338,8 @@ const NEIGHBORHOODS = [
     tag:      'Waterfront · Bayou',
     desc:     'A charming community along Dickinson Bayou with a quiet, water-adjacent lifestyle. Bayou Maison appeals to buyers seeking a peaceful retreat with easy access to Galveston County amenities.',
     price:    '$255K – $400K',
-    href:     '',
-    live:     false,
+    href:     'bayou-maison.html',
+    live:     true,
   },
   {
     id:       'bayou-bend-estate',
@@ -349,8 +349,8 @@ const NEIGHBORHOODS = [
     tag:      'Bayou · Value',
     desc:     'A residential community offering affordable single-family homes near Dickinson Bayou. Bayou Bend Estate draws first-time buyers and families looking for value in Galveston County.',
     price:    '$220K – $340K',
-    href:     '',
-    live:     false,
+    href:     'bayou-bend-estate.html',
+    live:     true,
   },
 
   /* ─── MANVEL ────────────────────────────────────────────── */
@@ -373,8 +373,8 @@ const NEIGHBORHOODS = [
     tag:      'Established · Value',
     desc:     'One of Manvel\'s original master-planned communities with mature landscaping, community amenities, and a proven track record. Rodeo Palms offers genuine value for buyers who want the master-planned lifestyle at accessible prices.',
     price:    '$270K – $420K',
-    href:     '',
-    live:     false,
+    href:     'rodeo-palms.html',
+    live:     true,
   },
   {
     id:       'del-bello-lakes',
@@ -384,8 +384,8 @@ const NEIGHBORHOODS = [
     tag:      'Master-Planned · Lakes',
     desc:     'A scenic lakefront master-planned community in Manvel with resort-style amenities, walking trails, and new construction from top Houston builders. One of the fastest-growing communities in Brazoria County.',
     price:    '$310K – $520K',
-    href:     '',
-    live:     false,
+    href:     'del-bello-lakes.html',
+    live:     true,
   },
   {
     id:       'meridiana',
@@ -406,8 +406,8 @@ const NEIGHBORHOODS = [
     tag:      'Master-Planned · Lakes',
     desc:     'A well-maintained master-planned community in Manvel featuring scenic lakes, resort amenities, and a relaxed suburban pace. Sedona Lakes offers strong value for families seeking space and community in Brazoria County.',
     price:    '$290K – $470K',
-    href:     '',
-    live:     false,
+    href:     'sedona-lakes.html',
+    live:     true,
   },
   {
     id:       'valencia',
@@ -417,8 +417,8 @@ const NEIGHBORHOODS = [
     tag:      'New Construction · Master-Planned',
     desc:     'One of Manvel\'s newest master-planned communities offering modern new construction, resort-style amenities, and easy highway access. Valencia is attracting buyers who want brand-new at accessible Brazoria County prices.',
     price:    '$300K – $490K',
-    href:     '',
-    live:     false,
+    href:     'valencia.html',
+    live:     true,
   },
 
 ]; // end NEIGHBORHOODS
