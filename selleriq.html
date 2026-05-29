@@ -1061,39 +1061,17 @@
         <p class="be-stage__subtitle">Based on your address and recent sales in your area — this is your market context and your estimated walk-away number.</p>
       </div>
 
-      <!-- TruMarket™ Stats -->
+      <!-- MarketIQ™ CTA (replaces hardcoded placeholder stats) -->
       <div class="se-trumarket">
-        <div class="se-trumarket__badge">🎯 TruMarket™ — Market Intelligence</div>
+        <div class="se-trumarket__badge">📊 MarketIQ™ — Live Market Intelligence</div>
         <div class="se-trumarket__title" id="tm-neighborhood">Your Neighborhood — Houston Bay Area Suburbs</div>
-        <div class="se-trumarket__subtitle">Recent 90-day market data for comparable homes in your area</div>
-        <div class="se-stats-grid">
-          <div class="se-stat">
-            <div class="se-stat__value" id="tm-avg-price">$412K</div>
-            <div class="se-stat__label">Avg Sale Price</div>
-          </div>
-          <div class="se-stat">
-            <div class="se-stat__value" id="tm-dom">28</div>
-            <div class="se-stat__label">Median Days on Market</div>
-          </div>
-          <div class="se-stat">
-            <div class="se-stat__value" id="tm-lts">97.2%</div>
-            <div class="se-stat__label">List-to-Sale Ratio</div>
-          </div>
-          <div class="se-stat">
-            <div class="se-stat__value" id="tm-active">14</div>
-            <div class="se-stat__label">Active Listings Nearby</div>
-          </div>
-          <div class="se-stat">
-            <div class="se-stat__value" id="tm-sold">38</div>
-            <div class="se-stat__label">Sold Last 90 Days</div>
-          </div>
-          <div class="se-stat">
-            <div class="se-stat__value" id="tm-market">Balanced</div>
-            <div class="se-stat__label">Market Condition</div>
-          </div>
+        <div class="se-trumarket__subtitle">Active listings, days on market, list-to-sale ratios, and sold comps — live from the MLS</div>
+        <div style="padding:1.25rem 0 0.5rem;text-align:center;">
+          <p style="color:var(--mid-gray);margin-bottom:1.25rem;font-size:0.95rem;line-height:1.6;">MarketIQ™ pulls real-time data on comparable sales, active competition, and market conditions for your specific area. Phil uses it to build your pricing strategy.</p>
+          <a href="marketiq.html" class="btn btn--primary" style="display:inline-flex;gap:0.4rem;" target="_blank">Open MarketIQ™ &rarr;</a>
         </div>
-        <div class="se-trumarket__note">
-          <strong>Your full TruMarket™ analysis is in your Seller's Edge Report.</strong> The report includes your specific home's estimated value range, a side-by-side comparison against active competition, and Phil's pricing strategy recommendation based on your goals.
+        <div class="se-trumarket__note" style="margin-top:1.25rem;">
+          <strong>Your full TruMarket™ analysis will be in your Seller's Edge Report.</strong> Phil will walk you through live comps, your pricing window, and competitive positioning based on current MLS data.
         </div>
       </div>
 
@@ -1724,14 +1702,8 @@
       const commission  = document.getElementById('calc-commission')?.textContent || '—';
       const closingCost = document.getElementById('calc-closing')?.textContent    || '—';
 
-      // Read TruMarket stats from Stage 3 DOM
+      // Read neighborhood label from Stage 3 DOM
       const tmNeighborhood = document.getElementById('tm-neighborhood')?.textContent || 'Your Area';
-      const tmAvgPrice     = document.getElementById('tm-avg-price')?.textContent    || '—';
-      const tmDom          = document.getElementById('tm-dom')?.textContent          || '—';
-      const tmLts          = document.getElementById('tm-lts')?.textContent          || '—';
-      const tmActive       = document.getElementById('tm-active')?.textContent       || '—';
-      const tmSold         = document.getElementById('tm-sold')?.textContent         || '—';
-      const tmMarket       = document.getElementById('tm-market')?.textContent       || '—';
 
       document.getElementById('stage-5').innerHTML = `
 
@@ -1783,35 +1755,16 @@
           <div class="se-net-hero__disclaimer">Planning estimate only. Actual proceeds depend on final sale price, negotiated commission, lender payoff, and closing costs. Phil will walk through the exact numbers with you.</div>
         </div>
 
-        <!-- ── Market Snapshot ── -->
+        <!-- ── MarketIQ CTA ── -->
         <div class="se-market-snap">
           <div class="se-market-snap__header">
-            <div class="se-market-snap__title">📊 Your Market Snapshot</div>
-            <div class="se-market-snap__area">${tmNeighborhood}</div>
+            <div class="se-market-snap__title">📊 Live Market Intelligence</div>
+            <div class="se-market-snap__area">${tmNeighborhood} · Powered by MarketIQ™</div>
           </div>
-          <div class="se-snap-grid">
-            <div class="se-snap-stat">
-              <div class="se-snap-stat__value">${tmAvgPrice}</div>
-              <div class="se-snap-stat__label">Avg. Sold Price<br>Last 90 Days</div>
-            </div>
-            <div class="se-snap-stat">
-              <div class="se-snap-stat__value">${tmDom}</div>
-              <div class="se-snap-stat__label">Days on<br>Market</div>
-            </div>
-            <div class="se-snap-stat">
-              <div class="se-snap-stat__value">${tmLts}</div>
-              <div class="se-snap-stat__label">List-to-<br>Sale Ratio</div>
-            </div>
-            <div class="se-snap-stat">
-              <div class="se-snap-stat__value">${tmActive}</div>
-              <div class="se-snap-stat__label">Active<br>Listings</div>
-            </div>
-            <div class="se-snap-stat">
-              <div class="se-snap-stat__value">${tmSold}</div>
-              <div class="se-snap-stat__label">Homes Sold<br>Last 90 Days</div>
-            </div>
+          <div style="padding:1.25rem 1.5rem 1.5rem;text-align:center;">
+            <p style="color:var(--mid-gray);margin-bottom:1.25rem;font-size:0.95rem;line-height:1.6;">MarketIQ™ shows you live active competition, recent sold comps, days on market, and list-to-sale ratios for your area. This is the data Phil uses to build your pricing strategy.</p>
+            <a href="marketiq.html" class="btn btn--primary" style="display:inline-flex;gap:0.4rem;" target="_blank">Open MarketIQ™ &rarr;</a>
           </div>
-          <div class="se-market-snap__condition">📍 Market Condition: ${tmMarket} — this is your negotiating context</div>
         </div>
 
         <!-- ── Evergreen Video ── -->

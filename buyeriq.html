@@ -1886,14 +1886,7 @@
       'bay-oaks':              { headline: "Bay Oaks is one of Clear Lake\'s most prestigious communities — country club lifestyle, strong resale.", body: "This is the neighborhood that surprises buyers. The value is legitimate, the I-45 and NASA Road 1 access is excellent, and CCISD schools serve the area well. Because it flies under the radar compared to Tuscan Lakes or South Shore, competition is lighter — but that's changing as word gets out. My honest take: this is where I'd buy if I were optimizing for value, location, and long-term appreciation in the current market. Don't sleep on it." }
     };
 
-    const MARKET_STATS = {
-      'tuscan-lakes':          { active: 28, dom: 22, ratio: '97.8%', median: '$415K', trend: 'stable', trendLabel: '⚡ Competitive — CCISD demand keeps inventory moving' },
-      'south-shore-harbour':   { active: 14, dom: 35, ratio: '96.2%', median: '$520K', trend: 'buyer',  trendLabel: '⚖️ Balanced — buyer leverage exists at this price point' },
-      'friendswood':           { active: 18, dom: 18, ratio: '98.5%', median: '$475K', trend: 'hot',    trendLabel: '🔥 Seller\'s Market — FISD demand keeps this hot year-round' },
-      'shadow-creek-ranch':    { active: 35, dom: 28, ratio: '97.1%', median: '$390K', trend: 'stable', trendLabel: '⚡ Steady — best value corridor, consistent demand' },
-      'clear-lake':            { active: 22, dom: 24, ratio: '97.5%', median: '$345K', trend: 'stable', trendLabel: '⚡ Steady — NASA corridor provides a reliable demand floor' },
-      'bay-oaks':              { active: 12, dom: 20, ratio: '98.1%', median: '$355K', trend: 'hot',    trendLabel: '🔥 Moving Fast — hidden gem going mainstream' }
-    };
+    // Market data is served live via MarketIQ™ — no hardcoded stats
 
     // Community page URLs derived from n.city field in neighborhoods.js
 
@@ -1911,7 +1904,6 @@
       const primaryId   = allIds[0] || 'tuscan-lakes';
       const seed        = NEIGHBORHOODS.find(n => n.id === primaryId) || NEIGHBORHOODS[0];
       const take        = PHIL_TAKE[primaryId]   || PHIL_TAKE['tuscan-lakes'];
-      const stats       = MARKET_STATS[primaryId] || MARKET_STATS['tuscan-lakes'];
       const testimonial = TESTIMONIALS[primaryId] || TESTIMONIALS['default'];
       const comparePicks = NEIGHBORHOODS.filter(n => selectedNeighborhoods.has(n.id) && n.id !== primaryId);
 
@@ -1950,36 +1942,16 @@
           <div class="be-phils-take__body">${take.body}</div>
         </div>
 
-        <!-- ── Market Snapshot ── -->
+        <!-- ── MarketIQ CTA ── -->
         <div class="be-market-snap">
           <div class="be-market-snap__header">
-            <div class="be-market-snap__title">📊 Market Snapshot</div>
-            <div class="be-market-snap__neighborhood">${seed.name} Area · Current Data</div>
+            <div class="be-market-snap__title">📊 Live Market Intelligence</div>
+            <div class="be-market-snap__neighborhood">${seed.name} Area · Powered by MarketIQ™</div>
           </div>
-          <div class="be-snap-grid">
-            <div class="be-snap-stat">
-              <div class="be-snap-stat__value">${stats.active}</div>
-              <div class="be-snap-stat__label">Active<br>Listings</div>
-              <div class="be-snap-stat__sub">in area now</div>
-            </div>
-            <div class="be-snap-stat">
-              <div class="be-snap-stat__value">${stats.dom}</div>
-              <div class="be-snap-stat__label">Days on<br>Market</div>
-              <div class="be-snap-stat__sub">avg. to sell</div>
-            </div>
-            <div class="be-snap-stat">
-              <div class="be-snap-stat__value">${stats.ratio}</div>
-              <div class="be-snap-stat__label">List-to-<br>Sale Ratio</div>
-              <div class="be-snap-stat__sub">offer strength</div>
-            </div>
-            <div class="be-snap-stat">
-              <div class="be-snap-stat__value">${stats.median}</div>
-              <div class="be-snap-stat__label">Median<br>Sale Price</div>
-              <div class="be-snap-stat__sub">last 90 days</div>
-            </div>
+          <div style="padding:1.25rem 1.5rem 1.5rem;text-align:center;">
+            <p style="color:var(--mid-gray);margin-bottom:1.25rem;font-size:0.95rem;line-height:1.6;">Get real-time active listings, days on market, list-to-sale ratios, and Phil's pricing intelligence for your target neighborhoods — all in MarketIQ™.</p>
+            <a href="marketiq.html" class="btn btn--primary" style="display:inline-flex;gap:0.4rem;">Open MarketIQ™ &rarr;</a>
           </div>
-          <div class="be-snap-trend be-snap-trend--${stats.trend}">${stats.trendLabel}</div>
-          <div class="be-snap-disclaimer">Estimates based on recent MLS activity · Updated quarterly · Not a guarantee of value</div>
         </div>
 
         <!-- ── Evergreen Video ── -->
