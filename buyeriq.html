@@ -1860,6 +1860,7 @@
 
   <!-- ── MAIN SCRIPT ─────────────────────────────────────────────── -->
   <script src="js/main.js"></script>
+  <script src="js/neighborhoods.js"></script>
   <script>
 
     // ─────────────────────────────────────────────────────────
@@ -1874,35 +1875,7 @@
       { id: 'manvel',      name: 'Manvel',      icon: '🤠', tagline: 'Space & value south of Houston', priceRange: '$280K–$500K', neighborhoods: ['pomona','meridiana','del-bello-lakes'] },
     ];
 
-    // ─────────────────────────────────────────────────────────
-    //  DATA — Neighborhoods (used for Stage 5 report)
-    // ─────────────────────────────────────────────────────────
-    const NEIGHBORHOODS = [
-      // League City
-      { id: 'tuscan-lakes',        city: 'League City',  name: 'Tuscan Lakes',          price: '$300K – $2.2M', tags: ['Master-Planned','Pool & Trails','Resort Amenities'], schoolTag: '🏫 Top-Rated CCISD',           detail: 'Resort-style amenities, scenic lakes, walking trails, and a clubhouse. One of League City\'s most in-demand communities.' },
-      { id: 'south-shore-harbour', city: 'League City',  name: 'South Shore Harbour',   price: '$370K – $3M+',  tags: ['Waterfront','Golf & Marina','Prestige Address'],    schoolTag: '🏫 Top-Rated CCISD',           detail: 'Premier waterfront golf community on Clear Lake — marina access, 27-hole golf, and a resort atmosphere.' },
-      { id: 'westover-park',       city: 'League City',  name: 'Westover Park',         price: '$325K – $700K', tags: ['Master-Planned','Family-Friendly','Two Pools'],     schoolTag: '🏫 Top-Rated CCISD',           detail: 'Family-oriented community with two pools, tennis complex, parks, lakes, and trails — fully within CCISD.' },
-      { id: 'magnolia-creek',      city: 'League City',  name: 'Magnolia Creek',        price: '$345K – $800K', tags: ['Golf Community','Master-Planned','CCISD'],          schoolTag: '🏫 Clear Springs HS (CCISD)',   detail: 'League City\'s only golf-course community — 27-hole private club, pools, and the Lone Pine Grill clubhouse.' },
-      // Friendswood
-      { id: 'avalon',              city: 'Friendswood',  name: 'Avalon',                price: '$390K – $750K', tags: ['Master-Planned','Lakes','Prestige'],                schoolTag: '🏫 Friendswood ISD — Excellent', detail: 'Friendswood\'s most prestigious address — resort amenities, stocked lakes, and strong resale values.' },
-      { id: 'friendswood-lakes',   city: 'Friendswood',  name: 'Friendswood Lakes',     price: '$350K – $600K', tags: ['Lakeside','Fishing Piers','Top Schools'],           schoolTag: '🏫 Friendswood ISD — Excellent', detail: 'Waterfront lots, neighborhood fishing piers, and top-rated Friendswood ISD schools.' },
-      { id: 'west-ranch',          city: 'Friendswood',  name: 'West Ranch',            price: '$380K – $700K', tags: ['New Builds','Modern Floorplans','Resort Pool'],     schoolTag: '🏫 Friendswood ISD — Excellent', detail: 'One of Friendswood\'s newest master-planned communities — resort amenities and top-tier schools.' },
-      // Pearland
-      { id: 'shadow-creek-ranch',  city: 'Pearland',     name: 'Shadow Creek Ranch',    price: '$330K – $600K', tags: ['Master-Planned','Value','288 Access'],              schoolTag: '🏫 Pearland ISD — Strong',      detail: 'Pearland\'s flagship master-planned community — resort pools, lakes, and amenities that hold resale values.' },
-      { id: 'silverlake',          city: 'Pearland',     name: 'Silverlake',            price: '$290K – $500K', tags: ['Golf','Lakes','Established'],                       schoolTag: '🏫 Pearland ISD — Strong',      detail: 'Golf and lake community with winding streets, mature landscaping, and an active HOA.' },
-      // Clear Lake
-      { id: 'bay-oaks',            city: 'Clear Lake',   name: 'Bay Oaks',              price: '$380K – $700K', tags: ['Golf Country Club','Prestige','Established'],       schoolTag: '🏫 Top-Rated CCISD',           detail: 'One of Clear Lake\'s most prestigious communities — mature trees, generous lots, and country club atmosphere.' },
-      { id: 'bay-forest',          city: 'Clear Lake',   name: 'Bay Forest',            price: '$320K – $550K', tags: ['Waterfront-Adjacent','Mature Trees','NASA Corridor'], schoolTag: '🏫 Top-Rated CCISD',         detail: 'Serene community popular with NASA professionals — winding streets and strong community identity.' },
-      { id: 'taylor-lake',         city: 'Clear Lake',   name: 'Taylor Lake',           price: '$350K – $750K', tags: ['Lakefront','Boat Access','Waterfront Living'],      schoolTag: '🏫 Top-Rated CCISD',           detail: 'Scenic lakefront community offering waterfront living, boat access, and a relaxed pace.' },
-      // Dickinson
-      { id: 'bay-colony',          city: 'Dickinson',    name: 'Bay Colony',            price: '$260K – $420K', tags: ['Canal Front','Boat Access','Outdoor Lifestyle'],    schoolTag: '🏫 Dickinson ISD',             detail: 'Canal-front community with direct Galveston Bay waterway access — ideal for boaters and anglers.' },
-      { id: 'nicholstone',         city: 'Dickinson',    name: 'Nicholstone',           price: '$230K – $370K', tags: ['Established','Affordable','Family'],                schoolTag: '🏫 Dickinson ISD',             detail: 'Established Dickinson neighborhood with solid homes, good schools, and strong community feel.' },
-      { id: 'pedregal',            city: 'Dickinson',    name: 'Pedregal',              price: '$250K – $420K', tags: ['Waterfront','Bay Access','Coastal Vibe'],           schoolTag: '🏫 Dickinson ISD',             detail: 'Waterfront community near Galveston Bay with canal access and a relaxed coastal vibe.' },
-      // Manvel
-      { id: 'pomona',              city: 'Manvel',       name: 'Pomona',                price: '$320K – $550K', tags: ['Lagoon Community','Master-Planned','New Builds'],   schoolTag: '🏫 Alvin ISD — Growing',       detail: 'Manvel\'s premier master-planned community built around a stunning lagoon with resort-style amenities.' },
-      { id: 'meridiana',           city: 'Manvel',       name: 'Meridiana',             price: '$340K – $580K', tags: ['Surf Wave Pool','Luxury Amenities','New Builds'],   schoolTag: '🏫 Alvin ISD — Growing',       detail: 'Premier community with a surf wave pool, resort amenities, and upscale new construction.' },
-      { id: 'del-bello-lakes',     city: 'Manvel',       name: 'Del Bello Lakes',       price: '$310K – $520K', tags: ['Lakefront','New Construction','Brazoria County'],  schoolTag: '🏫 Alvin ISD — Growing',       detail: 'Scenic lakefront master-planned community with resort amenities and new construction from top builders.' },
-    ];
+    // NEIGHBORHOODS is loaded from js/neighborhoods.js (single source of truth)
 
     const DIFFERENTIATORS = {
       // League City
@@ -1949,18 +1922,7 @@
       'bay-oaks':              { active: 12, dom: 20, ratio: '98.1%', median: '$355K', trend: 'hot',    trendLabel: '🔥 Moving Fast — hidden gem going mainstream' }
     };
 
-    const COMMUNITY_URLS = {
-      'tuscan-lakes':          { url: 'league-city.html' },
-      'south-shore-harbour':   { url: 'league-city.html' },
-      'avalon':                { url: 'friendswood.html' },
-      'friendswood-lakes':     { url: 'friendswood.html' },
-      'west-ranch':            { url: 'friendswood.html' },
-      'shadow-creek-ranch':    { url: 'pearland.html' },
-      'bay-forest':            { url: 'clear-lake.html' },
-      'taylor-lake':           { url: 'clear-lake.html' },
-      'clear-lake':            { url: 'clear-lake.html' },
-      'bay-oaks':              { url: 'clear-lake.html' }
-    };
+    // Community page URLs derived from n.city field in neighborhoods.js
 
     const TESTIMONIALS = {
       'default':    { quote: "He came prepared and he came to sell our home — not just to list it. He helped us along the whole process from selling, to pre-approval, to finding our dream home. Then he negotiated an impressive $30,000 off the purchase price. Phil truly cares for his clients.", name: "Laly Zapata", detail: "Sold in Texas City · Bought in Bay Colony, League City · Saved $30,000", initials: "LZ" },
@@ -1983,9 +1945,9 @@
       // Community links — primary first, then others
       const allPicks = [seed, ...comparePicks];
       const communityLinksHTML = allPicks.map((n, i) => {
-        const cu = COMMUNITY_URLS[n.id] || { url: 'cities.html' };
+        const cityUrl = (n && n.city) ? n.city + '.html' : 'cities.html';
         const isActive = i === 0;
-        return `<a href="${cu.url}" class="be-community-link${isActive ? ' be-community-link--active' : ''}">${isActive ? '📍 ' : ''}${n.name}</a>`;
+        return `<a href="${cityUrl}" class="be-community-link${isActive ? ' be-community-link--active' : ''}">${isActive ? '📍 ' : ''}${n.name}</a>`;
       }).join('');
 
       document.getElementById('stage-5').innerHTML = `
@@ -2199,7 +2161,7 @@
           card.dataset.id = nbhdId;
           card.innerHTML = `
             <div class="be-hood-card__check">✓</div>
-            <div class="be-hood-card__city">${n.city}</div>
+            <div class="be-hood-card__city">${n.cityName}</div>
             <div class="be-hood-card__name">${n.name}</div>
             <div class="be-hood-card__price">${n.price}</div>
             <div class="be-hood-tags">
@@ -2220,8 +2182,8 @@
 
       // Remove any nbhds that belong to deselected cities
       selectedNeighborhoods.forEach(id => {
-        const ownerCity = CITY_DATA.find(c => c.neighborhoods.includes(id));
-        if (ownerCity && !selectedCities.has(ownerCity.id)) selectedNeighborhoods.delete(id);
+        const n = NEIGHBORHOODS.find(x => x.id === id);
+        if (n && !selectedCities.has(n.city)) selectedNeighborhoods.delete(id);
       });
     }
 
