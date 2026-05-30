@@ -2048,7 +2048,9 @@ p {
     border-bottom: 1px solid var(--light-gray);
   }
 
-  .nav__item--dropdown .nav__dropdown {
+  .nav__item--dropdown .nav__dropdown,
+  .nav__item--dropdown:hover .nav__dropdown,
+  .nav__item--dropdown:focus-within .nav__dropdown {
     position: static;
     opacity: 1;
     visibility: visible;
