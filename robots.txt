@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+
+Disallow: /har-preview.html
+Disallow: /idx-header.html
+Disallow: /idx-footer.html
+Disallow: /next-step.html
+Disallow: /primequity.html
+Disallow: /market-insights.html
+
+Sitemap: https://philliphimes.com/sitemap.xml
