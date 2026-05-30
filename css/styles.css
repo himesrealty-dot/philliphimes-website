@@ -85,6 +85,7 @@ body {
   background: var(--white);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 
 img {
@@ -1965,6 +1966,21 @@ p {
     flex: none;
   }
 
+  /* Container */
+  .container {
+    padding: 0 var(--space-lg);
+  }
+
+  /* Briefing Cards */
+  .briefing-cards {
+    grid-template-columns: 1fr;
+  }
+
+  /* Life Events Grid */
+  .life-events__grid {
+    grid-template-columns: 1fr;
+  }
+
   /* IQ Cards */
   .iq-cards {
     grid-template-columns: 1fr;
@@ -2068,6 +2084,15 @@ p {
 }
 
 @media (max-width: 480px) {
+  .container {
+    padding: 0 var(--space-md);
+  }
+
+  .stats-bar__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
+  }
+
   .hero__title {
     font-size: clamp(1.8rem, 8vw, 2.8rem);
   }
