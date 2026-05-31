@@ -1334,13 +1334,13 @@ p {
   gap: var(--space-sm);
 }
 
-.footer__link {
+.footer__links a {
   font-size: 0.875rem;
   color: rgba(255,255,255,0.7);
   transition: color var(--transition);
 }
 
-.footer__link:hover {
+.footer__links a:hover {
   color: var(--white);
 }
 
@@ -2122,5 +2122,3 @@ p {
     gap: var(--space-sm);
   }
 }
-
-  .hero__search-inpu
