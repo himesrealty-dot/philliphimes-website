@@ -1166,7 +1166,9 @@
   <script src="js/main.js"></script>
 
   <script>
-    const POSTS = [];
+    const POSTS = [
+      { featured: true, tag: 'City Comparison', title: 'League City vs Friendswood — Which Houston Bay Area City Is Right for You?', excerpt: 'Two great cities, two very different feels. League City offers size, variety, and proximity to NASA. Friendswood offers top-ranked FISD schools, a small-town vibe, and tight-knit community. Here\'s how to choose.', date: 'May 2026', url: 'compare-league-city-vs-friendswood.html' }
+    ];
     function renderBlog() {
       const featured = POSTS.find(p => p.featured);
       const archive  = POSTS.filter(p => !p.featured);
