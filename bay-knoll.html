@@ -575,7 +575,9 @@
 
   <script src="js/main.js"></script>
   <script>
-    const POSTS = [];
+    const POSTS = [
+      { featured: true, tag: 'School District Comparison', title: 'CCISD vs Alvin ISD — Which Houston Bay Area School District Fits Your Family?', excerpt: 'Both are TEA A-rated. The difference is in the neighborhoods, commutes, and lifestyle attached to each. A side-by-side breakdown to help school-first buyers choose the right district.', date: 'May 2026', url: 'compare-ccisd-vs-alvin-isd.html' }
+    ];
     function renderBlog() {
       const featuredWrap = document.getElementById('blog-featured-wrap');
       if (!POSTS.find(p => p.featured)) { featuredWrap.innerHTML = '<div class="blog-archive__empty">Articles coming soon — check back for Bay Knoll and Clear Lake market updates.</div>'; }
