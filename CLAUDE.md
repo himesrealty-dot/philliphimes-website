@@ -183,6 +183,8 @@ All neighborhood pages follow a strict ~575-line template. Use an existing page 
 
 Each page gets a unique 2-4 character prefix for all hero-related CSS classes. Shared CSS (`.nh-stats`, `.facts-strip`, `.nh-section`, etc.) is identical across all pages and defined inline in each page's `<style>` block.
 
+**Known legacy collision:** `tuscan-lakes.html` also uses the `tl-` prefix (same as `taylor-lake.html`). Harmless in practice since each page's CSS is inline, but do not reuse `tl-` for any new page.
+
 | File | Prefix | City |
 |------|--------|------|
 | bay-knoll.html | `bkn-` | Clear Lake |
@@ -280,14 +282,22 @@ Display size: 72×58px (`object-fit: cover`)
 </p>
 ```
 
-### Footer — Buying section
+### Footer — Buying by District section
 
-The footer's "Buying" column links to the city page appropriate for the neighborhood:
+All pages share an identical footer with a **"Buying by District"** column linking to the ISD landing pages (not the city pages):
 
-- Clear Lake neighborhoods → link to `clear-lake.html`
-- Pearland neighborhoods → link to `pearland.html`
-- Manvel neighborhoods → link to `manvel.html`
-- Dickinson neighborhoods → link to `dickinson.html`
+```html
+<div class="footer__heading">Buying by District</div>
+<ul class="footer__links">
+  <li><a href="ccisd-homes.html">Clear Creek ISD Homes</a></li>
+  <li><a href="alvin-isd-homes.html">Alvin ISD Homes</a></li>
+  <li><a href="friendswood-isd-homes.html">Friendswood ISD Homes</a></li>
+  <li><a href="pearland-isd-homes.html">Pearland ISD Homes</a></li>
+  <li><a href="dickinson-isd-homes.html">Dickinson ISD Homes</a></li>
+  <li><a href="new-construction.html">New Construction</a></li>
+  <li><a href="relocating-to-league-city.html">Relocating to League City</a></li>
+</ul>
+```
 
 ---
 

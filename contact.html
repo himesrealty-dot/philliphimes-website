@@ -274,7 +274,7 @@
           <ul class="footer__links">
             <li><a href="buyers.html" class="footer__link">For Buyers</a></li>
             <li><a href="sellers.html" class="footer__link">For Sellers</a></li>
-            <li><a href="neighborhoods.html" class="footer__link">Neighborhoods</a></li>
+            <li><a href="cities.html" class="footer__link">Neighborhoods</a></li>
             <li><a href="primequity.html" class="footer__link">Primequity™</a></li>
           </ul>
         </div>
@@ -311,28 +311,56 @@
       const topic = new URLSearchParams(window.location.search).get('topic');
       if (!topic) return;
       const sel = document.getElementById('subject');
+      const msg = document.getElementById('message');
       if (!sel) return;
-      // Map URL topic slugs → dropdown option values
+
+      const BUY = "I'm ready to buy a home";
+      const SELL = "I want to sell my home";
+
+      // Map URL topic slugs → dropdown option values (must match <option value> exactly)
       const topicMap = {
-        'buy':                       "I'm ready to buy a home",
-        'sell':                      "I want to sell my home",
-        'trumarket':                 "I'm interested in my TruMarket™ Home Value Report",
-        'rebalance':                 "I'm interested in Rebalance",
-        'amplify':                   "I'm interested in Amplify",
-        'renew':                     "I'm interested in Renew",
-        'preapproval':               "I'm ready to buy a home",
-        'offer':                     "I'm ready to buy a home",
-        'marketiq-schedule':         "General Question",
-        'buyer-guide':               "I'm ready to buy a home",
-        'seller-guide':              "I want to sell my home",
-        'guide-30day':               "I'm ready to buy a home",
-        'guide-buyer-advantage':     "I'm ready to buy a home",
-        'guide-seller-edge':         "I want to sell my home",
+        'buy':                   BUY,
+        'preapproval':           BUY,
+        'offer':                 BUY,
+        'buyer-guide':           BUY,
+        'guide-30day':           BUY,
+        'guide-buyer-advantage': BUY,
+        'sell':                  SELL,
+        'seller-guide':          SELL,
+        'guide-seller-edge':     SELL,
+        'trumarket':             "I want my TruMarket Home Report",
+        'rebalance':             "I'm interested in Rebalance",
+        'amplify':               "I'm interested in Amplify",
+        'renew':                 "I'm interested in Renew",
+        'new-construction':      "I'm interested in new construction",
+        'relocation':            "I'm relocating to Houston",
+        'marketiq':              "General question",
+        'marketiq-schedule':     "General question",
       };
-      // Neighborhood topics — all map to "I'm ready to buy a home" with neighborhood in message
-      const neighborhoodSlugs = [
-        'avalon-friendswood','friendswood-lakes','falcon-ridge-friendswood',
-        'west-ranch-friendswood','heritage-park-friendswood','wilderness-trails-friendswood',
-        'shadow-creek-ranch-pearland','silverlake-pearland','pomona-pearland',
-        'meridiana-iowa-colony','southgate-pearland','country-place-pearland',
-        'tuscan-lakes','westover-park','south-shore-harbour','magnolia-c
+
+      function setSelect(value) {
+        if ([...sel.options].some(o => o.value === value)) sel.value = value;
+      }
+
+      if (topicMap[topic]) {
+        setSelect(topicMap[topic]);
+        if ((topic === 'marketiq' || topic === 'marketiq-schedule') && msg && !msg.value) {
+          msg.value = "I'd like to schedule a MarketIQ™ session.";
+        }
+        return;
+      }
+
+      // Any other slug is a neighborhood — strip city suffix, title-case, pre-fill message
+      const name = topic
+        .replace(/-(friendswood|pearland|iowa-colony)$/, '')
+        .split('-')
+        .map((w, i) => (i > 0 && ['at', 'of', 'the'].includes(w)) ? w : w.charAt(0).toUpperCase() + w.slice(1))
+        .join(' ');
+      setSelect(BUY);
+      if (msg && !msg.value) {
+        msg.value = "I'm interested in " + name + " — please send me information on homes available there.";
+      }
+    })();
+  </script>
+</body>
+</html>
