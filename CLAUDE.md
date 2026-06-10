@@ -71,7 +71,7 @@ philliphimes-website/
 
 | File | Name | Price Range | Status |
 |------|------|-------------|--------|
-| `avalon.html` | Avalon | $390K – $750K | live |
+| `avalon.html` | Avalon | $600K – $1.4M+ | live |
 | `friendswood-lakes.html` | Friendswood Lakes | $350K – $600K | live |
 | `falcon-ridge.html` | Falcon Ridge | $290K – $460K | live |
 | `west-ranch.html` | West Ranch | $380K – $700K | live |
@@ -223,6 +223,23 @@ Both classes are defined inline in each page's `<style>` block.
 | Dickinson | Dickinson ISD | Dickinson High School |
 
 **Always include the disclaimer:** "School campus assignments are address-specific — always confirm the specific assignment for any address before purchasing."
+
+### Updating a neighborhood's price range — every place it lives
+
+A neighborhood's price range appears in up to 10 places. When updating from MLS data, change ALL of them:
+
+1. `js/neighborhoods.js` — `price` field (drives city pages + BuyerIQ cards)
+2. This file's neighborhood table
+3. `{neighborhood}.html` — hero stats bar (`.nh-stats__value` "Price Range")
+4. `{neighborhood}.html` — home tier prices (`.home-tier__price`, 3 tiers)
+5. `{neighborhood}.html` — price FAQ in the HTML accordion
+6. `{neighborhood}.html` — same FAQ in the JSON-LD FAQPage block (must stay in sync)
+7. `{neighborhood}.html` — `<meta name="description">` (and og:description) if it quotes prices
+8. `buyeriq.html` — `CITY_DATA` array `priceRange` (city-level min–max across its 6 neighborhoods)
+9. `{district}-isd-homes.html` — hardcoded `.hood-card__price` card (these pages do NOT use neighborhoods.js)
+10. `{district}-isd-homes.html` — FAQ text (HTML + JSON-LD) and meta description if they cite the neighborhood
+
+Verify with: `Select-String -Pattern '<old range>'` across `*.html`, `js/neighborhoods.js`, and `CLAUDE.md` — expect zero hits.
 
 ### Listings section
 

@@ -107,7 +107,7 @@ const NEIGHBORHOODS = [
     cityName:  'Friendswood',
     tag:       'Master-Planned · Lakes',
     desc:      'Friendswood\'s most prestigious address — resort-style amenities, stocked lakes, and homes that hold their value. The zip code everyone recognizes.',
-    price:     '$390K – $750K',
+    price:     '$600K – $1.4M+',
     href:      'avalon.html',
     live:      true,
     tags:      ['Master-Planned', 'Lakes', 'Prestige'],
