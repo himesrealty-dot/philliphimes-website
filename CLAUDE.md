@@ -221,6 +221,10 @@ Both classes are defined inline in each page's `<style>` block.
 | Pearland (SH 288 corridor) | Alvin ISD | Shadow Creek High School |
 | Manvel | Alvin ISD | Manvel High School |
 | Dickinson | Dickinson ISD | Dickinson High School |
+| Friendswood (most neighborhoods) | Friendswood ISD | Friendswood High School |
+| Friendswood — **Heritage Park** (north edge) | Clear Creek ISD (CCISD) | Clear Brook High School |
+
+**Heritage Park is NOT in Friendswood ISD** — it is zoned to CCISD (Clear Brook HS). Do not list it on friendswood-isd-homes.html; it belongs on ccisd-homes.html.
 
 **Always include the disclaimer:** "School campus assignments are address-specific — always confirm the specific assignment for any address before purchasing."
 

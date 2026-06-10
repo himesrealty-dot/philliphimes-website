@@ -167,7 +167,7 @@ const NEIGHBORHOODS = [
     href:      'heritage-park.html',
     live:      true,
     tags:      ['Mature Oaks', 'Character', 'Established'],
-    schoolTag: '🏫 Friendswood ISD — Excellent',
+    schoolTag: '🏫 Clear Brook HS (CCISD)',
     detail:    'Mature oak trees, generous lots, and a strong sense of community with timeless character and excellent resale history.',
   },
   {
