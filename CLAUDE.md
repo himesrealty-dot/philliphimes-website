@@ -72,11 +72,11 @@ philliphimes-website/
 | File | Name | Price Range | Status |
 |------|------|-------------|--------|
 | `avalon.html` | Avalon | $600K – $1.4M+ | live |
-| `friendswood-lakes.html` | Friendswood Lakes | $350K – $600K | live |
-| `falcon-ridge.html` | Falcon Ridge | $290K – $460K | live |
-| `west-ranch.html` | West Ranch | $380K – $700K | live |
-| `heritage-park.html` | Heritage Park | $320K – $500K | live |
-| `wilderness-trails.html` | Wilderness Trails | $310K – $490K | live |
+| `friendswood-lakes.html` | Friendswood Lakes | $470K – $1.3M+ | live |
+| `falcon-ridge.html` | Falcon Ridge | $360K – $620K | live |
+| `west-ranch.html` | West Ranch | $500K – $1.4M+ | live |
+| `heritage-park.html` | Heritage Park | $220K – $410K | live |
+| `wilderness-trails.html` | Wilderness Trails | $340K – $600K | live |
 
 ### Pearland (6 neighborhoods)
 
