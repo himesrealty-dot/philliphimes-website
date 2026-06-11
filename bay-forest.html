@@ -636,7 +636,7 @@
   <script src="js/main.js"></script>
   <script>
     const POSTS = [
-      { featured: true, tag: 'Market Update', title: 'Clear Lake Market Update — June 2026: Bay Forest Posts the Lowest Fail Rate Anywhere', excerpt: 'Bay Forest closed 20 homes at a $412,500 median with a 13% fail rate and 0.9 months of supply — the strongest seller numbers in any market I track. Clear Lake\'s citywide median: $359,950.', date: 'June 2026', url: 'clear-lake-market-update-june-2026.html#bay-forest' },
+      { featured: true, image: 'images/clear-lake-market-update-june-2026.jpg', tag: 'Market Update', title: 'Clear Lake Market Update — June 2026: Bay Forest Posts the Lowest Fail Rate Anywhere', excerpt: 'Bay Forest closed 20 homes at a $412,500 median with a 13% fail rate and 0.9 months of supply — the strongest seller numbers in any market I track. Clear Lake\'s citywide median: $359,950.', date: 'June 2026', url: 'clear-lake-market-update-june-2026.html#bay-forest' },
       { featured: false, tag: 'School District Comparison', title: 'CCISD vs Alvin ISD — Which Houston Bay Area School District Fits Your Family?', excerpt: 'Both are TEA A-rated. The difference is in the neighborhoods, commutes, and lifestyle attached to each. A side-by-side breakdown to help school-first buyers choose the right district.', date: 'May 2026', url: 'compare-ccisd-vs-alvin-isd.html' }
     ];
     function renderBlog() {
@@ -647,7 +647,7 @@
       if (featured) {
         featuredWrap.innerHTML = `
           <div class="blog-featured">
-            <div class="blog-featured__placeholder">📸 Article Image</div>
+            ${featured.image ? `<img src="${featured.image}" alt="${featured.title}" loading="lazy" style="width:100%;height:auto;border-radius:var(--radius-lg);display:block;" />` : `<div class="blog-featured__placeholder">📸 Article Image</div>`}
             <div>
               <span class="blog-featured__tag">${featured.tag}</span>
               <div class="blog-featured__title">${featured.title}</div>

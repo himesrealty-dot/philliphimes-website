@@ -1389,7 +1389,7 @@
     // Set featured: true on one post to feature it at the top.
     // ─────────────────────────────────────────────────────────
     const POSTS = [
-      { featured: true, tag: 'Market Update', title: 'League City Market Update — June 2026: What a 55.9% Listing Failure Rate Means for Westover Park', excerpt: 'Westover Park homes that sold closed at a $415,000 median in just 17 days at 100% of list price — but 55.9% of listings failed to sell. The full six-month numbers, explained plainly.', date: 'June 2026', url: 'league-city-market-update-june-2026.html#westover-park' },
+      { featured: true, image: 'images/league-city-market-update-june-2026.jpg', tag: 'Market Update', title: 'League City Market Update — June 2026: What a 55.9% Listing Failure Rate Means for Westover Park', excerpt: 'Westover Park homes that sold closed at a $415,000 median in just 17 days at 100% of list price — but 55.9% of listings failed to sell. The full six-month numbers, explained plainly.', date: 'June 2026', url: 'league-city-market-update-june-2026.html#westover-park' },
       // Example — uncomment and fill in when ready to publish:
       // {
       //   title: "What Is It Really Like to Live in Westover Park?",
@@ -1409,7 +1409,7 @@
       if (featured) {
         featuredWrap.innerHTML = `
           <div class="blog-featured">
-            <div class="blog-featured__placeholder">📸 Article Image</div>
+            ${featured.image ? `<img src="${featured.image}" alt="${featured.title}" loading="lazy" style="width:100%;height:auto;border-radius:var(--radius-lg);display:block;" />` : `<div class="blog-featured__placeholder">📸 Article Image</div>`}
             <div>
               <span class="blog-featured__tag">${featured.tag}</span>
               <div class="blog-featured__title">${featured.title}</div>

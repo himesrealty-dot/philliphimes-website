@@ -640,7 +640,7 @@
   <script src="js/main.js"></script>
   <script>
     const POSTS = [
-      { featured: true, tag: 'School District Comparison', title: 'CCISD vs Alvin ISD — Which Houston Bay Area School District Fits Your Family?', excerpt: 'Both are TEA A-rated. The difference is in the neighborhoods, commutes, and lifestyle attached to each. A side-by-side breakdown to help school-first buyers choose the right district.', date: 'May 2026', url: 'compare-ccisd-vs-alvin-isd.html' }
+      { featured: true, image: 'images/compare-ccisd-vs-alvin-isd.jpg', tag: 'School District Comparison', title: 'CCISD vs Alvin ISD — Which Houston Bay Area School District Fits Your Family?', excerpt: 'Both are TEA A-rated. The difference is in the neighborhoods, commutes, and lifestyle attached to each. A side-by-side breakdown to help school-first buyers choose the right district.', date: 'May 2026', url: 'compare-ccisd-vs-alvin-isd.html' }
     ];
     function renderBlog() {
       const featured = POSTS.find(p => p.featured);
@@ -650,7 +650,7 @@
       if (featured) {
         featuredWrap.innerHTML = `
           <div class="blog-featured">
-            <div class="blog-featured__placeholder">📸 Article Image</div>
+            ${featured.image ? `<img src="${featured.image}" alt="${featured.title}" loading="lazy" style="width:100%;height:auto;border-radius:var(--radius-lg);display:block;" />` : `<div class="blog-featured__placeholder">📸 Article Image</div>`}
             <div>
               <span class="blog-featured__tag">${featured.tag}</span>
               <div class="blog-featured__title">${featured.title}</div>

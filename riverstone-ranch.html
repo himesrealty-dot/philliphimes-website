@@ -640,7 +640,7 @@
   <script src="js/main.js"></script>
   <script>
     const POSTS = [
-      { featured: true, tag: 'Market Update', title: 'Pearland Market Update — June 2026: Riverstone Ranch Sells in 13 Days — When It Sells', excerpt: 'Pearland\'s median hit $380K. Riverstone Ranch homes that sold went fast — a 13-day median at $385K — but 48.8% of listings never closed. Both sides of the story, with the data.', date: 'June 2026', url: 'pearland-market-update-june-2026.html#riverstone-ranch' },
+      { featured: true, image: 'images/pearland-market-update-june-2026.jpg', tag: 'Market Update', title: 'Pearland Market Update — June 2026: Riverstone Ranch Sells in 13 Days — When It Sells', excerpt: 'Pearland\'s median hit $380K. Riverstone Ranch homes that sold went fast — a 13-day median at $385K — but 48.8% of listings never closed. Both sides of the story, with the data.', date: 'June 2026', url: 'pearland-market-update-june-2026.html#riverstone-ranch' },
       { featured: false, tag: 'School District Comparison', title: 'CCISD vs Alvin ISD — Which Houston Bay Area School District Fits Your Family?', excerpt: 'Both are TEA A-rated. The difference is in the neighborhoods, commutes, and lifestyle attached to each. A side-by-side breakdown to help school-first buyers choose the right district.', date: 'May 2026', url: 'compare-ccisd-vs-alvin-isd.html' }
     ];
     function renderBlog() {
@@ -651,7 +651,7 @@
       if (featured) {
         featuredWrap.innerHTML = `
           <div class="blog-featured">
-            <div class="blog-featured__placeholder">📸 Article Image</div>
+            ${featured.image ? `<img src="${featured.image}" alt="${featured.title}" loading="lazy" style="width:100%;height:auto;border-radius:var(--radius-lg);display:block;" />` : `<div class="blog-featured__placeholder">📸 Article Image</div>`}
             <div>
               <span class="blog-featured__tag">${featured.tag}</span>
               <div class="blog-featured__title">${featured.title}</div>
