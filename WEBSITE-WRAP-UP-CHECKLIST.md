@@ -32,6 +32,21 @@ This works — it just drops the visitor on a blank search form instead of pre-f
 
 ---
 
+## 2b. Guide lead-capture popups — finish the GHL wiring ⚠️
+
+The three home-page guide buttons ("30-Day Plan", "Buyer's Advantage", "Seller's Edge") and the two footer guide links now open a **lead-capture popup** instead of going to the contact page. On submit, the lead is saved to **Netlify Forms** (form name `guide-download`) AND posted to a **GoHighLevel webhook** so your GHL workflow can email the right PDF.
+
+**One thing left for you to do — paste your GHL webhook URL:**
+
+1. In GoHighLevel, build a Workflow with an **Inbound Webhook** trigger. Copy its webhook URL.
+2. In `index.html`, find `var GHL_WEBHOOK_URL = '';` (in the guide-modal script near the bottom) and paste your URL between the quotes.
+3. In the GHL workflow, branch on the `guide` field — it arrives as one of: `30day`, `buyer-advantage`, or `seller-edge` (the `guide_title` field carries the human-readable name). Send the matching PDF as an email attachment / download link for each branch.
+4. Upload the 3 PDFs to GHL (or wherever your emails link to). Fields delivered to the webhook: `first_name`, `last_name`, `email`, `phone`, `sms_consent`, `guide`, `guide_title`, `page`, `timestamp`.
+
+> Until the URL is pasted, popups still work and every lead is captured in Netlify — only the automated email won't fire. **Also: in the Netlify dashboard, confirm the `guide-download` form appears under Forms after the next deploy** (Netlify auto-detects it from the static HTML).
+
+---
+
 ## 3. Off-site launch tasks (not in the code)
 
 - [ ] **Submit `sitemap.xml` to Google Search Console** (and Bing Webmaster Tools). The sitemap is current and includes all market-update articles.

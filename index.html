@@ -539,6 +539,108 @@
     }
     .guide-card-new__btn:hover { background: #d4b86a; transform: translateY(-1px); }
 
+    /* ─── GUIDE LEAD-CAPTURE MODAL ─────────────────────────────── */
+    .guide-modal {
+      position: fixed; inset: 0; z-index: 1000;
+      display: none; align-items: center; justify-content: center;
+      padding: 1.25rem;
+    }
+    .guide-modal.is-open { display: flex; }
+    .guide-modal__overlay {
+      position: absolute; inset: 0;
+      background: rgba(11,24,38,0.72); backdrop-filter: blur(3px);
+      animation: guideFade 0.25s ease;
+    }
+    @keyframes guideFade { from { opacity: 0; } to { opacity: 1; } }
+    .guide-modal__card {
+      position: relative; z-index: 1; width: 100%; max-width: 760px;
+      background: var(--white, #fff); border-radius: var(--radius-xl, 20px);
+      box-shadow: 0 24px 80px rgba(0,0,0,0.45);
+      display: grid; grid-template-columns: 0.85fr 1fr;
+      overflow: hidden; max-height: calc(100vh - 2.5rem);
+      animation: guidePop 0.28s cubic-bezier(0.16,1,0.3,1);
+    }
+    @keyframes guidePop { from { opacity: 0; transform: translateY(16px) scale(0.97); } to { opacity: 1; transform: none; } }
+    .guide-modal__visual {
+      background: linear-gradient(150deg, #0a1c2e 0%, #1b3a5c 100%);
+      padding: 2rem 1.5rem; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; text-align: center; gap: 1rem;
+    }
+    .guide-modal__cover {
+      width: 100%; max-width: 190px; border-radius: 8px;
+      box-shadow: 0 12px 36px rgba(0,0,0,0.4); display: block;
+    }
+    .guide-modal__visual-tag {
+      font-family: var(--font-heading); font-size: 0.68rem; font-weight: 800;
+      letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold);
+    }
+    .guide-modal__body { padding: 2.25rem 2.25rem 2rem; overflow-y: auto; }
+    .guide-modal__close {
+      position: absolute; top: 0.85rem; right: 0.95rem; z-index: 2;
+      width: 36px; height: 36px; border-radius: 50%; border: none;
+      background: rgba(255,255,255,0.12); color: #fff; font-size: 1.35rem;
+      line-height: 1; cursor: pointer; transition: background 0.2s;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .guide-modal__close:hover { background: rgba(255,255,255,0.28); }
+    .guide-modal__eyebrow {
+      font-family: var(--font-heading); font-size: 0.7rem; font-weight: 800;
+      letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold);
+      margin-bottom: 0.5rem;
+    }
+    .guide-modal__title {
+      font-family: var(--font-heading); font-weight: 900;
+      font-size: clamp(1.25rem, 2.4vw, 1.6rem); color: var(--navy);
+      line-height: 1.18; margin-bottom: 0.6rem;
+    }
+    .guide-modal__sub {
+      font-size: 0.88rem; color: var(--dark-gray, #5a6573);
+      line-height: 1.6; margin-bottom: 1.4rem;
+    }
+    .guide-modal__form .form-group { margin-bottom: 0.9rem; }
+    .guide-modal__row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+    .guide-modal__label {
+      display: block; font-family: var(--font-heading); font-size: 0.72rem;
+      font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase;
+      color: var(--navy); margin-bottom: 0.3rem;
+    }
+    .guide-modal__input {
+      width: 100%; padding: 0.7rem 0.9rem; border: 1.5px solid var(--light-gray, #d9dee4);
+      border-radius: 10px; font-family: var(--font-body, sans-serif); font-size: 0.92rem;
+      outline: none; transition: border-color 0.2s; box-sizing: border-box;
+    }
+    .guide-modal__input:focus { border-color: var(--gold); }
+    .guide-modal__consent {
+      display: flex; gap: 0.55rem; align-items: flex-start;
+      font-size: 0.7rem; color: var(--dark-gray, #5a6573); line-height: 1.5;
+      margin: 0.4rem 0 1rem;
+    }
+    .guide-modal__consent input { margin-top: 0.15rem; flex-shrink: 0; }
+    .guide-modal__consent a { color: var(--navy); text-decoration: underline; }
+    .guide-modal__submit {
+      width: 100%; padding: 0.85rem 1.25rem; border: none; cursor: pointer;
+      border-radius: var(--radius-full, 9999px); background: var(--gold); color: var(--navy);
+      font-family: var(--font-heading); font-weight: 800; font-size: 0.92rem;
+      letter-spacing: 0.03em; transition: background 0.2s, transform 0.2s;
+    }
+    .guide-modal__submit:hover { background: #d4b86a; transform: translateY(-1px); }
+    .guide-modal__submit:disabled { opacity: 0.6; cursor: default; transform: none; }
+    .guide-modal__note { font-size: 0.68rem; color: #9aa3ad; text-align: center; margin-top: 0.7rem; }
+    .guide-modal__success { text-align: center; padding: 1rem 0; }
+    .guide-modal__success-icon {
+      font-size: 2.75rem; margin-bottom: 0.6rem;
+      width: 64px; height: 64px; margin: 0 auto 0.8rem; border-radius: 50%;
+      background: #e8f6ec; color: #1e9e54; display: flex; align-items: center;
+      justify-content: center;
+    }
+    .guide-modal__success h3 { font-family: var(--font-heading); color: var(--navy); font-size: 1.25rem; margin-bottom: 0.5rem; }
+    .guide-modal__success p { font-size: 0.9rem; color: var(--dark-gray, #5a6573); line-height: 1.6; }
+    @media (max-width: 640px) {
+      .guide-modal__card { grid-template-columns: 1fr; max-height: calc(100vh - 1.5rem); }
+      .guide-modal__visual { display: none; }
+      .guide-modal__body { padding: 2.5rem 1.5rem 1.75rem; }
+    }
+
   </style>
 
 </head>
@@ -812,7 +914,7 @@
             <span class="guide-card-new__tag guide-card-new__tag--gold">For Sellers</span>
             <h3 class="guide-card-new__title">30-Day Plan: How to Prepare Your Home to Sell</h3>
             <p class="guide-card-new__desc">The exact prep sequence that gets homes sold faster and for more — room by room, week by week, no guesswork.</p>
-            <a href="contact.html?topic=guide-30day" class="guide-card-new__btn">Download Free →</a>
+            <button type="button" class="guide-card-new__btn" data-guide="30day">Download Free →</button>
           </div>
         </div>
 
@@ -824,7 +926,7 @@
             <span class="guide-card-new__tag guide-card-new__tag--teal">For Buyers</span>
             <h3 class="guide-card-new__title">The Buyer's Advantage: Current Trends &amp; What to Expect</h3>
             <p class="guide-card-new__desc">Market shifts, rate trends, negotiation windows, and what smart buyers are doing right now in the Houston Bay Area.</p>
-            <a href="contact.html?topic=guide-buyer-advantage" class="guide-card-new__btn">Download Free →</a>
+            <button type="button" class="guide-card-new__btn" data-guide="buyer-advantage">Download Free →</button>
           </div>
         </div>
 
@@ -836,13 +938,94 @@
             <span class="guide-card-new__tag guide-card-new__tag--gold">For Sellers</span>
             <h3 class="guide-card-new__title">The Seller's Edge: Current Trends &amp; What to Expect in 2026</h3>
             <p class="guide-card-new__desc">Pricing strategy, market timing, buyer demand signals — everything you need to sell from a position of strength this year.</p>
-            <a href="contact.html?topic=guide-seller-edge" class="guide-card-new__btn">Download Free →</a>
+            <button type="button" class="guide-card-new__btn" data-guide="seller-edge">Download Free →</button>
           </div>
         </div>
 
       </div>
     </div>
   </section>
+
+  <!-- ── GUIDE LEAD-CAPTURE MODAL ───────────────────────── -->
+  <div class="guide-modal" id="guide-modal" role="dialog" aria-modal="true" aria-labelledby="guide-modal-title" aria-hidden="true">
+    <div class="guide-modal__overlay" data-guide-close></div>
+    <div class="guide-modal__card">
+      <button type="button" class="guide-modal__close" data-guide-close aria-label="Close">&times;</button>
+
+      <div class="guide-modal__visual">
+        <img id="guide-modal-cover" class="guide-modal__cover" src="" alt="" loading="lazy" />
+        <span class="guide-modal__visual-tag" id="guide-modal-tag">Free Guide</span>
+      </div>
+
+      <div class="guide-modal__body">
+        <!-- Form view -->
+        <div id="guide-modal-formview">
+          <p class="guide-modal__eyebrow">Free Download</p>
+          <h2 class="guide-modal__title" id="guide-modal-title">Get the Guide</h2>
+          <p class="guide-modal__sub" id="guide-modal-sub">Enter your details and I'll email the guide straight to your inbox.</p>
+
+          <!-- Netlify form — also POSTs to GoHighLevel webhook via JS -->
+          <form
+            class="guide-modal__form"
+            id="guide-form"
+            name="guide-download"
+            method="POST"
+            data-netlify="true"
+            netlify-honeypot="bot-field"
+            action="/thank-you"
+          >
+            <input type="hidden" name="form-name" value="guide-download" />
+            <p style="display:none;"><label>Don't fill this out: <input name="bot-field" /></label></p>
+            <input type="hidden" name="guide" id="guide-field-key" value="" />
+            <input type="hidden" name="guide_title" id="guide-field-title" value="" />
+
+            <div class="guide-modal__row">
+              <div class="form-group">
+                <label class="guide-modal__label" for="guide-first">First Name</label>
+                <input class="guide-modal__input" type="text" id="guide-first" name="first_name" placeholder="John" required />
+              </div>
+              <div class="form-group">
+                <label class="guide-modal__label" for="guide-last">Last Name</label>
+                <input class="guide-modal__input" type="text" id="guide-last" name="last_name" placeholder="Smith" required />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="guide-modal__label" for="guide-email">Email Address</label>
+              <input class="guide-modal__input" type="email" id="guide-email" name="email" placeholder="john@example.com" required />
+            </div>
+
+            <div class="form-group">
+              <label class="guide-modal__label" for="guide-phone">Phone Number</label>
+              <input class="guide-modal__input" type="tel" id="guide-phone" name="phone" placeholder="(832) 555-0100" />
+            </div>
+
+            <label class="guide-modal__consent">
+              <input type="checkbox" name="sms_consent" value="yes" />
+              <span>
+                I agree to receive the guide and occasional updates from Phillip Himes by email and text (SMS/MMS).
+                Message &amp; data rates may apply. Reply STOP to opt out. Consent is not a condition of purchase.
+                See <a href="privacy-policy.html" target="_blank">Privacy Policy</a> &amp; <a href="terms-of-service.html" target="_blank">Terms</a>.
+              </span>
+            </label>
+
+            <button type="submit" class="guide-modal__submit" id="guide-submit">Send Me the Guide →</button>
+            <p class="guide-modal__note">Your information is never sold or shared.</p>
+          </form>
+        </div>
+
+        <!-- Success view -->
+        <div id="guide-modal-successview" style="display:none;">
+          <div class="guide-modal__success">
+            <div class="guide-modal__success-icon">✓</div>
+            <h3>Check your inbox!</h3>
+            <p id="guide-modal-success-msg">Your guide is on its way to your email. If you don't see it in a few minutes, check your spam folder.</p>
+            <button type="button" class="guide-modal__submit" data-guide-close style="margin-top:1.25rem;max-width:220px;">Done</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- ── FOOTER ─────────────────────────────────────────── -->
   <footer class="footer" role="contentinfo">
@@ -893,8 +1076,8 @@
             <li><a href="cities.html">Cities</a></li>
             <li><a href="#relifeiq">reLifeIQ™</a></li>
             <li><a href="contact.html">Ask Phil</a></li>
-            <li><a href="contact.html?topic=buyer-guide">Free Buyer's Guide</a></li>
-            <li><a href="contact.html?topic=seller-guide">Free Seller's Playbook</a></li>
+            <li><a href="#" data-guide="buyer-advantage">Free Buyer's Guide</a></li>
+            <li><a href="#" data-guide="seller-edge">Free Seller's Playbook</a></li>
           </ul>
         </div>
 
@@ -958,6 +1141,135 @@
     }
     fixAISearch();
   </script>
+
+  <!-- ── GUIDE LEAD-CAPTURE MODAL LOGIC ─────────────────── -->
+  <script>
+  (function () {
+    // ⚠️ PASTE YOUR GOHIGHLEVEL INBOUND WEBHOOK URL HERE.
+    // Until this is set, leads still save to Netlify Forms — the GHL email just won't fire.
+    var GHL_WEBHOOK_URL = '';
+
+    // Guide config — keyed by the data-guide attribute on each trigger.
+    var GUIDES = {
+      '30day': {
+        title: '30-Day Plan: How to Prepare Your Home to Sell',
+        sub: 'The exact week-by-week prep sequence that gets homes sold faster and for more. Enter your details and I’ll email it to you.',
+        cover: 'images/Guide-seller-30day.jpg',
+        tag: 'For Sellers'
+      },
+      'buyer-advantage': {
+        title: 'The Buyer’s Advantage',
+        sub: 'Market shifts, rate trends, and negotiation windows for smart buyers in the Houston Bay Area. Enter your details and I’ll email it to you.',
+        cover: 'images/Guide-buyer-advantage.jpg',
+        tag: 'For Buyers'
+      },
+      'seller-edge': {
+        title: 'The Seller’s Edge',
+        sub: 'Pricing strategy, market timing, and buyer-demand signals so you sell from a position of strength. Enter your details and I’ll email it to you.',
+        cover: 'images/Guide-seller-edge.jpg',
+        tag: 'For Sellers'
+      }
+    };
+
+    var modal = document.getElementById('guide-modal');
+    if (!modal) return;
+    var formView = document.getElementById('guide-modal-formview');
+    var successView = document.getElementById('guide-modal-successview');
+    var form = document.getElementById('guide-form');
+    var coverImg = document.getElementById('guide-modal-cover');
+    var tagEl = document.getElementById('guide-modal-tag');
+    var titleEl = document.getElementById('guide-modal-title');
+    var subEl = document.getElementById('guide-modal-sub');
+    var keyField = document.getElementById('guide-field-key');
+    var titleField = document.getElementById('guide-field-title');
+    var submitBtn = document.getElementById('guide-submit');
+    var lastFocused = null;
+
+    function openModal(key) {
+      var g = GUIDES[key];
+      if (!g) return;
+      lastFocused = document.activeElement;
+      coverImg.src = g.cover; coverImg.alt = g.title;
+      tagEl.textContent = g.tag;
+      titleEl.textContent = g.title;
+      subEl.textContent = g.sub;
+      keyField.value = key;
+      titleField.value = g.title;
+      formView.style.display = '';
+      successView.style.display = 'none';
+      modal.classList.add('is-open');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      var first = document.getElementById('guide-first');
+      if (first) setTimeout(function () { first.focus(); }, 50);
+    }
+
+    function closeModal() {
+      modal.classList.remove('is-open');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      if (lastFocused && lastFocused.focus) lastFocused.focus();
+    }
+
+    // Wire all triggers (guide cards + footer links)
+    document.querySelectorAll('[data-guide]').forEach(function (el) {
+      el.addEventListener('click', function (e) {
+        e.preventDefault();
+        openModal(el.getAttribute('data-guide'));
+      });
+    });
+
+    // Close handlers
+    modal.querySelectorAll('[data-guide-close]').forEach(function (el) {
+      el.addEventListener('click', closeModal);
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal();
+    });
+
+    // Submit: capture to Netlify + fire GHL webhook, then show success
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var consent = form.querySelector('[name="sms_consent"]');
+      if (consent && !consent.checked) {
+        alert('Please agree to the terms to receive the guide.');
+        return;
+      }
+      var originalText = submitBtn.textContent;
+      submitBtn.textContent = 'Sending...';
+      submitBtn.disabled = true;
+
+      var data = Object.fromEntries(new FormData(form));
+      data.page = window.location.pathname;
+      data.timestamp = new Date().toISOString();
+
+      // 1) Netlify Forms (always — this is the reliable lead record)
+      var netlify = fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(data).toString()
+      });
+
+      // 2) GoHighLevel webhook (fires the guide email). Best-effort.
+      var ghl = GHL_WEBHOOK_URL
+        ? fetch(GHL_WEBHOOK_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+          }).catch(function () {})
+        : Promise.resolve();
+
+      Promise.allSettled([netlify, ghl]).then(function () {
+        formView.style.display = 'none';
+        successView.style.display = '';
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+        form.reset();
+      });
+    });
+  })();
+  </script>
+
 <script defer src="https://widgets.leadconnectorhq.com/loader.js" data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" data-widget-id="6a0623c7f127bb5833bc2697"></script>
 </body>
 </html>
