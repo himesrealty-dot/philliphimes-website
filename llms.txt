@@ -1,0 +1,62 @@
+# Phillip Himes — Houston Bay Area Real Estate
+
+> Phillip Himes is a REALTOR® brokered by eXp Realty, serving the Houston Bay Area suburbs: League City, Friendswood, Pearland, Clear Lake, Dickinson, and Manvel. The site offers in-depth neighborhood guides, school-district pages, data-driven monthly market updates built from HAR MLS data, side-by-side city/community comparisons, and home-buying and selling tools. U.S. Army veteran and 30-year real estate professional. Contact: phil@philliphimes.com · (832) 536-1016 · 2600 South Shore Blvd. Ste 300, League City, TX 77573.
+
+## Market Updates (June 2026, six months of HAR MLS data, Dec 2025–Jun 2026)
+- [League City Market Update — June 2026](https://philliphimes.com/league-city-market-update-june-2026.html): 712 sold, $415K median, ~26 days on market, ~1 in 3 listings failed to sell.
+- [Friendswood Market Update — June 2026](https://philliphimes.com/friendswood-market-update-june-2026.html): 339 sold, $429,990 median, 20-day median DOM — the fastest of the six markets.
+- [Pearland Market Update — June 2026](https://philliphimes.com/pearland-market-update-june-2026.html): 636 sold, $380K median, and a 43.5% listing-failure rate.
+- [Clear Lake Market Update — June 2026](https://philliphimes.com/clear-lake-market-update-june-2026.html): 302 sold, $359,950 median, tightest inventory at 3.0 months supply.
+- [Dickinson Market Update — June 2026](https://philliphimes.com/dickinson-market-update-june-2026.html): 212 sold, $294,500 median, and a 52% listing-failure rate — the highest of any market tracked.
+- [Manvel Market Update — June 2026](https://philliphimes.com/manvel-market-update-june-2026.html): 406 sold, ~$479K median — a new-construction market with a long 67-day median DOM and 5.7 months of supply.
+- [Market Insights hub](https://philliphimes.com/market-insights.html): all current reports.
+
+## Cities
+- [League City](https://philliphimes.com/league-city.html) (CCISD; waterfront, master-planned)
+- [Friendswood](https://philliphimes.com/friendswood.html) (Friendswood ISD; top-rated schools)
+- [Pearland](https://philliphimes.com/pearland.html) (Alvin ISD / Pearland ISD; SH 288 corridor)
+- [Clear Lake](https://philliphimes.com/clear-lake.html) (CCISD; NASA corridor)
+- [Dickinson](https://philliphimes.com/dickinson.html) (Dickinson ISD; Galveston County value)
+- [Manvel](https://philliphimes.com/manvel.html) (Alvin ISD → Manvel HS; new master-planned construction)
+- [All cities overview](https://philliphimes.com/cities.html)
+
+## Homes by School District
+- [Clear Creek ISD (CCISD) Homes](https://philliphimes.com/ccisd-homes.html)
+- [Alvin ISD Homes](https://philliphimes.com/alvin-isd-homes.html)
+- [Friendswood ISD Homes](https://philliphimes.com/friendswood-isd-homes.html)
+- [Pearland ISD Homes](https://philliphimes.com/pearland-isd-homes.html)
+- [Dickinson ISD Homes](https://philliphimes.com/dickinson-isd-homes.html)
+
+Note: Heritage Park (Friendswood) is zoned to Clear Creek ISD / Clear Brook HS, not Friendswood ISD. School assignments are address-specific.
+
+## Comparison Guides
+- [League City vs. Friendswood](https://philliphimes.com/compare-league-city-vs-friendswood.html)
+- [CCISD vs. Alvin ISD](https://philliphimes.com/compare-ccisd-vs-alvin-isd.html)
+- [League City Master-Planned: Tuscan Lakes vs Mar Bella vs Magnolia Creek](https://philliphimes.com/compare-league-city-master-planned.html)
+- [Meridiana vs. Pomona (Manvel)](https://philliphimes.com/compare-meridiana-vs-pomona.html)
+
+## Neighborhood Guides (36 communities)
+- League City: [Tuscan Lakes](https://philliphimes.com/tuscan-lakes.html), [Westover Park](https://philliphimes.com/westover-park.html), [South Shore Harbour](https://philliphimes.com/south-shore-harbour.html), [Mar Bella](https://philliphimes.com/mar-bella.html), [Brittany Lakes](https://philliphimes.com/brittany-lakes.html), [Magnolia Creek](https://philliphimes.com/magnolia-creek.html)
+- Friendswood: [Avalon](https://philliphimes.com/avalon.html), [Friendswood Lakes](https://philliphimes.com/friendswood-lakes.html), [Falcon Ridge](https://philliphimes.com/falcon-ridge.html), [West Ranch](https://philliphimes.com/west-ranch.html), [Heritage Park](https://philliphimes.com/heritage-park.html), [Wilderness Trails](https://philliphimes.com/wilderness-trails.html)
+- Pearland: [Shadow Creek Ranch](https://philliphimes.com/shadow-creek-ranch.html), [Silverlake](https://philliphimes.com/silverlake.html), [Riverstone Ranch](https://philliphimes.com/riverstone-ranch.html), [Southern Trails](https://philliphimes.com/southern-trails.html), [Southgate](https://philliphimes.com/southgate.html), [Country Place](https://philliphimes.com/country-place.html)
+- Clear Lake: [Bay Oaks](https://philliphimes.com/bay-oaks.html), [Bay Forest](https://philliphimes.com/bay-forest.html), [Bay Knoll](https://philliphimes.com/bay-knoll.html), [Brookwood](https://philliphimes.com/brookwood.html), [Taylor Lake](https://philliphimes.com/taylor-lake.html), [The Reserve at Clear Lake](https://philliphimes.com/the-reserve-at-clear-lake.html)
+- Dickinson: [Nicholstone](https://philliphimes.com/nicholstone.html), [Bay Colony](https://philliphimes.com/bay-colony.html), [Pedregal](https://philliphimes.com/pedregal.html), [Peacock Isle](https://philliphimes.com/peacock-isle.html), [Bayou Maison](https://philliphimes.com/bayou-maison.html), [Bayou Bend Estate](https://philliphimes.com/bayou-bend-estate.html)
+- Manvel: [Pomona](https://philliphimes.com/pomona.html), [Rodeo Palms](https://philliphimes.com/rodeo-palms.html), [Del Bello Lakes](https://philliphimes.com/del-bello-lakes.html), [Meridiana](https://philliphimes.com/meridiana.html), [Sedona Lakes](https://philliphimes.com/sedona-lakes.html), [Valencia](https://philliphimes.com/valencia.html)
+
+## Buyer & Seller Resources
+- [For Buyers — BuyerIQ™](https://philliphimes.com/buyers.html)
+- [For Sellers — SellerIQ™](https://philliphimes.com/sellers.html)
+- [TruMarket™ home value report](https://philliphimes.com/trumarket.html)
+- [Property search (live MLS)](https://philliphimes.com/search.html)
+- [New Construction](https://philliphimes.com/new-construction.html)
+- [Homes Near NASA / JSC](https://philliphimes.com/homes-near-nasa.html)
+- [Waterfront Homes in League City](https://philliphimes.com/waterfront-homes-league-city.html)
+- [Master-Planned Communities](https://philliphimes.com/master-planned-communities.html)
+- [Relocating to League City](https://philliphimes.com/relocating-to-league-city.html)
+- [First-Time Buyers](https://philliphimes.com/first-home.html)
+- [Growing Families](https://philliphimes.com/growing-family.html)
+- [Veterans & VA Loans](https://philliphimes.com/veterans.html)
+
+## About & Contact
+- [About Phillip Himes](https://philliphimes.com/about.html)
+- [Contact / Ask Phil](https://philliphimes.com/contact.html)
