@@ -4,14 +4,14 @@ _Generated June 11, 2026. A full automated audit of all 86 HTML pages found **0 
 
 ---
 
-## 1. Visible "Coming Soon" placeholders (decide: build or remove)
+## 1. Visible "Coming Soon" placeholders — ✅ ALL RESOLVED
 
-These are the only 3 placeholders a visitor actually sees on a rendered page. Everything else flagged by the audit is dormant code (see §4).
+All three on-page placeholders are confirmed intentional and stay as-is. Nothing to build or remove right now. Everything else flagged by the audit is dormant code (see §4).
 
 | # | Page | Location | What it is | Action needed |
 |---|------|----------|-----------|---------------|
-| 1 | `index.html` (line 730) | Home — reLifeIQ™ section | Video tile reads **"Phil's reLifeIQ™ Story — Coming Soon"** with a ▶ play icon over an empty box | Record/embed the video, OR swap the empty tile for a static image/graphic until it's ready |
-| 2 | `primequity.html` (line 307) | PrimEquity page — Renew™ heading | Gold **"Coming Soon"** badge next to the Renew™ heading | Launch Renew™ and remove the badge, OR leave as a genuine roadmap teaser |
+| 1 | `index.html` (line 730) | Home — reLifeIQ™ section | Video tile reads **"Phil's reLifeIQ™ Story — Coming Soon"** | ✅ **RESOLVED — keep as-is.** Phil confirmed reLifeIQ™ is still coming; the "Coming Soon" tile is an honest teaser. Revisit when a video is recorded (paste a YouTube/Vimeo link to embed). |
+| 2 | `primequity.html` (line 307) | PrimEquity page — Renew™ heading | Gold **"Coming Soon"** badge next to the Renew™ heading | ✅ **RESOLVED — keep as-is.** Phil confirmed Renew™ is still coming; the badge is an honest roadmap teaser. Remove the badge once Renew™ launches. |
 | 3 | `master-planned-communities.html` (line 372) | Legacy community card | Price shows **"Ask Phil for Pricing"** instead of a range | ✅ **RESOLVED — keep as-is.** Phil confirmed the "Ask Phil for Pricing" CTA is intentional for Legacy (active new-construction community, no fixed public range). No change needed. |
 
 ---
