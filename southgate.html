@@ -617,7 +617,9 @@
 
   <script src="js/main.js"></script>
   <script>
-    const POSTS = [];
+    const POSTS = [
+      { featured: true, tag: 'Market Update', title: 'Pearland Market Update — June 2026: What 4 Southgate Sales Tell Us', excerpt: 'Pearland\'s median hit $380K with a 43.5% listing fail rate citywide. Southgate\'s 4 closings landed at a $418.5K median — a small sample worth reading carefully.', date: 'June 2026', url: 'pearland-market-update-june-2026.html#southgate' }
+    ];
     function renderBlog() {
       const featured = POSTS.find(p => p.featured);
       const archive = POSTS.filter(p => !p.featured);

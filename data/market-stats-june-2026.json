@@ -1,0 +1,1335 @@
+{
+    "generated":  "2026-06-10",
+    "period":  "Dec 12, 2025 - Jun 10, 2026",
+    "cities":  {
+                   "league-city":  {
+                                       "city":  {
+                                                    "label":  "League City",
+                                                    "totalListings":  1743,
+                                                    "soldCount":  712,
+                                                    "medianClose":  415000,
+                                                    "minClose":  150000,
+                                                    "maxClose":  5545000,
+                                                    "medianDOM":  26,
+                                                    "medianPPSF":  167.6,
+                                                    "pctCloseToList":  98.5,
+                                                    "pctCloseToOrig":  96.6,
+                                                    "newConstructionSolds":  232,
+                                                    "activeCount":  447,
+                                                    "medianActiveList":  454459,
+                                                    "minActiveList":  180000,
+                                                    "maxActiveList":  3500000,
+                                                    "pendingCount":  217,
+                                                    "failedCount":  367,
+                                                    "failRatePct":  34,
+                                                    "monthsOfSupply":  3.8,
+                                                    "soldByMonth":  {
+                                                                        "2026-03":  {
+                                                                                        "count":  133,
+                                                                                        "medianClose":  400000
+                                                                                    },
+                                                                        "2026-02":  {
+                                                                                        "count":  100,
+                                                                                        "medianClose":  410245
+                                                                                    },
+                                                                        "2026-01":  {
+                                                                                        "count":  94,
+                                                                                        "medianClose":  419000
+                                                                                    },
+                                                                        "2026-04":  {
+                                                                                        "count":  132,
+                                                                                        "medianClose":  421745
+                                                                                    },
+                                                                        "2026-05":  {
+                                                                                        "count":  142,
+                                                                                        "medianClose":  425000
+                                                                                    },
+                                                                        "2025-12":  {
+                                                                                        "count":  79,
+                                                                                        "medianClose":  399990
+                                                                                    },
+                                                                        "2026-06":  {
+                                                                                        "count":  32,
+                                                                                        "medianClose":  397499.5
+                                                                                    }
+                                                                    }
+                                                },
+                                       "neighborhoods":  {
+                                                             "tuscan-lakes":  {
+                                                                                  "label":  "Tuscan Lakes",
+                                                                                  "totalListings":  81,
+                                                                                  "soldCount":  35,
+                                                                                  "medianClose":  395000,
+                                                                                  "minClose":  315000,
+                                                                                  "maxClose":  1375000,
+                                                                                  "medianDOM":  17,
+                                                                                  "medianPPSF":  175.45,
+                                                                                  "pctCloseToList":  100,
+                                                                                  "pctCloseToOrig":  98.5,
+                                                                                  "newConstructionSolds":  0,
+                                                                                  "activeCount":  19,
+                                                                                  "medianActiveList":  489800,
+                                                                                  "minActiveList":  350000,
+                                                                                  "maxActiveList":  1550000,
+                                                                                  "pendingCount":  6,
+                                                                                  "failedCount":  21,
+                                                                                  "failRatePct":  37.5,
+                                                                                  "monthsOfSupply":  3.3,
+                                                                                  "soldByMonth":  {
+                                                                                                      "2026-03":  {
+                                                                                                                      "count":  9,
+                                                                                                                      "medianClose":  378750
+                                                                                                                  },
+                                                                                                      "2026-02":  {
+                                                                                                                      "count":  5,
+                                                                                                                      "medianClose":  525000
+                                                                                                                  },
+                                                                                                      "2026-01":  {
+                                                                                                                      "count":  3,
+                                                                                                                      "medianClose":  595000
+                                                                                                                  },
+                                                                                                      "2026-04":  {
+                                                                                                                      "count":  6,
+                                                                                                                      "medianClose":  366000
+                                                                                                                  },
+                                                                                                      "2026-05":  {
+                                                                                                                      "count":  7,
+                                                                                                                      "medianClose":  720000
+                                                                                                                  },
+                                                                                                      "2025-12":  {
+                                                                                                                      "count":  4,
+                                                                                                                      "medianClose":  389187.5
+                                                                                                                  },
+                                                                                                      "2026-06":  {
+                                                                                                                      "count":  1,
+                                                                                                                      "medianClose":  395000
+                                                                                                                  }
+                                                                                                  }
+                                                                              },
+                                                             "westover-park":  {
+                                                                                   "label":  "Westover Park",
+                                                                                   "totalListings":  61,
+                                                                                   "soldCount":  15,
+                                                                                   "medianClose":  415000,
+                                                                                   "minClose":  335000,
+                                                                                   "maxClose":  521500,
+                                                                                   "medianDOM":  17,
+                                                                                   "medianPPSF":  156.21,
+                                                                                   "pctCloseToList":  100,
+                                                                                   "pctCloseToOrig":  99.4,
+                                                                                   "newConstructionSolds":  0,
+                                                                                   "activeCount":  17,
+                                                                                   "medianActiveList":  469000,
+                                                                                   "minActiveList":  339500,
+                                                                                   "maxActiveList":  625000,
+                                                                                   "pendingCount":  10,
+                                                                                   "failedCount":  19,
+                                                                                   "failRatePct":  55.9,
+                                                                                   "monthsOfSupply":  6.8,
+                                                                                   "soldByMonth":  {
+                                                                                                       "2026-06":  {
+                                                                                                                       "count":  2,
+                                                                                                                       "medianClose":  402500
+                                                                                                                   },
+                                                                                                       "2026-01":  {
+                                                                                                                       "count":  3,
+                                                                                                                       "medianClose":  442000
+                                                                                                                   },
+                                                                                                       "2026-04":  {
+                                                                                                                       "count":  2,
+                                                                                                                       "medianClose":  483250
+                                                                                                                   },
+                                                                                                       "2025-12":  {
+                                                                                                                       "count":  3,
+                                                                                                                       "medianClose":  364000
+                                                                                                                   },
+                                                                                                       "2026-05":  {
+                                                                                                                       "count":  2,
+                                                                                                                       "medianClose":  472000
+                                                                                                                   },
+                                                                                                       "2026-03":  {
+                                                                                                                       "count":  3,
+                                                                                                                       "medianClose":  360000
+                                                                                                                   }
+                                                                                                   }
+                                                                               },
+                                                             "south-shore-harbour":  {
+                                                                                         "label":  "South Shore Harbour",
+                                                                                         "totalListings":  100,
+                                                                                         "soldCount":  45,
+                                                                                         "medianClose":  425000,
+                                                                                         "minClose":  305000,
+                                                                                         "maxClose":  850000,
+                                                                                         "medianDOM":  30,
+                                                                                         "medianPPSF":  161.45,
+                                                                                         "pctCloseToList":  98.6,
+                                                                                         "pctCloseToOrig":  97.5,
+                                                                                         "newConstructionSolds":  0,
+                                                                                         "activeCount":  24,
+                                                                                         "medianActiveList":  531999.5,
+                                                                                         "minActiveList":  367000,
+                                                                                         "maxActiveList":  1260000,
+                                                                                         "pendingCount":  9,
+                                                                                         "failedCount":  22,
+                                                                                         "failRatePct":  32.8,
+                                                                                         "monthsOfSupply":  3.2,
+                                                                                         "soldByMonth":  {
+                                                                                                             "2026-03":  {
+                                                                                                                             "count":  3,
+                                                                                                                             "medianClose":  380000
+                                                                                                                         },
+                                                                                                             "2026-02":  {
+                                                                                                                             "count":  5,
+                                                                                                                             "medianClose":  455000
+                                                                                                                         },
+                                                                                                             "2026-01":  {
+                                                                                                                             "count":  6,
+                                                                                                                             "medianClose":  555000
+                                                                                                                         },
+                                                                                                             "2026-04":  {
+                                                                                                                             "count":  5,
+                                                                                                                             "medianClose":  406500
+                                                                                                                         },
+                                                                                                             "2026-05":  {
+                                                                                                                             "count":  17,
+                                                                                                                             "medianClose":  434000
+                                                                                                                         },
+                                                                                                             "2025-12":  {
+                                                                                                                             "count":  5,
+                                                                                                                             "medianClose":  375000
+                                                                                                                         },
+                                                                                                             "2026-06":  {
+                                                                                                                             "count":  4,
+                                                                                                                             "medianClose":  382450
+                                                                                                                         }
+                                                                                                         }
+                                                                                     },
+                                                             "mar-bella":  {
+                                                                               "label":  "Mar Bella",
+                                                                               "totalListings":  51,
+                                                                               "soldCount":  25,
+                                                                               "medianClose":  422000,
+                                                                               "minClose":  335000,
+                                                                               "maxClose":  815000,
+                                                                               "medianDOM":  34,
+                                                                               "medianPPSF":  164.6,
+                                                                               "pctCloseToList":  98.7,
+                                                                               "pctCloseToOrig":  96.6,
+                                                                               "newConstructionSolds":  0,
+                                                                               "activeCount":  10,
+                                                                               "medianActiveList":  542500,
+                                                                               "minActiveList":  343900,
+                                                                               "maxActiveList":  799999,
+                                                                               "pendingCount":  9,
+                                                                               "failedCount":  7,
+                                                                               "failRatePct":  21.9,
+                                                                               "monthsOfSupply":  2.4,
+                                                                               "soldByMonth":  {
+                                                                                                   "2026-03":  {
+                                                                                                                   "count":  4,
+                                                                                                                   "medianClose":  376000
+                                                                                                               },
+                                                                                                   "2026-02":  {
+                                                                                                                   "count":  1,
+                                                                                                                   "medianClose":  348500
+                                                                                                               },
+                                                                                                   "2026-01":  {
+                                                                                                                   "count":  6,
+                                                                                                                   "medianClose":  423500
+                                                                                                               },
+                                                                                                   "2026-04":  {
+                                                                                                                   "count":  5,
+                                                                                                                   "medianClose":  535000
+                                                                                                               },
+                                                                                                   "2026-05":  {
+                                                                                                                   "count":  5,
+                                                                                                                   "medianClose":  385000
+                                                                                                               },
+                                                                                                   "2025-12":  {
+                                                                                                                   "count":  2,
+                                                                                                                   "medianClose":  431000
+                                                                                                               },
+                                                                                                   "2026-06":  {
+                                                                                                                   "count":  2,
+                                                                                                                   "medianClose":  499949.5
+                                                                                                               }
+                                                                                               }
+                                                                           },
+                                                             "brittany-lakes":  {
+                                                                                    "label":  "Brittany Lakes",
+                                                                                    "totalListings":  41,
+                                                                                    "soldCount":  18,
+                                                                                    "medianClose":  369750,
+                                                                                    "minClose":  290000,
+                                                                                    "maxClose":  530000,
+                                                                                    "medianDOM":  11,
+                                                                                    "medianPPSF":  151.02,
+                                                                                    "pctCloseToList":  100,
+                                                                                    "pctCloseToOrig":  98.6,
+                                                                                    "newConstructionSolds":  0,
+                                                                                    "activeCount":  13,
+                                                                                    "medianActiveList":  429900,
+                                                                                    "minActiveList":  360000,
+                                                                                    "maxActiveList":  515000,
+                                                                                    "pendingCount":  3,
+                                                                                    "failedCount":  7,
+                                                                                    "failRatePct":  28,
+                                                                                    "monthsOfSupply":  4.3,
+                                                                                    "soldByMonth":  {
+                                                                                                        "2026-06":  {
+                                                                                                                        "count":  4,
+                                                                                                                        "medianClose":  371000
+                                                                                                                    },
+                                                                                                        "2026-02":  {
+                                                                                                                        "count":  2,
+                                                                                                                        "medianClose":  392500
+                                                                                                                    },
+                                                                                                        "2026-01":  {
+                                                                                                                        "count":  2,
+                                                                                                                        "medianClose":  374250
+                                                                                                                    },
+                                                                                                        "2026-04":  {
+                                                                                                                        "count":  3,
+                                                                                                                        "medianClose":  360000
+                                                                                                                    },
+                                                                                                        "2026-05":  {
+                                                                                                                        "count":  4,
+                                                                                                                        "medianClose":  427500
+                                                                                                                    },
+                                                                                                        "2025-12":  {
+                                                                                                                        "count":  1,
+                                                                                                                        "medianClose":  290000
+                                                                                                                    },
+                                                                                                        "2026-03":  {
+                                                                                                                        "count":  2,
+                                                                                                                        "medianClose":  362500
+                                                                                                                    }
+                                                                                                    }
+                                                                                },
+                                                             "magnolia-creek":  {
+                                                                                    "label":  "Magnolia Creek",
+                                                                                    "totalListings":  44,
+                                                                                    "soldCount":  13,
+                                                                                    "medianClose":  490000,
+                                                                                    "minClose":  378500,
+                                                                                    "maxClose":  1380000,
+                                                                                    "medianDOM":  57,
+                                                                                    "medianPPSF":  171.81,
+                                                                                    "pctCloseToList":  98.3,
+                                                                                    "pctCloseToOrig":  97.1,
+                                                                                    "newConstructionSolds":  0,
+                                                                                    "activeCount":  14,
+                                                                                    "medianActiveList":  492000,
+                                                                                    "minActiveList":  360000,
+                                                                                    "maxActiveList":  729900,
+                                                                                    "pendingCount":  3,
+                                                                                    "failedCount":  14,
+                                                                                    "failRatePct":  51.9,
+                                                                                    "monthsOfSupply":  6.5,
+                                                                                    "soldByMonth":  {
+                                                                                                        "2026-03":  {
+                                                                                                                        "count":  1,
+                                                                                                                        "medianClose":  450000
+                                                                                                                    },
+                                                                                                        "2026-02":  {
+                                                                                                                        "count":  2,
+                                                                                                                        "medianClose":  530000
+                                                                                                                    },
+                                                                                                        "2026-01":  {
+                                                                                                                        "count":  2,
+                                                                                                                        "medianClose":  502750
+                                                                                                                    },
+                                                                                                        "2026-04":  {
+                                                                                                                        "count":  2,
+                                                                                                                        "medianClose":  525000
+                                                                                                                    },
+                                                                                                        "2026-05":  {
+                                                                                                                        "count":  4,
+                                                                                                                        "medianClose":  526500
+                                                                                                                    },
+                                                                                                        "2025-12":  {
+                                                                                                                        "count":  1,
+                                                                                                                        "medianClose":  595000
+                                                                                                                    },
+                                                                                                        "2026-06":  {
+                                                                                                                        "count":  1,
+                                                                                                                        "medianClose":  378500
+                                                                                                                    }
+                                                                                                    }
+                                                                                }
+                                                         }
+                                   },
+                   "friendswood":  {
+                                       "city":  {
+                                                    "label":  "Friendswood",
+                                                    "totalListings":  797,
+                                                    "soldCount":  339,
+                                                    "medianClose":  429990,
+                                                    "minClose":  169000,
+                                                    "maxClose":  2300000,
+                                                    "medianDOM":  20,
+                                                    "medianPPSF":  177.75,
+                                                    "pctCloseToList":  98.5,
+                                                    "pctCloseToOrig":  97.1,
+                                                    "newConstructionSolds":  44,
+                                                    "activeCount":  181,
+                                                    "medianActiveList":  495000,
+                                                    "minActiveList":  225000,
+                                                    "maxActiveList":  4450000,
+                                                    "pendingCount":  79,
+                                                    "failedCount":  198,
+                                                    "failRatePct":  36.9,
+                                                    "monthsOfSupply":  3.2,
+                                                    "soldByMonth":  {
+                                                                        "2026-03":  {
+                                                                                        "count":  49,
+                                                                                        "medianClose":  435111
+                                                                                    },
+                                                                        "2026-02":  {
+                                                                                        "count":  39,
+                                                                                        "medianClose":  408990
+                                                                                    },
+                                                                        "2026-01":  {
+                                                                                        "count":  36,
+                                                                                        "medianClose":  406500
+                                                                                    },
+                                                                        "2026-04":  {
+                                                                                        "count":  73,
+                                                                                        "medianClose":  410000
+                                                                                    },
+                                                                        "2026-05":  {
+                                                                                        "count":  59,
+                                                                                        "medianClose":  390000
+                                                                                    },
+                                                                        "2025-12":  {
+                                                                                        "count":  57,
+                                                                                        "medianClose":  520000
+                                                                                    },
+                                                                        "2026-06":  {
+                                                                                        "count":  26,
+                                                                                        "medianClose":  552950
+                                                                                    }
+                                                                    }
+                                                },
+                                       "neighborhoods":  {
+                                                             "avalon":  {
+                                                                            "label":  "Avalon",
+                                                                            "totalListings":  46,
+                                                                            "soldCount":  27,
+                                                                            "medianClose":  775000,
+                                                                            "minClose":  545000,
+                                                                            "maxClose":  1394999,
+                                                                            "medianDOM":  52,
+                                                                            "medianPPSF":  197.91,
+                                                                            "pctCloseToList":  94.8,
+                                                                            "pctCloseToOrig":  93.2,
+                                                                            "newConstructionSolds":  25,
+                                                                            "activeCount":  3,
+                                                                            "medianActiveList":  789000,
+                                                                            "minActiveList":  725000,
+                                                                            "maxActiveList":  849000,
+                                                                            "pendingCount":  4,
+                                                                            "failedCount":  12,
+                                                                            "failRatePct":  30.8,
+                                                                            "monthsOfSupply":  0.7,
+                                                                            "soldByMonth":  {
+                                                                                                "2026-06":  {
+                                                                                                                "count":  1,
+                                                                                                                "medianClose":  699000
+                                                                                                            },
+                                                                                                "2026-01":  {
+                                                                                                                "count":  5,
+                                                                                                                "medianClose":  800000
+                                                                                                            },
+                                                                                                "2026-02":  {
+                                                                                                                "count":  2,
+                                                                                                                "medianClose":  738760
+                                                                                                            },
+                                                                                                "2026-04":  {
+                                                                                                                "count":  6,
+                                                                                                                "medianClose":  767500
+                                                                                                            },
+                                                                                                "2026-05":  {
+                                                                                                                "count":  3,
+                                                                                                                "medianClose":  833000
+                                                                                                            },
+                                                                                                "2025-12":  {
+                                                                                                                "count":  4,
+                                                                                                                "medianClose":  792500
+                                                                                                            },
+                                                                                                "2026-03":  {
+                                                                                                                "count":  6,
+                                                                                                                "medianClose":  750000
+                                                                                                            }
+                                                                                            }
+                                                                        },
+                                                             "friendswood-lakes":  {
+                                                                                       "label":  "Friendswood Lakes",
+                                                                                       "totalListings":  12,
+                                                                                       "soldCount":  3,
+                                                                                       "medianClose":  900000,
+                                                                                       "minClose":  600000,
+                                                                                       "maxClose":  1300000,
+                                                                                       "medianDOM":  8,
+                                                                                       "medianPPSF":  217.94,
+                                                                                       "pctCloseToList":  100,
+                                                                                       "pctCloseToOrig":  100,
+                                                                                       "newConstructionSolds":  0,
+                                                                                       "activeCount":  2,
+                                                                                       "medianActiveList":  595000,
+                                                                                       "minActiveList":  540000,
+                                                                                       "maxActiveList":  650000,
+                                                                                       "pendingCount":  2,
+                                                                                       "failedCount":  5,
+                                                                                       "failRatePct":  62.5,
+                                                                                       "monthsOfSupply":  4,
+                                                                                       "soldByMonth":  {
+                                                                                                           "2026-04":  {
+                                                                                                                           "count":  1,
+                                                                                                                           "medianClose":  600000
+                                                                                                                       },
+                                                                                                           "2026-05":  {
+                                                                                                                           "count":  2,
+                                                                                                                           "medianClose":  1100000
+                                                                                                                       }
+                                                                                                       }
+                                                                                   },
+                                                             "falcon-ridge":  {
+                                                                                  "label":  "Falcon Ridge",
+                                                                                  "totalListings":  20,
+                                                                                  "soldCount":  7,
+                                                                                  "medianClose":  585000,
+                                                                                  "minClose":  387100,
+                                                                                  "maxClose":  618000,
+                                                                                  "medianDOM":  27,
+                                                                                  "medianPPSF":  161.32,
+                                                                                  "pctCloseToList":  100,
+                                                                                  "pctCloseToOrig":  100,
+                                                                                  "newConstructionSolds":  0,
+                                                                                  "activeCount":  8,
+                                                                                  "medianActiveList":  500950,
+                                                                                  "minActiveList":  360000,
+                                                                                  "maxActiveList":  619000,
+                                                                                  "pendingCount":  1,
+                                                                                  "failedCount":  4,
+                                                                                  "failRatePct":  36.4,
+                                                                                  "monthsOfSupply":  6.9,
+                                                                                  "soldByMonth":  {
+                                                                                                      "2026-06":  {
+                                                                                                                      "count":  1,
+                                                                                                                      "medianClose":  575000
+                                                                                                                  },
+                                                                                                      "2026-01":  {
+                                                                                                                      "count":  1,
+                                                                                                                      "medianClose":  520000
+                                                                                                                  },
+                                                                                                      "2026-04":  {
+                                                                                                                      "count":  1,
+                                                                                                                      "medianClose":  599990
+                                                                                                                  },
+                                                                                                      "2025-12":  {
+                                                                                                                      "count":  2,
+                                                                                                                      "medianClose":  601500
+                                                                                                                  },
+                                                                                                      "2026-05":  {
+                                                                                                                      "count":  1,
+                                                                                                                      "medianClose":  599999
+                                                                                                                  },
+                                                                                                      "2026-03":  {
+                                                                                                                      "count":  1,
+                                                                                                                      "medianClose":  387100
+                                                                                                                  }
+                                                                                                  }
+                                                                              },
+                                                             "west-ranch":  {
+                                                                                "label":  "West Ranch",
+                                                                                "totalListings":  61,
+                                                                                "soldCount":  26,
+                                                                                "medianClose":  694950,
+                                                                                "minClose":  490000,
+                                                                                "maxClose":  1225000,
+                                                                                "medianDOM":  36,
+                                                                                "medianPPSF":  197.14,
+                                                                                "pctCloseToList":  97.8,
+                                                                                "pctCloseToOrig":  96.9,
+                                                                                "newConstructionSolds":  0,
+                                                                                "activeCount":  20,
+                                                                                "medianActiveList":  762500,
+                                                                                "minActiveList":  559000,
+                                                                                "maxActiveList":  1450000,
+                                                                                "pendingCount":  5,
+                                                                                "failedCount":  10,
+                                                                                "failRatePct":  27.8,
+                                                                                "monthsOfSupply":  4.6,
+                                                                                "soldByMonth":  {
+                                                                                                    "2026-03":  {
+                                                                                                                    "count":  2,
+                                                                                                                    "medianClose":  798750
+                                                                                                                },
+                                                                                                    "2026-02":  {
+                                                                                                                    "count":  2,
+                                                                                                                    "medianClose":  662500
+                                                                                                                },
+                                                                                                    "2026-01":  {
+                                                                                                                    "count":  2,
+                                                                                                                    "medianClose":  757000
+                                                                                                                },
+                                                                                                    "2026-04":  {
+                                                                                                                    "count":  6,
+                                                                                                                    "medianClose":  715000
+                                                                                                                },
+                                                                                                    "2026-05":  {
+                                                                                                                    "count":  7,
+                                                                                                                    "medianClose":  650000
+                                                                                                                },
+                                                                                                    "2025-12":  {
+                                                                                                                    "count":  6,
+                                                                                                                    "medianClose":  725000
+                                                                                                                },
+                                                                                                    "2026-06":  {
+                                                                                                                    "count":  1,
+                                                                                                                    "medianClose":  745000
+                                                                                                                }
+                                                                                                }
+                                                                            },
+                                                             "heritage-park":  {
+                                                                                   "label":  "Heritage Park",
+                                                                                   "totalListings":  110,
+                                                                                   "soldCount":  52,
+                                                                                   "medianClose":  312500,
+                                                                                   "minClose":  189000,
+                                                                                   "maxClose":  410000,
+                                                                                   "medianDOM":  19.5,
+                                                                                   "medianPPSF":  157.83,
+                                                                                   "pctCloseToList":  98.9,
+                                                                                   "pctCloseToOrig":  97.7,
+                                                                                   "newConstructionSolds":  0,
+                                                                                   "activeCount":  25,
+                                                                                   "medianActiveList":  325000,
+                                                                                   "minActiveList":  274900,
+                                                                                   "maxActiveList":  410000,
+                                                                                   "pendingCount":  11,
+                                                                                   "failedCount":  22,
+                                                                                   "failRatePct":  29.7,
+                                                                                   "monthsOfSupply":  2.9,
+                                                                                   "soldByMonth":  {
+                                                                                                       "2026-03":  {
+                                                                                                                       "count":  6,
+                                                                                                                       "medianClose":  295000
+                                                                                                                   },
+                                                                                                       "2026-02":  {
+                                                                                                                       "count":  7,
+                                                                                                                       "medianClose":  315000
+                                                                                                                   },
+                                                                                                       "2026-01":  {
+                                                                                                                       "count":  6,
+                                                                                                                       "medianClose":  317450
+                                                                                                                   },
+                                                                                                       "2026-04":  {
+                                                                                                                       "count":  13,
+                                                                                                                       "medianClose":  293000
+                                                                                                                   },
+                                                                                                       "2026-05":  {
+                                                                                                                       "count":  11,
+                                                                                                                       "medianClose":  325000
+                                                                                                                   },
+                                                                                                       "2025-12":  {
+                                                                                                                       "count":  5,
+                                                                                                                       "medianClose":  339000
+                                                                                                                   },
+                                                                                                       "2026-06":  {
+                                                                                                                       "count":  4,
+                                                                                                                       "medianClose":  342500
+                                                                                                                   }
+                                                                                                   }
+                                                                               },
+                                                             "wilderness-trails":  {
+                                                                                       "label":  "Wilderness Trails",
+                                                                                       "totalListings":  15,
+                                                                                       "soldCount":  6,
+                                                                                       "medianClose":  427500,
+                                                                                       "minClose":  245000,
+                                                                                       "maxClose":  595000,
+                                                                                       "medianDOM":  31.5,
+                                                                                       "medianPPSF":  171.34,
+                                                                                       "pctCloseToList":  96.9,
+                                                                                       "pctCloseToOrig":  94.4,
+                                                                                       "newConstructionSolds":  0,
+                                                                                       "activeCount":  3,
+                                                                                       "medianActiveList":  545000,
+                                                                                       "minActiveList":  515000,
+                                                                                       "maxActiveList":  599900,
+                                                                                       "pendingCount":  1,
+                                                                                       "failedCount":  5,
+                                                                                       "failRatePct":  45.5,
+                                                                                       "monthsOfSupply":  3,
+                                                                                       "soldByMonth":  {
+                                                                                                           "2026-05":  {
+                                                                                                                           "count":  2,
+                                                                                                                           "medianClose":  371450
+                                                                                                                       },
+                                                                                                           "2025-12":  {
+                                                                                                                           "count":  2,
+                                                                                                                           "medianClose":  427500
+                                                                                                                       },
+                                                                                                           "2026-04":  {
+                                                                                                                           "count":  1,
+                                                                                                                           "medianClose":  595000
+                                                                                                                       },
+                                                                                                           "2026-02":  {
+                                                                                                                           "count":  1,
+                                                                                                                           "medianClose":  340000
+                                                                                                                       }
+                                                                                                       }
+                                                                                   }
+                                                         }
+                                   },
+                   "pearland":  {
+                                    "city":  {
+                                                 "label":  "Pearland",
+                                                 "totalListings":  1638,
+                                                 "soldCount":  636,
+                                                 "medianClose":  380000,
+                                                 "minClose":  95000,
+                                                 "maxClose":  1750000,
+                                                 "medianDOM":  25,
+                                                 "medianPPSF":  158.8,
+                                                 "pctCloseToList":  98.2,
+                                                 "pctCloseToOrig":  96.9,
+                                                 "newConstructionSolds":  90,
+                                                 "activeCount":  340,
+                                                 "medianActiveList":  425000,
+                                                 "minActiveList":  100000,
+                                                 "maxActiveList":  2350000,
+                                                 "pendingCount":  173,
+                                                 "failedCount":  489,
+                                                 "failRatePct":  43.5,
+                                                 "monthsOfSupply":  3.2,
+                                                 "soldByMonth":  {
+                                                                     "2026-03":  {
+                                                                                     "count":  117,
+                                                                                     "medianClose":  375000
+                                                                                 },
+                                                                     "2026-02":  {
+                                                                                     "count":  84,
+                                                                                     "medianClose":  377500
+                                                                                 },
+                                                                     "2026-01":  {
+                                                                                     "count":  78,
+                                                                                     "medianClose":  375250
+                                                                                 },
+                                                                     "2026-04":  {
+                                                                                     "count":  123,
+                                                                                     "medianClose":  383500
+                                                                                 },
+                                                                     "2026-05":  {
+                                                                                     "count":  139,
+                                                                                     "medianClose":  388000
+                                                                                 },
+                                                                     "2025-12":  {
+                                                                                     "count":  69,
+                                                                                     "medianClose":  379000
+                                                                                 },
+                                                                     "2026-06":  {
+                                                                                     "count":  26,
+                                                                                     "medianClose":  357920
+                                                                                 }
+                                                                 }
+                                             },
+                                    "neighborhoods":  {
+                                                          "shadow-creek-ranch":  {
+                                                                                     "label":  "Shadow Creek Ranch",
+                                                                                     "totalListings":  250,
+                                                                                     "soldCount":  93,
+                                                                                     "medianClose":  390000,
+                                                                                     "minClose":  283000,
+                                                                                     "maxClose":  790000,
+                                                                                     "medianDOM":  38,
+                                                                                     "medianPPSF":  152.95,
+                                                                                     "pctCloseToList":  98.2,
+                                                                                     "pctCloseToOrig":  96.8,
+                                                                                     "newConstructionSolds":  0,
+                                                                                     "activeCount":  59,
+                                                                                     "medianActiveList":  449990,
+                                                                                     "minActiveList":  325000,
+                                                                                     "maxActiveList":  950000,
+                                                                                     "pendingCount":  22,
+                                                                                     "failedCount":  76,
+                                                                                     "failRatePct":  45,
+                                                                                     "monthsOfSupply":  3.8,
+                                                                                     "soldByMonth":  {
+                                                                                                         "2026-03":  {
+                                                                                                                         "count":  20,
+                                                                                                                         "medianClose":  391500
+                                                                                                                     },
+                                                                                                         "2026-02":  {
+                                                                                                                         "count":  12,
+                                                                                                                         "medianClose":  392500
+                                                                                                                     },
+                                                                                                         "2026-01":  {
+                                                                                                                         "count":  10,
+                                                                                                                         "medianClose":  386995
+                                                                                                                     },
+                                                                                                         "2026-04":  {
+                                                                                                                         "count":  21,
+                                                                                                                         "medianClose":  409000
+                                                                                                                     },
+                                                                                                         "2026-05":  {
+                                                                                                                         "count":  23,
+                                                                                                                         "medianClose":  389900
+                                                                                                                     },
+                                                                                                         "2025-12":  {
+                                                                                                                         "count":  2,
+                                                                                                                         "medianClose":  327500
+                                                                                                                     },
+                                                                                                         "2026-06":  {
+                                                                                                                         "count":  5,
+                                                                                                                         "medianClose":  454900
+                                                                                                                     }
+                                                                                                     }
+                                                                                 },
+                                                          "silverlake":  {
+                                                                             "label":  "Silverlake",
+                                                                             "totalListings":  37,
+                                                                             "soldCount":  13,
+                                                                             "medianClose":  475000,
+                                                                             "minClose":  335000,
+                                                                             "maxClose":  760000,
+                                                                             "medianDOM":  22,
+                                                                             "medianPPSF":  159.56,
+                                                                             "pctCloseToList":  98.8,
+                                                                             "pctCloseToOrig":  98.8,
+                                                                             "newConstructionSolds":  0,
+                                                                             "activeCount":  12,
+                                                                             "medianActiveList":  529950,
+                                                                             "minActiveList":  360000,
+                                                                             "maxActiveList":  805000,
+                                                                             "pendingCount":  4,
+                                                                             "failedCount":  8,
+                                                                             "failRatePct":  38.1,
+                                                                             "monthsOfSupply":  5.5,
+                                                                             "soldByMonth":  {
+                                                                                                 "2026-02":  {
+                                                                                                                 "count":  1,
+                                                                                                                 "medianClose":  395000
+                                                                                                             },
+                                                                                                 "2026-01":  {
+                                                                                                                 "count":  1,
+                                                                                                                 "medianClose":  462000
+                                                                                                             },
+                                                                                                 "2026-04":  {
+                                                                                                                 "count":  1,
+                                                                                                                 "medianClose":  450000
+                                                                                                             },
+                                                                                                 "2025-12":  {
+                                                                                                                 "count":  3,
+                                                                                                                 "medianClose":  486000
+                                                                                                             },
+                                                                                                 "2026-05":  {
+                                                                                                                 "count":  3,
+                                                                                                                 "medianClose":  475000
+                                                                                                             },
+                                                                                                 "2026-03":  {
+                                                                                                                 "count":  4,
+                                                                                                                 "medianClose":  505000
+                                                                                                             }
+                                                                                             }
+                                                                         },
+                                                          "riverstone-ranch":  {
+                                                                                   "label":  "Riverstone Ranch",
+                                                                                   "totalListings":  59,
+                                                                                   "soldCount":  21,
+                                                                                   "medianClose":  385000,
+                                                                                   "minClose":  315000,
+                                                                                   "maxClose":  560000,
+                                                                                   "medianDOM":  13,
+                                                                                   "medianPPSF":  165.12,
+                                                                                   "pctCloseToList":  98.1,
+                                                                                   "pctCloseToOrig":  97.9,
+                                                                                   "newConstructionSolds":  0,
+                                                                                   "activeCount":  13,
+                                                                                   "medianActiveList":  470000,
+                                                                                   "minActiveList":  364500,
+                                                                                   "maxActiveList":  600000,
+                                                                                   "pendingCount":  5,
+                                                                                   "failedCount":  20,
+                                                                                   "failRatePct":  48.8,
+                                                                                   "monthsOfSupply":  3.7,
+                                                                                   "soldByMonth":  {
+                                                                                                       "2026-03":  {
+                                                                                                                       "count":  5,
+                                                                                                                       "medianClose":  378900
+                                                                                                                   },
+                                                                                                       "2026-02":  {
+                                                                                                                       "count":  1,
+                                                                                                                       "medianClose":  339000
+                                                                                                                   },
+                                                                                                       "2026-01":  {
+                                                                                                                       "count":  4,
+                                                                                                                       "medianClose":  337495
+                                                                                                                   },
+                                                                                                       "2026-04":  {
+                                                                                                                       "count":  6,
+                                                                                                                       "medianClose":  505000
+                                                                                                                   },
+                                                                                                       "2026-05":  {
+                                                                                                                       "count":  2,
+                                                                                                                       "medianClose":  354500
+                                                                                                                   },
+                                                                                                       "2025-12":  {
+                                                                                                                       "count":  1,
+                                                                                                                       "medianClose":  428000
+                                                                                                                   },
+                                                                                                       "2026-06":  {
+                                                                                                                       "count":  2,
+                                                                                                                       "medianClose":  404500
+                                                                                                                   }
+                                                                                                   }
+                                                                               },
+                                                          "southern-trails":  {
+                                                                                  "label":  "Southern Trails",
+                                                                                  "totalListings":  35,
+                                                                                  "soldCount":  10,
+                                                                                  "medianClose":  495000,
+                                                                                  "minClose":  287000,
+                                                                                  "maxClose":  938000,
+                                                                                  "medianDOM":  13.5,
+                                                                                  "medianPPSF":  165.75,
+                                                                                  "pctCloseToList":  98.7,
+                                                                                  "pctCloseToOrig":  96.2,
+                                                                                  "newConstructionSolds":  0,
+                                                                                  "activeCount":  7,
+                                                                                  "medianActiveList":  494999,
+                                                                                  "minActiveList":  284950,
+                                                                                  "maxActiveList":  999000,
+                                                                                  "pendingCount":  6,
+                                                                                  "failedCount":  12,
+                                                                                  "failRatePct":  54.5,
+                                                                                  "monthsOfSupply":  4.2,
+                                                                                  "soldByMonth":  {
+                                                                                                      "2025-12":  {
+                                                                                                                      "count":  1,
+                                                                                                                      "medianClose":  287000
+                                                                                                                  },
+                                                                                                      "2026-04":  {
+                                                                                                                      "count":  3,
+                                                                                                                      "medianClose":  510000
+                                                                                                                  },
+                                                                                                      "2026-05":  {
+                                                                                                                      "count":  3,
+                                                                                                                      "medianClose":  535000
+                                                                                                                  },
+                                                                                                      "2026-02":  {
+                                                                                                                      "count":  1,
+                                                                                                                      "medianClose":  300000
+                                                                                                                  },
+                                                                                                      "2026-03":  {
+                                                                                                                      "count":  2,
+                                                                                                                      "medianClose":  423500
+                                                                                                                  }
+                                                                                                  }
+                                                                              },
+                                                          "southgate":  {
+                                                                            "label":  "Southgate",
+                                                                            "totalListings":  11,
+                                                                            "soldCount":  4,
+                                                                            "medianClose":  418500,
+                                                                            "minClose":  395000,
+                                                                            "maxClose":  443000,
+                                                                            "medianDOM":  58.5,
+                                                                            "medianPPSF":  146.01,
+                                                                            "pctCloseToList":  95.8,
+                                                                            "pctCloseToOrig":  95.5,
+                                                                            "newConstructionSolds":  0,
+                                                                            "activeCount":  3,
+                                                                            "medianActiveList":  500000,
+                                                                            "minActiveList":  457500,
+                                                                            "maxActiveList":  524950,
+                                                                            "pendingCount":  2,
+                                                                            "failedCount":  2,
+                                                                            "failRatePct":  33.3,
+                                                                            "monthsOfSupply":  4.5,
+                                                                            "soldByMonth":  {
+                                                                                                "2026-01":  {
+                                                                                                                "count":  1,
+                                                                                                                "medianClose":  443000
+                                                                                                            },
+                                                                                                "2026-05":  {
+                                                                                                                "count":  1,
+                                                                                                                "medianClose":  395000
+                                                                                                            },
+                                                                                                "2026-02":  {
+                                                                                                                "count":  1,
+                                                                                                                "medianClose":  417000
+                                                                                                            },
+                                                                                                "2026-03":  {
+                                                                                                                "count":  1,
+                                                                                                                "medianClose":  420000
+                                                                                                            }
+                                                                                            }
+                                                                        },
+                                                          "country-place":  {
+                                                                                "label":  "Country Place",
+                                                                                "totalListings":  58,
+                                                                                "soldCount":  17,
+                                                                                "medianClose":  309000,
+                                                                                "minClose":  217000,
+                                                                                "maxClose":  560900,
+                                                                                "medianDOM":  32,
+                                                                                "medianPPSF":  156.23,
+                                                                                "pctCloseToList":  96.7,
+                                                                                "pctCloseToOrig":  96,
+                                                                                "newConstructionSolds":  0,
+                                                                                "activeCount":  15,
+                                                                                "medianActiveList":  297000,
+                                                                                "minActiveList":  219900,
+                                                                                "maxActiveList":  475000,
+                                                                                "pendingCount":  4,
+                                                                                "failedCount":  22,
+                                                                                "failRatePct":  56.4,
+                                                                                "monthsOfSupply":  5.3,
+                                                                                "soldByMonth":  {
+                                                                                                    "2026-02":  {
+                                                                                                                    "count":  3,
+                                                                                                                    "medianClose":  460000
+                                                                                                                },
+                                                                                                    "2026-01":  {
+                                                                                                                    "count":  1,
+                                                                                                                    "medianClose":  299000
+                                                                                                                },
+                                                                                                    "2026-04":  {
+                                                                                                                    "count":  5,
+                                                                                                                    "medianClose":  324500
+                                                                                                                },
+                                                                                                    "2025-12":  {
+                                                                                                                    "count":  1,
+                                                                                                                    "medianClose":  290000
+                                                                                                                },
+                                                                                                    "2026-05":  {
+                                                                                                                    "count":  4,
+                                                                                                                    "medianClose":  299500
+                                                                                                                },
+                                                                                                    "2026-03":  {
+                                                                                                                    "count":  3,
+                                                                                                                    "medianClose":  375000
+                                                                                                                }
+                                                                                                }
+                                                                            }
+                                                      }
+                                },
+                   "clear-lake":  {
+                                      "city":  {
+                                                   "label":  "Clear Lake",
+                                                   "totalListings":  683,
+                                                   "soldCount":  302,
+                                                   "medianClose":  359950,
+                                                   "minClose":  179131,
+                                                   "maxClose":  1399000,
+                                                   "medianDOM":  22.5,
+                                                   "medianPPSF":  156.43,
+                                                   "pctCloseToList":  98.6,
+                                                   "pctCloseToOrig":  97.4,
+                                                   "newConstructionSolds":  0,
+                                                   "activeCount":  151,
+                                                   "medianActiveList":  394900,
+                                                   "minActiveList":  204900,
+                                                   "maxActiveList":  1750000,
+                                                   "pendingCount":  72,
+                                                   "failedCount":  158,
+                                                   "failRatePct":  34.3,
+                                                   "monthsOfSupply":  3,
+                                                   "soldByMonth":  {
+                                                                       "2026-03":  {
+                                                                                       "count":  62,
+                                                                                       "medianClose":  376500
+                                                                                   },
+                                                                       "2026-02":  {
+                                                                                       "count":  35,
+                                                                                       "medianClose":  360000
+                                                                                   },
+                                                                       "2026-01":  {
+                                                                                       "count":  40,
+                                                                                       "medianClose":  339500
+                                                                                   },
+                                                                       "2026-04":  {
+                                                                                       "count":  48,
+                                                                                       "medianClose":  347450
+                                                                                   },
+                                                                       "2026-05":  {
+                                                                                       "count":  67,
+                                                                                       "medianClose":  350000
+                                                                                   },
+                                                                       "2025-12":  {
+                                                                                       "count":  34,
+                                                                                       "medianClose":  374250
+                                                                                   },
+                                                                       "2026-06":  {
+                                                                                       "count":  16,
+                                                                                       "medianClose":  370000
+                                                                                   }
+                                                                   }
+                                               },
+                                      "neighborhoods":  {
+                                                            "bay-oaks":  {
+                                                                             "label":  "Bay Oaks",
+                                                                             "totalListings":  42,
+                                                                             "soldCount":  15,
+                                                                             "medianClose":  651500,
+                                                                             "minClose":  473550,
+                                                                             "maxClose":  1373000,
+                                                                             "medianDOM":  22,
+                                                                             "medianPPSF":  186.92,
+                                                                             "pctCloseToList":  97.7,
+                                                                             "pctCloseToOrig":  96.6,
+                                                                             "newConstructionSolds":  0,
+                                                                             "activeCount":  11,
+                                                                             "medianActiveList":  730000,
+                                                                             "minActiveList":  490000,
+                                                                             "maxActiveList":  1750000,
+                                                                             "pendingCount":  8,
+                                                                             "failedCount":  8,
+                                                                             "failRatePct":  34.8,
+                                                                             "monthsOfSupply":  4.4,
+                                                                             "soldByMonth":  {
+                                                                                                 "2026-03":  {
+                                                                                                                 "count":  3,
+                                                                                                                 "medianClose":  590000
+                                                                                                             },
+                                                                                                 "2026-02":  {
+                                                                                                                 "count":  2,
+                                                                                                                 "medianClose":  735000
+                                                                                                             },
+                                                                                                 "2026-01":  {
+                                                                                                                 "count":  1,
+                                                                                                                 "medianClose":  651500
+                                                                                                             },
+                                                                                                 "2026-04":  {
+                                                                                                                 "count":  3,
+                                                                                                                 "medianClose":  617000
+                                                                                                             },
+                                                                                                 "2026-05":  {
+                                                                                                                 "count":  3,
+                                                                                                                 "medianClose":  693500
+                                                                                                             },
+                                                                                                 "2025-12":  {
+                                                                                                                 "count":  1,
+                                                                                                                 "medianClose":  680000
+                                                                                                             },
+                                                                                                 "2026-06":  {
+                                                                                                                 "count":  2,
+                                                                                                                 "medianClose":  1049000
+                                                                                                             }
+                                                                                             }
+                                                                         },
+                                                            "bay-forest":  {
+                                                                               "label":  "Bay Forest",
+                                                                               "totalListings":  27,
+                                                                               "soldCount":  20,
+                                                                               "medianClose":  412500,
+                                                                               "minClose":  275000,
+                                                                               "maxClose":  1000000,
+                                                                               "medianDOM":  23,
+                                                                               "medianPPSF":  166.53,
+                                                                               "pctCloseToList":  98.8,
+                                                                               "pctCloseToOrig":  98.1,
+                                                                               "newConstructionSolds":  0,
+                                                                               "activeCount":  3,
+                                                                               "medianActiveList":  489000,
+                                                                               "minActiveList":  475000,
+                                                                               "maxActiveList":  569000,
+                                                                               "pendingCount":  1,
+                                                                               "failedCount":  3,
+                                                                               "failRatePct":  13,
+                                                                               "monthsOfSupply":  0.9,
+                                                                               "soldByMonth":  {
+                                                                                                   "2026-03":  {
+                                                                                                                   "count":  8,
+                                                                                                                   "medianClose":  420000
+                                                                                                               },
+                                                                                                   "2026-02":  {
+                                                                                                                   "count":  3,
+                                                                                                                   "medianClose":  410000
+                                                                                                               },
+                                                                                                   "2026-01":  {
+                                                                                                                   "count":  1,
+                                                                                                                   "medianClose":  415000
+                                                                                                               },
+                                                                                                   "2026-04":  {
+                                                                                                                   "count":  2,
+                                                                                                                   "medianClose":  479900
+                                                                                                               },
+                                                                                                   "2026-05":  {
+                                                                                                                   "count":  3,
+                                                                                                                   "medianClose":  395000
+                                                                                                               },
+                                                                                                   "2025-12":  {
+                                                                                                                   "count":  2,
+                                                                                                                   "medianClose":  348300
+                                                                                                               },
+                                                                                                   "2026-06":  {
+                                                                                                                   "count":  1,
+                                                                                                                   "medianClose":  469000
+                                                                                                               }
+                                                                                               }
+                                                                           },
+                                                            "bay-knoll":  {
+                                                                              "label":  "Bay Knoll",
+                                                                              "totalListings":  28,
+                                                                              "soldCount":  13,
+                                                                              "medianClose":  400000,
+                                                                              "minClose":  313776,
+                                                                              "maxClose":  450000,
+                                                                              "medianDOM":  10,
+                                                                              "medianPPSF":  156.5,
+                                                                              "pctCloseToList":  98.8,
+                                                                              "pctCloseToOrig":  98.8,
+                                                                              "newConstructionSolds":  0,
+                                                                              "activeCount":  5,
+                                                                              "medianActiveList":  385000,
+                                                                              "minActiveList":  314999,
+                                                                              "maxActiveList":  449500,
+                                                                              "pendingCount":  3,
+                                                                              "failedCount":  7,
+                                                                              "failRatePct":  35,
+                                                                              "monthsOfSupply":  2.3,
+                                                                              "soldByMonth":  {
+                                                                                                  "2026-01":  {
+                                                                                                                  "count":  2,
+                                                                                                                  "medianClose":  365000
+                                                                                                              },
+                                                                                                  "2025-12":  {
+                                                                                                                  "count":  3,
+                                                                                                                  "medianClose":  360000
+                                                                                                              },
+                                                                                                  "2026-05":  {
+                                                                                                                  "count":  4,
+                                                                                                                  "medianClose":  429950
+                                                                                                              },
+                                                                                                  "2026-06":  {
+                                                                                                                  "count":  1,
+                                                                                                                  "medianClose":  434900
+                                                                                                              },
+                                                                                                  "2026-03":  {
+                                                                                                                  "count":  3,
+                                                                                                                  "medianClose":  410000
+                                                                                                              }
+                                                                                              }
+                                                                          },
+                                                            "brookwood":  {
+                                                                              "label":  "Brookwood",
+                                                                              "totalListings":  36,
+                                                                              "soldCount":  18,
+                                                                              "medianClose":  454000,
+                                                                              "minClose":  339000,
+                                                                              "maxClose":  560000,
+                                                                              "medianDOM":  27.5,
+                                                                              "medianPPSF":  148.23,
+                                                                              "pctCloseToList":  98.4,
+                                                                              "pctCloseToOrig":  97.9,
+                                                                              "newConstructionSolds":  0,
+                                                                              "activeCount":  10,
+                                                                              "medianActiveList":  497000,
+                                                                              "minActiveList":  310000,
+                                                                              "maxActiveList":  565000,
+                                                                              "pendingCount":  3,
+                                                                              "failedCount":  5,
+                                                                              "failRatePct":  21.7,
+                                                                              "monthsOfSupply":  3.3,
+                                                                              "soldByMonth":  {
+                                                                                                  "2026-03":  {
+                                                                                                                  "count":  2,
+                                                                                                                  "medianClose":  480625
+                                                                                                              },
+                                                                                                  "2026-02":  {
+                                                                                                                  "count":  3,
+                                                                                                                  "medianClose":  440000
+                                                                                                              },
+                                                                                                  "2026-01":  {
+                                                                                                                  "count":  4,
+                                                                                                                  "medianClose":  497000
+                                                                                                              },
+                                                                                                  "2026-04":  {
+                                                                                                                  "count":  2,
+                                                                                                                  "medianClose":  456500
+                                                                                                              },
+                                                                                                  "2026-05":  {
+                                                                                                                  "count":  3,
+                                                                                                                  "medianClose":  475000
+                                                                                                              },
+                                                                                                  "2025-12":  {
+                                                                                                                  "count":  3,
+                                                                                                                  "medianClose":  408500
+                                                                                                              },
+                                                                                                  "2026-06":  {
+                                                                                                                  "count":  1,
+                                                                                                                  "medianClose":  463000
+                                                                                                              }
+                                                                                              }
+                                                                          },
+                                                            "the-reserve-at-clear-lake":  {
+                                                                                              "label":  "The Reserve at Clear Lake",
+                                                                                              "totalListings":  13,
+                                                                                              "soldCount":  5,
+                                                                                              "medianClose":  640000,
+                                                                                              "minClose":  524000,
+                                                                                              "maxClose":  710000,
+                                                                                              "medianDOM":  44,
+                                                                                              "medianPPSF":  195.5,
+                                                                                              "pctCloseToList":  97.8,
+                                                                                              "pctCloseToOrig":  95,
+                                                                                              "newConstructionSolds":  0,
+                                                                                              "activeCount":  4,
+                                                                                              "medianActiveList":  849500,
+                                                                                              "minActiveList":  499000,
+                                                                                              "maxActiveList":  1300000,
+                                                                                              "pendingCount":  1,
+                                                                                              "failedCount":  3,
+                                                                                              "failRatePct":  37.5,
+                                                                                              "monthsOfSupply":  4.8,
+                                                                                              "soldByMonth":  {
+                                                                                                                  "2025-12":  {
+                                                                                                                                  "count":  1,
+                                                                                                                                  "medianClose":  660000
+                                                                                                                              },
+                                                                                                                  "2026-05":  {
+                                                                                                                                  "count":  2,
+                                                                                                                                  "medianClose":  585000
+                                                                                                                              },
+                                                                                                                  "2026-02":  {
+                                                                                                                                  "count":  1,
+                                                                                                                                  "medianClose":  710000
+                                                                                                                              },
+                                                                                                                  "2026-03":  {
+                                                                                                                                  "count":  1,
+                                                                                                                                  "medianClose":  524000
+                                                                                                                              }
+                                                                                                              }
+                                                                                          },
+                                                            "taylor-lake":  {
+                                                                                "label":  "Taylor Lake Village",
+                                                                                "totalListings":  15,
+                                                                                "soldCount":  7,
+                                                                                "medianClose":  360000,
+                                                                                "minClose":  315000,
+                                                                                "maxClose":  680000,
+                                                                                "medianDOM":  25,
+                                                                                "medianPPSF":  157.08,
+                                                                                "pctCloseToList":  98.5,
+                                                                                "pctCloseToOrig":  null,
+                                                                                "newConstructionSolds":  0,
+                                                                                "activeCount":  2,
+                                                                                "medianActiveList":  715000,
+                                                                                "minActiveList":  680000,
+                                                                                "maxActiveList":  750000,
+                                                                                "pendingCount":  1,
+                                                                                "failedCount":  5,
+                                                                                "failRatePct":  41.7,
+                                                                                "monthsOfSupply":  1.7,
+                                                                                "soldByMonth":  {
+
+                                                                                                }
+                                                                            }
+                                                        }
+                                  }
+               }
+}

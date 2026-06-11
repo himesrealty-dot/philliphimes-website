@@ -331,6 +331,17 @@ Each neighborhood page includes two JSON-LD blocks:
 
 ---
 
+## Market Update Pages
+
+City market-update articles ({city}-market-update-{month}-{year}.html, e.g. `friendswood-market-update-june-2026.html`) are built from Phil's full-market MLS CSV exports (all statuses incl. Terminated/Expired/Withdrawn). Workflow:
+
+1. Stats are pre-computed by script into `data/market-stats-{month}-{year}.json` — city level + per target neighborhood (filtered by Subdivision regex). Article prose must use ONLY these numbers, never recompute.
+2. Each article: city overview → failure-rate callout → one anchored section per target neighborhood (`#{slug}`) → buyer/seller takeaways → FAQ (HTML + FAQPage JSON-LD in sync) → HAR MLS disclaimer. Structure cloned from the compare-* article skeleton. JSON-LD: BlogPosting + BreadcrumbList + FAQPage.
+3. Each target neighborhood page's `POSTS` array gets the market update as the new `featured: true` first entry (URL with `#{slug}` anchor); prior featured post is demoted to `featured: false` (archive).
+4. Add the article to sitemap.xml; market-insights.html is the hub linking all reports (indexed as of June 2026 — no longer robots-disallowed).
+
+Key derived stat: failRatePct = (Terminated+Expired+Withdrawn) / (failed + sold). Caveat any neighborhood with <10 solds as a small sample. Taylor Lake Village is a separate municipality — NOT in the Clear Lake export; needs its own data.
+
 ## Blog Section
 
 All neighborhood pages have an empty blog section:

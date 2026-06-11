@@ -10,6 +10,13 @@
   <url><loc>https://philliphimes.com/search.html</loc><lastmod>2026-06-10</lastmod><priority>0.8</priority></url>
   <url><loc>https://philliphimes.com/cities.html</loc><lastmod>2026-05-30</lastmod><priority>0.8</priority></url>
 
+  <!-- ── MARKET UPDATES ── -->
+  <url><loc>https://philliphimes.com/market-insights.html</loc><lastmod>2026-06-10</lastmod><priority>0.8</priority></url>
+  <url><loc>https://philliphimes.com/league-city-market-update-june-2026.html</loc><lastmod>2026-06-10</lastmod><priority>0.8</priority></url>
+  <url><loc>https://philliphimes.com/friendswood-market-update-june-2026.html</loc><lastmod>2026-06-10</lastmod><priority>0.8</priority></url>
+  <url><loc>https://philliphimes.com/pearland-market-update-june-2026.html</loc><lastmod>2026-06-10</lastmod><priority>0.8</priority></url>
+  <url><loc>https://philliphimes.com/clear-lake-market-update-june-2026.html</loc><lastmod>2026-06-10</lastmod><priority>0.8</priority></url>
+
   <!-- ── TOOL PAGES ── -->
   <url><loc>https://philliphimes.com/marketiq.html</loc><lastmod>2026-06-10</lastmod><priority>0.7</priority></url>
   <url><loc>https://philliphimes.com/buyeriq.html</loc><lastmod>2026-06-10</lastmod><priority>0.7</priority></url>
