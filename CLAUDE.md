@@ -115,12 +115,12 @@ philliphimes-website/
 
 | File | Name | Price Range | Status | School District |
 |------|------|-------------|--------|-----------------|
-| `pomona.html` | Pomona | $320K – $550K | live | Alvin ISD → Manvel HS |
-| `rodeo-palms.html` | Rodeo Palms | $270K – $420K | live | Alvin ISD → Manvel HS |
-| `del-bello-lakes.html` | Del Bello Lakes | $310K – $520K | live | Alvin ISD → Manvel HS |
-| `meridiana.html` | Meridiana | $340K – $580K | live | Alvin ISD → Manvel HS |
-| `sedona-lakes.html` | Sedona Lakes | $290K – $470K | live | Alvin ISD → Manvel HS |
-| `valencia.html` | Valencia | $300K – $490K | live | Alvin ISD → Manvel HS |
+| `pomona.html` | Pomona | $365K – $1.2M+ | live | Alvin ISD → Manvel HS |
+| `rodeo-palms.html` | Rodeo Palms | $235K – $500K | live | Alvin ISD → Manvel HS |
+| `del-bello-lakes.html` | Del Bello Lakes | $410K – $800K | live | Alvin ISD → Manvel HS |
+| `meridiana.html` | Meridiana | $330K – $950K+ | live | Alvin ISD → Manvel HS |
+| `sedona-lakes.html` | Sedona Lakes | $385K – $800K | live | Alvin ISD → Manvel HS |
+| `valencia.html` | Valencia | $365K – $1.2M+ | live | Alvin ISD → Manvel HS |
 
 ---
 
