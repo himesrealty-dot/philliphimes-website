@@ -12,7 +12,7 @@ These are the only 3 placeholders a visitor actually sees on a rendered page. Ev
 |---|------|----------|-----------|---------------|
 | 1 | `index.html` (line 730) | Home — reLifeIQ™ section | Video tile reads **"Phil's reLifeIQ™ Story — Coming Soon"** with a ▶ play icon over an empty box | Record/embed the video, OR swap the empty tile for a static image/graphic until it's ready |
 | 2 | `primequity.html` (line 307) | PrimEquity page — Renew™ heading | Gold **"Coming Soon"** badge next to the Renew™ heading | Launch Renew™ and remove the badge, OR leave as a genuine roadmap teaser |
-| 3 | `master-planned-communities.html` (line 372) | Legacy community card | Price shows **"Ask Phil for Pricing"** instead of a range | Optional: add a real "From $XXXk" range once you have builder pricing. (Legacy by Hillwood is a real, active CCISD community — the "Ask Phil" CTA is legitimate, not a bug.) |
+| 3 | `master-planned-communities.html` (line 372) | Legacy community card | Price shows **"Ask Phil for Pricing"** instead of a range | ✅ **RESOLVED — keep as-is.** Phil confirmed the "Ask Phil for Pricing" CTA is intentional for Legacy (active new-construction community, no fixed public range). No change needed. |
 
 ---
 
