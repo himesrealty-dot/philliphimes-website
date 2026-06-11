@@ -106,7 +106,7 @@ philliphimes-website/
 |------|------|-------------|--------|
 | `nicholstone.html` | Nicholstone | $230K – $370K | live |
 | `bay-colony.html` | Bay Colony | $260K – $420K | live |
-| `pedregal.html` | Pedregal | $250K – $420K | live |
+| `pedregal.html` | Pedregal | $410K – $710K | live |
 | `peacock-isle.html` | Peacock Isle | $260K – $420K | live |
 | `bayou-maison.html` | Bayou Maison | $255K – $400K | live |
 | `bayou-bend-estate.html` | Bayou Bend Estate | $220K – $340K | live |
