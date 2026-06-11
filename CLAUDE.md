@@ -60,12 +60,12 @@ philliphimes-website/
 
 | File | Name | Price Range | Status |
 |------|------|-------------|--------|
-| `tuscan-lakes.html` | Tuscan Lakes | $300K – $2.2M | live |
-| `westover-park.html` | Westover Park | $325K – $700K | live |
-| `south-shore-harbour.html` | South Shore Harbour | $370K – $3M+ | live |
-| `mar-bella.html` | Mar Bella | $370K – $1M+ | live |
-| `brittany-lakes.html` | Brittany Lakes | $300K – $700K+ | live |
-| `magnolia-creek.html` | Magnolia Creek | $345K – $800K+ | live |
+| `tuscan-lakes.html` | Tuscan Lakes | $315K – $1.5M+ | live |
+| `westover-park.html` | Westover Park | $335K – $600K+ | live |
+| `south-shore-harbour.html` | South Shore Harbour | $305K – $1.3M+ | live |
+| `mar-bella.html` | Mar Bella | $335K – $800K+ | live |
+| `brittany-lakes.html` | Brittany Lakes | $290K – $530K | live |
+| `magnolia-creek.html` | Magnolia Creek | $360K – $750K+ | live |
 
 ### Friendswood (6 neighborhoods)
 
@@ -82,23 +82,23 @@ philliphimes-website/
 
 | File | Name | Price Range | Status | School District |
 |------|------|-------------|--------|-----------------|
-| `shadow-creek-ranch.html` | Shadow Creek Ranch | $330K – $600K | live | Alvin ISD → Shadow Creek HS |
-| `silverlake.html` | Silverlake | $290K – $500K | live | Alvin ISD |
-| `riverstone-ranch.html` | Riverstone Ranch | $290K – $480K | live | Alvin ISD → Shadow Creek HS |
-| `southern-trails.html` | Southern Trails | $310K – $520K | live | Alvin ISD → Shadow Creek HS |
-| `southgate.html` | Southgate | $260K – $390K | live | Pearland ISD |
-| `country-place.html` | Country Place | $280K – $420K | live | Pearland ISD |
+| `shadow-creek-ranch.html` | Shadow Creek Ranch | $285K – $800K+ | live | Alvin ISD → Shadow Creek HS |
+| `silverlake.html` | Silverlake | $335K – $800K | live | Alvin ISD |
+| `riverstone-ranch.html` | Riverstone Ranch | $315K – $600K | live | Alvin ISD → Shadow Creek HS |
+| `southern-trails.html` | Southern Trails | $285K – $950K+ | live | Alvin ISD → Shadow Creek HS |
+| `southgate.html` | Southgate | $395K – $525K | live | Pearland ISD |
+| `country-place.html` | Country Place | $220K – $560K | live | Pearland ISD |
 
 ### Clear Lake (6 neighborhoods)
 
 | File | Name | Price Range | Status | School District |
 |------|------|-------------|--------|-----------------|
-| `bay-oaks.html` | Bay Oaks | $380K – $700K | live | CCISD → Clear Lake HS |
-| `bay-forest.html` | Bay Forest | $320K – $550K | live | CCISD → Clear Lake HS |
-| `bay-knoll.html` | Bay Knoll | $280K – $420K | live | CCISD → Clear Lake HS |
-| `brookwood.html` | Brookwood | $290K – $480K | live | CCISD → Clear Lake HS |
-| `taylor-lake.html` | Taylor Lake | $350K – $750K | live | CCISD → Clear Lake HS |
-| `the-reserve-at-clear-lake.html` | The Reserve at Clear Lake | $420K – $900K | live | CCISD → Clear Lake HS |
+| `bay-oaks.html` | Bay Oaks | $475K – $1.4M+ | live | CCISD → Clear Lake HS |
+| `bay-forest.html` | Bay Forest | $320K – $650K+ | live | CCISD → Clear Lake HS |
+| `bay-knoll.html` | Bay Knoll | $315K – $450K | live | CCISD → Clear Lake HS |
+| `brookwood.html` | Brookwood | $340K – $565K | live | CCISD → Clear Lake HS |
+| `taylor-lake.html` | Taylor Lake | $315K – $750K | live | CCISD → Clear Lake HS |
+| `the-reserve-at-clear-lake.html` | The Reserve at Clear Lake | $500K – $1M+ | live | CCISD → Clear Lake HS |
 
 ### Dickinson (6 neighborhoods)
 
