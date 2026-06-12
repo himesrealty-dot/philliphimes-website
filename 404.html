@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Page Not Found | Phillip Himes, REALTOR®</title>
+  <meta name="robots" content="noindex, follow" />
+  <link rel="stylesheet" href="/css/styles.css" />
+  <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
+  <style>
+    .nf-wrap {
+      min-height: 70vh; display: flex; align-items: center; justify-content: center;
+      text-align: center; padding: 4rem 1.5rem;
+      background: linear-gradient(160deg, #f9f7f4 0%, #eef2f5 100%);
+    }
+    .nf-inner { max-width: 640px; }
+    .nf-code {
+      font-family: var(--font-heading); font-weight: 900;
+      font-size: clamp(4.5rem, 14vw, 8rem); line-height: 1; color: var(--gold);
+      letter-spacing: -0.02em; margin-bottom: 0.25rem;
+    }
+    .nf-title {
+      font-family: var(--font-heading); font-weight: 900;
+      font-size: clamp(1.5rem, 4vw, 2.1rem); color: var(--navy); margin-bottom: 0.85rem;
+    }
+    .nf-sub {
+      font-size: 1rem; color: var(--dark-gray, #5a6573); line-height: 1.7;
+      max-width: 480px; margin: 0 auto 2rem;
+    }
+    .nf-links {
+      display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center; margin-bottom: 2rem;
+    }
+    .nf-link {
+      display: inline-flex; align-items: center; padding: 0.7rem 1.3rem;
+      border-radius: var(--radius-full, 9999px); text-decoration: none;
+      font-family: var(--font-heading); font-weight: 700; font-size: 0.9rem;
+      border: 1.5px solid var(--navy); color: var(--navy); transition: all 0.2s;
+    }
+    .nf-link:hover { background: var(--navy); color: #fff; }
+    .nf-link--gold { background: var(--gold); border-color: var(--gold); color: var(--navy); }
+    .nf-link--gold:hover { background: #d4b86a; border-color: #d4b86a; color: var(--navy); }
+    .nf-contact { font-size: 0.9rem; color: var(--dark-gray, #5a6573); }
+    .nf-contact a { color: var(--navy); font-weight: 700; text-decoration: none; }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAVIGATION ──────────────────────────────────── -->
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/index.html" class="nav__logo" aria-label="Phillip Himes Real Estate Home">
+        <img loading="lazy" src="/images/logo.png" alt="Phillip Himes | Brokered by eXp Realty" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+        <span class="nav__logo-text" style="display:none;">
+          <span class="nav__logo-name">Phillip Himes</span>
+          <span class="nav__logo-brokerage">Brokered by eXp Realty</span>
+        </span>
+      </a>
+      <div class="nav__cta">
+        <a href="tel:8325361016" class="nav__phone">📞 (832) 536-1016</a>
+        <a href="/contact.html?topic=trumarket" class="btn btn--primary btn--sm">Get Home Value</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ── 404 ─────────────────────────────────────────── -->
+  <main class="nf-wrap">
+    <div class="nf-inner">
+      <div class="nf-code">404</div>
+      <h1 class="nf-title">This page took a wrong turn.</h1>
+      <p class="nf-sub">
+        The page you're looking for doesn't exist or may have moved. Let's get you back on track —
+        here are a few good places to start.
+      </p>
+      <div class="nf-links">
+        <a href="/index.html" class="nf-link nf-link--gold">🏠 Home</a>
+        <a href="/search.html" class="nf-link">🔍 Search Homes</a>
+        <a href="/buyers.html" class="nf-link">For Buyers</a>
+        <a href="/sellers.html" class="nf-link">For Sellers</a>
+        <a href="/cities.html" class="nf-link">Cities &amp; Neighborhoods</a>
+        <a href="/contact.html" class="nf-link">Ask Phil</a>
+      </div>
+      <p class="nf-contact">
+        Still stuck? Call or text <a href="tel:8325361016">(832) 536-1016</a> or email
+        <a href="mailto:phil@philliphimes.com">phil@philliphimes.com</a>.
+      </p>
+    </div>
+  </main>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>

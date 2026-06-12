@@ -5,16 +5,20 @@
   force = true
 
 [[redirects]]
-  from = "/thank-you.html"
+  from = "/thank-you"
   to = "/index.html"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/*"
+  from = "/thank-you.html"
   to = "/index.html"
-  status = 200
-  force = false
+  status = 301
+  force = true
+
+# No SPA catch-all: this is a static multi-page site, so unknown paths
+# must return a real 404 (Netlify auto-serves /404.html) instead of the
+# homepage with a 200 — avoids soft-404s and duplicate-content noise.
 
 [[headers]]
   for = "/*"
