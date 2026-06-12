@@ -6,15 +6,15 @@ _All stats pulled from your June 2026 MLS data. League City is the spine; all si
 ## How to use
 1. **One post per week**, in order. Don't batch them — the steady drip is the point.
 2. **Copy the post text**, paste into GBP → **Add update / Post**. Strip the markdown (`•`, `**`) — GBP is plain text; plain bullets are fine.
-3. **Add the image** named for that week (from `images/` or your Article Images folder; market-update/comparison/guide images are on the live site too).
+3. **Generate the image** from the **Image subject** line for that week, save it under the suggested filename.
 4. **Add a button** → choose the button type listed → paste the URL.
-5. **Image specs:** 1200×900 (4:3 landscape), keep key content centered.
-6. ⚠️ Weeks marked **[needs photo]** have no stock image — drop in one of your listing or community photos (or reuse that city's market-update image as a fallback).
+5. **Image specs:** 1200×900 (4:3 landscape), keep key content/text centered (GBP crops to a square thumbnail). Suggested style: clean, on-brand (navy + gold), minimal text so it reads on mobile.
 
 ---
 
 ## WEEK 1 — League City Market Update ✅ (POSTED)
-**Image:** `league-city-market-update-june-2026.jpg` · **Button:** Learn more → `https://philliphimes.com/league-city-market-update-june-2026.html`
+**Image subject:** League City home/skyline with a "June 2026 Market Update — $415K median, 26 days" stat overlay · `post-w01-league-city-market.jpg`
+**Button:** Learn more → `https://philliphimes.com/league-city-market-update-june-2026.html`
 
 > 1 in 3 League City listings failed to sell last month. Here's how to be in the other 2. 📊
 >
@@ -29,7 +29,8 @@ _All stats pulled from your June 2026 MLS data. League City is the spine; all si
 ---
 
 ## WEEK 2 — Buyer's Advantage Guide
-**Image:** `Guide-buyer-advantage.jpg` · **Button:** Learn more → `https://philliphimes.com/#guides`
+**Image subject:** "The Buyer's Advantage" guide cover over a Bay Area home, buyer/keys theme · `post-w02-buyer-advantage-guide.jpg`
+**Button:** Learn more → `https://philliphimes.com/#guides`
 
 > Buying in the Bay Area? Don't make a move until you've read this. 📘
 >
@@ -40,7 +41,8 @@ _All stats pulled from your June 2026 MLS data. League City is the spine; all si
 ---
 
 ## WEEK 3 — Friendswood Market Update
-**Image:** `friendswood-market-update-june-2026.jpg` · **Button:** Learn more → `https://philliphimes.com/friendswood-market-update-june-2026.html`
+**Image subject:** Friendswood home with a "20 days to sell — fastest in the Bay Area" stat overlay · `post-w03-friendswood-market.jpg`
+**Button:** Learn more → `https://philliphimes.com/friendswood-market-update-june-2026.html`
 
 > Friendswood homes are selling in just 20 days — the fastest in the Bay Area. 📊
 >
@@ -54,8 +56,9 @@ _All stats pulled from your June 2026 MLS data. League City is the spine; all si
 
 ---
 
-## WEEK 4 — League City: South Shore Harbour  [needs photo]
-**Image:** a South Shore Harbour community/listing photo (fallback: `league-city-market-update-june-2026.jpg`) · **Button:** Learn more → `https://philliphimes.com/south-shore-harbour.html`
+## WEEK 4 — League City: South Shore Harbour
+**Image subject:** South Shore Harbour waterfront homes with the marina, boats, and golf course · `post-w04-south-shore-harbour.jpg`
+**Button:** Learn more → `https://philliphimes.com/south-shore-harbour.html`
 
 > Waterfront, golf, and a marina — South Shore Harbour is League City living at its best. ⛵
 >
@@ -66,7 +69,8 @@ _All stats pulled from your June 2026 MLS data. League City is the spine; all si
 ---
 
 ## WEEK 5 — Pearland Market Update
-**Image:** `pearland-market-update-june-2026.jpg` · **Button:** Learn more → `https://philliphimes.com/pearland-market-update-june-2026.html`
+**Image subject:** Pearland home with a "$380K median — 43% of listings failed" stat overlay · `post-w05-pearland-market.jpg`
+**Button:** Learn more → `https://philliphimes.com/pearland-market-update-june-2026.html`
 
 > Nearly half of Pearland listings failed to sell last month. Here's how to land in the other half. 📊
 >
@@ -81,7 +85,8 @@ _All stats pulled from your June 2026 MLS data. League City is the spine; all si
 ---
 
 ## WEEK 6 — Seller's Edge Guide
-**Image:** `Guide-seller-edge.jpg` · **Button:** Learn more → `https://philliphimes.com/#guides`
+**Image subject:** "The Seller's Edge" guide cover with an upward price trend and a SOLD sign · `post-w06-seller-edge-guide.jpg`
+**Button:** Learn more → `https://philliphimes.com/#guides`
 
 > Selling in 2026? Sell from a position of strength. 📈
 >
@@ -92,7 +97,8 @@ _All stats pulled from your June 2026 MLS data. League City is the spine; all si
 ---
 
 ## WEEK 7 — Clear Lake Market Update
-**Image:** `clear-lake-market-update-june-2026.jpg` · **Button:** Learn more → `https://philliphimes.com/clear-lake-market-update-june-2026.html`
+**Image subject:** Clear Lake waterfront/NASA-area home with a "tightest market — 3 months supply" overlay · `post-w07-clear-lake-market.jpg`
+**Button:** Learn more → `https://philliphimes.com/clear-lake-market-update-june-2026.html`
 
 > Clear Lake is the Bay Area's tightest market right now — just 3 months of supply. 📊
 >
@@ -106,8 +112,9 @@ _All stats pulled from your June 2026 MLS data. League City is the spine; all si
 
 ---
 
-## WEEK 8 — League City: Tuscan Lakes  [needs photo]
-**Image:** a Tuscan Lakes community/listing photo · **Button:** Learn more → `https://philliphimes.com/tuscan-lakes.html`
+## WEEK 8 — League City: Tuscan Lakes
+**Image subject:** Tuscan Lakes Mediterranean-style homes with a resort pool and lake · `post-w08-tuscan-lakes.jpg`
+**Button:** Learn more → `https://philliphimes.com/tuscan-lakes.html`
 
 > From $315K starter homes to $1.5M custom estates — Tuscan Lakes has a little of everything. 🏡
 >
@@ -118,7 +125,8 @@ _All stats pulled from your June 2026 MLS data. League City is the spine; all si
 ---
 
 ## WEEK 9 — Manvel Market Update (New Construction)
-**Image:** `manvel-market-update-june-2026.jpg` · **Button:** Learn more → `https://philliphimes.com/manvel-market-update-june-2026.html`
+**Image subject:** Manvel new-construction homes under build with a "739 new homes sold" overlay · `post-w09-manvel-market.jpg`
+**Button:** Learn more → `https://philliphimes.com/manvel-market-update-june-2026.html`
 
 > Manvel sold 739 new-construction homes — the Bay Area's hottest new-build market. 🏗️
 >
@@ -133,7 +141,8 @@ _All stats pulled from your June 2026 MLS data. League City is the spine; all si
 ---
 
 ## WEEK 10 — Comparison: CCISD vs Alvin ISD
-**Image:** `compare-ccisd-vs-alvin-isd.jpg` · **Button:** Learn more → `https://philliphimes.com/compare-ccisd-vs-alvin-isd.html`
+**Image subject:** Two school district crests/buildings side by side, "CCISD vs Alvin ISD" · `post-w10-ccisd-vs-alvin.jpg`
+**Button:** Learn more → `https://philliphimes.com/compare-ccisd-vs-alvin-isd.html`
 
 > CCISD or Alvin ISD? The school district can shape your whole home search. 🎓
 >
@@ -142,7 +151,8 @@ _All stats pulled from your June 2026 MLS data. League City is the spine; all si
 ---
 
 ## WEEK 11 — Dickinson Market Update
-**Image:** `dickinson-market-update-june-2026.jpg` · **Button:** Learn more → `https://philliphimes.com/dickinson-market-update-june-2026.html`
+**Image subject:** Dickinson home with a "most affordable — $294K median" stat overlay · `post-w11-dickinson-market.jpg`
+**Button:** Learn more → `https://philliphimes.com/dickinson-market-update-june-2026.html`
 
 > Dickinson is the Bay Area's most affordable market — median under $295K. 📊
 >
@@ -157,7 +167,8 @@ _All stats pulled from your June 2026 MLS data. League City is the spine; all si
 ---
 
 ## WEEK 12 — 30-Day Plan to Prepare Guide
-**Image:** `Guide-seller-30day.jpg` · **Button:** Learn more → `https://philliphimes.com/#guides`
+**Image subject:** "30-Day Plan" calendar/checklist beside a staged, sale-ready home · `post-w12-30day-plan-guide.jpg`
+**Button:** Learn more → `https://philliphimes.com/#guides`
 
 > Listing in the next month? Do these things first. 🗓️
 >
@@ -167,8 +178,9 @@ _All stats pulled from your June 2026 MLS data. League City is the spine; all si
 
 ---
 
-## WEEK 13 — League City: Waterfront Homes  [needs photo]
-**Image:** a waterfront listing photo · **Button:** Learn more → `https://philliphimes.com/waterfront-homes-league-city.html`
+## WEEK 13 — League City: Waterfront Homes
+**Image subject:** A marina-front / lakefront League City estate on the water at golden hour · `post-w13-waterfront-homes.jpg`
+**Button:** Learn more → `https://philliphimes.com/waterfront-homes-league-city.html`
 
 > Marina-front estates to lakefront retreats — waterfront living in League City. 🌊
 >
@@ -177,7 +189,8 @@ _All stats pulled from your June 2026 MLS data. League City is the spine; all si
 ---
 
 ## WEEK 14 — Comparison: League City vs Friendswood
-**Image:** `compare-league-city-vs-friendswood.jpg` · **Button:** Learn more → `https://philliphimes.com/compare-league-city-vs-friendswood.html`
+**Image subject:** Split image of two town signs/homes, "League City vs Friendswood" · `post-w14-lc-vs-friendswood.jpg`
+**Button:** Learn more → `https://philliphimes.com/compare-league-city-vs-friendswood.html`
 
 > League City or Friendswood? Two great Bay Area towns, two different vibes. ⚖️
 >
@@ -185,8 +198,9 @@ _All stats pulled from your June 2026 MLS data. League City is the spine; all si
 
 ---
 
-## WEEK 15 — Pearland: Shadow Creek Ranch  [needs photo]
-**Image:** a Shadow Creek Ranch community/listing photo · **Button:** Learn more → `https://philliphimes.com/shadow-creek-ranch.html`
+## WEEK 15 — Pearland: Shadow Creek Ranch
+**Image subject:** Shadow Creek Ranch resort pool/lake community in Pearland · `post-w15-shadow-creek-ranch.jpg`
+**Button:** Learn more → `https://philliphimes.com/shadow-creek-ranch.html`
 
 > Shadow Creek Ranch: resort living, Shadow Creek High, and homes from the $280s. 🏡
 >
@@ -196,8 +210,9 @@ _All stats pulled from your June 2026 MLS data. League City is the spine; all si
 
 ---
 
-## WEEK 16 — Review Highlight  [needs photo]
-**Image:** your headshot or a branded 5-star review graphic · **Button:** Learn more → `https://philliphimes.com/contact.html`
+## WEEK 16 — Review Highlight
+**Image subject:** Your headshot or a branded 5-star testimonial card (navy + gold) · `post-w16-review-highlight.jpg`
+**Button:** Learn more → `https://philliphimes.com/contact.html`
 
 > "Phil was like having your best friend with LOTS of knowledge with you 24/7." ⭐⭐⭐⭐⭐
 >
@@ -207,8 +222,9 @@ _All stats pulled from your June 2026 MLS data. League City is the spine; all si
 
 ---
 
-## WEEK 17 — Friendswood: Avalon  [needs photo]
-**Image:** an Avalon community/listing photo · **Button:** Learn more → `https://philliphimes.com/avalon.html`
+## WEEK 17 — Friendswood: Avalon
+**Image subject:** Avalon gated luxury Friendswood home, tree-lined entrance · `post-w17-avalon.jpg`
+**Button:** Learn more → `https://philliphimes.com/avalon.html`
 
 > Avalon: gated luxury in the heart of Friendswood, from the $600s. 🏛️
 >
@@ -219,7 +235,8 @@ _All stats pulled from your June 2026 MLS data. League City is the spine; all si
 ---
 
 ## WEEK 18 — Comparison: Meridiana vs Pomona
-**Image:** `compare-meridiana-vs-pomona.jpg` · **Button:** Learn more → `https://philliphimes.com/compare-meridiana-vs-pomona.html`
+**Image subject:** Split image of two Manvel master-planned communities, "Meridiana vs Pomona" · `post-w18-meridiana-vs-pomona.jpg`
+**Button:** Learn more → `https://philliphimes.com/compare-meridiana-vs-pomona.html`
 
 > Meridiana vs Pomona — Manvel's two master-planned heavyweights, compared. ⚖️
 >
@@ -227,8 +244,9 @@ _All stats pulled from your June 2026 MLS data. League City is the spine; all si
 
 ---
 
-## WEEK 19 — League City: Relocating  [needs photo]
-**Image:** a League City skyline/community photo · **Button:** Learn more → `https://philliphimes.com/relocating-to-league-city.html`
+## WEEK 19 — League City: Relocating
+**Image subject:** "Relocating to League City" — moving boxes/welcome mat with NASA + League City skyline · `post-w19-relocating-league-city.jpg`
+**Button:** Learn more → `https://philliphimes.com/relocating-to-league-city.html`
 
 > Relocating to League City? Here's everything you need before you land. ✈️
 >
@@ -236,8 +254,9 @@ _All stats pulled from your June 2026 MLS data. League City is the spine; all si
 
 ---
 
-## WEEK 20 — Clear Lake: Bay Oaks  [needs photo]
-**Image:** a Bay Oaks community/golf photo · **Button:** Learn more → `https://philliphimes.com/bay-oaks.html`
+## WEEK 20 — Clear Lake: Bay Oaks
+**Image subject:** Bay Oaks gated golf community, Clear Lake, fairway view · `post-w20-bay-oaks.jpg`
+**Button:** Learn more → `https://philliphimes.com/bay-oaks.html`
 
 > Bay Oaks: Clear Lake's premier gated golf community, from the $470s. ⛳
 >
@@ -248,7 +267,8 @@ _All stats pulled from your June 2026 MLS data. League City is the spine; all si
 ---
 
 ## WEEK 21 — Comparison: League City Master-Planned Communities
-**Image:** `compare-league-city-master-planned.jpg` · **Button:** Learn more → `https://philliphimes.com/compare-league-city-master-planned.html`
+**Image subject:** Collage/map of League City's top master-planned communities · `post-w21-lc-master-planned.jpg`
+**Button:** Learn more → `https://philliphimes.com/compare-league-city-master-planned.html`
 
 > Tuscan Lakes, Mar Bella, Westover Park… which League City community fits you? 🗺️
 >
@@ -256,8 +276,9 @@ _All stats pulled from your June 2026 MLS data. League City is the spine; all si
 
 ---
 
-## WEEK 22 — Manvel: Meridiana  [needs photo]
-**Image:** a Meridiana community/listing photo · **Button:** Learn more → `https://philliphimes.com/meridiana.html`
+## WEEK 22 — Manvel: Meridiana
+**Image subject:** Meridiana resort pool/fitness/trails, Manvel new-build community · `post-w22-meridiana.jpg`
+**Button:** Learn more → `https://philliphimes.com/meridiana.html`
 
 > Meridiana: Manvel's resort-style new-build community, from the $330s. 🏊
 >
@@ -267,8 +288,9 @@ _All stats pulled from your June 2026 MLS data. League City is the spine; all si
 
 ---
 
-## WEEK 23 — Dickinson: Nicholstone (Value)  [needs photo]
-**Image:** a Nicholstone/Dickinson photo · **Button:** Learn more → `https://philliphimes.com/nicholstone.html`
+## WEEK 23 — Dickinson: Nicholstone (Value)
+**Image subject:** Established Dickinson neighborhood home, affordable/value theme · `post-w23-nicholstone.jpg`
+**Button:** Learn more → `https://philliphimes.com/nicholstone.html`
 
 > Looking for value in the Bay Area? Dickinson's Nicholstone starts in the $200s. 💡
 >
@@ -278,8 +300,9 @@ _All stats pulled from your June 2026 MLS data. League City is the spine; all si
 
 ---
 
-## WEEK 24 — Seller CTA / Mid-Year Recap  [needs photo]
-**Image:** a market-update image or branded graphic · **Button:** Learn more → `https://philliphimes.com/contact.html`
+## WEEK 24 — Seller CTA / Mid-Year Recap
+**Image subject:** "Half of homes didn't sell" seller-focused market graphic (navy + gold) · `post-w24-seller-cta.jpg`
+**Button:** Learn more → `https://philliphimes.com/contact.html`
 
 > Half the homes listed didn't sell last month. Don't let yours be one of them. 📊
 >
