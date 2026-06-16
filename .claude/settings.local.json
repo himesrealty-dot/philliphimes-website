@@ -62,7 +62,12 @@
       "WebFetch(domain:doc-08-10-docstext.googleusercontent.com)",
       "PowerShell(Get-ChildItem 'F:\\\\6. Market Updates\\\\June\\\\Article Images' -File | Select-Object Name, @{N='KB';E={[math]::Round\\($_.Length/1KB\\)}}, @{N='Dim';E={try{Add-Type -AssemblyName System.Drawing;$i=[System.Drawing.Image]::FromFile\\($_.FullName\\);\"$\\($i.Width\\)x$\\($i.Height\\)\";$i.Dispose\\(\\)}catch{'?'}}} | Format-Table -AutoSize)",
       "WebFetch(domain:www.dickinsonisd.org)",
-      "mcp__Claude_Preview__preview_start"
+      "mcp__Claude_Preview__preview_start",
+      "mcp__Claude_in_Chrome__list_connected_browsers",
+      "mcp__Claude_in_Chrome__find",
+      "mcp__Claude_in_Chrome__get_page_text",
+      "mcp__Claude_in_Chrome__computer",
+      "mcp__Claude_in_Chrome__tabs_context_mcp"
     ]
   }
 }
