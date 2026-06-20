@@ -169,6 +169,38 @@
     .faq-item:first-of-type { border-top: 1px solid #dde3ea; }
     .faq-item__q { font-family: var(--font-heading); font-weight: 800; font-size: 0.95rem; color: var(--navy); margin-bottom: 0.55rem; line-height: 1.4; }
     .faq-item__a { font-size: 0.88rem; color: var(--dark-gray); line-height: 1.72; }
+
+    /* NewBuildIQ live data + lead magnet */
+    .nbiq-live { margin-bottom: 2.75rem; }
+    .nbiq-live__bar { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 1.1rem; }
+    .nbiq-live__dot { width: 9px; height: 9px; border-radius: 50%; background: #25c281; box-shadow: 0 0 0 4px rgba(37,194,129,0.18); flex-shrink: 0; }
+    .nbiq-live__label { font-family: var(--font-heading); font-weight: 800; font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--teal); }
+    .nbiq-cta { background: linear-gradient(135deg, #0c1f14 0%, #143524 60%, #1d4630 100%); padding: 4.5rem 0; }
+    .nbiq-cta__grid { display: grid; grid-template-columns: 1.05fr 1fr; gap: 3.5rem; align-items: center; }
+    @media (max-width: 860px) { .nbiq-cta__grid { grid-template-columns: 1fr; gap: 2.25rem; } }
+    .nbiq-cta__eyebrow { font-family: var(--font-heading); font-size: 0.72rem; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.8rem; display: block; }
+    .nbiq-cta__title { font-family: var(--font-heading); font-weight: 900; font-size: clamp(1.7rem, 3.4vw, 2.5rem); color: white; line-height: 1.08; margin-bottom: 1rem; }
+    .nbiq-cta__title span { color: var(--gold); }
+    .nbiq-cta__body { font-size: 0.98rem; color: rgba(255,255,255,0.78); line-height: 1.75; margin-bottom: 1.25rem; }
+    .nbiq-cta__list { list-style: none; padding: 0; margin: 0 0 0.5rem; }
+    .nbiq-cta__list li { font-size: 0.9rem; color: rgba(255,255,255,0.8); padding: 0.32rem 0; display: flex; gap: 0.55rem; align-items: flex-start; }
+    .nbiq-cta__list li::before { content: '✓'; color: var(--gold); font-weight: 800; flex-shrink: 0; }
+    .nbiq-card { background: rgba(255,255,255,0.07); backdrop-filter: blur(14px); border: 1px solid rgba(255,255,255,0.16); border-radius: 1.25rem; padding: 2rem 1.85rem; }
+    .nbiq-card__title { font-family: var(--font-heading); font-weight: 900; font-size: 1.15rem; color: white; margin-bottom: 0.35rem; }
+    .nbiq-card__sub { font-size: 0.85rem; color: rgba(255,255,255,0.6); margin-bottom: 1.4rem; line-height: 1.55; }
+    .nbiq-field { margin-bottom: 0.85rem; }
+    .nbiq-field input[type=text], .nbiq-field input[type=email], .nbiq-field input[type=tel] {
+      width: 100%; box-sizing: border-box; background: rgba(255,255,255,0.95); border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 9px; padding: 0.8rem 0.95rem; font-size: 0.95rem; font-family: inherit; color: var(--navy); }
+    .nbiq-field input::placeholder { color: #8a97a3; }
+    .nbiq-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; }
+    @media (max-width: 480px) { .nbiq-row { grid-template-columns: 1fr; } }
+    .nbiq-consent { display: flex; gap: 0.55rem; align-items: flex-start; margin: 0.6rem 0 1.1rem; font-size: 0.72rem; color: rgba(255,255,255,0.6); line-height: 1.45; }
+    .nbiq-consent input { margin-top: 0.15rem; flex-shrink: 0; }
+    .nbiq-submit { width: 100%; background: var(--gold); color: var(--navy); font-family: var(--font-heading); font-weight: 800; font-size: 0.95rem; border: 0; border-radius: 50px; padding: 0.95rem 1.5rem; cursor: pointer; transition: background 0.2s; }
+    .nbiq-submit:hover { background: #d4b86a; }
+    .nbiq-submit:disabled { opacity: 0.6; cursor: default; }
+    .nbiq-hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
   </style>
 </head>
 <body>
@@ -323,6 +355,16 @@
         <p class="section-sub">15+ active builder communities across League City, Friendswood, Pearland, Dickinson, Clear Lake, and Manvel — CCISD, FISD, Alvin ISD, and Dickinson ISD zones. Inventory changes weekly; contact Phil before visiting a model home.</p>
       </div>
 
+      <!-- Live inventory from NewBuildIQ. Hidden until the backend is enabled and
+           has current MLS data; populated by js/newbuildiq.js. -->
+      <div id="nbiq-live" class="nbiq-live" data-city="League City" style="display:none;">
+        <div class="nbiq-live__bar">
+          <span class="nbiq-live__dot" aria-hidden="true"></span>
+          <span class="nbiq-live__label">Live inventory · current MLS data</span>
+        </div>
+        <div class="community-grid" data-nbiq-cards></div>
+      </div>
+
       <div class="city-label">League City · Clear Creek ISD</div>
       <div class="community-grid" style="margin-bottom:2.5rem;">
         <a href="contact.html" class="community-card">
@@ -461,6 +503,51 @@
 
       <div class="builder-note" style="background:#e8f3f6;border:1px solid rgba(32,137,160,0.2);margin-top:2.5rem;">
         <p style="color:var(--dark-gray);"><strong style="color:var(--navy);">New construction inventory changes weekly.</strong> Phil tracks spec homes, lot releases, and builder incentive windows across all these communities. Contact him before visiting a model home — once you sign the builder's guest register without a REALTOR®, it may be too late to add representation.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="nbiq-cta" aria-labelledby="nbiq-cta-heading">
+    <div class="container">
+      <div class="nbiq-cta__grid">
+        <div>
+          <span class="nbiq-cta__eyebrow">Current Builder Incentives</span>
+          <h2 class="nbiq-cta__title" id="nbiq-cta-heading">Get This Month's <span>Incentive List &amp; Prices</span></h2>
+          <p class="nbiq-cta__body">
+            Builders are moving rate buydowns, closing-cost credits, and price cuts every month — and the deals
+            change constantly. Phil tracks them across every active community with real, current MLS data.
+            Tell him where you're looking and he'll send the current list.
+          </p>
+          <ul class="nbiq-cta__list">
+            <li>Verified, current incentives for your target communities</li>
+            <li>What homes are actually selling for right now</li>
+            <li>~20 years in mortgage finance — Phil reads the money behind each deal</li>
+            <li>Buyer representation at no cost to you (the builder pays the fee)</li>
+          </ul>
+          <p class="nbiq-cta__body" style="margin-top:1rem;font-size:0.85rem;color:rgba(255,255,255,0.6);">
+            Register with Phil <strong style="color:var(--gold);">before</strong> you visit a model home — it's how you
+            keep independent representation and your negotiating leverage.
+          </p>
+        </div>
+        <div class="nbiq-card">
+          <div class="nbiq-card__title">Send me the current list</div>
+          <div class="nbiq-card__sub">No cost, no obligation. Phil replies personally — usually same day.</div>
+          <form class="nbiq-form" data-tag="new-construction-report" data-source="new-construction-page" novalidate>
+            <div class="nbiq-field"><input type="text" name="name" placeholder="Your name" autocomplete="name" /></div>
+            <div class="nbiq-row">
+              <div class="nbiq-field"><input type="email" name="email" placeholder="Email" autocomplete="email" /></div>
+              <div class="nbiq-field"><input type="tel" name="phone" placeholder="Phone" autocomplete="tel" /></div>
+            </div>
+            <div class="nbiq-field"><input type="text" name="community" placeholder="Community or area you're considering (optional)" /></div>
+            <!-- Honeypot: real people leave this empty -->
+            <div class="nbiq-hp" aria-hidden="true"><label>Company<input type="text" name="company" tabindex="-1" autocomplete="off" /></label></div>
+            <label class="nbiq-consent">
+              <input type="checkbox" name="sms_consent" value="yes" />
+              <span>By checking this box I agree to receive calls/texts from Phillip Himes about new-construction homes. Msg &amp; data rates may apply; reply STOP to opt out. Consent isn't a condition of any purchase.</span>
+            </label>
+            <button type="submit" class="nbiq-submit">Send Me the Current List →</button>
+          </form>
+        </div>
       </div>
     </div>
   </section>
@@ -613,6 +700,7 @@
   </footer>
 
   <script src="js/main.js"></script>
+  <script src="js/newbuildiq.js"></script>
   <script src="https://widgets.leadconnectorhq.com/loader.js" data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" data-widget-id="6a0623c7f127bb5833bc2697"></script>
 
   <script>
