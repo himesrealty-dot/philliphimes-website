@@ -641,6 +641,31 @@
       .guide-modal__body { padding: 2.5rem 1.5rem 1.75rem; }
     }
 
+    /* ─── LATEST INSIGHTS ─────────────────────────────── */
+    .insights-section { padding: 4rem 0; background: #fff; }
+    .insights-section__header { text-align: center; margin-bottom: 2.5rem; }
+    .insights-section__eyebrow { font-family: var(--font-heading); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--teal); margin-bottom: 0.6rem; display: block; }
+    .insights-section__title { font-family: var(--font-heading); font-weight: 900; font-size: clamp(1.6rem, 3.5vw, 2.2rem); color: var(--navy); line-height: 1.15; margin-bottom: 0.6rem; }
+    .insights-section__sub { font-size: 0.95rem; color: var(--dark-gray); line-height: 1.6; max-width: 600px; margin: 0 auto; }
+    .insights-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.5rem; }
+    .insights-card { display: flex; flex-direction: column; background: #fff; border: 1px solid #e4eaf0; border-radius: var(--radius-lg, 14px); overflow: hidden; text-decoration: none; transition: transform 0.22s, box-shadow 0.22s, border-color 0.22s; }
+    .insights-card:hover { transform: translateY(-5px); box-shadow: 0 16px 40px rgba(0,0,0,0.1); border-color: rgba(32,137,160,0.3); }
+    .insights-card__img { aspect-ratio: 16 / 10; overflow: hidden; background: #f0f4f7; }
+    .insights-card__img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.3s; }
+    .insights-card:hover .insights-card__img img { transform: scale(1.04); }
+    .insights-card__body { padding: 1.1rem 1.2rem 1.3rem; display: flex; flex-direction: column; flex: 1; }
+    .insights-card__tag { align-self: flex-start; font-family: var(--font-heading); font-size: 0.62rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.25rem 0.6rem; border-radius: 999px; margin-bottom: 0.6rem; }
+    .insights-card__tag--update { background: rgba(32,137,160,0.12); color: var(--teal); }
+    .insights-card__tag--compare { background: rgba(201,164,85,0.18); color: #9a7d2e; }
+    .insights-card__title { font-family: var(--font-heading); font-weight: 800; font-size: 1rem; color: var(--navy); line-height: 1.3; margin-bottom: 0.4rem; }
+    .insights-card__excerpt { font-size: 0.85rem; color: var(--dark-gray); line-height: 1.55; margin-bottom: 0.9rem; flex: 1; }
+    .insights-card__cta { font-family: var(--font-heading); font-weight: 800; font-size: 0.82rem; color: var(--teal); letter-spacing: 0.02em; }
+    .insights-section__more { text-align: center; margin-top: 2.5rem; }
+    @media (max-width: 640px) {
+      .insights-grid { grid-template-columns: none; display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 1rem; padding-bottom: 0.75rem; -webkit-overflow-scrolling: touch; }
+      .insights-card { flex: 0 0 80%; scroll-snap-align: start; }
+    }
+
   </style>
 
 </head>
@@ -802,6 +827,123 @@
           <a href="buyers.html#affordability" class="tools-teaser-card__btn">Calculate Now →</a>
         </div>
 
+      </div>
+    </div>
+  </section>
+
+  <!-- ── LATEST INSIGHTS ──────────────────────────────── -->
+  <section class="insights-section" aria-labelledby="insights-heading">
+    <div class="container">
+      <div class="insights-section__header">
+        <span class="insights-section__eyebrow">Local Market Intelligence</span>
+        <h2 class="insights-section__title" id="insights-heading">The Latest Market Insights</h2>
+        <p class="insights-section__sub">Real numbers and neighborhood breakdowns from someone who works these markets every day — updated monthly.</p>
+      </div>
+      <div class="insights-grid">
+
+        <a class="insights-card" href="league-city-market-update-june-2026.html">
+          <div class="insights-card__img"><img loading="lazy" src="images/league-city-market-update-june-2026.jpg" alt="League City housing market update, June 2026" /></div>
+          <div class="insights-card__body">
+            <span class="insights-card__tag insights-card__tag--update">Market Update</span>
+            <h3 class="insights-card__title">League City Market Update</h3>
+            <p class="insights-card__excerpt">Median $415K and homes selling in 26 days — the full June 2026 breakdown.</p>
+            <span class="insights-card__cta">Read →</span>
+          </div>
+        </a>
+
+        <a class="insights-card" href="friendswood-market-update-june-2026.html">
+          <div class="insights-card__img"><img loading="lazy" src="images/friendswood-market-update-june-2026.jpg" alt="Friendswood housing market update, June 2026" /></div>
+          <div class="insights-card__body">
+            <span class="insights-card__tag insights-card__tag--update">Market Update</span>
+            <h3 class="insights-card__title">Friendswood Market Update</h3>
+            <p class="insights-card__excerpt">The fastest-selling market in the Bay Area — just 20 days. June 2026.</p>
+            <span class="insights-card__cta">Read →</span>
+          </div>
+        </a>
+
+        <a class="insights-card" href="pearland-market-update-june-2026.html">
+          <div class="insights-card__img"><img loading="lazy" src="images/pearland-market-update-june-2026.jpg" alt="Pearland housing market update, June 2026" /></div>
+          <div class="insights-card__body">
+            <span class="insights-card__tag insights-card__tag--update">Market Update</span>
+            <h3 class="insights-card__title">Pearland Market Update</h3>
+            <p class="insights-card__excerpt">Median $380K — and why nearly half of listings didn't sell. June 2026.</p>
+            <span class="insights-card__cta">Read →</span>
+          </div>
+        </a>
+
+        <a class="insights-card" href="clear-lake-market-update-june-2026.html">
+          <div class="insights-card__img"><img loading="lazy" src="images/clear-lake-market-update-june-2026.jpg" alt="Clear Lake housing market update, June 2026" /></div>
+          <div class="insights-card__body">
+            <span class="insights-card__tag insights-card__tag--update">Market Update</span>
+            <h3 class="insights-card__title">Clear Lake Market Update</h3>
+            <p class="insights-card__excerpt">The tightest inventory in the area — about 3 months' supply. June 2026.</p>
+            <span class="insights-card__cta">Read →</span>
+          </div>
+        </a>
+
+        <a class="insights-card" href="dickinson-market-update-june-2026.html">
+          <div class="insights-card__img"><img loading="lazy" src="images/dickinson-market-update-june-2026.jpg" alt="Dickinson housing market update, June 2026" /></div>
+          <div class="insights-card__body">
+            <span class="insights-card__tag insights-card__tag--update">Market Update</span>
+            <h3 class="insights-card__title">Dickinson Market Update</h3>
+            <p class="insights-card__excerpt">The Bay Area's most affordable market, under $295K. June 2026.</p>
+            <span class="insights-card__cta">Read →</span>
+          </div>
+        </a>
+
+        <a class="insights-card" href="manvel-market-update-june-2026.html">
+          <div class="insights-card__img"><img loading="lazy" src="images/manvel-market-update-june-2026.jpg" alt="Manvel housing market update, June 2026" /></div>
+          <div class="insights-card__body">
+            <span class="insights-card__tag insights-card__tag--update">Market Update</span>
+            <h3 class="insights-card__title">Manvel Market Update</h3>
+            <p class="insights-card__excerpt">739 new-construction homes sold — the hottest new-build market. June 2026.</p>
+            <span class="insights-card__cta">Read →</span>
+          </div>
+        </a>
+
+        <a class="insights-card" href="compare-ccisd-vs-alvin-isd.html">
+          <div class="insights-card__img"><img loading="lazy" src="images/compare-ccisd-vs-alvin-isd.jpg" alt="CCISD vs Alvin ISD comparison" /></div>
+          <div class="insights-card__body">
+            <span class="insights-card__tag insights-card__tag--compare">Compare</span>
+            <h3 class="insights-card__title">CCISD vs Alvin ISD</h3>
+            <p class="insights-card__excerpt">Two of the area's top school districts, compared side by side.</p>
+            <span class="insights-card__cta">Read →</span>
+          </div>
+        </a>
+
+        <a class="insights-card" href="compare-league-city-vs-friendswood.html">
+          <div class="insights-card__img"><img loading="lazy" src="images/compare-league-city-vs-friendswood.jpg" alt="League City vs Friendswood comparison" /></div>
+          <div class="insights-card__body">
+            <span class="insights-card__tag insights-card__tag--compare">Compare</span>
+            <h3 class="insights-card__title">League City vs Friendswood</h3>
+            <p class="insights-card__excerpt">Two great Bay Area towns, side by side — which one fits you?</p>
+            <span class="insights-card__cta">Read →</span>
+          </div>
+        </a>
+
+        <a class="insights-card" href="compare-league-city-master-planned.html">
+          <div class="insights-card__img"><img loading="lazy" src="images/compare-league-city-master-planned.jpg" alt="League City master-planned communities compared" /></div>
+          <div class="insights-card__body">
+            <span class="insights-card__tag insights-card__tag--compare">Compare</span>
+            <h3 class="insights-card__title">League City Master-Planned</h3>
+            <p class="insights-card__excerpt">Tuscan Lakes, Mar Bella &amp; more — find the community that fits.</p>
+            <span class="insights-card__cta">Read →</span>
+          </div>
+        </a>
+
+        <a class="insights-card" href="compare-meridiana-vs-pomona.html">
+          <div class="insights-card__img"><img loading="lazy" src="images/compare-meridiana-vs-pomona.jpg" alt="Meridiana vs Pomona comparison" /></div>
+          <div class="insights-card__body">
+            <span class="insights-card__tag insights-card__tag--compare">Compare</span>
+            <h3 class="insights-card__title">Meridiana vs Pomona</h3>
+            <p class="insights-card__excerpt">Manvel's two master-planned heavyweights, head to head.</p>
+            <span class="insights-card__cta">Read →</span>
+          </div>
+        </a>
+
+      </div>
+      <div class="insights-section__more">
+        <a href="market-insights.html" class="btn btn--primary btn--lg">See All Market Insights →</a>
       </div>
     </div>
   </section>
