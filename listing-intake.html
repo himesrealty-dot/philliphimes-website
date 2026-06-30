@@ -49,6 +49,15 @@
     .li-success__icon { width: 72px; height: 72px; margin: 0 auto 1rem; border-radius: 50%; background: #e8f6ec; color: #1e9e54; display: flex; align-items: center; justify-content: center; font-size: 2.4rem; }
     .li-success__title { font-family: var(--font-heading); font-weight: 900; color: var(--navy); font-size: 1.6rem; margin-bottom: 0.6rem; }
     .li-success__body { font-size: 0.95rem; color: var(--dark-gray, #5a6573); line-height: 1.7; margin-bottom: 1.5rem; }
+    .li-coowners { margin-top: 1.25rem; padding-top: 1.25rem; border-top: 1px dashed var(--light-gray, #e4eaf0); }
+    .li-coowners__intro { font-size: 0.86rem; color: var(--dark-gray, #5a6573); line-height: 1.6; margin-bottom: 1rem; }
+    .li-coowner { background: #f7f9fb; border: 1px solid var(--light-gray, #e4eaf0); border-radius: 12px; padding: 1.1rem 1.1rem 1.25rem; margin-bottom: 0.9rem; }
+    .li-coowner__head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem; }
+    .li-coowner__title { font-family: var(--font-heading); font-weight: 800; font-size: 0.85rem; color: var(--navy); letter-spacing: 0.03em; }
+    .li-coowner__remove { background: none; border: none; cursor: pointer; font-size: 0.78rem; font-weight: 700; color: #c0392b; padding: 0.2rem 0.5rem; border-radius: 6px; transition: background 0.15s; }
+    .li-coowner__remove:hover { background: rgba(192,57,43,0.08); }
+    .li-add-coowner { display: inline-flex; align-items: center; gap: 0.4rem; background: #fff; border: 1.5px dashed var(--navy); color: var(--navy); font-family: var(--font-heading); font-weight: 800; font-size: 0.86rem; padding: 0.65rem 1.3rem; border-radius: var(--radius-full, 9999px); cursor: pointer; transition: background 0.18s, color 0.18s; }
+    .li-add-coowner:hover { background: var(--navy); color: #fff; }
   </style>
 </head>
 <body>
@@ -138,9 +147,54 @@
             <div><label class="li-label">Best Phone <span class="li-req">*</span></label><input class="li-input" type="tel" name="seller_phone" required /></div>
             <div><label class="li-label">Email <span class="li-req">*</span></label><input class="li-input" type="email" name="seller_email" required /></div>
             <div><label class="li-label">Best Time to Reach You</label><input class="li-input" type="text" name="best_time" placeholder="e.g., Weekday evenings" /></div>
-            <div><label class="li-label">Are there other owners on title?</label>
-              <select class="li-select" name="co_owners"><option value="">Select…</option><option>No, I'm the sole owner</option><option>Yes, there are co-owners</option></select></div>
-            <div><label class="li-label">Co-Owner Name(s)</label><input class="li-input" type="text" name="co_owner_names" placeholder="If applicable" /></div>
+          </div>
+
+          <!-- Co-owners (repeatable) -->
+          <div class="li-coowners">
+            <p class="li-coowners__intro">More than one owner on title? Add each additional owner — I'll need each person's full name, phone, and email for the listing paperwork.</p>
+            <div id="coowner-list">
+              <div class="li-coowner" style="display:none;">
+                <div class="li-coowner__head"><span class="li-coowner__title">Co-Owner 1</span><button type="button" class="li-coowner__remove">✕ Remove</button></div>
+                <div class="li-grid li-grid--3">
+                  <div><label class="li-label">Full Name</label><input class="li-input" type="text" name="co_owner_1_name" disabled /></div>
+                  <div><label class="li-label">Phone</label><input class="li-input" type="tel" name="co_owner_1_phone" disabled /></div>
+                  <div><label class="li-label">Email</label><input class="li-input" type="email" name="co_owner_1_email" disabled /></div>
+                </div>
+              </div>
+              <div class="li-coowner" style="display:none;">
+                <div class="li-coowner__head"><span class="li-coowner__title">Co-Owner 2</span><button type="button" class="li-coowner__remove">✕ Remove</button></div>
+                <div class="li-grid li-grid--3">
+                  <div><label class="li-label">Full Name</label><input class="li-input" type="text" name="co_owner_2_name" disabled /></div>
+                  <div><label class="li-label">Phone</label><input class="li-input" type="tel" name="co_owner_2_phone" disabled /></div>
+                  <div><label class="li-label">Email</label><input class="li-input" type="email" name="co_owner_2_email" disabled /></div>
+                </div>
+              </div>
+              <div class="li-coowner" style="display:none;">
+                <div class="li-coowner__head"><span class="li-coowner__title">Co-Owner 3</span><button type="button" class="li-coowner__remove">✕ Remove</button></div>
+                <div class="li-grid li-grid--3">
+                  <div><label class="li-label">Full Name</label><input class="li-input" type="text" name="co_owner_3_name" disabled /></div>
+                  <div><label class="li-label">Phone</label><input class="li-input" type="tel" name="co_owner_3_phone" disabled /></div>
+                  <div><label class="li-label">Email</label><input class="li-input" type="email" name="co_owner_3_email" disabled /></div>
+                </div>
+              </div>
+              <div class="li-coowner" style="display:none;">
+                <div class="li-coowner__head"><span class="li-coowner__title">Co-Owner 4</span><button type="button" class="li-coowner__remove">✕ Remove</button></div>
+                <div class="li-grid li-grid--3">
+                  <div><label class="li-label">Full Name</label><input class="li-input" type="text" name="co_owner_4_name" disabled /></div>
+                  <div><label class="li-label">Phone</label><input class="li-input" type="tel" name="co_owner_4_phone" disabled /></div>
+                  <div><label class="li-label">Email</label><input class="li-input" type="email" name="co_owner_4_email" disabled /></div>
+                </div>
+              </div>
+              <div class="li-coowner" style="display:none;">
+                <div class="li-coowner__head"><span class="li-coowner__title">Co-Owner 5</span><button type="button" class="li-coowner__remove">✕ Remove</button></div>
+                <div class="li-grid li-grid--3">
+                  <div><label class="li-label">Full Name</label><input class="li-input" type="text" name="co_owner_5_name" disabled /></div>
+                  <div><label class="li-label">Phone</label><input class="li-input" type="tel" name="co_owner_5_phone" disabled /></div>
+                  <div><label class="li-label">Email</label><input class="li-input" type="email" name="co_owner_5_email" disabled /></div>
+                </div>
+              </div>
+            </div>
+            <button type="button" class="li-add-coowner" id="add-coowner">+ Add Co-Owner</button>
           </div>
         </div>
 
@@ -354,6 +408,48 @@
         }).catch(function () {
           if (btn) { btn.textContent = orig; btn.disabled = false; }
           alert('Something went wrong submitting the form. Please call or text Phil at (832) 536-1016, or email phil@philliphimes.com and we’ll take it from there.');
+        });
+      });
+    })();
+
+    // Repeatable co-owner fields — reveal pre-built (Netlify-registered) slots on demand.
+    (function () {
+      var addBtn = document.getElementById('add-coowner');
+      var blocks = Array.prototype.slice.call(document.querySelectorAll('#coowner-list .li-coowner'));
+      if (!addBtn || !blocks.length) return;
+
+      function nextHidden() {
+        for (var i = 0; i < blocks.length; i++) {
+          if (blocks[i].style.display === 'none') return blocks[i];
+        }
+        return null;
+      }
+      function setEnabled(block, on) {
+        Array.prototype.slice.call(block.querySelectorAll('input')).forEach(function (inp) {
+          inp.disabled = !on;
+          if (!on) inp.value = '';
+        });
+      }
+      function refreshAddBtn() {
+        addBtn.style.display = nextHidden() ? '' : 'none';
+      }
+
+      addBtn.addEventListener('click', function () {
+        var b = nextHidden();
+        if (!b) return;
+        b.style.display = '';
+        setEnabled(b, true);
+        refreshAddBtn();
+        var first = b.querySelector('input');
+        if (first) first.focus();
+      });
+
+      blocks.forEach(function (b) {
+        var rm = b.querySelector('.li-coowner__remove');
+        if (rm) rm.addEventListener('click', function () {
+          b.style.display = 'none';
+          setEnabled(b, false);
+          refreshAddBtn();
         });
       });
     })();
