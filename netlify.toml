@@ -5,6 +5,12 @@
   force = true
 
 [[redirects]]
+  from = "/primequity.html"
+  to = "/relifeiq.html"
+  status = 301
+  force = true
+
+[[redirects]]
   from = "/thank-you"
   to = "/index.html"
   status = 301
