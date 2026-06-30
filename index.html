@@ -647,7 +647,8 @@
     .insights-section__eyebrow { font-family: var(--font-heading); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--teal); margin-bottom: 0.6rem; display: block; }
     .insights-section__title { font-family: var(--font-heading); font-weight: 900; font-size: clamp(1.6rem, 3.5vw, 2.2rem); color: var(--navy); line-height: 1.15; margin-bottom: 0.6rem; }
     .insights-section__sub { font-size: 0.95rem; color: var(--dark-gray); line-height: 1.6; max-width: 600px; margin: 0 auto; }
-    .insights-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.5rem; }
+    .insights-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+    @media (max-width: 900px) { .insights-grid { grid-template-columns: repeat(2, 1fr); } }
     .insights-card { display: flex; flex-direction: column; background: #fff; border: 1px solid #e4eaf0; border-radius: var(--radius-lg, 14px); overflow: hidden; text-decoration: none; transition: transform 0.22s, box-shadow 0.22s, border-color 0.22s; }
     .insights-card:hover { transform: translateY(-5px); box-shadow: 0 16px 40px rgba(0,0,0,0.1); border-color: rgba(32,137,160,0.3); }
     .insights-card__img { aspect-ratio: 16 / 10; overflow: hidden; background: #f0f4f7; }
@@ -831,123 +832,6 @@
     </div>
   </section>
 
-  <!-- ── LATEST INSIGHTS ──────────────────────────────── -->
-  <section class="insights-section" aria-labelledby="insights-heading">
-    <div class="container">
-      <div class="insights-section__header">
-        <span class="insights-section__eyebrow">Local Market Intelligence</span>
-        <h2 class="insights-section__title" id="insights-heading">The Latest Market Insights</h2>
-        <p class="insights-section__sub">Real numbers and neighborhood breakdowns from someone who works these markets every day — updated monthly.</p>
-      </div>
-      <div class="insights-grid">
-
-        <a class="insights-card" href="league-city-market-update-june-2026.html">
-          <div class="insights-card__img"><img loading="lazy" src="images/league-city-market-update-june-2026.jpg" alt="League City housing market update, June 2026" /></div>
-          <div class="insights-card__body">
-            <span class="insights-card__tag insights-card__tag--update">Market Update</span>
-            <h3 class="insights-card__title">League City Market Update</h3>
-            <p class="insights-card__excerpt">Median $415K and homes selling in 26 days — the full June 2026 breakdown.</p>
-            <span class="insights-card__cta">Read →</span>
-          </div>
-        </a>
-
-        <a class="insights-card" href="friendswood-market-update-june-2026.html">
-          <div class="insights-card__img"><img loading="lazy" src="images/friendswood-market-update-june-2026.jpg" alt="Friendswood housing market update, June 2026" /></div>
-          <div class="insights-card__body">
-            <span class="insights-card__tag insights-card__tag--update">Market Update</span>
-            <h3 class="insights-card__title">Friendswood Market Update</h3>
-            <p class="insights-card__excerpt">The fastest-selling market in the Bay Area — just 20 days. June 2026.</p>
-            <span class="insights-card__cta">Read →</span>
-          </div>
-        </a>
-
-        <a class="insights-card" href="pearland-market-update-june-2026.html">
-          <div class="insights-card__img"><img loading="lazy" src="images/pearland-market-update-june-2026.jpg" alt="Pearland housing market update, June 2026" /></div>
-          <div class="insights-card__body">
-            <span class="insights-card__tag insights-card__tag--update">Market Update</span>
-            <h3 class="insights-card__title">Pearland Market Update</h3>
-            <p class="insights-card__excerpt">Median $380K — and why nearly half of listings didn't sell. June 2026.</p>
-            <span class="insights-card__cta">Read →</span>
-          </div>
-        </a>
-
-        <a class="insights-card" href="clear-lake-market-update-june-2026.html">
-          <div class="insights-card__img"><img loading="lazy" src="images/clear-lake-market-update-june-2026.jpg" alt="Clear Lake housing market update, June 2026" /></div>
-          <div class="insights-card__body">
-            <span class="insights-card__tag insights-card__tag--update">Market Update</span>
-            <h3 class="insights-card__title">Clear Lake Market Update</h3>
-            <p class="insights-card__excerpt">The tightest inventory in the area — about 3 months' supply. June 2026.</p>
-            <span class="insights-card__cta">Read →</span>
-          </div>
-        </a>
-
-        <a class="insights-card" href="dickinson-market-update-june-2026.html">
-          <div class="insights-card__img"><img loading="lazy" src="images/dickinson-market-update-june-2026.jpg" alt="Dickinson housing market update, June 2026" /></div>
-          <div class="insights-card__body">
-            <span class="insights-card__tag insights-card__tag--update">Market Update</span>
-            <h3 class="insights-card__title">Dickinson Market Update</h3>
-            <p class="insights-card__excerpt">The Bay Area's most affordable market, under $295K. June 2026.</p>
-            <span class="insights-card__cta">Read →</span>
-          </div>
-        </a>
-
-        <a class="insights-card" href="manvel-market-update-june-2026.html">
-          <div class="insights-card__img"><img loading="lazy" src="images/manvel-market-update-june-2026.jpg" alt="Manvel housing market update, June 2026" /></div>
-          <div class="insights-card__body">
-            <span class="insights-card__tag insights-card__tag--update">Market Update</span>
-            <h3 class="insights-card__title">Manvel Market Update</h3>
-            <p class="insights-card__excerpt">739 new-construction homes sold — the hottest new-build market. June 2026.</p>
-            <span class="insights-card__cta">Read →</span>
-          </div>
-        </a>
-
-        <a class="insights-card" href="compare-ccisd-vs-alvin-isd.html">
-          <div class="insights-card__img"><img loading="lazy" src="images/compare-ccisd-vs-alvin-isd.jpg" alt="CCISD vs Alvin ISD comparison" /></div>
-          <div class="insights-card__body">
-            <span class="insights-card__tag insights-card__tag--compare">Compare</span>
-            <h3 class="insights-card__title">CCISD vs Alvin ISD</h3>
-            <p class="insights-card__excerpt">Two of the area's top school districts, compared side by side.</p>
-            <span class="insights-card__cta">Read →</span>
-          </div>
-        </a>
-
-        <a class="insights-card" href="compare-league-city-vs-friendswood.html">
-          <div class="insights-card__img"><img loading="lazy" src="images/compare-league-city-vs-friendswood.jpg" alt="League City vs Friendswood comparison" /></div>
-          <div class="insights-card__body">
-            <span class="insights-card__tag insights-card__tag--compare">Compare</span>
-            <h3 class="insights-card__title">League City vs Friendswood</h3>
-            <p class="insights-card__excerpt">Two great Bay Area towns, side by side — which one fits you?</p>
-            <span class="insights-card__cta">Read →</span>
-          </div>
-        </a>
-
-        <a class="insights-card" href="compare-league-city-master-planned.html">
-          <div class="insights-card__img"><img loading="lazy" src="images/compare-league-city-master-planned.jpg" alt="League City master-planned communities compared" /></div>
-          <div class="insights-card__body">
-            <span class="insights-card__tag insights-card__tag--compare">Compare</span>
-            <h3 class="insights-card__title">League City Master-Planned</h3>
-            <p class="insights-card__excerpt">Tuscan Lakes, Mar Bella &amp; more — find the community that fits.</p>
-            <span class="insights-card__cta">Read →</span>
-          </div>
-        </a>
-
-        <a class="insights-card" href="compare-meridiana-vs-pomona.html">
-          <div class="insights-card__img"><img loading="lazy" src="images/compare-meridiana-vs-pomona.jpg" alt="Meridiana vs Pomona comparison" /></div>
-          <div class="insights-card__body">
-            <span class="insights-card__tag insights-card__tag--compare">Compare</span>
-            <h3 class="insights-card__title">Meridiana vs Pomona</h3>
-            <p class="insights-card__excerpt">Manvel's two master-planned heavyweights, head to head.</p>
-            <span class="insights-card__cta">Read →</span>
-          </div>
-        </a>
-
-      </div>
-      <div class="insights-section__more">
-        <a href="market-insights.html" class="btn btn--primary btn--lg">See All Market Insights →</a>
-      </div>
-    </div>
-  </section>
-
   <!-- ── STATS BAR ────────────────────────────────────── -->
   <div class="stats-bar" aria-label="Credibility statistics">
     <div class="container">
@@ -1026,23 +910,59 @@
     </div>
   </section>
 
-  <!-- ── FEATURED TESTIMONIAL ─────────────────────────────── -->
-  <section class="featured-testimonial" aria-labelledby="testimonial-heading">
+  <!-- ── LATEST INSIGHTS ──────────────────────────────── -->
+  <section class="insights-section" aria-labelledby="insights-heading">
     <div class="container">
-      <div class="featured-testimonial__inner">
-        <span class="featured-testimonial__label">Client Story</span>
-        <div class="featured-testimonial__quote-mark" aria-hidden="true">"</div>
-        <blockquote class="featured-testimonial__quote" id="testimonial-heading">
-          After living in our home for 17 years, we decided it was time to start the next journey of our lives. With lots of mixed emotions about selling the home we raised our children in, Phil helped us make the leap. He priced our home perfectly and we received two full-price offers the first weekend. Then he spent weeks helping us find our forever home — always willing to spend hours, days, weeks with us. Phil is like having your best friend with a lot of knowledge by your side 24/7.
-        </blockquote>
-        <div class="featured-testimonial__author">
-          <div class="featured-testimonial__avatar" aria-hidden="true">MC</div>
-          <div>
-            <div class="featured-testimonial__name">Michael &amp; Cheryl Flores</div>
-            <div class="featured-testimonial__context">Sold in Bacliff · Bought Their Forever Home · 17 years of memories — and a perfect next chapter</div>
+      <div class="insights-section__header">
+        <span class="insights-section__eyebrow">Houston Bay Area · Updated Monthly</span>
+        <h2 class="insights-section__title" id="insights-heading">League City &amp; Houston Bay Area Real Estate Market Updates</h2>
+        <p class="insights-section__sub">Monthly housing-market reports for League City, Friendswood, Pearland, Clear Lake, Dickinson, and Manvel — real local data from a REALTOR® who works these markets every day.</p>
+      </div>
+      <div class="insights-grid">
+
+        <a class="insights-card" href="league-city-market-update-june-2026.html">
+          <div class="insights-card__img"><img loading="lazy" src="images/league-city-market-update-june-2026.jpg" alt="League City housing market update, June 2026" /></div>
+          <div class="insights-card__body">
+            <span class="insights-card__tag insights-card__tag--update">Market Update</span>
+            <h3 class="insights-card__title">League City Market Update</h3>
+            <p class="insights-card__excerpt">Median $415K and homes selling in 26 days — the full June 2026 breakdown.</p>
+            <span class="insights-card__cta">Read →</span>
           </div>
-        </div>
-        <a href="selleriq.html" class="featured-testimonial__cta">See What Your Equity Can Do →</a>
+        </a>
+
+        <a class="insights-card" href="friendswood-market-update-june-2026.html">
+          <div class="insights-card__img"><img loading="lazy" src="images/friendswood-market-update-june-2026.jpg" alt="Friendswood housing market update, June 2026" /></div>
+          <div class="insights-card__body">
+            <span class="insights-card__tag insights-card__tag--update">Market Update</span>
+            <h3 class="insights-card__title">Friendswood Market Update</h3>
+            <p class="insights-card__excerpt">The fastest-selling market in the Bay Area — just 20 days. June 2026.</p>
+            <span class="insights-card__cta">Read →</span>
+          </div>
+        </a>
+
+        <a class="insights-card" href="pearland-market-update-june-2026.html">
+          <div class="insights-card__img"><img loading="lazy" src="images/pearland-market-update-june-2026.jpg" alt="Pearland housing market update, June 2026" /></div>
+          <div class="insights-card__body">
+            <span class="insights-card__tag insights-card__tag--update">Market Update</span>
+            <h3 class="insights-card__title">Pearland Market Update</h3>
+            <p class="insights-card__excerpt">Median $380K — and why nearly half of listings didn't sell. June 2026.</p>
+            <span class="insights-card__cta">Read →</span>
+          </div>
+        </a>
+
+        <a class="insights-card" href="clear-lake-market-update-june-2026.html">
+          <div class="insights-card__img"><img loading="lazy" src="images/clear-lake-market-update-june-2026.jpg" alt="Clear Lake housing market update, June 2026" /></div>
+          <div class="insights-card__body">
+            <span class="insights-card__tag insights-card__tag--update">Market Update</span>
+            <h3 class="insights-card__title">Clear Lake Market Update</h3>
+            <p class="insights-card__excerpt">The tightest inventory in the area — about 3 months' supply. June 2026.</p>
+            <span class="insights-card__cta">Read →</span>
+          </div>
+        </a>
+
+      </div>
+      <div class="insights-section__more">
+        <a href="market-insights.html" class="btn btn--primary btn--lg">See All Market Insights →</a>
       </div>
     </div>
   </section>
@@ -1178,6 +1098,27 @@
       </div>
     </div>
   </div>
+
+  <!-- ── FEATURED TESTIMONIAL ─────────────────────────────── -->
+  <section class="featured-testimonial" aria-labelledby="testimonial-heading">
+    <div class="container">
+      <div class="featured-testimonial__inner">
+        <span class="featured-testimonial__label">Client Story</span>
+        <div class="featured-testimonial__quote-mark" aria-hidden="true">"</div>
+        <blockquote class="featured-testimonial__quote" id="testimonial-heading">
+          After living in our home for 17 years, we decided it was time to start the next journey of our lives. With lots of mixed emotions about selling the home we raised our children in, Phil helped us make the leap. He priced our home perfectly and we received two full-price offers the first weekend. Then he spent weeks helping us find our forever home — always willing to spend hours, days, weeks with us. Phil is like having your best friend with a lot of knowledge by your side 24/7.
+        </blockquote>
+        <div class="featured-testimonial__author">
+          <div class="featured-testimonial__avatar" aria-hidden="true">MC</div>
+          <div>
+            <div class="featured-testimonial__name">Michael &amp; Cheryl Flores</div>
+            <div class="featured-testimonial__context">Sold in Bacliff · Bought Their Forever Home · 17 years of memories — and a perfect next chapter</div>
+          </div>
+        </div>
+        <a href="selleriq.html" class="featured-testimonial__cta">See What Your Equity Can Do →</a>
+      </div>
+    </div>
+  </section>
 
   <!-- ── FOOTER ─────────────────────────────────────────── -->
   <footer class="footer" role="contentinfo">
