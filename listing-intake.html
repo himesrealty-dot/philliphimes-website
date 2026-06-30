@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Seller Listing Intake | Phillip Himes, REALTOR®</title>
+  <meta name="description" content="Getting ready to list? Complete Phil Himes' seller intake so we can prep your home for market — property details, recent updates, what's included, and your timeline." />
+  <meta name="author" content="Phillip Himes | Brokered by eXp Realty" />
+  <link rel="canonical" href="https://philliphimes.com/listing-intake.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Seller Listing Intake | Phillip Himes, REALTOR®" />
+  <meta property="og:description" content="Getting ready to list? Complete Phil Himes' seller intake so we can prep your home for market — property details, recent updates, what's included, and your timeline." />
+  <meta property="og:url" content="https://philliphimes.com/listing-intake.html" />
+  <meta property="og:image" content="https://philliphimes.com/images/logo.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+  <style>
+    .li-hero { background: linear-gradient(135deg, #0a1c2e 0%, #1b3a5c 100%); padding: 3.5rem 0 3rem; }
+    .li-hero__eyebrow { font-family: var(--font-heading); font-size: 0.72rem; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.6rem; }
+    .li-hero__title { font-family: var(--font-heading); font-weight: 900; font-size: clamp(1.8rem, 4vw, 2.6rem); color: #fff; line-height: 1.12; margin-bottom: 0.85rem; }
+    .li-hero__sub { font-size: 1rem; color: rgba(255,255,255,0.75); line-height: 1.7; max-width: 640px; }
+    .li-main { background: var(--off-white, #f9f7f4); padding: 3rem 0 4rem; }
+    .li-form-wrap { max-width: 860px; margin: 0 auto; background: #fff; border-radius: var(--radius-xl, 20px); box-shadow: var(--shadow-md, 0 10px 40px rgba(0,0,0,0.08)); padding: 2.5rem clamp(1.25rem, 4vw, 2.75rem); }
+    .li-intro { font-size: 0.92rem; color: var(--dark-gray, #5a6573); line-height: 1.7; margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--light-gray, #e4eaf0); }
+    .li-section { margin-bottom: 2.25rem; }
+    .li-section__title { font-family: var(--font-heading); font-weight: 900; font-size: 1.15rem; color: var(--navy); margin-bottom: 0.35rem; display: flex; align-items: center; gap: 0.5rem; }
+    .li-section__num { display: inline-flex; align-items: center; justify-content: center; width: 26px; height: 26px; border-radius: 50%; background: var(--gold); color: var(--navy); font-size: 0.8rem; font-weight: 800; flex-shrink: 0; }
+    .li-section__hint { font-size: 0.84rem; color: #8a93a0; margin: 0 0 1.1rem 2.1rem; }
+    .li-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem 1.25rem; }
+    .li-grid--3 { grid-template-columns: 1fr 1fr 1fr; }
+    .li-grid .span-2 { grid-column: 1 / -1; }
+    @media (max-width: 640px) { .li-grid, .li-grid--3 { grid-template-columns: 1fr; } }
+    .li-label { display: block; font-family: var(--font-heading); font-size: 0.74rem; font-weight: 700; letter-spacing: 0.03em; text-transform: uppercase; color: var(--navy); margin-bottom: 0.35rem; }
+    .li-input, .li-select, .li-textarea { width: 100%; padding: 0.7rem 0.9rem; border: 1.5px solid var(--light-gray, #d9dee4); border-radius: 10px; font-family: var(--font-body, sans-serif); font-size: 0.95rem; outline: none; transition: border-color 0.2s; box-sizing: border-box; background: #fff; }
+    .li-input:focus, .li-select:focus, .li-textarea:focus { border-color: var(--gold); }
+    .li-textarea { min-height: 90px; resize: vertical; }
+    .li-checks { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem 1rem; margin-top: 0.25rem; }
+    @media (max-width: 640px) { .li-checks { grid-template-columns: 1fr 1fr; } }
+    .li-check { display: flex; align-items: center; gap: 0.5rem; font-size: 0.88rem; color: var(--dark-gray, #444); cursor: pointer; }
+    .li-check input { width: 16px; height: 16px; flex-shrink: 0; accent-color: var(--navy); }
+    .li-req { color: #c0392b; }
+    .li-submit { width: 100%; padding: 1rem 1.25rem; border: none; cursor: pointer; border-radius: var(--radius-full, 9999px); background: var(--gold); color: var(--navy); font-family: var(--font-heading); font-weight: 800; font-size: 1rem; letter-spacing: 0.03em; transition: background 0.2s, transform 0.2s; margin-top: 0.5rem; }
+    .li-submit:hover { background: #d4b86a; transform: translateY(-1px); }
+    .li-submit:disabled { opacity: 0.6; cursor: default; transform: none; }
+    .li-note { font-size: 0.78rem; color: #9aa3ad; text-align: center; margin-top: 0.9rem; line-height: 1.6; }
+    .li-success { display: none; max-width: 680px; margin: 0 auto; background: #fff; border-radius: var(--radius-xl, 20px); box-shadow: var(--shadow-md, 0 10px 40px rgba(0,0,0,0.08)); padding: 3rem 2rem; text-align: center; }
+    .li-success__icon { width: 72px; height: 72px; margin: 0 auto 1rem; border-radius: 50%; background: #e8f6ec; color: #1e9e54; display: flex; align-items: center; justify-content: center; font-size: 2.4rem; }
+    .li-success__title { font-family: var(--font-heading); font-weight: 900; color: var(--navy); font-size: 1.6rem; margin-bottom: 0.6rem; }
+    .li-success__body { font-size: 0.95rem; color: var(--dark-gray, #5a6573); line-height: 1.7; margin-bottom: 1.5rem; }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAVIGATION ──────────────────────────────────── -->
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo" aria-label="Phillip Himes Real Estate Home">
+        <img loading="lazy" src="images/logo.png" alt="Phillip Himes | Brokered by eXp Realty" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+        <span class="nav__logo-text" style="display:none;">
+          <span class="nav__logo-name">Phillip Himes</span>
+          <span class="nav__logo-brokerage">Brokered by eXp Realty</span>
+        </span>
+      </a>
+      <ul class="nav__links" id="nav-links">
+        <li><a href="buyers.html" class="nav__link">Buying</a></li>
+        <li><a href="sellers.html" class="nav__link">Selling</a></li>
+        <li><a href="search.html" class="nav__link">Search</a></li>
+        <li class="nav__item nav__item--dropdown">
+          <a href="cities.html" class="nav__link">Cities</a>
+          <ul class="nav__dropdown" aria-label="Cities submenu">
+            <li><a href="league-city.html">League City</a></li>
+            <li><a href="friendswood.html">Friendswood</a></li>
+            <li><a href="pearland.html">Pearland</a></li>
+            <li><a href="clear-lake.html">Clear Lake</a></li>
+            <li><a href="dickinson.html">Dickinson</a></li>
+            <li><a href="manvel.html">Manvel</a></li>
+          </ul>
+        </li>
+        <li class="nav__item nav__item--dropdown">
+          <a href="marketiq.html" class="nav__link">Tools</a>
+          <ul class="nav__dropdown" aria-label="Tools submenu">
+            <li><a href="buyeriq.html">BuyerIQ&#8482; &#8212; Buyer's Edge</a></li>
+            <li><a href="selleriq.html">SellerIQ&#8482; &#8212; Seller's Edge</a></li>
+            <li><a href="marketiq.html">MarketIQ&#8482; &#8212; Property Intelligence</a></li>
+            <li><a href="market-insights.html">Market Insights</a></li>
+          </ul>
+        </li>
+        <li><a href="about.html" class="nav__link">My Story</a></li>
+        <li><a href="contact.html" class="nav__link">Ask Phil</a></li>
+        <li class="nav__mobile-cta" style="display:none;">
+          <a href="tel:8325361016" class="btn btn--secondary" style="width:100%;margin-top:var(--space-md);">📞 (832) 536-1016</a>
+          <a href="contact.html?topic=trumarket" class="btn btn--primary" style="width:100%;margin-top:var(--space-sm);">Get Home Value</a>
+        </li>
+      </ul>
+      <div class="nav__cta">
+        <a href="tel:8325361016" class="nav__phone">📞 (832) 536-1016</a>
+        <a href="contact.html?topic=trumarket" class="btn btn--primary btn--sm">Get Home Value</a>
+      </div>
+      <button class="nav__hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ── HERO ────────────────────────────────────────── -->
+  <section class="li-hero">
+    <div class="container">
+      <p class="li-hero__eyebrow">Seller Listing Intake</p>
+      <h1 class="li-hero__title">Let's get your home ready to list.</h1>
+      <p class="li-hero__sub">
+        The more I know about your home, the better I can price it, market it, and get it sold. This takes about 10 minutes —
+        skip anything you're unsure of, and we'll fill in the rest together.
+      </p>
+    </div>
+  </section>
+
+  <!-- ── FORM ────────────────────────────────────────── -->
+  <section class="li-main">
+    <div class="container">
+
+      <form class="li-form-wrap" id="listing-form" name="listing-intake" method="POST"
+            data-netlify="true" netlify-honeypot="bot-field" action="/thank-you">
+        <input type="hidden" name="form-name" value="listing-intake" />
+        <p style="display:none;"><label>Don't fill this out: <input name="bot-field" /></label></p>
+
+        <p class="li-intro">
+          <strong>Note:</strong> This intake helps me prepare your listing and pricing — it is <em>not</em> a legal disclosure.
+          The official Seller's Disclosure is a separate form we'll complete together. Fields marked <span class="li-req">*</span> are required.
+        </p>
+
+        <!-- 1. YOUR INFORMATION -->
+        <div class="li-section">
+          <div class="li-section__title"><span class="li-section__num">1</span> Your Information</div>
+          <div class="li-grid">
+            <div><label class="li-label">Full Name <span class="li-req">*</span></label><input class="li-input" type="text" name="seller_name" required /></div>
+            <div><label class="li-label">Best Phone <span class="li-req">*</span></label><input class="li-input" type="tel" name="seller_phone" required /></div>
+            <div><label class="li-label">Email <span class="li-req">*</span></label><input class="li-input" type="email" name="seller_email" required /></div>
+            <div><label class="li-label">Best Time to Reach You</label><input class="li-input" type="text" name="best_time" placeholder="e.g., Weekday evenings" /></div>
+            <div><label class="li-label">Are there other owners on title?</label>
+              <select class="li-select" name="co_owners"><option value="">Select…</option><option>No, I'm the sole owner</option><option>Yes, there are co-owners</option></select></div>
+            <div><label class="li-label">Co-Owner Name(s)</label><input class="li-input" type="text" name="co_owner_names" placeholder="If applicable" /></div>
+          </div>
+        </div>
+
+        <!-- 2. PROPERTY BASICS -->
+        <div class="li-section">
+          <div class="li-section__title"><span class="li-section__num">2</span> Property Basics</div>
+          <div class="li-grid">
+            <div class="span-2"><label class="li-label">Property Address <span class="li-req">*</span></label><input class="li-input" type="text" name="property_address" placeholder="Street address" required /></div>
+            <div><label class="li-label">City <span class="li-req">*</span></label><input class="li-input" type="text" name="property_city" required /></div>
+            <div><label class="li-label">ZIP <span class="li-req">*</span></label><input class="li-input" type="text" name="property_zip" required /></div>
+            <div><label class="li-label">Subdivision / Community</label><input class="li-input" type="text" name="subdivision" /></div>
+            <div><label class="li-label">Property Type</label>
+              <select class="li-select" name="property_type"><option value="">Select…</option><option>Single-Family Detached</option><option>Patio Home</option><option>Townhome</option><option>Duplex</option><option>Other</option></select></div>
+            <div><label class="li-label">Bedrooms <span class="li-req">*</span></label><input class="li-input" type="number" name="bedrooms" min="0" required /></div>
+            <div><label class="li-label">Full Baths <span class="li-req">*</span></label><input class="li-input" type="number" name="full_baths" min="0" required /></div>
+            <div><label class="li-label">Half Baths</label><input class="li-input" type="number" name="half_baths" min="0" /></div>
+            <div><label class="li-label">Approx. Square Footage</label><input class="li-input" type="text" name="sqft" /></div>
+            <div><label class="li-label">Year Built</label><input class="li-input" type="text" name="year_built" /></div>
+            <div><label class="li-label">Stories</label>
+              <select class="li-select" name="stories"><option value="">Select…</option><option>1</option><option>2</option><option>3+</option></select></div>
+            <div><label class="li-label">Lot Size (approx.)</label><input class="li-input" type="text" name="lot_size" placeholder="e.g., 7,200 sqft or 0.25 acre" /></div>
+            <div><label class="li-label">Garage Spaces</label>
+              <select class="li-select" name="garage_spaces"><option value="">Select…</option><option>None</option><option>1</option><option>2</option><option>3+</option></select></div>
+            <div><label class="li-label">Garage Type</label>
+              <select class="li-select" name="garage_type"><option value="">Select…</option><option>Attached</option><option>Detached</option><option>Carport</option><option>None</option></select></div>
+            <div><label class="li-label">Current Occupancy</label>
+              <select class="li-select" name="occupancy"><option value="">Select…</option><option>Owner-occupied</option><option>Tenant-occupied</option><option>Vacant</option></select></div>
+            <div><label class="li-label">HOA?</label>
+              <select class="li-select" name="has_hoa"><option value="">Select…</option><option>No HOA</option><option>Yes</option><option>Not sure</option></select></div>
+            <div><label class="li-label">HOA Name</label><input class="li-input" type="text" name="hoa_name" placeholder="If applicable" /></div>
+            <div><label class="li-label">HOA Dues (approx.)</label><input class="li-input" type="text" name="hoa_dues" placeholder="e.g., $900/year" /></div>
+          </div>
+        </div>
+
+        <!-- 3. FEATURES & UPDATES -->
+        <div class="li-section">
+          <div class="li-section__title"><span class="li-section__num">3</span> Features &amp; Recent Updates</div>
+          <div class="li-grid">
+            <div><label class="li-label">Pool</label>
+              <select class="li-select" name="pool"><option value="">Select…</option><option>None</option><option>In-ground</option><option>Above-ground</option></select></div>
+            <div><label class="li-label">Spa / Hot Tub</label>
+              <select class="li-select" name="spa"><option value="">Select…</option><option>No</option><option>Yes</option></select></div>
+            <div><label class="li-label">Number of Fireplaces</label><input class="li-input" type="number" name="fireplaces" min="0" /></div>
+            <div><label class="li-label">Primary Bedroom Location</label>
+              <select class="li-select" name="primary_bed"><option value="">Select…</option><option>1st floor</option><option>2nd floor</option></select></div>
+            <div><label class="li-label">Roof — Age or Year Replaced</label><input class="li-input" type="text" name="roof_age" placeholder="e.g., 2019" /></div>
+            <div><label class="li-label">HVAC — Age or Year Replaced</label><input class="li-input" type="text" name="hvac_age" placeholder="e.g., 2021" /></div>
+          </div>
+          <div style="margin-top:1rem;">
+            <label class="li-label">Flooring Types (check all that apply)</label>
+            <div class="li-checks">
+              <label class="li-check"><input type="checkbox" name="flooring" value="Tile" /> Tile</label>
+              <label class="li-check"><input type="checkbox" name="flooring" value="Carpet" /> Carpet</label>
+              <label class="li-check"><input type="checkbox" name="flooring" value="Wood" /> Wood</label>
+              <label class="li-check"><input type="checkbox" name="flooring" value="Laminate / Vinyl Plank" /> Laminate / Vinyl Plank</label>
+              <label class="li-check"><input type="checkbox" name="flooring" value="Stone / Marble" /> Stone / Marble</label>
+              <label class="li-check"><input type="checkbox" name="flooring" value="Other" /> Other</label>
+            </div>
+          </div>
+          <div style="margin-top:1rem;">
+            <label class="li-label">Notable Features (check all that apply)</label>
+            <div class="li-checks">
+              <label class="li-check"><input type="checkbox" name="features" value="Updated Kitchen" /> Updated Kitchen</label>
+              <label class="li-check"><input type="checkbox" name="features" value="Granite/Quartz Counters" /> Granite/Quartz Counters</label>
+              <label class="li-check"><input type="checkbox" name="features" value="Stainless Appliances" /> Stainless Appliances</label>
+              <label class="li-check"><input type="checkbox" name="features" value="Smart Home Features" /> Smart Home</label>
+              <label class="li-check"><input type="checkbox" name="features" value="Solar Panels" /> Solar Panels</label>
+              <label class="li-check"><input type="checkbox" name="features" value="Generator" /> Generator</label>
+              <label class="li-check"><input type="checkbox" name="features" value="Sprinkler System" /> Sprinkler System</label>
+              <label class="li-check"><input type="checkbox" name="features" value="Covered Patio/Deck" /> Covered Patio/Deck</label>
+              <label class="li-check"><input type="checkbox" name="features" value="Outdoor Kitchen" /> Outdoor Kitchen</label>
+              <label class="li-check"><input type="checkbox" name="features" value="Waterfront" /> Waterfront</label>
+              <label class="li-check"><input type="checkbox" name="features" value="Greenbelt / No Back Neighbors" /> Greenbelt / No Back Neighbors</label>
+              <label class="li-check"><input type="checkbox" name="features" value="Cul-de-sac Lot" /> Cul-de-sac Lot</label>
+            </div>
+          </div>
+          <div style="margin-top:1rem;">
+            <label class="li-label">Recent Updates &amp; Upgrades (with approx. years)</label>
+            <textarea class="li-textarea" name="recent_updates" placeholder="e.g., Kitchen remodel 2022, new water heater 2023, fresh paint 2024, fence replaced 2021…"></textarea>
+          </div>
+        </div>
+
+        <!-- 4. WHAT'S INCLUDED -->
+        <div class="li-section">
+          <div class="li-section__title"><span class="li-section__num">4</span> What's Included &amp; Excluded</div>
+          <div>
+            <label class="li-label">Appliances That Will Stay (check all that apply)</label>
+            <div class="li-checks">
+              <label class="li-check"><input type="checkbox" name="appliances" value="Refrigerator" /> Refrigerator</label>
+              <label class="li-check"><input type="checkbox" name="appliances" value="Washer" /> Washer</label>
+              <label class="li-check"><input type="checkbox" name="appliances" value="Dryer" /> Dryer</label>
+              <label class="li-check"><input type="checkbox" name="appliances" value="Range / Oven" /> Range / Oven</label>
+              <label class="li-check"><input type="checkbox" name="appliances" value="Microwave" /> Microwave</label>
+              <label class="li-check"><input type="checkbox" name="appliances" value="Dishwasher" /> Dishwasher</label>
+            </div>
+          </div>
+          <div class="li-grid" style="margin-top:1rem;">
+            <div class="span-2"><label class="li-label">Other Items Included</label><input class="li-input" type="text" name="other_included" placeholder="e.g., mounted TVs, shelving, swing set" /></div>
+            <div class="span-2"><label class="li-label">Items You Plan to EXCLUDE / Take With You</label><input class="li-input" type="text" name="exclusions" placeholder="e.g., dining chandelier, garage shelving, patio furniture" /></div>
+          </div>
+          <div style="margin-top:1rem;">
+            <label class="li-label">Any Leased Items? (check all that apply)</label>
+            <div class="li-checks">
+              <label class="li-check"><input type="checkbox" name="leased" value="Solar Panels (leased)" /> Solar Panels</label>
+              <label class="li-check"><input type="checkbox" name="leased" value="Water Softener (leased)" /> Water Softener</label>
+              <label class="li-check"><input type="checkbox" name="leased" value="Security/Alarm (leased)" /> Security / Alarm</label>
+              <label class="li-check"><input type="checkbox" name="leased" value="Propane Tank (leased)" /> Propane Tank</label>
+              <label class="li-check"><input type="checkbox" name="leased" value="None" /> None</label>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5. SHOWING, TIMELINE & NOTES -->
+        <div class="li-section">
+          <div class="li-section__title"><span class="li-section__num">5</span> Showing, Timeline &amp; Notes</div>
+          <div class="li-grid">
+            <div><label class="li-label">Ideal Timeline to List <span class="li-req">*</span></label>
+              <select class="li-select" name="timeline" required><option value="">Select…</option><option>As soon as possible</option><option>Within 30 days</option><option>60–90 days</option><option>Just exploring for now</option></select></div>
+            <div><label class="li-label">Price Expectation (if any)</label><input class="li-input" type="text" name="price_expectation" placeholder="Optional" /></div>
+            <div><label class="li-label">Pets at the Property?</label><input class="li-input" type="text" name="pets" placeholder="e.g., 1 dog, crated for showings" /></div>
+            <div><label class="li-label">Reason for Selling</label><input class="li-input" type="text" name="reason" placeholder="Optional" /></div>
+            <div class="span-2"><label class="li-label">Showing / Access Notes</label><textarea class="li-textarea" name="showing_notes" placeholder="Gate codes, lockbox preferences, best showing times, anything to know for access…"></textarea></div>
+            <div class="span-2"><label class="li-label">Known Issues or Repairs Needed</label><textarea class="li-textarea" name="known_issues" placeholder="Anything currently not working or in need of repair (helps us plan ahead)…"></textarea></div>
+            <div class="span-2"><label class="li-label">Anything Else I Should Know?</label><textarea class="li-textarea" name="additional_notes"></textarea></div>
+          </div>
+        </div>
+
+        <button type="submit" class="li-submit">Submit My Listing Intake →</button>
+        <p class="li-note">Your information is sent securely to Phillip Himes and is never sold or shared. Questions? Call or text (832) 536-1016.</p>
+      </form>
+
+      <!-- SUCCESS -->
+      <div class="li-success" id="listing-success">
+        <div class="li-success__icon">✓</div>
+        <h2 class="li-success__title">Got it — thank you!</h2>
+        <p class="li-success__body">
+          Your listing intake is on its way to me. I'll review the details and reach out shortly to talk pricing,
+          timing, and next steps. If you need me sooner, call or text <strong>(832) 536-1016</strong>.
+        </p>
+        <a href="index.html" class="btn btn--primary">Back to Home</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── FOOTER ────────────────────────────────────────── -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <div class="footer__brand-name">Phillip Himes</div>
+          <div class="footer__brokerage">REALTOR® | Brokered by eXp Realty</div>
+          <p class="footer__tagline">"Real estate built around your life — not just your transaction."</p>
+          <div style="margin-top:var(--space-lg);">
+            <a href="tel:8325361016" class="footer__link" style="display:block;margin-bottom:0.5rem;">📞 (832) 536-1016</a>
+            <a href="mailto:phil@philliphimes.com" class="footer__link">✉ phil@philliphimes.com</a>
+          </div>
+        </div>
+        <div>
+          <h3 class="footer__heading">Quick Links</h3>
+          <ul class="footer__links">
+            <li><a href="buyers.html" class="footer__link">For Buyers</a></li>
+            <li><a href="sellers.html" class="footer__link">For Sellers</a></li>
+            <li><a href="cities.html" class="footer__link">Neighborhoods</a></li>
+            <li><a href="contact.html" class="footer__link">Ask Phil</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="footer__heading">Legal</h3>
+          <ul class="footer__links">
+            <li><a href="privacy-policy.html" class="footer__link">Privacy Policy</a></li>
+            <li><a href="terms-of-service.html" class="footer__link">Terms of Service</a></li>
+          </ul>
+        </div>
+        <div></div>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__copyright">© 2026 Phillip Himes | Brokered by eXp Realty. All rights reserved. REALTOR® Licensed in Texas.</p>
+        <p class="footer__copyright" style="margin-top:0.5rem;">eXp Realty, LLC | 2600 South Shore Blvd. #300, League City, TX 77573</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    // Dedicated submit handler — preserves multi-checkbox values and posts to Netlify Forms.
+    (function () {
+      var form = document.getElementById('listing-form');
+      if (!form) return;
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var btn = form.querySelector('button[type="submit"]');
+        var orig = btn ? btn.textContent : '';
+        if (btn) { btn.textContent = 'Sending…'; btn.disabled = true; }
+
+        var body = new URLSearchParams();
+        var fd = new FormData(form);
+        fd.forEach(function (v, k) { body.append(k, v); });
+        body.append('page', window.location.pathname);
+        body.append('timestamp', new Date().toISOString());
+
+        fetch('/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: body.toString()
+        }).then(function (r) {
+          if (!r.ok) throw new Error('bad response');
+          form.style.display = 'none';
+          document.getElementById('listing-success').style.display = 'block';
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }).catch(function () {
+          if (btn) { btn.textContent = orig; btn.disabled = false; }
+          alert('Something went wrong submitting the form. Please call or text Phil at (832) 536-1016, or email phil@philliphimes.com and we’ll take it from there.');
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
