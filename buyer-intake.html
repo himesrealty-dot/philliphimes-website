@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Buyer Intake | Phillip Himes, REALTOR®</title>
+  <meta name="description" content="Starting your home search? Complete Phil Himes' buyer intake — your search criteria, financing, and timeline — so we can find the right home faster." />
+  <meta name="author" content="Phillip Himes | Brokered by eXp Realty" />
+  <link rel="canonical" href="https://philliphimes.com/buyer-intake.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Buyer Intake | Phillip Himes, REALTOR®" />
+  <meta property="og:description" content="Starting your home search? Complete Phil Himes' buyer intake — your search criteria, financing, and timeline — so we can find the right home faster." />
+  <meta property="og:url" content="https://philliphimes.com/buyer-intake.html" />
+  <meta property="og:image" content="https://philliphimes.com/images/logo.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+  <style>
+    .bi-hero { background: linear-gradient(135deg, #0a1c2e 0%, #1b3a5c 100%); padding: 3.5rem 0 3rem; }
+    .bi-hero__eyebrow { font-family: var(--font-heading); font-size: 0.72rem; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.6rem; }
+    .bi-hero__title { font-family: var(--font-heading); font-weight: 900; font-size: clamp(1.8rem, 4vw, 2.6rem); color: #fff; line-height: 1.12; margin-bottom: 0.85rem; }
+    .bi-hero__sub { font-size: 1rem; color: rgba(255,255,255,0.75); line-height: 1.7; max-width: 640px; }
+    .bi-main { background: var(--off-white, #f9f7f4); padding: 3rem 0 4rem; }
+    .bi-form-wrap { max-width: 860px; margin: 0 auto; background: #fff; border-radius: var(--radius-xl, 20px); box-shadow: var(--shadow-md, 0 10px 40px rgba(0,0,0,0.08)); padding: 2.5rem clamp(1.25rem, 4vw, 2.75rem); }
+    .bi-intro { font-size: 0.92rem; color: var(--dark-gray, #5a6573); line-height: 1.7; margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--light-gray, #e4eaf0); }
+    .bi-section { margin-bottom: 2.25rem; }
+    .bi-section__title { font-family: var(--font-heading); font-weight: 900; font-size: 1.15rem; color: var(--navy); margin-bottom: 0.35rem; display: flex; align-items: center; gap: 0.5rem; }
+    .bi-section__num { display: inline-flex; align-items: center; justify-content: center; width: 26px; height: 26px; border-radius: 50%; background: var(--gold); color: var(--navy); font-size: 0.8rem; font-weight: 800; flex-shrink: 0; }
+    .bi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem 1.25rem; }
+    .bi-grid--3 { grid-template-columns: 1fr 1fr 1fr; }
+    .bi-grid .span-2 { grid-column: 1 / -1; }
+    @media (max-width: 640px) { .bi-grid, .bi-grid--3 { grid-template-columns: 1fr; } }
+    .bi-label { display: block; font-family: var(--font-heading); font-size: 0.74rem; font-weight: 700; letter-spacing: 0.03em; text-transform: uppercase; color: var(--navy); margin-bottom: 0.35rem; }
+    .bi-input, .bi-select, .bi-textarea { width: 100%; padding: 0.7rem 0.9rem; border: 1.5px solid var(--light-gray, #d9dee4); border-radius: 10px; font-family: var(--font-body, sans-serif); font-size: 0.95rem; outline: none; transition: border-color 0.2s; box-sizing: border-box; background: #fff; }
+    .bi-input:focus, .bi-select:focus, .bi-textarea:focus { border-color: var(--gold); }
+    .bi-textarea { min-height: 90px; resize: vertical; }
+    .bi-checks { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem 1rem; margin-top: 0.25rem; }
+    @media (max-width: 640px) { .bi-checks { grid-template-columns: 1fr 1fr; } }
+    .bi-check { display: flex; align-items: center; gap: 0.5rem; font-size: 0.88rem; color: var(--dark-gray, #444); cursor: pointer; }
+    .bi-check input { width: 16px; height: 16px; flex-shrink: 0; accent-color: var(--navy); }
+    .bi-req { color: #c0392b; }
+    .bi-submit { width: 100%; padding: 1rem 1.25rem; border: none; cursor: pointer; border-radius: var(--radius-full, 9999px); background: var(--gold); color: var(--navy); font-family: var(--font-heading); font-weight: 800; font-size: 1rem; letter-spacing: 0.03em; transition: background 0.2s, transform 0.2s; margin-top: 0.5rem; }
+    .bi-submit:hover { background: #d4b86a; transform: translateY(-1px); }
+    .bi-submit:disabled { opacity: 0.6; cursor: default; transform: none; }
+    .bi-note { font-size: 0.78rem; color: #9aa3ad; text-align: center; margin-top: 0.9rem; line-height: 1.6; }
+    .bi-success { display: none; max-width: 680px; margin: 0 auto; background: #fff; border-radius: var(--radius-xl, 20px); box-shadow: var(--shadow-md, 0 10px 40px rgba(0,0,0,0.08)); padding: 3rem 2rem; text-align: center; }
+    .bi-success__icon { width: 72px; height: 72px; margin: 0 auto 1rem; border-radius: 50%; background: #e8f6ec; color: #1e9e54; display: flex; align-items: center; justify-content: center; font-size: 2.4rem; }
+    .bi-success__title { font-family: var(--font-heading); font-weight: 900; color: var(--navy); font-size: 1.6rem; margin-bottom: 0.6rem; }
+    .bi-success__body { font-size: 0.95rem; color: var(--dark-gray, #5a6573); line-height: 1.7; margin-bottom: 1.5rem; }
+    .bi-cobuyers { margin-top: 1.25rem; padding-top: 1.25rem; border-top: 1px dashed var(--light-gray, #e4eaf0); }
+    .bi-cobuyers__intro { font-size: 0.86rem; color: var(--dark-gray, #5a6573); line-height: 1.6; margin-bottom: 1rem; }
+    .bi-cobuyer { background: #f7f9fb; border: 1px solid var(--light-gray, #e4eaf0); border-radius: 12px; padding: 1.1rem 1.1rem 1.25rem; margin-bottom: 0.9rem; }
+    .bi-cobuyer__head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem; }
+    .bi-cobuyer__title { font-family: var(--font-heading); font-weight: 800; font-size: 0.85rem; color: var(--navy); letter-spacing: 0.03em; }
+    .bi-cobuyer__remove { background: none; border: none; cursor: pointer; font-size: 0.78rem; font-weight: 700; color: #c0392b; padding: 0.2rem 0.5rem; border-radius: 6px; transition: background 0.15s; }
+    .bi-cobuyer__remove:hover { background: rgba(192,57,43,0.08); }
+    .bi-add-cobuyer { display: inline-flex; align-items: center; gap: 0.4rem; background: #fff; border: 1.5px dashed var(--navy); color: var(--navy); font-family: var(--font-heading); font-weight: 800; font-size: 0.86rem; padding: 0.65rem 1.3rem; border-radius: var(--radius-full, 9999px); cursor: pointer; transition: background 0.18s, color 0.18s; }
+    .bi-add-cobuyer:hover { background: var(--navy); color: #fff; }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAVIGATION ──────────────────────────────────── -->
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo" aria-label="Phillip Himes Real Estate Home">
+        <img loading="lazy" src="images/logo.png" alt="Phillip Himes | Brokered by eXp Realty" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+        <span class="nav__logo-text" style="display:none;">
+          <span class="nav__logo-name">Phillip Himes</span>
+          <span class="nav__logo-brokerage">Brokered by eXp Realty</span>
+        </span>
+      </a>
+      <ul class="nav__links" id="nav-links">
+        <li><a href="buyers.html" class="nav__link nav__link--active">Buying</a></li>
+        <li><a href="sellers.html" class="nav__link">Selling</a></li>
+        <li><a href="search.html" class="nav__link">Search</a></li>
+        <li class="nav__item nav__item--dropdown">
+          <a href="cities.html" class="nav__link">Cities</a>
+          <ul class="nav__dropdown" aria-label="Cities submenu">
+            <li><a href="league-city.html">League City</a></li>
+            <li><a href="friendswood.html">Friendswood</a></li>
+            <li><a href="pearland.html">Pearland</a></li>
+            <li><a href="clear-lake.html">Clear Lake</a></li>
+            <li><a href="dickinson.html">Dickinson</a></li>
+            <li><a href="manvel.html">Manvel</a></li>
+          </ul>
+        </li>
+        <li class="nav__item nav__item--dropdown">
+          <a href="marketiq.html" class="nav__link">Tools</a>
+          <ul class="nav__dropdown" aria-label="Tools submenu">
+            <li><a href="buyeriq.html">BuyerIQ&#8482; &#8212; Buyer's Edge</a></li>
+            <li><a href="selleriq.html">SellerIQ&#8482; &#8212; Seller's Edge</a></li>
+            <li><a href="marketiq.html">MarketIQ&#8482; &#8212; Property Intelligence</a></li>
+            <li><a href="market-insights.html">Market Insights</a></li>
+          </ul>
+        </li>
+        <li><a href="about.html" class="nav__link">My Story</a></li>
+        <li><a href="contact.html" class="nav__link">Ask Phil</a></li>
+        <li class="nav__mobile-cta" style="display:none;">
+          <a href="tel:8325361016" class="btn btn--secondary" style="width:100%;margin-top:var(--space-md);">📞 (832) 536-1016</a>
+          <a href="contact.html?topic=trumarket" class="btn btn--primary" style="width:100%;margin-top:var(--space-sm);">Get Home Value</a>
+        </li>
+      </ul>
+      <div class="nav__cta">
+        <a href="tel:8325361016" class="nav__phone">📞 (832) 536-1016</a>
+        <a href="contact.html?topic=trumarket" class="btn btn--primary btn--sm">Get Home Value</a>
+      </div>
+      <button class="nav__hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ── HERO ────────────────────────────────────────── -->
+  <section class="bi-hero">
+    <div class="container">
+      <p class="bi-hero__eyebrow">Buyer Intake</p>
+      <h1 class="bi-hero__title">Let's find your next home.</h1>
+      <p class="bi-hero__sub">
+        Tell me what you're looking for, where you stand on financing, and your timeline — and I'll line up the right homes
+        instead of wasting your weekends. Takes about 10 minutes; skip anything you're unsure of.
+      </p>
+    </div>
+  </section>
+
+  <!-- ── FORM ────────────────────────────────────────── -->
+  <section class="bi-main">
+    <div class="container">
+
+      <form class="bi-form-wrap" id="buyer-form" name="buyer-intake" method="POST"
+            data-netlify="true" netlify-honeypot="bot-field" action="/thank-you">
+        <input type="hidden" name="form-name" value="buyer-intake" />
+        <p style="display:none;"><label>Don't fill this out: <input name="bot-field" /></label></p>
+
+        <p class="bi-intro">
+          <strong>Note:</strong> This helps me set up your search and serve you well — it's not a binding agreement.
+          We'll talk through buyer representation separately. Fields marked <span class="bi-req">*</span> are required.
+        </p>
+
+        <!-- 1. YOUR INFORMATION -->
+        <div class="bi-section">
+          <div class="bi-section__title"><span class="bi-section__num">1</span> Your Information</div>
+          <div class="bi-grid">
+            <div><label class="bi-label">Full Name <span class="bi-req">*</span></label><input class="bi-input" type="text" name="buyer_name" required /></div>
+            <div><label class="bi-label">Best Phone <span class="bi-req">*</span></label><input class="bi-input" type="tel" name="buyer_phone" required /></div>
+            <div><label class="bi-label">Email <span class="bi-req">*</span></label><input class="bi-input" type="email" name="buyer_email" required /></div>
+            <div><label class="bi-label">Best Time to Reach You</label><input class="bi-input" type="text" name="best_time" placeholder="e.g., Weekday evenings" /></div>
+            <div class="span-2"><label class="bi-label">How Did You Hear About Me?</label><input class="bi-input" type="text" name="heard_about" placeholder="Optional" /></div>
+          </div>
+
+          <!-- Co-buyers (repeatable) -->
+          <div class="bi-cobuyers">
+            <p class="bi-cobuyers__intro">Buying with someone else (spouse, partner, co-buyer)? Add each person — name, phone, and email.</p>
+            <div id="cobuyer-list">
+              <div class="bi-cobuyer" style="display:none;">
+                <div class="bi-cobuyer__head"><span class="bi-cobuyer__title">Co-Buyer 1</span><button type="button" class="bi-cobuyer__remove">✕ Remove</button></div>
+                <div class="bi-grid bi-grid--3">
+                  <div><label class="bi-label">Full Name</label><input class="bi-input" type="text" name="co_buyer_1_name" disabled /></div>
+                  <div><label class="bi-label">Phone</label><input class="bi-input" type="tel" name="co_buyer_1_phone" disabled /></div>
+                  <div><label class="bi-label">Email</label><input class="bi-input" type="email" name="co_buyer_1_email" disabled /></div>
+                </div>
+              </div>
+              <div class="bi-cobuyer" style="display:none;">
+                <div class="bi-cobuyer__head"><span class="bi-cobuyer__title">Co-Buyer 2</span><button type="button" class="bi-cobuyer__remove">✕ Remove</button></div>
+                <div class="bi-grid bi-grid--3">
+                  <div><label class="bi-label">Full Name</label><input class="bi-input" type="text" name="co_buyer_2_name" disabled /></div>
+                  <div><label class="bi-label">Phone</label><input class="bi-input" type="tel" name="co_buyer_2_phone" disabled /></div>
+                  <div><label class="bi-label">Email</label><input class="bi-input" type="email" name="co_buyer_2_email" disabled /></div>
+                </div>
+              </div>
+              <div class="bi-cobuyer" style="display:none;">
+                <div class="bi-cobuyer__head"><span class="bi-cobuyer__title">Co-Buyer 3</span><button type="button" class="bi-cobuyer__remove">✕ Remove</button></div>
+                <div class="bi-grid bi-grid--3">
+                  <div><label class="bi-label">Full Name</label><input class="bi-input" type="text" name="co_buyer_3_name" disabled /></div>
+                  <div><label class="bi-label">Phone</label><input class="bi-input" type="tel" name="co_buyer_3_phone" disabled /></div>
+                  <div><label class="bi-label">Email</label><input class="bi-input" type="email" name="co_buyer_3_email" disabled /></div>
+                </div>
+              </div>
+            </div>
+            <button type="button" class="bi-add-cobuyer" id="add-cobuyer">+ Add Co-Buyer</button>
+          </div>
+        </div>
+
+        <!-- 2. WHAT YOU'RE LOOKING FOR -->
+        <div class="bi-section">
+          <div class="bi-section__title"><span class="bi-section__num">2</span> What You're Looking For</div>
+          <div class="bi-grid">
+            <div><label class="bi-label">Max Budget / Price Range</label><input class="bi-input" type="text" name="budget" placeholder="e.g., up to $450K" /></div>
+            <div><label class="bi-label">Property Type</label>
+              <select class="bi-select" name="property_type"><option value="">Select…</option><option>Single-Family</option><option>Townhome</option><option>Condo</option><option>New Construction</option><option>Land / Lot</option><option>Other</option></select></div>
+            <div><label class="bi-label">Minimum Bedrooms</label><input class="bi-input" type="number" name="min_beds" min="0" /></div>
+            <div><label class="bi-label">Minimum Baths</label><input class="bi-input" type="number" name="min_baths" min="0" /></div>
+            <div><label class="bi-label">Minimum Square Footage</label><input class="bi-input" type="text" name="min_sqft" placeholder="Optional" /></div>
+            <div><label class="bi-label">Preferred School District</label><input class="bi-input" type="text" name="school_district" placeholder="Optional" /></div>
+          </div>
+          <div style="margin-top:1rem;">
+            <label class="bi-label">Preferred Areas (check all that apply)</label>
+            <div class="bi-checks">
+              <label class="bi-check"><input type="checkbox" name="areas" value="League City" /> League City</label>
+              <label class="bi-check"><input type="checkbox" name="areas" value="Friendswood" /> Friendswood</label>
+              <label class="bi-check"><input type="checkbox" name="areas" value="Pearland" /> Pearland</label>
+              <label class="bi-check"><input type="checkbox" name="areas" value="Clear Lake" /> Clear Lake</label>
+              <label class="bi-check"><input type="checkbox" name="areas" value="Dickinson" /> Dickinson</label>
+              <label class="bi-check"><input type="checkbox" name="areas" value="Manvel" /> Manvel</label>
+              <label class="bi-check"><input type="checkbox" name="areas" value="Open / Not sure yet" /> Open / Not sure</label>
+            </div>
+          </div>
+          <div style="margin-top:1rem;">
+            <label class="bi-label">Must-Haves (check all that apply)</label>
+            <div class="bi-checks">
+              <label class="bi-check"><input type="checkbox" name="musthaves" value="Garage" /> Garage</label>
+              <label class="bi-check"><input type="checkbox" name="musthaves" value="Single-Story" /> Single-Story</label>
+              <label class="bi-check"><input type="checkbox" name="musthaves" value="Primary Bedroom Down" /> Primary Bedroom Down</label>
+              <label class="bi-check"><input type="checkbox" name="musthaves" value="Pool" /> Pool</label>
+              <label class="bi-check"><input type="checkbox" name="musthaves" value="Large Yard" /> Large Yard</label>
+              <label class="bi-check"><input type="checkbox" name="musthaves" value="Home Office" /> Home Office</label>
+              <label class="bi-check"><input type="checkbox" name="musthaves" value="Gated Community" /> Gated Community</label>
+              <label class="bi-check"><input type="checkbox" name="musthaves" value="Waterfront" /> Waterfront</label>
+              <label class="bi-check"><input type="checkbox" name="musthaves" value="No Back Neighbors" /> No Back Neighbors</label>
+              <label class="bi-check"><input type="checkbox" name="musthaves" value="RV / Boat Parking" /> RV / Boat Parking</label>
+              <label class="bi-check"><input type="checkbox" name="musthaves" value="New Construction" /> New Construction</label>
+            </div>
+          </div>
+          <div class="bi-grid" style="margin-top:1rem;">
+            <div class="span-2"><label class="bi-label">Deal-Breakers / Things to Avoid</label><textarea class="bi-textarea" name="dealbreakers" placeholder="e.g., busy road, flood zone, major repairs, HOA restrictions…"></textarea></div>
+            <div class="span-2"><label class="bi-label">Describe Your Ideal Home</label><textarea class="bi-textarea" name="ideal_home" placeholder="In your own words — the home, the lifestyle, what matters most…"></textarea></div>
+          </div>
+        </div>
+
+        <!-- 3. FINANCING -->
+        <div class="bi-section">
+          <div class="bi-section__title"><span class="bi-section__num">3</span> Financing</div>
+          <div class="bi-grid">
+            <div><label class="bi-label">How Are You Buying?</label>
+              <select class="bi-select" name="paying_with"><option value="">Select…</option><option>Financing (mortgage)</option><option>Cash</option></select></div>
+            <div><label class="bi-label">Are You Pre-Approved?</label>
+              <select class="bi-select" name="preapproved"><option value="">Select…</option><option>Yes — I have a lender</option><option>Not yet</option><option>I need a lender referral</option></select></div>
+            <div><label class="bi-label">Lender Name</label><input class="bi-input" type="text" name="lender_name" placeholder="If you have one" /></div>
+            <div><label class="bi-label">Loan Type</label>
+              <select class="bi-select" name="loan_type"><option value="">Select…</option><option>Conventional</option><option>FHA</option><option>VA</option><option>USDA</option><option>Not sure</option></select></div>
+            <div><label class="bi-label">Estimated Down Payment</label><input class="bi-input" type="text" name="down_payment" placeholder="Optional — e.g., 10%, $40K" /></div>
+            <div><label class="bi-label">First-Time Buyer?</label>
+              <select class="bi-select" name="first_time"><option value="">Select…</option><option>Yes</option><option>No</option></select></div>
+            <div class="span-2"><label class="bi-label">Do You Need to Sell a Current Home First?</label>
+              <select class="bi-select" name="need_to_sell"><option value="">Select…</option><option>No</option><option>Yes — I need to sell first</option><option>Maybe / not sure</option></select></div>
+          </div>
+        </div>
+
+        <!-- 4. TIMELINE & SITUATION -->
+        <div class="bi-section">
+          <div class="bi-section__title"><span class="bi-section__num">4</span> Timeline &amp; Situation</div>
+          <div class="bi-grid">
+            <div><label class="bi-label">When Do You Want to Be In Your New Home? <span class="bi-req">*</span></label>
+              <select class="bi-select" name="timeline" required><option value="">Select…</option><option>As soon as possible</option><option>1–3 months</option><option>3–6 months</option><option>6–12 months</option><option>Just exploring for now</option></select></div>
+            <div><label class="bi-label">Current Situation</label>
+              <select class="bi-select" name="current_situation"><option value="">Select…</option><option>Renting</option><option>Own — need to sell</option><option>Own — keeping it</option><option>Relocating to the area</option></select></div>
+            <div><label class="bi-label">Lease End Date (if renting)</label><input class="bi-input" type="text" name="lease_end" placeholder="Optional" /></div>
+            <div><label class="bi-label">Relocating From (if applicable)</label><input class="bi-input" type="text" name="relocating_from" placeholder="City, State" /></div>
+            <div class="span-2"><label class="bi-label">Reason for Buying</label><input class="bi-input" type="text" name="reason" placeholder="Optional — growing family, downsizing, first home, investment…" /></div>
+          </div>
+        </div>
+
+        <!-- 5. LOGISTICS & PREFERENCES -->
+        <div class="bi-section">
+          <div class="bi-section__title"><span class="bi-section__num">5</span> Logistics &amp; Preferences</div>
+          <div class="bi-grid">
+            <div><label class="bi-label">Best Way to Reach You</label>
+              <select class="bi-select" name="contact_pref"><option value="">Select…</option><option>Call</option><option>Text</option><option>Email</option></select></div>
+            <div><label class="bi-label">Currently Working With Another Agent?</label>
+              <select class="bi-select" name="working_with_agent"><option value="">Select…</option><option>No</option><option>Yes</option></select></div>
+          </div>
+          <div style="margin-top:1rem;">
+            <label class="bi-label">Showing Availability (check all that apply)</label>
+            <div class="bi-checks">
+              <label class="bi-check"><input type="checkbox" name="availability" value="Weekday mornings" /> Weekday mornings</label>
+              <label class="bi-check"><input type="checkbox" name="availability" value="Weekday afternoons" /> Weekday afternoons</label>
+              <label class="bi-check"><input type="checkbox" name="availability" value="Evenings" /> Evenings</label>
+              <label class="bi-check"><input type="checkbox" name="availability" value="Weekends" /> Weekends</label>
+            </div>
+          </div>
+          <div class="bi-grid" style="margin-top:1rem;">
+            <div class="span-2"><label class="bi-label">Anything Else I Should Know?</label><textarea class="bi-textarea" name="additional_notes"></textarea></div>
+          </div>
+        </div>
+
+        <button type="submit" class="bi-submit">Submit My Buyer Intake →</button>
+        <p class="bi-note">Your information is sent securely to Phillip Himes and is never sold or shared. Questions? Call or text (832) 536-1016.</p>
+      </form>
+
+      <!-- SUCCESS -->
+      <div class="bi-success" id="buyer-success">
+        <div class="bi-success__icon">✓</div>
+        <h2 class="bi-success__title">Got it — thank you!</h2>
+        <p class="bi-success__body">
+          Your buyer intake is on its way to me. I'll review your criteria, set up a tailored home search, and reach out
+          shortly with next steps. If you need me sooner, call or text <strong>(832) 536-1016</strong>.
+        </p>
+        <a href="index.html" class="btn btn--primary">Back to Home</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── FOOTER ────────────────────────────────────────── -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <div class="footer__brand-name">Phillip Himes</div>
+          <div class="footer__brokerage">REALTOR® | Brokered by eXp Realty</div>
+          <p class="footer__tagline">"Real estate built around your life — not just your transaction."</p>
+          <div style="margin-top:var(--space-lg);">
+            <a href="tel:8325361016" class="footer__link" style="display:block;margin-bottom:0.5rem;">📞 (832) 536-1016</a>
+            <a href="mailto:phil@philliphimes.com" class="footer__link">✉ phil@philliphimes.com</a>
+          </div>
+        </div>
+        <div>
+          <div class="footer__heading">Quick Links</div>
+          <ul class="footer__links">
+            <li><a href="buyers.html" class="footer__link">For Buyers</a></li>
+            <li><a href="sellers.html" class="footer__link">For Sellers</a></li>
+            <li><a href="cities.html" class="footer__link">Neighborhoods</a></li>
+            <li><a href="contact.html" class="footer__link">Ask Phil</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer__heading">Legal</div>
+          <ul class="footer__links">
+            <li><a href="privacy-policy.html" class="footer__link">Privacy Policy</a></li>
+            <li><a href="terms-of-service.html" class="footer__link">Terms of Service</a></li>
+          </ul>
+        </div>
+        <div></div>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__copyright">© 2026 Phillip Himes | Brokered by eXp Realty. All rights reserved. REALTOR® Licensed in Texas.</p>
+        <p class="footer__copyright" style="margin-top:0.5rem;">eXp Realty, LLC | 2600 South Shore Blvd. #300, League City, TX 77573</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    // Dedicated submit handler — preserves multi-checkbox values and posts to Netlify Forms.
+    (function () {
+      var form = document.getElementById('buyer-form');
+      if (!form) return;
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var btn = form.querySelector('button[type="submit"]');
+        var orig = btn ? btn.textContent : '';
+        if (btn) { btn.textContent = 'Sending…'; btn.disabled = true; }
+
+        var body = new URLSearchParams();
+        var fd = new FormData(form);
+        fd.forEach(function (v, k) { body.append(k, v); });
+        body.append('page', window.location.pathname);
+        body.append('timestamp', new Date().toISOString());
+
+        fetch('/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: body.toString()
+        }).then(function (r) {
+          if (!r.ok) throw new Error('bad response');
+          form.style.display = 'none';
+          document.getElementById('buyer-success').style.display = 'block';
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }).catch(function () {
+          if (btn) { btn.textContent = orig; btn.disabled = false; }
+          alert('Something went wrong submitting the form. Please call or text Phil at (832) 536-1016, or email phil@philliphimes.com and we’ll take it from there.');
+        });
+      });
+    })();
+
+    // Repeatable co-buyer fields — reveal pre-built (Netlify-registered) slots on demand.
+    (function () {
+      var addBtn = document.getElementById('add-cobuyer');
+      var blocks = Array.prototype.slice.call(document.querySelectorAll('#cobuyer-list .bi-cobuyer'));
+      if (!addBtn || !blocks.length) return;
+
+      function nextHidden() {
+        for (var i = 0; i < blocks.length; i++) {
+          if (blocks[i].style.display === 'none') return blocks[i];
+        }
+        return null;
+      }
+      function setEnabled(block, on) {
+        Array.prototype.slice.call(block.querySelectorAll('input')).forEach(function (inp) {
+          inp.disabled = !on;
+          if (!on) inp.value = '';
+        });
+      }
+      function refreshAddBtn() {
+        addBtn.style.display = nextHidden() ? '' : 'none';
+      }
+
+      addBtn.addEventListener('click', function () {
+        var b = nextHidden();
+        if (!b) return;
+        b.style.display = '';
+        setEnabled(b, true);
+        refreshAddBtn();
+        var first = b.querySelector('input');
+        if (first) first.focus();
+      });
+
+      blocks.forEach(function (b) {
+        var rm = b.querySelector('.bi-cobuyer__remove');
+        if (rm) rm.addEventListener('click', function () {
+          b.style.display = 'none';
+          setEnabled(b, false);
+          refreshAddBtn();
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
