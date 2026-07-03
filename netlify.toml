@@ -92,6 +92,14 @@
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
 
+# Cache images for a week (satisfies PageSpeed "efficient cache lifetimes").
+# CSS/JS are intentionally left on Netlify's revalidate default so edits go
+# live instantly during active development.
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
 [build]
   publish = "."
 

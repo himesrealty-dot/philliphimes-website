@@ -63,6 +63,10 @@
   }
   </script>
 
+  <!-- Perf: load fonts in parallel (not via CSS @import) + preload the hero image for faster LCP -->
+  <link rel="preconnect" href="https://fonts.bunny.net" crossorigin />
+  <link rel="preload" as="image" href="images/hero-bg.jpg" fetchpriority="high" />
+  <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Montserrat:wght@400;600;700;800;900&family=Open+Sans:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" />
   <link rel="stylesheet" href="css/styles.css" />
   <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
   <style>
