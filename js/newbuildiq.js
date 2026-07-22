@@ -17,6 +17,32 @@
   var NEWBUILDIQ_API = 'https://real-estate-agentic-os-production.up.railway.app';
   var DEFAULT_CITY = 'League City';
 
+  // ── IDX listings links for the live community cards ────────────────────────
+  // Cards link to IDXBroker "friendly URL" saved searches: /i/{slug}. Precise,
+  // per-community links live in COMMUNITY_SEARCH (add an entry once the saved
+  // search exists in IDXAddons, e.g. 'Coastal Point': 'Coastal-Point'). Anything
+  // not mapped falls back to the city-level saved search, then to the generic
+  // advanced search — so a card is never a dead end and never 404s.
+  var IDX_BASE = 'https://philliphimes.idxbroker.com';
+  var IDX_ADVANCED = IDX_BASE + '/idx/search/advanced';
+  var COMMUNITY_SEARCH = {
+    // 'Coastal Point': 'Coastal-Point',
+    // 'Legacy': 'Legacy-League-City',
+    // 'Davis Harbor': 'Davis-Harbor',
+    // 'Westland Ranch': 'Westland-Ranch',
+  };
+  var CITY_SEARCH = {
+    'League City': 'League-City',
+    'Pearland': 'Pearland',
+    'Friendswood': 'Friendswood',
+    'Clear Lake': 'Clear-Lake'
+  };
+  function listingsUrl(name, city) {
+    if (name && COMMUNITY_SEARCH[name]) return IDX_BASE + '/i/' + COMMUNITY_SEARCH[name];
+    if (city && CITY_SEARCH[city]) return IDX_BASE + '/i/' + CITY_SEARCH[city];
+    return IDX_ADVANCED;
+  }
+
   function esc(s) {
     return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) {
       return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
@@ -59,16 +85,19 @@
     var comms = (await fetchCommunities(opts.city)).filter(function (c) { return (c.active_inventory || 0) > 0; });
     if (!comms.length) return;
     comms.sort(function (a, b) { return (b.active_inventory || 0) - (a.active_inventory || 0); });
+    var city = opts.city || DEFAULT_CITY;
     cardsWrap.innerHTML = comms.slice(0, opts.limit || 9).map(function (c) {
       var price = money(c.active_median_price);
       var builders = (c.builders || []).filter(Boolean).slice(0, 3).join(' · ');
       var n = c.active_inventory;
-      return '<div class="community-card" style="cursor:default;">'
+      var href = listingsUrl(c.name, city);
+      return '<a class="community-card" href="' + esc(href) + '" target="_blank" rel="noopener" style="text-decoration:none;display:block;">'
         + '<div class="community-card__city">' + esc(c.name) + '</div>'
         + '<div class="community-card__name">' + n + ' active ' + (n === 1 ? 'home' : 'homes') + '</div>'
         + (builders ? '<div class="community-card__district">' + esc(builders) + '</div>' : '')
         + (price ? '<div class="community-card__price">Median <span>' + price + '</span></div>' : '')
-        + '</div>';
+        + '<div class="community-card__cta" style="margin-top:0.7rem;font-family:var(--font-heading);font-weight:700;font-size:0.8rem;color:var(--teal);">View homes →</div>'
+        + '</a>';
     }).join('');
     el.style.display = '';
   }
