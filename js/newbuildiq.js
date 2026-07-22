@@ -73,6 +73,51 @@
     el.style.display = '';
   }
 
+  // ── gated incentive reveal (the lead-magnet payoff) ────────────────────────
+  // After a builder-incentives lead is captured, show the current verified list
+  // right on the page. Community optional → the whole city's current list. Always
+  // resolves; a failure just leaves the standard thank-you.
+  async function fetchGatedIncentives(city, community) {
+    try {
+      var p = '/newbuildiq/gated/incentives?city=' + encodeURIComponent(city || DEFAULT_CITY);
+      if (community) p += '&community=' + encodeURIComponent(community);
+      return await getJSON(p);
+    } catch (e) { return { found: false, incentives: [] }; }
+  }
+
+  async function revealIncentives(form, city, community) {
+    var d = await fetchGatedIncentives(city, community);
+    var incs = (d && d.incentives) || [];
+    var host = form.parentNode;
+    var box = document.createElement('div');
+    box.className = 'nbiq-reveal';
+    var head = community ? esc(community) : esc(city);
+    if (!incs.length) {
+      box.innerHTML = '<div class="nbiq-reveal__head">You\'re on the list, ' + head + '.</div>'
+        + '<p class="nbiq-reveal__empty">Phil is confirming this week\'s current incentives and will '
+        + 'send you the verified list shortly — and walk you through which ones actually save you the most.</p>';
+    } else {
+      var cards = incs.map(function (i) {
+        var where = i.community ? '<span class="nbiq-inc__where">' + esc(i.community) + '</span>' : '';
+        var exp = i.expires ? '<span class="nbiq-inc__exp">Ends ' + esc(i.expires) + '</span>' : '';
+        var lender = i.lender_terms ? '<div class="nbiq-inc__lender">Financing: ' + esc(i.lender_terms) + '</div>' : '';
+        return '<div class="nbiq-inc">'
+          + '<div class="nbiq-inc__top"><span class="nbiq-inc__builder">' + esc(i.builder || 'Builder') + '</span>' + where + '</div>'
+          + '<div class="nbiq-inc__type">' + esc(i.type || 'Incentive') + '</div>'
+          + '<div class="nbiq-inc__amt">' + esc(i.buyer_incentive) + '</div>'
+          + lender + exp + '</div>';
+      }).join('');
+      box.innerHTML = '<div class="nbiq-reveal__head">Current incentives — ' + head + '</div>'
+        + '<div class="nbiq-reveal__grid">' + cards + '</div>'
+        + '<p class="nbiq-reveal__disc">' + esc(d.disclaimer || 'Offered by the builders; subject to change — verify current terms with the builder.') + '</p>'
+        + '<p class="nbiq-reveal__cta">Want Phil to line these up and see the homes with you? '
+        + '<a href="tel:8325361016">Call (832) 536-1016</a></p>';
+    }
+    form.style.display = 'none';
+    host.appendChild(box);
+    box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
   // ── tagged lead capture -> FastAPI /lead (NOT Netlify Forms) ───────────────
   // Opt in with <form class="nbiq-form" data-tag="new-construction-report"
   // data-source="..."> ; honeypot field name="company"; consent checkbox
@@ -110,7 +155,15 @@
             body: JSON.stringify(payload)
           });
           if (!r.ok) throw new Error('http ' + r.status);
-          showMsg(form, true); form.reset();
+          // Lead captured. If this form asks for the gated reveal, show the current
+          // incentive list right here (the payoff); otherwise the standard thank-you.
+          if (form.getAttribute('data-reveal') === 'incentives') {
+            await revealIncentives(form,
+              form.getAttribute('data-city') || DEFAULT_CITY,
+              (data.community || '').trim());
+          } else {
+            showMsg(form, true); form.reset();
+          }
         } catch (err) {
           showMsg(form, false); // mailto fallback — a lead is never lost
         } finally {

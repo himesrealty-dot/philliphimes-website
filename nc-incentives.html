@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>This Month's Builder Incentive List — League City New Construction | Phil Himes</title>
-  <meta name="description" content="Builders across the Houston Bay Area are buying down rates and adding closing credits right now. Get this month's verified incentive list from Phil Himes — free, no obligation." />
+  <meta name="description" content="Builders across the Houston Bay Area are buying down rates and adding closing credits right now. Get this month's verified incentive list from Phil Himes — no obligation." />
   <meta name="robots" content="noindex, follow" />
   <link rel="stylesheet" href="css/styles.css" />
   <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
@@ -40,6 +40,22 @@
     .nbiq-hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
     .lp__legal { max-width: 980px; margin: 2.5rem auto 0; padding: 0 1.25rem; font-size: 0.72rem; color: rgba(255,255,255,0.4); line-height: 1.6; text-align: center; }
     .lp__legal a { color: rgba(255,255,255,0.55); }
+    /* ── gated reveal (post-submit) ── */
+    .nbiq-reveal { margin-top: 1.4rem; }
+    .nbiq-reveal__head { font-family: var(--font-heading); font-weight: 900; color: #fff; font-size: 1.15rem; margin-bottom: 1rem; }
+    .nbiq-reveal__empty { color: rgba(255,255,255,0.8); font-size: 0.95rem; line-height: 1.6; }
+    .nbiq-reveal__grid { display: grid; gap: 0.85rem; }
+    .nbiq-inc { background: #fff; border-radius: 12px; padding: 1rem 1.15rem; border-left: 4px solid var(--gold); }
+    .nbiq-inc__top { display: flex; justify-content: space-between; align-items: baseline; gap: 0.5rem; }
+    .nbiq-inc__builder { font-family: var(--font-heading); font-weight: 800; color: var(--navy); font-size: 1rem; }
+    .nbiq-inc__where { font-size: 0.72rem; color: var(--teal); font-weight: 700; }
+    .nbiq-inc__type { color: var(--teal); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.66rem; margin: 0.15rem 0 0.5rem; }
+    .nbiq-inc__amt { color: var(--text-dark); font-size: 0.95rem; line-height: 1.5; }
+    .nbiq-inc__lender { color: var(--dark-gray); font-size: 0.82rem; margin-top: 0.4rem; }
+    .nbiq-inc__exp { display: inline-block; margin-top: 0.6rem; background: #fbf4e2; color: var(--gold-dark); font-weight: 700; font-size: 0.72rem; padding: 0.25rem 0.7rem; border-radius: 50px; }
+    .nbiq-reveal__disc { color: rgba(255,255,255,0.5); font-size: 0.72rem; line-height: 1.55; margin-top: 1rem; }
+    .nbiq-reveal__cta { color: #fff; font-weight: 600; font-size: 0.92rem; margin-top: 0.9rem; }
+    .nbiq-reveal__cta a { color: var(--gold); font-weight: 800; }
   </style>
 </head>
 <body>
@@ -64,8 +80,8 @@
         </div>
         <div class="card">
           <div class="card__title">Get this month's list</div>
-          <div class="card__sub">Free, no obligation. Phil replies personally — usually same day.</div>
-          <form class="nbiq-form" data-tag="builder-incentives" data-source="ppc:nc-incentives" novalidate>
+          <div class="card__sub">No obligation — and you'll see the current list right away. Phil follows up personally.</div>
+          <form class="nbiq-form" data-tag="builder-incentives" data-source="ppc:nc-incentives" data-reveal="incentives" data-city="League City" novalidate>
             <div class="nbiq-field"><input type="text" name="name" placeholder="Your name" autocomplete="name" /></div>
             <div class="nbiq-row">
               <div class="nbiq-field"><input type="email" name="email" placeholder="Email" autocomplete="email" /></div>
