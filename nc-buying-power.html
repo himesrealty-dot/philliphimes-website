@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>New-Construction Buying Power Calculator | Phil Himes</title>
+  <meta name="description" content="See what a builder's rate buydown is really worth — your monthly payment at the base rate vs. the bought-down rate, from Phil Himes, REALTOR® with ~20 years in mortgage finance." />
+  <link rel="canonical" href="https://philliphimes.com/nc-buying-power.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="New-Construction Buying Power Calculator | Phil Himes" />
+  <meta property="og:description" content="See what a builder's rate buydown is really worth on your monthly payment. New-construction buying power, the honest math." />
+  <meta property="og:url" content="https://philliphimes.com/nc-buying-power.html" />
+  <meta property="og:image" content="https://philliphimes.com/images/logo.png" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+  <style>
+    .bp-hero { background: linear-gradient(135deg,#0c1f14 0%,#122a1c 60%,#1a3d28 100%); padding: 4rem 0 3.5rem; }
+    .bp-hero__eyebrow { font-family: var(--font-heading); font-weight: 800; font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.8rem; display: block; }
+    .bp-hero__title { font-family: var(--font-heading); font-weight: 900; font-size: clamp(1.9rem,4.5vw,3rem); color: #fff; line-height: 1.06; margin: 0 0 1rem; }
+    .bp-hero__title span { color: var(--gold); }
+    .bp-hero__sub { font-size: 1.02rem; color: rgba(255,255,255,0.78); line-height: 1.7; max-width: 620px; }
+    .bp-wrap { max-width: 960px; margin: -2.5rem auto 0; padding: 0 1.25rem 4rem; }
+    .bp-card { background: #fff; border: 1px solid #e3e6ea; border-radius: 16px; box-shadow: 0 8px 30px rgba(27,58,92,0.10); padding: 1.9rem; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+    @media (max-width: 760px){ .bp-card { grid-template-columns: 1fr; } }
+    .bp-field { margin-bottom: 1rem; }
+    .bp-field label { display: block; font-size: 0.78rem; font-weight: 700; color: #555; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.35rem; }
+    .bp-field input { width: 100%; box-sizing: border-box; padding: 0.7rem 0.85rem; border: 1px solid #cdd2d8; border-radius: 8px; font-size: 1rem; font-family: inherit; color: var(--navy); }
+    .bp-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+    .bp-out { background: #f7f9fb; border: 1px solid #e3e6ea; border-radius: 12px; padding: 1.5rem; display: flex; flex-direction: column; justify-content: center; }
+    .bp-out__label { font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.06em; color: #777; font-weight: 700; }
+    .bp-out__pi { display: flex; justify-content: space-between; align-items: baseline; padding: 0.6rem 0; border-bottom: 1px solid #e8ecf0; }
+    .bp-out__pi .v { font-family: var(--font-heading); font-weight: 900; font-size: 1.3rem; color: var(--navy); }
+    .bp-out__pi .v.gold { color: var(--gold); }
+    .bp-save { text-align: center; margin-top: 1.1rem; }
+    .bp-save__num { font-family: var(--font-heading); font-weight: 900; font-size: 2.2rem; color: var(--teal); line-height: 1; }
+    .bp-save__cap { font-size: 0.82rem; color: #666; margin-top: 0.3rem; }
+    .bp-note { font-size: 0.78rem; color: #888; line-height: 1.55; margin-top: 1rem; }
+    .bp-edge { background: var(--navy); color: #fff; padding: 3rem 0; }
+    .bp-edge__inner { max-width: 760px; margin: 0 auto; padding: 0 1.25rem; text-align: center; }
+    .bp-edge h2 { font-family: var(--font-heading); font-weight: 900; font-size: clamp(1.5rem,3vw,2.1rem); margin: 0 0 0.8rem; }
+    .bp-edge h2 span { color: var(--gold); }
+    .bp-edge p { color: rgba(255,255,255,0.8); line-height: 1.7; font-size: 0.98rem; }
+    .bp-cta { display:inline-flex; gap:0.5rem; align-items:center; margin-top:1.4rem; background:var(--gold); color:var(--navy); font-family:var(--font-heading); font-weight:800; font-size:0.9rem; padding:0.85rem 1.7rem; border-radius:50px; text-decoration:none; }
+  </style>
+</head>
+<body>
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo" aria-label="Phillip Himes Real Estate Home">
+        <img loading="lazy" src="images/logo.png" alt="Phillip Himes | Brokered by eXp Realty" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+        <span class="nav__logo-text" style="display:none;"><span class="nav__logo-name">Phillip Himes</span><span class="nav__logo-brokerage">Brokered by eXp Realty</span></span>
+      </a>
+      <ul class="nav__links" id="nav-links">
+        <li><a href="buyers.html" class="nav__link nav__link--active">Buying</a></li>
+        <li><a href="sellers.html" class="nav__link">Selling</a></li>
+        <li><a href="search.html" class="nav__link">Search</a></li>
+        <li class="nav__item nav__item--dropdown"><a href="cities.html" class="nav__link">Cities</a>
+          <ul class="nav__dropdown" aria-label="Cities submenu">
+            <li><a href="league-city.html">League City</a></li><li><a href="friendswood.html">Friendswood</a></li>
+            <li><a href="pearland.html">Pearland</a></li><li><a href="clear-lake.html">Clear Lake</a></li>
+            <li><a href="dickinson.html">Dickinson</a></li><li><a href="manvel.html">Manvel</a></li>
+          </ul>
+        </li>
+        <li><a href="about.html" class="nav__link">About</a></li>
+        <li><a href="contact.html" class="nav__link">Contact</a></li>
+      </ul>
+      <div class="nav__actions">
+        <a href="contact.html" class="btn btn--primary btn--sm nav__cta">Ask Phil</a>
+        <button class="nav__hamburger" id="nav-hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+
+  <section class="bp-hero">
+    <div class="container">
+      <span class="bp-hero__eyebrow">NewBuildIQ™ · Buying Power</span>
+      <h1 class="bp-hero__title">What's a Builder Rate Buydown <span>Really Worth?</span></h1>
+      <p class="bp-hero__sub">Builders love to advertise a low "bought-down" rate. Here's the honest math — your monthly payment at the base rate vs. the buydown, side by side. With ~20 years in mortgage finance, Phil reads which incentive actually saves you the most.</p>
+    </div>
+  </section>
+
+  <div class="bp-wrap">
+    <div class="bp-card">
+      <div>
+        <div class="bp-field"><label for="price">Home price</label><input type="text" id="price" inputmode="numeric" value="$450,000"></div>
+        <div class="bp-row">
+          <div class="bp-field"><label for="down">Down payment %</label><input type="text" id="down" inputmode="decimal" value="10"></div>
+          <div class="bp-field"><label for="term">Term (years)</label><input type="text" id="term" inputmode="numeric" value="30"></div>
+        </div>
+        <div class="bp-row">
+          <div class="bp-field"><label for="base">Base rate %</label><input type="text" id="base" inputmode="decimal" value="6.99"></div>
+          <div class="bp-field"><label for="buy">Buydown rate %</label><input type="text" id="buy" inputmode="decimal" value="4.99"></div>
+        </div>
+        <p class="bp-note">Principal &amp; interest only — taxes, insurance, and HOA are extra and vary by community. Estimates for comparison, not a loan offer or quote. Confirm exact figures with a licensed lender.</p>
+      </div>
+      <div class="bp-out">
+        <div class="bp-out__label">Monthly principal &amp; interest</div>
+        <div class="bp-out__pi"><span>At base rate (<span id="baseLbl">6.99</span>%)</span><span class="v" id="basePI">—</span></div>
+        <div class="bp-out__pi"><span>At buydown (<span id="buyLbl">4.99</span>%)</span><span class="v gold" id="buyPI">—</span></div>
+        <div class="bp-save">
+          <div class="bp-save__num" id="save">—</div>
+          <div class="bp-save__cap">lower per month with the buydown · <span id="save5">—</span> over 5 years</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="bp-edge">
+    <div class="bp-edge__inner">
+      <h2>The incentive that looks best isn't always <span>worth the most</span></h2>
+      <p>A rate buydown, a price cut, and a closing-cost credit can be worth very different amounts depending on your price, down payment, and how long you'll stay. Phil runs the real numbers on your specific deal — and tracks which builders are offering what right now — so you choose the incentive that actually lowers your cost the most. Working with him doesn't change the price you pay.</p>
+      <a class="bp-cta" href="newbuildiq.html#get">Get the current incentive list →</a>
+    </div>
+  </section>
+
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <div class="footer__brand-name">Phillip Himes</div>
+          <div class="footer__brokerage">REALTOR® | Brokered by eXp Realty</div>
+          <p class="footer__desc">Serving League City, Friendswood, Pearland, Clear Lake, Dickinson, and Manvel across the Houston Bay Area.</p>
+          <p class="footer__desc" style="margin-top:var(--space-md);">📞 <a href="tel:8325361016" style="color:rgba(255,255,255,0.6);">(832) 536-1016</a></p>
+        </div>
+        <div>
+          <div class="footer__heading">New Construction</div>
+          <ul class="footer__links">
+            <li><a href="newbuildiq.html">NewBuildIQ™</a></li>
+            <li><a href="new-construction.html">Communities</a></li>
+            <li><a href="nc-buying-power.html">Buying Power Calculator</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer__heading">Explore</div>
+          <ul class="footer__links">
+            <li><a href="marketiq.html">MarketIQ™</a></li>
+            <li><a href="cities.html">Cities</a></li>
+            <li><a href="contact.html">Ask Phil</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__legal">© 2026 Phillip Himes · Brokered by eXp Realty · Licensed in Texas</p>
+        <p class="footer__disclaimer">Calculator is for estimation only and is not a loan offer, rate quote, or commitment to lend. Actual rates, payments, and terms depend on credit, lender, and market conditions. Not affiliated with or endorsed by any builder. Equal Housing Opportunity.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    const $ = id => document.getElementById(id);
+    const num = s => parseFloat(String(s).replace(/[^0-9.]/g, '')) || 0;
+    const usd = n => '$' + Math.round(n).toLocaleString();
+    function pi(principal, ratePct, years){
+      const r = (ratePct/100)/12, n = years*12;
+      if(r === 0) return n ? principal/n : 0;
+      return principal * r * Math.pow(1+r, n) / (Math.pow(1+r, n) - 1);
+    }
+    function calc(){
+      const price = num($('price').value), downPct = num($('down').value);
+      const term = num($('term').value) || 30, base = num($('base').value), buy = num($('buy').value);
+      const loan = Math.max(price * (1 - downPct/100), 0);
+      const bP = pi(loan, base, term), yP = pi(loan, buy, term);
+      $('basePI').textContent = usd(bP); $('buyPI').textContent = usd(yP);
+      $('baseLbl').textContent = base; $('buyLbl').textContent = buy;
+      const save = Math.max(bP - yP, 0);
+      $('save').textContent = usd(save) + '/mo';
+      $('save5').textContent = usd(save * 60);
+    }
+    ['price','down','term','base','buy'].forEach(id => $(id).addEventListener('input', calc));
+    $('price').addEventListener('blur', () => { const v = num($('price').value); if(v) $('price').value = usd(v); });
+    calc();
+  </script>
+</body>
+</html>

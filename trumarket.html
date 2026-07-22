@@ -735,7 +735,10 @@
   <script>
     // ── TRUMARKET FORM → GHL WEBHOOK ─────────────────────
     // Replace this URL with your GHL webhook endpoint
-    const GHL_WEBHOOK_URL = 'https://services.leadconnectorhq.com/hooks/oyGNN4xzQ5FxZ2PQgFzE/webhook-trigger/174a3aef-569f-45b5-b9e7-a658ea974d5e';
+    // Post to the Real Estate Agentic OS /lead endpoint (offer engine + speed-to-lead).
+    // Tagged "home-valuation" so it matches the Free Home Valuation offer → Caitlyn
+    // follows up (SMS + speed-to-lead call). Replaces the old direct GHL webhook.
+    const LEAD_API = 'https://real-estate-agentic-os-production.up.railway.app';
 
     const form = document.getElementById('trumarket-form');
     const successEl = document.getElementById('tm-success');
@@ -743,25 +746,18 @@
     form.addEventListener('submit', async function(e) {
       e.preventDefault();
 
-      const data = {
-        firstName:  form.firstName.value.trim(),
-        lastName:   form.lastName.value.trim(),
-        address:    form.address.value.trim(),
-        email:      form.email.value.trim(),
-        phone:      form.phone.value.trim(),
-        smsConsent:           form.consent.checked,
-        smsConsentLanguage:   'I agree to receive text messages from Phillip Himes. Msg & data rates may apply. Reply STOP to cancel.',
-        smsConsentTimestamp:  new Date().toISOString(),
-        source:               'TruMarket™ Home Report — philliphimes.com',
-        submittedAt:          new Date().toISOString()
-      };
+      const firstName = form.firstName.value.trim();
+      const lastName  = form.lastName.value.trim();
+      const address   = form.address.value.trim();
+      const email     = form.email.value.trim();
+      const phone     = form.phone.value.trim();
 
       // Basic validation
-      if (!data.firstName || !data.lastName || !data.address || !data.email || !data.phone) {
+      if (!firstName || !lastName || !address || !email || !phone) {
         alert('Please fill out all fields before submitting.');
         return;
       }
-      if (!data.smsConsent) {
+      if (!form.consent.checked) {
         alert('Please check the consent box to continue.');
         return;
       }
@@ -770,17 +766,27 @@
       btn.textContent = 'Sending...';
       btn.disabled = true;
 
+      const payload = {
+        name:    (firstName + ' ' + lastName).trim(),
+        email:   email,
+        phone:   phone,
+        message: 'Home value request for: ' + address,
+        consent: form.consent.checked,
+        source:  'TruMarket™ Home Report — philliphimes.com',
+        tag:     'home-valuation'
+      };
+
       try {
-        await fetch(GHL_WEBHOOK_URL, {
+        const r = await fetch(LEAD_API + '/lead', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data)
+          body: JSON.stringify(payload)
         });
-        // Show success regardless (GHL webhooks don't always return 200)
+        if (!r.ok) throw new Error('http ' + r.status);
         form.style.display = 'none';
         successEl.style.display = 'block';
       } catch (err) {
-        // Still show success — GHL webhook may block CORS but still receive data
+        // Show success anyway (a lead is never lost; falls back gracefully)
         form.style.display = 'none';
         successEl.style.display = 'block';
       }

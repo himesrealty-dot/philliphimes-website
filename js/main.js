@@ -129,6 +129,26 @@ document.addEventListener('DOMContentLoaded', function () {
 
   document.querySelectorAll('.stat__number').forEach(el => statObserver.observe(el));
 
+  // Tagged lead-capture → FastAPI /lead (offer engine + speed-to-lead). A form opts
+  // in with data-lead-tag="<offer-tag>" (+ optional data-source); the contact form
+  // routes its tag off the subject dropdown. Non-tagged forms keep Netlify Forms.
+  const LEAD_API = 'https://real-estate-agentic-os-production.up.railway.app';
+  const CONTACT_SUBJECT_TAGS = {
+    "I'm ready to buy a home": "home-finder",
+    "I want to sell my home": "home-valuation",
+    "I want my TruMarket Home Report": "home-valuation",
+    "I'm interested in Rebalance": "rebalance",
+    "I'm interested in Amplify": "amplify",
+    "I'm interested in Renew": "renew",
+    "I'm interested in new construction": "builder-incentives",
+    "I'm relocating to Houston": "relo-guide",
+    "General question": "website-contact"
+  };
+  function resolveLeadTag(defaultTag, subject) {
+    if (defaultTag === 'contact') return (subject && CONTACT_SUBJECT_TAGS[subject]) || 'website-contact';
+    return defaultTag;
+  }
+
   // ── Form Validation & Submission ───────────────────────
   document.querySelectorAll('form[data-form]').forEach(form => {
     form.addEventListener('submit', async function (e) {
@@ -153,6 +173,41 @@ document.addEventListener('DOMContentLoaded', function () {
       const data = Object.fromEntries(new FormData(form));
       data.page = window.location.pathname;
       data.timestamp = new Date().toISOString();
+
+      // Tagged forms → FastAPI /lead (offer engine + speed-to-lead), not Netlify.
+      const leadTag = form.getAttribute('data-lead-tag');
+      if (leadTag) {
+        if ((data['bot-field'] || data.company || '').trim()) {
+          showSuccessMessage(form);
+          if (btn) { btn.textContent = originalText; btn.disabled = false; }
+          return;
+        }
+        const leadName = (data.name || [data.first_name || data['first-name'], data.last_name || data['last-name']].filter(Boolean).join(' ')).trim();
+        const payload = {
+          name: leadName,
+          email: (data.email || '').trim(),
+          phone: (data.phone || '').trim(),
+          message: (data.message || data.subject || '').trim(),
+          consent: smsConsent ? smsConsent.checked : true,
+          source: form.getAttribute('data-source') || ('web:' + location.pathname),
+          tag: resolveLeadTag(leadTag, data.subject)
+        };
+        try {
+          const r = await fetch(LEAD_API + '/lead', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+          if (!r.ok) throw new Error('http ' + r.status);
+          showSuccessMessage(form);
+        } catch (err) {
+          window.location.href = 'mailto:phil@philliphimes.com?subject='
+            + encodeURIComponent('Website Inquiry') + '&body='
+            + encodeURIComponent(JSON.stringify(payload, null, 2));
+        }
+        if (btn) { btn.textContent = originalText; btn.disabled = false; }
+        return;
+      }
 
       try {
         // Netlify Forms built-in handling
