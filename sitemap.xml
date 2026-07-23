@@ -112,8 +112,9 @@
   <url><loc>https://philliphimes.com/compare-league-city-vs-friendswood.html</loc><lastmod>2026-06-10</lastmod><priority>0.7</priority></url>
   <url><loc>https://philliphimes.com/compare-ccisd-vs-alvin-isd.html</loc><lastmod>2026-06-10</lastmod><priority>0.7</priority></url>
 
-  <!-- ── LEGAL ── -->
-  <url><loc>https://philliphimes.com/privacy-policy.html</loc><lastmod>2026-06-10</lastmod><priority>0.3</priority></url>
-  <url><loc>https://philliphimes.com/terms-of-service.html</loc><lastmod>2026-06-10</lastmod><priority>0.3</priority></url>
+  <!-- ── LEGAL ──
+       privacy-policy.html and terms-of-service.html are intentionally
+       noindex, so they're deliberately NOT listed here — a sitemap entry
+       for a noindex page is a contradiction Search Console reports on. -->
 
 </urlset>
