@@ -41,7 +41,10 @@
     'Pomona': 'https://search.philliphimes.com/i/new-construction-pomona-manvel-tx-phillip-himes-a5082-d6812',
     'Foxtail Palms': 'https://search.philliphimes.com/i/new-construction-foxtail-palms-manvel-tx-phillip-himes',
     'Avellino': 'https://search.philliphimes.com/i/new-construction-avellino-manvel-tx-phillip-himes',
-    'Del Bello Lakes': 'https://search.philliphimes.com/i/new-construction-del-bello-lakes-manvel-tx-phillip-himes'
+    'Del Bello Lakes': 'https://search.philliphimes.com/i/new-construction-del-bello-lakes-manvel-tx-phillip-himes',
+    // Clear Lake / Webster + Dickinson
+    'Midline': 'https://search.philliphimes.com/i/new-construction-midline',
+    'Peacock Isle': 'https://search.philliphimes.com/i/new-construction-peacock-isle-dickinson-tx-phillip-himes-a5082-51ebb'
     // Intentionally unmapped (fall back to the city search): Coastal Point and
     // Westwood (both closing out), Pearland Old Townsite (scattered infill).
   };
