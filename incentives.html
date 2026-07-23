@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Current Builder Incentive List | Phillip Himes</title>
+  <meta name="description" content="Current, verified builder incentives by community across League City and the Houston Bay Area — and book a tour with Phillip Himes." />
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+  <style>
+    .inc-hero { background: linear-gradient(135deg, #0c1f14 0%, #122a1c 55%, #1a3d28 100%); padding: 3.25rem 0 2.75rem; }
+    .inc-hero__eyebrow { font-family: var(--font-heading); font-weight: 800; font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 0.7rem; }
+    .inc-hero__title { font-family: var(--font-heading); font-weight: 900; font-size: clamp(1.9rem, 4.4vw, 2.9rem); color: #fff; line-height: 1.08; margin: 0 0 0.9rem; }
+    .inc-hero__title span { color: var(--gold); }
+    .inc-hero__sub { color: rgba(255,255,255,0.8); font-size: 1.03rem; line-height: 1.7; max-width: 640px; }
+
+    .inc-body { background: var(--off-white); padding: 3rem 0 3.5rem; }
+    .inc-sec { margin-bottom: 2.75rem; }
+    .inc-sec__head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem; }
+    .inc-sec__name { font-family: var(--font-heading); font-weight: 900; color: var(--navy); font-size: 1.45rem; }
+    .inc-sec__count { font-size: 0.8rem; color: var(--dark-gray); font-weight: 600; }
+    .inc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1rem; }
+    .inc-card { background: #fff; border-radius: var(--radius-lg); box-shadow: var(--shadow-md); padding: 1.25rem 1.35rem; border-top: 4px solid var(--teal); }
+    .inc-card__builder { font-family: var(--font-heading); font-weight: 800; color: var(--navy); font-size: 1.05rem; }
+    .inc-card__type { color: var(--teal); font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.68rem; margin: 0.15rem 0 0.6rem; }
+    .inc-card__amt { color: var(--text-dark); font-size: 0.97rem; line-height: 1.55; }
+    .inc-card__lender { color: var(--dark-gray); font-size: 0.84rem; margin-top: 0.5rem; }
+    .inc-card__exp { display: inline-block; margin-top: 0.7rem; background: #fbf4e2; color: var(--gold-dark); font-weight: 700; font-size: 0.72rem; padding: 0.25rem 0.75rem; border-radius: var(--radius-full); }
+
+    /* the conversion step — one per community */
+    .tour { margin-top: 1.1rem; background: var(--navy); border-radius: var(--radius-lg); padding: 1.15rem 1.4rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+    .tour__copy { color: #fff; font-family: var(--font-heading); font-weight: 700; font-size: 1rem; }
+    .tour__copy small { display: block; font-family: var(--font-body); font-weight: 400; color: rgba(255,255,255,0.7); font-size: 0.84rem; margin-top: 0.2rem; }
+    .tour__actions { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+    .tour__msg { color: #dbf5e4; font-size: 0.88rem; font-weight: 600; }
+
+    .inc-empty { background: #fff; border-radius: var(--radius-lg); box-shadow: var(--shadow-md); padding: 2rem; text-align: center; color: var(--dark-gray); }
+    .inc-disc { max-width: 780px; margin: 2rem auto 0; text-align: center; font-size: 0.78rem; color: var(--mid-gray); line-height: 1.65; }
+    .book { background: #fff; padding: 3rem 0; }
+    .book__title { font-family: var(--font-heading); font-weight: 900; color: var(--navy); font-size: 1.6rem; text-align: center; margin-bottom: 0.4rem; }
+    .book__sub { text-align: center; color: var(--dark-gray); margin-bottom: 1.6rem; }
+    .book__frame { width: 100%; height: 720px; border: 0; border-radius: var(--radius-lg); box-shadow: var(--shadow-md); }
+    @media (max-width: 640px) { .tour { flex-direction: column; align-items: flex-start; } }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAVIGATION ────────────────────────────────────────── -->
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo" aria-label="Phillip Himes Real Estate Home">
+        <img loading="lazy" src="images/logo.png" alt="Phillip Himes | Brokered by eXp Realty" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+        <span class="nav__logo-text" style="display:none;">
+          <span class="nav__logo-name">Phillip Himes</span>
+          <span class="nav__logo-brokerage">Brokered by eXp Realty</span>
+        </span>
+      </a>
+      <ul class="nav__links" id="nav-links">
+        <li><a href="buyers.html" class="nav__link">Buying</a></li>
+        <li><a href="sellers.html" class="nav__link">Selling</a></li>
+        <li><a href="search.html" class="nav__link">Search</a></li>
+        <li class="nav__item nav__item--dropdown">
+          <a href="cities.html" class="nav__link">Cities</a>
+          <ul class="nav__dropdown" aria-label="Cities submenu">
+            <li><a href="league-city.html">League City</a></li>
+            <li><a href="friendswood.html">Friendswood</a></li>
+            <li><a href="pearland.html">Pearland</a></li>
+            <li><a href="clear-lake.html">Clear Lake</a></li>
+            <li><a href="dickinson.html">Dickinson</a></li>
+            <li><a href="manvel.html">Manvel</a></li>
+          </ul>
+        </li>
+        <li class="nav__item nav__item--dropdown">
+          <a href="marketiq.html" class="nav__link">Tools</a>
+          <ul class="nav__dropdown" aria-label="Tools submenu">
+            <li><a href="buyeriq.html">BuyerIQ™ — Buyer's Edge</a></li>
+            <li><a href="selleriq.html">SellerIQ™ — Seller's Edge</a></li>
+            <li><a href="marketiq.html">MarketIQ™ — Property Intelligence</a></li>
+          </ul>
+        </li>
+        <li><a href="about.html" class="nav__link">My Story</a></li>
+        <li><a href="contact.html" class="nav__link">Ask Phil</a></li>
+        <li class="nav__mobile-cta" style="display:none;">
+          <a href="tel:8325361016" class="btn btn--secondary" style="width:100%;margin-top:var(--space-md);">📞 (832) 536-1016</a>
+          <a href="contact.html" class="btn btn--primary" style="width:100%;margin-top:var(--space-sm);">Ask Phil</a>
+        </li>
+      </ul>
+      <div class="nav__cta">
+        <a href="tel:8325361016" class="nav__phone">📞 (832) 536-1016</a>
+        <a href="contact.html" class="btn btn--primary btn--sm">Ask Phil</a>
+      </div>
+      <button class="nav__hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <header class="inc-hero">
+    <div class="container">
+      <span class="inc-hero__eyebrow">NewBuildIQ™ · Current Deals</span>
+      <h1 class="inc-hero__title">This Month's Builder Incentives <span id="incWhere">in League City</span></h1>
+      <p class="inc-hero__sub">Verified from the builders and organized by community. The strongest deal isn't always the biggest number — Phil spent ~20 years in mortgage finance, so he can tell you whether a rate buydown or a price cut actually saves you more on the home you want.</p>
+    </div>
+  </header>
+
+  <main class="inc-body">
+    <div class="container">
+      <div id="incSections"><div class="inc-empty">Loading this month's verified incentives…</div></div>
+      <p class="inc-disc" id="incDisc"></p>
+    </div>
+  </main>
+
+  <section class="book" id="book">
+    <div class="container">
+      <div class="book__title">Book your tour</div>
+      <div class="book__sub">Pick a time that works — Phil will line up the communities you're interested in.</div>
+      <iframe class="book__frame" id="bookFrame" title="Schedule a tour with Phillip Himes"
+              src="https://api.leadconnectorhq.com/widget/booking/3wn7MA9PflG6aIKdp0x1"
+              scrolling="no"></iframe>
+    </div>
+  </section>
+
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <div class="footer__brand-name">Phillip Himes</div>
+          <div class="footer__brokerage">REALTOR® | Brokered by eXp Realty</div>
+          <p class="footer__tagline">"Real estate built around your life — not just your transaction."</p>
+          <p class="footer__desc">Serving League City, Friendswood, Pearland, Clear Lake, Dickinson, and Manvel across the Houston Bay Area.</p>
+          <p class="footer__desc" style="margin-top:var(--space-md);">📞 <a href="tel:8325361016" style="color:rgba(255,255,255,0.6);">(832) 536-1016</a><br />✉️ <a href="mailto:phil@philliphimes.com" style="color:rgba(255,255,255,0.6);">phil@philliphimes.com</a></p>
+        </div>
+        <div>
+          <div class="footer__heading">Buying by District</div>
+          <ul class="footer__links">
+            <li><a href="ccisd-homes.html">Clear Creek ISD Homes</a></li>
+            <li><a href="alvin-isd-homes.html">Alvin ISD Homes</a></li>
+            <li><a href="new-construction.html">New Construction</a></li>
+            <li><a href="relocating-to-league-city.html">Relocating to League City</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer__heading">Selling</div>
+          <ul class="footer__links">
+            <li><a href="sellers.html">SellerIQ™ · Know Your Number</a></li>
+            <li><a href="contact.html?topic=trumarket">Get My TruMarket™ Report</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer__heading">Explore</div>
+          <ul class="footer__links">
+            <li><a href="marketiq.html">MarketIQ™</a></li>
+            <li><a href="cities.html">Cities</a></li>
+            <li><a href="about.html">My Story</a></li>
+            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__legal">
+          © 2026 Phillip Himes · Brokered by eXp Realty · Licensed in Texas · TREC #658644 ·
+          <a href="privacy-policy.html">Privacy Policy</a> ·
+          Not affiliated with or endorsed by any builder. Incentives are offered by the builders, change
+          frequently, and are not guaranteed. Equal Housing Opportunity.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/newbuildiq.js"></script>
+  <script>
+  (function () {
+    var API = (window.NewBuildIQ && window.NewBuildIQ.api)
+      || 'https://real-estate-agentic-os-production.up.railway.app';
+    var BOOKING = 'https://api.leadconnectorhq.com/widget/booking/3wn7MA9PflG6aIKdp0x1';
+    var params = new URLSearchParams(location.search);
+    var CITY = (params.get('city') || 'League City').trim();
+    var FOCUS = (params.get('community') || '').trim();   // community is not PII — safe in the url
+
+    function esc(s) { var e = document.createElement('div'); e.textContent = s == null ? '' : String(s); return e.innerHTML; }
+
+    // Who they are comes from localStorage (set when they registered) — never the URL.
+    function lead() {
+      try { return JSON.parse(localStorage.getItem('nbiq_lead') || '{}'); } catch (e) { return {}; }
+    }
+
+    function card(i) {
+      var exp = i.expires ? '<span class="inc-card__exp">Ends ' + esc(i.expires) + '</span>' : '';
+      var lender = i.lender_terms ? '<div class="inc-card__lender">Financing: ' + esc(i.lender_terms) + '</div>' : '';
+      return '<div class="inc-card">'
+        + '<div class="inc-card__builder">' + esc(i.builder || 'Builder') + '</div>'
+        + '<div class="inc-card__type">' + esc(i.type || 'Incentive') + '</div>'
+        + '<div class="inc-card__amt">' + esc(i.buyer_incentive) + '</div>'
+        + lender + exp + '</div>';
+    }
+
+    function tourBar(community) {
+      var label = community ? 'Tour ' + esc(community) + ' with Phil' : 'See these homes with Phil';
+      return '<div class="tour">'
+        + '<div class="tour__copy">' + label
+        + '<small>He\'ll line up the best current fits and handle the builder side.</small></div>'
+        + '<div class="tour__actions">'
+        + '<a class="btn btn--primary" href="' + BOOKING + '" target="_blank" rel="noopener">Pick a Tour Time</a>'
+        + '<button class="btn btn--white-outline" data-callme="' + esc(community) + '" style="border-color:rgba(255,255,255,0.6);color:#fff;">Have Phil Call Me</button>'
+        + '</div></div>';
+    }
+
+    function section(name, incs, isCity) {
+      return '<div class="inc-sec">'
+        + '<div class="inc-sec__head"><div class="inc-sec__name">' + esc(name) + '</div>'
+        + '<div class="inc-sec__count">' + incs.length + (incs.length === 1 ? ' current deal' : ' current deals') + '</div></div>'
+        + '<div class="inc-grid">' + incs.map(card).join('') + '</div>'
+        + tourBar(isCity ? '' : name)
+        + '</div>';
+    }
+
+    async function load() {
+      var host = document.getElementById('incSections');
+      var d;
+      try {
+        var r = await fetch(API + '/newbuildiq/gated/incentives-by-community?city=' + encodeURIComponent(CITY));
+        d = await r.json();
+      } catch (e) { d = null; }
+      document.getElementById('incWhere').textContent = 'in ' + CITY;
+
+      if (!d || (!(d.communities || []).length && !(d.citywide || []).length)) {
+        host.innerHTML = '<div class="inc-empty"><strong>Phil is confirming this week\'s list.</strong><br>'
+          + 'He\'ll send your verified incentives shortly — or grab a tour time below and he\'ll bring them with him.</div>';
+        return;
+      }
+      var comms = (d.communities || []).slice();
+      // If they named a community, lead with it.
+      if (FOCUS) {
+        comms.sort(function (a, b) {
+          return (b.community.toLowerCase() === FOCUS.toLowerCase() ? 1 : 0)
+               - (a.community.toLowerCase() === FOCUS.toLowerCase() ? 1 : 0);
+        });
+      }
+      var html = comms.map(function (c) { return section(c.community, c.incentives, false); }).join('');
+      if ((d.citywide || []).length) {
+        html += section('Available from builders across ' + (d.city || CITY), d.citywide, true);
+      }
+      host.innerHTML = html;
+      document.getElementById('incDisc').textContent = d.disclaimer || '';
+      wireCallMe();
+    }
+
+    function wireCallMe() {
+      document.querySelectorAll('[data-callme]').forEach(function (btn) {
+        btn.addEventListener('click', async function () {
+          var community = btn.getAttribute('data-callme') || '';
+          var L = lead();
+          if (!L.phone && !L.email) { location.href = 'contact.html?topic=tour'; return; }
+          btn.disabled = true; btn.textContent = 'Sending…';
+          try {
+            await fetch(API + '/lead', {
+              method: 'POST', headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                name: L.name || '', email: L.email || '', phone: L.phone || '',
+                consent: true, tag: 'builder-incentives',
+                source: 'incentives-page:tour-request',
+                message: 'Tour request' + (community ? ' — ' + community : '') + ' (from the incentive list)',
+                community: community, city: CITY
+              })
+            });
+          } catch (e) { /* non-blocking */ }
+          var bar = btn.closest('.tour');
+          bar.querySelector('.tour__actions').innerHTML =
+            '<span class="tour__msg">✓ Got it — Phil will call you to set up the tour.</span>';
+        });
+      });
+    }
+
+    load();
+  })();
+  </script>
+</body>
+</html>
