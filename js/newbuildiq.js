@@ -37,14 +37,14 @@
     'Alexander': 'https://search.philliphimes.com/i/new-construction-pearland-alexander',
     // Manvel
     'Meridiana': 'https://search.philliphimes.com/i/new-construction-meridiana-manvel-tx-phillip-himes',
-    'Valencia': 'https://search.philliphimes.com/i/new-construction-valencia-manvel-tx-phillip-himes-072a9',
-    'Pomona': 'https://search.philliphimes.com/i/new-construction-pomona-manvel-tx-phillip-himes-a5082-d6812',
+    'Valencia': 'https://search.philliphimes.com/i/new-construction-valencia-manvel-tx-phillip-himes',
+    'Pomona': 'https://search.philliphimes.com/i/new-construction-pomona-manvel-tx-phillip-himes',
     'Foxtail Palms': 'https://search.philliphimes.com/i/new-construction-foxtail-palms-manvel-tx-phillip-himes',
     'Avellino': 'https://search.philliphimes.com/i/new-construction-avellino-manvel-tx-phillip-himes',
     'Del Bello Lakes': 'https://search.philliphimes.com/i/new-construction-del-bello-lakes-manvel-tx-phillip-himes',
     // Clear Lake / Webster + Dickinson
     'Midline': 'https://search.philliphimes.com/i/new-construction-midline',
-    'Peacock Isle': 'https://search.philliphimes.com/i/new-construction-peacock-isle-dickinson-tx-phillip-himes-a5082-51ebb',
+    'Peacock Isle': 'https://search.philliphimes.com/i/new-construction-peacock-isle-dickinson-tx-phillip-himes',
     // Friendswood
     'Friendswood Trails': 'https://search.philliphimes.com/i/new-construction-friendswood-trails',
     // Texas City
