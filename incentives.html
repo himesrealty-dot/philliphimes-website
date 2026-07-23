@@ -16,24 +16,33 @@
     .inc-hero__sub { color: rgba(255,255,255,0.8); font-size: 1.03rem; line-height: 1.7; max-width: 640px; }
 
     .inc-body { background: var(--off-white); padding: 3rem 0 3.5rem; }
-    .inc-sec { margin-bottom: 2.75rem; }
-    .inc-sec__head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem; }
-    .inc-sec__name { font-family: var(--font-heading); font-weight: 900; color: var(--navy); font-size: 1.45rem; }
-    .inc-sec__count { font-size: 0.8rem; color: var(--dark-gray); font-weight: 600; }
-    .inc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1rem; }
-    .inc-card { background: #fff; border-radius: var(--radius-lg); box-shadow: var(--shadow-md); padding: 1.25rem 1.35rem; border-top: 4px solid var(--teal); }
-    .inc-card__builder { font-family: var(--font-heading); font-weight: 800; color: var(--navy); font-size: 1.05rem; }
-    .inc-card__type { color: var(--teal); font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.68rem; margin: 0.15rem 0 0.6rem; }
-    .inc-card__amt { color: var(--text-dark); font-size: 0.97rem; line-height: 1.55; }
-    .inc-card__lender { color: var(--dark-gray); font-size: 0.84rem; margin-top: 0.5rem; }
-    .inc-card__exp { display: inline-block; margin-top: 0.7rem; background: #fbf4e2; color: var(--gold-dark); font-weight: 700; font-size: 0.72rem; padding: 0.25rem 0.75rem; border-radius: var(--radius-full); }
 
-    /* the conversion step — one per community */
-    .tour { margin-top: 1.1rem; background: var(--navy); border-radius: var(--radius-lg); padding: 1.15rem 1.4rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
-    .tour__copy { color: #fff; font-family: var(--font-heading); font-weight: 700; font-size: 1rem; }
-    .tour__copy small { display: block; font-family: var(--font-body); font-weight: 400; color: rgba(255,255,255,0.7); font-size: 0.84rem; margin-top: 0.2rem; }
-    .tour__actions { display: flex; gap: 0.6rem; flex-wrap: wrap; }
-    .tour__msg { color: #dbf5e4; font-size: 0.88rem; font-weight: 600; }
+    /* ONE card per community — every deal for that community lives inside it. */
+    .inc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(370px, 1fr)); gap: 1.35rem; align-items: start; }
+    .inc-card { background: #fff; border-radius: var(--radius-lg); box-shadow: var(--shadow-md);
+      padding: 1.4rem 1.5rem 1.4rem; border-top: 4px solid var(--teal); display: flex; flex-direction: column; height: 100%; }
+    .inc-card--wide { border-top-color: var(--gold); }
+    .inc-card__head { display: flex; align-items: baseline; justify-content: space-between; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 0.15rem; }
+    .inc-card__name { font-family: var(--font-heading); font-weight: 900; color: var(--navy); font-size: 1.3rem; line-height: 1.2; }
+    .inc-card__where { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--dark-gray); }
+    .inc-card__count { font-size: 0.75rem; color: var(--dark-gray); font-weight: 600; white-space: nowrap; }
+
+    /* each builder offer inside the community card */
+    .inc-offer { padding: 0.9rem 0; border-top: 1px solid rgba(27,58,92,0.09); }
+    .inc-offer:first-of-type { border-top: none; padding-top: 0.9rem; }
+    .inc-offer__builder { font-family: var(--font-heading); font-weight: 800; color: var(--navy); font-size: 1rem; }
+    .inc-offer__type { color: var(--teal); font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.66rem; margin: 0.1rem 0 0.35rem; }
+    .inc-offer__amt { color: var(--text-dark); font-size: 0.93rem; line-height: 1.55; }
+    .inc-offer__lender { color: var(--dark-gray); font-size: 0.82rem; margin-top: 0.4rem; }
+    .inc-offer__exp { display: inline-block; margin-top: 0.5rem; background: #fbf4e2; color: var(--gold-dark); font-weight: 700; font-size: 0.7rem; padding: 0.2rem 0.7rem; border-radius: var(--radius-full); }
+
+    /* the conversion step — sits at the bottom of every community card */
+    .tour { margin-top: auto; background: var(--navy); border-radius: var(--radius-lg); padding: 1rem 1.1rem; }
+    .tour__copy { color: #fff; font-family: var(--font-heading); font-weight: 700; font-size: 0.95rem; margin-bottom: 0.7rem; }
+    .tour__copy small { display: block; font-family: var(--font-body); font-weight: 400; color: rgba(255,255,255,0.7); font-size: 0.8rem; margin-top: 0.2rem; }
+    .tour__actions { display: flex; gap: 0.55rem; flex-wrap: wrap; }
+    .tour__actions .btn { font-size: 0.82rem; padding: 0.6rem 1rem; }
+    .tour__msg { color: #dbf5e4; font-size: 0.86rem; font-weight: 600; }
 
     .inc-empty { background: #fff; border-radius: var(--radius-lg); box-shadow: var(--shadow-md); padding: 2rem; text-align: center; color: var(--dark-gray); }
     .inc-disc { max-width: 780px; margin: 2rem auto 0; text-align: center; font-size: 0.78rem; color: var(--mid-gray); line-height: 1.65; }
@@ -199,13 +208,14 @@
       try { return JSON.parse(localStorage.getItem('nbiq_lead') || '{}'); } catch (e) { return {}; }
     }
 
-    function card(i) {
-      var exp = i.expires ? '<span class="inc-card__exp">Ends ' + esc(i.expires) + '</span>' : '';
-      var lender = i.lender_terms ? '<div class="inc-card__lender">Financing: ' + esc(i.lender_terms) + '</div>' : '';
-      return '<div class="inc-card">'
-        + '<div class="inc-card__builder">' + esc(i.builder || 'Builder') + '</div>'
-        + '<div class="inc-card__type">' + esc(i.type || 'Incentive') + '</div>'
-        + '<div class="inc-card__amt">' + esc(i.buyer_incentive) + '</div>'
+    // One builder offer — a row inside the community's card, not its own card.
+    function offerRow(i) {
+      var exp = i.expires ? '<span class="inc-offer__exp">Ends ' + esc(i.expires) + '</span>' : '';
+      var lender = i.lender_terms ? '<div class="inc-offer__lender">Financing: ' + esc(i.lender_terms) + '</div>' : '';
+      return '<div class="inc-offer">'
+        + '<div class="inc-offer__builder">' + esc(i.builder || 'Builder') + '</div>'
+        + '<div class="inc-offer__type">' + esc(i.type || 'Incentive') + '</div>'
+        + '<div class="inc-offer__amt">' + esc(i.buyer_incentive) + '</div>'
         + lender + exp + '</div>';
     }
 
@@ -220,14 +230,18 @@
         + '</div></div>';
     }
 
-    function section(name, incs, isCity, city) {
-      var where = (!isCity && city)
-        ? ' <span style="font-weight:600;font-size:0.82rem;color:var(--dark-gray);">· ' + esc(city) + '</span>' : '';
-      return '<div class="inc-sec">'
-        + '<div class="inc-sec__head"><div class="inc-sec__name">' + esc(name) + where + '</div>'
-        + '<div class="inc-sec__count">' + incs.length + (incs.length === 1 ? ' current deal' : ' current deals') + '</div></div>'
-        + '<div class="inc-grid">' + incs.map(card).join('') + '</div>'
-        + tourBar(isCity ? '' : name)
+    // ONE card per community: its name, its city, every offer, its own tour CTA.
+    function communityCard(name, city, incs, isWide) {
+      var n = incs.length;
+      return '<div class="inc-card' + (isWide ? ' inc-card--wide' : '') + '">'
+        + '<div class="inc-card__head">'
+        +   '<div><div class="inc-card__name">' + esc(name) + '</div>'
+        +   (city ? '<div class="inc-card__where">' + esc(city) + '</div>' : '')
+        +   '</div>'
+        +   '<div class="inc-card__count">' + n + (n === 1 ? ' deal' : ' deals') + '</div>'
+        + '</div>'
+        + incs.map(offerRow).join('')
+        + tourBar(isWide ? '' : name)
         + '</div>';
     }
 
@@ -283,10 +297,12 @@
         });
       }
 
-      var html = list.map(function (c) { return section(c.name, c.incs, false, c.city); }).join('');
-      if (wide.length) {
-        html += section('Available from builders across the Houston Bay Area', wide, true);
-      }
+      var html = '<div class="inc-grid">'
+        + list.map(function (c) { return communityCard(c.name, c.city, c.incs, false); }).join('')
+        + (wide.length
+            ? communityCard('Available Across the Bay Area', 'Region-wide · every community', wide, true)
+            : '')
+        + '</div>';
       host.innerHTML = html;
       document.getElementById('incDisc').textContent = disclaimer || '';
       wireCallMe();
