@@ -30,6 +30,8 @@
     'Legacy': 'https://search.philliphimes.com/i/new-construction-legacy-league-city-philip-himes-',
     'Westland Ranch': 'https://search.philliphimes.com/i/new-construction-league-city-westland-ranch',
     'Samara': 'https://search.philliphimes.com/i/new-construction-samara',
+    'Davis Harbor': 'https://search.philliphimes.com/i/new-construction-league-city-davis-harbor',
+    'Pedregal': 'https://search.philliphimes.com/i/pedregal',
     // Pearland
     'Massey Oaks': 'https://search.philliphimes.com/i/new-construction---massey-oaks',
     'Alexander': 'https://search.philliphimes.com/i/new-construction-pearland-alexander',
@@ -40,8 +42,8 @@
     'Foxtail Palms': 'https://search.philliphimes.com/i/new-construction-foxtail-palms-manvel-tx-phillip-himes',
     'Avellino': 'https://search.philliphimes.com/i/new-construction-avellino-manvel-tx-phillip-himes',
     'Del Bello Lakes': 'https://search.philliphimes.com/i/new-construction-del-bello-lakes-manvel-tx-phillip-himes'
-    // Still to create: Davis Harbor, Pedregal, Westwood (League City),
-    // Pearland Old Townsite. These fall back to the city search until added.
+    // Intentionally unmapped (fall back to the city search): Coastal Point and
+    // Westwood (both closing out), Pearland Old Townsite (scattered infill).
   };
   var CITY_SEARCH = {
     'League City': 'League-City',
