@@ -9,7 +9,12 @@
   <link rel="stylesheet" href="css/styles.css" />
   <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
   <style>
-    .inc-hero { background: linear-gradient(135deg, #0c1f14 0%, #122a1c 55%, #1a3d28 100%); padding: 3.25rem 0 2.75rem; }
+    /* Blueprint hero. The photo's open space is on the right, so the overlay is
+       heaviest on the left where the headline sits — keeps white/gold legible. */
+    .inc-hero { position: relative; padding: 3.75rem 0 3.25rem; background: #10233a;
+      background-image: linear-gradient(100deg, rgba(9,22,38,0.92) 0%, rgba(12,29,48,0.82) 45%, rgba(16,38,62,0.62) 100%),
+                        url('images/new-construction-hero.jpg');
+      background-size: cover; background-position: center right; }
     .inc-hero__eyebrow { font-family: var(--font-heading); font-weight: 800; font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 0.7rem; }
     .inc-hero__title { font-family: var(--font-heading); font-weight: 900; font-size: clamp(1.9rem, 4.4vw, 2.9rem); color: #fff; line-height: 1.08; margin: 0 0 0.9rem; }
     .inc-hero__title span { color: var(--gold); }
