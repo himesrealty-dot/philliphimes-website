@@ -51,12 +51,21 @@
     'Friendswood': 'Friendswood',
     'Clear Lake': 'Clear-Lake'
   };
+  // The community a subdivision belongs to. MLS lists lot-size sections as their
+  // own subdivisions ("Meridiana 70'", "Massey Oaks Village"), but each saved
+  // search covers ALL of a community's sections — so roll them into the parent.
+  function parentName(name) {
+    if (!name) return name;
+    if (COMMUNITY_SEARCH[name]) return name;
+    for (var key in COMMUNITY_SEARCH) {
+      if (COMMUNITY_SEARCH.hasOwnProperty(key) && name.indexOf(key) === 0) return key;
+    }
+    return name;
+  }
   function listingsUrl(name, city) {
     if (name) {
-      if (COMMUNITY_SEARCH[name]) return COMMUNITY_SEARCH[name];
-      for (var key in COMMUNITY_SEARCH) {
-        if (COMMUNITY_SEARCH.hasOwnProperty(key) && name.indexOf(key) === 0) return COMMUNITY_SEARCH[key];
-      }
+      var p = parentName(name);
+      if (COMMUNITY_SEARCH[p]) return COMMUNITY_SEARCH[p];
     }
     if (city && CITY_SEARCH[city]) return IDX_BASE + '/i/' + CITY_SEARCH[city];
     return IDX_ADVANCED;
@@ -111,12 +120,33 @@
       }
     }
     if (!all.length) return;
-    var seen = {}, comms = [];              // the feed has case/section duplicates
+    // Group each subdivision under its parent community so a community shows as
+    // ONE card. Sections are distinct subdivisions, so their counts add up; a
+    // subdivision repeated with different casing is the same set, so count once.
+    // Median price comes from the largest section (averaging medians isn't valid).
+    var groups = {}, order = [];
     all.forEach(function (c) {
-      var k = String(c.name || '').toLowerCase().trim();
-      if (!k || seen[k]) return;
-      seen[k] = 1; comms.push(c);
+      var raw = String(c.name || '').trim();
+      if (!raw) return;
+      var p = parentName(raw), gk = p.toLowerCase();
+      if (!groups[gk]) {
+        groups[gk] = { name: p, __city: c.__city, active_inventory: 0,
+                       builders: [], active_median_price: null, _seen: {}, _top: -1 };
+        order.push(gk);
+      }
+      var g = groups[gk], nk = raw.toLowerCase();
+      if (g._seen[nk]) return;               // same subdivision, different casing
+      g._seen[nk] = 1;
+      g.active_inventory += (c.active_inventory || 0);
+      (c.builders || []).forEach(function (b) {
+        if (b && g.builders.indexOf(b) < 0) g.builders.push(b);
+      });
+      if ((c.active_inventory || 0) > g._top) {
+        g._top = c.active_inventory || 0;
+        if (typeof c.active_median_price === 'number') g.active_median_price = c.active_median_price;
+      }
     });
+    var comms = order.map(function (k) { return groups[k]; });
     comms.sort(function (a, b) { return (b.active_inventory || 0) - (a.active_inventory || 0); });
     cardsWrap.innerHTML = comms.slice(0, opts.limit || 18).map(function (c) {
       var price = money(c.active_median_price);
