@@ -99,7 +99,7 @@
   <header class="inc-hero">
     <div class="container">
       <span class="inc-hero__eyebrow">NewBuildIQ™ · Current Deals</span>
-      <h1 class="inc-hero__title">This Month's Builder Incentives <span id="incWhere">in League City</span></h1>
+      <h1 class="inc-hero__title">This Month's <span>Builder Incentives</span></h1>
       <p class="inc-hero__sub">Verified from the builders and organized by community. The strongest deal isn't always the biggest number — Phil spent ~20 years in mortgage finance, so he can tell you whether a rate buydown or a price cut actually saves you more on the home you want.</p>
     </div>
   </header>
@@ -178,6 +178,19 @@
     var params = new URLSearchParams(location.search);
     var CITY = (params.get('city') || 'League City').trim();
     var FOCUS = (params.get('community') || '').trim();   // community is not PII — safe in the url
+    // Every market Phil covers. Cities with no current deals simply add nothing.
+    var CITIES = ['League City', 'Pearland', 'Manvel', 'Texas City', 'Dickinson', 'Friendswood', 'Clear Lake'];
+
+    // MLS lists lot-size sections as their own "communities" ("Meridiana 65'",
+    // "Pomona: 40ft. lots") — roll them into the parent so a community shows once.
+    function parentCommunity(name) {
+      return String(name || '').split(':')[0]
+        .replace(/\s+\d+\s*(ft\.?|')\s*(lots?)?\s*$/i, '').trim();
+    }
+    // Builders run the same offer across several cities; dedupe on the offer itself.
+    function sigOf(i) {
+      return [i && i.builder, i && i.type, i && i.buyer_incentive].join('|').toLowerCase();
+    }
 
     function esc(s) { var e = document.createElement('div'); e.textContent = s == null ? '' : String(s); return e.innerHTML; }
 
@@ -207,43 +220,75 @@
         + '</div></div>';
     }
 
-    function section(name, incs, isCity) {
+    function section(name, incs, isCity, city) {
+      var where = (!isCity && city)
+        ? ' <span style="font-weight:600;font-size:0.82rem;color:var(--dark-gray);">· ' + esc(city) + '</span>' : '';
       return '<div class="inc-sec">'
-        + '<div class="inc-sec__head"><div class="inc-sec__name">' + esc(name) + '</div>'
+        + '<div class="inc-sec__head"><div class="inc-sec__name">' + esc(name) + where + '</div>'
         + '<div class="inc-sec__count">' + incs.length + (incs.length === 1 ? ' current deal' : ' current deals') + '</div></div>'
         + '<div class="inc-grid">' + incs.map(card).join('') + '</div>'
         + tourBar(isCity ? '' : name)
         + '</div>';
     }
 
+    async function fetchCity(city) {
+      try {
+        var r = await fetch(API + '/newbuildiq/gated/incentives-by-community?city=' + encodeURIComponent(city));
+        var d = await r.json(); d.__city = city; return d;
+      } catch (e) { return null; }
+    }
+
     async function load() {
       var host = document.getElementById('incSections');
-      var d;
-      try {
-        var r = await fetch(API + '/newbuildiq/gated/incentives-by-community?city=' + encodeURIComponent(CITY));
-        d = await r.json();
-      } catch (e) { d = null; }
-      document.getElementById('incWhere').textContent = 'in ' + CITY;
+      // Pull every market at once, then merge into one list.
+      var results = await Promise.all(CITIES.map(fetchCity));
 
-      if (!d || (!(d.communities || []).length && !(d.citywide || []).length)) {
+      var comms = {}, order = [], wide = [], wideSeen = {}, disclaimer = '';
+      results.forEach(function (d) {
+        if (!d) return;
+        if (!disclaimer && d.disclaimer) disclaimer = d.disclaimer;
+        (d.communities || []).forEach(function (c) {
+          var p = parentCommunity(c.community);
+          if (!p) return;
+          var k = p.toLowerCase();
+          if (!comms[k]) { comms[k] = { name: p, city: d.__city, incs: [], seen: {} }; order.push(k); }
+          (c.incentives || []).forEach(function (i) {
+            var s = sigOf(i);
+            if (comms[k].seen[s]) return;      // same offer listed under a section too
+            comms[k].seen[s] = 1; comms[k].incs.push(i);
+          });
+        });
+        // Region-wide offers repeat identically per city — keep one copy.
+        (d.citywide || []).forEach(function (i) {
+          var s = sigOf(i);
+          if (wideSeen[s]) return;
+          wideSeen[s] = 1; wide.push(i);
+        });
+      });
+
+      var list = order.map(function (k) { return comms[k]; })
+                      .filter(function (c) { return c.incs.length; });
+      if (!list.length && !wide.length) {
         host.innerHTML = '<div class="inc-empty"><strong>Phil is confirming this week\'s list.</strong><br>'
           + 'He\'ll send your verified incentives shortly — or grab a tour time below and he\'ll bring them with him.</div>';
         return;
       }
-      var comms = (d.communities || []).slice();
-      // If they named a community, lead with it.
+
+      // Most deals first; if they named a community, lead with it.
+      list.sort(function (a, b) { return b.incs.length - a.incs.length; });
       if (FOCUS) {
-        comms.sort(function (a, b) {
-          return (b.community.toLowerCase() === FOCUS.toLowerCase() ? 1 : 0)
-               - (a.community.toLowerCase() === FOCUS.toLowerCase() ? 1 : 0);
+        var f = parentCommunity(FOCUS).toLowerCase();
+        list.sort(function (a, b) {
+          return (b.name.toLowerCase() === f ? 1 : 0) - (a.name.toLowerCase() === f ? 1 : 0);
         });
       }
-      var html = comms.map(function (c) { return section(c.community, c.incentives, false); }).join('');
-      if ((d.citywide || []).length) {
-        html += section('Available from builders across ' + (d.city || CITY), d.citywide, true);
+
+      var html = list.map(function (c) { return section(c.name, c.incs, false, c.city); }).join('');
+      if (wide.length) {
+        html += section('Available from builders across the Houston Bay Area', wide, true);
       }
       host.innerHTML = html;
-      document.getElementById('incDisc').textContent = d.disclaimer || '';
+      document.getElementById('incDisc').textContent = disclaimer || '';
       wireCallMe();
     }
 
