@@ -44,7 +44,16 @@
     'Del Bello Lakes': 'https://search.philliphimes.com/i/new-construction-del-bello-lakes-manvel-tx-phillip-himes',
     // Clear Lake / Webster + Dickinson
     'Midline': 'https://search.philliphimes.com/i/new-construction-midline',
-    'Peacock Isle': 'https://search.philliphimes.com/i/new-construction-peacock-isle-dickinson-tx-phillip-himes-a5082-51ebb'
+    'Peacock Isle': 'https://search.philliphimes.com/i/new-construction-peacock-isle-dickinson-tx-phillip-himes-a5082-51ebb',
+    // Friendswood
+    'Friendswood Trails': 'https://search.philliphimes.com/i/new-construction-friendswood-trails',
+    // Texas City
+    'Lago Mar': 'https://search.philliphimes.com/i/new-construction-lago-mar-texas-city-tx-phillip-himes-c04dc',
+    'Beacon Point': 'https://search.philliphimes.com/i/new-construction-beacon-point',
+    'Pearlbrook': 'https://search.philliphimes.com/i/new-construction-pearlbrook-texas-city-tx-phillip-himes',
+    'Steed Landing': 'https://search.philliphimes.com/i/new-construction-steed-landing-texas-city-tx-phillip-himes',
+    'Vida Costera': 'https://search.philliphimes.com/i/new-construction-vida-costera',
+    'Grand Cay Harbour': 'https://search.philliphimes.com/i/new-construction-grand-cay-harbour-texas-city-tx-phillip-himes-c04dc-4f349'
     // Intentionally unmapped (fall back to the city search): Coastal Point and
     // Westwood (both closing out), Pearland Old Townsite (scattered infill).
   };
