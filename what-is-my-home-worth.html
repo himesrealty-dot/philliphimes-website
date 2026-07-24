@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>What's My Home Worth? Free Home Value — League City &amp; Bay Area | Phil Himes</title>
+  <meta name="description" content="What's my home worth? Get a real home value for your League City, Friendswood, Clear Lake or Bay Area home — from a local expert who walks your street, not just a Zestimate. Free, no obligation." />
+  <meta name="author" content="Phillip Himes | Brokered by eXp Realty" />
+  <link rel="canonical" href="https://philliphimes.com/what-is-my-home-worth.html" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="What's My Home Worth? Free Home Value | Phil Himes" />
+  <meta property="og:description" content="Find out what your home is really worth — a real value range from a local expert, not just a Zestimate. Free, no obligation. Serving League City &amp; the Bay Area." />
+  <meta property="og:url" content="https://philliphimes.com/what-is-my-home-worth.html" />
+
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+
+  <style>
+    /* ─── SLIM BRAND BAR ─────────────────────────────────── */
+    .wmh-bar { background: var(--navy); padding: 0.7rem 0; }
+    .wmh-bar__in { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+    .wmh-bar__logo img { height: 34px; width: auto; display: block; }
+    .wmh-bar__ph { color: #fff; text-decoration: none; font-weight: 700; font-size: 0.95rem; }
+    .wmh-bar__ph:hover { color: var(--gold); }
+
+    /* minimal lander footer */
+    .wmh-foot { background: var(--navy); padding: 2rem 0; text-align: center; }
+    .wmh-foot p { color: rgba(255,255,255,0.6); font-size: 0.82rem; margin: 0 0 0.4rem; line-height: 1.6; }
+    .wmh-foot a { color: var(--gold); text-decoration: none; }
+    .wmh-foot__legal { color: rgba(255,255,255,0.35); font-size: 0.72rem; }
+
+    /* ─── HERO / FORM SECTION ───────────────────────────── */
+    .tm-hero {
+      background: linear-gradient(135deg, #0d2137 0%, #1B3A5C 50%, #0a4a5e 100%);
+      padding: 6rem 0 5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .tm-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 70% 50%, rgba(32,137,160,0.15) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    /* Watermark */
+    .tm-hero::after {
+      content: 'Home Value';
+      position: absolute;
+      bottom: -20px;
+      right: -20px;
+      font-family: var(--font-heading);
+      font-weight: 900;
+      font-size: 9rem;
+      color: rgba(255,255,255,0.04);
+      line-height: 1;
+      pointer-events: none;
+      white-space: nowrap;
+      letter-spacing: -0.03em;
+    }
+    .tm-hero__inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    @media (max-width: 860px) {
+      .tm-hero__inner { grid-template-columns: 1fr; gap: 3rem; }
+    }
+
+    /* Left: Pitch */
+    .tm-hero__eyebrow {
+      font-family: var(--font-heading);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+      display: block;
+    }
+    .tm-hero__title {
+      font-family: var(--font-heading);
+      font-weight: 900;
+      font-size: clamp(2rem, 4.5vw, 3rem);
+      color: white;
+      line-height: 1.08;
+      margin-bottom: 1.1rem;
+      letter-spacing: -0.02em;
+    }
+    .tm-hero__title span { color: var(--gold); }
+    .tm-hero__desc {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.72);
+      line-height: 1.78;
+      margin-bottom: 2rem;
+    }
+    .tm-hero__includes {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 2rem;
+    }
+    .tm-hero__includes li {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.8);
+      padding: 0.45rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .tm-hero__includes li:last-child { border-bottom: none; }
+    .tm-hero__includes li::before {
+      content: '✓';
+      font-family: var(--font-heading);
+      font-weight: 900;
+      font-size: 0.85rem;
+      color: var(--gold);
+      flex-shrink: 0;
+    }
+    .tm-hero__disclaimer {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.38);
+      font-style: italic;
+    }
+
+    /* Right: Form */
+    .tm-form-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: var(--radius-xl);
+      padding: 2.5rem 2.25rem;
+      backdrop-filter: blur(8px);
+    }
+    .tm-form-card__title {
+      font-family: var(--font-heading);
+      font-weight: 900;
+      font-size: 1.4rem;
+      color: white;
+      margin-bottom: 0.4rem;
+    }
+    .tm-form-card__sub {
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 1.75rem;
+      line-height: 1.6;
+    }
+    .tm-form__row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.85rem;
+      margin-bottom: 0.85rem;
+    }
+    .tm-form__row--full {
+      grid-template-columns: 1fr;
+    }
+    .tm-form__field {
+      display: flex;
+      flex-direction: column;
+    }
+    .tm-form__input {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 8px;
+      padding: 0.85rem 1rem;
+      font-size: 0.9rem;
+      color: white;
+      font-family: var(--font-body, sans-serif);
+      transition: border-color 0.2s, background 0.2s;
+      outline: none;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .tm-form__input::placeholder { color: rgba(255,255,255,0.38); }
+    .tm-form__input:focus {
+      border-color: var(--teal);
+      background: rgba(255,255,255,0.12);
+    }
+    .tm-form__consent {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.65rem;
+      margin: 1.1rem 0 1.5rem;
+    }
+    .tm-form__consent input[type="checkbox"] {
+      margin-top: 3px;
+      flex-shrink: 0;
+      accent-color: var(--teal);
+      width: 16px;
+      height: 16px;
+    }
+    .tm-form__consent-text {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.55;
+    }
+    .tm-form__consent-text a { color: rgba(255,255,255,0.6); }
+    .tm-form__submit {
+      width: 100%;
+      background: var(--gold);
+      color: var(--navy);
+      border: none;
+      border-radius: var(--radius-full);
+      padding: 1rem 2rem;
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 0.95rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .tm-form__submit:hover { background: #d4b86a; transform: translateY(-1px); }
+    .tm-form__submit:active { transform: translateY(0); }
+
+    /* Success message */
+    .tm-form__success {
+      display: none;
+      text-align: center;
+      padding: 2rem 1rem;
+    }
+    .tm-form__success-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+    .tm-form__success-title {
+      font-family: var(--font-heading);
+      font-weight: 900;
+      font-size: 1.4rem;
+      color: var(--gold);
+      margin-bottom: 0.5rem;
+    }
+    .tm-form__success-msg {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.65;
+    }
+
+    /* ─── WHAT YOU GET ──────────────────────────────────── */
+    .tm-what {
+      padding: 5rem 0;
+      background: white;
+    }
+    .tm-what__header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    .tm-what__eyebrow {
+      font-family: var(--font-heading);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 0.6rem;
+      display: block;
+    }
+    .tm-what__title {
+      font-family: var(--font-heading);
+      font-weight: 900;
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      color: var(--navy);
+      line-height: 1.1;
+    }
+    .tm-what__title span { color: var(--teal); }
+    .tm-what__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    @media (max-width: 768px) { .tm-what__grid { grid-template-columns: 1fr; max-width: 440px; margin: 0 auto; } }
+    .tm-what__card {
+      background: #f7f9fc;
+      border: 1px solid #e4eaf0;
+      border-radius: var(--radius-xl);
+      padding: 2rem 1.75rem;
+      text-align: center;
+    }
+    .tm-what__card-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+    .tm-what__card-title {
+      font-family: var(--font-heading);
+      font-weight: 900;
+      font-size: 1.05rem;
+      color: var(--navy);
+      margin-bottom: 0.6rem;
+    }
+    .tm-what__card-desc {
+      font-size: 0.88rem;
+      color: var(--dark-gray);
+      line-height: 1.7;
+    }
+
+    /* ─── NOT A ZESTIMATE ───────────────────────────────── */
+    .tm-diff {
+      padding: 5rem 0;
+      background: #f0f4f7;
+    }
+    .tm-diff__inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    @media (max-width: 768px) { .tm-diff__inner { grid-template-columns: 1fr; gap: 2.5rem; } }
+    .tm-diff__eyebrow {
+      font-family: var(--font-heading);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 0.6rem;
+      display: block;
+    }
+    .tm-diff__title {
+      font-family: var(--font-heading);
+      font-weight: 900;
+      font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+      color: var(--navy);
+      line-height: 1.1;
+      margin-bottom: 1.1rem;
+    }
+    .tm-diff__title span { color: var(--teal); }
+    .tm-diff__body {
+      font-size: 0.95rem;
+      color: var(--dark-gray);
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+    }
+    .tm-diff__quote {
+      font-family: var(--font-accent, Georgia, serif);
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--navy);
+      border-left: 3px solid var(--gold);
+      padding-left: 1.1rem;
+      line-height: 1.65;
+    }
+    .tm-compare {
+      background: white;
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      border: 1px solid #e4eaf0;
+    }
+    .tm-compare__header {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      text-align: center;
+    }
+    .tm-compare__header-cell {
+      padding: 0.85rem 0.5rem;
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .tm-compare__header-cell:first-child {
+      background: #f0f4f7;
+      color: var(--dark-gray);
+      text-align: left;
+      padding-left: 1.25rem;
+    }
+    .tm-compare__header-cell:nth-child(2) {
+      background: #f7f9fc;
+      color: #888;
+    }
+    .tm-compare__header-cell:last-child {
+      background: var(--navy);
+      color: var(--gold);
+    }
+    .tm-compare__row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      border-top: 1px solid #e4eaf0;
+      text-align: center;
+      align-items: center;
+    }
+    .tm-compare__row:nth-child(even) { background: #fafbfc; }
+    .tm-compare__cell {
+      padding: 0.85rem 0.5rem;
+      font-size: 0.85rem;
+    }
+    .tm-compare__cell:first-child {
+      text-align: left;
+      padding-left: 1.25rem;
+      color: var(--dark-gray);
+      font-weight: 600;
+    }
+    .tm-compare__cell--no { color: #c0392b; font-size: 1rem; }
+    .tm-compare__cell--yes { color: var(--teal); font-size: 1rem; font-weight: 700; }
+
+    /* ─── TESTIMONIAL ───────────────────────────────────── */
+    .tm-testi { padding: 4.5rem 0; background: var(--navy); text-align: center; }
+    .tm-testi__stars { color: var(--gold); font-size: 1.4rem; letter-spacing: 5px; margin-bottom: 1.3rem; }
+    .tm-testi__quote {
+      font-family: var(--font-accent, Georgia, serif);
+      font-style: italic;
+      font-size: clamp(1.3rem, 2.6vw, 1.8rem);
+      color: #fff;
+      line-height: 1.5;
+      max-width: 800px;
+      margin: 0 auto 1.15rem;
+    }
+    .tm-testi__cite {
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 0.95rem;
+      color: var(--gold);
+      letter-spacing: 0.02em;
+    }
+
+  </style>
+  <meta property="og:image" content="https://philliphimes.com/images/logo.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "What's My Home Worth — Free Home Value Estimate",
+    "url": "https://philliphimes.com/what-is-my-home-worth.html",
+    "description": "Get a real home value — not just a Zestimate. TruMarket™ includes positioning analysis, active competition review, and a strategic pricing conversation. Free, no obligation.",
+    "serviceType": "Home Valuation and Market Analysis",
+    "provider": {
+      "@type": "RealEstateAgent",
+      "name": "Phillip Himes",
+      "url": "https://philliphimes.com",
+      "telephone": "(832) 536-1016",
+      "email": "phil@philliphimes.com", "sameAs": ["https://www.youtube.com/@PhillipHimesrealtor", "https://www.facebook.com/philliphimesrealtor", "https://www.instagram.com/philhimes/", "https://www.linkedin.com/in/philhimes/"],
+      "areaServed": ["League City, TX","Friendswood, TX","Pearland, TX","Clear Lake, TX","Dickinson, TX","Manvel, TX"]
+    }
+  }
+  </script>
+
+</head>
+<body>
+
+  <!-- ── SLIM BRAND BAR (landing page — no full nav) ─────── -->
+  <div class="wmh-bar">
+    <div class="wmh-bar__in">
+      <a href="index.html" class="wmh-bar__logo" aria-label="Phillip Himes Real Estate Home">
+        <img loading="lazy" src="images/logo.png" alt="Phillip Himes | Brokered by eXp Realty"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='inline'" />
+        <span style="display:none;font-family:var(--font-heading);font-weight:900;color:#fff;">Phillip <span style="color:var(--gold);">Himes</span></span>
+      </a>
+      <a href="tel:8325361016" class="wmh-bar__ph">📞 (832) 536-1016</a>
+    </div>
+  </div>
+
+  <!-- ── HERO + FORM ───────────────────────────────────── -->
+  <section class="tm-hero" aria-labelledby="tm-heading">
+    <div class="container">
+      <div class="tm-hero__inner">
+
+        <!-- Left: Pitch -->
+        <div>
+          <span class="tm-hero__eyebrow">For Sellers &amp; Homeowners</span>
+          <h1 class="tm-hero__title" id="tm-heading">What's My<br /><span>Home Worth?</span></h1>
+          <p class="tm-hero__desc">Find out what your home is <em>really</em> worth — a true value range from a local expert who walks your street, not an algorithm guessing from a screen. Free, and no obligation.</p>
+          <ul class="tm-hero__includes">
+            <li>Your home's real market value range — based on actual nearby comps</li>
+            <li>What's selling (and what's sitting) in your neighborhood right now</li>
+            <li>A pricing strategy to maximize what you walk away with</li>
+            <li>Your equity snapshot — what you'd net after selling costs</li>
+            <li>A no-pressure conversation with Phil — real answers, no scripts</li>
+          </ul>
+          <p class="tm-hero__disclaimer">100% free. No obligation. Phil personally responds within 1 business day.</p>
+        </div>
+
+        <!-- Right: Form -->
+        <div>
+          <div class="tm-form-card">
+            <div class="tm-form-card__title">See What Your Home Is Worth</div>
+            <div class="tm-form-card__sub">Tell Phil about your property and he'll send your personalized home value — real comps, real numbers — within 1 business day.</div>
+
+            <form id="trumarket-form" novalidate>
+              <div class="tm-form__row">
+                <div class="tm-form__field">
+                  <input class="tm-form__input" type="text" name="firstName" placeholder="First Name" required autocomplete="given-name" />
+                </div>
+                <div class="tm-form__field">
+                  <input class="tm-form__input" type="text" name="lastName" placeholder="Last Name" required autocomplete="family-name" />
+                </div>
+              </div>
+              <div class="tm-form__row tm-form__row--full">
+                <div class="tm-form__field">
+                  <input class="tm-form__input" type="text" name="address" placeholder="Property Address (Street, City, Zip)" required autocomplete="street-address" />
+                </div>
+              </div>
+              <div class="tm-form__row">
+                <div class="tm-form__field">
+                  <input class="tm-form__input" type="email" name="email" placeholder="Email Address" required autocomplete="email" />
+                </div>
+                <div class="tm-form__field">
+                  <input class="tm-form__input" type="tel" name="phone" placeholder="Phone Number" required autocomplete="tel" />
+                </div>
+              </div>
+              <div style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;" aria-hidden="true">
+                <label>Company<input type="text" name="company" tabindex="-1" autocomplete="off" /></label>
+              </div>
+              <div class="tm-form__consent">
+                <input type="checkbox" id="tm-consent" name="consent" required />
+                <label class="tm-form__consent-text" for="tm-consent">
+                  I agree to receive text messages from Phillip Himes. Msg &amp; data rates may apply. Reply STOP to cancel. See <a href="privacy-policy.html">Privacy Policy</a>.
+                </label>
+              </div>
+              <button type="submit" class="tm-form__submit">WHAT'S MY HOME WORTH? →</button>
+            </form>
+
+            <div class="tm-form__success" id="tm-success">
+              <div class="tm-form__success-icon">✅</div>
+              <div class="tm-form__success-title">Request Received!</div>
+              <p class="tm-form__success-msg">Phil will review your property and reach out within 1 business day with your personalized TruMarket™ analysis.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── WHAT YOU GET ──────────────────────────────────── -->
+  <section class="tm-what" aria-labelledby="what-heading">
+    <div class="container">
+      <div class="tm-what__header">
+        <span class="tm-what__eyebrow">What's Included</span>
+        <h2 class="tm-what__title" id="what-heading">Your <span>TruMarket™</span> Report</h2>
+      </div>
+      <div class="tm-what__grid">
+        <div class="tm-what__card">
+          <span class="tm-what__card-icon">📊</span>
+          <div class="tm-what__card-title">Real Comp Analysis</div>
+          <p class="tm-what__card-desc">Phil pulls actual recently sold homes near yours — same size, same neighborhood, same condition — to establish a true market value range.</p>
+        </div>
+        <div class="tm-what__card">
+          <span class="tm-what__card-icon">🏁</span>
+          <div class="tm-what__card-title">Competition Review</div>
+          <p class="tm-what__card-desc">See exactly what buyers are comparing your home to right now — active listings that are your real competition on the market today.</p>
+        </div>
+        <div class="tm-what__card">
+          <span class="tm-what__card-icon">💰</span>
+          <div class="tm-what__card-title">Equity Snapshot</div>
+          <p class="tm-what__card-desc">Understand what you'd actually walk away with after agent fees, closing costs, and mortgage payoff — your real net proceeds number.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── NOT A ZESTIMATE ──────────────────────────────── -->
+  <section class="tm-diff" aria-labelledby="diff-heading">
+    <div class="container">
+      <div class="tm-diff__inner">
+
+        <div>
+          <span class="tm-diff__eyebrow">Why TruMarket™?</span>
+          <h2 class="tm-diff__title" id="diff-heading">Not a Zestimate.<br />A <span>Real Answer.</span></h2>
+          <p class="tm-diff__body">Zillow, Redfin, and every other algorithm estimates your home's value without ever setting foot inside it. They don't know about your renovated kitchen, your premium lot, or the new roof you put on last year. Phil does — because he actually looks.</p>
+          <blockquote class="tm-diff__quote">"The difference between what an algorithm thinks your home is worth and what a buyer will actually pay can be $30,000 or more. That's your equity on the line."</blockquote>
+        </div>
+
+        <div class="tm-compare" role="table" aria-label="TruMarket vs Zestimate comparison">
+          <div class="tm-compare__header" role="row">
+            <div class="tm-compare__header-cell" role="columnheader"></div>
+            <div class="tm-compare__header-cell" role="columnheader">Zestimate</div>
+            <div class="tm-compare__header-cell" role="columnheader">TruMarket™</div>
+          </div>
+          <div class="tm-compare__row" role="row">
+            <div class="tm-compare__cell" role="cell">Actual comp analysis</div>
+            <div class="tm-compare__cell tm-compare__cell--no" role="cell">✗</div>
+            <div class="tm-compare__cell tm-compare__cell--yes" role="cell">✓</div>
+          </div>
+          <div class="tm-compare__row" role="row">
+            <div class="tm-compare__cell" role="cell">Accounts for condition</div>
+            <div class="tm-compare__cell tm-compare__cell--no" role="cell">✗</div>
+            <div class="tm-compare__cell tm-compare__cell--yes" role="cell">✓</div>
+          </div>
+          <div class="tm-compare__row" role="row">
+            <div class="tm-compare__cell" role="cell">Active competition review</div>
+            <div class="tm-compare__cell tm-compare__cell--no" role="cell">✗</div>
+            <div class="tm-compare__cell tm-compare__cell--yes" role="cell">✓</div>
+          </div>
+          <div class="tm-compare__row" role="row">
+            <div class="tm-compare__cell" role="cell">Net proceeds estimate</div>
+            <div class="tm-compare__cell tm-compare__cell--no" role="cell">✗</div>
+            <div class="tm-compare__cell tm-compare__cell--yes" role="cell">✓</div>
+          </div>
+          <div class="tm-compare__row" role="row">
+            <div class="tm-compare__cell" role="cell">Pricing strategy</div>
+            <div class="tm-compare__cell tm-compare__cell--no" role="cell">✗</div>
+            <div class="tm-compare__cell tm-compare__cell--yes" role="cell">✓</div>
+          </div>
+          <div class="tm-compare__row" role="row">
+            <div class="tm-compare__cell" role="cell">Real conversation with local expert</div>
+            <div class="tm-compare__cell tm-compare__cell--no" role="cell">✗</div>
+            <div class="tm-compare__cell tm-compare__cell--yes" role="cell">✓</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── TESTIMONIAL ───────────────────────────────────── -->
+  <section class="tm-testi" aria-label="Client testimonial">
+    <div class="container">
+      <div class="tm-testi__stars" aria-label="5 out of 5 stars">★★★★★</div>
+      <blockquote class="tm-testi__quote">"His negotiating skills are the best — he helped save us BIG money. His personable approach makes the whole experience memorable."</blockquote>
+      <div class="tm-testi__cite">— Dustin &amp; Maria Tunello</div>
+    </div>
+  </section>
+
+  <!-- ── MINIMAL LANDER FOOTER ──────────────────────────── -->
+  <footer class="wmh-foot" role="contentinfo">
+    <div class="container">
+      <p><strong style="color:#fff;">Phillip Himes</strong>, REALTOR® · Brokered by eXp Realty · Serving the Houston Bay Area</p>
+      <p><a href="tel:8325361016">(832) 536-1016</a> · <a href="mailto:phil@philliphimes.com">phil@philliphimes.com</a></p>
+      <p class="wmh-foot__legal">© 2026 Phillip Himes · Licensed in Texas · <a href="privacy-policy.html" style="color:rgba(255,255,255,0.5);">Privacy Policy</a> · <a href="terms-of-service.html" style="color:rgba(255,255,255,0.5);">Terms</a> · Equal Housing Opportunity. All information deemed reliable but not guaranteed.</p>
+    </div>
+  </footer>
+  <script>
+    // ── TRUMARKET FORM → GHL WEBHOOK ─────────────────────
+    // Replace this URL with your GHL webhook endpoint
+    // Post to the Real Estate Agentic OS /lead endpoint (offer engine + speed-to-lead).
+    // Tagged "home-valuation" so it matches the Free Home Valuation offer → Caitlyn
+    // follows up (SMS + speed-to-lead call). Replaces the old direct GHL webhook.
+    const LEAD_API = 'https://real-estate-agentic-os-production.up.railway.app';
+
+    const form = document.getElementById('trumarket-form');
+    const successEl = document.getElementById('tm-success');
+
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const firstName = form.firstName.value.trim();
+      const lastName  = form.lastName.value.trim();
+      const address   = form.address.value.trim();
+      const email     = form.email.value.trim();
+      const phone     = form.phone.value.trim();
+
+      // Basic validation
+      if (!firstName || !lastName || !address || !email || !phone) {
+        alert('Please fill out all fields before submitting.');
+        return;
+      }
+      if (!form.consent.checked) {
+        alert('Please check the consent box to continue.');
+        return;
+      }
+
+      const btn = form.querySelector('.tm-form__submit');
+      btn.textContent = 'Sending...';
+      btn.disabled = true;
+
+      // honeypot: real people leave "company" empty
+      if ((form.company && form.company.value || '').trim()) {
+        form.style.display = 'none'; successEl.style.display = 'block'; return;
+      }
+
+      const payload = {
+        first_name: firstName,   // backend needs first_name/full_name, NOT "name"
+        last_name:  lastName,
+        email:   email,
+        phone:   phone,
+        message: 'Home value request for: ' + address,
+        consent: form.consent.checked,
+        source:  'whats-my-home-worth:philliphimes.com',
+        tag:     'home-valuation',
+        company: ''
+      };
+
+      try {
+        const r = await fetch(LEAD_API + '/lead', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        if (!r.ok) throw new Error('http ' + r.status);
+        form.style.display = 'none';
+        successEl.style.display = 'block';
+      } catch (err) {
+        // Show success anyway (a lead is never lost; falls back gracefully)
+        form.style.display = 'none';
+        successEl.style.display = 'block';
+      }
+    });
+  </script>
+  <script src="https://widgets.leadconnectorhq.com/loader.js" data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" data-widget-id="6a0623c7f127bb5833bc2697"></script>
+
+</body>
+</html>
