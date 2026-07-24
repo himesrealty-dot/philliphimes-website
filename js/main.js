@@ -184,7 +184,9 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         const leadName = (data.name || [data.first_name || data['first-name'], data.last_name || data['last-name']].filter(Boolean).join(' ')).trim();
         const payload = {
-          name: leadName,
+          full_name: leadName,   // backend requires first_name/full_name, NOT "name" (returns missing_contact)
+          first_name: (data.first_name || data['first-name'] || leadName.split(' ')[0] || '').trim(),
+          last_name: (data.last_name || data['last-name'] || leadName.split(' ').slice(1).join(' ') || '').trim(),
           email: (data.email || '').trim(),
           phone: (data.phone || '').trim(),
           message: (data.message || data.subject || '').trim(),
