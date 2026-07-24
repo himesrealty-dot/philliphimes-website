@@ -197,7 +197,7 @@
         }
         var consentEl = form.querySelector('[name="sms_consent"]');
         var payload = {
-          name: (data.name || '').trim(),
+          full_name: (data.name || '').trim(),   // backend needs first_name/full_name, NOT "name"
           email: (data.email || '').trim(),
           phone: (data.phone || '').trim(),
           message: (data.message || data.community || '').trim(),
@@ -221,7 +221,7 @@
           if (form.getAttribute('data-reveal') === 'incentives') {
             try {
               localStorage.setItem('nbiq_lead', JSON.stringify({
-                name: payload.name, email: payload.email, phone: payload.phone
+                name: payload.full_name, email: payload.email, phone: payload.phone
               }));
             } catch (e) { /* private mode: the results page just asks again */ }
             var city = form.getAttribute('data-city') || DEFAULT_CITY;

@@ -209,7 +209,8 @@
       }
       var orig = btn.textContent; btn.disabled = true; btn.textContent = 'Unlocking…';
       var payload = {
-        name: ((data.first_name || '') + ' ' + (data.last_name || '')).trim(),
+        first_name: (data.first_name || '').trim(),
+        last_name: (data.last_name || '').trim(),
         email: (data.email || '').trim(),
         phone: (data.phone || '').trim(),
         message: "Bender's Landing buyer market report (QR / open-house feedback sheet)",
