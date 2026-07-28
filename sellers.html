@@ -354,6 +354,32 @@
     }
     .hv-capture-btn:hover { background: #b8923e; transform: translateY(-1px); }
 
+    /* ── TruMarket form card (matches trumarket.html) ── */
+    .tm-form-card__title { font-family: var(--font-heading); font-weight: 900; font-size: 1.4rem; color: #fff; margin-bottom: 0.4rem; }
+    .tm-form-card__sub { font-size: 0.88rem; color: rgba(255,255,255,0.55); margin-bottom: 1.75rem; line-height: 1.6; }
+    .tm-form__row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; margin-bottom: 0.85rem; }
+    .tm-form__row--full { grid-template-columns: 1fr; }
+    .tm-form__field { display: flex; flex-direction: column; }
+    .tm-form__input { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); border-radius: 8px;
+      padding: 0.85rem 1rem; font-size: 0.9rem; color: #fff; font-family: var(--font-body, sans-serif);
+      transition: border-color 0.2s, background 0.2s; outline: none; width: 100%; box-sizing: border-box; }
+    .tm-form__input::placeholder { color: rgba(255,255,255,0.38); }
+    .tm-form__input:focus { border-color: var(--teal); background: rgba(255,255,255,0.12); }
+    .tm-form__consent { display: flex; align-items: flex-start; gap: 0.65rem; margin: 1.1rem 0 1.5rem; }
+    .tm-form__consent input[type="checkbox"] { margin-top: 3px; flex-shrink: 0; accent-color: var(--teal); width: 16px; height: 16px; }
+    .tm-form__consent-text { font-size: 0.75rem; color: rgba(255,255,255,0.45); line-height: 1.55; }
+    .tm-form__consent-text a { color: rgba(255,255,255,0.6); }
+    .tm-form__submit { width: 100%; background: var(--gold); color: var(--navy); border: none; border-radius: var(--radius-full);
+      padding: 1rem 2rem; font-family: var(--font-heading); font-weight: 800; font-size: 0.95rem; letter-spacing: 0.06em;
+      text-transform: uppercase; cursor: pointer; transition: background 0.2s, transform 0.15s; }
+    .tm-form__submit:hover { background: #d4b86a; transform: translateY(-1px); }
+    .tm-form__submit:active { transform: translateY(0); }
+    .tm-form__submit:disabled { opacity: 0.65; cursor: default; }
+    .tm-form__success { display: none; text-align: center; padding: 2rem 1rem; }
+    .tm-form__success-icon { font-size: 3rem; margin-bottom: 1rem; }
+    .tm-form__success-title { font-family: var(--font-heading); font-weight: 900; font-size: 1.4rem; color: var(--gold); margin-bottom: 0.5rem; }
+    .tm-form__success-msg { font-size: 0.9rem; color: rgba(255,255,255,0.65); line-height: 1.65; }
+
     .hv-next-hint {
       text-align: center; margin-top: 2rem; position: relative; z-index: 1;
     }
@@ -968,29 +994,50 @@
           </div>
         </div>
 
-        <!-- Right: TruMarket lead capture — always visible -->
+        <!-- Right: TruMarket lead capture — same form as trumarket.html -->
         <div class="hv-capture-col">
-          <p class="hv-capture-eyebrow">Want the full picture?</p>
-          <h3 class="hv-capture-title">Request Your TruMarket™ Report</h3>
-          <p class="hv-capture-desc">
-            Your instant estimate is a starting point. A TruMarket™ analysis shows your exact
-            competition, the right price to attract the right buyer, and what you'll walk away with.
-            Free. No obligation.
-          </p>
-          <form name="home-value-lead" id="trumarket-form" method="POST" data-netlify="true" data-form="home-value-lead" data-lead-tag="home-valuation" class="hv-capture-form">
-            <input type="hidden" name="form-name" value="home-value-lead" />
-            <div class="hv-capture-row">
-              <input type="text" name="first-name" placeholder="First Name" required />
-              <input type="text" name="last-name" placeholder="Last Name" />
+          <div class="tm-form-card__title">Request Your TruMarket™ Report</div>
+          <div class="tm-form-card__sub">Tell us about your property and Phil will reach out with your personalized TruMarket™ analysis.</div>
+
+          <form id="trumarket-form" novalidate>
+            <div class="tm-form__row">
+              <div class="tm-form__field">
+                <input class="tm-form__input" type="text" name="firstName" placeholder="First Name" required autocomplete="given-name" />
+              </div>
+              <div class="tm-form__field">
+                <input class="tm-form__input" type="text" name="lastName" placeholder="Last Name" required autocomplete="family-name" />
+              </div>
             </div>
-            <input type="email" name="email" placeholder="Email Address" required />
-            <input type="tel" name="phone" placeholder="Phone Number" />
-            <label class="hv-sms-label">
-              <input type="checkbox" name="sms-consent" />
-              <span>I agree to receive texts from Phillip Himes. Msg &amp; data rates may apply. Reply STOP to cancel. See <a href="privacy-policy.html" style="color:var(--gold);">Privacy Policy</a>.</span>
-            </label>
-            <button type="submit" class="hv-capture-btn">GET MY TRUMARKET™ REPORT →</button>
+            <div class="tm-form__row tm-form__row--full">
+              <div class="tm-form__field">
+                <input class="tm-form__input" type="text" name="address" placeholder="Property Address (Street, City, Zip)" required autocomplete="street-address" />
+              </div>
+            </div>
+            <div class="tm-form__row">
+              <div class="tm-form__field">
+                <input class="tm-form__input" type="email" name="email" placeholder="Email Address" required autocomplete="email" />
+              </div>
+              <div class="tm-form__field">
+                <input class="tm-form__input" type="tel" name="phone" placeholder="Phone Number" required autocomplete="tel" />
+              </div>
+            </div>
+            <div style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;" aria-hidden="true">
+              <label>Company<input type="text" name="company" tabindex="-1" autocomplete="off" /></label>
+            </div>
+            <div class="tm-form__consent">
+              <input type="checkbox" id="tm-consent" name="consent" required />
+              <label class="tm-form__consent-text" for="tm-consent">
+                I agree to receive text messages from Phillip Himes. Msg &amp; data rates may apply. Reply STOP to cancel. See <a href="privacy-policy.html">Privacy Policy</a>.
+              </label>
+            </div>
+            <button type="submit" class="tm-form__submit">GET MY TRUMARKET™ REPORT →</button>
           </form>
+
+          <div class="tm-form__success" id="tm-success">
+            <div class="tm-form__success-icon">✅</div>
+            <div class="tm-form__success-title">Request Received!</div>
+            <p class="tm-form__success-msg">Phil will review your property and reach out within 1 business day with your personalized TruMarket™ analysis.</p>
+          </div>
         </div>
 
       </div>
@@ -1348,6 +1395,47 @@
     </div>
   </footer>
 
+  <!-- TruMarket home-value form → /lead (tag home-valuation) -->
+  <script>
+  (function () {
+    var LEAD_API = 'https://real-estate-agentic-os-production.up.railway.app';
+    var form = document.getElementById('trumarket-form');
+    if (!form) return;
+    var successEl = document.getElementById('tm-success');
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      var firstName = form.firstName.value.trim();
+      var lastName  = form.lastName.value.trim();
+      var address   = form.address.value.trim();
+      var email     = form.email.value.trim();
+      var phone     = form.phone.value.trim();
+      if (!firstName || !lastName || !address || !email || !phone) { alert('Please fill out all fields before submitting.'); return; }
+      if (!form.consent.checked) { alert('Please check the consent box to continue.'); return; }
+      var btn = form.querySelector('.tm-form__submit');
+      btn.textContent = 'Sending...'; btn.disabled = true;
+      // honeypot: real people leave "company" empty
+      if ((form.company && form.company.value || '').trim()) { form.style.display = 'none'; successEl.style.display = 'block'; return; }
+      var payload = {
+        first_name: firstName,   // backend needs first_name/full_name, NOT "name"
+        last_name:  lastName,
+        email:   email,
+        phone:   phone,
+        message: 'Home value request for: ' + address,
+        consent: form.consent.checked,
+        source:  'SellerIQ Home Value — philliphimes.com',
+        tag:     'home-valuation',
+        company: ''
+      };
+      try {
+        var r = await fetch(LEAD_API + '/lead', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+        if (!r.ok) throw new Error('http ' + r.status);
+        form.style.display = 'none'; successEl.style.display = 'block';
+      } catch (err) {
+        form.style.display = 'none'; successEl.style.display = 'block';
+      }
+    });
+  })();
+  </script>
   <script src="js/main.js"></script>
   <script src="https://widgets.leadconnectorhq.com/loader.js" data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" data-widget-id="69fba6dfba1fce1be5f73408" data-source="WEB_USER"></script>
   <script src="https://widgets.leadconnectorhq.com/loader.js" data-resources-url="https://widgets.leadco

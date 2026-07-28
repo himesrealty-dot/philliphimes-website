@@ -767,7 +767,8 @@
       btn.disabled = true;
 
       const payload = {
-        name:    (firstName + ' ' + lastName).trim(),
+        first_name: firstName,   // backend needs first_name/full_name, NOT "name" (returns missing_contact)
+        last_name:  lastName,
         email:   email,
         phone:   phone,
         message: 'Home value request for: ' + address,
