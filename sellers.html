@@ -308,71 +308,89 @@
       position: relative;
     }
 
-    /* ── On-brand override for the Plunk / RealtyCandy valuation widget ──
-       Third-party widget injects its own DOM + <style> at runtime. We override
-       with body-prefixed selectors (higher specificity) + !important so our
-       brand rules win regardless of injection order. Class names are the
-       widget's stable API: .pv-* (inline + modals) and .pv-callToAction (the
-       "Unlock / Confirm" consent step). */
+    /* ── On-brand override for the Plunk / RealtyCandy valuation MODALS ──
+       Scoped to .pv-modal / .pv-callToAction ONLY, so the inline on-page widget
+       ("What's your home worth?" + address input + Submit) keeps its original
+       look. body-prefixed selectors + !important win over the widget's injected
+       CSS regardless of load order. .pv-* is the widget's stable class API. */
+
+    /* modal shell */
     body .pv-modal-content {
       border-radius: 16px !important;
       font-family: var(--font-body), 'Open Sans', sans-serif !important;
       box-shadow: 0 24px 60px rgba(10,20,34,0.38) !important;
-      padding-top: 1.75rem !important;
     }
+    /* headings on the WHITE modal (address, "One step closer…") — navy on white */
     body .pv-modal .pv-subtitle,
-    body .pv-modal h2,
-    body .pv-modal h3,
-    body .pv-heading-container span {
+    body .pv-modal-content > h2,
+    body .pv-modal h3 {
       font-family: var(--font-heading), Georgia, serif !important;
       color: var(--navy) !important;
       font-weight: 900 !important;
     }
-    /* the "Unlock your market insights" consent box → brand navy, not blue */
+
+    /* the "Unlock your market insights" consent box → brand navy, centered */
     body .pv-callToAction {
       background: linear-gradient(135deg, #0d2137 0%, #1B3A5C 55%, #2089A0 100%) !important;
       border-radius: 14px !important;
       border: 1px solid rgba(255,255,255,0.1) !important;
+      text-align: center !important;
     }
     body .pv-callToAction,
-    body .pv-callToAction * { color: #fff !important; }
-    /* all primary buttons → brand gold */
+    body .pv-callToAction p,
+    body .pv-callToAction span { color: #fff !important; }
+    /* heading → gold so it reads on the navy box */
+    body .pv-modal .pv-callToAction h2,
+    body .pv-callToAction h2 {
+      color: var(--gold) !important;
+      font-family: var(--font-heading), Georgia, serif !important;
+      font-weight: 900 !important;
+    }
+    /* confirm-button wrapper stays centered */
+    body .pv-cta-form { text-align: center !important; }
+
+    /* primary modal buttons → gold, sized to fit their label + centered */
     body .pv-button-confirm,
-    body .pv-submit,
-    body .pv-button {
+    body .pv-submit {
+      display: inline-block !important;
+      width: auto !important;
+      min-width: 170px !important;
+      max-width: none !important;
+      margin: 0 auto !important;
+      padding: 0.9rem 2.5rem !important;
       background: var(--gold) !important;
       color: var(--navy) !important;
       border: none !important;
       border-radius: 50px !important;
       font-family: var(--font-heading), Georgia, serif !important;
       font-weight: 800 !important;
-      letter-spacing: 0.05em !important;
+      font-size: 0.95rem !important;
+      letter-spacing: 0.06em !important;
       text-transform: uppercase !important;
+      text-align: center !important;
+      white-space: nowrap !important;
+      overflow: visible !important;
       box-shadow: 0 4px 16px rgba(201,164,85,0.35) !important;
-      padding: 0.85rem 2rem !important;
       transition: background 0.2s, transform 0.15s !important;
     }
     body .pv-button-confirm:hover,
-    body .pv-submit:hover,
-    body .pv-button:hover { background: #b8923e !important; transform: translateY(-1px) !important; }
-    /* inputs */
-    body .pv-input,
-    body .pv-lead-input,
-    body .pv-input-group {
-      border-radius: 10px !important;
-      font-family: var(--font-body), 'Open Sans', sans-serif !important;
-    }
-    body .pv-input:focus,
-    body .pv-lead-input:focus { border-color: var(--gold) !important; outline: none !important; }
-    /* Buying / Selling tabs + delivery toggle */
-    body .pv-tab-interest { border-radius: 8px !important; font-family: var(--font-heading), Georgia, serif !important; }
-    body .pv-tab-interest.active { background: var(--gold) !important; color: var(--navy) !important; }
-    body .pv-toggle-slider { background: var(--gold) !important; }
-    body .pv-toggle-option.active { color: var(--navy) !important; }
-    /* misc */
-    body .pv-error { color: #c0392b !important; }
-    body .close-button { color: var(--navy) !important; opacity: 0.55; }
-    body .close-button:hover { opacity: 1; }
+    body .pv-submit:hover { background: #b8923e !important; transform: translateY(-1px) !important; }
+
+    /* modal lead-form inputs */
+    body .pv-modal .pv-lead-input,
+    body .pv-modal .pv-input-group { border-radius: 10px !important; font-family: var(--font-body), 'Open Sans', sans-serif !important; }
+    body .pv-modal .pv-lead-input:focus { border-color: var(--gold) !important; outline: none !important; }
+
+    /* Buying / Selling tabs + delivery toggle (modal only) */
+    body .pv-modal .pv-tab-interest { border-radius: 8px !important; font-family: var(--font-heading), Georgia, serif !important; }
+    body .pv-modal .pv-tab-interest.active { background: var(--gold) !important; color: var(--navy) !important; }
+    body .pv-modal .pv-toggle-slider { background: var(--gold) !important; }
+    body .pv-modal .pv-toggle-option.active { color: var(--navy) !important; }
+
+    /* misc (modal only) */
+    body .pv-modal .pv-error { color: #c0392b !important; }
+    body .pv-modal .close-button { color: var(--navy) !important; opacity: 0.55; }
+    body .pv-modal .close-button:hover { opacity: 1; }
 
     /* Error state */
     .hv-widget__error {
