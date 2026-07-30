@@ -1072,16 +1072,9 @@
               <input class="guide-modal__input" type="email" id="guide-email" name="email" placeholder="john@example.com" required />
             </div>
 
-            <div class="form-group">
-              <label class="guide-modal__label" for="guide-phone">Phone Number</label>
-              <input class="guide-modal__input" type="tel" id="guide-phone" name="phone" placeholder="(832) 555-0100" />
-            </div>
-
             <label class="guide-modal__consent">
-              <input type="checkbox" name="sms_consent" value="yes" />
               <span>
-                I agree to receive the guide and occasional updates from Phillip Himes by email and text (SMS/MMS).
-                Message &amp; data rates may apply. Reply STOP to opt out. Consent is not a condition of purchase.
+                By requesting the guide, you agree to receive it and occasional updates from Phillip Himes by <strong>email</strong>. Unsubscribe anytime.
                 See <a href="privacy-policy.html" target="_blank">Privacy Policy</a> &amp; <a href="terms-of-service.html" target="_blank">Terms</a>.
               </span>
             </label>
@@ -1328,11 +1321,6 @@
     // Submit: capture to Netlify + fire GHL webhook, then show success
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-      var consent = form.querySelector('[name="sms_consent"]');
-      if (consent && !consent.checked) {
-        alert('Please agree to the terms to receive the guide.');
-        return;
-      }
       var originalText = submitBtn.textContent;
       submitBtn.textContent = 'Sending...';
       submitBtn.disabled = true;
@@ -1367,6 +1355,7 @@
     });
   })();
   </script>
+  <script src="https://widgets.leadconnectorhq.com/loader.js" data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" data-widget-id="6a6ade587ae3f00a819b3088" data-source="WEB_USER"></script>
 
 </body>
 </html>
