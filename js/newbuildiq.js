@@ -256,7 +256,7 @@
     } else {
       msg.innerHTML = "Couldn't submit just now. Please email "
         + "<a href='mailto:phil@philliphimes.com' style='color:inherit;text-decoration:underline;'>phil@philliphimes.com</a>"
-        + ' or call (832) 536-1016 and Phil will get right back to you.';
+        + ' or call (832) 990-9738 and Phil will get right back to you.';
     }
     form.parentNode.insertBefore(msg, form.nextSibling);
     setTimeout(function () { msg.remove(); }, 10000);
