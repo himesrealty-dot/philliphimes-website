@@ -22,6 +22,31 @@
   status = 301
   force = true
 
+# ── Vanity / link-in-bio short URLs (speakable in videos & captions) ──
+# /start, /search, /rebalance already resolve natively as clean URLs
+# (Netlify serves start.html/search.html/rebalance.html at those paths),
+# so only the ones whose clean path differs from the filename need a rule.
+[[redirects]]
+  from = "/value"
+  to = "/what-is-my-home-worth.html"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/newbuild"
+  to = "/nc-report.html"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/call"
+  to = "/contact.html"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/links"
+  to = "/start"
+  status = 301
+  force = true
+
 # Internal strategy/working docs: keep in the repo, but 404 on the live
 # site so they aren't publicly reachable (a robots rule would just list them).
 [[redirects]]
