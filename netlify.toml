@@ -104,6 +104,16 @@
   to = "/404.html"
   status = 404
   force = true
+[[redirects]]
+  from = "/listing-template.html"
+  to = "/404.html"
+  status = 404
+  force = true
+[[redirects]]
+  from = "/AGENTIC_OS_INTEGRATION.md"
+  to = "/404.html"
+  status = 404
+  force = true
 
 # No SPA catch-all: this is a static multi-page site, so unknown paths
 # must return a real 404 (Netlify auto-serves /404.html) instead of the
