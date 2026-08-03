@@ -50,7 +50,7 @@
     "@type": "FAQPage",
     "mainEntity": [
       { "@type": "Question", "name": "What are the best master-planned communities near the Houston Bay Area?", "acceptedAnswer": { "@type": "Answer", "text": "The Houston Bay Area has ten standout master-planned communities across three school districts. In CCISD: Legacy, Mar Bella, Tuscan Lakes, and Magnolia Creek (all League City). In Alvin ISD: Valencia, Del Bello Lakes, Meridiana, and Pomona (Manvel) and Shadow Creek Ranch (Pearland). In Friendswood ISD: West Ranch (Friendswood). Each has its own character — Meridiana and Tuscan Lakes are known for the most extensive resort amenities; Shadow Creek Ranch is the most established; Magnolia Creek and Mar Bella have active new construction phases." } },
-      { "@type": "Question", "name": "What master-planned communities are in Clear Creek ISD?", "acceptedAnswer": { "@type": "Answer", "text": "Four master-planned communities in the Bay Area are zoned within Clear Creek ISD (CCISD): Legacy in League City (new, contact Phil for pricing), Mar Bella in League City ($370K–$1M+), Tuscan Lakes in League City ($300K–$2.2M), and Magnolia Creek in League City ($345K–$800K+). All four are zoned to Clear Lake High School. CCISD is A-rated by the Texas Education Agency and consistently ranks among the top school districts in Greater Houston." } },
+      { "@type": "Question", "name": "What master-planned communities are in Clear Creek ISD?", "acceptedAnswer": { "@type": "Answer", "text": "Four master-planned communities in the Bay Area are zoned within Clear Creek ISD (CCISD): Legacy in League City (new, contact Phil for pricing), Mar Bella in League City ($335K–$800K+), Tuscan Lakes in League City ($315K–$1.5M+), and Magnolia Creek in League City ($360K–$750K+). All four are zoned to Clear Lake High School. CCISD is A-rated by the Texas Education Agency and consistently ranks among the top school districts in Greater Houston." } },
       { "@type": "Question", "name": "What is the difference between Meridiana and Pomona in Manvel TX?", "acceptedAnswer": { "@type": "Answer", "text": "Both Meridiana and Pomona are master-planned communities in Manvel, TX, zoned within Alvin ISD for Manvel High School. Meridiana is known for award-winning amenities — a lazy river, splash pad, coffee house, and an active social calendar — and has been recognized nationally as a top master-planned community. Pomona has a more modern resort aesthetic with a spacious pool complex and trails. Homes in both communities run approximately $320K–$580K. Phil can show you active inventory and new construction options in both on the same day." } },
       { "@type": "Question", "name": "Do master-planned communities in League City have resort-style amenities?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — League City's master-planned communities have some of the most extensive amenity packages in the Houston area. Tuscan Lakes has multiple resort pools, 7+ miles of walking and biking trails, a recreation center, and three distinct villages. Mar Bella features a resort pool, splash area, and pond-front walking trails. Magnolia Creek is built around a golf course with a club complex. All three are in CCISD. HOA fees fund the amenities and range from roughly $700–$1,500/year depending on the community and section." } },
       { "@type": "Question", "name": "Is new construction still available in master-planned communities near League City?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — several master-planned communities in the Bay Area still have active new construction phases. Legacy and Magnolia Creek in League City have ongoing builder phases. Meridiana, Pomona, Valencia, and Del Bello Lakes in Manvel have the most active new construction pipelines, with multiple national builders (David Weekley, Perry Homes, Tri Pointe, and others) offering inventory and to-be-built homes. Phil tracks which communities have active phases, which builders are selling, and which lots are available — often before they hit the MLS." } }
@@ -179,9 +179,10 @@
           <span class="nav__logo-brokerage">Brokered by eXp Realty</span>
         </span>
       </a>
+
       <ul class="nav__links" id="nav-links">
         <li class="nav__item nav__item--dropdown">
-          <a href="buyers.html" class="nav__link nav__link--active">Buying</a>
+          <a href="buyers.html" class="nav__link">Buying</a>
           <ul class="nav__dropdown" aria-label="Buying submenu">
             <li><a href="buyers.html">For Buyers</a></li>
             <li><a href="first-home.html">First-Time Buyers</a></li>
@@ -205,16 +206,33 @@
             <li><a href="manvel.html">Manvel</a></li>
           </ul>
         </li>
-        <li><a href="about.html" class="nav__link">About</a></li>
-        <li><a href="contact.html" class="nav__link">Contact</a></li>
+        <li class="nav__item nav__item--dropdown">
+          <a href="marketiq.html" class="nav__link">Tools</a>
+          <ul class="nav__dropdown" aria-label="Tools submenu">
+            <li><a href="buyeriq.html">BuyerIQ™ — Buyer's Edge</a></li>
+            <li><a href="selleriq.html">SellerIQ™ — Seller's Edge</a></li>
+            <li><a href="marketiq.html">MarketIQ™ — Property Intelligence</a></li>
+            <li><a href="market-insights.html">Market Insights</a></li>
+          </ul>
+        </li>
+        <li><a href="about.html" class="nav__link">My Story</a></li>
+        <li><a href="contact.html" class="nav__link">Ask Phil</a></li>
+                <li class="nav__mobile-cta" style="display:none;">
+          <a href="tel:8329909738" class="btn btn--secondary" style="width:100%;margin-top:var(--space-md);">📞 (832) 990-9738</a>
+          <a href="search.html" class="btn btn--primary" style="width:100%;margin-top:var(--space-sm);">🔍 Search Homes</a>
+          <a href="what-is-my-home-worth.html" class="btn btn--secondary" style="width:100%;margin-top:var(--space-sm);">Home Value</a>
+        </li>
       </ul>
-      <div class="nav__actions">
-        <a href="tel:8329909738" class="btn btn--ghost btn--sm nav__cta-phone" style="display:none;">(832) 990-9738</a>
-        <a href="contact.html" class="btn btn--primary btn--sm nav__cta">Ask Phil</a>
-        <button class="nav__hamburger" id="nav-hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
-          <span></span><span></span><span></span>
-        </button>
+
+            <div class="nav__cta">
+        <a href="tel:8329909738" class="nav__phone">📞 (832) 990-9738</a>
+        <a href="search.html" class="btn btn--primary btn--sm">Search Homes</a>
+        <a href="what-is-my-home-worth.html" class="btn btn--secondary btn--sm">Home Value</a>
       </div>
+
+      <button class="nav__hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </nav>
 
@@ -480,7 +498,7 @@
           </div>
           <div class="faq-item">
             <p class="faq-item__q">What master-planned communities are in Clear Creek ISD?</p>
-            <p class="faq-item__a">Three master-planned communities are zoned within CCISD — all in League City: Mar Bella ($370K–$1M+), Tuscan Lakes ($300K–$2.2M), and Magnolia Creek ($345K–$800K+). All are zoned to Clear Lake High School, and all are within 20–25 minutes of NASA JSC. CCISD is A-rated by the TEA and is one of the top school districts in Greater Houston.</p>
+            <p class="faq-item__a">Four master-planned communities are zoned within CCISD — all in League City: Mar Bella ($335K–$800K+), Tuscan Lakes ($315K–$1.5M+), and Magnolia Creek ($360K–$750K+). All are zoned to Clear Lake High School, and all are within 20–25 minutes of NASA JSC. CCISD is A-rated by the TEA and is one of the top school districts in Greater Houston.</p>
           </div>
           <div class="faq-item">
             <p class="faq-item__q">What is the difference between Meridiana and Pomona in Manvel?</p>
@@ -537,7 +555,7 @@
           <div class="footer__heading">Selling</div>
           <ul class="footer__links">
             <li><a href="sellers.html">SellerIQ™ · Know Your Number</a></li>
-            <li><a href="trumarket.html">Get My Home's Value</a></li>
+            <li><a href="what-is-my-home-worth.html">Get My Home's Value</a></li>
             <li><a href="rebalance.html">Rebalance™</a></li>
             <li><a href="amplify.html">Amplify™</a></li>
           </ul>

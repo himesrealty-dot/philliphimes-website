@@ -2152,3 +2152,10 @@ p {
 .listing-card__blurb { font-size: 0.86rem; color: var(--dark-gray); line-height: 1.6; margin: 0.9rem 0 1.1rem; }
 .listing-card__cta { margin-top: auto; font-family: var(--font-heading); font-weight: 800; font-size: 0.85rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--gold); }
 .listing-card:hover .listing-card__cta { color: var(--navy); }
+/* Nav: on mid-width screens (tablet→small laptop) free up room for the two
+   CTAs (Search Homes + Home Value) by dropping the phone from the top bar —
+   it's still in the mobile menu and the footer. Keeps nav width ~= the prior
+   single-CTA layout so nothing crowds. */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .nav__phone { display: none; }
+}

@@ -1485,14 +1485,16 @@
         </li>
         <li><a href="about.html" class="nav__link">My Story</a></li>
         <li><a href="contact.html" class="nav__link">Ask Phil</a></li>
-        <li class="nav__mobile-cta" style="display:none;">
+                <li class="nav__mobile-cta" style="display:none;">
           <a href="tel:8329909738" class="btn btn--secondary" style="width:100%;margin-top:var(--space-md);">📞 (832) 990-9738</a>
-          <a href="contact.html?topic=buy" class="btn btn--primary" style="width:100%;margin-top:var(--space-sm);">Start My Search</a>
+          <a href="search.html" class="btn btn--primary" style="width:100%;margin-top:var(--space-sm);">🔍 Search Homes</a>
+          <a href="what-is-my-home-worth.html" class="btn btn--secondary" style="width:100%;margin-top:var(--space-sm);">Home Value</a>
         </li>
       </ul>
-      <div class="nav__cta">
+            <div class="nav__cta">
         <a href="tel:8329909738" class="nav__phone">📞 (832) 990-9738</a>
-        <a href="contact.html?topic=buy" class="btn btn--primary btn--sm">Talk to Phillip</a>
+        <a href="search.html" class="btn btn--primary btn--sm">Search Homes</a>
+        <a href="what-is-my-home-worth.html" class="btn btn--secondary btn--sm">Home Value</a>
       </div>
       <button class="nav__hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
         <span></span><span></span><span></span>
@@ -1939,11 +1941,22 @@
     // ─────────────────────────────────────────────────────────
     //  STAGE 5 — Build confirmation screen (called on submit)
     // ─────────────────────────────────────────────────────────
+    // City-neutral take for any neighborhood not individually written up
+    // (prevents a Manvel/Dickinson/Pearland buyer getting a Tuscan Lakes / CCISD take)
+    function genericTake(n) {
+      const where = (n && n.name) ? n.name : 'this area';
+      const city  = (n && n.cityName) ? (' in ' + n.cityName) : '';
+      return {
+        headline: where + " rewards buyers who come in ready.",
+        body: "I know " + where + city + " well, and the buyers who do best here are pre-approved, clear on their must-haves, and ready to move when the right home shows up. Pace and inventory vary by street and price point — so the real edge is knowing which pockets fit your budget, your school assignment, and your timeline. I'll walk you through honest comps, what's actually worth paying up for, and where you have room to negotiate — no pressure, no rushing you into the wrong house."
+      };
+    }
+
     function buildConfirmationScreen() {
       const allIds      = [...selectedNeighborhoods];
       const primaryId   = allIds[0] || 'tuscan-lakes';
       const seed        = NEIGHBORHOODS.find(n => n.id === primaryId) || NEIGHBORHOODS[0];
-      const take        = PHIL_TAKE[primaryId]   || PHIL_TAKE['tuscan-lakes'];
+      const take        = PHIL_TAKE[primaryId]   || genericTake(seed);
       const testimonial = TESTIMONIALS[primaryId] || TESTIMONIALS['default'];
       const comparePicks = NEIGHBORHOODS.filter(n => selectedNeighborhoods.has(n.id) && n.id !== primaryId);
 

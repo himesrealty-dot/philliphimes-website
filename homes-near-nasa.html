@@ -181,9 +181,10 @@
           <span class="nav__logo-brokerage">Brokered by eXp Realty</span>
         </span>
       </a>
+
       <ul class="nav__links" id="nav-links">
         <li class="nav__item nav__item--dropdown">
-          <a href="buyers.html" class="nav__link nav__link--active">Buying</a>
+          <a href="buyers.html" class="nav__link">Buying</a>
           <ul class="nav__dropdown" aria-label="Buying submenu">
             <li><a href="buyers.html">For Buyers</a></li>
             <li><a href="first-home.html">First-Time Buyers</a></li>
@@ -207,16 +208,33 @@
             <li><a href="manvel.html">Manvel</a></li>
           </ul>
         </li>
-        <li><a href="about.html" class="nav__link">About</a></li>
-        <li><a href="contact.html" class="nav__link">Contact</a></li>
+        <li class="nav__item nav__item--dropdown">
+          <a href="marketiq.html" class="nav__link">Tools</a>
+          <ul class="nav__dropdown" aria-label="Tools submenu">
+            <li><a href="buyeriq.html">BuyerIQ™ — Buyer's Edge</a></li>
+            <li><a href="selleriq.html">SellerIQ™ — Seller's Edge</a></li>
+            <li><a href="marketiq.html">MarketIQ™ — Property Intelligence</a></li>
+            <li><a href="market-insights.html">Market Insights</a></li>
+          </ul>
+        </li>
+        <li><a href="about.html" class="nav__link">My Story</a></li>
+        <li><a href="contact.html" class="nav__link">Ask Phil</a></li>
+                <li class="nav__mobile-cta" style="display:none;">
+          <a href="tel:8329909738" class="btn btn--secondary" style="width:100%;margin-top:var(--space-md);">📞 (832) 990-9738</a>
+          <a href="search.html" class="btn btn--primary" style="width:100%;margin-top:var(--space-sm);">🔍 Search Homes</a>
+          <a href="what-is-my-home-worth.html" class="btn btn--secondary" style="width:100%;margin-top:var(--space-sm);">Home Value</a>
+        </li>
       </ul>
-      <div class="nav__actions">
-        <a href="tel:8329909738" class="btn btn--ghost btn--sm nav__cta-phone" style="display:none;">(832) 990-9738</a>
-        <a href="contact.html" class="btn btn--primary btn--sm nav__cta">Ask Phil</a>
-        <button class="nav__hamburger" id="nav-hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
-          <span></span><span></span><span></span>
-        </button>
+
+            <div class="nav__cta">
+        <a href="tel:8329909738" class="nav__phone">📞 (832) 990-9738</a>
+        <a href="search.html" class="btn btn--primary btn--sm">Search Homes</a>
+        <a href="what-is-my-home-worth.html" class="btn btn--secondary btn--sm">Home Value</a>
       </div>
+
+      <button class="nav__hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </nav>
 
@@ -522,7 +540,7 @@
           <div class="footer__heading">Selling</div>
           <ul class="footer__links">
             <li><a href="sellers.html">SellerIQ™ · Know Your Number</a></li>
-            <li><a href="trumarket.html">Get My Home's Value</a></li>
+            <li><a href="what-is-my-home-worth.html">Get My Home's Value</a></li>
             <li><a href="rebalance.html">Rebalance™</a></li>
             <li><a href="amplify.html">Amplify™</a></li>
           </ul>
