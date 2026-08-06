@@ -47,6 +47,18 @@
   status = 301
   force = true
 
+# ── Private owner-update video pages (speakable short links) ──
+[[redirects]]
+  from = "/6310-update"
+  to = "/updates/6310-star-light-ct/"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/2222-update"
+  to = "/updates/2222-scenic-shore/"
+  status = 301
+  force = true
+
 # Internal strategy/working docs: keep in the repo, but 404 on the live
 # site so they aren't publicly reachable (a robots rule would just list them).
 [[redirects]]

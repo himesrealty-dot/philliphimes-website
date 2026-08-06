@@ -6,5 +6,6 @@ Disallow: /idx-header.html
 Disallow: /idx-footer.html
 Disallow: /next-step.html
 Disallow: /relifeiq.html
+Disallow: /updates/
 
 Sitemap: https://philliphimes.com/sitemap.xml
