@@ -46,6 +46,23 @@
       pointer-events: none;
     }
     .search-hero__content { position: relative; padding-bottom: 4rem; }
+
+    /* AI-Powered Search widget (idx 156154) */
+    .search-hero__ai { max-width: 700px; margin: 0.75rem 0 0.5rem; }
+    .search-hero__ai-head { display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 0.85rem; }
+    .search-hero__ai-badge {
+      font-family: var(--font-heading); font-weight: 800; font-size: 0.7rem;
+      letter-spacing: 0.08em; text-transform: uppercase; color: #0a1c2e;
+      background: var(--teal-light); padding: 0.32rem 0.75rem; border-radius: var(--radius-full);
+    }
+    .search-hero__ai-note { font-size: 0.85rem; color: rgba(255,255,255,0.72); }
+    .search-hero__ai-widget {
+      background: #fff; border-radius: var(--radius-lg); padding: 1.1rem 1.25rem;
+      box-shadow: 0 14px 44px rgba(0,0,0,0.30);
+    }
+    .search-hero__ai-widget form,
+    .search-hero__ai-widget input,
+    .search-hero__ai-widget select { max-width: 100%; }
     .search-hero__eyebrow {
       font-family: var(--font-heading); font-size: 0.75rem; font-weight: 800;
       letter-spacing: 0.18em; text-transform: uppercase; color: var(--teal);
@@ -382,8 +399,7 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
 <body>
 
   <!-- NAV -->
-<header class="site-header">
-  <nav class="nav container">
+  <nav class="nav" role="navigation" aria-label="Main navigation">
     <div class="nav__inner">
       <a href="index.html" class="nav__logo" aria-label="Phillip Himes Real Estate Home">
         <img loading="lazy" src="images/logo.png" alt="Phillip Himes | Brokered by eXp Realty" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
@@ -440,7 +456,6 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
       <button class="nav__hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links"><span></span><span></span><span></span></button>
     </div>
   </nav>
-</header>
 
   <!-- HERO -->
   <section class="search-hero page-top">
@@ -449,9 +464,14 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
         <span class="search-hero__eyebrow">Live MLS Listings · Updated Daily</span>
         <h1 class="search-hero__title">Find Your Home in the<br /><span>South Houston Suburbs</span></h1>
         <p class="search-hero__subtitle">Browse real listings across League City, Friendswood, Pearland, and Clear Lake — by neighborhood, price, map, or lifestyle. No sign-up wall. No fake listings.</p>
-        <div class="search-hero__btns">
-          <a href="https://philliphimes.idxbroker.com/idx/search/advanced" target="_blank" class="btn-primary">Advanced Search &#8594;</a>
-          <a href="https://philliphimes.idxbroker.com/idx/map/mapsearch" target="_blank" class="btn-outline-white">&#128506; Map Search</a>
+        <div class="search-hero__ai">
+          <div class="search-hero__ai-head">
+            <span class="search-hero__ai-badge">✨ AI-Powered Search</span>
+            <span class="search-hero__ai-note">Just describe your ideal home — the AI finds the matches.</span>
+          </div>
+          <div class="search-hero__ai-widget">
+            <script charset="UTF-8" type="text/javascript" id="idxwidgetsrc-156154" src="//philliphimes.idxbroker.com/idx/widgets/156154"></script>
+          </div>
         </div>
       </div>
     </div>
@@ -743,5 +763,7 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
     </div>
   </footer>
 
+  <script src="js/main.js"></script>
+  <script src="https://widgets.leadconnectorhq.com/loader.js" data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" data-widget-id="6a6ade587ae3f00a819b3088" data-source="WEB_USER"></script>
 </body>
 </html>
