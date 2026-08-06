@@ -1048,7 +1048,18 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
   </section>
 
   <!-- ── PHIL CTA ──────────────────────────────────────────── -->
-  <section class="phil-cta" aria-label="Contact Phil">
+  <!-- ── NEARBY NEIGHBORHOODS ─────────────── -->
+  <section class="nearby-section" aria-label="Nearby neighborhoods">
+    <div class="container">
+      <div class="nearby-section__head">
+        <div class="nearby-section__eyebrow">Keep Exploring</div>
+        <h2 class="nearby-section__title">More Neighborhoods in League City</h2>
+      </div>
+      <div class="nearby__grid" id="nearby-grid"></div>
+    </div>
+  </section>
+
+    <section class="phil-cta" aria-label="Contact Phil">
     <div class="container">
       <h2 class="phil-cta__title">Ready to explore <span>Magnolia Creek</span>?</h2>
       <p class="phil-cta__sub">Golf-frontage homes move fast and the difference between a fairway view and a standard lot is significant. I know every section, every builder's inventory, and what course-view really means for long-term value here.</p>
@@ -1151,5 +1162,7 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
     });
   </script>
 
+  <script src="js/neighborhoods.js"></script>
+  <script>renderNearbyNeighborhoods('nearby-grid', 'magnolia-creek');</script>
 </body>
 </html>

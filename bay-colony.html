@@ -563,7 +563,18 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
     </div>
   </section>
 
-  <section class="phil-cta" aria-label="Contact Phil">
+  <!-- ── NEARBY NEIGHBORHOODS ─────────────── -->
+  <section class="nearby-section" aria-label="Nearby neighborhoods">
+    <div class="container">
+      <div class="nearby-section__head">
+        <div class="nearby-section__eyebrow">Keep Exploring</div>
+        <h2 class="nearby-section__title">More Neighborhoods in Dickinson</h2>
+      </div>
+      <div class="nearby__grid" id="nearby-grid"></div>
+    </div>
+  </section>
+
+    <section class="phil-cta" aria-label="Contact Phil">
     <div class="container">
       <h2 class="phil-cta__title">Ready to explore <span>Bay Colony</span>?</h2>
       <p class="phil-cta__sub">I know Bay Colony section by section — which neighborhoods fit your budget and floor plan, how the League City address and Dickinson ISD zoning work together, and where the value is in today's market.</p>
@@ -656,5 +667,7 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
       q.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); q.click(); } });
     });
   </script>
+  <script src="js/neighborhoods.js"></script>
+  <script>renderNearbyNeighborhoods('nearby-grid', 'bay-colony');</script>
 </body>
 </html>

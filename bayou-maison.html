@@ -547,7 +547,18 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
     </div>
   </section>
 
-  <section class="phil-cta" aria-label="Contact Phil">
+  <!-- ── NEARBY NEIGHBORHOODS ─────────────── -->
+  <section class="nearby-section" aria-label="Nearby neighborhoods">
+    <div class="container">
+      <div class="nearby-section__head">
+        <div class="nearby-section__eyebrow">Keep Exploring</div>
+        <h2 class="nearby-section__title">More Neighborhoods in Dickinson</h2>
+      </div>
+      <div class="nearby__grid" id="nearby-grid"></div>
+    </div>
+  </section>
+
+    <section class="phil-cta" aria-label="Contact Phil">
     <div class="container">
       <h2 class="phil-cta__title">Ready to explore <span>Bayou Maison</span>?</h2>
       <p class="phil-cta__sub">I know Dickinson new construction — how the Adams, Colina, and Censeo sections differ, what to watch for when buying a new build, and how to navigate the Galveston County buying process.</p>
@@ -640,5 +651,7 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
       q.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); q.click(); } });
     });
   </script>
+  <script src="js/neighborhoods.js"></script>
+  <script>renderNearbyNeighborhoods('nearby-grid', 'bayou-maison');</script>
 </body>
 </html>

@@ -961,7 +961,18 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
   </section>
 
   <!-- ── PHIL CTA ──────────────────────────────────────────── -->
-  <section class="phil-cta" aria-label="Contact Phil">
+  <!-- ── NEARBY NEIGHBORHOODS ─────────────── -->
+  <section class="nearby-section" aria-label="Nearby neighborhoods">
+    <div class="container">
+      <div class="nearby-section__head">
+        <div class="nearby-section__eyebrow">Keep Exploring</div>
+        <h2 class="nearby-section__title">More Neighborhoods in League City</h2>
+      </div>
+      <div class="nearby__grid" id="nearby-grid"></div>
+    </div>
+  </section>
+
+    <section class="phil-cta" aria-label="Contact Phil">
     <div class="container">
       <h2 class="phil-cta__title">Ready to explore <span>Mar Bella</span>?</h2>
       <p class="phil-cta__sub">I know every builder, every price point, and exactly which lots have the best lake views. Let's find your home in one of League City's most distinctive neighborhoods.</p>
@@ -1085,5 +1096,7 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
     });
   </script>
 
+  <script src="js/neighborhoods.js"></script>
+  <script>renderNearbyNeighborhoods('nearby-grid', 'mar-bella');</script>
 </body>
 </html>

@@ -586,7 +586,18 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
   </section>
 
   <!-- CTA -->
-  <section class="phil-cta" aria-label="Contact Phil">
+  <!-- ── NEARBY NEIGHBORHOODS ─────────────── -->
+  <section class="nearby-section" aria-label="Nearby neighborhoods">
+    <div class="container">
+      <div class="nearby-section__head">
+        <div class="nearby-section__eyebrow">Keep Exploring</div>
+        <h2 class="nearby-section__title">More Neighborhoods in Pearland</h2>
+      </div>
+      <div class="nearby__grid" id="nearby-grid"></div>
+    </div>
+  </section>
+
+    <section class="phil-cta" aria-label="Contact Phil">
     <div class="container">
       <h2 class="phil-cta__title">Ready to explore <span>Silverlake</span>?</h2>
       <p class="phil-cta__sub">Silverlake offers Pearland ISD schools, a real lake, and central Pearland convenience at prices that make sense. I know which lots have the best lake access and which sections offer the strongest long-term value.</p>
@@ -682,5 +693,7 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
     });
   </script>
   <script src="https://widgets.leadconnectorhq.com/loader.js" data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" data-widget-id="6a6ade587ae3f00a819b3088" data-source="WEB_USER"></script>
+  <script src="js/neighborhoods.js"></script>
+  <script>renderNearbyNeighborhoods('nearby-grid', 'silverlake');</script>
 </body>
 </html>

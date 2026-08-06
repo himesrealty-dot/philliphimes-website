@@ -586,7 +586,18 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
   </section>
 
   <!-- CTA -->
-  <section class="phil-cta" aria-label="Contact Phil">
+  <!-- ── NEARBY NEIGHBORHOODS ─────────────── -->
+  <section class="nearby-section" aria-label="Nearby neighborhoods">
+    <div class="container">
+      <div class="nearby-section__head">
+        <div class="nearby-section__eyebrow">Keep Exploring</div>
+        <h2 class="nearby-section__title">More Neighborhoods in Friendswood</h2>
+      </div>
+      <div class="nearby__grid" id="nearby-grid"></div>
+    </div>
+  </section>
+
+    <section class="phil-cta" aria-label="Contact Phil">
     <div class="container">
       <h2 class="phil-cta__title">Ready to explore <span>Wilderness Trails</span>?</h2>
       <p class="phil-cta__sub">Wilderness Trails homes offer Friendswood ISD schools and genuine wooded character at below-average pricing for the district. I know which lots have the best tree coverage and which floor plans have held their value best.</p>
@@ -682,5 +693,7 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
     });
   </script>
   <script src="https://widgets.leadconnectorhq.com/loader.js" data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" data-widget-id="6a6ade587ae3f00a819b3088" data-source="WEB_USER"></script>
+  <script src="js/neighborhoods.js"></script>
+  <script>renderNearbyNeighborhoods('nearby-grid', 'wilderness-trails');</script>
 </body>
 </html>

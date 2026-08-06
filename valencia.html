@@ -611,7 +611,18 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
     </div>
   </section>
 
-  <section class="phil-cta" aria-label="Contact Phil">
+  <!-- ── NEARBY NEIGHBORHOODS ─────────────── -->
+  <section class="nearby-section" aria-label="Nearby neighborhoods">
+    <div class="container">
+      <div class="nearby-section__head">
+        <div class="nearby-section__eyebrow">Keep Exploring</div>
+        <h2 class="nearby-section__title">More Neighborhoods in Manvel</h2>
+      </div>
+      <div class="nearby__grid" id="nearby-grid"></div>
+    </div>
+  </section>
+
+    <section class="phil-cta" aria-label="Contact Phil">
     <div class="container">
       <h2 class="phil-cta__title">Ready to explore <span>Valencia</span>?</h2>
       <p class="phil-cta__sub">I know the Manvel new construction market — which Valencia homes deliver the best modern floor plans and value, how this community compares to Rodeo Palms, Del Bello Lakes, and Sedona Lakes, and how to make the best decision for your family in the growing Manvel market.</p>
@@ -730,5 +741,7 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
       q.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); q.click(); } });
     });
   </script>
+  <script src="js/neighborhoods.js"></script>
+  <script>renderNearbyNeighborhoods('nearby-grid', 'valencia');</script>
 </body>
 </html>

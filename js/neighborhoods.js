@@ -606,3 +606,58 @@ function renderNeighborhoodCards(containerOrId, cityFilter, onlyIds) {
 
   el.innerHTML = hoods.map(buildNeighborhoodCard).join('\n');
 }
+
+
+/* ─── NEARBY NEIGHBORHOODS (cross-link component) ───────────── */
+
+/**
+ * Build a compact "nearby neighborhood" cross-link card.
+ * Self-contained .nearby-card markup (styled globally in css/styles.css) so it
+ * never depends on the per-city inline .hood-card CSS.
+ * @param {Object} n - Neighborhood object from NEIGHBORHOODS
+ * @returns {string} HTML string
+ */
+function buildNearbyCard(n) {
+  return `
+    <a href="${n.href}" class="nearby-card">
+      <span class="nearby-card__name">${n.name}</span>
+      <span class="nearby-card__tag">${n.tag}</span>
+      <p class="nearby-card__desc">${n.detail || n.desc}</p>
+      <span class="nearby-card__price">${n.price}</span>
+      <span class="nearby-card__cta">Explore ${n.name} &rarr;</span>
+    </a>`.trim();
+}
+
+/**
+ * Render up to `limit` other neighborhoods in the SAME city as `currentId`.
+ * Used at the bottom of every neighborhood page to keep buyers browsing on-site.
+ * Removes its own section if there are no siblings to show.
+ * @param {string|HTMLElement} containerOrId
+ * @param {string} currentId - id of the neighborhood whose page this is
+ * @param {number} [limit=3]
+ */
+function renderNearbyNeighborhoods(containerOrId, currentId, limit) {
+  const el = typeof containerOrId === 'string'
+    ? document.getElementById(containerOrId)
+    : containerOrId;
+  if (!el) {
+    console.warn('[neighborhoods.js] nearby container not found:', containerOrId);
+    return;
+  }
+  const current = getNeighborhood(currentId);
+  if (!current) {
+    console.warn('[neighborhoods.js] unknown neighborhood id:', currentId);
+    return;
+  }
+  let hoods = NEIGHBORHOODS.filter(n =>
+    n.city === current.city && n.id !== currentId && n.live && n.href
+  );
+  const max = (typeof limit === 'number' && limit > 0) ? limit : 3;
+  hoods = hoods.slice(0, max);
+  if (!hoods.length) {
+    const section = el.closest('.nearby-section');
+    if (section) section.remove();
+    return;
+  }
+  el.innerHTML = hoods.map(buildNearbyCard).join('\n');
+}
