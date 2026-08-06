@@ -126,6 +126,18 @@
   to = "/404.html"
   status = 404
   force = true
+[[redirects]]
+  # Retired duplicate of incentives.html (superseded by the NewBuildIQ flow).
+  from = "/nc-incentives.html"
+  to = "/incentives.html"
+  status = 301
+  force = true
+[[redirects]]
+  # Deleted internal preview scratch file.
+  from = "/har-preview.html"
+  to = "/404.html"
+  status = 404
+  force = true
 
 # No SPA catch-all: this is a static multi-page site, so unknown paths
 # must return a real 404 (Netlify auto-serves /404.html) instead of the
