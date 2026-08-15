@@ -144,7 +144,7 @@
       flex: 1; height: 1px; background: rgba(201,164,85,0.25);
     }
 
-    /* ─── STAGE 1 — HOME VALUATION ─────────────────────────── */
+    /* ─── STAGE 1 — HOME VALUE WIZARD ──────────────────────── */
     .hv-section {
       background: linear-gradient(135deg, #1B3A5C 0%, #2089A0 100%);
       padding: 4.5rem 0; position: relative; overflow: hidden;
@@ -155,319 +155,144 @@
       color: rgba(255,255,255,0.04); pointer-events: none; white-space: nowrap; line-height: 1;
     }
 
-    .hv-panel { max-width: 640px; margin: 0 auto; text-align: center; position: relative; z-index: 1; }
-    .hv-panel--loading { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; }
-    .hv-eyebrow {
+    /* Wizard shell */
+    .hvw {
+      max-width: 640px; margin: 0 auto; position: relative; z-index: 1;
+      background: rgba(255,255,255,0.08); backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.16); border-radius: 1.25rem;
+      padding: 2.5rem; box-shadow: 0 24px 60px rgba(10,20,34,0.28);
+    }
+    @media (max-width: 560px) { .hvw { padding: 1.75rem 1.25rem; } }
+
+    .hvw__head { text-align: center; margin-bottom: 1.75rem; }
+    .hvw.is-complete .hvw__head,
+    .hvw.is-complete .hvw__progress { display: none; }
+    .hvw__eyebrow {
       font-family: var(--font-heading); font-size: 0.72rem; font-weight: 700;
-      letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.85rem;
+      letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.6rem;
     }
-    .hv-title {
+    .hvw__title {
       font-family: var(--font-heading); font-weight: 900;
-      font-size: clamp(1.9rem, 4vw, 2.75rem); color: #fff; margin-bottom: 0.85rem; line-height: 1.1;
+      font-size: clamp(1.6rem, 3.5vw, 2.25rem); color: #fff; line-height: 1.1; margin-bottom: 0.65rem;
     }
-    .hv-desc {
-      font-size: 1rem; color: rgba(255,255,255,0.82); line-height: 1.75;
-      margin-bottom: 2rem; max-width: 520px; margin-left: auto; margin-right: auto;
-    }
-    .hv-input-row {
-      display: flex; gap: 0.75rem; align-items: stretch; max-width: 560px; margin: 0 auto 1rem;
-    }
-    .hv-addr-input {
-      flex: 1; padding: 0.95rem 1.4rem;
-      background: rgba(255,255,255,0.12); border: 2px solid rgba(255,255,255,0.22);
-      border-radius: 50px; color: #fff; font-family: var(--font-body); font-size: 1rem;
-      outline: none; transition: border-color 0.2s, background 0.2s;
-    }
-    .hv-addr-input::placeholder { color: rgba(255,255,255,0.5); }
-    .hv-addr-input:focus { border-color: rgba(255,255,255,0.55); background: rgba(255,255,255,0.18); }
-    .hv-addr-btn {
-      padding: 0.95rem 2rem; background: var(--gold); color: var(--navy);
-      border: none; border-radius: 50px; cursor: pointer; white-space: nowrap;
-      font-family: var(--font-heading); font-size: 0.8rem; font-weight: 800;
-      letter-spacing: 0.08em; text-transform: uppercase;
-      box-shadow: 0 4px 16px rgba(201,164,85,0.4); transition: background 0.2s, transform 0.1s;
-    }
-    .hv-addr-btn:hover { background: #b8923e; transform: translateY(-1px); }
-    .hv-disclaimer { font-size: 0.78rem; color: rgba(255,255,255,0.5); }
-
-    /* ── NATIVE PLUNK LAYOUT ── */
-    .hv-native-grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start;
-      position: relative; z-index: 1;
-    }
-    /* ── Custom AVM widget ── */
-    .hv-widget {
-      background: rgba(255,255,255,0.07); backdrop-filter: blur(12px);
-      border: 1px solid rgba(255,255,255,0.14); border-radius: 1rem; padding: 1.75rem;
-    }
-    .hv-widget__intro { margin-bottom: 1.5rem; }
-    .hv-widget__title {
-      font-family: var(--font-heading); font-weight: 900;
-      font-size: clamp(1.1rem, 2vw, 1.35rem); color: white;
-      line-height: 1.15; margin-bottom: 0.65rem;
-    }
-    .hv-widget__copy { font-size: 0.85rem; color: rgba(255,255,255,0.72); line-height: 1.7; }
-
-    /* Address input row */
-    .hv-widget__form { display: flex; flex-direction: column; gap: 0.6rem; position: relative; }
-    .hv-widget__input-row { display: flex; gap: 0.6rem; }
-    .hv-widget__input {
-      flex: 1; padding: 0.85rem 1.25rem;
-      background: rgba(255,255,255,0.12); border: 2px solid rgba(255,255,255,0.22);
-      border-radius: 50px; color: white; font-family: var(--font-body); font-size: 0.92rem;
-      outline: none; transition: border-color 0.2s, background 0.2s;
-    }
-    .hv-widget__input::placeholder { color: rgba(255,255,255,0.45); }
-    .hv-widget__input:focus { border-color: rgba(255,255,255,0.5); background: rgba(255,255,255,0.17); }
-    .hv-widget__btn {
-      padding: 0.85rem 1.5rem; background: var(--gold); color: var(--navy);
-      border: none; border-radius: 50px; cursor: pointer; white-space: nowrap;
-      font-family: var(--font-heading); font-size: 0.78rem; font-weight: 800;
-      letter-spacing: 0.08em; text-transform: uppercase;
-      box-shadow: 0 4px 14px rgba(201,164,85,0.35);
-      transition: background 0.2s, transform 0.1s, opacity 0.2s;
-    }
-    .hv-widget__btn:hover:not(:disabled) { background: #b8923e; transform: translateY(-1px); }
-    .hv-widget__btn:disabled { opacity: 0.5; cursor: not-allowed; }
-
-    /* Mapbox dropdown */
-    .hv-widget__dropdown {
-      position: absolute; top: calc(100% + 6px); left: 0; right: 0;
-      background: white; border-radius: 0.875rem;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.2); z-index: 100;
-      overflow: hidden; display: none;
-    }
-    .hv-widget__dropdown.open { display: block; }
-    .hv-widget__option {
-      padding: 0.75rem 1.1rem; cursor: pointer;
-      font-size: 0.88rem; color: var(--navy);
-      border-bottom: 1px solid #f0ece4;
-      display: flex; align-items: center; gap: 0.6rem;
-      transition: background 0.15s;
-    }
-    .hv-widget__option:last-child { border-bottom: none; }
-    .hv-widget__option:hover, .hv-widget__option.active { background: #f9f7f4; }
-    .hv-widget__option-main { font-weight: 600; font-size: 0.88rem; }
-    .hv-widget__option-sub { font-size: 0.75rem; color: var(--dark-gray); }
-
-    /* Loading state */
-    .hv-widget__loading {
-      display: none; align-items: center; gap: 0.75rem;
-      padding: 1.25rem 0; margin-top: 0.5rem;
-    }
-    .hv-widget__loading.show { display: flex; }
-    .hv-widget__spinner {
-      width: 24px; height: 24px; flex-shrink: 0;
-    }
-    .hv-widget__loading-text {
-      font-size: 0.88rem; color: rgba(255,255,255,0.75);
-      font-family: var(--font-heading); font-weight: 600;
+    .hvw__sub {
+      font-size: 0.92rem; color: rgba(255,255,255,0.78); line-height: 1.6;
+      max-width: 460px; margin: 0 auto;
     }
 
-    /* Result card */
-    .hv-widget__result {
-      display: none; margin-top: 1rem;
-      background: var(--navy); border-radius: 0.875rem; padding: 1.5rem;
-      border: 1px solid rgba(255,255,255,0.1);
+    /* Progress bar */
+    .hvw__progress { margin-bottom: 1.75rem; }
+    .hvw__prog-track {
+      height: 4px; background: rgba(255,255,255,0.14); border-radius: 50px; overflow: hidden;
     }
-    .hv-widget__result.show { display: block; }
-    .hv-widget__result-label {
-      font-family: var(--font-heading); font-size: 0.65rem; font-weight: 700;
-      letter-spacing: 0.15em; text-transform: uppercase;
-      color: rgba(255,255,255,0.5); margin-bottom: 0.3rem;
+    .hvw__prog-fill {
+      height: 100%; width: 25%; background: var(--gold); border-radius: 50px;
+      transition: width 0.35s ease;
     }
-    .hv-widget__result-address {
-      font-family: var(--font-heading); font-weight: 700; font-size: 0.88rem;
-      color: rgba(255,255,255,0.85); margin-bottom: 1.25rem; line-height: 1.35;
-    }
-    .hv-widget__estimate-label {
-      font-family: var(--font-heading); font-size: 0.65rem; font-weight: 700;
-      letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold);
-      margin-bottom: 0.25rem;
-    }
-    .hv-widget__estimate-value {
-      font-family: var(--font-heading); font-weight: 900; font-size: 2.25rem;
-      color: white; line-height: 1; margin-bottom: 0.4rem;
-    }
-    .hv-widget__estimate-range {
-      font-size: 0.8rem; color: rgba(255,255,255,0.55); margin-bottom: 1.25rem;
-    }
-    .hv-widget__disclaimer {
-      font-size: 0.72rem; color: rgba(255,255,255,0.4); line-height: 1.55;
-      padding-top: 0.875rem; border-top: 1px solid rgba(255,255,255,0.08);
-    }
-    .hv-widget__restart {
-      font-size: 0.78rem; color: rgba(255,255,255,0.55); text-decoration: none;
-      display: inline-block; margin-top: 0.75rem; transition: color 0.2s;
-    }
-    .hv-widget__restart:hover { color: var(--gold); }
-
-    /* ── Plunk valuation widget container ───────────────────── */
-    .plunk-widget-wrap {
-      margin-top: 1.5rem;
-      /* no overflow:hidden — would clip the address autocomplete dropdown */
-      position: relative;
-    }
-
-    /* ── On-brand override for the Plunk / RealtyCandy valuation MODALS ──
-       Scoped to .pv-modal / .pv-callToAction ONLY, so the inline on-page widget
-       ("What's your home worth?" + address input + Submit) keeps its original
-       look. body-prefixed selectors + !important win over the widget's injected
-       CSS regardless of load order. .pv-* is the widget's stable class API. */
-
-    /* modal shell */
-    body .pv-modal-content {
-      border-radius: 16px !important;
-      font-family: var(--font-body), 'Open Sans', sans-serif !important;
-      box-shadow: 0 24px 60px rgba(10,20,34,0.38) !important;
-    }
-    /* headings on the WHITE modal (address, "One step closer…") — navy on white */
-    body .pv-modal .pv-subtitle,
-    body .pv-modal-content > h2,
-    body .pv-modal h3 {
-      font-family: var(--font-heading), Georgia, serif !important;
-      color: var(--navy) !important;
-      font-weight: 900 !important;
-    }
-
-    /* the "Unlock your market insights" consent box → brand navy, centered */
-    body .pv-callToAction {
-      background: linear-gradient(135deg, #0d2137 0%, #1B3A5C 55%, #2089A0 100%) !important;
-      border-radius: 14px !important;
-      border: 1px solid rgba(255,255,255,0.1) !important;
-      text-align: center !important;
-    }
-    body .pv-callToAction,
-    body .pv-callToAction p,
-    body .pv-callToAction span { color: #fff !important; }
-    /* heading → gold so it reads on the navy box */
-    body .pv-modal .pv-callToAction h2,
-    body .pv-callToAction h2 {
-      color: var(--gold) !important;
-      font-family: var(--font-heading), Georgia, serif !important;
-      font-weight: 900 !important;
-    }
-    /* confirm-button wrapper stays centered */
-    body .pv-cta-form { text-align: center !important; }
-
-    /* primary modal buttons → gold, sized to fit their label + centered */
-    body .pv-button-confirm,
-    body .pv-submit {
-      display: inline-block !important;
-      width: auto !important;
-      min-width: 170px !important;
-      max-width: none !important;
-      margin: 0 auto !important;
-      padding: 0.9rem 2.5rem !important;
-      background: var(--gold) !important;
-      color: var(--navy) !important;
-      border: none !important;
-      border-radius: 50px !important;
-      font-family: var(--font-heading), Georgia, serif !important;
-      font-weight: 800 !important;
-      font-size: 0.95rem !important;
-      letter-spacing: 0.06em !important;
-      text-transform: uppercase !important;
-      text-align: center !important;
-      white-space: nowrap !important;
-      overflow: visible !important;
-      box-shadow: 0 4px 16px rgba(201,164,85,0.35) !important;
-      transition: background 0.2s, transform 0.15s !important;
-    }
-    body .pv-button-confirm:hover,
-    body .pv-submit:hover { background: #b8923e !important; transform: translateY(-1px) !important; }
-
-    /* modal lead-form inputs */
-    body .pv-modal .pv-lead-input,
-    body .pv-modal .pv-input-group { border-radius: 10px !important; font-family: var(--font-body), 'Open Sans', sans-serif !important; }
-    body .pv-modal .pv-lead-input:focus { border-color: var(--gold) !important; outline: none !important; }
-
-    /* Buying / Selling tabs + delivery toggle (modal only) */
-    body .pv-modal .pv-tab-interest { border-radius: 8px !important; font-family: var(--font-heading), Georgia, serif !important; }
-    body .pv-modal .pv-tab-interest.active { background: var(--gold) !important; color: var(--navy) !important; }
-    body .pv-modal .pv-toggle-slider { background: var(--gold) !important; }
-    body .pv-modal .pv-toggle-option.active { color: var(--navy) !important; }
-
-    /* misc (modal only) */
-    body .pv-modal .pv-error { color: #c0392b !important; }
-    body .pv-modal .close-button { color: var(--navy) !important; opacity: 0.55; }
-    body .pv-modal .close-button:hover { opacity: 1; }
-
-    /* Error state */
-    .hv-widget__error {
-      display: none; margin-top: 0.75rem;
-      font-size: 0.82rem; color: #ffb3b3; line-height: 1.55;
-    }
-    .hv-widget__error.show { display: block; }
-
-    .hv-capture-col {
-      background: rgba(255,255,255,0.09); backdrop-filter: blur(12px);
-      border: 1px solid rgba(255,255,255,0.16); border-radius: 1rem; padding: 2rem;
-    }
-    .hv-capture-eyebrow {
+    .hvw__prog-pct {
+      margin-top: 0.55rem; text-align: right;
       font-family: var(--font-heading); font-size: 0.7rem; font-weight: 700;
-      letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.5rem;
+      letter-spacing: 0.06em; text-transform: uppercase; color: rgba(255,255,255,0.6);
     }
-    .hv-capture-title {
-      font-family: var(--font-heading); font-weight: 900; font-size: 1.4rem;
-      color: #fff; margin-bottom: 0.75rem; line-height: 1.2;
+
+    /* Panels */
+    .hvw__panel { display: none; }
+    .hvw__panel.is-active { display: block; animation: hvwFade 0.3s ease; }
+    @keyframes hvwFade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+    .hvw__label {
+      display: block; font-family: var(--font-heading); font-size: 0.78rem; font-weight: 700;
+      letter-spacing: 0.02em; color: rgba(255,255,255,0.9); margin-bottom: 0.5rem;
     }
-    .hv-capture-desc { font-size: 0.88rem; color: rgba(255,255,255,0.78); line-height: 1.65; margin-bottom: 1.5rem; }
-    .hv-capture-form { display: flex; flex-direction: column; gap: 0.75rem; }
-    .hv-capture-row { display: flex; gap: 0.75rem; }
-    .hv-capture-form input[type="text"],
-    .hv-capture-form input[type="email"],
-    .hv-capture-form input[type="tel"] {
-      flex: 1; padding: 0.8rem 1.2rem;
-      background: rgba(255,255,255,0.1); border: 1.5px solid rgba(255,255,255,0.2);
-      border-radius: 0.6rem; color: #fff; font-family: var(--font-body); font-size: 0.9rem;
-      outline: none; transition: border-color 0.2s;
+    .hvw__label .req { color: var(--gold); }
+    .hvw__hint { font-size: 0.78rem; color: rgba(255,255,255,0.5); margin: 0.35rem 0 0; }
+
+    .hvw__input {
+      width: 100%; box-sizing: border-box; padding: 0.9rem 1.15rem;
+      background: rgba(255,255,255,0.1); border: 1.5px solid rgba(255,255,255,0.22);
+      border-radius: 0.65rem; color: #fff; font-family: var(--font-body); font-size: 0.95rem;
+      outline: none; transition: border-color 0.2s, background 0.2s;
     }
-    .hv-capture-form input::placeholder { color: rgba(255,255,255,0.45); }
-    .hv-capture-form input:focus { border-color: rgba(255,255,255,0.5); }
-    .hv-sms-label {
-      display: flex; gap: 0.6rem; align-items: flex-start;
-      font-size: 0.75rem; color: rgba(255,255,255,0.55); line-height: 1.5; cursor: pointer;
+    .hvw__input::placeholder { color: rgba(255,255,255,0.42); }
+    .hvw__input:focus { border-color: var(--gold); background: rgba(255,255,255,0.14); }
+
+    .hvw__field { margin-bottom: 1.15rem; }
+    .hvw__field:last-of-type { margin-bottom: 0; }
+    .hvw__row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; }
+    @media (max-width: 480px) { .hvw__row { grid-template-columns: 1fr; } }
+
+    /* Segmented button groups (beds / baths) */
+    .hvw__seg { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+    .hvw__seg button {
+      flex: 1; min-width: 44px; padding: 0.65rem 0.4rem;
+      background: rgba(255,255,255,0.08); border: 1.5px solid rgba(255,255,255,0.2);
+      border-radius: 0.55rem; color: rgba(255,255,255,0.8);
+      font-family: var(--font-heading); font-weight: 700; font-size: 0.9rem;
+      cursor: pointer; transition: all 0.18s;
     }
-    .hv-sms-label input[type="checkbox"] { margin-top: 0.2rem; flex-shrink: 0; }
-    .hv-capture-btn {
-      width: 100%; padding: 1rem; background: var(--gold); color: var(--navy);
-      border: none; border-radius: 50px; cursor: pointer;
+    .hvw__seg button:hover { border-color: rgba(255,255,255,0.45); }
+    .hvw__seg button.is-sel {
+      background: var(--gold); border-color: var(--gold); color: var(--navy);
+      box-shadow: 0 4px 14px rgba(201,164,85,0.35);
+    }
+
+    /* Yes/No feature toggles */
+    .hvw__toggle { display: flex; gap: 0.4rem; }
+    .hvw__toggle button {
+      flex: 1; padding: 0.55rem; background: rgba(255,255,255,0.08);
+      border: 1.5px solid rgba(255,255,255,0.2); border-radius: 0.5rem;
+      color: rgba(255,255,255,0.75); font-family: var(--font-heading); font-weight: 700;
+      font-size: 0.8rem; cursor: pointer; transition: all 0.18s;
+    }
+    .hvw__toggle button:hover { border-color: rgba(255,255,255,0.45); }
+    .hvw__toggle button.is-sel { background: var(--gold); border-color: var(--gold); color: var(--navy); }
+    .hvw__feat-label {
+      display: block; font-family: var(--font-heading); font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.02em; color: rgba(255,255,255,0.85); margin-bottom: 0.4rem;
+    }
+
+    /* Consent */
+    .hvw__consent { display: flex; align-items: flex-start; gap: 0.65rem; margin: 1.25rem 0 0; cursor: pointer; }
+    .hvw__consent input[type="checkbox"] { margin-top: 3px; flex-shrink: 0; accent-color: var(--gold); width: 16px; height: 16px; }
+    .hvw__consent-text { font-size: 0.74rem; color: rgba(255,255,255,0.5); line-height: 1.55; }
+    .hvw__consent-text a { color: rgba(255,255,255,0.68); }
+
+    /* Error line */
+    .hvw__err { display: none; color: #ffb3b3; font-size: 0.82rem; margin-top: 0.75rem; }
+    .hvw__err.show { display: block; }
+
+    /* Nav */
+    .hvw__nav { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-top: 1.75rem; }
+    .hvw__back {
+      background: none; border: none; color: rgba(255,255,255,0.6);
+      font-family: var(--font-heading); font-weight: 700; font-size: 0.82rem;
+      cursor: pointer; padding: 0.5rem 0; transition: color 0.2s;
+    }
+    .hvw__back:hover { color: #fff; }
+    .hvw__next, .hvw__submit {
+      margin-left: auto; padding: 0.9rem 2rem; background: var(--gold); color: var(--navy);
+      border: none; border-radius: 50px; cursor: pointer; white-space: nowrap;
       font-family: var(--font-heading); font-size: 0.8rem; font-weight: 800;
-      letter-spacing: 0.08em; text-transform: uppercase;
-      box-shadow: 0 4px 16px rgba(201,164,85,0.35); transition: background 0.2s, transform 0.1s;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      box-shadow: 0 4px 16px rgba(201,164,85,0.35); transition: background 0.2s, transform 0.1s, opacity 0.2s;
     }
-    .hv-capture-btn:hover { background: #b8923e; transform: translateY(-1px); }
+    .hvw__next:hover, .hvw__submit:hover { background: #b8923e; transform: translateY(-1px); }
+    .hvw__submit:disabled { opacity: 0.6; cursor: default; }
 
-    /* ── TruMarket form card (matches trumarket.html) ── */
-    .tm-form-card__title { font-family: var(--font-heading); font-weight: 900; font-size: 1.4rem; color: #fff; margin-bottom: 0.4rem; }
-    .tm-form-card__sub { font-size: 0.88rem; color: rgba(255,255,255,0.55); margin-bottom: 1.75rem; line-height: 1.6; }
-    .tm-form__row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; margin-bottom: 0.85rem; }
-    .tm-form__row--full { grid-template-columns: 1fr; }
-    .tm-form__field { display: flex; flex-direction: column; }
-    .tm-form__input { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); border-radius: 8px;
-      padding: 0.85rem 1rem; font-size: 0.9rem; color: #fff; font-family: var(--font-body, sans-serif);
-      transition: border-color 0.2s, background 0.2s; outline: none; width: 100%; box-sizing: border-box; }
-    .tm-form__input::placeholder { color: rgba(255,255,255,0.38); }
-    .tm-form__input:focus { border-color: var(--teal); background: rgba(255,255,255,0.12); }
-    .tm-form__consent { display: flex; align-items: flex-start; gap: 0.65rem; margin: 1.1rem 0 1.5rem; }
-    .tm-form__consent input[type="checkbox"] { margin-top: 3px; flex-shrink: 0; accent-color: var(--teal); width: 16px; height: 16px; }
-    .tm-form__consent-text { font-size: 0.75rem; color: rgba(255,255,255,0.45); line-height: 1.55; }
-    .tm-form__consent-text a { color: rgba(255,255,255,0.6); }
-    .tm-form__submit { width: 100%; background: var(--gold); color: var(--navy); border: none; border-radius: var(--radius-full);
-      padding: 1rem 2rem; font-family: var(--font-heading); font-weight: 800; font-size: 0.95rem; letter-spacing: 0.06em;
-      text-transform: uppercase; cursor: pointer; transition: background 0.2s, transform 0.15s; }
-    .tm-form__submit:hover { background: #d4b86a; transform: translateY(-1px); }
-    .tm-form__submit:active { transform: translateY(0); }
-    .tm-form__submit:disabled { opacity: 0.65; cursor: default; }
-    .tm-form__success { display: none; text-align: center; padding: 2rem 1rem; }
-    .tm-form__success-icon { font-size: 3rem; margin-bottom: 1rem; }
-    .tm-form__success-title { font-family: var(--font-heading); font-weight: 900; font-size: 1.4rem; color: var(--gold); margin-bottom: 0.5rem; }
-    .tm-form__success-msg { font-size: 0.9rem; color: rgba(255,255,255,0.65); line-height: 1.65; }
-
-    .hv-next-hint {
-      text-align: center; margin-top: 2rem; position: relative; z-index: 1;
+    /* Thank-you step */
+    .hvw__thanks { text-align: center; padding: 1rem 0; }
+    .hvw__thanks-icon {
+      width: 64px; height: 64px; margin: 0 auto 1.25rem; border-radius: 50%;
+      background: rgba(201,164,85,0.18); border: 1px solid rgba(201,164,85,0.4);
+      display: flex; align-items: center; justify-content: center; font-size: 2rem;
     }
+    .hvw__thanks-title {
+      font-family: var(--font-heading); font-weight: 900; font-size: 1.6rem; color: var(--gold);
+      margin-bottom: 0.75rem; line-height: 1.15;
+    }
+    .hvw__thanks-msg { font-size: 0.95rem; color: rgba(255,255,255,0.8); line-height: 1.65; max-width: 440px; margin: 0 auto; }
+
+    .hv-next-hint { text-align: center; margin-top: 2rem; position: relative; z-index: 1; }
     .hv-next-hint a {
       display: inline-flex; align-items: center; gap: 0.4rem;
       background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
@@ -476,11 +301,6 @@
       text-decoration: none; transition: all 0.2s;
     }
     .hv-next-hint a:hover { background: rgba(255,255,255,0.18); color: white; }
-
-    @media (max-width: 768px) {
-      .hv-native-grid { grid-template-columns: 1fr; }
-      .hv-capture-row { flex-direction: column; }
-    }
 
     /* ─── STAGE 2 — NET PROCEEDS ───────────────────────────── */
     .proceeds-section {
@@ -1075,7 +895,7 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
   </nav>
 
   <!-- ── STAGE 1 — HOME VALUATION ────────────────────── -->
-  <section class="hv-section" id="home-value" aria-label="Stage 1 — Home valuation tool">
+  <section class="hv-section" id="home-value" aria-label="Stage 1 — Home value request">
     <div class="container">
 
       <div class="stage-label" style="margin-bottom:2rem;">
@@ -1084,68 +904,135 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
         <div class="stage-label__divider"></div>
       </div>
 
-      <div class="hv-native-grid">
-
-        <!-- Left: custom AVM widget -->
-        <div class="hv-widget">
-          <div class="hv-widget__intro">
-            <h2 class="hv-widget__title">Your Instant Estimate —<br />A Smart Starting Point</h2>
-            <p class="hv-widget__copy">This tool gives you a real-time data estimate based on recent sales activity in your neighborhood. It's a solid number to start with — but it's an algorithm. It doesn't know about your updates, your curb appeal, or what's quietly happening in your specific pocket of the market.</p>
-            <p class="hv-widget__copy" style="margin-top:0.75rem;">When you're serious about selling, you need a TruMarket™ report. That's Phil pulling actual comps, walking your competition, and telling you exactly what price puts the most money in your pocket — and why.</p>
-          </div>
-
-          <!-- Plunk Valuation Widget — powered by IDXAddons -->
-          <div class="plunk-widget-wrap">
-            <script src="https://idxaddons.com/addon/plunkvaluation/NWJfWXV2c0ctOEQ%3DDbVFmnXAMYT"></script>
-          </div>
+      <div class="hvw" id="hvw">
+        <div class="hvw__head">
+          <div class="hvw__eyebrow">Free Home Value</div>
+          <h2 class="hvw__title">What's Your Home Worth?</h2>
+          <p class="hvw__sub">Answer a few quick questions and Phil will personally send you your home value — a real number based on recent sales in your neighborhood, not just an algorithm.</p>
         </div>
 
-        <!-- Right: TruMarket lead capture — same form as trumarket.html -->
-        <div class="hv-capture-col">
-          <div class="tm-form-card__title">Request Your TruMarket™ Report</div>
-          <div class="tm-form-card__sub">Tell us about your property and Phil will reach out with your personalized TruMarket™ analysis.</div>
+        <div class="hvw__progress">
+          <div class="hvw__prog-track"><div class="hvw__prog-fill" id="hvw-progfill"></div></div>
+          <div class="hvw__prog-pct" id="hvw-progpct">25% Complete</div>
+        </div>
 
-          <form id="trumarket-form" novalidate>
-            <div class="tm-form__row">
-              <div class="tm-form__field">
-                <input class="tm-form__input" type="text" name="firstName" placeholder="First Name" required autocomplete="given-name" />
+        <form id="hvw-form" novalidate>
+
+          <!-- STEP 1 — Address -->
+          <div class="hvw__panel is-active" data-step="1">
+            <div class="hvw__field">
+              <label class="hvw__label" for="hvw-address">Property Address <span class="req">*</span></label>
+              <input class="hvw__input" type="text" id="hvw-address" name="address" placeholder="Street, City, ZIP" autocomplete="street-address" />
+              <p class="hvw__hint">Enter the full address of the home you'd like valued.</p>
+            </div>
+            <div class="hvw__err" data-err="1"></div>
+            <div class="hvw__nav">
+              <button type="button" class="hvw__next" data-next>Continue →</button>
+            </div>
+          </div>
+
+          <!-- STEP 2 — Property details -->
+          <div class="hvw__panel" data-step="2">
+            <div class="hvw__field">
+              <label class="hvw__label">Bedrooms <span class="req">*</span></label>
+              <div class="hvw__seg" data-seg="beds">
+                <button type="button" data-val="1">1</button>
+                <button type="button" data-val="2">2</button>
+                <button type="button" data-val="3">3</button>
+                <button type="button" data-val="4">4</button>
+                <button type="button" data-val="5+">5+</button>
               </div>
-              <div class="tm-form__field">
-                <input class="tm-form__input" type="text" name="lastName" placeholder="Last Name" required autocomplete="family-name" />
+              <input type="hidden" name="beds" />
+            </div>
+            <div class="hvw__field">
+              <label class="hvw__label">Bathrooms <span class="req">*</span></label>
+              <div class="hvw__seg" data-seg="baths">
+                <button type="button" data-val="1">1</button>
+                <button type="button" data-val="2">2</button>
+                <button type="button" data-val="3">3</button>
+                <button type="button" data-val="4">4</button>
+                <button type="button" data-val="5+">5+</button>
+              </div>
+              <input type="hidden" name="baths" />
+            </div>
+            <div class="hvw__field">
+              <label class="hvw__label" for="hvw-sqft">Approx. Square Footage <span class="req">*</span></label>
+              <input class="hvw__input" type="text" inputmode="numeric" id="hvw-sqft" name="sqft" placeholder="e.g. 2,400" />
+            </div>
+            <div class="hvw__field">
+              <div class="hvw__row">
+                <div>
+                  <span class="hvw__feat-label">Pool</span>
+                  <div class="hvw__toggle" data-seg="pool">
+                    <button type="button" data-val="Yes">Yes</button>
+                    <button type="button" data-val="No">No</button>
+                  </div>
+                </div>
+                <div>
+                  <span class="hvw__feat-label">Gated</span>
+                  <div class="hvw__toggle" data-seg="gated">
+                    <button type="button" data-val="Yes">Yes</button>
+                    <button type="button" data-val="No">No</button>
+                  </div>
+                </div>
+                <div>
+                  <span class="hvw__feat-label">Waterfront</span>
+                  <div class="hvw__toggle" data-seg="waterfront">
+                    <button type="button" data-val="Yes">Yes</button>
+                    <button type="button" data-val="No">No</button>
+                  </div>
+                </div>
+              </div>
+              <input type="hidden" name="pool" />
+              <input type="hidden" name="gated" />
+              <input type="hidden" name="waterfront" />
+            </div>
+            <div class="hvw__err" data-err="2"></div>
+            <div class="hvw__nav">
+              <button type="button" class="hvw__back" data-back>← Back</button>
+              <button type="button" class="hvw__next" data-next>Continue →</button>
+            </div>
+          </div>
+
+          <!-- STEP 3 — Contact -->
+          <div class="hvw__panel" data-step="3">
+            <div class="hvw__field">
+              <div class="hvw__row">
+                <input class="hvw__input" type="text" name="firstName" placeholder="First Name" autocomplete="given-name" />
+                <input class="hvw__input" type="text" name="lastName" placeholder="Last Name" autocomplete="family-name" />
               </div>
             </div>
-            <div class="tm-form__row tm-form__row--full">
-              <div class="tm-form__field">
-                <input class="tm-form__input" type="text" name="address" placeholder="Property Address (Street, City, Zip)" required autocomplete="street-address" />
-              </div>
+            <div class="hvw__field">
+              <input class="hvw__input" type="tel" name="phone" placeholder="Phone Number" autocomplete="tel" />
             </div>
-            <div class="tm-form__row">
-              <div class="tm-form__field">
-                <input class="tm-form__input" type="email" name="email" placeholder="Email Address" required autocomplete="email" />
-              </div>
-              <div class="tm-form__field">
-                <input class="tm-form__input" type="tel" name="phone" placeholder="Phone Number" required autocomplete="tel" />
-              </div>
+            <div class="hvw__field">
+              <input class="hvw__input" type="email" name="email" placeholder="Email Address" autocomplete="email" />
             </div>
+            <!-- honeypot: real people leave this empty -->
             <div style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;" aria-hidden="true">
               <label>Company<input type="text" name="company" tabindex="-1" autocomplete="off" /></label>
             </div>
-            <div class="tm-form__consent">
-              <input type="checkbox" id="tm-consent" name="consent" required />
-              <label class="tm-form__consent-text" for="tm-consent">
-                I agree to receive text messages from Phillip Himes. Msg &amp; data rates may apply. Reply STOP to cancel. See <a href="privacy-policy.html">Privacy Policy</a>.
-              </label>
+            <label class="hvw__consent">
+              <input type="checkbox" name="consent" id="hvw-consent" />
+              <span class="hvw__consent-text">I agree to receive text messages from Phillip Himes about my home value. Msg &amp; data rates may apply. Reply STOP to cancel. See <a href="privacy-policy.html">Privacy Policy</a>.</span>
+            </label>
+            <div class="hvw__err" data-err="3"></div>
+            <div class="hvw__nav">
+              <button type="button" class="hvw__back" data-back>← Back</button>
+              <button type="submit" class="hvw__submit">Get My Home Value →</button>
             </div>
-            <button type="submit" class="tm-form__submit">GET MY TRUMARKET™ REPORT →</button>
-          </form>
-
-          <div class="tm-form__success" id="tm-success">
-            <div class="tm-form__success-icon">✅</div>
-            <div class="tm-form__success-title">Request Received!</div>
-            <p class="tm-form__success-msg">Phil will review your property and reach out within 1 business day with your personalized TruMarket™ analysis.</p>
           </div>
-        </div>
 
+          <!-- STEP 4 — Thank you -->
+          <div class="hvw__panel" data-step="4">
+            <div class="hvw__thanks">
+              <div class="hvw__thanks-icon">✅</div>
+              <div class="hvw__thanks-title">Thank You for Requesting Your Home Value</div>
+              <p class="hvw__thanks-msg">Phil will review your property and personally reach out within 1 business day with your home value — a real number based on what's actually selling near you.</p>
+            </div>
+          </div>
+
+        </form>
       </div>
 
       <div class="hv-next-hint">
@@ -1501,44 +1388,108 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
     </div>
   </footer>
 
-  <!-- TruMarket home-value form → /lead (tag home-valuation) -->
+  <!-- TruMarket home-value wizard → /lead (tag home-valuation) -->
   <script>
   (function () {
     var LEAD_API = 'https://real-estate-agentic-os-production.up.railway.app';
-    var form = document.getElementById('trumarket-form');
+    var form = document.getElementById('hvw-form');
     if (!form) return;
-    var successEl = document.getElementById('tm-success');
+    var wrap    = document.getElementById('hvw');
+    var panels  = Array.prototype.slice.call(form.querySelectorAll('.hvw__panel'));
+    var progEl  = document.getElementById('hvw-progfill');
+    var pctEl   = document.getElementById('hvw-progpct');
+    var total   = panels.length; // 4
+    var current = 1;
+
+    function showStep(n) {
+      current = n;
+      panels.forEach(function (p) { p.classList.toggle('is-active', +p.dataset.step === n); });
+      var pct = Math.round(n / total * 100);
+      if (progEl) progEl.style.width = pct + '%';
+      if (pctEl) pctEl.textContent = pct + '% Complete';
+      if (n === total) wrap.classList.add('is-complete');
+      try { wrap.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch (e) {}
+    }
+
+    function err(step, msg) {
+      var el = form.querySelector('[data-err="' + step + '"]');
+      if (!el) return;
+      if (msg) { el.textContent = msg; el.classList.add('show'); }
+      else { el.textContent = ''; el.classList.remove('show'); }
+    }
+
+    // Segmented / toggle button groups → write to matching hidden input
+    form.querySelectorAll('[data-seg]').forEach(function (group) {
+      var hidden = form.querySelector('input[name="' + group.dataset.seg + '"]');
+      group.querySelectorAll('button').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          group.querySelectorAll('button').forEach(function (b) { b.classList.remove('is-sel'); });
+          btn.classList.add('is-sel');
+          if (hidden) hidden.value = btn.dataset.val;
+          err(current, '');
+        });
+      });
+    });
+
+    function validate(step) {
+      if (step === 1) {
+        if (!form.address.value.trim()) { err(1, 'Please enter your property address.'); return false; }
+      } else if (step === 2) {
+        if (!form.beds.value)  { err(2, 'Please select the number of bedrooms.'); return false; }
+        if (!form.baths.value) { err(2, 'Please select the number of bathrooms.'); return false; }
+        if (!form.sqft.value.trim()) { err(2, 'Please enter the approximate square footage.'); return false; }
+      } else if (step === 3) {
+        if (!form.firstName.value.trim() || !form.lastName.value.trim()) { err(3, 'Please enter your first and last name.'); return false; }
+        if (!form.phone.value.trim()) { err(3, 'Please enter your phone number.'); return false; }
+        var email = form.email.value.trim();
+        if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { err(3, 'Please enter a valid email address.'); return false; }
+        if (!form.consent.checked) { err(3, 'Please check the consent box to continue.'); return false; }
+      }
+      err(step, '');
+      return true;
+    }
+
+    form.querySelectorAll('[data-next]').forEach(function (btn) {
+      btn.addEventListener('click', function () { if (validate(current)) showStep(current + 1); });
+    });
+    form.querySelectorAll('[data-back]').forEach(function (btn) {
+      btn.addEventListener('click', function () { err(current, ''); showStep(current - 1); });
+    });
+
     form.addEventListener('submit', async function (e) {
       e.preventDefault();
-      var firstName = form.firstName.value.trim();
-      var lastName  = form.lastName.value.trim();
-      var address   = form.address.value.trim();
-      var email     = form.email.value.trim();
-      var phone     = form.phone.value.trim();
-      if (!firstName || !lastName || !address || !email || !phone) { alert('Please fill out all fields before submitting.'); return; }
-      if (!form.consent.checked) { alert('Please check the consent box to continue.'); return; }
-      var btn = form.querySelector('.tm-form__submit');
+      // Enter pressed on an earlier step: advance instead of submitting
+      if (current < 3) { if (validate(current)) showStep(current + 1); return; }
+      if (!validate(3)) return;
+      var btn = form.querySelector('.hvw__submit');
       btn.textContent = 'Sending...'; btn.disabled = true;
+
       // honeypot: real people leave "company" empty
-      if ((form.company && form.company.value || '').trim()) { form.style.display = 'none'; successEl.style.display = 'block'; return; }
+      if ((form.company && form.company.value || '').trim()) { showStep(4); return; }
+
+      var v = function (n) { return (form[n] && form[n].value || '').trim(); };
+      var details =
+        'Beds: ' + v('beds') + ' | Baths: ' + v('baths') + ' | Sqft: ' + v('sqft') +
+        ' | Pool: ' + (v('pool') || 'N/A') + ' | Gated: ' + (v('gated') || 'N/A') +
+        ' | Waterfront: ' + (v('waterfront') || 'N/A');
+
       var payload = {
-        first_name: firstName,   // backend needs first_name/full_name, NOT "name"
-        last_name:  lastName,
-        email:   email,
-        phone:   phone,
-        message: 'Home value request for: ' + address,
-        consent: form.consent.checked,
-        source:  'SellerIQ Home Value — philliphimes.com',
-        tag:     'home-valuation',
-        company: ''
+        first_name: v('firstName'),
+        last_name:  v('lastName'),
+        email:      v('email'),
+        phone:      v('phone'),
+        message:    'Home value request for: ' + v('address') + '\n' + details,
+        consent:    form.consent.checked,
+        source:     'SellerIQ Home Value Wizard — philliphimes.com',
+        tag:        'home-valuation',
+        company:    ''
       };
+
       try {
         var r = await fetch(LEAD_API + '/lead', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
         if (!r.ok) throw new Error('http ' + r.status);
-        form.style.display = 'none'; successEl.style.display = 'block';
-      } catch (err) {
-        form.style.display = 'none'; successEl.style.display = 'block';
-      }
+      } catch (err2) { /* still show thank-you; lead retried server-side */ }
+      showStep(4);
     });
   })();
   </script>
