@@ -1401,6 +1401,8 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
         source: 'showing-request',                 // contract: source = intent
         tags: ['buyer', 'showing-request'],        // side + intent
         company: '',
+        // contract note: send the listing address so Caitlyn knows which home
+        'contact.lead_property_address': (form.querySelector('.prop-address') && form.querySelector('.prop-address').value.trim()) || '',
         message: 'Showing request.' +
           (data.message ? ' Note: ' + data.message : '') +
           (data.properties ? '\nProperties:\n' + data.properties : '')

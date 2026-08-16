@@ -295,7 +295,7 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
     phone:   '(832) 990-9738',
     email:   'phil@philliphimes.com',
     market:  'South Houston Suburbs',
-    webhook:     'https://services.leadconnectorhq.com/hooks/oyGNN4xzQ5FxZ2PQgFzE/webhook-trigger/21e03e07-c373-4a44-bdbf-4768bda1084c',
+    leadApi:     'https://real-estate-agentic-os-production.up.railway.app',
     makeWebhook: '/.netlify/functions/generate-deck',
     rate:        0.06375,          // 30-yr fixed — update as market shifts
     tags: {
@@ -1354,13 +1354,21 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
       remainingEquity:       state.remainingEquity
     };
 
-    if (AGENT.webhook) {
-      fetch(AGENT.webhook, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      }).catch(e => console.warn('Webhook error:', e));
-    }
+    // Lead Intake Contract v1.3 — Rebalance™: side seller, intent rebalance.
+    fetch(AGENT.leadApi + '/lead', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        first_name: first, last_name: last, email: email, phone: phone,
+        consent: true,
+        source: 'rebalance',
+        tags: ['seller', 'rebalance'],
+        company: (state.company || ''),
+        message: 'Rebalance™ downsizing request. Moment: ' + state.moment +
+          '; Goals: ' + state.goals.join(', ') + '; Home value: ' + state.homeValue +
+          '; Net equity: ' + state.netEquity + '; Target price: ' + state.newHomePrice
+      })
+    }).catch(e => console.warn('Lead error:', e));
 
     document.getElementById('captureModalFormWrap').style.display = 'none';
     document.getElementById('captureModalSuccess').style.display  = 'block';
@@ -1434,13 +1442,26 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
       retirementIncome: state.retirementIncome
     };
 
-    if (AGENT.webhook) {
-      fetch(AGENT.webhook, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      }).catch(e => console.warn('Webhook error:', e));
-    }
+    // Lead Intake Contract v1.3 — Rebalance™ appointment request: seller, rebalance.
+    fetch(AGENT.leadApi + '/lead', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        first_name: state.captureFirst, last_name: state.captureLast,
+        email: state.captureEmail, phone: state.capturePhone,
+        consent: true,
+        source: 'rebalance',
+        tags: ['seller', 'rebalance'],
+        company: (state.company || ''),
+        message: 'Rebalance™ strategy session request. Format: ' + meetingFormat +
+          '; Preferred time: ' + time + '; Moment: ' + state.moment +
+          '; Goals: ' + state.goals.join(', ') + '; Net equity: ' + state.netEquity,
+        'contact.lead_beds': (state.currentBeds || ''),
+        'contact.lead_baths': (state.currentBaths || ''),
+        'contact.lead_property_sqft': (state.currentSqft || '')
+      })
+    }).catch(e => console.warn('Lead error:', e));
+    // Strategy-deck generator (Netlify function) — keeps the full scenario payload.
     if (AGENT.makeWebhook) {
       fetch(AGENT.makeWebhook, {
         method: 'POST',

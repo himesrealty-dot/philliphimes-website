@@ -300,7 +300,7 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
     phone:   '(832) 990-9738',
     email:   'phil@philliphimes.com',
     market:  'South Houston Suburbs',
-    webhook:     'https://services.leadconnectorhq.com/hooks/oyGNN4xzQ5FxZ2PQgFzE/webhook-trigger/fc97ba0e-2fad-40ed-9b76-f8e37474cd09',
+    leadApi:     'https://real-estate-agentic-os-production.up.railway.app',
     makeWebhook: '/.netlify/functions/generate-amplify-deck',
     smsVerifyEndpoint: '/.netlify/functions/sms-verify',
     tags: {
@@ -1322,12 +1322,20 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
       dreamText:          state.dreamText
     };
 
-    if (AGENT.webhook) {
-      fetch(AGENT.webhook, {
-        method:'POST', headers:{'Content-Type':'application/json'},
-        body: JSON.stringify(payload)
-      }).catch(e => console.warn('Webhook error:', e));
-    }
+    // Lead Intake Contract v1.3 — Amplify™: side buyer, intent amplify.
+    fetch(AGENT.leadApi + '/lead', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        first_name: first, last_name: last, email: email, phone: phone,
+        consent: true,
+        source: 'amplify',
+        tags: ['buyer', 'amplify'],
+        company: (state.company || ''),
+        message: 'Amplify™ strategy request. Moment: ' + state.moment +
+          '; Priorities: ' + state.priorities.join(', ') + '; Dream price: ' + state.dreamPrice +
+          '; Home value: ' + state.homeValue + '; Net equity: ' + state.netEquity
+      })
+    }).catch(e => console.warn('Lead error:', e));
 
     document.getElementById('captureModalFormWrap').style.display = 'none';
     document.getElementById('captureModalSuccess').style.display = 'block';
@@ -1378,12 +1386,22 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
       downC: state.downC, newPmtC: state.newPmtC, amp10C: state.amp10C, equityDeployedC: state.equityC
     };
 
-    if (AGENT.webhook) {
-      fetch(AGENT.webhook, {
-        method:'POST', headers:{'Content-Type':'application/json'},
-        body: JSON.stringify(payload)
-      }).catch(e => console.warn('Webhook error:', e));
-    }
+    // Lead Intake Contract v1.3 — Amplify™ appointment request: side buyer, intent amplify.
+    fetch(AGENT.leadApi + '/lead', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        first_name: state.captureFirst, last_name: state.captureLast,
+        email: state.captureEmail, phone: state.capturePhone,
+        consent: true,
+        source: 'amplify',
+        tags: ['buyer', 'amplify'],
+        company: (state.company || ''),
+        message: 'Amplify™ strategy session request. Format: ' + meetingFormat +
+          '; Preferred time: ' + time + '; Moment: ' + state.moment +
+          '; Goals: ' + state.goals.join(', ') + '; Net equity: ' + state.netEquity
+      })
+    }).catch(e => console.warn('Lead error:', e));
+    // Strategy-deck generator (Netlify function) — keeps the full scenario payload.
     if (AGENT.makeWebhook) {
       fetch(AGENT.makeWebhook, {
         method:'POST', headers:{'Content-Type':'application/json'},

@@ -1710,9 +1710,9 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
       const _hp = ((this.company && this.company.value) || (this['bot-field'] && this['bot-field'].value) || '').trim();
       if (_hp) { buildConfirmation(cfg); return; }
 
-      // Lead Intake Contract v1.2 — SellerIQ: side seller, intent seller-guide
-      // (pending backend confirm — see Open Questions). Property fields → contact.<key>;
-      // life event / financials / strategy ride in the note.
+      // Lead Intake Contract v1.3 — SellerIQ / wealth-calculator maps to the home-value
+      // intent (seller side). Property fields → contact.<key>; life event / financials /
+      // strategy ride in the note.
       const val = id => (document.getElementById(id) || {}).value || '';
       const details =
         'Life event: ' + val('hidden-event') + ' | Condition: ' + val('hidden-condition') +
@@ -1724,8 +1724,8 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
         first_name: fn, last_name: ln,
         email: em, phone: ph,
         consent: consent,
-        source: 'seller-guide',                 // contract: source = intent
-        tags: ['seller', 'seller-guide'],       // side + intent
+        source: 'home-value',                   // contract: source = intent
+        tags: ['seller', 'home-value'],         // side + intent
         company: '',
         message: 'SellerIQ wealth-calculator request — ' + details,
         'contact.lead_property_address': val('hidden-address'),

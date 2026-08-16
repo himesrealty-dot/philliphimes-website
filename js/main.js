@@ -140,25 +140,27 @@ document.addEventListener('DOMContentLoaded', function () {
   // their side is set so they never fall to the generic bucket, and the intent passes
   // through so it's ready the moment the backend adds the row.
   const LEAD_TAXONOMY = {
-    'home-value':       { side: 'seller', intent: 'home-value' },
-    'buyer-search':     { side: 'buyer',  intent: 'buyer-search' },
-    'seller-guide':     { side: 'seller', intent: 'seller-guide' },
-    'new-construction': { side: 'buyer',  intent: 'new-construction' },
-    'cash-offer':       { side: 'seller', intent: 'cash-offer' },
-    'rebalance':        { side: 'seller', intent: 'rebalance' },
-    'amplify':          { side: 'seller', intent: 'amplify' },
-    'renew':            { side: 'seller', intent: 'renew' },
-    'relo':             { side: 'buyer',  intent: 'relo' },
-    'website':          { side: '',       intent: 'website' }
+    'home-value':          { side: 'seller', intent: 'home-value' },
+    'seller-guide':        { side: 'seller', intent: 'seller-guide' },
+    'listing-appointment': { side: 'seller', intent: 'listing-appointment' },
+    'cash-offer':          { side: 'seller', intent: 'cash-offer' },
+    'rebalance':           { side: 'seller', intent: 'rebalance' },
+    'renew':               { side: 'seller', intent: 'renew' },
+    'buyer-search':        { side: 'buyer',  intent: 'buyer-search' },
+    'new-construction':    { side: 'buyer',  intent: 'new-construction' },
+    'amplify':             { side: 'buyer',  intent: 'amplify' },
+    'relocation':          { side: 'buyer',  intent: 'relocation' },
+    'showing-request':     { side: 'buyer',  intent: 'showing-request' },
+    'website':             { side: '',       intent: 'website' }
   };
   // Legacy tag names still on some forms → contract intents
   const TAG_ALIASES = {
     'home-valuation': 'home-value',
     'home-finder': 'buyer-search',
-    'wealth-calculator': 'seller-guide',
+    'wealth-calculator': 'home-value',
     'builder-incentives': 'new-construction',
     'new-construction-report': 'new-construction',
-    'relo-guide': 'relo',
+    'relo-guide': 'relocation',
     'website-contact': 'website'
   };
   // Contact form: subject dropdown → intent key
@@ -170,7 +172,7 @@ document.addEventListener('DOMContentLoaded', function () {
     "I'm interested in Amplify": "amplify",
     "I'm interested in Renew": "renew",
     "I'm interested in new construction": "new-construction",
-    "I'm relocating to Houston": "relo",
+    "I'm relocating to Houston": "relocation",
     "General question": "website"
   };
   function resolveTaxonomy(leadTag, subject) {
