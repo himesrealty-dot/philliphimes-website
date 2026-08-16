@@ -1,6 +1,6 @@
 # Lead Intake Contract — website ⇄ Agentic OS
 
-**Status:** proposed (backend build pending) · **Version:** 1.1
+**Status:** proposed (backend build pending) · **Version:** 1.2
 
 This is the single source of truth for how website forms send leads to the Agentic OS
 backend. It exists so the two builds — the **website** (forms) and the **Agentic OS
@@ -92,48 +92,88 @@ consumer of this; it is not special-cased.
 - For pool/gated/waterfront use `true`/`false` (or `yes`/`no`).
 
 ## Lead type & tagging (how each contact gets routed)
-Tags are what route a contact to the right Caitlyn flow, so **every form declares who the
-lead is and why they came in.** Two pieces per form:
+Every form declares two things — **who the lead is** and **what they expect** — and those two
+tags are what make the response both right and fast.
 
-1. **Side (required)** — put `seller` OR `buyer` in `tags`. This picks Caitlyn's
-   qualification path. A **cash-offer** lead is a seller sub-type: send **both** `seller`
-   and `cash-offer` (she has a dedicated cash-offer flow).
-2. **Intent** — set `source` to the reason they came in, and (recommended) include a matching
-   intent tag. This drives her opener and the right offer/value.
+**1. Side (required) = who they are.** Exactly one of: `buyer`, `seller`, or `both`.
+This picks Caitlyn's qualification path.
 
-The backend always adds a base `website-lead` tag; the form's tags are merged on top.
+**2. Intent (required) = what they expect, based on the form they filled.** Set `source` to
+the intent and include a matching intent tag. This drives her opener and the value she leads
+with. Intents: `home-value`, `cash-offer`, `new-construction`, `buyer-search`, `seller-guide`
+(add more over time).
+
+**When side = `both`,** Caitlyn opens with the side the **intent** implies, while acknowledging
+they're also the other:
+- Seller-leaning intents — `home-value`, `cash-offer`, `seller-guide` → open as a **seller**
+- Buyer-leaning intents — `new-construction`, `buyer-search` → open as a **buyer**
+
+So a move-up client who came through the home-value form (`side: both`, intent `home-value`)
+is opened as a seller — "let's get you your home's value" — and she notes she can line up
+their next home too. One clear starting point, driven by what they asked for.
+
+The backend always adds a base `website-lead` tag; the form's tags merge on top.
 
 **Per-form table** (this is the taxonomy — match it exactly):
 
-| Form / entry point | `source` | `tags` |
+| Form / entry point | side (`tags`) | intent (`source` + tag) |
 |---|---|---|
-| Home value (seller) | `home-value` | `seller`, `home-value` |
-| Cash offer (seller) | `cash-offer` | `seller`, `cash-offer` |
-| Seller guide / list-with-me | `seller-guide` | `seller` |
-| New construction (buyer) | `new-construction` | `buyer`, `new-construction` |
-| Buyer guide / home search | `buyer-guide` | `buyer` |
-| General contact / "just curious" | `website` | *(none — Caitlyn discovers side in chat)* |
+| Home value | `seller` | `home-value` |
+| Cash offer | `seller` | `cash-offer` |
+| Seller guide / list-with-me | `seller` | `seller-guide` |
+| New construction | `buyer` | `new-construction` |
+| Buyer guide / home search | `buyer` | `buyer-search` |
+| Move-up (sell + buy) | `both` | their form's intent (e.g. `home-value`) |
+| General contact / "just curious" | *(omit — Caitlyn discovers it)* | `website` |
 
-**Backend safety net:** if a form forgets the side tag but sends a known `source`, the backend
-infers it — `home-value` / `cash-offer` / `seller-guide` → `seller`; `new-construction` /
-`buyer-guide` → `buyer` (and `cash-offer` source also adds the `cash-offer` tag). Forms should
-still send the tags explicitly; this only prevents a mis-tag when one is missed.
+So the Home Value form sends `source=home-value`, `tags=[seller, home-value]`. A cash-offer
+form sends `source=cash-offer`, `tags=[seller, cash-offer]`. The `cash-offer` **intent** is
+what triggers Caitlyn's dedicated cash-offer flow (honor the cash request, get the address,
+never bait-and-switch to a listing pitch).
 
-**Adding a new lead type later:** pick a `source`, decide the side, list it in this table
-(backend session edits it), and send those tags from the form. If it needs its own Caitlyn
-behavior beyond side/cash-offer, note it in Open Questions.
+**Backend safety net:** if a form forgets the side but sends a known `source`, the backend
+infers it — seller-leaning intents → `seller`, buyer-leaning intents → `buyer` — so a lead
+can never fall into the generic bucket by accident. Forms should still send the side
+explicitly; this only covers a miss.
+
+**Adding a new lead type later:** pick a `source`/intent, decide its natural side (and its
+lean for `both`), add a row to this table (backend session edits it), and send those tags from
+the form. If it needs Caitlyn behavior beyond side + intent, note it in Open Questions.
+
+## Why the tags matter (why the website must get this right)
+The tags capture the lead's **expectation at the moment they hit submit**, and carry it into
+the AI so the very first reply is on-target and immediate — never a generic "just checking in."
+
+- **Side → the conversation path.** `seller` runs seller qualification, `buyer` runs buyer
+  qualification, `both` leans by intent (above). This is deterministic; no guessing.
+- **Intent → the opener + the value.** Caitlyn opens *about what they asked for* — a
+  `home-value` lead hears about their home's value (and gets the instant range), a
+  `new-construction` lead hears about builds and incentives, a `cash-offer` lead gets the
+  cash-offer flow. No wasted round-trip discovering why they're there.
+- **Fast.** The moment the form posts, speed-to-lead fires an instant text (and queues a call
+  for call-worthy intents). Because the intent is already known, the first message lands on
+  the topic instead of asking "what brings you here?".
+
+**The failure this prevents:** a hot seller who asked "what's my home worth" getting a slow,
+generic hello and losing interest in the first 30 seconds. A missing or wrong tag = a missed
+expectation. That is why the form must set side + intent on every submission (and why the
+backend has the source→side safety net as a backstop).
 
 ## What each side owns
 **Website (forms):**
 - Point every lead form at `POST /lead`.
+- On every form set the **side** (`buyer`/`seller`/`both` in `tags`) and the **intent**
+  (`source` + matching tag), per the taxonomy table.
 - Name custom-field inputs with their `contact.<key>` GHL key.
 - Keep the hidden `company` honeypot in every form.
 - **Remove** GHL inbound-webhook URLs and any GHL location ID from the site — leads flow
   only through `/lead` now.
 
 **Backend (`/lead`):**
-- Upsert the contact; apply consent + funnel tags.
-- Map every `contact.*` field to its GHL custom field **by key**; preserve + warn on unknown.
+- Upsert the contact; apply consent + the base `website-lead` tag + the form's side/intent tags.
+- Map every `contact.*` field to its GHL custom field **by key**; preserve-in-note + warn on
+  unknown; never auto-create a GHL field.
+- Apply the `source → side` safety net for `both`/missing-side leads.
 - Stay location-agnostic — a GHL move is a Railway env change only, no site or code edits.
 
 ---
