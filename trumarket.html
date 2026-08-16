@@ -572,6 +572,9 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
                   <input class="tm-form__input" type="tel" name="phone" placeholder="Phone Number" required autocomplete="tel" />
                 </div>
               </div>
+              <div style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;" aria-hidden="true">
+                <label>Company<input type="text" name="company" tabindex="-1" autocomplete="off" /></label>
+              </div>
               <div class="tm-form__consent">
                 <input type="checkbox" id="tm-consent" name="consent" required />
                 <label class="tm-form__consent-text" for="tm-consent">
@@ -758,8 +761,8 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
     // ── TRUMARKET FORM → GHL WEBHOOK ─────────────────────
     // Replace this URL with your GHL webhook endpoint
     // Post to the Real Estate Agentic OS /lead endpoint (offer engine + speed-to-lead).
-    // Tagged "home-valuation" so it matches the Free Home Valuation offer → Caitlyn
-    // follows up (SMS + speed-to-lead call). Replaces the old direct GHL webhook.
+    // Contract v1.2: source=home-value, tags=[seller, home-value] → Caitlyn follows up
+    // (SMS + speed-to-lead call). Replaces the old direct GHL webhook.
     const LEAD_API = 'https://real-estate-agentic-os-production.up.railway.app';
 
     const form = document.getElementById('trumarket-form');
@@ -788,15 +791,23 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
       btn.textContent = 'Sending...';
       btn.disabled = true;
 
+      // honeypot: real people leave "company" empty
+      if ((form.company && form.company.value || '').trim()) {
+        form.style.display = 'none'; successEl.style.display = 'block'; return;
+      }
+
+      // Lead Intake Contract v1.2 — home value: side seller, intent home-value.
       const payload = {
         first_name: firstName,   // backend needs first_name/full_name, NOT "name" (returns missing_contact)
         last_name:  lastName,
         email:   email,
         phone:   phone,
-        message: 'Home value request for: ' + address,
+        message: 'Home value request via TruMarket report page.',
         consent: form.consent.checked,
-        source:  'TruMarket™ Home Report — philliphimes.com',
-        tag:     'home-valuation'
+        source:  'home-value',                 // contract: source = intent
+        tags:    ['seller', 'home-value'],     // side + intent
+        company: '',
+        'contact.lead_property_address': address
       };
 
       try {

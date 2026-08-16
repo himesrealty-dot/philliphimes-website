@@ -1392,7 +1392,7 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
     </div>
   </footer>
 
-  <!-- TruMarket home-value wizard → /lead (tag home-valuation) -->
+  <!-- Home-value wizard → /lead (contract v1.2: source=home-value, tags=[seller, home-value]) -->
   <script>
   (function () {
     var LEAD_API = 'https://real-estate-agentic-os-production.up.railway.app';
@@ -1472,22 +1472,29 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
       if ((form.company && form.company.value || '').trim()) { showStep(4); return; }
 
       var v = function (n) { return (form[n] && form[n].value || '').trim(); };
-      var details =
-        'Beds: ' + v('beds') + ' | Baths: ' + v('baths') + ' | Sqft: ' + v('sqft') +
-        ' | Pool: ' + (v('pool') || 'N/A') + ' | Gated: ' + (v('gated') || 'N/A') +
-        ' | Waterfront: ' + (v('waterfront') || 'N/A');
+      var yn = function (n) { var x = v(n).toLowerCase(); return x === 'yes' ? 'true' : (x === 'no' ? 'false' : ''); };
 
+      // Lead Intake Contract v1.2 — home value: side seller, intent home-value.
+      // Property details ride as contact.<GHL key> fields (never folded into the note).
       var payload = {
         first_name: v('firstName'),
         last_name:  v('lastName'),
         email:      v('email'),
         phone:      v('phone'),
-        message:    'Home value request for: ' + v('address') + '\n' + details,
+        message:    'Home value request via SellerIQ wizard.',
         consent:    form.consent.checked,
-        source:     'SellerIQ Home Value Wizard — philliphimes.com',
-        tag:        'home-valuation',
-        company:    ''
+        source:     'home-value',                 // contract: source = intent
+        tags:       ['seller', 'home-value'],     // side + intent
+        company:    '',
+        'contact.lead_property_address': v('address'),
+        'contact.lead_beds':             v('beds'),
+        'contact.lead_baths':            v('baths'),
+        'contact.lead_property_sqft':    v('sqft').replace(/[^0-9.]/g, '')
       };
+      var _pool = yn('pool'), _gated = yn('gated'), _waterfront = yn('waterfront');
+      if (_pool)       payload['contact.lead_property_pool'] = _pool;
+      if (_gated)      payload['contact.lead_property_gated'] = _gated;
+      if (_waterfront) payload['contact.lead_property_waterfront'] = _waterfront;
 
       try {
         var r = await fetch(LEAD_API + '/lead', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });

@@ -646,8 +646,8 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
     // ── TRUMARKET FORM → GHL WEBHOOK ─────────────────────
     // Replace this URL with your GHL webhook endpoint
     // Post to the Real Estate Agentic OS /lead endpoint (offer engine + speed-to-lead).
-    // Tagged "home-valuation" so it matches the Free Home Valuation offer → Caitlyn
-    // follows up (SMS + speed-to-lead call). Replaces the old direct GHL webhook.
+    // Contract v1.2: source=home-value, tags=[seller, home-value] → Caitlyn follows up
+    // (SMS + speed-to-lead call). Replaces the old direct GHL webhook.
     const LEAD_API = 'https://real-estate-agentic-os-production.up.railway.app';
 
     const form = document.getElementById('trumarket-form');
@@ -681,16 +681,18 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
         form.style.display = 'none'; successEl.style.display = 'block'; return;
       }
 
+      // Lead Intake Contract v1.2 — home value: side seller, intent home-value.
       const payload = {
         first_name: firstName,   // backend needs first_name/full_name, NOT "name"
         last_name:  lastName,
         email:   email,
         phone:   phone,
-        message: 'Home value request for: ' + address,
+        message: 'Home value request via what-is-my-home-worth page.',
         consent: form.consent.checked,
-        source:  'whats-my-home-worth:philliphimes.com',
-        tag:     'home-valuation',
-        company: ''
+        source:  'home-value',                 // contract: source = intent
+        tags:    ['seller', 'home-value'],     // side + intent
+        company: '',
+        'contact.lead_property_address': address
       };
 
       try {
