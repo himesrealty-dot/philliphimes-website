@@ -196,7 +196,11 @@
           return;
         }
         var consentEl = form.querySelector('[name="sms_consent"]');
-        // Lead Intake Contract v1.2 — NewBuildIQ forms are all new-construction (buyer side).
+        // Lead Intake Contract v1.3 — NewBuildIQ forms are all new-construction (buyer side).
+        // Granular page/PPC attribution rides as an additive src: tag (contract Q7).
+        var _tags = ['buyer', 'new-construction'];
+        var _ds = (form.getAttribute('data-source') || '').trim();
+        if (_ds) _tags.push('src:' + _ds.replace(/:/g, '-'));
         var payload = {
           full_name: (data.name || '').trim(),   // backend needs first_name/full_name, NOT "name"
           email: (data.email || '').trim(),
@@ -204,7 +208,7 @@
           message: (data.message || data.community || '').trim(),
           consent: consentEl ? consentEl.checked : !!data.consent,
           source: 'new-construction',                 // contract: source = intent
-          tags: ['buyer', 'new-construction'],        // side + intent
+          tags: _tags,                                // side + intent (+ src: attribution)
           company: data.company || ''
         };
         // Forward any contact.<key> inputs (GHL custom-field keys) as top-level body keys.

@@ -544,8 +544,9 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
           phone: (data.phone || '').trim(),
           message: 'Unlocked listing — 2222 Scenic Shore Dr, Seabrook TX (MLS 61408086). QR / open-house feedback sheet.',
           consent: !!(gform.querySelector('[name="sms_consent"]') || {}).checked,
-          source: 'qr:2222-scenic-shore',
-          tag: 'listing-2222-scenic-shore',
+          source: 'showing-request',
+          tags: ['buyer', 'showing-request', 'src:qr-2222-scenic-shore'],
+          'contact.lead_property_address': '2222 Scenic Shore Dr, Seabrook, TX',
           company: '',
           community: 'Seabrook Island',
           city: 'Seabrook'
@@ -626,8 +627,9 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
         message: 'Showing request — 2222 Scenic Shore Dr, Seabrook TX (MLS 61408086).'
           + (time ? ' Preferred time: ' + time + '.' : '') + (note ? ' Note: ' + note : ''),
         consent: f.consent.checked,
-        source: 'listing:2222-scenic-shore',
-        tag: 'listing-2222-scenic-shore',
+        source: 'showing-request',
+        tags: ['buyer', 'showing-request', 'src:listing-2222-scenic-shore'],
+        'contact.lead_property_address': '2222 Scenic Shore Dr, Seabrook, TX',
         community: 'Seabrook Island',
         city: 'Seabrook',
         company: ''

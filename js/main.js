@@ -217,6 +217,9 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         const leadName = (data.name || [data.first_name || data['first-name'], data.last_name || data['last-name']].filter(Boolean).join(' ')).trim();
         const tax = resolveTaxonomy(leadTag, data.subject);
+        const tags = [tax.side, tax.intent].filter(Boolean);  // side + intent
+        const ds = (form.getAttribute('data-source') || '').trim();
+        if (ds) tags.push('src:' + ds.replace(/:/g, '-'));    // granular attribution (contract Q7)
         const payload = {
           full_name: leadName,   // backend requires first_name/full_name, NOT "name" (returns missing_contact)
           first_name: (data.first_name || data['first-name'] || leadName.split(' ')[0] || '').trim(),
@@ -226,7 +229,7 @@ document.addEventListener('DOMContentLoaded', function () {
           message: (data.message || data.subject || '').trim(),
           consent: smsConsent ? smsConsent.checked : true,
           source: tax.intent,                        // contract: source = intent
-          tags: [tax.side, tax.intent].filter(Boolean)  // side + intent
+          tags: tags
         };
         // Forward any contact.<key> inputs (GHL custom-field keys) as top-level body keys.
         Object.keys(data).forEach(function (k) {

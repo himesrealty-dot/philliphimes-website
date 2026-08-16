@@ -234,8 +234,8 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
         phone: (data.phone || '').trim(),
         message: "Bender's Landing buyer market report (QR / open-house feedback sheet)",
         consent: !!(form.querySelector('[name="sms_consent"]') || {}).checked,
-        source: 'qr:benders-landing-report',
-        tag: 'benders-landing-buyer',
+        source: 'buyer-search',
+        tags: ['buyer', 'buyer-search', 'src:qr-benders-landing-report'],
         company: '',
         community: "Bender's Landing",
         city: 'Spring'

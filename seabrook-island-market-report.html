@@ -256,8 +256,8 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
         phone: (data.phone || '').trim(),
         message: "Seabrook Island buyer market report (QR / open-house feedback sheet)",
         consent: !!(form.querySelector('[name="sms_consent"]') || {}).checked,
-        source: 'qr:seabrook-island-report',
-        tag: 'seabrook-island-buyer',
+        source: 'buyer-search',
+        tags: ['buyer', 'buyer-search', 'src:qr-seabrook-island-report'],
         company: '',
         community: "Seabrook Island",
         city: 'Seabrook'
