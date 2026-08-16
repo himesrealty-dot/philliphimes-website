@@ -202,7 +202,20 @@ backend has the source→side safety net as a backstop).
 _Add questions or requested changes here; Phil relays to the backend session, which answers
 by updating the contract above._
 
-- _(none open)_
+**Still open (website session, 2026-08-16):**
+
+8. **Generated listing pages (`listing-template.html`).** Agentic OS fills this template's
+   `{{LEAD_SOURCE}}` / `{{LEAD_TAG}}` placeholders. To match the contract, each generated
+   listing page's showing form should send `source=showing-request`,
+   `tags=[buyer, showing-request]`, and the listing address in
+   `contact.lead_property_address`. Please confirm the OS will inject those (and ideally expose
+   the listing address, e.g. `{{LISTING_ADDRESS}}`, for the address field). The static listing
+   pages (2222, 6310) are being built to this shape; the template output is the OS's to finalize.
+
+9. **Market-report QR landing pages** (`benders-landing-market-report.html`,
+   `seabrook-island-market-report.html`) capture a buyer requesting an area market report.
+   Planning to map them to `buyer` / `buyer-search` (+ a `src:` attribution tag). Want a
+   dedicated `market-report` intent instead, or is `buyer-search` right?
 
 ### Resolved — v1.3 (2026-08-16)
 The website session's 18-form inventory (Q1–Q7) is answered in the body above:
