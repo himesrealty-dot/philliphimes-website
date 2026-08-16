@@ -1,6 +1,6 @@
 # Lead Intake Contract — website ⇄ Agentic OS
 
-**Status:** proposed (backend build pending) · **Version:** 1.2
+**Status:** proposed (backend build pending) · **Version:** 1.3
 
 This is the single source of truth for how website forms send leads to the Agentic OS
 backend. It exists so the two builds — the **website** (forms) and the **Agentic OS
@@ -86,6 +86,12 @@ consumer of this; it is not special-cased.
 `contact.lead_property_waterfront`. The backend also writes the computed estimate to
 `contact.lead_est_property_value`.
 
+**Combined address (recommended for conversion):** a form may send the whole address as one
+field, **`contact.lead_property_address`** (e.g. "2718 Bolgheri Lane, League City, TX 77573"),
+instead of the separate `_street`/`_city`/`_zip` — the backend parses street/city/zip from it.
+Either style works; use whichever converts better on a given form. (For the value engine the
+**city** must be parseable, so format it "Street, City, ST ZIP".)
+
 ## Value formats
 - Everything is sent as a **string**; the backend coerces (numbers, and booleans from
   `true`/`false`/`yes`/`no`).
@@ -100,13 +106,16 @@ This picks Caitlyn's qualification path.
 
 **2. Intent (required) = what they expect, based on the form they filled.** Set `source` to
 the intent and include a matching intent tag. This drives her opener and the value she leads
-with. Intents: `home-value`, `cash-offer`, `new-construction`, `buyer-search`, `seller-guide`
-(add more over time).
+with. Intents: `home-value`, `cash-offer`, `seller-guide`, `listing-appointment`, `rebalance`,
+`renew`, `new-construction`, `buyer-search`, `amplify`, `relocation`, `showing-request` (add
+more over time).
 
 **When side = `both`,** Caitlyn opens with the side the **intent** implies, while acknowledging
 they're also the other:
-- Seller-leaning intents — `home-value`, `cash-offer`, `seller-guide` → open as a **seller**
-- Buyer-leaning intents — `new-construction`, `buyer-search` → open as a **buyer**
+- Seller-leaning intents — `home-value`, `cash-offer`, `seller-guide`, `listing-appointment`,
+  `rebalance`, `renew` → open as a **seller**
+- Buyer-leaning intents — `new-construction`, `buyer-search`, `amplify`, `relocation`,
+  `showing-request` → open as a **buyer**
 
 So a move-up client who came through the home-value form (`side: both`, intent `home-value`)
 is opened as a seller — "let's get you your home's value" — and she notes she can line up
@@ -119,17 +128,28 @@ The backend always adds a base `website-lead` tag; the form's tags merge on top.
 | Form / entry point | side (`tags`) | intent (`source` + tag) |
 |---|---|---|
 | Home value | `seller` | `home-value` |
+| SellerIQ / wealth-calculator | `seller` | `home-value` |
 | Cash offer | `seller` | `cash-offer` |
 | Seller guide / list-with-me | `seller` | `seller-guide` |
+| Listing appointment / seller intake (ready to list) | `seller` | `listing-appointment` |
+| Rebalance™ (downsizing) | `seller` | `rebalance` |
+| Renew™ (divorce / loss / hardship reset) | `seller` | `renew` |
 | New construction | `buyer` | `new-construction` |
 | Buyer guide / home search | `buyer` | `buyer-search` |
+| Amplify™ (upgrade to a bigger home) | `buyer` | `amplify` |
+| Relocation ("relocating to Houston") | `buyer` | `relocation` |
+| Showing request (tour a specific listing) | `buyer` | `showing-request` |
 | Move-up (sell + buy) | `both` | their form's intent (e.g. `home-value`) |
-| General contact / "just curious" | *(omit — Caitlyn discovers it)* | `website` |
+| General contact / home page / "just curious" | *(omit — Caitlyn discovers it)* | `website` |
 
-So the Home Value form sends `source=home-value`, `tags=[seller, home-value]`. A cash-offer
-form sends `source=cash-offer`, `tags=[seller, cash-offer]`. The `cash-offer` **intent** is
-what triggers Caitlyn's dedicated cash-offer flow (honor the cash request, get the address,
-never bait-and-switch to a listing pitch).
+Notes on specific ones:
+- **SellerIQ / wealth-calculator** maps to the `home-value` intent (it's a home-value ask).
+- **Cash offer** — the `cash-offer` **intent** triggers Caitlyn's dedicated cash-offer flow
+  (honor the cash request, get the address, never bait-and-switch to a listing pitch).
+- **Showing request** — send the listing's address in `contact.lead_property_address` so she
+  knows which home they want to tour.
+- **Newsletter subscribe** does **not** go through `/lead` — it's an SOI subscribe, not a
+  sales lead. Keep it on its existing mechanism (no Caitlyn outreach).
 
 **Backend safety net:** if a form forgets the side but sends a known `source`, the backend
 infers it — seller-leaning intents → `seller`, buyer-leaning intents → `buyer` — so a lead
@@ -182,44 +202,15 @@ backend has the source→side safety net as a backstop).
 _Add questions or requested changes here; Phil relays to the backend session, which answers
 by updating the contract above._
 
-**From the website session (2026-08-16) — inventory of ~18 site forms surfaced these gaps:**
+- _(none open)_
 
-1. **Address as one field.** The home-value and showing forms capture the property address
-   as a *single* input (better conversion than 3 boxes). The `contact.*` keys listed are
-   `lead_property_street/city/zip` only. Please add a combined **`contact.lead_property_address`**
-   key (backend parses street/city/zip if it wants), or confirm forms must collect the three
-   separately.
+### Resolved — v1.3 (2026-08-16)
+The website session's 18-form inventory (Q1–Q7) is answered in the body above:
 
-2. **Intents not in the taxonomy table.** These live forms have no matching intent row. For
-   each, please add a row (side + intent tag + any Caitlyn behavior) or tell me the existing
-   intent to reuse:
-   - **`rebalance`** — Rebalance™ (downsizing tool, `rebalance.html` + contact subject). Side seller or both?
-   - **`amplify`** — Amplify™ (equity strategy, `amplify.html` + contact subject). Side?
-   - **`renew`** — Renew™ (life transition, contact subject). Side?
-   - **`relo`** — "Relocating to Houston" (contact subject, relocation pages). Side buyer? intent name?
-   - **showing request** — a buyer requesting a tour of a *specific listing* (`2222-…`,
-     `6310-…`, `listing-template.html`, `buyers.html` schedule form). Side buyer; new intent
-     (e.g. `showing-request`)? Should the listing address ride along in a `contact.*` field?
-   - **listing appointment / seller intake** — a seller submitting their address to list
-     (`listing-intake.html`, listing gate forms). Is this `seller-guide` or a distinct
-     `listing-appointment` intent?
-
-3. **SellerIQ** currently tags `wealth-calculator`. Map to `seller-guide`, `home-value`, or its own intent?
-
-4. **Home page (`index.html`) general lead form** — what intent? `seller-guide`, `buyer-search`,
-   or general `website`?
-
-5. **Newsletter subscribe (`market-insights.html`)** — is an email-only subscribe a `/lead`
-   (and if so, side/intent), or does it stay on Netlify Forms?
-
-6. **Confirming website-side renames** (I'll apply these regardless unless you object):
-   `home-valuation`→`home-value`, `home-finder`→`buyer-search`,
-   `builder-incentives`/`new-construction-report`→`new-construction`.
-
-7. **Campaign attribution vs. `source`.** The contract sets `source` = the intent
-   (`home-value`, etc.). But some forms currently carry a more granular `data-source` for
-   PPC/page attribution (e.g. `ppc:nc-report`, `new-construction-page`, `newbuildiq-hub`).
-   With `source` now reserved for the intent, where should the granular attribution go — a
-   dedicated `contact.lead_source_detail` key, the lead note, or is it fine to drop it?
-   (Until you answer, I'm following the contract: `source` = intent, and I'm keeping the
-   granular value out of the payload.)
+1. **Combined address** → added `contact.lead_property_address` (backend parses street/city/zip); the separate keys still work.
+2. **New intents** added to the taxonomy table: `rebalance` (seller — downsizing), `amplify` (buyer — upgrade to a bigger home), `renew` (seller — divorce / loss / hardship reset), `relocation` (buyer), `showing-request` (buyer; send the listing address in `contact.lead_property_address`), `listing-appointment` (seller — ready to list, hotter than `seller-guide`).
+3. **SellerIQ / wealth-calculator** → maps to the `home-value` intent (seller).
+4. **Home page general form** → `website` intent, no side (Caitlyn discovers).
+5. **Newsletter** → NOT `/lead`. It's an SOI subscribe, not a sales lead — keep it on its existing mechanism (no Caitlyn outreach).
+6. **Renames** approved: `home-valuation`→`home-value`, `home-finder`→`buyer-search`, `builder-incentives`/`new-construction-report`→`new-construction`.
+7. **Campaign / PPC attribution** → keep `source` = the intent (drives Caitlyn + first-touch funnel). Send the granular value as an **additive tag prefixed `src:`** (e.g. `src:ppc-nc-report`, `src:newbuildiq-hub`). No new GHL field, it's filterable in GHL, and routing ignores non-intent/side tags. If you later want structured reporting, create `contact.lead_source_detail` and we'll route it there instead.
