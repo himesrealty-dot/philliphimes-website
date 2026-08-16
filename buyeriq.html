@@ -1840,9 +1840,12 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
         <div class="be-optin__title">Save your search & get your Buyer's Edge Report</div>
         <p class="be-optin__subtitle">Enter your info below and we'll create your personalized saved search, send you matching listings as they appear, and deliver your Buyer's Edge Report within minutes.</p>
 
-        <form name="buyers-edge" method="POST" data-netlify="true" netlify-honeypot="bot-field" data-form="buyers-edge" data-lead-tag="home-finder" id="optin-form">
+        <form name="buyers-edge" id="optin-form" novalidate>
           <input type="hidden" name="form-name" value="buyers-edge" />
           <input type="hidden" name="bot-field" />
+          <div style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;" aria-hidden="true">
+            <label>Company<input type="text" name="company" tabindex="-1" autocomplete="off" /></label>
+          </div>
           <input type="hidden" name="neighborhoods" id="hidden-neighborhoods" />
           <input type="hidden" name="price_range" id="hidden-price" />
           <input type="hidden" name="timeline" id="hidden-timeline" />
@@ -2534,37 +2537,36 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
       };
       const mustHavesStr = [...selectedMustHaves].map(m => mustHaveLabels[m] || m).join(', ');
 
-      const formData = new FormData(this);
-      fetch('/', {
+      // honeypot: real people leave company / bot-field empty
+      var _hp = ((this.company && this.company.value) || (this['bot-field'] && this['bot-field'].value) || '').trim();
+      if (_hp) { buildConfirmationScreen(); goToStage(5); return; }
+
+      // Lead Intake Contract v1.2 — BuyerIQ: side buyer, intent buyer-search.
+      // Search criteria ride in the note until dedicated GHL keys are defined.
+      var criteria =
+        'Cities: ' + [...selectedCities].join(', ') +
+        ' | Neighborhoods: ' + document.getElementById('hidden-neighborhoods').value +
+        ' | Beds: ' + selectedBeds + ' | Baths: ' + selectedBaths +
+        ' | Must-haves: ' + mustHavesStr + ' | Year built: ' + selectedYearBuilt +
+        ' | Price: ' + selectedPrice + ' | Timeline: ' + selectedTimeline +
+        ' | Priorities: ' + document.getElementById('hidden-priorities').value;
+      var payload = {
+        full_name: (fn + ' ' + ln).trim(),
+        first_name: fn, last_name: ln,
+        email: em, phone: ph,
+        consent: consent,
+        source: 'buyer-search',                 // contract: source = intent
+        tags: ['buyer', 'buyer-search'],        // side + intent
+        company: '',
+        message: 'BuyerIQ search request — ' + criteria
+      };
+      fetch('https://real-estate-agentic-os-production.up.railway.app/lead', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams(formData).toString()
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
       })
       .then(() => { buildConfirmationScreen(); goToStage(5); })
       .catch(() => { buildConfirmationScreen(); goToStage(5); });
-
-      // GHL Mashore Method webhook
-      fetch('https://services.leadconnectorhq.com/hooks/oyGNN4xzQ5FxZ2PQgFzE/webhook-trigger/976f3746-112a-4474-862f-1085e0ddb196', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          firstName:        fn,
-          lastName:         ln,
-          email:            em,
-          phone:            ph,
-          sms_consent:      consent ? 'yes' : 'no',
-          source:           'BuyerIQ',
-          cities:           [...selectedCities].join(', '),
-          neighborhoods:    document.getElementById('hidden-neighborhoods').value,
-          beds:             selectedBeds,
-          baths:            selectedBaths,
-          mustHaves:        mustHavesStr,
-          yearBuilt:        selectedYearBuilt,
-          price_range:      selectedPrice,
-          timeline:         selectedTimeline,
-          priorities:       document.getElementById('hidden-priorities').value
-        })
-      }).catch(() => {});
     });
 
     // ─────────────────────────────────────────────────────────

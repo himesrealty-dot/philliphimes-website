@@ -884,6 +884,9 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
           >
             <input type="hidden" name="form-name" value="guide-download" />
             <p style="display:none;"><label>Don't fill this out: <input name="bot-field" /></label></p>
+            <div style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;" aria-hidden="true">
+              <label>Company<input type="text" name="company" tabindex="-1" autocomplete="off" /></label>
+            </div>
             <input type="hidden" name="guide" id="guide-field-key" value="" />
             <input type="hidden" name="guide_title" id="guide-field-title" value="" />
 
@@ -1053,9 +1056,14 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
   <!-- ── GUIDE LEAD-CAPTURE MODAL LOGIC ─────────────────── -->
   <script>
   (function () {
-    // ⚠️ PASTE YOUR GOHIGHLEVEL INBOUND WEBHOOK URL HERE.
-    // Until this is set, leads still save to Netlify Forms — the GHL email just won't fire.
-    var GHL_WEBHOOK_URL = 'https://services.leadconnectorhq.com/hooks/oyGNN4xzQ5FxZ2PQgFzE/webhook-trigger/9d3e4bed-a643-4fd0-9dce-f7ffb964e453';
+    // Lead Intake Contract v1.2 — guide requests post to the Agentic OS /lead endpoint.
+    // The guide key sets side + intent.
+    var LEAD_API = 'https://real-estate-agentic-os-production.up.railway.app';
+    var GUIDE_TAX = {
+      '30day':           { side: 'seller', intent: 'seller-guide' },
+      'seller-edge':     { side: 'seller', intent: 'seller-guide' },
+      'buyer-advantage': { side: 'buyer',  intent: 'buyer-search' }
+    };
 
     // Guide config — keyed by the data-guide attribute on each trigger.
     var GUIDES = {
@@ -1148,26 +1156,32 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
       submitBtn.disabled = true;
 
       var data = Object.fromEntries(new FormData(form));
-      data.page = window.location.pathname;
-      data.timestamp = new Date().toISOString();
 
-      // 1) Netlify Forms (always — this is the reliable lead record)
-      var netlify = fetch('/', {
+      // honeypot: real people leave company / bot-field empty
+      if ((data.company || data['bot-field'] || '').trim()) {
+        formView.style.display = 'none'; successView.style.display = '';
+        submitBtn.textContent = originalText; submitBtn.disabled = false; form.reset();
+        return;
+      }
+
+      var tax = GUIDE_TAX[data.guide] || { side: 'seller', intent: 'seller-guide' };
+      var first = (data.first_name || '').trim(), last = (data.last_name || '').trim();
+      var payload = {
+        full_name: (first + ' ' + last).trim(),
+        first_name: first,
+        last_name: last,
+        email: (data.email || '').trim(),
+        phone: '',
+        message: 'Guide request: ' + (data.guide_title || data.guide || ''),
+        consent: false,   // email-only opt-in here; no SMS consent collected
+        source: tax.intent,                        // contract: source = intent
+        tags: [tax.side, tax.intent].filter(Boolean) // side + intent
+      };
+      fetch(LEAD_API + '/lead', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams(data).toString()
-      });
-
-      // 2) GoHighLevel webhook (fires the guide email). Best-effort.
-      var ghl = GHL_WEBHOOK_URL
-        ? fetch(GHL_WEBHOOK_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
-          }).catch(function () {})
-        : Promise.resolve();
-
-      Promise.allSettled([netlify, ghl]).then(function () {
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      }).catch(function () {}).then(function () {
         formView.style.display = 'none';
         successView.style.display = '';
         submitBtn.textContent = originalText;

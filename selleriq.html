@@ -1280,9 +1280,12 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
         <div class="se-optin__title" id="optin-title">Get your Seller's Edge Report</div>
         <p class="se-optin__subtitle" id="optin-subtitle">Enter your info below and we'll send your personalized Seller's Edge Report — your TruMarket™ value analysis, net proceeds breakdown, pricing strategy, and Phil's personal market note — within minutes.</p>
 
-        <form name="sellers-edge" method="POST" data-netlify="true" netlify-honeypot="bot-field" data-form="sellers-edge" data-lead-tag="wealth-calculator" id="optin-form">
+        <form name="sellers-edge" id="optin-form" novalidate>
           <input type="hidden" name="form-name" value="sellers-edge" />
           <input type="hidden" name="bot-field" />
+          <div style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;" aria-hidden="true">
+            <label>Company<input type="text" name="company" tabindex="-1" autocomplete="off" /></label>
+          </div>
           <input type="hidden" name="life_event" id="hidden-event" />
           <input type="hidden" name="home_address" id="hidden-address" />
           <input type="hidden" name="bedrooms" id="hidden-beds" />
@@ -1702,33 +1705,40 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
       btn.disabled = true;
 
       const cfg = LIFE_EVENT_CONFIG[state.lifeEvent];
-      fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: new URLSearchParams(new FormData(this)).toString() })
-        .then(() => buildConfirmation(cfg))
-        .catch(() => buildConfirmation(cfg));
-      // GHL Mashore Method webhook
-      fetch('https://services.leadconnectorhq.com/hooks/oyGNN4xzQ5FxZ2PQgFzE/webhook-trigger/fc97ba0e-2fad-40ed-9b76-f8e37474cd09', {
+
+      // honeypot: real people leave company / bot-field empty
+      const _hp = ((this.company && this.company.value) || (this['bot-field'] && this['bot-field'].value) || '').trim();
+      if (_hp) { buildConfirmation(cfg); return; }
+
+      // Lead Intake Contract v1.2 — SellerIQ: side seller, intent seller-guide
+      // (pending backend confirm — see Open Questions). Property fields → contact.<key>;
+      // life event / financials / strategy ride in the note.
+      const val = id => (document.getElementById(id) || {}).value || '';
+      const details =
+        'Life event: ' + val('hidden-event') + ' | Condition: ' + val('hidden-condition') +
+        ' | Upgrades: ' + val('hidden-upgrades') + ' | Est. price: ' + val('hidden-price') +
+        ' | Mortgage: ' + val('hidden-mortgage') + ' | Net proceeds: ' + val('hidden-net') +
+        ' | Timeline: ' + val('hidden-timeline') + ' | Strategy: ' + val('hidden-strategy');
+      const payload = {
+        full_name: (fn + ' ' + ln).trim(),
+        first_name: fn, last_name: ln,
+        email: em, phone: ph,
+        consent: consent,
+        source: 'seller-guide',                 // contract: source = intent
+        tags: ['seller', 'seller-guide'],       // side + intent
+        company: '',
+        message: 'SellerIQ wealth-calculator request — ' + details,
+        'contact.lead_property_address': val('hidden-address'),
+        'contact.lead_beds':  val('hidden-beds'),
+        'contact.lead_baths': val('hidden-baths')
+      };
+      fetch('https://real-estate-agentic-os-production.up.railway.app/lead', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          firstName: fn,
-          lastName: ln,
-          email: em,
-          phone: ph,
-          sms_consent: consent ? 'yes' : 'no',
-          source: 'SellerIQ',
-          life_event: document.getElementById('hidden-event').value,
-          home_address: document.getElementById('hidden-address').value,
-          bedrooms: document.getElementById('hidden-beds').value,
-          bathrooms: document.getElementById('hidden-baths').value,
-          condition: document.getElementById('hidden-condition').value,
-          upgrades: document.getElementById('hidden-upgrades').value,
-          estimated_sale_price: document.getElementById('hidden-price').value,
-          mortgage_balance: document.getElementById('hidden-mortgage').value,
-          net_proceeds: document.getElementById('hidden-net').value,
-          timeline: document.getElementById('hidden-timeline').value,
-          pricing_strategy: document.getElementById('hidden-strategy').value
-        })
-      }).catch(() => {});
+        body: JSON.stringify(payload)
+      })
+        .then(() => buildConfirmation(cfg))
+        .catch(() => buildConfirmation(cfg));
     });
 
     // ─────────────────────────────────────────────────────────

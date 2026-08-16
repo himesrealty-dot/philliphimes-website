@@ -903,6 +903,10 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
 
             <form class="schedule-form" id="schedule-form" onsubmit="submitShowingRequest(event)">
 
+              <div style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;" aria-hidden="true">
+                <label>Company<input type="text" name="company" tabindex="-1" autocomplete="off" /></label>
+              </div>
+
               <!-- Contact info -->
               <div class="schedule-form-row">
                 <input type="text" name="firstName" placeholder="First Name" required />
@@ -1378,12 +1382,34 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
       });
       data.properties = propLines.join('\n');
 
-      var webhookUrl = 'https://services.leadconnectorhq.com/hooks/oyGNN4xzQ5FxZ2PQgFzE/webhook-trigger/08d54881-5f42-4fd2-96d4-4108322fde0e';
+      // honeypot: real people leave company empty
+      var _hp = form.querySelector('[name="company"]');
+      if (_hp && _hp.value.trim()) {
+        document.getElementById('schedule-form-wrap').style.display = 'none';
+        document.getElementById('schedule-success').classList.add('show');
+        return;
+      }
+      var _consent = form.querySelector('[name="consent"], [name="sms_consent"]');
 
-      fetch(webhookUrl, {
+      // Lead Intake Contract v1.2 — showing request: side buyer, intent showing-request
+      // (pending backend taxonomy row — see Open Questions).
+      var payload = {
+        full_name: (data.firstName + ' ' + data.lastName).trim(),
+        first_name: data.firstName, last_name: data.lastName,
+        email: data.email, phone: data.phone,
+        consent: _consent ? _consent.checked : false,
+        source: 'showing-request',                 // contract: source = intent
+        tags: ['buyer', 'showing-request'],        // side + intent
+        company: '',
+        message: 'Showing request.' +
+          (data.message ? ' Note: ' + data.message : '') +
+          (data.properties ? '\nProperties:\n' + data.properties : '')
+      };
+
+      fetch('https://real-estate-agentic-os-production.up.railway.app/lead', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
+        body: JSON.stringify(payload)
       }).catch(function() {
         // Silently fail — still show success to user
       }).finally(function() {
