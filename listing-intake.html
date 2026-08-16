@@ -179,6 +179,9 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
             data-netlify="true" netlify-honeypot="bot-field" action="/thank-you">
         <input type="hidden" name="form-name" value="listing-intake" />
         <p style="display:none;"><label>Don't fill this out: <input name="bot-field" /></label></p>
+        <div style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;" aria-hidden="true">
+          <label>Company<input type="text" name="company" tabindex="-1" autocomplete="off" /></label>
+        </div>
 
         <p class="li-intro">
           <strong>Note:</strong> This intake helps me prepare your listing and pricing — it is <em>not</em> a legal disclosure.
@@ -457,21 +460,58 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
         var orig = btn ? btn.textContent : '';
         if (btn) { btn.textContent = 'Sending…'; btn.disabled = true; }
 
-        var body = new URLSearchParams();
-        var fd = new FormData(form);
-        fd.forEach(function (v, k) { body.append(k, v); });
-        body.append('page', window.location.pathname);
-        body.append('timestamp', new Date().toISOString());
+        var data = {};
+        new FormData(form).forEach(function (v, k) {
+          if (!String(v).trim()) return;
+          data[k] = (data[k] === undefined) ? v : (data[k] + ', ' + v);
+        });
 
-        fetch('/', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: body.toString()
-        }).then(function (r) {
-          if (!r.ok) throw new Error('bad response');
+        var done = function () {
           form.style.display = 'none';
           document.getElementById('listing-success').style.display = 'block';
           window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+
+        // honeypot: real people leave company / bot-field empty
+        if ((data.company || data['bot-field'] || '').trim()) { done(); return; }
+
+        // Lead Intake Contract v1.3 — listing intake: side seller, intent listing-appointment.
+        // The seller's own property → contact.<key>; everything else rides in the note.
+        var baths = '';
+        if (data.full_baths || data.half_baths) {
+          baths = String((parseFloat(data.full_baths) || 0) + (parseFloat(data.half_baths) || 0) * 0.5);
+        }
+        var skip = { seller_name:1, seller_phone:1, seller_email:1, company:1, 'bot-field':1, 'form-name':1, consent:1, sms_consent:1,
+                     property_address:1, property_city:1, property_zip:1, bedrooms:1, full_baths:1, half_baths:1, sqft:1 };
+        var note = [];
+        Object.keys(data).forEach(function (k) {
+          if (!skip[k]) note.push(k.replace(/_/g, ' ') + ': ' + data[k]);
+        });
+
+        var payload = {
+          full_name: (data.seller_name || '').trim(),
+          email: (data.seller_email || '').trim(),
+          phone: (data.seller_phone || '').trim(),
+          consent: !!(data.consent || data.sms_consent),
+          source: 'listing-appointment',                 // contract: source = intent
+          tags: ['seller', 'listing-appointment'],       // side + intent
+          company: '',
+          message: 'Listing intake (ready to list).\n' + note.join('\n'),
+          'contact.lead_property_street': (data.property_address || ''),
+          'contact.lead_property_city':   (data.property_city || ''),
+          'contact.lead_property_zip':    (data.property_zip || ''),
+          'contact.lead_beds':            (data.bedrooms || ''),
+          'contact.lead_property_sqft':   (data.sqft || '')
+        };
+        if (baths) payload['contact.lead_baths'] = baths;
+
+        fetch('https://real-estate-agentic-os-production.up.railway.app/lead', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        }).then(function (r) {
+          if (!r.ok) throw new Error('bad response');
+          done();
         }).catch(function () {
           if (btn) { btn.textContent = orig; btn.disabled = false; }
           alert('Something went wrong submitting the form. Please call or text Phil at (832) 990-9738, or email phil@philliphimes.com and we’ll take it from there.');
