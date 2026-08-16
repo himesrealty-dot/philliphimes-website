@@ -1,6 +1,6 @@
 # Lead Intake Contract — website ⇄ Agentic OS
 
-**Status:** proposed (backend build pending) · **Version:** 1.3
+**Status:** proposed (backend build pending) · **Version:** 1.3.1
 
 This is the single source of truth for how website forms send leads to the Agentic OS
 backend. It exists so the two builds — the **website** (forms) and the **Agentic OS
@@ -139,6 +139,7 @@ The backend always adds a base `website-lead` tag; the form's tags merge on top.
 | Amplify™ (upgrade to a bigger home) | `buyer` | `amplify` |
 | Relocation ("relocating to Houston") | `buyer` | `relocation` |
 | Showing request (tour a specific listing) | `buyer` | `showing-request` |
+| Market report (area QR landing) | `buyer` | `buyer-search` (+ `src:market-report-<area>`) |
 | Move-up (sell + buy) | `both` | their form's intent (e.g. `home-value`) |
 | General contact / home page / "just curious" | *(omit — Caitlyn discovers it)* | `website` |
 
@@ -147,7 +148,14 @@ Notes on specific ones:
 - **Cash offer** — the `cash-offer` **intent** triggers Caitlyn's dedicated cash-offer flow
   (honor the cash request, get the address, never bait-and-switch to a listing pitch).
 - **Showing request** — send the listing's address in `contact.lead_property_address` so she
-  knows which home they want to tour.
+  knows which home they want to tour. For **generated listing pages** the showing form must post
+  exactly: `source: "showing-request"`, `tags: ["buyer", "showing-request", "src:listing-<slug>"]`,
+  and `"contact.lead_property_address": "<Street>, <City>, TX <ZIP>"`. The OS fills the address
+  into a `{{LISTING_ADDRESS}}` placeholder (it already knows it). Do **not** use the old
+  `source: "listing:<slug>"` / `community` + `city` shape — that predates v1.3 and is off-contract.
+- **Market report** — area report QR landings map to `buyer` / `buyer-search` with an additive
+  `src:market-report-<area>` attribution tag (e.g. `src:market-report-benders-landing`). No new
+  intent, no new GHL field — it filters in GHL and routing ignores non-intent/side tags.
 - **Newsletter subscribe** does **not** go through `/lead` — it's an SOI subscribe, not a
   sales lead. Keep it on its existing mechanism (no Caitlyn outreach).
 
@@ -204,18 +212,25 @@ by updating the contract above._
 
 **Still open (website session, 2026-08-16):**
 
-8. **Generated listing pages (`listing-template.html`).** Agentic OS fills this template's
-   `{{LEAD_SOURCE}}` / `{{LEAD_TAG}}` placeholders. To match the contract, each generated
-   listing page's showing form should send `source=showing-request`,
-   `tags=[buyer, showing-request]`, and the listing address in
-   `contact.lead_property_address`. Please confirm the OS will inject those (and ideally expose
-   the listing address, e.g. `{{LISTING_ADDRESS}}`, for the address field). The static listing
-   pages (2222, 6310) are being built to this shape; the template output is the OS's to finalize.
+_(none — Q8 and Q9 answered below in v1.3.1)_
 
-9. **Market-report QR landing pages** (`benders-landing-market-report.html`,
-   `seabrook-island-market-report.html`) capture a buyer requesting an area market report.
-   Planning to map them to `buyer` / `buyer-search` (+ a `src:` attribution tag). Want a
-   dedicated `market-report` intent instead, or is `buyer-search` right?
+### Resolved — v1.3.1 (2026-08-16, backend)
+
+8. **Generated listing pages (`listing-template.html`) — CONFIRMED.** Yes: OS-filled listing
+   pages inject `source: "showing-request"`, `tags: ["buyer", "showing-request", "src:listing-<slug>"]`,
+   and the listing address into `contact.lead_property_address`, and the OS exposes a
+   `{{LISTING_ADDRESS}}` placeholder for the address field. This is now specified in the
+   "Notes on specific ones → Showing request" bullet above. **Action for the website session:**
+   the master `listing-template.html` form JS still posts the pre-v1.3 shape
+   (`source: '{{LEAD_SOURCE}}'` = `listing:{{SLUG}}`, plus `community`/`city`) — update its
+   showing-form block to the shape the static pages (2222, 6310) already use, and drop the
+   `{{LEAD_SOURCE}}`/`{{LEAD_TAG}}` header lines in favor of the hardcoded values + `{{SLUG}}` /
+   `{{LISTING_ADDRESS}}`. The OS fills `{{SLUG}}` and `{{LISTING_ADDRESS}}`.
+
+9. **Market-report QR landing pages → `buyer` / `buyer-search`.** Phil chose the website's
+   proposed mapping (no dedicated intent). Add an additive `src:market-report-<area>` tag for
+   attribution (e.g. `src:market-report-benders-landing`, `src:market-report-seabrook-island`).
+   Added to the taxonomy table and the "Market report" note above.
 
 ### Resolved — v1.3 (2026-08-16)
 The website session's 18-form inventory (Q1–Q7) is answered in the body above:
