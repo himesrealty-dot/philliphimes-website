@@ -50,8 +50,9 @@
      {{LOCATION_NOTE}}            italic note under location card
    Lead capture (per property)
      {{SHOWING_HEADING_HTML}}     e.g. Want to See <span>6310 Star Light</span> in Person?
-     {{LEAD_SOURCE}}              "listing:{{SLUG}}"
-     {{LEAD_TAG}}                 "listing-<short>"
+     {{LISTING_ADDRESS}}          full "Street, City, TX ZIP" → contact.lead_property_address
+                                  (showing form hardcodes source=showing-request,
+                                   tags=[buyer, showing-request, src:listing-{{SLUG}}])
      {{LEAD_MESSAGE_PREFIX}}      "Showing request — {{ADDRESS_STREET}} (MLS {{MLS_NUMBER}})."
      {{LEAD_COMMUNITY}} {{LEAD_CITY}}
 
@@ -704,7 +705,8 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
           email: f.email.value.trim(), phone: f.phone.value.trim(),
           message: '{{LEAD_MESSAGE_PREFIX}}' + (time ? ' Preferred time: ' + time + '.' : '') + (note ? ' Note: ' + note : ''),
           consent: f.consent.checked,
-          source: '{{LEAD_SOURCE}}', tag: '{{LEAD_TAG}}',
+          source: 'showing-request', tags: ['buyer', 'showing-request', 'src:listing-{{SLUG}}'],
+          'contact.lead_property_address': '{{LISTING_ADDRESS}}',
           community: '{{LEAD_COMMUNITY}}', city: '{{LEAD_CITY}}', company: ''
         };
         try {
