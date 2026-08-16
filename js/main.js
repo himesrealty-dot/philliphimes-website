@@ -133,20 +133,51 @@ document.addEventListener('DOMContentLoaded', function () {
   // in with data-lead-tag="<offer-tag>" (+ optional data-source); the contact form
   // routes its tag off the subject dropdown. Non-tagged forms keep Netlify Forms.
   const LEAD_API = 'https://real-estate-agentic-os-production.up.railway.app';
-  const CONTACT_SUBJECT_TAGS = {
-    "I'm ready to buy a home": "home-finder",
-    "I want to sell my home": "home-valuation",
-    "I want my TruMarket Home Report": "home-valuation",
+
+  // Lead Intake Contract v1.2 — every lead carries a SIDE (buyer/seller/both) and an
+  // INTENT (source + matching tag). Intent key → { side, intent }. Gap intents
+  // (rebalance/amplify/renew/relo) are pending backend taxonomy rows (Open Questions);
+  // their side is set so they never fall to the generic bucket, and the intent passes
+  // through so it's ready the moment the backend adds the row.
+  const LEAD_TAXONOMY = {
+    'home-value':       { side: 'seller', intent: 'home-value' },
+    'buyer-search':     { side: 'buyer',  intent: 'buyer-search' },
+    'seller-guide':     { side: 'seller', intent: 'seller-guide' },
+    'new-construction': { side: 'buyer',  intent: 'new-construction' },
+    'cash-offer':       { side: 'seller', intent: 'cash-offer' },
+    'rebalance':        { side: 'seller', intent: 'rebalance' },
+    'amplify':          { side: 'seller', intent: 'amplify' },
+    'renew':            { side: 'seller', intent: 'renew' },
+    'relo':             { side: 'buyer',  intent: 'relo' },
+    'website':          { side: '',       intent: 'website' }
+  };
+  // Legacy tag names still on some forms → contract intents
+  const TAG_ALIASES = {
+    'home-valuation': 'home-value',
+    'home-finder': 'buyer-search',
+    'wealth-calculator': 'seller-guide',
+    'builder-incentives': 'new-construction',
+    'new-construction-report': 'new-construction',
+    'relo-guide': 'relo',
+    'website-contact': 'website'
+  };
+  // Contact form: subject dropdown → intent key
+  const CONTACT_SUBJECT_INTENT = {
+    "I'm ready to buy a home": "buyer-search",
+    "I want to sell my home": "seller-guide",
+    "I want my TruMarket Home Report": "home-value",
     "I'm interested in Rebalance": "rebalance",
     "I'm interested in Amplify": "amplify",
     "I'm interested in Renew": "renew",
-    "I'm interested in new construction": "builder-incentives",
-    "I'm relocating to Houston": "relo-guide",
-    "General question": "website-contact"
+    "I'm interested in new construction": "new-construction",
+    "I'm relocating to Houston": "relo",
+    "General question": "website"
   };
-  function resolveLeadTag(defaultTag, subject) {
-    if (defaultTag === 'contact') return (subject && CONTACT_SUBJECT_TAGS[subject]) || 'website-contact';
-    return defaultTag;
+  function resolveTaxonomy(leadTag, subject) {
+    var key = leadTag === 'contact'
+      ? ((subject && CONTACT_SUBJECT_INTENT[subject]) || 'website')
+      : (TAG_ALIASES[leadTag] || leadTag);
+    return LEAD_TAXONOMY[key] || { side: '', intent: key };
   }
 
   // ── Form Validation & Submission ───────────────────────
@@ -183,6 +214,7 @@ document.addEventListener('DOMContentLoaded', function () {
           return;
         }
         const leadName = (data.name || [data.first_name || data['first-name'], data.last_name || data['last-name']].filter(Boolean).join(' ')).trim();
+        const tax = resolveTaxonomy(leadTag, data.subject);
         const payload = {
           full_name: leadName,   // backend requires first_name/full_name, NOT "name" (returns missing_contact)
           first_name: (data.first_name || data['first-name'] || leadName.split(' ')[0] || '').trim(),
@@ -191,9 +223,13 @@ document.addEventListener('DOMContentLoaded', function () {
           phone: (data.phone || '').trim(),
           message: (data.message || data.subject || '').trim(),
           consent: smsConsent ? smsConsent.checked : true,
-          source: form.getAttribute('data-source') || ('web:' + location.pathname),
-          tag: resolveLeadTag(leadTag, data.subject)
+          source: tax.intent,                        // contract: source = intent
+          tags: [tax.side, tax.intent].filter(Boolean)  // side + intent
         };
+        // Forward any contact.<key> inputs (GHL custom-field keys) as top-level body keys.
+        Object.keys(data).forEach(function (k) {
+          if (k.indexOf('contact.') === 0 && String(data[k]).trim() !== '') payload[k] = data[k];
+        });
         try {
           const r = await fetch(LEAD_API + '/lead', {
             method: 'POST',

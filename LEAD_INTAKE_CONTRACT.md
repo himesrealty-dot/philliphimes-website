@@ -182,4 +182,44 @@ backend has the source→side safety net as a backstop).
 _Add questions or requested changes here; Phil relays to the backend session, which answers
 by updating the contract above._
 
-- _(none yet)_
+**From the website session (2026-08-16) — inventory of ~18 site forms surfaced these gaps:**
+
+1. **Address as one field.** The home-value and showing forms capture the property address
+   as a *single* input (better conversion than 3 boxes). The `contact.*` keys listed are
+   `lead_property_street/city/zip` only. Please add a combined **`contact.lead_property_address`**
+   key (backend parses street/city/zip if it wants), or confirm forms must collect the three
+   separately.
+
+2. **Intents not in the taxonomy table.** These live forms have no matching intent row. For
+   each, please add a row (side + intent tag + any Caitlyn behavior) or tell me the existing
+   intent to reuse:
+   - **`rebalance`** — Rebalance™ (downsizing tool, `rebalance.html` + contact subject). Side seller or both?
+   - **`amplify`** — Amplify™ (equity strategy, `amplify.html` + contact subject). Side?
+   - **`renew`** — Renew™ (life transition, contact subject). Side?
+   - **`relo`** — "Relocating to Houston" (contact subject, relocation pages). Side buyer? intent name?
+   - **showing request** — a buyer requesting a tour of a *specific listing* (`2222-…`,
+     `6310-…`, `listing-template.html`, `buyers.html` schedule form). Side buyer; new intent
+     (e.g. `showing-request`)? Should the listing address ride along in a `contact.*` field?
+   - **listing appointment / seller intake** — a seller submitting their address to list
+     (`listing-intake.html`, listing gate forms). Is this `seller-guide` or a distinct
+     `listing-appointment` intent?
+
+3. **SellerIQ** currently tags `wealth-calculator`. Map to `seller-guide`, `home-value`, or its own intent?
+
+4. **Home page (`index.html`) general lead form** — what intent? `seller-guide`, `buyer-search`,
+   or general `website`?
+
+5. **Newsletter subscribe (`market-insights.html`)** — is an email-only subscribe a `/lead`
+   (and if so, side/intent), or does it stay on Netlify Forms?
+
+6. **Confirming website-side renames** (I'll apply these regardless unless you object):
+   `home-valuation`→`home-value`, `home-finder`→`buyer-search`,
+   `builder-incentives`/`new-construction-report`→`new-construction`.
+
+7. **Campaign attribution vs. `source`.** The contract sets `source` = the intent
+   (`home-value`, etc.). But some forms currently carry a more granular `data-source` for
+   PPC/page attribution (e.g. `ppc:nc-report`, `new-construction-page`, `newbuildiq-hub`).
+   With `source` now reserved for the intent, where should the granular attribution go — a
+   dedicated `contact.lead_source_detail` key, the lead note, or is it fine to drop it?
+   (Until you answer, I'm following the contract: `source` = intent, and I'm keeping the
+   granular value out of the payload.)

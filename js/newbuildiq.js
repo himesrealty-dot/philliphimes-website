@@ -196,16 +196,21 @@
           return;
         }
         var consentEl = form.querySelector('[name="sms_consent"]');
+        // Lead Intake Contract v1.2 — NewBuildIQ forms are all new-construction (buyer side).
         var payload = {
           full_name: (data.name || '').trim(),   // backend needs first_name/full_name, NOT "name"
           email: (data.email || '').trim(),
           phone: (data.phone || '').trim(),
           message: (data.message || data.community || '').trim(),
           consent: consentEl ? consentEl.checked : !!data.consent,
-          source: form.getAttribute('data-source') || ('nbiq:' + location.pathname),
-          tag: form.getAttribute('data-tag') || 'builder-incentives',
+          source: 'new-construction',                 // contract: source = intent
+          tags: ['buyer', 'new-construction'],        // side + intent
           company: data.company || ''
         };
+        // Forward any contact.<key> inputs (GHL custom-field keys) as top-level body keys.
+        Object.keys(data).forEach(function (k) {
+          if (k.indexOf('contact.') === 0 && String(data[k]).trim() !== '') payload[k] = data[k];
+        });
         if (btn) { btn.textContent = 'Sending...'; btn.disabled = true; }
         try {
           var r = await fetch(NEWBUILDIQ_API + '/lead', {
