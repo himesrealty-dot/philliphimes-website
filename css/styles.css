@@ -562,14 +562,14 @@ p {
 .hero__title {
   font-family: var(--font-display);
   font-weight: 900;
-  font-size: clamp(1.9rem, 4vw, 3rem);
+  font-size: clamp(2.1rem, 4.5vw, 3.5rem);
   color: var(--white);
-  line-height: 1.15;
+  line-height: 1.1;
   margin-bottom: var(--space-sm);
 }
 
 .hero__tagline {
-  font-family: var(--font-display);
+  font-family: var(--font-heading);
   font-size: 0.85rem;
   font-weight: 700;
   color: var(--gold);
