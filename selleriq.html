@@ -153,7 +153,7 @@
     .se-event-card__brand--teal { color: var(--teal); }
     .se-event-card__brand--purple { color: #7b5ea7; }
     .se-event-card__brand--navy { color: var(--navy); }
-    .se-event-card__title { font-family: var(--font-heading); font-weight: 800; font-size: 1rem; color: var(--navy); margin-bottom: 0.5rem; line-height: 1.3; }
+    .se-event-card__title { font-family: var(--font-display); font-weight: 800; font-size: 1rem; color: var(--navy); margin-bottom: 0.5rem; line-height: 1.3; }
     .se-event-card__desc { font-size: 0.83rem; color: var(--dark-gray); line-height: 1.55; }
     .se-event-card__check {
       position: absolute; top: 1rem; right: 1rem; width: 24px; height: 24px;
@@ -169,7 +169,7 @@
 
     /* Card headline — first-person CTA */
     .se-event-card__headline {
-      font-family: var(--font-heading); font-weight: 800; font-size: 1rem;
+      font-family: var(--font-display); font-weight: 800; font-size: 1rem;
       color: var(--navy); margin-bottom: 0.85rem; line-height: 1.3;
     }
     /* "Does any of this sound like you?" section */
@@ -244,12 +244,12 @@
       text-transform: uppercase; letter-spacing: 0.1em; color: var(--gold-light);
       margin-bottom: 1rem;
     }
-    .se-trumarket__title { font-family: var(--font-heading); font-weight: 800; font-size: 1.1rem; color: white; margin-bottom: 0.35rem; }
+    .se-trumarket__title { font-family: var(--font-display); font-weight: 800; font-size: 1.1rem; color: white; margin-bottom: 0.35rem; }
     .se-trumarket__subtitle { font-size: 0.85rem; color: rgba(255,255,255,0.65); margin-bottom: 1.5rem; }
     .se-stats-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; }
     @media (max-width: 520px) { .se-stats-grid { grid-template-columns: 1fr 1fr; } }
     .se-stat { text-align: center; }
-    .se-stat__value { font-family: var(--font-heading); font-weight: 800; font-size: 1.5rem; color: var(--gold-light); line-height: 1; margin-bottom: 0.3rem; }
+    .se-stat__value { font-family: var(--font-display); font-weight: 800; font-size: 1.5rem; color: var(--gold-light); line-height: 1; margin-bottom: 0.3rem; }
     .se-stat__label { font-size: 0.72rem; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 0.06em; font-family: var(--font-heading); font-weight: 600; }
     .se-trumarket__note {
       margin-top: 1.25rem; padding-top: 1.25rem; border-top: 1px solid rgba(255,255,255,0.12);
@@ -259,7 +259,7 @@
 
     /* ─── NET PROCEEDS CALCULATOR ───────────────────────────────── */
     .se-calc { background: var(--white); border-radius: var(--radius-xl); padding: 2rem; box-shadow: var(--shadow-md); margin-bottom: 1.25rem; }
-    .se-calc__title { font-family: var(--font-heading); font-weight: 800; font-size: 1rem; color: var(--navy); margin-bottom: 0.25rem; }
+    .se-calc__title { font-family: var(--font-display); font-weight: 800; font-size: 1rem; color: var(--navy); margin-bottom: 0.25rem; }
     .se-calc__subtitle { font-size: 0.85rem; color: var(--dark-gray); margin-bottom: 1.5rem; }
     .se-calc__row { display: flex; align-items: center; justify-content: space-between; padding: 0.65rem 0; border-bottom: 1px solid var(--light-gray); gap: 1rem; }
     .se-calc__row:last-of-type { border-bottom: none; }
@@ -293,12 +293,12 @@
     .se-strategy-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
     .se-strategy-card.selected { border-color: var(--gold); background: rgba(201,164,85,0.06); }
     .se-strategy-card__icon { font-size: 2rem; margin-bottom: 0.6rem; }
-    .se-strategy-card__title { font-family: var(--font-heading); font-weight: 800; font-size: 0.9rem; color: var(--navy); margin-bottom: 0.4rem; }
+    .se-strategy-card__title { font-family: var(--font-display); font-weight: 800; font-size: 0.9rem; color: var(--navy); margin-bottom: 0.4rem; }
     .se-strategy-card__desc { font-size: 0.78rem; color: var(--dark-gray); line-height: 1.5; }
 
     /* ─── OPTIN (seller) ─────────────────────────────────────────── */
     .se-optin { background: var(--white); border-radius: var(--radius-xl); padding: 2rem; box-shadow: var(--shadow-md); }
-    .se-optin__title { font-family: var(--font-heading); font-weight: 800; font-size: 1.2rem; color: var(--navy); margin-bottom: 0.4rem; }
+    .se-optin__title { font-family: var(--font-display); font-weight: 800; font-size: 1.2rem; color: var(--navy); margin-bottom: 0.4rem; }
     .se-optin__subtitle { color: var(--dark-gray); font-size: 0.9rem; margin-bottom: 1.5rem; }
     .be-consent { display: flex; align-items: flex-start; gap: 0.75rem; background: var(--off-white); border-radius: var(--radius-md); padding: 1rem; margin: 1rem 0; }
     .be-consent input[type="checkbox"] { width: 18px; height: 18px; flex-shrink: 0; margin-top: 2px; accent-color: var(--gold-dark); cursor: pointer; }
@@ -309,7 +309,7 @@
     /* ─── CONFIRMATION ──────────────────────────────────────────── */
     .se-confirm { text-align: center; padding: 1rem 0 2rem; }
     .se-confirm__icon { width: 80px; height: 80px; background: linear-gradient(135deg, var(--gold-dark), var(--gold)); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.2rem; margin: 0 auto 1.5rem; box-shadow: 0 8px 32px rgba(201,164,85,0.4); }
-    .se-confirm__title { font-family: var(--font-heading); font-weight: 800; font-size: clamp(1.5rem,3vw,2rem); color: var(--navy); margin-bottom: 0.75rem; }
+    .se-confirm__title { font-family: var(--font-display); font-weight: 800; font-size: clamp(1.5rem,3vw,2rem); color: var(--navy); margin-bottom: 0.75rem; }
     .se-confirm__subtitle { color: var(--dark-gray); font-size: 1rem; max-width: 480px; margin: 0 auto 2.5rem; line-height: 1.7; }
 
     /* reLifeIQ™ teaser card */
@@ -322,7 +322,7 @@
     .se-relifeiq__eyebrow { font-family: var(--font-heading); font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; color: var(--gold-dark); margin-bottom: 0.5rem; }
     .se-relifeiq--teal .se-relifeiq__eyebrow { color: var(--teal); }
     .se-relifeiq--purple .se-relifeiq__eyebrow { color: #7b5ea7; }
-    .se-relifeiq__title { font-family: var(--font-heading); font-weight: 800; font-size: 1.1rem; color: var(--navy); margin-bottom: 0.5rem; }
+    .se-relifeiq__title { font-family: var(--font-display); font-weight: 800; font-size: 1.1rem; color: var(--navy); margin-bottom: 0.5rem; }
     .se-relifeiq__text { font-size: 0.9rem; color: var(--dark-gray); line-height: 1.65; margin-bottom: 1rem; }
     .se-relifeiq__caitlyn {
       display: flex; align-items: flex-start; gap: 0.75rem;
@@ -333,7 +333,7 @@
     .se-relifeiq__caitlyn-text strong { color: var(--navy); }
 
     .se-report-preview { background: var(--white); border-radius: var(--radius-xl); padding: 2rem; box-shadow: var(--shadow-md); text-align: left; margin-bottom: 1.5rem; border-top: 4px solid var(--navy); }
-    .se-report-preview__title { font-family: var(--font-heading); font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--navy); margin-bottom: 1rem; }
+    .se-report-preview__title { font-family: var(--font-display); font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--navy); margin-bottom: 1rem; }
     .se-report-item { display: flex; align-items: flex-start; gap: 0.75rem; padding: 0.75rem 0; border-bottom: 1px solid var(--light-gray); }
     .se-report-item:last-child { border-bottom: none; }
     .se-report-item__icon { font-size: 1.3rem; flex-shrink: 0; }
@@ -377,7 +377,7 @@
       box-shadow: 0 8px 32px rgba(201,164,85,0.35);
     }
     .se-confirm-s5__title {
-      font-family: var(--font-heading);
+      font-family: var(--font-display);
       font-weight: 800;
       font-size: clamp(1.4rem, 3vw, 1.9rem);
       color: var(--navy);
@@ -430,7 +430,7 @@
       flex-shrink: 0;
     }
     .se-phils-take__id { flex: 1; min-width: 0; }
-    .se-phils-take__name { font-family: var(--font-heading); font-weight: 800; font-size: 0.9rem; color: var(--navy); }
+    .se-phils-take__name { font-family: var(--font-display); font-weight: 800; font-size: 0.9rem; color: var(--navy); }
     .se-phils-take__title { font-size: 0.78rem; color: var(--dark-gray); }
     .se-phils-take__badge {
       background: rgba(201,164,85,0.15);
@@ -446,7 +446,7 @@
       flex-shrink: 0;
     }
     .se-phils-take__headline {
-      font-family: var(--font-heading);
+      font-family: var(--font-display);
       font-weight: 800;
       font-size: 1.1rem;
       color: var(--navy);
@@ -548,7 +548,7 @@
       gap: 0.5rem;
     }
     .se-market-snap__title {
-      font-family: var(--font-heading);
+      font-family: var(--font-display);
       font-weight: 800;
       font-size: 0.85rem;
       text-transform: uppercase;
@@ -575,7 +575,7 @@
       border: 1px solid rgba(255,255,255,0.1);
     }
     .se-snap-stat__value {
-      font-family: var(--font-heading);
+      font-family: var(--font-display);
       font-weight: 900;
       font-size: 1.6rem;
       color: white;
@@ -653,7 +653,7 @@
       margin-bottom: 0.3rem;
     }
     .se-video-slot__title {
-      font-family: var(--font-heading);
+      font-family: var(--font-display);
       font-weight: 800;
       font-size: 0.95rem;
       color: var(--navy);
@@ -694,7 +694,7 @@
       font-family: var(--font-heading); font-weight: 800; font-size: 0.85rem;
       color: white; flex-shrink: 0;
     }
-    .se-testimonial__name { font-family: var(--font-heading); font-weight: 800; font-size: 0.85rem; color: var(--navy); }
+    .se-testimonial__name { font-family: var(--font-display); font-weight: 800; font-size: 0.85rem; color: var(--navy); }
     .se-testimonial__detail { font-size: 0.78rem; color: var(--gold-dark); font-weight: 600; }
     .se-testimonial__stars { margin-left: auto; color: var(--gold); font-size: 0.9rem; letter-spacing: 0.05em; flex-shrink: 0; }
 
@@ -719,7 +719,7 @@
     .se-next-path__brand--purple { color: #7b5ea7; }
     .se-next-path__brand--navy   { color: var(--navy); }
     .se-next-path__title {
-      font-family: var(--font-heading); font-weight: 800;
+      font-family: var(--font-display); font-weight: 800;
       font-size: 1rem; color: var(--navy);
       margin-bottom: 0.6rem; line-height: 1.35;
     }

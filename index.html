@@ -67,7 +67,7 @@
   <!-- Perf: load fonts in parallel (not via CSS @import) + preload the hero image for faster LCP -->
   <link rel="preconnect" href="https://fonts.bunny.net" crossorigin />
   <link rel="preload" as="image" href="images/hero-bg.jpg" fetchpriority="high" />
-  <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Montserrat:wght@400;600;700;800;900&family=Open+Sans:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" />
+  <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Fraunces:ital,wght@0,400;0,600;0,700;0,900;1,400;1,600&family=Montserrat:wght@400;600;700;800;900&family=Open+Sans:wght@300;400;500;600&display=swap" />
   <link rel="stylesheet" href="css/styles.css" />
   <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
   <style>
@@ -136,7 +136,7 @@
       margin-bottom: 0.6rem; display: block;
     }
     .tools-teaser__title {
-      font-family: var(--font-heading); font-weight: 900;
+      font-family: var(--font-display); font-weight: 900;
       font-size: clamp(1.6rem, 3.5vw, 2.2rem); color: var(--navy);
       line-height: 1.15;
     }
@@ -160,7 +160,7 @@
       font-size: 2.8rem; margin-bottom: 1rem; display: block;
     }
     .tools-teaser-card__title {
-      font-family: var(--font-heading); font-weight: 900;
+      font-family: var(--font-display); font-weight: 900;
       font-size: 1.15rem; color: var(--navy); margin-bottom: 0.5rem;
     }
     .tools-teaser-card__desc {
@@ -220,7 +220,7 @@
       margin-bottom: 0.6rem; display: block;
     }
     .listings-carousel-section__title {
-      font-family: var(--font-heading); font-weight: 900;
+      font-family: var(--font-display); font-weight: 900;
       font-size: clamp(1.8rem, 4vw, 2.6rem); color: var(--navy);
       line-height: 1.1; margin-bottom: 0.65rem;
     }
@@ -266,7 +266,7 @@
       margin-bottom: 0.75rem;
     }
     .decision-section__title {
-      font-family: var(--font-heading); font-weight: 900;
+      font-family: var(--font-display); font-weight: 900;
       font-size: clamp(2rem, 5vw, 3rem); color: var(--navy);
       line-height: 1.1; margin-bottom: 0.75rem;
     }
@@ -287,7 +287,7 @@
     .decision-card--buy { background: linear-gradient(145deg, #0a5c6e 0%, var(--teal) 100%); }
     .decision-card--build { background: linear-gradient(145deg, #1a3a1a 0%, #2d5a1b 100%); }
     .decision-card__word {
-      font-family: var(--font-heading); font-weight: 900;
+      font-family: var(--font-display); font-weight: 900;
       font-size: clamp(2.8rem, 5vw, 3.8rem); line-height: 1;
       margin-bottom: 0.1rem; letter-spacing: -0.02em;
     }
@@ -371,7 +371,7 @@
       text-transform: uppercase; letter-spacing: 0.1em; color: #5cc8dc; margin-bottom: 1.25rem;
     }
     .relifeiq-section__title {
-      font-family: var(--font-heading); font-weight: 800;
+      font-family: var(--font-display); font-weight: 800;
       font-size: clamp(1.6rem, 3vw, 2.2rem); color: white; line-height: 1.2; margin-bottom: 1rem;
     }
     .relifeiq-section__title span { color: #5cc8dc; }
@@ -383,7 +383,7 @@
       text-decoration: none; transition: all 0.2s;
     }
     .relifeiq-tool:hover { background: rgba(255,255,255,0.1); border-color: rgba(32,137,160,0.35); }
-    .relifeiq-tool__name { font-family: var(--font-heading); font-weight: 800; font-size: 0.82rem; color: #5cc8dc; margin-bottom: 0.2rem; }
+    .relifeiq-tool__name { font-family: var(--font-display); font-weight: 800; font-size: 0.82rem; color: #5cc8dc; margin-bottom: 0.2rem; }
     .relifeiq-tool__desc { font-size: 0.72rem; color: rgba(255,255,255,0.5); line-height: 1.4; }
     .relifeiq-section__promise {
       font-family: var(--font-accent); font-style: italic; font-size: 1.05rem;
@@ -440,7 +440,7 @@
       color: white; letter-spacing: 0.05em; flex-shrink: 0;
     }
     .featured-testimonial__name {
-      font-family: var(--font-heading); font-weight: 800; font-size: 0.92rem;
+      font-family: var(--font-display); font-weight: 800; font-size: 0.92rem;
       color: var(--navy); text-align: left;
     }
     .featured-testimonial__context {
@@ -476,7 +476,7 @@
       margin-bottom: 1rem; display: inline-block;
     }
     .guides-section__title {
-      font-family: var(--font-heading); font-weight: 900;
+      font-family: var(--font-display); font-weight: 900;
       font-size: clamp(1.7rem, 3.5vw, 2.4rem); color: white;
       line-height: 1.15; margin-bottom: 0.85rem;
     }
@@ -527,7 +527,7 @@
     .guide-card-new__tag--teal { background: rgba(32,137,160,0.18); color: #5cc8dc; border: 1px solid rgba(32,137,160,0.3); }
 
     .guide-card-new__title {
-      font-family: var(--font-heading); font-weight: 800; font-size: 1rem;
+      font-family: var(--font-display); font-weight: 800; font-size: 1rem;
       color: white; line-height: 1.3; margin-bottom: 0.65rem;
     }
     .guide-card-new__desc {
@@ -594,7 +594,7 @@
       margin-bottom: 0.5rem;
     }
     .guide-modal__title {
-      font-family: var(--font-heading); font-weight: 900;
+      font-family: var(--font-display); font-weight: 900;
       font-size: clamp(1.25rem, 2.4vw, 1.6rem); color: var(--navy);
       line-height: 1.18; margin-bottom: 0.6rem;
     }
@@ -650,7 +650,7 @@
     .insights-section { padding: 4rem 0; background: #fff; }
     .insights-section__header { text-align: center; margin-bottom: 2.5rem; }
     .insights-section__eyebrow { font-family: var(--font-heading); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--teal); margin-bottom: 0.6rem; display: block; }
-    .insights-section__title { font-family: var(--font-heading); font-weight: 900; font-size: clamp(1.6rem, 3.5vw, 2.2rem); color: var(--navy); line-height: 1.15; margin-bottom: 0.6rem; }
+    .insights-section__title { font-family: var(--font-display); font-weight: 900; font-size: clamp(1.6rem, 3.5vw, 2.2rem); color: var(--navy); line-height: 1.15; margin-bottom: 0.6rem; }
     .insights-section__sub { font-size: 0.95rem; color: var(--dark-gray); line-height: 1.6; max-width: 600px; margin: 0 auto; }
     .insights-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
     @media (max-width: 900px) { .insights-grid { grid-template-columns: repeat(2, 1fr); } }
@@ -663,7 +663,7 @@
     .insights-card__tag { align-self: flex-start; font-family: var(--font-heading); font-size: 0.62rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.25rem 0.6rem; border-radius: 999px; margin-bottom: 0.6rem; }
     .insights-card__tag--update { background: rgba(32,137,160,0.12); color: var(--teal); }
     .insights-card__tag--compare { background: rgba(201,164,85,0.18); color: #9a7d2e; }
-    .insights-card__title { font-family: var(--font-heading); font-weight: 800; font-size: 1rem; color: var(--navy); line-height: 1.3; margin-bottom: 0.4rem; }
+    .insights-card__title { font-family: var(--font-display); font-weight: 800; font-size: 1rem; color: var(--navy); line-height: 1.3; margin-bottom: 0.4rem; }
     .insights-card__excerpt { font-size: 0.85rem; color: var(--dark-gray); line-height: 1.55; margin-bottom: 0.9rem; flex: 1; }
     .insights-card__cta { font-family: var(--font-heading); font-weight: 800; font-size: 0.82rem; color: var(--teal); letter-spacing: 0.02em; }
     .insights-section__more { text-align: center; margin-top: 2.5rem; }
