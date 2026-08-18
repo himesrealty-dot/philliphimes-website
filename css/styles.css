@@ -2250,3 +2250,12 @@ p {
   font-family: var(--font-heading); font-weight: 700; font-size: 0.82rem;
   color: var(--gold); margin-top: 0.55rem;
 }
+
+
+/* ── Neighborhood line icons (replaced emoji) ─────────────── */
+.av-highlight__icon svg, .facts-strip__icon svg, .commute-card__icon svg, .lifestyle-card__icon svg {
+  width: 1em; height: 1em; color: var(--teal); display: inline-block;
+}
+.story__badge svg, .home-tier__badge svg, .school-pill svg {
+  width: 1em; height: 1em; color: var(--gold); vertical-align: -0.14em; margin-right: 0.3em; flex-shrink: 0;
+}
