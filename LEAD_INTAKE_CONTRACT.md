@@ -1,6 +1,12 @@
 # Lead Intake Contract — website ⇄ Agentic OS
 
-**Status:** proposed (backend build pending) · **Version:** 1.3.1
+**Status:** **LIVE — backend built 2026-08-18** · **Version:** 1.3.1
+
+> The backend half of this contract is implemented and deployed: `contact.<key>` fields
+> map to GHL custom fields by key, unknown keys are preserved in a contact note plus an
+> Action Center warning (never auto-created), and the `source → side` safety net is in
+> place. Forms can rely on everything described below. The only open item is on the
+> website side: `listing-template.html`'s showing form (see Q8).
 
 This is the single source of truth for how website forms send leads to the Agentic OS
 backend. It exists so the two builds — the **website** (forms) and the **Agentic OS
