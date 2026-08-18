@@ -140,46 +140,36 @@
       font-size: clamp(1.6rem, 3.5vw, 2.2rem); color: var(--navy);
       line-height: 1.15;
     }
-    .tools-teaser__grid {
-      display: grid; grid-template-columns: repeat(3,1fr); gap: 1.25rem;
+    .tools-teaser__asym {
+      display: grid; grid-template-columns: 1.4fr 1fr; gap: 1.5rem; align-items: stretch;
     }
-    @media (max-width: 768px) { .tools-teaser__grid { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; } }
-    .tools-teaser-card {
-      background: white; border-radius: var(--radius-xl);
-      padding: 2rem 1.75rem; text-align: center;
-      border: 1px solid #e4eaf0;
-      transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
-      display: flex; flex-direction: column;
+    @media (max-width: 768px) { .tools-teaser__asym { grid-template-columns: 1fr; } }
+    /* Lead card (navy) */
+    .tools-lead {
+      background: linear-gradient(145deg, var(--navy) 0%, var(--navy-dark) 100%);
+      color: #fff; border-radius: var(--radius-xl); padding: 2.5rem 2.25rem;
+      display: flex; flex-direction: column; justify-content: center; text-decoration: none;
+      transition: transform 0.3s, box-shadow 0.3s;
     }
-    .tools-teaser-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 16px 48px rgba(0,0,0,0.1);
-      border-color: rgba(32,137,160,0.3);
+    .tools-lead:hover { transform: translateY(-4px); box-shadow: 0 18px 50px rgba(0,0,0,0.18); }
+    .tools-lead__icon { color: var(--gold); margin-bottom: 1rem; display: block; }
+    .tools-lead__icon svg { width: 40px; height: 40px; }
+    .tools-lead__title { font-family: var(--font-display); font-weight: 900; font-size: 1.7rem; color: #fff; margin-bottom: 0.65rem; line-height: 1.15; }
+    .tools-lead__desc { font-size: 0.95rem; color: rgba(255,255,255,0.75); line-height: 1.65; margin-bottom: 1.4rem; }
+    .tools-lead__cta { font-family: var(--font-heading); font-weight: 800; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold-light); }
+    /* Stacked minis */
+    .tools-stack { display: flex; flex-direction: column; gap: 1.5rem; }
+    .tools-mini {
+      background: white; border: 1px solid #e4eaf0; border-radius: var(--radius-xl);
+      padding: 1.6rem 1.5rem; display: flex; gap: 1.1rem; align-items: flex-start; flex: 1;
+      text-decoration: none; transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
     }
-    .tools-teaser-card__icon svg { width: 1em; height: 1em; color: var(--teal); display: inline-block; }
-    .tools-teaser-card__icon {
-      font-size: 2.8rem; margin-bottom: 1rem; display: block;
-    }
-    .tools-teaser-card__title {
-      font-family: var(--font-display); font-weight: 900;
-      font-size: 1.15rem; color: var(--navy); margin-bottom: 0.5rem;
-    }
-    .tools-teaser-card__desc {
-      font-size: 0.9rem; color: var(--dark-gray);
-      line-height: 1.65; margin-bottom: 1.75rem; flex: 1;
-    }
-    .tools-teaser-card__btn {
-      display: flex; align-items: center; justify-content: center;
-      padding: 0.78rem 1.5rem; border-radius: var(--radius-full);
-      font-family: var(--font-heading); font-weight: 800; font-size: 0.88rem;
-      text-decoration: none; transition: all 0.2s; letter-spacing: 0.03em;
-    }
-    .tools-teaser-card--value .tools-teaser-card__btn { background: var(--gold); color: var(--navy); }
-    .tools-teaser-card--value .tools-teaser-card__btn:hover { background: #d4b86a; }
-    .tools-teaser-card--market .tools-teaser-card__btn { background: var(--teal); color: white; }
-    .tools-teaser-card--market .tools-teaser-card__btn:hover { background: #1a7a8f; }
-    .tools-teaser-card--calc .tools-teaser-card__btn { background: var(--navy); color: white; }
-    .tools-teaser-card--calc .tools-teaser-card__btn:hover { background: #122840; }
+    .tools-mini:hover { transform: translateY(-3px); box-shadow: 0 16px 40px rgba(0,0,0,0.1); border-color: rgba(201,164,85,0.4); }
+    .tools-mini__icon { color: var(--teal); flex-shrink: 0; display: block; margin-top: 0.15rem; }
+    .tools-mini__icon svg { width: 28px; height: 28px; }
+    .tools-mini__title { font-family: var(--font-display); font-weight: 700; font-size: 1.2rem; color: var(--navy); margin-bottom: 0.25rem; line-height: 1.2; }
+    .tools-mini__desc { font-size: 0.88rem; color: var(--dark-gray); line-height: 1.6; margin-bottom: 0.6rem; }
+    .tools-mini__cta { font-family: var(--font-heading); font-weight: 800; font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold-dark); }
 
     /* Mobile search fallback — hidden on desktop, shown on mobile */
     .hero__mobile-search-btn {
@@ -847,27 +837,32 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
       <div class="tools-teaser__header">
         <h2 class="tools-teaser__title" id="tools-heading">More Ways to Get Smart Before You Move</h2>
       </div>
-      <div class="tools-teaser__grid">
+      <div class="tools-teaser__asym">
 
-        <div class="tools-teaser-card tools-teaser-card--value">
-          <span class="tools-teaser-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.7 12 3l9 7.7"/><path d="M5 9.5V20a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9.5"/><path d="M9.5 21v-6h5v6"/></svg></span>
-          <h3 class="tools-teaser-card__title">What's My Home Worth?</h3>
-          <p class="tools-teaser-card__desc">Get your TruMarket™ home valuation — a real analysis of your home's value, equity position, and what you'd walk away with today.</p>
-          <a href="sellers.html#home-value" class="tools-teaser-card__btn">Get My Value →</a>
-        </div>
+        <a href="sellers.html#home-value" class="tools-lead">
+          <span class="tools-lead__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.7 12 3l9 7.7"/><path d="M5 9.5V20a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9.5"/><path d="M9.5 21v-6h5v6"/></svg></span>
+          <h3 class="tools-lead__title">What's My Home Worth?</h3>
+          <p class="tools-lead__desc">Get your TruMarket™ home valuation — a real analysis of your home's value, equity position, and what you'd walk away with today.</p>
+          <span class="tools-lead__cta">Get My Value →</span>
+        </a>
 
-        <div class="tools-teaser-card tools-teaser-card--market">
-          <span class="tools-teaser-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><rect x="7" y="12" width="3" height="6" rx="0.5"/><rect x="12" y="8" width="3" height="10" rx="0.5"/><rect x="17" y="5" width="3" height="13" rx="0.5"/></svg></span>
-          <h3 class="tools-teaser-card__title">What's the Market Doing?</h3>
-          <p class="tools-teaser-card__desc">Live market stats for League City, Friendswood, Pearland, and Clear Lake — median prices, days on market, and inventory trends.</p>
-          <a href="marketiq.html" class="tools-teaser-card__btn">See the Market →</a>
-        </div>
-
-        <div class="tools-teaser-card tools-teaser-card--calc">
-          <span class="tools-teaser-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M14.8 9a3 3 0 0 0-2.8-1.6c-1.7 0-3 .9-3 2.1 0 2.7 6 1.3 6 4 0 1.2-1.3 2.1-3 2.1A3 3 0 0 1 9.2 15M12 6v1.6M12 16.4V18"/></svg></span>
-          <h3 class="tools-teaser-card__title">What Can I Afford?</h3>
-          <p class="tools-teaser-card__desc">Run the numbers before you start looking. Our mortgage calculator factors in current rates, down payment, and your target monthly payment.</p>
-          <a href="buyers.html#affordability" class="tools-teaser-card__btn">Calculate Now →</a>
+        <div class="tools-stack">
+          <a href="marketiq.html" class="tools-mini">
+            <span class="tools-mini__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><rect x="7" y="12" width="3" height="6" rx="0.5"/><rect x="12" y="8" width="3" height="10" rx="0.5"/><rect x="17" y="5" width="3" height="13" rx="0.5"/></svg></span>
+            <div>
+              <h3 class="tools-mini__title">What's the Market Doing?</h3>
+              <p class="tools-mini__desc">Live market stats for League City, Friendswood, Pearland, and Clear Lake — median prices, days on market, and inventory trends.</p>
+              <span class="tools-mini__cta">See the Market →</span>
+            </div>
+          </a>
+          <a href="buyers.html#affordability" class="tools-mini">
+            <span class="tools-mini__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M14.8 9a3 3 0 0 0-2.8-1.6c-1.7 0-3 .9-3 2.1 0 2.7 6 1.3 6 4 0 1.2-1.3 2.1-3 2.1A3 3 0 0 1 9.2 15M12 6v1.6M12 16.4V18"/></svg></span>
+            <div>
+              <h3 class="tools-mini__title">What Can I Afford?</h3>
+              <p class="tools-mini__desc">Run the numbers before you start looking — current rates, down payment, and your target monthly payment.</p>
+              <span class="tools-mini__cta">Calculate Now →</span>
+            </div>
+          </a>
         </div>
 
       </div>
