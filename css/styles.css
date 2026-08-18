@@ -2253,9 +2253,15 @@ p {
 
 
 /* ── Neighborhood line icons (replaced emoji) ─────────────── */
-.av-highlight__icon svg, .facts-strip__icon svg, .commute-card__icon svg, .lifestyle-card__icon svg {
+.facts-strip__icon svg, .lifestyle-card__icon svg {
   width: 1em; height: 1em; color: var(--teal); display: inline-block;
+}
+[class*="-highlight__icon"] svg, .commute-card__icon svg {
+  width: 1em; height: 1em; color: var(--gold); display: inline-block;
 }
 .story__badge svg, .home-tier__badge svg, .school-pill svg {
   width: 1em; height: 1em; color: var(--gold); vertical-align: -0.14em; margin-right: 0.3em; flex-shrink: 0;
 }
+/* Dark neighborhood sections: readable heading + body on navy (was navy-on-navy) */
+.nh-section--dark .nh-title { color: var(--white); }
+.nh-section--dark .nh-lead { color: rgba(255,255,255,0.78); }
