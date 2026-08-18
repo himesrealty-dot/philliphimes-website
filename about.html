@@ -189,7 +189,21 @@
     }
     .about-cta__phone:hover { color: var(--gold); }
 
-  </style>
+      /* ── FAQ ─────────────────────────────────── */
+    .faq-section { padding: 5.5rem 0; background: var(--off-white); }
+    .faq-section__head { text-align: center; max-width: 640px; margin: 0 auto 2.5rem; }
+    .faq-section__title { font-family: var(--font-display); font-weight: 700; font-size: clamp(1.7rem, 4vw, 2.4rem); color: var(--navy); line-height: 1.15; }
+    .faq-section__sub { margin-top: 0.9rem; font-size: 1rem; color: var(--text-body); line-height: 1.7; }
+    .faq-list { max-width: 820px; margin: 0 auto; display: flex; flex-direction: column; gap: 1rem; }
+    .faq-item { background: white; border: 1px solid #e8e3da; border-radius: var(--radius-lg); overflow: hidden; }
+    .faq-item__q { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1.25rem 1.5rem; cursor: pointer; font-family: var(--font-heading); font-weight: 700; font-size: 0.98rem; color: var(--navy); list-style: none; transition: background 0.2s; }
+    .faq-item__q:hover { background: rgba(27,58,92,0.03); }
+    .faq-item__q::after { content: '+'; font-size: 1.4rem; color: var(--gold); font-weight: 700; flex-shrink: 0; transition: transform 0.2s; }
+    .faq-item__q.open::after { transform: rotate(45deg); }
+    .faq-item__a { display: none; padding: 0 1.5rem 1.4rem; font-size: 0.95rem; color: var(--text-body); line-height: 1.8; }
+    .faq-item__a.open { display: block; }
+    .faq-item__a a { color: var(--teal); font-weight: 600; }
+</style>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -490,7 +504,88 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
   </section>
 
   <!-- ── FOOTER ────────────────────────────────────────────── -->
-  <footer class="footer" role="contentinfo">
+    <!-- ── FAQ ────────────────────────────────── -->
+  <section class="faq-section" aria-labelledby="faq-heading">
+    <div class="container">
+      <div class="faq-section__head">
+        <h2 class="faq-section__title" id="faq-heading">Questions About Phil</h2>
+        <p class="faq-section__sub">A little more about who you'd be working with.</p>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-item__q" role="button" tabindex="0" aria-expanded="false">What's Phil's background?</div>
+          <div class="faq-item__a">Phil is a U.S. Army veteran and a 30-year real estate professional. Nine years and five assignments in the Army shaped a standard he still holds himself to on every transaction.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-item__q" role="button" tabindex="0" aria-expanded="false">What does &ldquo;Brokered by eXp Realty&rdquo; mean?</div>
+          <div class="faq-item__a">Phil is the REALTOR&reg; you actually work with &mdash; eXp Realty is the brokerage behind him, giving him the tools and reach of a national platform while you get a local expert who knows every block.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-item__q" role="button" tabindex="0" aria-expanded="false">What makes Phil different from other agents?</div>
+          <div class="faq-item__a">Phil treats every move as a life transition, not just a transaction. People don't move because of interest rates &mdash; they move because life changed, and he builds the plan around what's really going on for you.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-item__q" role="button" tabindex="0" aria-expanded="false">What areas does Phil serve?</div>
+          <div class="faq-item__a">The Houston Bay Area &mdash; League City, Friendswood, Pearland, Clear Lake, Dickinson, and Manvel &mdash; with League City as home base.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-item__q" role="button" tabindex="0" aria-expanded="false">How do I get in touch with Phil?</div>
+          <div class="faq-item__a">Reach out through the <a href="contact.html">contact page</a>, call, or email anytime. Whether you're months out or ready now, Phil's happy to talk with no pressure.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What's Phil's background?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Phil is a U.S. Army veteran and a 30-year real estate professional. Nine years and five assignments in the Army shaped a standard he still holds himself to on every transaction."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does “Brokered by eXp Realty” mean?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Phil is the REALTOR® you actually work with — eXp Realty is the brokerage behind him, giving him the tools and reach of a national platform while you get a local expert who knows every block."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What makes Phil different from other agents?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Phil treats every move as a life transition, not just a transaction. People don't move because of interest rates — they move because life changed, and he builds the plan around what's really going on for you."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What areas does Phil serve?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The Houston Bay Area — League City, Friendswood, Pearland, Clear Lake, Dickinson, and Manvel — with League City as home base."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I get in touch with Phil?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Reach out through the contact page, call, or email anytime. Whether you're months out or ready now, Phil's happy to talk with no pressure."
+      }
+    }
+  ]
+}
+  </script>
+
+<footer class="footer" role="contentinfo">
     <div class="container">
 
       <div class="footer__statement">
@@ -561,7 +656,28 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
     </div>
   </footer>
 
-  <script src="js/main.js"></script>
+    <script>
+    // FAQ accordion
+    document.querySelectorAll('.faq-item__q').forEach(q => {
+      q.addEventListener('click', () => {
+        const isOpen = q.classList.contains('open');
+        document.querySelectorAll('.faq-item__q').forEach(el => {
+          el.classList.remove('open');
+          el.setAttribute('aria-expanded', 'false');
+          el.nextElementSibling.classList.remove('open');
+        });
+        if (!isOpen) {
+          q.classList.add('open');
+          q.setAttribute('aria-expanded', 'true');
+          q.nextElementSibling.classList.add('open');
+        }
+      });
+      q.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); q.click(); }
+      });
+    });
+  </script>
+<script src="js/main.js"></script>
   <script src="https://widgets.leadconnectorhq.com/loader.js" data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" data-widget-id="69fd4994ba1fce20207b1cb5" data-source="WEB_USER"></script>
 </body>
 </html>

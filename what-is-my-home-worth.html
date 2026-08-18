@@ -417,7 +417,21 @@
       letter-spacing: 0.02em;
     }
 
-  </style>
+      /* ── FAQ ─────────────────────────────────── */
+    .faq-section { padding: 5.5rem 0; background: var(--off-white); }
+    .faq-section__head { text-align: center; max-width: 640px; margin: 0 auto 2.5rem; }
+    .faq-section__title { font-family: var(--font-display); font-weight: 700; font-size: clamp(1.7rem, 4vw, 2.4rem); color: var(--navy); line-height: 1.15; }
+    .faq-section__sub { margin-top: 0.9rem; font-size: 1rem; color: var(--text-body); line-height: 1.7; }
+    .faq-list { max-width: 820px; margin: 0 auto; display: flex; flex-direction: column; gap: 1rem; }
+    .faq-item { background: white; border: 1px solid #e8e3da; border-radius: var(--radius-lg); overflow: hidden; }
+    .faq-item__q { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1.25rem 1.5rem; cursor: pointer; font-family: var(--font-heading); font-weight: 700; font-size: 0.98rem; color: var(--navy); list-style: none; transition: background 0.2s; }
+    .faq-item__q:hover { background: rgba(27,58,92,0.03); }
+    .faq-item__q::after { content: '+'; font-size: 1.4rem; color: var(--gold); font-weight: 700; flex-shrink: 0; transition: transform 0.2s; }
+    .faq-item__q.open::after { transform: rotate(45deg); }
+    .faq-item__a { display: none; padding: 0 1.5rem 1.4rem; font-size: 0.95rem; color: var(--text-body); line-height: 1.8; }
+    .faq-item__a.open { display: block; }
+    .faq-item__a a { color: var(--teal); font-weight: 600; }
+</style>
   <meta property="og:image" content="https://philliphimes.com/images/logo.png" />
   <meta name="twitter:card" content="summary_large_image" />
   <script type="application/ld+json">
@@ -635,7 +649,76 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
   </section>
 
   <!-- ── MINIMAL LANDER FOOTER ──────────────────────────── -->
-  <footer class="wmh-foot" role="contentinfo">
+    <!-- ── FAQ ────────────────────────────────── -->
+  <section class="faq-section" aria-labelledby="faq-heading">
+    <div class="container">
+      <div class="faq-section__head">
+        <h2 class="faq-section__title" id="faq-heading">Home Value Questions, Answered</h2>
+        <p class="faq-section__sub">Quick answers before you request your TruMarket&trade; report.</p>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-item__q" role="button" tabindex="0" aria-expanded="false">How is this different from a Zestimate?</div>
+          <div class="faq-item__a">A Zestimate is an algorithm guessing from a distance. Phil's TruMarket&trade; report is a real person pulling the actual comparable sales on your street and factoring in your home's condition and updates &mdash; the number a buyer would really pay.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-item__q" role="button" tabindex="0" aria-expanded="false">Is the home value really free?</div>
+          <div class="faq-item__a">Yes &mdash; completely free, with no obligation to list. It's just a straight answer about what your home is worth today.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-item__q" role="button" tabindex="0" aria-expanded="false">What do you need from me to give a value?</div>
+          <div class="faq-item__a">Your address and a few basics to start. The more Phil knows about your updates and improvements, the sharper the number gets.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-item__q" role="button" tabindex="0" aria-expanded="false">Does getting a value mean I have to sell?</div>
+          <div class="faq-item__a">Not at all. Plenty of homeowners request a value just to know where they stand. There's no pressure and no obligation.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is this different from a Zestimate?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A Zestimate is an algorithm guessing from a distance. Phil's TruMarket™ report is a real person pulling the actual comparable sales on your street and factoring in your home's condition and updates — the number a buyer would really pay."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is the home value really free?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes — completely free, with no obligation to list. It's just a straight answer about what your home is worth today."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What do you need from me to give a value?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Your address and a few basics to start. The more Phil knows about your updates and improvements, the sharper the number gets."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does getting a value mean I have to sell?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Not at all. Plenty of homeowners request a value just to know where they stand. There's no pressure and no obligation."
+      }
+    }
+  ]
+}
+  </script>
+
+<footer class="wmh-foot" role="contentinfo">
     <div class="container">
       <p><strong style="color:#fff;">Phillip Himes</strong>, REALTOR® · Brokered by eXp Realty · Serving the Houston Bay Area</p>
       <p><a href="tel:8329909738">(832) 990-9738</a> · <a href="mailto:phil@philliphimes.com">phil@philliphimes.com</a></p>
@@ -712,5 +795,26 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
     });
   </script>
 
+  <script>
+    // FAQ accordion
+    document.querySelectorAll('.faq-item__q').forEach(q => {
+      q.addEventListener('click', () => {
+        const isOpen = q.classList.contains('open');
+        document.querySelectorAll('.faq-item__q').forEach(el => {
+          el.classList.remove('open');
+          el.setAttribute('aria-expanded', 'false');
+          el.nextElementSibling.classList.remove('open');
+        });
+        if (!isOpen) {
+          q.classList.add('open');
+          q.setAttribute('aria-expanded', 'true');
+          q.nextElementSibling.classList.add('open');
+        }
+      });
+      q.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); q.click(); }
+      });
+    });
+  </script>
 </body>
 </html>

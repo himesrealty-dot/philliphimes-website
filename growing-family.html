@@ -222,7 +222,21 @@
     }
     .gf-cta__btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
 
-  </style>
+      /* ── FAQ ─────────────────────────────────── */
+    .faq-section { padding: 5.5rem 0; background: var(--off-white); }
+    .faq-section__head { text-align: center; max-width: 640px; margin: 0 auto 2.5rem; }
+    .faq-section__title { font-family: var(--font-display); font-weight: 700; font-size: clamp(1.7rem, 4vw, 2.4rem); color: var(--navy); line-height: 1.15; }
+    .faq-section__sub { margin-top: 0.9rem; font-size: 1rem; color: var(--text-body); line-height: 1.7; }
+    .faq-list { max-width: 820px; margin: 0 auto; display: flex; flex-direction: column; gap: 1rem; }
+    .faq-item { background: white; border: 1px solid #e8e3da; border-radius: var(--radius-lg); overflow: hidden; }
+    .faq-item__q { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1.25rem 1.5rem; cursor: pointer; font-family: var(--font-heading); font-weight: 700; font-size: 0.98rem; color: var(--navy); list-style: none; transition: background 0.2s; }
+    .faq-item__q:hover { background: rgba(27,58,92,0.03); }
+    .faq-item__q::after { content: '+'; font-size: 1.4rem; color: var(--gold); font-weight: 700; flex-shrink: 0; transition: transform 0.2s; }
+    .faq-item__q.open::after { transform: rotate(45deg); }
+    .faq-item__a { display: none; padding: 0 1.5rem 1.4rem; font-size: 0.95rem; color: var(--text-body); line-height: 1.8; }
+    .faq-item__a.open { display: block; }
+    .faq-item__a a { color: var(--teal); font-weight: 600; }
+</style>
   <link rel="canonical" href="https://philliphimes.com/growing-family.html" />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Moving Up for Growing Families in League City | Phil Himes" />
@@ -560,7 +574,88 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
   </section>
 
   <!-- ── FOOTER ─────────────────────────────────────── -->
-  <footer class="footer" role="contentinfo">
+    <!-- ── FAQ ────────────────────────────────── -->
+  <section class="faq-section" aria-labelledby="faq-heading">
+    <div class="container">
+      <div class="faq-section__head">
+        <h2 class="faq-section__title" id="faq-heading">Move-Up Questions, Answered</h2>
+        <p class="faq-section__sub">What growing families ask Phil when it's time for more space.</p>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-item__q" role="button" tabindex="0" aria-expanded="false">How do I buy a bigger home while I'm still in my current one?</div>
+          <div class="faq-item__a">This is Phil's specialty. He maps out the options &mdash; sale contingencies, timing the two closings, or a temporary lease-back &mdash; so you're not stuck with two payments or nowhere to land in between.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-item__q" role="button" tabindex="0" aria-expanded="false">Should I sell first or buy first?</div>
+          <div class="faq-item__a">It depends on your equity, your budget, and how the local market's moving. Phil builds the plan around your situation so you make the move with real numbers, not a stressful guess.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-item__q" role="button" tabindex="0" aria-expanded="false">How do I pick the right school district for my family?</div>
+          <div class="faq-item__a">Phil helps you compare districts and campuses against your commute and budget. Just know assignments are address-specific &mdash; always confirm the assignment for a specific home before you buy.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-item__q" role="button" tabindex="0" aria-expanded="false">Can Phil handle both the sale and the purchase for me?</div>
+          <div class="faq-item__a">Yes &mdash; coordinating both sides at once is exactly what he does for move-up families, so the timing lines up and you avoid gaps.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-item__q" role="button" tabindex="0" aria-expanded="false">What areas does Phil serve?</div>
+          <div class="faq-item__a">League City, Friendswood, Pearland, Clear Lake, Dickinson, and Manvel, plus the surrounding Bay Area.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do I buy a bigger home while I'm still in my current one?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "This is Phil's specialty. He maps out the options — sale contingencies, timing the two closings, or a temporary lease-back — so you're not stuck with two payments or nowhere to land in between."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Should I sell first or buy first?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It depends on your equity, your budget, and how the local market's moving. Phil builds the plan around your situation so you make the move with real numbers, not a stressful guess."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I pick the right school district for my family?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Phil helps you compare districts and campuses against your commute and budget. Just know assignments are address-specific — always confirm the assignment for a specific home before you buy."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can Phil handle both the sale and the purchase for me?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes — coordinating both sides at once is exactly what he does for move-up families, so the timing lines up and you avoid gaps."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What areas does Phil serve?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "League City, Friendswood, Pearland, Clear Lake, Dickinson, and Manvel, plus the surrounding Bay Area."
+      }
+    }
+  ]
+}
+  </script>
+
+<footer class="footer" role="contentinfo">
     <div class="container">
 
       <div class="footer__statement">
@@ -631,7 +726,28 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
     </div>
   </footer>
 
-  <script src="js/main.js"></script>
+    <script>
+    // FAQ accordion
+    document.querySelectorAll('.faq-item__q').forEach(q => {
+      q.addEventListener('click', () => {
+        const isOpen = q.classList.contains('open');
+        document.querySelectorAll('.faq-item__q').forEach(el => {
+          el.classList.remove('open');
+          el.setAttribute('aria-expanded', 'false');
+          el.nextElementSibling.classList.remove('open');
+        });
+        if (!isOpen) {
+          q.classList.add('open');
+          q.setAttribute('aria-expanded', 'true');
+          q.nextElementSibling.classList.add('open');
+        }
+      });
+      q.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); q.click(); }
+      });
+    });
+  </script>
+<script src="js/main.js"></script>
   <script src="https://widgets.leadconnectorhq.com/loader.js" data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" data-widget-id="69fd4994ba1fce20207b1cb5" data-source="WEB_USER"></script>
 </body>
 </html>

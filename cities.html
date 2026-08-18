@@ -178,7 +178,21 @@
     @media (hover: none) {
       .city-card:hover { transform: none; box-shadow: var(--shadow-md); }
     }
-  </style>
+      /* ── FAQ ─────────────────────────────────── */
+    .faq-section { padding: 5.5rem 0; background: var(--off-white); }
+    .faq-section__head { text-align: center; max-width: 640px; margin: 0 auto 2.5rem; }
+    .faq-section__title { font-family: var(--font-display); font-weight: 700; font-size: clamp(1.7rem, 4vw, 2.4rem); color: var(--navy); line-height: 1.15; }
+    .faq-section__sub { margin-top: 0.9rem; font-size: 1rem; color: var(--text-body); line-height: 1.7; }
+    .faq-list { max-width: 820px; margin: 0 auto; display: flex; flex-direction: column; gap: 1rem; }
+    .faq-item { background: white; border: 1px solid #e8e3da; border-radius: var(--radius-lg); overflow: hidden; }
+    .faq-item__q { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1.25rem 1.5rem; cursor: pointer; font-family: var(--font-heading); font-weight: 700; font-size: 0.98rem; color: var(--navy); list-style: none; transition: background 0.2s; }
+    .faq-item__q:hover { background: rgba(27,58,92,0.03); }
+    .faq-item__q::after { content: '+'; font-size: 1.4rem; color: var(--gold); font-weight: 700; flex-shrink: 0; transition: transform 0.2s; }
+    .faq-item__q.open::after { transform: rotate(45deg); }
+    .faq-item__a { display: none; padding: 0 1.5rem 1.4rem; font-size: 0.95rem; color: var(--text-body); line-height: 1.8; }
+    .faq-item__a.open { display: block; }
+    .faq-item__a a { color: var(--teal); font-weight: 600; }
+</style>
 
 <!-- Meta Pixel Code -->
 <script>
@@ -575,7 +589,76 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
   </section>
 
   <!-- ── FOOTER ────────────────────────────────────────── -->
-  <footer class="footer" role="contentinfo">
+    <!-- ── FAQ ────────────────────────────────── -->
+  <section class="faq-section" aria-labelledby="faq-heading">
+    <div class="container">
+      <div class="faq-section__head">
+        <h2 class="faq-section__title" id="faq-heading">Choosing an Area, Answered</h2>
+        <p class="faq-section__sub">Help deciding where in the Bay Area to plant roots.</p>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-item__q" role="button" tabindex="0" aria-expanded="false">Which cities does Phil cover?</div>
+          <div class="faq-item__a">League City, Friendswood, Pearland, Clear Lake, Dickinson, and Manvel &mdash; plus the neighborhoods and school districts within each.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-item__q" role="button" tabindex="0" aria-expanded="false">How do I choose the right city or neighborhood?</div>
+          <div class="faq-item__a">It comes down to your priorities &mdash; schools, commute, lifestyle, and budget. Phil knows every block and helps you weigh the trade-offs so you land somewhere that actually fits your life.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-item__q" role="button" tabindex="0" aria-expanded="false">Can I search homes by school district?</div>
+          <div class="faq-item__a">Yes &mdash; you can browse by district (Clear Creek, Alvin, Friendswood, Pearland, and Dickinson ISD). Just remember campus assignments are address-specific, so always confirm the assignment for any home before you buy.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-item__q" role="button" tabindex="0" aria-expanded="false">I'm relocating from out of area &mdash; can Phil help before I arrive?</div>
+          <div class="faq-item__a">Absolutely. Phil regularly helps people relocating to the Bay Area get oriented remotely &mdash; walking neighborhoods on video, comparing commutes, and narrowing the search before you ever land.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Which cities does Phil cover?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "League City, Friendswood, Pearland, Clear Lake, Dickinson, and Manvel — plus the neighborhoods and school districts within each."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I choose the right city or neighborhood?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It comes down to your priorities — schools, commute, lifestyle, and budget. Phil knows every block and helps you weigh the trade-offs so you land somewhere that actually fits your life."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I search homes by school district?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes — you can browse by district (Clear Creek, Alvin, Friendswood, Pearland, and Dickinson ISD). Just remember campus assignments are address-specific, so always confirm the assignment for any home before you buy."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "I'm relocating from out of area — can Phil help before I arrive?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Absolutely. Phil regularly helps people relocating to the Bay Area get oriented remotely — walking neighborhoods on video, comparing commutes, and narrowing the search before you ever land."
+      }
+    }
+  ]
+}
+  </script>
+
+<footer class="footer" role="contentinfo">
     <div class="container">
 
       <div class="footer__statement">
@@ -646,7 +729,28 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
     </div>
   </footer>
 
-  <script src="js/main.js"></script>
+    <script>
+    // FAQ accordion
+    document.querySelectorAll('.faq-item__q').forEach(q => {
+      q.addEventListener('click', () => {
+        const isOpen = q.classList.contains('open');
+        document.querySelectorAll('.faq-item__q').forEach(el => {
+          el.classList.remove('open');
+          el.setAttribute('aria-expanded', 'false');
+          el.nextElementSibling.classList.remove('open');
+        });
+        if (!isOpen) {
+          q.classList.add('open');
+          q.setAttribute('aria-expanded', 'true');
+          q.nextElementSibling.classList.add('open');
+        }
+      });
+      q.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); q.click(); }
+      });
+    });
+  </script>
+<script src="js/main.js"></script>
   <script src="https://widgets.leadconnectorhq.com/loader.js" data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" data-widget-id="69fd4994ba1fce20207b1cb5" data-source="WEB_USER"></script>
 </body>
 </html>
