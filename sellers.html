@@ -713,6 +713,20 @@
       background: linear-gradient(90deg, var(--gold), var(--teal));
     }
 
+    /* ── FAQ ─────────────────────────────────────────────── */
+    .faq-section { padding: 5.5rem 0; background: var(--off-white); }
+    .faq-section__head { text-align: center; max-width: 640px; margin: 0 auto 2.5rem; }
+    .faq-section__title { font-family: var(--font-display); font-weight: 700; font-size: clamp(1.7rem, 4vw, 2.4rem); color: var(--navy); line-height: 1.15; }
+    .faq-section__sub { margin-top: 0.9rem; font-size: 1rem; color: var(--text-body); line-height: 1.7; }
+    .faq-list { max-width: 820px; margin: 0 auto; display: flex; flex-direction: column; gap: 1rem; }
+    .faq-item { background: white; border: 1px solid #e8e3da; border-radius: var(--radius-lg); overflow: hidden; }
+    .faq-item__q { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1.25rem 1.5rem; cursor: pointer; font-family: var(--font-heading); font-weight: 700; font-size: 0.98rem; color: var(--navy); list-style: none; transition: background 0.2s; }
+    .faq-item__q:hover { background: rgba(27,58,92,0.03); }
+    .faq-item__q::after { content: '+'; font-size: 1.4rem; color: var(--gold); font-weight: 700; flex-shrink: 0; transition: transform 0.2s; }
+    .faq-item__q.open::after { transform: rotate(45deg); }
+    .faq-item__a { display: none; padding: 0 1.5rem 1.4rem; font-size: 0.95rem; color: var(--text-body); line-height: 1.8; }
+    .faq-item__a.open { display: block; }
+    .faq-item__a a { color: var(--teal); font-weight: 600; }
   </style>
   <script type="application/ld+json">
   {
@@ -1317,6 +1331,99 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
     </div>
   </section>
 
+  <!-- ── FAQ ───────────────────────────────────────────── -->
+  <section class="faq-section" aria-labelledby="faq-heading">
+    <div class="container">
+      <div class="faq-section__head">
+        <h2 class="faq-section__title" id="faq-heading">Selling Questions, Answered</h2>
+        <p class="faq-section__sub">The questions Bay Area homeowners ask Phil most when they're thinking about selling.</p>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-item__q" role="button" tabindex="0" aria-expanded="false">How do I find out what my home is actually worth?</div>
+          <div class="faq-item__a">Start with the TruMarket&trade; home value request at the top of this page. Instead of an automated guess, you'll get a real number from Phil based on what's actually selling in your neighborhood right now &mdash; recent comparable sales, current competition, and the condition of your specific home. It's free, and there's no obligation to list.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-item__q" role="button" tabindex="0" aria-expanded="false">How is a TruMarket&trade; report different from a Zestimate or online estimate?</div>
+          <div class="faq-item__a">Online estimates run your address through an algorithm that has never seen your home. A TruMarket&trade; report is Phil pulling the actual comparable sales, factoring in your updates and location, and looking at the homes you'd be competing against &mdash; then building a pricing strategy around it. It's the difference between a computer guess and a plan to actually sell.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-item__q" role="button" tabindex="0" aria-expanded="false">What will I actually walk away with after selling?</div>
+          <div class="faq-item__a">Your net proceeds are what's left after your remaining mortgage balance, selling costs, and closing costs come out of the sale price. The Net Proceeds estimator on this page gives you a quick ballpark, and Phil can walk you through a detailed, personalized breakdown for your home so there are no surprises at closing.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-item__q" role="button" tabindex="0" aria-expanded="false">What areas do you serve?</div>
+          <div class="faq-item__a">Phil works the Houston Bay Area &mdash; League City, Friendswood, Pearland, Clear Lake, Dickinson, and Manvel &mdash; along with the surrounding communities. If your home is in or near these areas, he can help you price and sell it.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-item__q" role="button" tabindex="0" aria-expanded="false">When is the best time to sell my home?</div>
+          <div class="faq-item__a">It depends on both your local market and your life. Rather than a one-size-fits-all answer, Phil shows you what's happening in your neighborhood right now &mdash; inventory, days on market, and buyer demand &mdash; so you can decide with real numbers instead of guesswork.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-item__q" role="button" tabindex="0" aria-expanded="false">How do I get started?</div>
+          <div class="faq-item__a">Request your home value at the top of this page, or <a href="contact.html">reach out to Phil directly</a>. He'll follow up with a personalized analysis, usually within one business day, and there's no pressure to list &mdash; just straight answers about your home and your options.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I find out what my home is actually worth?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Start with the TruMarket™ home value request at the top of this page. Instead of an automated guess, you'll get a real number from Phil based on what's actually selling in your neighborhood right now — recent comparable sales, current competition, and the condition of your specific home. It's free, and there's no obligation to list."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is a TruMarket™ report different from a Zestimate or online estimate?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Online estimates run your address through an algorithm that has never seen your home. A TruMarket™ report is Phil pulling the actual comparable sales, factoring in your updates and location, and looking at the homes you'd be competing against — then building a pricing strategy around it. It's the difference between a computer guess and a plan to actually sell."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What will I actually walk away with after selling?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Your net proceeds are what's left after your remaining mortgage balance, selling costs, and closing costs come out of the sale price. The Net Proceeds estimator on this page gives you a quick ballpark, and Phil can walk you through a detailed, personalized breakdown for your home so there are no surprises at closing."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What areas do you serve?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Phil works the Houston Bay Area — League City, Friendswood, Pearland, Clear Lake, Dickinson, and Manvel — along with the surrounding communities. If your home is in or near these areas, he can help you price and sell it."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "When is the best time to sell my home?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "It depends on both your local market and your life. Rather than a one-size-fits-all answer, Phil shows you what's happening in your neighborhood right now — inventory, days on market, and buyer demand — so you can decide with real numbers instead of guesswork."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I get started?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Request your home value at the top of this page, or reach out to Phil directly. He'll follow up with a personalized analysis, usually within one business day, and there's no pressure to list — just straight answers about your home and your options."
+        }
+      }
+    ]
+  }
+  </script>
+
   <!-- ── CTA BANNER ────────────────────────────────────── -->
   <section class="cta-banner" aria-labelledby="cta-heading">
     <div class="container">
@@ -1515,6 +1622,27 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
       showStep(4);
     });
   })();
+  </script>
+  <script>
+    // FAQ accordion
+    document.querySelectorAll('.faq-item__q').forEach(q => {
+      q.addEventListener('click', () => {
+        const isOpen = q.classList.contains('open');
+        document.querySelectorAll('.faq-item__q').forEach(el => {
+          el.classList.remove('open');
+          el.setAttribute('aria-expanded', 'false');
+          el.nextElementSibling.classList.remove('open');
+        });
+        if (!isOpen) {
+          q.classList.add('open');
+          q.setAttribute('aria-expanded', 'true');
+          q.nextElementSibling.classList.add('open');
+        }
+      });
+      q.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); q.click(); }
+      });
+    });
   </script>
   <script src="js/main.js"></script>
   <script src="https://widgets.leadconnectorhq.com/loader.js" data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" data-widget-id="69fd4994ba1fce20207b1cb5" data-source="WEB_USER"></script>
