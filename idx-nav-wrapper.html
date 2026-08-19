@@ -150,16 +150,13 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1" /></
       <!-- ─────────────────────────────────────────────────────────────────
            SIGN IN / MY ACCOUNT
 
-           This is a PLACEHOLDER pointing at the account page. To make it a
-           true login control, replace this single <a> with the IDX Broker
-           Lead Login widget embed code:
-             IDX control panel → Design → Widgets → Lead Login → copy code.
-           The widget reflects logged-in state; this static link does not.
-
-           Also confirm the href below matches your account's actual lead
-           page URL (IDX → Links → system pages) before going live.
+           Deliberately a plain link to our own branded sign-in page, NOT the
+           IDX Lead Login widget embed. The widget (id 25501) renders a 190px
+           bordered form box with its own drop shadow and self-loads a full
+           jQuery copy — wrong shape for a nav bar, and wasteful on every
+           page. It lives on sign-in.html instead, restyled to match the site.
            ───────────────────────────────────────────────────────────────── -->
-      <a href="https://search.philliphimes.com/idx/mylistingmanager"
+      <a href="https://philliphimes.com/sign-in.html"
          class="nav__btn nav__btn--ghost">Sign In</a>
 
       <a href="https://philliphimes.com/what-is-my-home-worth.html"

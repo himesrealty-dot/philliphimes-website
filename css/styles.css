@@ -2201,6 +2201,12 @@ p {
    single-CTA layout so nothing crowds. */
 @media (min-width: 769px) and (max-width: 1024px) {
   .nav__phone { display: none; }
+  /* The Sign In button made the CTA cluster a third item wide (245px vs the
+     prior 134px), which pushed the nav past the right edge just above the
+     mobile breakpoint. Tightening the link gap here reclaims ~112px across
+     the seven gaps; overflow clears at 18px, so 16px leaves margin. Above
+     1024px the nav keeps its full 32px gap. */
+  .nav__links { gap: var(--space-md); }
 }
 
 /* ─── Nearby Neighborhoods cross-link component ─────────────────────

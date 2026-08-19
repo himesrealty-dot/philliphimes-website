@@ -460,10 +460,12 @@
    RESPONSIVE
    ========================================================================== */
 
-/* Mid-width: drop the phone from the bar so the CTAs have room
-   (mirrors the same rule in styles.css) */
+/* Mid-width: drop the phone from the bar and tighten the link gap so the
+   three-item CTA cluster (phone / Sign In / Home Value) still fits.
+   Mirrors the same rule in styles.css — see the note there for the math. */
 @media (min-width: 769px) and (max-width: 1024px) {
   #phh-idx-nav .nav__phone { display: none; }
+  #phh-idx-nav .nav__links { gap: var(--space-md); }
 }
 
 @media (max-width: 768px) {
