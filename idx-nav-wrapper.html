@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Phillip Himes — Homes for Sale in the Houston Bay Area</title>
+
+<!--
+  ══════════════════════════════════════════════════════════════════════════
+  IDXBroker DYNAMIC WRAPPER — GENERAL / ALL PAGES
+  ══════════════════════════════════════════════════════════════════════════
+
+  PURPOSE
+    Puts the real philliphimes.com nav on every IDXBroker page so a visitor
+    who lands on a listing from Google can reach the rest of the site instead
+    of dead-ending in search results.
+
+  HOW IT WORKS
+    IDXBroker fetches this page and injects its content between
+    #idxStart and #idxStop. Everything above = nav. Everything below = footer.
+    IDX pages are served from search.philliphimes.com (custom subdomain), so
+    the URL bar stays branded.
+
+  HARD RULES
+    1. ALL links must be ABSOLUTE (IDXBroker requirement). Relative hrefs
+       resolve against the IDX subdomain and 404.
+    2. Keep noindex on this file — the wrapper URL itself must never be
+       indexed, only the IDX pages it wraps.
+    3. Do NOT load css/styles.css or js/main.js here. See css/idx-nav.css for
+       why (scoping), and the JS block at the bottom of this file.
+
+  ASSIGNMENT (IDXBroker: Design → Website → Wrappers)
+    Do NOT set this to Global yet. Your detail/results pages still run
+    RealtyCandy templates, which render their own header — you'll get two
+    stacked headers, the same collision that killed idx-detail-wrapper.html.
+    Assign per-category in this order, checking each before moving on:
+      1. Saved Links   (already wrapped — lowest risk)
+      2. Search Pages
+      3. Listing Detail
+      4. Lead / account pages ("My Listing Manager")
+    Flip to Global only once all four are verified clean.
+
+  RELATED FILES
+    css/idx-nav.css        — the scoped nav + footer styles this page loads
+    idx-wrapper.html       — new-construction saved links (still live, untouched)
+    idx-detail-wrapper.html— dormant, un-assigned (RealtyCandy conflict)
+  ══════════════════════════════════════════════════════════════════════════
+-->
+
+<!-- Brand fonts. Bunny serves CORS headers, so these load fine cross-origin
+     from the IDX subdomain. Matches the font stack on philliphimes.com. -->
+<link rel="preconnect" href="https://fonts.bunny.net" crossorigin />
+<link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800&family=Montserrat:wght@400;600;700;800;900&family=Open+Sans:wght@300;400;500;600&display=swap" />
+
+<!-- Scoped nav/footer chrome. External (not inline) so one edit updates every
+     wrapped IDX page. Everything inside is namespaced under #phh-idx-nav /
+     #phh-idx-footer and cannot touch IDX's injected markup. -->
+<link rel="stylesheet" href="https://philliphimes.com/css/idx-nav.css" />
+
+<!-- Meta Pixel — carried over from idx-wrapper.html so IDX traffic keeps
+     reporting into the same pixel. -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '920421110921173');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1" /></noscript>
+</head>
+<body>
+
+<!-- ══════════════════ TOP WRAPPER — SITE NAV ══════════════════ -->
+<nav id="phh-idx-nav" role="navigation" aria-label="Main navigation">
+  <div class="nav__inner">
+
+    <a href="https://philliphimes.com/index.html" class="nav__logo" aria-label="Phillip Himes Real Estate Home">
+      <img src="https://philliphimes.com/images/logo.png" alt="Phillip Himes | Brokered by eXp Realty"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+      <span class="nav__logo-text" style="display:none;">
+        <span class="nav__logo-name">Phillip Himes</span>
+        <span class="nav__logo-brokerage">Brokered by eXp Realty</span>
+      </span>
+    </a>
+
+    <ul class="nav__links" id="phh-idx-navlinks">
+      <li class="nav__item nav__item--dropdown">
+        <a href="https://philliphimes.com/buyers.html" class="nav__link">Buying</a>
+        <ul class="nav__dropdown" aria-label="Buying submenu">
+          <li><a href="https://philliphimes.com/buyers.html">For Buyers</a></li>
+          <li><a href="https://philliphimes.com/first-home.html">First-Time Buyers</a></li>
+          <li><a href="https://philliphimes.com/growing-family.html">Growing Families</a></li>
+          <li><a href="https://philliphimes.com/veterans.html">Veterans &amp; VA Loans</a></li>
+          <li><a href="https://philliphimes.com/new-construction.html">New Construction</a></li>
+          <li><a href="https://philliphimes.com/relocating-to-league-city.html">Relocating</a></li>
+        </ul>
+      </li>
+
+      <li><a href="https://philliphimes.com/sellers.html" class="nav__link">Selling</a></li>
+
+      <!-- Search points at the IDX subdomain, not search.html — the visitor is
+           already inside IDX, so sending them back to the marketing page is a
+           step backwards. -->
+      <li><a href="https://search.philliphimes.com" class="nav__link">Search</a></li>
+
+      <li><a href="https://philliphimes.com/listings.html" class="nav__link">Listings</a></li>
+
+      <li class="nav__item nav__item--dropdown">
+        <a href="https://philliphimes.com/cities.html" class="nav__link">Cities</a>
+        <ul class="nav__dropdown" aria-label="Cities submenu">
+          <li><a href="https://philliphimes.com/league-city.html">League City</a></li>
+          <li><a href="https://philliphimes.com/friendswood.html">Friendswood</a></li>
+          <li><a href="https://philliphimes.com/pearland.html">Pearland</a></li>
+          <li><a href="https://philliphimes.com/clear-lake.html">Clear Lake</a></li>
+          <li><a href="https://philliphimes.com/dickinson.html">Dickinson</a></li>
+          <li><a href="https://philliphimes.com/manvel.html">Manvel</a></li>
+        </ul>
+      </li>
+
+      <li class="nav__item nav__item--dropdown">
+        <a href="https://philliphimes.com/marketiq.html" class="nav__link">Tools</a>
+        <ul class="nav__dropdown" aria-label="Tools submenu">
+          <li><a href="https://philliphimes.com/buyeriq.html">BuyerIQ&trade; — Buyer's Edge</a></li>
+          <li><a href="https://philliphimes.com/selleriq.html">SellerIQ&trade; — Seller's Edge</a></li>
+          <li><a href="https://philliphimes.com/marketiq.html">MarketIQ&trade; — Property Intelligence</a></li>
+          <li><a href="https://philliphimes.com/market-insights.html">Market Insights</a></li>
+        </ul>
+      </li>
+
+      <li><a href="https://philliphimes.com/about.html" class="nav__link">My Story</a></li>
+      <li><a href="https://philliphimes.com/contact.html" class="nav__link">Ask Phil</a></li>
+
+      <!-- Mobile-only CTA stack (revealed by the JS below when the menu opens) -->
+      <li class="nav__mobile-cta">
+        <a href="tel:8329909738" class="nav__btn nav__btn--ghost">Call (832) 990-9738</a>
+        <a href="https://philliphimes.com/what-is-my-home-worth.html" class="nav__btn nav__btn--primary">What's My Home Worth?</a>
+      </li>
+    </ul>
+
+    <div class="nav__cta">
+      <a href="tel:8329909738" class="nav__phone">(832) 990-9738</a>
+
+      <!-- ─────────────────────────────────────────────────────────────────
+           SIGN IN / MY ACCOUNT
+
+           This is a PLACEHOLDER pointing at the account page. To make it a
+           true login control, replace this single <a> with the IDX Broker
+           Lead Login widget embed code:
+             IDX control panel → Design → Widgets → Lead Login → copy code.
+           The widget reflects logged-in state; this static link does not.
+
+           Also confirm the href below matches your account's actual lead
+           page URL (IDX → Links → system pages) before going live.
+           ───────────────────────────────────────────────────────────────── -->
+      <a href="https://search.philliphimes.com/idx/mylistingmanager"
+         class="nav__btn nav__btn--ghost">Sign In</a>
+
+      <a href="https://philliphimes.com/what-is-my-home-worth.html"
+         class="nav__btn nav__btn--primary">Home Value</a>
+    </div>
+
+    <button class="nav__hamburger" id="phh-idx-hamburger"
+            aria-label="Toggle menu" aria-expanded="false" aria-controls="phh-idx-navlinks">
+      <span></span><span></span><span></span>
+    </button>
+
+  </div>
+</nav>
+
+
+<!-- ══════ IDXBroker injects its page content between these markers ══════ -->
+<div id="idxStart"></div>
+<div id="idxStop"></div>
+
+
+<!-- ══════════════════ BOTTOM WRAPPER — SITE FOOTER ══════════════════ -->
+<footer id="phh-idx-footer">
+
+  <div class="idxft__cta-band">
+    <p class="idxft__cta-h">Questions about a home you&rsquo;ve <em>found here?</em></p>
+    <p class="idxft__cta-sub">Phil will pull the full history, tell you what it should actually sell for, and set up a private showing &mdash; at no cost to you as the buyer.</p>
+    <div class="idxft__cta-actions">
+      <a href="https://philliphimes.com/contact.html" class="idxft__btn">Ask Phil About This Home &rarr;</a>
+      <a href="tel:8329909738" class="idxft__phone">or call (832) 990-9738</a>
+    </div>
+  </div>
+
+  <div class="idxft__cols">
+    <div>
+      <div class="idxft__heading">Buying</div>
+      <ul class="idxft__links">
+        <li><a href="https://philliphimes.com/buyers.html">For Buyers</a></li>
+        <li><a href="https://philliphimes.com/first-home.html">First-Time Buyers</a></li>
+        <li><a href="https://philliphimes.com/growing-family.html">Growing Families</a></li>
+        <li><a href="https://philliphimes.com/veterans.html">Veterans &amp; VA Loans</a></li>
+        <li><a href="https://philliphimes.com/new-construction.html">New Construction</a></li>
+        <li><a href="https://philliphimes.com/relocating-to-league-city.html">Relocating</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <div class="idxft__heading">Selling</div>
+      <ul class="idxft__links">
+        <li><a href="https://philliphimes.com/sellers.html">Sell With Phil</a></li>
+        <li><a href="https://philliphimes.com/what-is-my-home-worth.html">What&rsquo;s My Home Worth?</a></li>
+        <li><a href="https://philliphimes.com/selleriq.html">SellerIQ&trade;</a></li>
+        <li><a href="https://philliphimes.com/market-insights.html">Market Insights</a></li>
+        <li><a href="https://philliphimes.com/about.html">My Story</a></li>
+        <li><a href="https://philliphimes.com/contact.html">Ask Phil</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <div class="idxft__heading">Cities</div>
+      <ul class="idxft__links">
+        <li><a href="https://philliphimes.com/league-city.html">League City</a></li>
+        <li><a href="https://philliphimes.com/friendswood.html">Friendswood</a></li>
+        <li><a href="https://philliphimes.com/pearland.html">Pearland</a></li>
+        <li><a href="https://philliphimes.com/clear-lake.html">Clear Lake</a></li>
+        <li><a href="https://philliphimes.com/dickinson.html">Dickinson</a></li>
+        <li><a href="https://philliphimes.com/manvel.html">Manvel</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <div class="idxft__heading">Buying by District</div>
+      <ul class="idxft__links">
+        <li><a href="https://philliphimes.com/ccisd-homes.html">Clear Creek ISD Homes</a></li>
+        <li><a href="https://philliphimes.com/alvin-isd-homes.html">Alvin ISD Homes</a></li>
+        <li><a href="https://philliphimes.com/friendswood-isd-homes.html">Friendswood ISD Homes</a></li>
+        <li><a href="https://philliphimes.com/pearland-isd-homes.html">Pearland ISD Homes</a></li>
+        <li><a href="https://philliphimes.com/dickinson-isd-homes.html">Dickinson ISD Homes</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="idxft__legal">
+    <p class="idxft__brokerage">Phillip Himes, REALTOR&reg; &middot; Brokered by eXp Realty</p>
+    <p class="idxft__meta">
+      2600 South Shore Blvd. Ste 300, League City, TX 77573 &middot;
+      <a href="tel:8329909738">(832) 990-9738</a> &middot;
+      <a href="mailto:phil@philliphimes.com">phil@philliphimes.com</a><br />
+      <a href="https://philliphimes.com/privacy-policy.html">Privacy Policy</a> &middot;
+      <a href="https://philliphimes.com/terms-of-service.html">Terms of Service</a>
+    </p>
+  </div>
+
+</footer>
+
+
+<script>
+/* ══════════════════════════════════════════════════════════════════════════
+   Nav behavior — self-contained.
+
+   WHY NOT js/main.js: that file is 350 lines and mostly page-specific — form
+   submit handlers, IntersectionObserver animations, a hero search binding,
+   contact-form subject mapping. On an IDX page none of it applies, and its
+   form handlers could interfere with IDXBroker's own forms. This is the nav
+   logic only, scoped to #phh-idx-nav, and it no-ops if the nav is missing.
+   ══════════════════════════════════════════════════════════════════════════ */
+(function () {
+  var nav = document.getElementById('phh-idx-nav');
+  if (!nav) return;
+
+  var hamburger = document.getElementById('phh-idx-hamburger');
+  var navLinks  = document.getElementById('phh-idx-navlinks');
+  if (!hamburger || !navLinks) return;
+
+  var mobileCta = navLinks.querySelector('.nav__mobile-cta');
+
+  function closeMenu() {
+    navLinks.classList.remove('nav__links--open');
+    hamburger.classList.remove('open');
+    hamburger.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+    if (mobileCta) mobileCta.style.display = 'none';
+  }
+
+  hamburger.addEventListener('click', function () {
+    var isOpen = navLinks.classList.toggle('nav__links--open');
+    hamburger.classList.toggle('open', isOpen);
+    hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+    if (mobileCta) mobileCta.style.display = isOpen ? 'block' : 'none';
+  });
+
+  /* Mobile: top-level dropdown parents expand in place instead of navigating */
+  nav.querySelectorAll('.nav__item--dropdown > .nav__link').forEach(function (link) {
+    link.addEventListener('click', function (e) {
+      if (window.innerWidth <= 768) {
+        e.preventDefault();
+        this.parentNode.classList.toggle('open');
+      }
+    });
+  });
+
+  /* Any real navigation closes the menu */
+  navLinks.querySelectorAll('a').forEach(function (link) {
+    link.addEventListener('click', function () {
+      if (this.parentNode.classList.contains('nav__item--dropdown')) return;
+      closeMenu();
+    });
+  });
+
+  /* Reset state if the viewport crosses back to desktop while open */
+  window.addEventListener('resize', function () {
+    if (window.innerWidth > 768 && navLinks.classList.contains('nav__links--open')) {
+      closeMenu();
+    }
+  }, { passive: true });
+})();
+</script>
+
+</body>
+</html>
