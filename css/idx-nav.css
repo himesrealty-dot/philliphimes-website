@@ -161,10 +161,14 @@
   position: relative;
 }
 
+/* 1rem here, vs 0.875rem on the main site. IDX renders its own content at a
+   16px base, so the site's 14px nav reads undersized on these pages. The
+   larger type is affordable because the nav switches to the hamburger below
+   1025px (see RESPONSIVE) rather than at 768px like the main site. */
 #phh-idx-nav .nav__link {
   font-family: var(--font-heading);
   font-weight: 600;
-  font-size: 0.875rem;
+  font-size: 1rem;
   color: var(--navy);
   letter-spacing: 0.3px;
   position: relative;
@@ -233,7 +237,7 @@
 #phh-idx-nav .nav__dropdown li a {
   padding: 0.6rem var(--space-lg);
   font-family: var(--font-heading);
-  font-size: 0.85rem;
+  font-size: 0.92rem;
   font-weight: 600;
   color: var(--navy);
   transition: background var(--transition), color var(--transition);
@@ -257,7 +261,7 @@
 #phh-idx-nav .nav__phone {
   font-family: var(--font-heading);
   font-weight: 700;
-  font-size: 0.875rem;
+  font-size: 0.95rem;
   color: var(--navy);
 }
 
@@ -267,7 +271,7 @@
   justify-content: center;
   font-family: var(--font-heading);
   font-weight: 700;
-  font-size: 0.8rem;
+  font-size: 0.875rem;
   letter-spacing: 0.02em;
   padding: 0.65rem 1.35rem;
   border-radius: var(--radius-full);
@@ -458,17 +462,29 @@
 
 /* ==========================================================================
    RESPONSIVE
+   ==========================================================================
+
+   NAV BREAKPOINT IS 1180px HERE, vs 768px on the main site — deliberate.
+
+   The wrapper nav carries the same 8 links and 3-item CTA cluster as the
+   main site, but at IDX's 16px type scale the desktop bar measures 1113px
+   wide. Below ~1128px of usable width it overflowed the page horizontally
+   on every IDX page (this was live and real, not theoretical). Shrinking the
+   type to fit is the wrong trade — it was already reading undersized against
+   IDX's 16px content — so the nav collapses to the hamburger earlier instead.
+   Tablet and small-laptop users get the full-size mobile menu, which is more
+   legible than a cramped desktop bar anyway.
+
+   1180 is chosen off the measured 1113px requirement plus a ~50px margin for
+   scrollbars and font-loading jitter. If the nav ever loses an item (e.g.
+   dropping Home Value from the IDX CTA cluster, worth ~130px), re-measure
+   and this can come back down toward 1025.
+
+   The FOOTER keeps a 768px breakpoint — its 4-column grid is comfortable at
+   900px and has no such width pressure.
    ========================================================================== */
 
-/* Mid-width: drop the phone from the bar and tighten the link gap so the
-   three-item CTA cluster (phone / Sign In / Home Value) still fits.
-   Mirrors the same rule in styles.css — see the note there for the math. */
-@media (min-width: 769px) and (max-width: 1024px) {
-  #phh-idx-nav .nav__phone { display: none; }
-  #phh-idx-nav .nav__links { gap: var(--space-md); }
-}
-
-@media (max-width: 768px) {
+@media (max-width: 1180px) {
   #phh-idx-nav .nav__inner {
     padding: var(--space-md) var(--space-lg);
   }
@@ -531,7 +547,7 @@
 
   #phh-idx-nav .nav__dropdown li a {
     padding-left: calc(var(--space-xl) + var(--space-md));
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     border-bottom: 1px solid var(--light-gray);
     min-height: 44px;
   }
@@ -546,7 +562,9 @@
     width: 100%;
     margin-top: var(--space-sm);
   }
+}
 
+@media (max-width: 768px) {
   #phh-idx-footer .idxft__cols {
     grid-template-columns: repeat(2, 1fr);
     gap: var(--space-lg);
