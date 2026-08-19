@@ -4,7 +4,7 @@
 
 **philliphimes.com** is the personal real estate website for Phillip Himes, REALTOR® | Brokered by eXp Realty, serving the Houston Bay Area (League City, Friendswood, Pearland, Clear Lake, Dickinson, Manvel).
 
-- Contact: phil@philliphimes.com · (832) 536-1016
+- Contact: phil@philliphimes.com · (832) 990-9738
 - Office: 2600 South Shore Blvd. Ste 300, League City, TX 77573
 - Static HTML/CSS/JS site — no build system, no framework
 
