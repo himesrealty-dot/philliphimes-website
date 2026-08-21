@@ -16,8 +16,8 @@
   <meta property="og:description" content="A personal listing update from Phil on your home. Tap to watch." />
   <meta property="og:url" content="https://philliphimes.com/updates/6310-star-light-ct/" />
   <meta property="og:image" content="https://philliphimes.com/images/listings/6310-star-light/01.jpg" />
-  <meta property="og:video" content="https://philliphimes.com/updates/6310-star-light-ct/6310-update.mp4" />
-  <meta property="og:video:secure_url" content="https://philliphimes.com/updates/6310-star-light-ct/6310-update.mp4" />
+  <meta property="og:video" content="https://philliphimes.com/updates/6310-star-light-ct/6310-update-week4.mp4" />
+  <meta property="og:video:secure_url" content="https://philliphimes.com/updates/6310-star-light-ct/6310-update-week4.mp4" />
   <meta property="og:video:type" content="video/mp4" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Your Home Update — 6310 Star Light Court" />
@@ -61,7 +61,71 @@
     .up-chips { display:flex; flex-wrap: wrap; justify-content:center; gap: 0.6rem; margin: 1.6rem auto 0; max-width: 820px; }
     .up-chip { background:#eef3f7; color: var(--navy); font-weight: 700; font-size: 0.92rem;
       padding: 0.6rem 1.05rem; border-radius: 9999px; }
-    .up-chip b { color: var(--teal); }
+    .up-chip b { color:#186E82; }
+
+    /* ── week-4 narrative blocks ─────────────────────────────────────── */
+    .up-body { max-width: 720px; margin: 2.75rem auto 0; }
+    .up-sec { margin-bottom: 2.5rem; }
+    .up-sec__h { font-family: var(--font-heading, 'Montserrat', sans-serif); font-weight: 800;
+      font-size: clamp(1.15rem, 2.6vw, 1.4rem); color: var(--navy); line-height: 1.25;
+      margin: 0 0 0.9rem; padding-bottom: 0.6rem; border-bottom: 2px solid #e4eaf0; }
+    .up-sec p { color:#3f4d5a; font-size: 1.02rem; line-height: 1.72; margin: 0 0 1rem; }
+    .up-sec p:last-child { margin-bottom: 0; }
+    .up-sec strong { color: var(--navy); }
+
+    .up-comp { background:#f6f9fb; border-left: 4px solid var(--teal); border-radius: 0 10px 10px 0;
+      padding: 1.1rem 1.3rem; margin: 0 0 1rem; }
+    .up-comp p.up-comp__h { font-family: var(--font-heading, 'Montserrat', sans-serif); font-weight: 800;
+      color: var(--navy); font-size: 1rem; margin: 0 0 0.35rem; }
+    .up-comp p.up-comp__h span { display:inline-block; background:#186E82; color:#fff; font-size: 0.68rem;
+      font-weight: 800; letter-spacing: 0.07em; text-transform: uppercase;
+      padding: 0.22rem 0.6rem; border-radius: 9999px; margin-left: 0.5rem; vertical-align: 2px; }
+    .up-comp p { font-size: 0.98rem; line-height: 1.65; color:#4a5866; margin: 0; }
+
+    .up-list { list-style:none; padding: 0; margin: 0; }
+    .up-list li { position: relative; padding-left: 1.6rem; margin-bottom: 0.85rem;
+      color:#3f4d5a; font-size: 1.02rem; line-height: 1.7; }
+    .up-list li:last-child { margin-bottom: 0; }
+    .up-list li::before { content:''; position:absolute; left: 0; top: 0.72em;
+      width: 8px; height: 8px; border-radius: 50%; background: var(--gold); }
+
+    .up-tbl { width:100%; border-collapse:collapse; font-size:0.95rem; margin:0 0 1rem;
+      min-width:440px; }
+    /* the feature column carries a sentence, so on a phone this table scrolls
+       sideways in its own box instead of wrapping two words per line */
+    .up-tbl--compare { min-width:600px; }
+    .up-tbl--compare th:nth-child(-n+3),
+    .up-tbl--compare td:nth-child(-n+3) { white-space:nowrap; }
+    .up-tbl--compare th:last-child,
+    .up-tbl--compare td:last-child { min-width:270px; }
+    .up-tbl th { text-align:left; font-family: var(--font-heading,'Montserrat',sans-serif);
+      font-weight:800; font-size:0.7rem; letter-spacing:0.07em; text-transform:uppercase;
+      color:#5a6b7a; padding:0.6rem 0.7rem; border-bottom:2px solid #e4eaf0; }
+    .up-tbl td { padding:0.65rem 0.7rem; border-bottom:1px solid #eef2f6; color:#3f4d5a; }
+    .up-tbl td:first-child { color: var(--navy); font-weight:700; }
+    .up-tbl .yours { background:#f6f9fb; color:var(--navy); font-weight:800; }
+    .up-tblwrap { overflow-x:auto; -webkit-overflow-scrolling:touch; margin:0 0 1rem; }
+    .up-swipe { display:none; font-size:0.75rem; color:#5a6b7a; margin:0 0 0.4rem; font-style:italic; }
+    @media (max-width:700px) { .up-swipe { display:block; } }
+
+    .up-stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr));
+      gap:0.75rem; margin:0 0 1.25rem; }
+    .up-stat { background:#f6f9fb; border-radius:10px; padding:0.9rem 1rem; }
+    .up-stat__v { font-family: var(--font-heading,'Montserrat',sans-serif); font-weight:900;
+      font-size:1.5rem; color:var(--navy); line-height:1; }
+    .up-stat__l { font-size:0.78rem; color:#5a6b7a; margin-top:0.3rem; line-height:1.35; }
+
+    .up-rec { background: var(--navy); border-radius: 16px; padding: 1.9rem 1.8rem;
+      box-shadow: 0 18px 50px rgba(9,20,34,0.22); margin-bottom: 2.5rem; }
+    .up-rec p.up-rec__label { font-family: var(--font-heading, 'Montserrat', sans-serif); font-weight: 800;
+      font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--gold); margin: 0 0 0.7rem; }
+    .up-rec p.up-rec__price { font-family: var(--font-heading, 'Montserrat', sans-serif); font-weight: 900;
+      font-size: clamp(2.1rem, 6vw, 2.9rem); color:#fff; line-height: 1; letter-spacing:-0.02em; margin: 0; }
+    .up-rec p.up-rec__delta { color: rgba(255,255,255,0.72); font-size: 0.95rem; margin: 0.55rem 0 1.25rem; }
+    .up-rec p { color: rgba(255,255,255,0.88); font-size: 1rem; line-height: 1.7; margin: 0 0 0.9rem; }
+    .up-rec p:last-child { margin-bottom: 0; }
+    .up-rec strong { color:#fff; }
 
     .up-cadence { text-align:center; color:#5a6b7a; font-size: 0.95rem; margin: 1.9rem auto 0; }
     .up-cadence b { color: var(--navy); }
@@ -102,31 +166,130 @@
   <section class="up-hero" style="background-image:url('/images/listings/6310-star-light/01.jpg');">
     <div class="up-hero__in">
       <span class="up-badge">Private Owner Update</span>
-      <h1 class="up-hero__h1">Your 3-Week Home Update</h1>
+      <h1 class="up-hero__h1">Your 4-Week Home Update</h1>
       <div class="up-hero__addr">6310 Star Light Court <span>· Spring, TX 77386</span></div>
-      <div class="up-hero__meta">A personal walkthrough from Phil · August 13, 2026</div>
+      <div class="up-hero__meta">A personal walkthrough from Phil · August 21, 2026</div>
     </div>
   </section>
 
   <div class="up-wrap">
     <div class="up-videocard">
       <video controls playsinline preload="metadata" poster="/images/listings/6310-star-light/01.jpg">
-        <source src="6310-update.mp4" type="video/mp4" />
-        Your browser can't play this video. <a href="6310-update.mp4">Download it here.</a>
+        <source src="6310-update-week4.mp4" type="video/mp4" />
+        Your browser can't play this video. <a href="6310-update-week4.mp4">Download it here.</a>
       </video>
     </div>
 
-    <p class="up-lead">Three weeks in — strong interest, and the plan from here.</p>
-    <p class="up-sub">A quick, honest walkthrough of your showings, buyer feedback, your online exposure, and where your home stands in the Benders Landing market.</p>
+    <p class="up-lead">Since our last update, two homes in Benders Landing went under contract. Both of them lowered their price first.</p>
+    <p class="up-sub">What changed in the neighborhood, how those homes differ from yours, and my recommendation on price.</p>
 
     <div class="up-chips">
-      <span class="up-chip"><b>4</b> private showings</span>
-      <span class="up-chip">“Ahead of the competition”</span>
-      <span class="up-chip"><b>3,484</b> property views</span>
-      <span class="up-chip">Newest home in the tier</span>
+      <span class="up-chip"><b>2</b> neighbors under contract</span>
+      <span class="up-chip"><b>14</b> days since your last showing</span>
+      <span class="up-chip"><b>29</b> days on market</span>
+      <span class="up-chip">Second showing booked Saturday</span>
     </div>
 
-    <p class="up-cadence">This is your <b>day-21</b> review. From here, a standing <b>weekly</b> check-in.</p>
+    <div class="up-body">
+
+      <div class="up-sec">
+        <h2 class="up-sec__h">What has happened since our last update</h2>
+        <p>Two homes in Benders Landing went under contract. That is the headline, and it is genuinely good news, because it means buyers are active and writing offers in your neighborhood right now.</p>
+
+        <div class="up-comp">
+          <p class="up-comp__h">27498 S Lazy Meadow Way <span>Under contract</span></p>
+          <p>Right around the corner. Listed <strong>7 July at $1,495,000</strong>, lowered to <strong>$1,450,000</strong> on 20 July, and under contract on <strong>7 August</strong>.</p>
+        </div>
+
+        <div class="up-comp">
+          <p class="up-comp__h">4223 Maple Rapids Lane <span>Option pending</span></p>
+          <p>Listed <strong>26 June at $1,750,000</strong>. It did not sell, came off the market on 30 July, went back on the same day at <strong>$1,695,000</strong>, and was under contract <strong>fifteen days later</strong>.</p>
+        </div>
+
+        <p><strong>One important caveat.</strong> Neither home has closed yet, so we do not know what either one will actually sell for. The contract price stays private until funding. What we do know is the price each seller had to be at before a buyer would write. In both cases that was <strong>after a reduction</strong>, not before one.</p>
+      </div>
+
+      <div class="up-sec">
+        <h2 class="up-sec__h">What is different about those two homes</h2>
+        <p><strong>Size is the biggest difference, and it is not close.</strong></p>
+        <div class="up-tblwrap">
+          <p class="up-swipe">Swipe the table sideways to see it all</p>
+          <table class="up-tbl up-tbl--compare">
+            <thead><tr><th>Home</th><th>Size</th><th>Difference</th><th>What it has that the others do not</th></tr></thead>
+            <tbody>
+              <tr class="yours"><td>6310 Star Light Ct</td><td>3,862 sf</td><td>&mdash;</td><td>Cigar lounge, climate-controlled wine room, steam sauna</td></tr>
+              <tr><td>27498 S Lazy Meadow</td><td>4,329 sf</td><td>+467 sf</td><td>Dedicated media room, guest suite with its own kitchen</td></tr>
+              <tr><td>4223 Maple Rapids Ln</td><td>6,064 sf</td><td>+2,202 sf</td><td>Two game rooms, one down and one up</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>That extra square footage is not just a number on a sheet. In both of those homes it turns into <strong>a media room or a game room</strong>, and at this price point that is a room buyers come looking for. It is one of the first things they ask about. Your home cannot answer that question the same way, and that is purely a function of size.</p>
+        <p>But your square footage does something theirs does not. <strong>You have a cigar lounge, a climate-controlled wine room and a steam sauna.</strong> I went back through both of those listings and neither one has any of the three. Not a wine room, not a lounge, not a steam sauna. That is genuinely rare at any price in this neighborhood, and it is the first thing I walk people to.</p>
+        <p>You also have <strong>age</strong> on your side. Yours was built in 2021. Lazy Meadow is 2015, Maple Rapids is 2014. Newer construction, newer mechanicals, newer everything.</p>
+        <p>So this is a real trade rather than a shortfall. They have the extra room to spread out. You have the newer home and the specialty spaces nobody else in the comp set can match. <strong>The catch is that more buyers at this price are shopping for a media room than for a wine room</strong>, and that is exactly why the price has to do more of the work for us.</p>
+      </div>
+
+      <div class="up-sec">
+        <h2 class="up-sec__h">Your activity</h2>
+        <div class="up-stats">
+          <div class="up-stat"><div class="up-stat__v">11</div><div class="up-stat__l">People through the open house, opening weekend</div></div>
+          <div class="up-stat"><div class="up-stat__v">5</div><div class="up-stat__l">Private showings booked</div></div>
+          <div class="up-stat"><div class="up-stat__v">12,360</div><div class="up-stat__l">Times shown on Homes.com</div></div>
+          <div class="up-stat"><div class="up-stat__v">76</div><div class="up-stat__l">Clicked in to look properly</div></div>
+        </div>
+        <p>The opening weekend was strong. <strong>Eleven people came through the open house</strong>, and we booked five private showings on top of that. Three of those buyers walked the home. One was canceled by the agent, and one on 25 July never got inside because the gate code failed and nobody could reach me. That one still bothers me and I own it.</p>
+        <p><strong>Your last showing was 7 August. That is fourteen days ago.</strong></p>
+        <p>Visibility is not the problem. Your listing has been put in front of buyers 12,360 times on Homes.com, it held a top-of-search position 830 times, and it is syndicated to 45 sites. Four people saved it and two sent an inquiry.</p>
+        <p>So people are finding it and they are looking at it. What has stopped is people coming to see it. Fourteen days of quiet, in the same two weeks that two neighbors went under contract, is the clearest signal we have.</p>
+      </div>
+
+      <div class="up-sec">
+        <h2 class="up-sec__h">Where your price sits</h2>
+        <p>You are asking <strong>$1,425,000</strong>, which across 3,862 square feet is <strong>$369 a square foot.</strong> We have not reduced since listing on 23 July.</p>
+        <div class="up-tblwrap">
+          <table class="up-tbl">
+            <thead><tr><th>Home</th><th>Size</th><th>Built</th><th>Price</th><th>Per sq ft</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr class="yours"><td>6310 Star Light Ct</td><td>3,862 sf</td><td>2021</td><td>$1,425,000</td><td>$369</td><td>Active, 29 days</td></tr>
+              <tr><td>5517 Balsam Fir Ct</td><td>3,332 sf</td><td>2020</td><td>$1,150,000</td><td>$345</td><td>Under contract in 6 days</td></tr>
+              <tr><td>27498 S Lazy Meadow</td><td>4,329 sf</td><td>2015</td><td>$1,450,000</td><td>$335</td><td>Under contract</td></tr>
+              <tr><td>4223 Maple Rapids Ln</td><td>6,064 sf</td><td>2014</td><td>$1,695,000</td><td>$280</td><td>Option pending</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>You are the highest per square foot of the four, and the only one of the four that has not attracted an offer.</p>
+        <p>The one that tells the story best is <strong>Lazy Meadow</strong>. It is 467 square feet larger, it sits on a full acre, it has a four-car garage, a media room and a separate guest suite, and it went under contract at <strong>$1,450,000</strong>. That is <strong>$25,000 more than you are asking.</strong> A buyer who walks both homes sees more house and more land for almost the same money, and the cigar lounge and wine room have to make up that whole gap on their own. For the right buyer they will. For most buyers they will not.</p>
+      </div>
+
+      <div class="up-sec">
+        <h2 class="up-sec__h">What I am doing</h2>
+        <ul class="up-list">
+          <li>Calling every agent who has walked a buyer through, more than once. That is how I got Paul back to the table.</li>
+          <li><strong>Paul is coming back Saturday at 1:30.</strong> You will see the appointment come through. His hesitation has been price, and a second visit is the one that counts.</li>
+          <li>Chasing the JLA Realty agent whose buyer called the home beautiful and kept it on their list.</li>
+          <li>Making certain the gate access failure from 25 July cannot happen to anyone else.</li>
+        </ul>
+      </div>
+
+      <div class="up-rec">
+        <p class="up-rec__label">My recommendation</p>
+        <p class="up-rec__price">$1,325,000</p>
+        <p class="up-rec__delta">A reduction of $100,000, or 7.0%. That puts you at $343 a square foot.</p>
+        <p>That number is not a guess. <strong>It lands between the two homes buyers are actually choosing right now</strong>, Balsam Fir at $345 and Lazy Meadow at $335 a square foot. It moves you from the most expensive home in the comparison to a competitive one, and it puts real daylight between you and Lazy Meadow instead of $25,000.</p>
+        <p>It also answers the size question. If a buyer is choosing between your 3,862 square feet and Lazy Meadow&rsquo;s 4,329 with a media room, the honest way to win that buyer is to be clearly better value, not nearly the same price.</p>
+        <p>I would rather make one clean move than chase the market down twenty five thousand at a time. Small cuts keep you above the buyers the whole way down and they make a listing look tired. <strong>Both homes that just went under contract moved once, and then found their buyer.</strong></p>
+        <p>I am not going to tell Paul we are considering anything before Saturday. I want to see what he does at the current price first.</p>
+        <p>Once we are at $1,325,000, <strong>I think we hold there.</strong> I am not seeing prices falling across the board in Benders Landing. What I am seeing is homes that opened high coming down to meet the market and then going under contract quickly. That is a pattern we can use rather than fear.</p>
+      </div>
+
+      <div class="up-sec">
+        <h2 class="up-sec__h">Let us talk</h2>
+        <p>Give me a call when you get a second. I would like your read on price before Saturday if we can manage it.</p>
+      </div>
+
+    </div>
+
+    <p class="up-cadence">This is your <b>day-28</b> review. From here, a standing <b>weekly</b> check-in.</p>
 
     <div class="up-cta">
       <a href="tel:8329909738" class="up-btn up-btn--gold">📞 Call Phil</a>
@@ -150,7 +313,7 @@
   <footer class="up-foot" role="contentinfo">
     <p><strong style="color:#fff;">Phillip Himes</strong>, REALTOR® · Brokered by eXp Realty · 2600 South Shore Blvd. Ste 300, League City, TX 77573</p>
     <p><a href="tel:8329909738">(832) 990-9738</a> · <a href="mailto:phil@philliphimes.com">phil@philliphimes.com</a></p>
-    <p class="up-foot__legal">MLS# 91533239 · © 2026 Phillip Himes · Licensed in Texas · Equal Housing Opportunity. Prepared privately for the owners of 6310 Star Light Court. All information is deemed reliable but not guaranteed and should be independently verified.</p>
+    <p class="up-foot__legal">MLS# 91533239 · © 2026 Phillip Himes · Licensed in Texas · Equal Housing Opportunity. Prepared privately for the owners of 6310 Star Light Court. Pricing recommendations reflect Phil's professional opinion of market activity and are not an appraisal. All information is deemed reliable but not guaranteed and should be independently verified.</p>
   </footer>
 
 </body>
