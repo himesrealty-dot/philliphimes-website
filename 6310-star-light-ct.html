@@ -318,11 +318,11 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
         <div class="pl-gate__card-sub">Enter your info and the complete listing opens instantly. Phil will follow up personally — no pressure.</div>
         <form id="gateForm" novalidate>
           <div class="pl-gate__row">
-            <div class="pl-gate__field"><input type="text" name="first_name" placeholder="First name" autocomplete="given-name" required /></div>
-            <div class="pl-gate__field"><input type="text" name="last_name" placeholder="Last name" autocomplete="family-name" required /></div>
+            <div class="pl-gate__field"><input type="text" name="first_name" placeholder="First name" autocomplete="given-name" required  aria-label="First name"/></div>
+            <div class="pl-gate__field"><input type="text" name="last_name" placeholder="Last name" autocomplete="family-name" required  aria-label="Last name"/></div>
           </div>
-          <div class="pl-gate__field"><input type="email" name="email" placeholder="Email" autocomplete="email" required /></div>
-          <div class="pl-gate__field"><input type="tel" name="phone" placeholder="Phone" autocomplete="tel" required /></div>
+          <div class="pl-gate__field"><input type="email" name="email" placeholder="Email" autocomplete="email" required  aria-label="Email"/></div>
+          <div class="pl-gate__field"><input type="tel" name="phone" placeholder="Phone" autocomplete="tel" required  aria-label="Phone"/></div>
           <div class="pl-gate__hp" aria-hidden="true"><label>Company<input type="text" name="company" tabindex="-1" autocomplete="off" /></label></div>
           <label class="pl-gate__consent">
             <input type="checkbox" name="sms_consent" value="yes" />
@@ -445,12 +445,12 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
         <div class="pl-form-card">
           <form id="showing-form" novalidate>
             <div class="pl-form__row">
-              <input class="pl-form__input" type="text" name="first_name" placeholder="First Name" required autocomplete="given-name" />
-              <input class="pl-form__input" type="text" name="last_name" placeholder="Last Name" required autocomplete="family-name" />
+              <input class="pl-form__input" type="text" name="first_name" placeholder="First Name" required autocomplete="given-name"  aria-label="First Name"/>
+              <input class="pl-form__input" type="text" name="last_name" placeholder="Last Name" required autocomplete="family-name"  aria-label="Last Name"/>
             </div>
             <div class="pl-form__row">
-              <input class="pl-form__input" type="email" name="email" placeholder="Email" required autocomplete="email" />
-              <input class="pl-form__input" type="tel" name="phone" placeholder="Phone" required autocomplete="tel" />
+              <input class="pl-form__input" type="email" name="email" placeholder="Email" required autocomplete="email"  aria-label="Email"/>
+              <input class="pl-form__input" type="tel" name="phone" placeholder="Phone" required autocomplete="tel"  aria-label="Phone"/>
             </div>
             <div class="pl-form__row pl-form__row--full">
               <select class="pl-form__sel" name="preferred_time" aria-label="Preferred showing time">
@@ -463,7 +463,7 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
               </select>
             </div>
             <div class="pl-form__row pl-form__row--full">
-              <input class="pl-form__input" type="text" name="message" placeholder="Anything you'd like Phil to know? (optional)" autocomplete="off" />
+              <input class="pl-form__input" type="text" name="message" placeholder="Anything you'd like Phil to know? (optional)" autocomplete="off"  aria-label="Anything you&#x27;d like Phil to know? (optional)"/>
             </div>
             <div style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;" aria-hidden="true">
               <label>Company<input type="text" name="company" tabindex="-1" autocomplete="off" /></label>

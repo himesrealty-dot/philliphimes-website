@@ -1017,15 +1017,15 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
           <div class="hvw__panel" data-step="3">
             <div class="hvw__field">
               <div class="hvw__row">
-                <input class="hvw__input" type="text" name="firstName" placeholder="First Name" autocomplete="given-name" />
-                <input class="hvw__input" type="text" name="lastName" placeholder="Last Name" autocomplete="family-name" />
+                <input class="hvw__input" type="text" name="firstName" placeholder="First Name" autocomplete="given-name"  aria-label="First Name"/>
+                <input class="hvw__input" type="text" name="lastName" placeholder="Last Name" autocomplete="family-name"  aria-label="Last Name"/>
               </div>
             </div>
             <div class="hvw__field">
-              <input class="hvw__input" type="tel" name="phone" placeholder="Phone Number" autocomplete="tel" />
+              <input class="hvw__input" type="tel" name="phone" placeholder="Phone Number" autocomplete="tel"  aria-label="Phone Number"/>
             </div>
             <div class="hvw__field">
-              <input class="hvw__input" type="email" name="email" placeholder="Email Address" autocomplete="email" />
+              <input class="hvw__input" type="email" name="email" placeholder="Email Address" autocomplete="email"  aria-label="Email Address"/>
             </div>
             <!-- honeypot: real people leave this empty -->
             <div style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;" aria-hidden="true">
@@ -1119,7 +1119,7 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
           </div>
 
           <div class="proceeds-calc__field">
-            <label class="proceeds-calc__label">Agent Commission</label>
+            <label class="proceeds-calc__label" for="pc-commission">Agent Commission</label>
             <div class="proceeds-calc__slider-row">
               <input class="proceeds-calc__slider" type="range" id="pc-commission" min="3" max="8" step="0.5" value="6" oninput="pcCalc()" />
               <span class="proceeds-calc__slider-val" id="pc-commission-val">6%</span>
@@ -1127,7 +1127,7 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
           </div>
 
           <div class="proceeds-calc__field">
-            <label class="proceeds-calc__label">Estimated Closing Costs</label>
+            <label class="proceeds-calc__label" for="pc-closing">Estimated Closing Costs</label>
             <div class="proceeds-calc__slider-row">
               <input class="proceeds-calc__slider" type="range" id="pc-closing" min="500" max="5000" step="250" value="2000" oninput="pcCalc()" />
               <span class="proceeds-calc__slider-val" id="pc-closing-val">$2,000</span>

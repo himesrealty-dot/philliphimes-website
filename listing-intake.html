@@ -193,10 +193,10 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
         <div class="li-section">
           <div class="li-section__title"><span class="li-section__num">1</span> Your Information</div>
           <div class="li-grid">
-            <div><label class="li-label">Full Name <span class="li-req">*</span></label><input class="li-input" type="text" name="seller_name" required /></div>
-            <div><label class="li-label">Best Phone <span class="li-req">*</span></label><input class="li-input" type="tel" name="seller_phone" required /></div>
-            <div><label class="li-label">Email <span class="li-req">*</span></label><input class="li-input" type="email" name="seller_email" required /></div>
-            <div><label class="li-label">Best Time to Reach You</label><input class="li-input" type="text" name="best_time" placeholder="e.g., Weekday evenings" /></div>
+            <div><label class="li-label" for="seller-name">Full Name <span class="li-req">*</span></label><input class="li-input" type="text" name="seller_name" required  id="seller-name"/></div>
+            <div><label class="li-label" for="seller-phone">Best Phone <span class="li-req">*</span></label><input class="li-input" type="tel" name="seller_phone" required  id="seller-phone"/></div>
+            <div><label class="li-label" for="seller-email">Email <span class="li-req">*</span></label><input class="li-input" type="email" name="seller_email" required  id="seller-email"/></div>
+            <div><label class="li-label" for="best-time">Best Time to Reach You</label><input class="li-input" type="text" name="best_time" placeholder="e.g., Weekday evenings"  id="best-time"/></div>
           </div>
 
           <!-- Co-owners (repeatable) -->
@@ -206,41 +206,41 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
               <div class="li-coowner" style="display:none;">
                 <div class="li-coowner__head"><span class="li-coowner__title">Co-Owner 1</span><button type="button" class="li-coowner__remove">✕ Remove</button></div>
                 <div class="li-grid li-grid--3">
-                  <div><label class="li-label">Full Name</label><input class="li-input" type="text" name="co_owner_1_name" disabled /></div>
-                  <div><label class="li-label">Phone</label><input class="li-input" type="tel" name="co_owner_1_phone" disabled /></div>
-                  <div><label class="li-label">Email</label><input class="li-input" type="email" name="co_owner_1_email" disabled /></div>
+                  <div><label class="li-label" for="co-owner-1-name">Full Name</label><input class="li-input" type="text" name="co_owner_1_name" disabled  id="co-owner-1-name"/></div>
+                  <div><label class="li-label" for="co-owner-1-phone">Phone</label><input class="li-input" type="tel" name="co_owner_1_phone" disabled  id="co-owner-1-phone"/></div>
+                  <div><label class="li-label" for="co-owner-1-email">Email</label><input class="li-input" type="email" name="co_owner_1_email" disabled  id="co-owner-1-email"/></div>
                 </div>
               </div>
               <div class="li-coowner" style="display:none;">
                 <div class="li-coowner__head"><span class="li-coowner__title">Co-Owner 2</span><button type="button" class="li-coowner__remove">✕ Remove</button></div>
                 <div class="li-grid li-grid--3">
-                  <div><label class="li-label">Full Name</label><input class="li-input" type="text" name="co_owner_2_name" disabled /></div>
-                  <div><label class="li-label">Phone</label><input class="li-input" type="tel" name="co_owner_2_phone" disabled /></div>
-                  <div><label class="li-label">Email</label><input class="li-input" type="email" name="co_owner_2_email" disabled /></div>
+                  <div><label class="li-label" for="co-owner-2-name">Full Name</label><input class="li-input" type="text" name="co_owner_2_name" disabled  id="co-owner-2-name"/></div>
+                  <div><label class="li-label" for="co-owner-2-phone">Phone</label><input class="li-input" type="tel" name="co_owner_2_phone" disabled  id="co-owner-2-phone"/></div>
+                  <div><label class="li-label" for="co-owner-2-email">Email</label><input class="li-input" type="email" name="co_owner_2_email" disabled  id="co-owner-2-email"/></div>
                 </div>
               </div>
               <div class="li-coowner" style="display:none;">
                 <div class="li-coowner__head"><span class="li-coowner__title">Co-Owner 3</span><button type="button" class="li-coowner__remove">✕ Remove</button></div>
                 <div class="li-grid li-grid--3">
-                  <div><label class="li-label">Full Name</label><input class="li-input" type="text" name="co_owner_3_name" disabled /></div>
-                  <div><label class="li-label">Phone</label><input class="li-input" type="tel" name="co_owner_3_phone" disabled /></div>
-                  <div><label class="li-label">Email</label><input class="li-input" type="email" name="co_owner_3_email" disabled /></div>
+                  <div><label class="li-label" for="co-owner-3-name">Full Name</label><input class="li-input" type="text" name="co_owner_3_name" disabled  id="co-owner-3-name"/></div>
+                  <div><label class="li-label" for="co-owner-3-phone">Phone</label><input class="li-input" type="tel" name="co_owner_3_phone" disabled  id="co-owner-3-phone"/></div>
+                  <div><label class="li-label" for="co-owner-3-email">Email</label><input class="li-input" type="email" name="co_owner_3_email" disabled  id="co-owner-3-email"/></div>
                 </div>
               </div>
               <div class="li-coowner" style="display:none;">
                 <div class="li-coowner__head"><span class="li-coowner__title">Co-Owner 4</span><button type="button" class="li-coowner__remove">✕ Remove</button></div>
                 <div class="li-grid li-grid--3">
-                  <div><label class="li-label">Full Name</label><input class="li-input" type="text" name="co_owner_4_name" disabled /></div>
-                  <div><label class="li-label">Phone</label><input class="li-input" type="tel" name="co_owner_4_phone" disabled /></div>
-                  <div><label class="li-label">Email</label><input class="li-input" type="email" name="co_owner_4_email" disabled /></div>
+                  <div><label class="li-label" for="co-owner-4-name">Full Name</label><input class="li-input" type="text" name="co_owner_4_name" disabled  id="co-owner-4-name"/></div>
+                  <div><label class="li-label" for="co-owner-4-phone">Phone</label><input class="li-input" type="tel" name="co_owner_4_phone" disabled  id="co-owner-4-phone"/></div>
+                  <div><label class="li-label" for="co-owner-4-email">Email</label><input class="li-input" type="email" name="co_owner_4_email" disabled  id="co-owner-4-email"/></div>
                 </div>
               </div>
               <div class="li-coowner" style="display:none;">
                 <div class="li-coowner__head"><span class="li-coowner__title">Co-Owner 5</span><button type="button" class="li-coowner__remove">✕ Remove</button></div>
                 <div class="li-grid li-grid--3">
-                  <div><label class="li-label">Full Name</label><input class="li-input" type="text" name="co_owner_5_name" disabled /></div>
-                  <div><label class="li-label">Phone</label><input class="li-input" type="tel" name="co_owner_5_phone" disabled /></div>
-                  <div><label class="li-label">Email</label><input class="li-input" type="email" name="co_owner_5_email" disabled /></div>
+                  <div><label class="li-label" for="co-owner-5-name">Full Name</label><input class="li-input" type="text" name="co_owner_5_name" disabled  id="co-owner-5-name"/></div>
+                  <div><label class="li-label" for="co-owner-5-phone">Phone</label><input class="li-input" type="tel" name="co_owner_5_phone" disabled  id="co-owner-5-phone"/></div>
+                  <div><label class="li-label" for="co-owner-5-email">Email</label><input class="li-input" type="email" name="co_owner_5_email" disabled  id="co-owner-5-email"/></div>
                 </div>
               </div>
             </div>
@@ -252,30 +252,30 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
         <div class="li-section">
           <div class="li-section__title"><span class="li-section__num">2</span> Property Basics</div>
           <div class="li-grid">
-            <div class="span-2"><label class="li-label">Property Address <span class="li-req">*</span></label><input class="li-input" type="text" name="property_address" placeholder="Street address" required /></div>
-            <div><label class="li-label">City <span class="li-req">*</span></label><input class="li-input" type="text" name="property_city" required /></div>
-            <div><label class="li-label">ZIP <span class="li-req">*</span></label><input class="li-input" type="text" name="property_zip" required /></div>
-            <div><label class="li-label">Subdivision / Community</label><input class="li-input" type="text" name="subdivision" /></div>
-            <div><label class="li-label">Property Type</label>
-              <select class="li-select" name="property_type"><option value="">Select…</option><option>Single-Family Detached</option><option>Patio Home</option><option>Townhome</option><option>Duplex</option><option>Other</option></select></div>
-            <div><label class="li-label">Bedrooms <span class="li-req">*</span></label><input class="li-input" type="number" name="bedrooms" min="0" required /></div>
-            <div><label class="li-label">Full Baths <span class="li-req">*</span></label><input class="li-input" type="number" name="full_baths" min="0" required /></div>
-            <div><label class="li-label">Half Baths</label><input class="li-input" type="number" name="half_baths" min="0" /></div>
-            <div><label class="li-label">Approx. Square Footage</label><input class="li-input" type="text" name="sqft" /></div>
-            <div><label class="li-label">Year Built</label><input class="li-input" type="text" name="year_built" /></div>
-            <div><label class="li-label">Stories</label>
-              <select class="li-select" name="stories"><option value="">Select…</option><option>1</option><option>2</option><option>3+</option></select></div>
-            <div><label class="li-label">Lot Size (approx.)</label><input class="li-input" type="text" name="lot_size" placeholder="e.g., 7,200 sqft or 0.25 acre" /></div>
-            <div><label class="li-label">Garage Spaces</label>
-              <select class="li-select" name="garage_spaces"><option value="">Select…</option><option>None</option><option>1</option><option>2</option><option>3+</option></select></div>
-            <div><label class="li-label">Garage Type</label>
-              <select class="li-select" name="garage_type"><option value="">Select…</option><option>Attached</option><option>Detached</option><option>Carport</option><option>None</option></select></div>
-            <div><label class="li-label">Current Occupancy</label>
-              <select class="li-select" name="occupancy"><option value="">Select…</option><option>Owner-occupied</option><option>Tenant-occupied</option><option>Vacant</option></select></div>
-            <div><label class="li-label">HOA?</label>
-              <select class="li-select" name="has_hoa"><option value="">Select…</option><option>No HOA</option><option>Yes</option><option>Not sure</option></select></div>
-            <div><label class="li-label">HOA Name</label><input class="li-input" type="text" name="hoa_name" placeholder="If applicable" /></div>
-            <div><label class="li-label">HOA Dues (approx.)</label><input class="li-input" type="text" name="hoa_dues" placeholder="e.g., $900/year" /></div>
+            <div class="span-2"><label class="li-label" for="property-address">Property Address <span class="li-req">*</span></label><input class="li-input" type="text" name="property_address" placeholder="Street address" required  id="property-address"/></div>
+            <div><label class="li-label" for="property-city">City <span class="li-req">*</span></label><input class="li-input" type="text" name="property_city" required  id="property-city"/></div>
+            <div><label class="li-label" for="property-zip">ZIP <span class="li-req">*</span></label><input class="li-input" type="text" name="property_zip" required  id="property-zip"/></div>
+            <div><label class="li-label" for="subdivision">Subdivision / Community</label><input class="li-input" type="text" name="subdivision"  id="subdivision"/></div>
+            <div><label class="li-label" for="property-type">Property Type</label>
+              <select class="li-select" name="property_type" id="property-type"><option value="">Select…</option><option>Single-Family Detached</option><option>Patio Home</option><option>Townhome</option><option>Duplex</option><option>Other</option></select></div>
+            <div><label class="li-label" for="bedrooms">Bedrooms <span class="li-req">*</span></label><input class="li-input" type="number" name="bedrooms" min="0" required  id="bedrooms"/></div>
+            <div><label class="li-label" for="full-baths">Full Baths <span class="li-req">*</span></label><input class="li-input" type="number" name="full_baths" min="0" required  id="full-baths"/></div>
+            <div><label class="li-label" for="half-baths">Half Baths</label><input class="li-input" type="number" name="half_baths" min="0"  id="half-baths"/></div>
+            <div><label class="li-label" for="sqft">Approx. Square Footage</label><input class="li-input" type="text" name="sqft"  id="sqft"/></div>
+            <div><label class="li-label" for="year-built">Year Built</label><input class="li-input" type="text" name="year_built"  id="year-built"/></div>
+            <div><label class="li-label" for="stories">Stories</label>
+              <select class="li-select" name="stories" id="stories"><option value="">Select…</option><option>1</option><option>2</option><option>3+</option></select></div>
+            <div><label class="li-label" for="lot-size">Lot Size (approx.)</label><input class="li-input" type="text" name="lot_size" placeholder="e.g., 7,200 sqft or 0.25 acre"  id="lot-size"/></div>
+            <div><label class="li-label" for="garage-spaces">Garage Spaces</label>
+              <select class="li-select" name="garage_spaces" id="garage-spaces"><option value="">Select…</option><option>None</option><option>1</option><option>2</option><option>3+</option></select></div>
+            <div><label class="li-label" for="garage-type">Garage Type</label>
+              <select class="li-select" name="garage_type" id="garage-type"><option value="">Select…</option><option>Attached</option><option>Detached</option><option>Carport</option><option>None</option></select></div>
+            <div><label class="li-label" for="occupancy">Current Occupancy</label>
+              <select class="li-select" name="occupancy" id="occupancy"><option value="">Select…</option><option>Owner-occupied</option><option>Tenant-occupied</option><option>Vacant</option></select></div>
+            <div><label class="li-label" for="has-hoa">HOA?</label>
+              <select class="li-select" name="has_hoa" id="has-hoa"><option value="">Select…</option><option>No HOA</option><option>Yes</option><option>Not sure</option></select></div>
+            <div><label class="li-label" for="hoa-name">HOA Name</label><input class="li-input" type="text" name="hoa_name" placeholder="If applicable"  id="hoa-name"/></div>
+            <div><label class="li-label" for="hoa-dues">HOA Dues (approx.)</label><input class="li-input" type="text" name="hoa_dues" placeholder="e.g., $900/year"  id="hoa-dues"/></div>
           </div>
         </div>
 
@@ -283,15 +283,15 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
         <div class="li-section">
           <div class="li-section__title"><span class="li-section__num">3</span> Features &amp; Recent Updates</div>
           <div class="li-grid">
-            <div><label class="li-label">Pool</label>
-              <select class="li-select" name="pool"><option value="">Select…</option><option>None</option><option>In-ground</option><option>Above-ground</option></select></div>
-            <div><label class="li-label">Spa / Hot Tub</label>
-              <select class="li-select" name="spa"><option value="">Select…</option><option>No</option><option>Yes</option></select></div>
-            <div><label class="li-label">Number of Fireplaces</label><input class="li-input" type="number" name="fireplaces" min="0" /></div>
-            <div><label class="li-label">Primary Bedroom Location</label>
-              <select class="li-select" name="primary_bed"><option value="">Select…</option><option>1st floor</option><option>2nd floor</option></select></div>
-            <div><label class="li-label">Roof — Age or Year Replaced</label><input class="li-input" type="text" name="roof_age" placeholder="e.g., 2019" /></div>
-            <div><label class="li-label">HVAC — Age or Year Replaced</label><input class="li-input" type="text" name="hvac_age" placeholder="e.g., 2021" /></div>
+            <div><label class="li-label" for="pool">Pool</label>
+              <select class="li-select" name="pool" id="pool"><option value="">Select…</option><option>None</option><option>In-ground</option><option>Above-ground</option></select></div>
+            <div><label class="li-label" for="spa">Spa / Hot Tub</label>
+              <select class="li-select" name="spa" id="spa"><option value="">Select…</option><option>No</option><option>Yes</option></select></div>
+            <div><label class="li-label" for="fireplaces">Number of Fireplaces</label><input class="li-input" type="number" name="fireplaces" min="0"  id="fireplaces"/></div>
+            <div><label class="li-label" for="primary-bed">Primary Bedroom Location</label>
+              <select class="li-select" name="primary_bed" id="primary-bed"><option value="">Select…</option><option>1st floor</option><option>2nd floor</option></select></div>
+            <div><label class="li-label" for="roof-age">Roof — Age or Year Replaced</label><input class="li-input" type="text" name="roof_age" placeholder="e.g., 2019"  id="roof-age"/></div>
+            <div><label class="li-label" for="hvac-age">HVAC — Age or Year Replaced</label><input class="li-input" type="text" name="hvac_age" placeholder="e.g., 2021"  id="hvac-age"/></div>
           </div>
           <div style="margin-top:1rem;">
             <label class="li-label">Flooring Types (check all that apply)</label>
@@ -322,8 +322,8 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
             </div>
           </div>
           <div style="margin-top:1rem;">
-            <label class="li-label">Recent Updates &amp; Upgrades (with approx. years)</label>
-            <textarea class="li-textarea" name="recent_updates" placeholder="e.g., Kitchen remodel 2022, new water heater 2023, fresh paint 2024, fence replaced 2021…"></textarea>
+            <label class="li-label" for="recent-updates">Recent Updates &amp; Upgrades (with approx. years)</label>
+            <textarea class="li-textarea" name="recent_updates" placeholder="e.g., Kitchen remodel 2022, new water heater 2023, fresh paint 2024, fence replaced 2021…" id="recent-updates"></textarea>
           </div>
         </div>
 
@@ -342,8 +342,8 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
             </div>
           </div>
           <div class="li-grid" style="margin-top:1rem;">
-            <div class="span-2"><label class="li-label">Other Items Included</label><input class="li-input" type="text" name="other_included" placeholder="e.g., mounted TVs, shelving, swing set" /></div>
-            <div class="span-2"><label class="li-label">Items You Plan to EXCLUDE / Take With You</label><input class="li-input" type="text" name="exclusions" placeholder="e.g., dining chandelier, garage shelving, patio furniture" /></div>
+            <div class="span-2"><label class="li-label" for="other-included">Other Items Included</label><input class="li-input" type="text" name="other_included" placeholder="e.g., mounted TVs, shelving, swing set"  id="other-included"/></div>
+            <div class="span-2"><label class="li-label" for="exclusions">Items You Plan to EXCLUDE / Take With You</label><input class="li-input" type="text" name="exclusions" placeholder="e.g., dining chandelier, garage shelving, patio furniture"  id="exclusions"/></div>
           </div>
           <div style="margin-top:1rem;">
             <label class="li-label">Any Leased Items? (check all that apply)</label>
@@ -361,14 +361,14 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
         <div class="li-section">
           <div class="li-section__title"><span class="li-section__num">5</span> Showing, Timeline &amp; Notes</div>
           <div class="li-grid">
-            <div><label class="li-label">Ideal Timeline to List <span class="li-req">*</span></label>
-              <select class="li-select" name="timeline" required><option value="">Select…</option><option>As soon as possible</option><option>Within 30 days</option><option>60–90 days</option><option>Just exploring for now</option></select></div>
-            <div><label class="li-label">Price Expectation (if any)</label><input class="li-input" type="text" name="price_expectation" placeholder="Optional" /></div>
-            <div><label class="li-label">Pets at the Property?</label><input class="li-input" type="text" name="pets" placeholder="e.g., 1 dog, crated for showings" /></div>
-            <div><label class="li-label">Reason for Selling</label><input class="li-input" type="text" name="reason" placeholder="Optional" /></div>
-            <div class="span-2"><label class="li-label">Showing / Access Notes</label><textarea class="li-textarea" name="showing_notes" placeholder="Gate codes, lockbox preferences, best showing times, anything to know for access…"></textarea></div>
-            <div class="span-2"><label class="li-label">Known Issues or Repairs Needed</label><textarea class="li-textarea" name="known_issues" placeholder="Anything currently not working or in need of repair (helps us plan ahead)…"></textarea></div>
-            <div class="span-2"><label class="li-label">Anything Else I Should Know?</label><textarea class="li-textarea" name="additional_notes"></textarea></div>
+            <div><label class="li-label" for="timeline">Ideal Timeline to List <span class="li-req">*</span></label>
+              <select class="li-select" name="timeline" required id="timeline"><option value="">Select…</option><option>As soon as possible</option><option>Within 30 days</option><option>60–90 days</option><option>Just exploring for now</option></select></div>
+            <div><label class="li-label" for="price-expectation">Price Expectation (if any)</label><input class="li-input" type="text" name="price_expectation" placeholder="Optional"  id="price-expectation"/></div>
+            <div><label class="li-label" for="pets">Pets at the Property?</label><input class="li-input" type="text" name="pets" placeholder="e.g., 1 dog, crated for showings"  id="pets"/></div>
+            <div><label class="li-label" for="reason">Reason for Selling</label><input class="li-input" type="text" name="reason" placeholder="Optional"  id="reason"/></div>
+            <div class="span-2"><label class="li-label" for="showing-notes">Showing / Access Notes</label><textarea class="li-textarea" name="showing_notes" placeholder="Gate codes, lockbox preferences, best showing times, anything to know for access…" id="showing-notes"></textarea></div>
+            <div class="span-2"><label class="li-label" for="known-issues">Known Issues or Repairs Needed</label><textarea class="li-textarea" name="known_issues" placeholder="Anything currently not working or in need of repair (helps us plan ahead)…" id="known-issues"></textarea></div>
+            <div class="span-2"><label class="li-label" for="additional-notes">Anything Else I Should Know?</label><textarea class="li-textarea" name="additional_notes" id="additional-notes"></textarea></div>
           </div>
         </div>
 

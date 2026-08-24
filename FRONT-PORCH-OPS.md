@@ -160,8 +160,10 @@ compensating an unlicensed person for brokerage services. Gratitude, not bounty.
 - **A cap only exists with a homestead.** Market-minus-taxable also appears on ag
   land, abatements and commercial limits — don't call those a homestead cap.
 - **`X-Robots-Tag` beats a page `<meta robots>`.** The noindex headers in
-  `netlify.toml` are listed per page on purpose; a `/front-porch*` wildcard once
-  silently blocked the one page that was meant to be indexed.
+  `netlify.toml` are listed per page on purpose. A `/front-porch*` wildcard once
+  silently overrode the page-level tag on the guest pass while it was being built
+  as an indexable page. All four pages are noindex today, so keep the per-page
+  form: it forces the next page added to this family to opt in deliberately.
 - **`url()` in a stylesheet resolves against the stylesheet, not the page.**
   Moving CSS from inline into `css/` broke the hero image for several hours.
 

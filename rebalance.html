@@ -394,7 +394,7 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
 
   <div class="form-row" style="margin-bottom:8px;">
     <div class="form-group">
-      <label>How many bedrooms?</label>
+      <label for="currentBeds">How many bedrooms?</label>
       <select id="currentBeds" onchange="state.currentBeds = parseInt(this.value)||0">
         <option value="">— select —</option>
         <option value="2">2 bedrooms</option>
@@ -404,7 +404,7 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
       </select>
     </div>
     <div class="form-group">
-      <label>How many bathrooms?</label>
+      <label for="currentBaths">How many bathrooms?</label>
       <select id="currentBaths" onchange="state.currentBaths = parseFloat(this.value)||0">
         <option value="">— select —</option>
         <option value="1">1 bathroom</option>
@@ -418,7 +418,7 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
 
   <div class="form-row" style="margin-bottom:8px;">
     <div class="form-group">
-      <label>Approximate square footage</label>
+      <label for="currentSqft">Approximate square footage</label>
       <select id="currentSqft" onchange="state.currentSqft = parseInt(this.value)||0">
         <option value="">— select —</option>
         <option value="1400">Under 1,600 sq ft</option>
@@ -430,7 +430,7 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
       </select>
     </div>
     <div class="form-group">
-      <label>Year built (approx.)</label>
+      <label for="currentYear">Year built (approx.)</label>
       <select id="currentYear" onchange="state.currentYear = parseInt(this.value)||0">
         <option value="">— select —</option>
         <option value="2018">2015 or newer</option>
@@ -444,7 +444,7 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
   </div>
 
   <div class="form-group">
-    <label>What do you think your home could sell for?</label>
+    <label for="homeValue">What do you think your home could sell for?</label>
     <select id="homeValue" onchange="calcEquity()">
       <option value="">— select a range —</option>
       <option value="225000">Under $250,000</option>
@@ -463,7 +463,7 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
   </div>
 
   <div class="form-group">
-    <label>Remaining mortgage balance</label>
+    <label for="mortgageBalance">Remaining mortgage balance</label>
     <input type="text" id="mortgageBalance" placeholder="e.g. $187,500" oninput="formatDollar(this); calcEquity()">
     <p class="form-hint">Check your last statement or log in to your lender's portal. The closer the number, the sharper the picture.</p>
   </div>
@@ -506,7 +506,7 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
 
   <div class="form-row" style="margin-bottom:8px;">
     <div class="form-group">
-      <label>Target New Home Price</label>
+      <label for="newHomePrice">Target New Home Price</label>
       <select id="newHomePrice" onchange="updateNewHomeHint()">
         <option value="">— select range —</option>
         <option value="175000">Under $200,000</option>
@@ -521,7 +521,7 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
       <p class="form-hint" id="newHomePriceHint">Your strategy changes significantly based on this number — we'll show you exactly how.</p>
     </div>
     <div class="form-group">
-      <label>Type of Home You're Targeting</label>
+      <label for="newHomeType">Type of Home You're Targeting</label>
       <select id="newHomeType" onchange="state.newHomeType = this.value">
         <option value="">— select —</option>
         <option value="patio-home">Patio / Garden Home</option>
@@ -534,7 +534,7 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
   </div>
 
   <div class="form-group">
-    <label>Preferred Area</label>
+    <label for="preferredArea">Preferred Area</label>
     <select id="preferredArea" onchange="state.preferredArea = this.value">
       <option value="">— select area —</option>
       <option value="League City">League City</option>
@@ -551,12 +551,12 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
 
   <div class="form-row" style="margin-bottom:8px;">
     <div class="form-group">
-      <label>Current Monthly Payment (PITI)</label>
+      <label for="currentPayment">Current Monthly Payment (PITI)</label>
       <input type="text" id="currentPayment" placeholder="e.g. $2,847" oninput="formatDollar(this)">
       <p class="form-hint">Your exact principal, interest, taxes, and insurance — check your last mortgage statement. The closer the number, the sharper the cashflow picture.</p>
     </div>
     <div class="form-group">
-      <label>Household Income</label>
+      <label for="householdIncome">Household Income</label>
       <select id="householdIncome">
         <option value="">— select range —</option>
         <option value="60000">Under $75,000</option>
@@ -571,12 +571,12 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
 
   <div class="form-row" style="margin-bottom:8px;">
     <div class="form-group">
-      <label>Current Retirement Savings</label>
+      <label for="retirementSavings">Current Retirement Savings</label>
       <input type="text" id="retirementSavings" placeholder="e.g. $284,000" oninput="formatDollar(this)">
       <p class="form-hint">401K, IRA, pension — total combined. Check your last statement. This shapes your projected wealth.</p>
     </div>
     <div class="form-group">
-      <label>Date of Birth</label>
+      <label for="birthDate">Date of Birth</label>
       <input type="date" id="birthDate" min="1940-01-01" max="2026-12-31" value="1960-01-01"
              onchange="state.birthDate = this.value; state.birthYear = this.value ? parseInt(this.value.split('-')[0]) : 0">
       <p class="form-hint">Used by reLifeIQ™ to calculate your lifetime financial benefits.</p>
@@ -584,7 +584,7 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
   </div>
   <div class="form-row" style="margin-bottom:8px;">
     <div class="form-group">
-      <label>Est. Social Security Income</label>
+      <label for="socialSecurityIncome">Est. Social Security Income</label>
       <input type="text" id="socialSecurityIncome" placeholder="e.g. $2,200/mo" oninput="formatDollar(this)">
       <p class="form-hint">Your estimated monthly SSI benefit. Check ssa.gov or your last benefits statement. Not receiving yet? Enter $0.</p>
     </div>
@@ -599,12 +599,12 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
     </div>
     <div class="contrib-fields" id="contribFields">
       <div class="form-group" style="margin-bottom:0;">
-        <label>Your Monthly Contribution</label>
+        <label for="monthlyContrib">Your Monthly Contribution</label>
         <input type="text" id="monthlyContrib" placeholder="e.g. $500" oninput="formatDollar(this)">
         <p class="form-hint">What you personally contribute each month.</p>
       </div>
       <div class="form-group" style="margin-bottom:0;">
-        <label>Employer Annual Contribution</label>
+        <label for="employerAnnual">Employer Annual Contribution</label>
         <input type="text" id="employerAnnual" placeholder="e.g. $3,600" oninput="formatDollar(this)">
         <p class="form-hint">Total your employer contributes per year.</p>
       </div>
@@ -820,20 +820,20 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
       <p style="font-size:14px;color:var(--text-mid);margin-bottom:24px;line-height:1.6;">Where should we send your personalized Rebalance report?</p>
       <div class="form-row">
         <div class="form-group">
-          <label>First Name</label>
+          <label for="captureFirst">First Name</label>
           <input type="text" id="captureFirst" placeholder="Sandra">
         </div>
         <div class="form-group">
-          <label>Last Name</label>
+          <label for="captureLast">Last Name</label>
           <input type="text" id="captureLast" placeholder="Martinez">
         </div>
       </div>
       <div class="form-group">
-        <label>Best Email</label>
+        <label for="captureEmail">Best Email</label>
         <input type="email" id="captureEmail" placeholder="sandra@email.com">
       </div>
       <div class="form-group">
-        <label>Best Phone</label>
+        <label for="capturePhone">Best Phone</label>
         <input type="tel" id="capturePhone" placeholder="(832) 555-0000" oninput="formatPhone(this)" maxlength="14">
       </div>
       <button onclick="submitCapture()" style="width:100%;padding:18px;background:var(--gold);color:var(--navy);border:none;border-radius:10px;font-size:17px;font-weight:700;font-family:'Inter',sans-serif;cursor:pointer;margin-top:8px;">Get My Rebalance Report &rarr;</button>
@@ -876,7 +876,7 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
         </div>
       </div>
       <div class="form-group">
-        <label>Best Time to Meet</label>
+        <label for="apptTime">Best Time to Meet</label>
         <select id="apptTime">
           <option value="">— select —</option>
           <option value="morning">Morning (8am – 12pm)</option>

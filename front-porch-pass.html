@@ -317,7 +317,7 @@
     <section class="pass-sec">
       <div class="pass-wrap">
 
-        <h1 class="pass-addr" id="res-addr">&mdash;</h1>
+        <h2 class="pass-addr" id="res-addr">&mdash;</h2>
         <div class="pass-addr-sub" id="res-county">&mdash;</div>
 
         <div class="pass-tiles">
@@ -367,10 +367,10 @@
 
           <form id="pass-form" novalidate>
             <div class="pass-row">
-              <input type="text" name="firstName" placeholder="First name" autocomplete="given-name" />
-              <input type="text" name="lastName" placeholder="Last name" autocomplete="family-name" />
+              <input type="text" name="firstName" aria-label="First name" placeholder="First name" autocomplete="given-name" />
+              <input type="text" name="lastName" aria-label="Last name" placeholder="Last name" autocomplete="family-name" />
             </div>
-            <input type="email" name="email" placeholder="Email address" autocomplete="email" />
+            <input type="email" name="email" aria-label="Email address" placeholder="Email address" autocomplete="email" />
             <!-- honeypot -->
             <div style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;" aria-hidden="true">
               <label>Company<input type="text" name="company" tabindex="-1" autocomplete="off" /></label>

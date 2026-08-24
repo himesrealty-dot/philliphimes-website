@@ -924,12 +924,12 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
 
               <!-- Contact info -->
               <div class="schedule-form-row">
-                <input type="text" name="firstName" placeholder="First Name" required />
-                <input type="text" name="lastName" placeholder="Last Name" required />
+                <input type="text" name="firstName" placeholder="First Name" required  aria-label="First Name"/>
+                <input type="text" name="lastName" placeholder="Last Name" required  aria-label="Last Name"/>
               </div>
               <div class="schedule-form-row">
-                <input type="email" name="email" placeholder="Email Address" required />
-                <input type="tel" name="phone" placeholder="Phone Number" required />
+                <input type="email" name="email" placeholder="Email Address" required  aria-label="Email Address"/>
+                <input type="tel" name="phone" placeholder="Phone Number" required  aria-label="Phone Number"/>
               </div>
 
               <!-- Dynamic property rows -->
@@ -937,11 +937,11 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
               <div id="property-rows">
                 <div class="property-row">
                   <div class="property-row__addr">
-                    <input type="text" placeholder="Address or MLS #" class="prop-address" required />
+                    <input type="text" placeholder="Address or MLS #" class="prop-address" required  aria-label="Address or MLS #"/>
                   </div>
                   <div class="property-row__datetime">
-                    <input type="date" class="prop-date" />
-                    <select class="prop-time">
+                    <input type="date" class="prop-date"  aria-label="Showing date"/>
+                    <select class="prop-time" aria-label="Showing time">
                       <option value="">Any time</option>
                       <option>8:00am</option>
                       <option>9:00am</option>
@@ -961,7 +961,7 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
               </div>
               <button type="button" class="schedule-add-btn" onclick="addPropRow()">+ Add Another Property</button>
 
-              <textarea name="message" placeholder="Anything else Phil should know? (optional)"></textarea>
+              <textarea name="message" placeholder="Anything else Phil should know? (optional)" aria-label="Anything else Phil should know? (optional)"></textarea>
               <button type="submit" class="schedule-submit-btn">Request a Showing →</button>
               <p class="schedule-form__note">Phil will follow up within a few hours. No obligation.</p>
             </form>

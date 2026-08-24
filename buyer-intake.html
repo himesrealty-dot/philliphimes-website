@@ -192,11 +192,11 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
         <div class="bi-section">
           <div class="bi-section__title"><span class="bi-section__num">1</span> Your Information</div>
           <div class="bi-grid">
-            <div><label class="bi-label">Full Name <span class="bi-req">*</span></label><input class="bi-input" type="text" name="buyer_name" required /></div>
-            <div><label class="bi-label">Best Phone <span class="bi-req">*</span></label><input class="bi-input" type="tel" name="buyer_phone" required /></div>
-            <div><label class="bi-label">Email <span class="bi-req">*</span></label><input class="bi-input" type="email" name="buyer_email" required /></div>
-            <div><label class="bi-label">Best Time to Reach You</label><input class="bi-input" type="text" name="best_time" placeholder="e.g., Weekday evenings" /></div>
-            <div class="span-2"><label class="bi-label">How Did You Hear About Me?</label><input class="bi-input" type="text" name="heard_about" placeholder="Optional" /></div>
+            <div><label class="bi-label" for="buyer-name">Full Name <span class="bi-req">*</span></label><input class="bi-input" type="text" name="buyer_name" required  id="buyer-name"/></div>
+            <div><label class="bi-label" for="buyer-phone">Best Phone <span class="bi-req">*</span></label><input class="bi-input" type="tel" name="buyer_phone" required  id="buyer-phone"/></div>
+            <div><label class="bi-label" for="buyer-email">Email <span class="bi-req">*</span></label><input class="bi-input" type="email" name="buyer_email" required  id="buyer-email"/></div>
+            <div><label class="bi-label" for="best-time">Best Time to Reach You</label><input class="bi-input" type="text" name="best_time" placeholder="e.g., Weekday evenings"  id="best-time"/></div>
+            <div class="span-2"><label class="bi-label" for="heard-about">How Did You Hear About Me?</label><input class="bi-input" type="text" name="heard_about" placeholder="Optional"  id="heard-about"/></div>
           </div>
 
           <!-- Co-buyers (repeatable) -->
@@ -206,25 +206,25 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
               <div class="bi-cobuyer" style="display:none;">
                 <div class="bi-cobuyer__head"><span class="bi-cobuyer__title">Co-Buyer 1</span><button type="button" class="bi-cobuyer__remove">✕ Remove</button></div>
                 <div class="bi-grid bi-grid--3">
-                  <div><label class="bi-label">Full Name</label><input class="bi-input" type="text" name="co_buyer_1_name" disabled /></div>
-                  <div><label class="bi-label">Phone</label><input class="bi-input" type="tel" name="co_buyer_1_phone" disabled /></div>
-                  <div><label class="bi-label">Email</label><input class="bi-input" type="email" name="co_buyer_1_email" disabled /></div>
+                  <div><label class="bi-label" for="co-buyer-1-name">Full Name</label><input class="bi-input" type="text" name="co_buyer_1_name" disabled  id="co-buyer-1-name"/></div>
+                  <div><label class="bi-label" for="co-buyer-1-phone">Phone</label><input class="bi-input" type="tel" name="co_buyer_1_phone" disabled  id="co-buyer-1-phone"/></div>
+                  <div><label class="bi-label" for="co-buyer-1-email">Email</label><input class="bi-input" type="email" name="co_buyer_1_email" disabled  id="co-buyer-1-email"/></div>
                 </div>
               </div>
               <div class="bi-cobuyer" style="display:none;">
                 <div class="bi-cobuyer__head"><span class="bi-cobuyer__title">Co-Buyer 2</span><button type="button" class="bi-cobuyer__remove">✕ Remove</button></div>
                 <div class="bi-grid bi-grid--3">
-                  <div><label class="bi-label">Full Name</label><input class="bi-input" type="text" name="co_buyer_2_name" disabled /></div>
-                  <div><label class="bi-label">Phone</label><input class="bi-input" type="tel" name="co_buyer_2_phone" disabled /></div>
-                  <div><label class="bi-label">Email</label><input class="bi-input" type="email" name="co_buyer_2_email" disabled /></div>
+                  <div><label class="bi-label" for="co-buyer-2-name">Full Name</label><input class="bi-input" type="text" name="co_buyer_2_name" disabled  id="co-buyer-2-name"/></div>
+                  <div><label class="bi-label" for="co-buyer-2-phone">Phone</label><input class="bi-input" type="tel" name="co_buyer_2_phone" disabled  id="co-buyer-2-phone"/></div>
+                  <div><label class="bi-label" for="co-buyer-2-email">Email</label><input class="bi-input" type="email" name="co_buyer_2_email" disabled  id="co-buyer-2-email"/></div>
                 </div>
               </div>
               <div class="bi-cobuyer" style="display:none;">
                 <div class="bi-cobuyer__head"><span class="bi-cobuyer__title">Co-Buyer 3</span><button type="button" class="bi-cobuyer__remove">✕ Remove</button></div>
                 <div class="bi-grid bi-grid--3">
-                  <div><label class="bi-label">Full Name</label><input class="bi-input" type="text" name="co_buyer_3_name" disabled /></div>
-                  <div><label class="bi-label">Phone</label><input class="bi-input" type="tel" name="co_buyer_3_phone" disabled /></div>
-                  <div><label class="bi-label">Email</label><input class="bi-input" type="email" name="co_buyer_3_email" disabled /></div>
+                  <div><label class="bi-label" for="co-buyer-3-name">Full Name</label><input class="bi-input" type="text" name="co_buyer_3_name" disabled  id="co-buyer-3-name"/></div>
+                  <div><label class="bi-label" for="co-buyer-3-phone">Phone</label><input class="bi-input" type="tel" name="co_buyer_3_phone" disabled  id="co-buyer-3-phone"/></div>
+                  <div><label class="bi-label" for="co-buyer-3-email">Email</label><input class="bi-input" type="email" name="co_buyer_3_email" disabled  id="co-buyer-3-email"/></div>
                 </div>
               </div>
             </div>
@@ -236,13 +236,13 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
         <div class="bi-section">
           <div class="bi-section__title"><span class="bi-section__num">2</span> What You're Looking For</div>
           <div class="bi-grid">
-            <div><label class="bi-label">Max Budget / Price Range</label><input class="bi-input" type="text" name="budget" placeholder="e.g., up to $450K" /></div>
-            <div><label class="bi-label">Property Type</label>
-              <select class="bi-select" name="property_type"><option value="">Select…</option><option>Single-Family</option><option>Townhome</option><option>Condo</option><option>New Construction</option><option>Land / Lot</option><option>Other</option></select></div>
-            <div><label class="bi-label">Minimum Bedrooms</label><input class="bi-input" type="number" name="min_beds" min="0" /></div>
-            <div><label class="bi-label">Minimum Baths</label><input class="bi-input" type="number" name="min_baths" min="0" /></div>
-            <div><label class="bi-label">Minimum Square Footage</label><input class="bi-input" type="text" name="min_sqft" placeholder="Optional" /></div>
-            <div><label class="bi-label">Preferred School District</label><input class="bi-input" type="text" name="school_district" placeholder="Optional" /></div>
+            <div><label class="bi-label" for="budget">Max Budget / Price Range</label><input class="bi-input" type="text" name="budget" placeholder="e.g., up to $450K"  id="budget"/></div>
+            <div><label class="bi-label" for="property-type">Property Type</label>
+              <select class="bi-select" name="property_type" id="property-type"><option value="">Select…</option><option>Single-Family</option><option>Townhome</option><option>Condo</option><option>New Construction</option><option>Land / Lot</option><option>Other</option></select></div>
+            <div><label class="bi-label" for="min-beds">Minimum Bedrooms</label><input class="bi-input" type="number" name="min_beds" min="0"  id="min-beds"/></div>
+            <div><label class="bi-label" for="min-baths">Minimum Baths</label><input class="bi-input" type="number" name="min_baths" min="0"  id="min-baths"/></div>
+            <div><label class="bi-label" for="min-sqft">Minimum Square Footage</label><input class="bi-input" type="text" name="min_sqft" placeholder="Optional"  id="min-sqft"/></div>
+            <div><label class="bi-label" for="school-district">Preferred School District</label><input class="bi-input" type="text" name="school_district" placeholder="Optional"  id="school-district"/></div>
           </div>
           <div style="margin-top:1rem;">
             <label class="bi-label">Preferred Areas (check all that apply)</label>
@@ -273,8 +273,8 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
             </div>
           </div>
           <div class="bi-grid" style="margin-top:1rem;">
-            <div class="span-2"><label class="bi-label">Deal-Breakers / Things to Avoid</label><textarea class="bi-textarea" name="dealbreakers" placeholder="e.g., busy road, flood zone, major repairs, HOA restrictions…"></textarea></div>
-            <div class="span-2"><label class="bi-label">Describe Your Ideal Home</label><textarea class="bi-textarea" name="ideal_home" placeholder="In your own words — the home, the lifestyle, what matters most…"></textarea></div>
+            <div class="span-2"><label class="bi-label" for="dealbreakers">Deal-Breakers / Things to Avoid</label><textarea class="bi-textarea" name="dealbreakers" placeholder="e.g., busy road, flood zone, major repairs, HOA restrictions…" id="dealbreakers"></textarea></div>
+            <div class="span-2"><label class="bi-label" for="ideal-home">Describe Your Ideal Home</label><textarea class="bi-textarea" name="ideal_home" placeholder="In your own words — the home, the lifestyle, what matters most…" id="ideal-home"></textarea></div>
           </div>
         </div>
 
@@ -282,18 +282,18 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
         <div class="bi-section">
           <div class="bi-section__title"><span class="bi-section__num">3</span> Financing</div>
           <div class="bi-grid">
-            <div><label class="bi-label">How Are You Buying?</label>
-              <select class="bi-select" name="paying_with"><option value="">Select…</option><option>Financing (mortgage)</option><option>Cash</option></select></div>
-            <div><label class="bi-label">Are You Pre-Approved?</label>
-              <select class="bi-select" name="preapproved"><option value="">Select…</option><option>Yes — I have a lender</option><option>Not yet</option><option>I need a lender referral</option></select></div>
-            <div><label class="bi-label">Lender Name</label><input class="bi-input" type="text" name="lender_name" placeholder="If you have one" /></div>
-            <div><label class="bi-label">Loan Type</label>
-              <select class="bi-select" name="loan_type"><option value="">Select…</option><option>Conventional</option><option>FHA</option><option>VA</option><option>USDA</option><option>Not sure</option></select></div>
-            <div><label class="bi-label">Estimated Down Payment</label><input class="bi-input" type="text" name="down_payment" placeholder="Optional — e.g., 10%, $40K" /></div>
-            <div><label class="bi-label">First-Time Buyer?</label>
-              <select class="bi-select" name="first_time"><option value="">Select…</option><option>Yes</option><option>No</option></select></div>
-            <div class="span-2"><label class="bi-label">Do You Need to Sell a Current Home First?</label>
-              <select class="bi-select" name="need_to_sell"><option value="">Select…</option><option>No</option><option>Yes — I need to sell first</option><option>Maybe / not sure</option></select></div>
+            <div><label class="bi-label" for="paying-with">How Are You Buying?</label>
+              <select class="bi-select" name="paying_with" id="paying-with"><option value="">Select…</option><option>Financing (mortgage)</option><option>Cash</option></select></div>
+            <div><label class="bi-label" for="preapproved">Are You Pre-Approved?</label>
+              <select class="bi-select" name="preapproved" id="preapproved"><option value="">Select…</option><option>Yes — I have a lender</option><option>Not yet</option><option>I need a lender referral</option></select></div>
+            <div><label class="bi-label" for="lender-name">Lender Name</label><input class="bi-input" type="text" name="lender_name" placeholder="If you have one"  id="lender-name"/></div>
+            <div><label class="bi-label" for="loan-type">Loan Type</label>
+              <select class="bi-select" name="loan_type" id="loan-type"><option value="">Select…</option><option>Conventional</option><option>FHA</option><option>VA</option><option>USDA</option><option>Not sure</option></select></div>
+            <div><label class="bi-label" for="down-payment">Estimated Down Payment</label><input class="bi-input" type="text" name="down_payment" placeholder="Optional — e.g., 10%, $40K"  id="down-payment"/></div>
+            <div><label class="bi-label" for="first-time">First-Time Buyer?</label>
+              <select class="bi-select" name="first_time" id="first-time"><option value="">Select…</option><option>Yes</option><option>No</option></select></div>
+            <div class="span-2"><label class="bi-label" for="need-to-sell">Do You Need to Sell a Current Home First?</label>
+              <select class="bi-select" name="need_to_sell" id="need-to-sell"><option value="">Select…</option><option>No</option><option>Yes — I need to sell first</option><option>Maybe / not sure</option></select></div>
           </div>
         </div>
 
@@ -301,13 +301,13 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
         <div class="bi-section">
           <div class="bi-section__title"><span class="bi-section__num">4</span> Timeline &amp; Situation</div>
           <div class="bi-grid">
-            <div><label class="bi-label">When Do You Want to Be In Your New Home? <span class="bi-req">*</span></label>
-              <select class="bi-select" name="timeline" required><option value="">Select…</option><option>As soon as possible</option><option>1–3 months</option><option>3–6 months</option><option>6–12 months</option><option>Just exploring for now</option></select></div>
-            <div><label class="bi-label">Current Situation</label>
-              <select class="bi-select" name="current_situation"><option value="">Select…</option><option>Renting</option><option>Own — need to sell</option><option>Own — keeping it</option><option>Relocating to the area</option></select></div>
-            <div><label class="bi-label">Lease End Date (if renting)</label><input class="bi-input" type="text" name="lease_end" placeholder="Optional" /></div>
-            <div><label class="bi-label">Relocating From (if applicable)</label><input class="bi-input" type="text" name="relocating_from" placeholder="City, State" /></div>
-            <div class="span-2"><label class="bi-label">Reason for Buying</label><input class="bi-input" type="text" name="reason" placeholder="Optional — growing family, downsizing, first home, investment…" /></div>
+            <div><label class="bi-label" for="timeline">When Do You Want to Be In Your New Home? <span class="bi-req">*</span></label>
+              <select class="bi-select" name="timeline" required id="timeline"><option value="">Select…</option><option>As soon as possible</option><option>1–3 months</option><option>3–6 months</option><option>6–12 months</option><option>Just exploring for now</option></select></div>
+            <div><label class="bi-label" for="current-situation">Current Situation</label>
+              <select class="bi-select" name="current_situation" id="current-situation"><option value="">Select…</option><option>Renting</option><option>Own — need to sell</option><option>Own — keeping it</option><option>Relocating to the area</option></select></div>
+            <div><label class="bi-label" for="lease-end">Lease End Date (if renting)</label><input class="bi-input" type="text" name="lease_end" placeholder="Optional"  id="lease-end"/></div>
+            <div><label class="bi-label" for="relocating-from">Relocating From (if applicable)</label><input class="bi-input" type="text" name="relocating_from" placeholder="City, State"  id="relocating-from"/></div>
+            <div class="span-2"><label class="bi-label" for="reason">Reason for Buying</label><input class="bi-input" type="text" name="reason" placeholder="Optional — growing family, downsizing, first home, investment…"  id="reason"/></div>
           </div>
         </div>
 
@@ -315,10 +315,10 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
         <div class="bi-section">
           <div class="bi-section__title"><span class="bi-section__num">5</span> Logistics &amp; Preferences</div>
           <div class="bi-grid">
-            <div><label class="bi-label">Best Way to Reach You</label>
-              <select class="bi-select" name="contact_pref"><option value="">Select…</option><option>Call</option><option>Text</option><option>Email</option></select></div>
-            <div><label class="bi-label">Currently Working With Another Agent?</label>
-              <select class="bi-select" name="working_with_agent"><option value="">Select…</option><option>No</option><option>Yes</option></select></div>
+            <div><label class="bi-label" for="contact-pref">Best Way to Reach You</label>
+              <select class="bi-select" name="contact_pref" id="contact-pref"><option value="">Select…</option><option>Call</option><option>Text</option><option>Email</option></select></div>
+            <div><label class="bi-label" for="working-with-agent">Currently Working With Another Agent?</label>
+              <select class="bi-select" name="working_with_agent" id="working-with-agent"><option value="">Select…</option><option>No</option><option>Yes</option></select></div>
           </div>
           <div style="margin-top:1rem;">
             <label class="bi-label">Showing Availability (check all that apply)</label>
@@ -330,7 +330,7 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
             </div>
           </div>
           <div class="bi-grid" style="margin-top:1rem;">
-            <div class="span-2"><label class="bi-label">Anything Else I Should Know?</label><textarea class="bi-textarea" name="additional_notes"></textarea></div>
+            <div class="span-2"><label class="bi-label" for="additional-notes">Anything Else I Should Know?</label><textarea class="bi-textarea" name="additional_notes" id="additional-notes"></textarea></div>
           </div>
         </div>
 

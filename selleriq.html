@@ -1164,7 +1164,7 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
         <div class="se-calc__subtitle">Adjust the sale price and enter your mortgage balance to see what you'd actually walk away with.</div>
 
         <div style="margin-bottom:1.25rem;">
-          <label class="be-input-label">Estimated Sale Price</label>
+          <label class="be-input-label" for="price-slider">Estimated Sale Price</label>
           <div class="se-price-slider-wrap">
             <div class="se-slider-labels">
               <span id="slider-min-label">$250K</span>
@@ -1185,7 +1185,7 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
             Mortgage Balance
             <span>Enter 0 if paid off — optional</span>
           </div>
-          <input type="number" class="se-calc__row-input" id="mortgage-input" placeholder="$0" min="0" max="2000000" step="1000" value="" />
+          <input type="number" class="se-calc__row-input" id="mortgage-input" placeholder="$0" min="0" max="2000000" step="1000" value=""  aria-label="Remaining mortgage balance"/>
         </div>
         <div class="se-calc__row">
           <div class="se-calc__row-label">

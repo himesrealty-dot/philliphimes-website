@@ -166,10 +166,14 @@
 # a <meta name="robots"> tag as belt-and-braces.
 # NOTE: this is search hygiene, NOT access control. Real member data must be
 # rendered server-side behind auth — never baked into a static file.
-# Explicit paths, NOT /front-porch* — the wildcard also matched
-# front-porch-pass.html, which is the one page in this family that IS meant to
-# be indexed. An X-Robots-Tag header beats a page <meta robots>, so the wildcard
-# would have silently overridden it and the page would never have ranked.
+# Listed per page, NOT as /front-porch* — deliberately, even though all four
+# pages currently carry the same rule and a wildcard would be shorter.
+# The guest pass was briefly built as an indexable lead magnet, and a
+# /front-porch* wildcard silently overrode its page-level <meta robots> so it
+# could never have ranked. That plan was dropped (the Porch is members-only,
+# see FRONT-PORCH-OPS.md), so pass.html is noindex again on purpose — but the
+# per-page form is kept so the next page added to this family has to opt in
+# explicitly rather than inherit a rule nobody re-read.
 [[headers]]
   for = "/front-porch.html"
   [headers.values]
