@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Short List | The Front Porch</title>
+  <meta name="description" content="Vetted Bay Area contractors and service providers — earned placement, rated by Phil Himes&rsquo; clients. Members only." />
+  <meta name="robots" content="noindex, nofollow, noarchive" />
+  <link rel="stylesheet" href="css/styles.css?v=20260824a" />
+  <link rel="stylesheet" href="css/front-porch.css?v=20260824a" />
+  <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+
+  <style>
+  /* Hallmark · macrostructure: Directory · genre: editorial · theme: portal-native
+   * (brand-locked navy / gold / teal from styles.css; portal chrome in css/front-porch.css)
+   * scope: the vetted vendor list
+   * shared portal fixes (roman headings, focus rings, overflow clip) live in
+   * css/front-porch.css and are inherited, not repeated here.
+   */
+  /* Page-specific: filter bar, search, share affordance */
+  .fp-tools {
+    display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+  }
+  .fp-search {
+    flex: 1; min-width: 240px; position: relative;
+  }
+  .fp-search input {
+    width: 100%; font-family: var(--font-body); font-size: 0.93rem;
+    padding: 0.85rem 1rem 0.85rem 2.6rem;
+    border: 1px solid rgba(27,58,92,0.18); border-radius: var(--radius-full);
+    background: #fff; color: var(--navy);
+  }
+  .fp-search input:focus { outline: none; border-color: var(--gold); }
+  .fp-search svg { position: absolute; left: 0.95rem; top: 50%; transform: translateY(-50%); }
+  .fp-count {
+    font-family: var(--font-heading); font-size: 0.72rem; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase; color: var(--fp-muted);
+  }
+  .fp-filters { display: flex; gap: 0.45rem; flex-wrap: wrap; margin-bottom: 2rem; }
+
+  .fp-vcard { display: flex; flex-direction: column; }
+  .fp-vcard__top { flex: 1; }
+  .fp-vcard__actions {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 0.75rem; margin-top: 0.9rem; padding-top: 0.85rem;
+    border-top: 1px solid rgba(27,58,92,0.08);
+  }
+  .fp-mini {
+    font-family: var(--font-heading); font-size: 0.66rem; font-weight: 800;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    text-decoration: none; color: var(--teal-dark);
+    display: inline-flex; align-items: center; gap: 0.35rem;
+  }
+  .fp-mini:hover { color: var(--navy); }
+  .fp-mini--muted { color: var(--fp-muted); }
+  .fp-mini--muted:hover { color: var(--navy); }
+  .fp-vcard__proof { border-top: none; padding-top: 0; }
+
+  .fp-note {
+    background: rgba(32,137,160,0.07); border-left: 4px solid var(--teal);
+    border-radius: var(--radius-md); padding: 1.35rem 1.5rem; margin-bottom: 2.25rem;
+  }
+  .fp-note p { margin: 0; font-size: 0.93rem; line-height: 1.7; color: var(--fp-ink-2); }
+  .fp-note b { color: var(--navy); }
+  </style>
+</head>
+<body>
+
+  <div class="fp-mock">Mockup v2 &middot; 23 Aug 2026 &mdash; placeholder vendors, names and ratings</div>
+
+  <!-- ══ PORTAL NAV ═══════════════════════════════════════════════════ -->
+  <header class="fp-nav" role="banner">
+    <div class="fp-nav__inner">
+      <a href="front-porch.html" class="fp-nav__brand" aria-label="The Front Porch — home">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C9A455" stroke-width="1.8" aria-hidden="true">
+          <path d="M3 10l9-7 9 7v10a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+          <circle cx="12" cy="13" r="2.4" fill="#C9A455" stroke="none"/>
+        </svg>
+        <span class="fp-nav__brand-name">The <em>Front Porch</em></span>
+      </a>
+
+      <button class="fp-nav__burger" id="fp-burger" aria-label="Toggle menu"
+              aria-expanded="false" aria-controls="fp-menu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <div class="fp-nav__menu" id="fp-menu">
+        <nav class="fp-nav__links" aria-label="Portal sections">
+          <a href="front-porch.html" class="fp-nav__link">Your Home</a>
+          <a href="front-porch.html#protest" class="fp-nav__link">Protest</a>
+          <a href="front-porch-vendors.html" class="fp-nav__link fp-nav__link--on" aria-current="page">Vendors</a>
+          <a href="front-porch.html#documents" class="fp-nav__link">Documents</a>
+          <a href="front-porch-newsletter.html" class="fp-nav__link">The Note</a>
+        </nav>
+
+        <div class="fp-nav__right">
+          <a href="index.html" class="fp-nav__out">
+            philliphimes.com
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>
+          </a>
+          <span class="fp-nav__divider" aria-hidden="true"></span>
+          <span class="fp-nav__who">Sarah &amp; Mike</span>
+          <a href="#" class="fp-nav__signout">Sign out</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ══ SUB HERO ═════════════════════════════════════════════════════ -->
+  <header class="fp-subhero">
+    <div class="fp-subhero__inner">
+      <p class="fp-subhero__crumb"><a href="front-porch.html">The Front Porch</a> &rsaquo; The Short List</p>
+      <h1 class="fp-subhero__h1">People I&rsquo;d send <em>my own mother</em> to</h1>
+      <p class="fp-subhero__sub">
+        Anybody can Google a plumber. What you can&rsquo;t Google is whether I&rsquo;ve sent forty
+        clients to one, and whether I&rsquo;ll pick up the phone when he doesn&rsquo;t show. Nobody
+        pays to be on this list &mdash; they earn the spot, you rate them after every job,
+        and two bad reviews takes them off.
+      </p>
+    </div>
+  </header>
+
+  <!-- ══ DIRECTORY ════════════════════════════════════════════════════ -->
+  <section class="fp-sec">
+    <div class="fp-wrap">
+
+      <div class="fp-note">
+        <p>
+          <b>Nobody on this list pays me, and I don&rsquo;t take referral fees.</b> That&rsquo;s
+          deliberate &mdash; the moment money changes hands the recommendation is worth
+          nothing to you. They&rsquo;re here because they showed up, did the work, and didn&rsquo;t
+          leave a mess.
+        </p>
+      </div>
+
+      <div class="fp-tools">
+        <div class="fp-search">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5f6a75" stroke-width="2" aria-hidden="true">
+            <circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/>
+          </svg>
+          <input type="search" placeholder="Search — plumber, foundation, roof, AC&hellip;" aria-label="Search vendors" />
+        </div>
+        <span class="fp-count">24 vendors &middot; 12 categories</span>
+      </div>
+
+      <div class="fp-filters">
+        <span class="fp-chip fp-chip--on">All</span>
+        <span class="fp-chip">Foundation</span>
+        <span class="fp-chip">HVAC</span>
+        <span class="fp-chip">Plumbing</span>
+        <span class="fp-chip">Roofing</span>
+        <span class="fp-chip">Electrical</span>
+        <span class="fp-chip">Drainage</span>
+        <span class="fp-chip">Generators</span>
+        <span class="fp-chip">Insurance</span>
+        <span class="fp-chip">Lending</span>
+        <span class="fp-chip">Tax Protest</span>
+        <span class="fp-chip">Lawn &amp; Tree</span>
+        <span class="fp-chip">Pest</span>
+      </div>
+
+      <div class="fp-vend">
+
+        <article class="fp-vcard">
+          <div class="fp-vcard__top">
+            <div class="fp-vcard__cat">Foundation</div>
+            <h2 class="fp-vcard__name">Bay Area Foundation Co.</h2>
+            <div class="fp-vcard__meta">Clay-soil specialists &middot; League City &middot; Free evaluations</div>
+            <div class="fp-vcard__proof"><span class="fp-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> 41 clients sent &middot; 4.9 avg</div>
+          </div>
+          <div class="fp-vcard__actions">
+            <a href="tel:8329909738" class="fp-mini">Get the intro</a>
+            <a href="#" class="fp-mini fp-mini--muted">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M4 12v7a1 1 0 001 1h14a1 1 0 001-1v-7"/><path d="M16 6l-4-4-4 4"/><path d="M12 2v14"/></svg>
+              Share
+            </a>
+          </div>
+        </article>
+
+        <article class="fp-vcard">
+          <div class="fp-vcard__top">
+            <div class="fp-vcard__cat">HVAC</div>
+            <h2 class="fp-vcard__name">Clear Lake Air &amp; Heat</h2>
+            <div class="fp-vcard__meta">Same-week service in July &middot; 24hr emergency line</div>
+            <div class="fp-vcard__proof"><span class="fp-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> 68 clients sent &middot; 4.8 avg</div>
+          </div>
+          <div class="fp-vcard__actions">
+            <a href="tel:8329909738" class="fp-mini">Get the intro</a>
+            <a href="#" class="fp-mini fp-mini--muted">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M4 12v7a1 1 0 001 1h14a1 1 0 001-1v-7"/><path d="M16 6l-4-4-4 4"/><path d="M12 2v14"/></svg>
+              Share
+            </a>
+          </div>
+        </article>
+
+        <article class="fp-vcard">
+          <div class="fp-vcard__top">
+            <div class="fp-vcard__cat">Roofing</div>
+            <h2 class="fp-vcard__name">Gulf Coast Roofing</h2>
+            <div class="fp-vcard__meta">Hail claims &middot; Works directly with adjusters</div>
+            <div class="fp-vcard__proof"><span class="fp-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> 33 clients sent &middot; 4.9 avg</div>
+          </div>
+          <div class="fp-vcard__actions">
+            <a href="tel:8329909738" class="fp-mini">Get the intro</a>
+            <a href="#" class="fp-mini fp-mini--muted">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M4 12v7a1 1 0 001 1h14a1 1 0 001-1v-7"/><path d="M16 6l-4-4-4 4"/><path d="M12 2v14"/></svg>
+              Share
+            </a>
+          </div>
+        </article>
+
+        <article class="fp-vcard">
+          <div class="fp-vcard__top">
+            <div class="fp-vcard__cat">Plumbing</div>
+            <h2 class="fp-vcard__name">Friendswood Plumbing</h2>
+            <div class="fp-vcard__meta">Slab leaks &middot; Repipes &middot; Flat-rate quotes</div>
+            <div class="fp-vcard__proof"><span class="fp-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> 52 clients sent &middot; 4.7 avg</div>
+          </div>
+          <div class="fp-vcard__actions">
+            <a href="tel:8329909738" class="fp-mini">Get the intro</a>
+            <a href="#" class="fp-mini fp-mini--muted">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M4 12v7a1 1 0 001 1h14a1 1 0 001-1v-7"/><path d="M16 6l-4-4-4 4"/><path d="M12 2v14"/></svg>
+              Share
+            </a>
+          </div>
+        </article>
+
+        <article class="fp-vcard">
+          <div class="fp-vcard__top">
+            <div class="fp-vcard__cat">Drainage</div>
+            <h2 class="fp-vcard__name">Bayou Drainage Solutions</h2>
+            <div class="fp-vcard__meta">French drains &middot; Regrading &middot; Post-flood remediation</div>
+            <div class="fp-vcard__proof"><span class="fp-stars">&#9733;&#9733;&#9733;&#9733;&#9734;</span> 24 clients sent &middot; 4.5 avg</div>
+          </div>
+          <div class="fp-vcard__actions">
+            <a href="tel:8329909738" class="fp-mini">Get the intro</a>
+            <a href="#" class="fp-mini fp-mini--muted">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M4 12v7a1 1 0 001 1h14a1 1 0 001-1v-7"/><path d="M16 6l-4-4-4 4"/><path d="M12 2v14"/></svg>
+              Share
+            </a>
+          </div>
+        </article>
+
+        <article class="fp-vcard">
+          <div class="fp-vcard__top">
+            <div class="fp-vcard__cat">Generators</div>
+            <h2 class="fp-vcard__name">Lone Star Standby Power</h2>
+            <div class="fp-vcard__meta">Whole-home standby &middot; Permit &amp; gas hookup included</div>
+            <div class="fp-vcard__proof"><span class="fp-stars">&#9733;&#9733;&#9733;&#9733;&#9734;</span> 19 clients sent &middot; 4.6 avg</div>
+          </div>
+          <div class="fp-vcard__actions">
+            <a href="tel:8329909738" class="fp-mini">Get the intro</a>
+            <a href="#" class="fp-mini fp-mini--muted">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M4 12v7a1 1 0 001 1h14a1 1 0 001-1v-7"/><path d="M16 6l-4-4-4 4"/><path d="M12 2v14"/></svg>
+              Share
+            </a>
+          </div>
+        </article>
+
+        <article class="fp-vcard">
+          <div class="fp-vcard__top">
+            <div class="fp-vcard__cat">Insurance</div>
+            <h2 class="fp-vcard__name">Kara Whitfield, Independent Agent</h2>
+            <div class="fp-vcard__meta">Shops 12 carriers &middot; Handles the TWIA + flood stack</div>
+            <div class="fp-vcard__proof"><span class="fp-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> 77 clients sent &middot; 4.9 avg</div>
+          </div>
+          <div class="fp-vcard__actions">
+            <a href="tel:8329909738" class="fp-mini">Get the intro</a>
+            <a href="#" class="fp-mini fp-mini--muted">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M4 12v7a1 1 0 001 1h14a1 1 0 001-1v-7"/><path d="M16 6l-4-4-4 4"/><path d="M12 2v14"/></svg>
+              Share
+            </a>
+          </div>
+        </article>
+
+        <article class="fp-vcard">
+          <div class="fp-vcard__top">
+            <div class="fp-vcard__cat">Tax Protest</div>
+            <h2 class="fp-vcard__name">Coastal Property Tax Advisors</h2>
+            <div class="fp-vcard__meta">Contingency only &middot; For folks who&rsquo;d rather not DIY</div>
+            <div class="fp-vcard__proof"><span class="fp-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> 29 clients sent &middot; 4.8 avg</div>
+          </div>
+          <div class="fp-vcard__actions">
+            <a href="tel:8329909738" class="fp-mini">Get the intro</a>
+            <a href="#" class="fp-mini fp-mini--muted">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M4 12v7a1 1 0 001 1h14a1 1 0 001-1v-7"/><path d="M16 6l-4-4-4 4"/><path d="M12 2v14"/></svg>
+              Share
+            </a>
+          </div>
+        </article>
+
+        <article class="fp-vcard">
+          <div class="fp-vcard__top">
+            <div class="fp-vcard__cat">Electrical</div>
+            <h2 class="fp-vcard__name">Meridian Electric</h2>
+            <div class="fp-vcard__meta">Panel upgrades &middot; EV chargers &middot; Licensed &amp; bonded</div>
+            <div class="fp-vcard__proof"><span class="fp-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> 27 clients sent &middot; 4.8 avg</div>
+          </div>
+          <div class="fp-vcard__actions">
+            <a href="tel:8329909738" class="fp-mini">Get the intro</a>
+            <a href="#" class="fp-mini fp-mini--muted">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M4 12v7a1 1 0 001 1h14a1 1 0 001-1v-7"/><path d="M16 6l-4-4-4 4"/><path d="M12 2v14"/></svg>
+              Share
+            </a>
+          </div>
+        </article>
+
+        <article class="fp-vcard">
+          <div class="fp-vcard__top">
+            <div class="fp-vcard__cat">Lawn &amp; Tree</div>
+            <h2 class="fp-vcard__name">Clearwater Tree &amp; Lawn</h2>
+            <div class="fp-vcard__meta">Storm limb removal &middot; Stump grinding &middot; Insured</div>
+            <div class="fp-vcard__proof"><span class="fp-stars">&#9733;&#9733;&#9733;&#9733;&#9734;</span> 36 clients sent &middot; 4.6 avg</div>
+          </div>
+          <div class="fp-vcard__actions">
+            <a href="tel:8329909738" class="fp-mini">Get the intro</a>
+            <a href="#" class="fp-mini fp-mini--muted">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M4 12v7a1 1 0 001 1h14a1 1 0 001-1v-7"/><path d="M16 6l-4-4-4 4"/><path d="M12 2v14"/></svg>
+              Share
+            </a>
+          </div>
+        </article>
+
+        <article class="fp-vcard">
+          <div class="fp-vcard__top">
+            <div class="fp-vcard__cat">Pest</div>
+            <h2 class="fp-vcard__name">Gulfside Pest &amp; Termite</h2>
+            <div class="fp-vcard__meta">Termite letters for closings &middot; Quarterly plans</div>
+            <div class="fp-vcard__proof"><span class="fp-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> 44 clients sent &middot; 4.7 avg</div>
+          </div>
+          <div class="fp-vcard__actions">
+            <a href="tel:8329909738" class="fp-mini">Get the intro</a>
+            <a href="#" class="fp-mini fp-mini--muted">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M4 12v7a1 1 0 001 1h14a1 1 0 001-1v-7"/><path d="M16 6l-4-4-4 4"/><path d="M12 2v14"/></svg>
+              Share
+            </a>
+          </div>
+        </article>
+
+        <article class="fp-vcard">
+          <div class="fp-vcard__top">
+            <div class="fp-vcard__cat">Lending</div>
+            <h2 class="fp-vcard__name">Dana Reyes, Mortgage Advisor</h2>
+            <div class="fp-vcard__meta">Local underwriting &middot; Answers her phone on weekends</div>
+            <div class="fp-vcard__proof"><span class="fp-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> 61 clients sent &middot; 4.9 avg</div>
+          </div>
+          <div class="fp-vcard__actions">
+            <a href="tel:8329909738" class="fp-mini">Get the intro</a>
+            <a href="#" class="fp-mini fp-mini--muted">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M4 12v7a1 1 0 001 1h14a1 1 0 001-1v-7"/><path d="M16 6l-4-4-4 4"/><path d="M12 2v14"/></svg>
+              Share
+            </a>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ KEEP IT HONEST ═══════════════════════════════════════════════ -->
+  <section class="fp-sec fp-sec--alt">
+    <div class="fp-wrap">
+      <div class="fp-eyebrow">How The List Stays Good</div>
+      <h2 class="fp-h2">You&rsquo;re the <em>quality control</em></h2>
+      <p class="fp-lede">
+        A vetted list is only worth something if it&rsquo;s actually maintained. Two things keep
+        it honest, and both of them are you.
+      </p>
+
+      <div class="fp-duo">
+        <article class="fp-card fp-card--gold">
+          <h3 class="fp-card__h3">Rate someone you used</h3>
+          <p class="fp-card__p">
+            Takes about ten seconds. Did they show up when they said? Was the final bill the
+            quoted bill? Would you use them again? Two bad reports and they come off the
+            list &mdash; no warnings, no second chances, because my name is on this.
+          </p>
+          <a href="#" class="fp-btn fp-btn--ghost">Rate a vendor</a>
+        </article>
+
+        <article class="fp-card fp-card--teal">
+          <h3 class="fp-card__h3">Know someone who belongs here?</h3>
+          <p class="fp-card__p">
+            If you&rsquo;ve got a plumber or an electrician who&rsquo;s been good to you for years, tell
+            me. I&rsquo;ll call them, check their license and insurance, and send a client or two
+            before they ever show up on this page.
+          </p>
+          <a href="#" class="fp-btn fp-btn--ghost">Suggest a vendor</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ ASK PHIL ═════════════════════════════════════════════════════ -->
+  <section class="fp-sec">
+    <div class="fp-wrap">
+      <div class="fp-ask">
+        <h2 class="fp-ask__h2">Not sure who you <em>even need?</em></h2>
+        <p class="fp-ask__p">
+          Half the time the hard part is figuring out whether it&rsquo;s a foundation problem or a
+          drainage problem. Send me a photo and I&rsquo;ll tell you who to call &mdash; or that it
+          can wait.
+        </p>
+        <div class="fp-ask__btns">
+          <a href="tel:8329909738" class="fp-btn">Call (832) 990-9738</a>
+          <a href="mailto:phil@philliphimes.com" class="fp-btn fp-btn--ghost">Send me a photo</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ FOOTER ═══════════════════════════════════════════════════════ -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__legal">
+        <div class="footer__legal-copy">
+          &copy; 2026 Phillip Himes &middot; eXp Realty, LLC &middot; REALTOR&reg; Licensed in Texas &middot; 2600 South Shore Blvd. #300, League City, TX 77573 &nbsp;&middot;&nbsp; <span class="footer__eho">&#8962; Equal Housing Opportunity</span>
+          <br /><br />
+          Vendors listed here are independent businesses, not affiliates or employees. No
+          compensation is exchanged for placement or referral. Recommendations reflect past
+          client experience only &mdash; always confirm licensing, insurance and pricing yourself.
+        </div>
+        <div class="footer__legal-links">
+          <a href="privacy-policy.html" class="footer__legal-link">Privacy Policy</a>
+          <a href="terms-of-service.html" class="footer__legal-link">Terms of Service</a>
+          <a href="front-porch.html" class="footer__legal-link">The Front Porch</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/front-porch-nav.js?v=20260824a"></script>
+</body>
+</html>

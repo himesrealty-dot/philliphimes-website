@@ -123,4 +123,9 @@
        noindex, so they're deliberately NOT listed here — a sitemap entry
        for a noindex page is a contradiction Search Console reports on. -->
 
+  <url>
+    <loc>https://philliphimes.com/front-porch-newsletter.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
 </urlset>

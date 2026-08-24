@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Front Porch | Phil Himes</title>
+  <meta name="description" content="A private space for Phil Himes&rsquo; past clients and friends — tax protest kits, vetted vendors, your documents, and the real numbers on your street." />
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="stylesheet" href="css/styles.css?v=20260824a" />
+  <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+  <!-- Hero is the LCP element; preload the variant each breakpoint will actually use -->
+  <link rel="preload" as="image" href="images/front-porch-hero.jpg" media="(min-width: 901px)" />
+  <link rel="preload" as="image" href="images/front-porch-hero-sm.jpg" media="(max-width: 900px)" />
+
+  <link rel="stylesheet" href="css/front-porch.css?v=20260824a" />
+</head>
+<body>
+<!-- Hallmark · macrostructure: Dashboard · genre: editorial · theme: portal-native
+     scope: member home — property numbers, protest kit, street report, vault, early access
+     No page <style>: all chrome lives in css/front-porch.css, which carries the portal stamp. -->
+
+  <div class="fp-mock">Mockup v2 &middot; 23 Aug 2026 &mdash; every number, name and document below is placeholder data</div>
+
+  <!-- ══ PORTAL NAV ═══════════════════════════════════════════════════ -->
+  <header class="fp-nav" role="banner">
+    <div class="fp-nav__inner">
+      <a href="front-porch.html" class="fp-nav__brand" aria-label="The Front Porch — home">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C9A455" stroke-width="1.8" aria-hidden="true">
+          <path d="M3 10l9-7 9 7v10a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+          <circle cx="12" cy="13" r="2.4" fill="#C9A455" stroke="none"/>
+        </svg>
+        <span class="fp-nav__brand-name">The <em>Front Porch</em></span>
+      </a>
+
+      <button class="fp-nav__burger" id="fp-burger" aria-label="Toggle menu"
+              aria-expanded="false" aria-controls="fp-menu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <div class="fp-nav__menu" id="fp-menu">
+        <nav class="fp-nav__links" aria-label="Portal sections">
+          <a href="front-porch.html" class="fp-nav__link fp-nav__link--on" aria-current="page">Your Home</a>
+          <a href="front-porch.html#protest" class="fp-nav__link">Protest</a>
+          <a href="front-porch-vendors.html" class="fp-nav__link">Vendors</a>
+          <a href="front-porch.html#documents" class="fp-nav__link">Documents</a>
+          <a href="front-porch-newsletter.html" class="fp-nav__link">The Note</a>
+        </nav>
+
+        <div class="fp-nav__right">
+          <a href="index.html" class="fp-nav__out">
+            philliphimes.com
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>
+          </a>
+          <span class="fp-nav__divider" aria-hidden="true"></span>
+          <span class="fp-nav__who">Sarah &amp; Mike</span>
+          <a href="#" class="fp-nav__signout">Sign out</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ══ HERO ═════════════════════════════════════════════════════════ -->
+  <header class="fp-hero">
+    <div class="fp-hero__inner">
+      <div class="fp-hero__eyebrow">For Clients &amp; Friends of Phil Himes</div>
+      <h1 class="fp-hero__h1">Welcome back to <em>The Front Porch</em></h1>
+      <p class="fp-hero__sub">
+        The part of the job that doesn&rsquo;t end at closing. Your documents, your numbers,
+        the people I actually trust with my own house &mdash; and every spring, the comps
+        you need to fight your appraisal. No forms. No pitch. Just the stuff that&rsquo;s
+        genuinely useful when you own a home on the Bay Area.
+      </p>
+
+      <div class="fp-whoami">
+        <span class="fp-whoami__dot" aria-hidden="true"></span>
+        <span><b>Sarah &amp; Mike Chen</b></span>
+        <span class="fp-whoami__sep">&middot;</span>
+        <span>1428 Tuscan Vista Dr, League City</span>
+        <span class="fp-whoami__sep">&middot;</span>
+        <span>Member since 2021</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ══ DASHBOARD ════════════════════════════════════════════════════ -->
+  <section class="fp-dash" id="numbers" aria-label="Your property at a glance">
+    <div class="fp-dash__grid">
+      <div class="fp-tile">
+        <div class="fp-tile__label">County Appraised Value</div>
+        <div class="fp-tile__value">$502,310</div>
+        <div class="fp-tile__note"><span class="fp-tile__up">&uarr; 14.2%</span> vs. 2025 &middot; Galveston CAD</div>
+      </div>
+      <div class="fp-tile">
+        <div class="fp-tile__label">Estimated Equity</div>
+        <div class="fp-tile__value fp-tile__value--gold">$228,700</div>
+        <div class="fp-tile__note">Appraised value less your loan balance</div>
+      </div>
+      <div class="fp-tile">
+        <div class="fp-tile__label">Cap Saves You</div>
+        <div class="fp-tile__value">~$2,435<span style="font-size:1rem;font-weight:700;">/yr</span></div>
+        <div class="fp-tile__note">$110,696 excluded from taxable value</div>
+      </div>
+      <!-- Conditional on hs_exempt in the CAD roll:
+             hs_exempt = 'T'  ->  protest deadline (below)
+             hs_exempt = &rsquo;F&rsquo;  ->  "Apr 30 / File your homestead exemption -
+                                   you&rsquo;re leaving $500-$1,800 a year on the table" -->
+      <div class="fp-tile">
+        <div class="fp-tile__label">Protest Deadline</div>
+        <div class="fp-tile__value">May 15</div>
+        <div class="fp-tile__note">218 days out &middot; I&rsquo;ll flag you in March</div>
+      </div>
+    </div>
+
+    <!-- The standing CTA: county number is deliberately conservative, so a real
+         valuation is nearly always better news. One-click - they're already known. -->
+    <div class="fp-basis">
+      <p class="fp-basis__text">
+        These are the county&rsquo;s numbers &mdash; deliberately conservative, and set for tax
+        purposes rather than sale. What your home would actually sell for is usually higher.
+        <b style="color:var(--navy);">When you&rsquo;re ready to sell, request a TruMarket&trade; value.</b>
+      </p>
+      <a href="#" class="fp-basis__cta">Request a TruMarket&trade; value &rarr;</a>
+    </div>
+  </section>
+
+  <!-- ══ TAX PROTEST — THE ANCHOR ═════════════════════════════════════ -->
+  <section class="fp-sec" id="protest">
+    <div class="fp-wrap">
+      <div class="fp-eyebrow">Every Spring &middot; On Request</div>
+      <h2 class="fp-h2">Your property tax <em>protest kit</em></h2>
+      <p class="fp-lede">
+        The appraisal district works off a computer model. It has never seen your house.
+        Comparable sales do about 90% of the work in a residential protest &mdash; and pulling
+        comps is literally my job. I watch the roll every spring, and when your number jumps
+        I&rsquo;ll tell you. You decide whether you want the packet.
+      </p>
+
+      <!-- The automated part: a targeted invitation, not an auto-sent report -->
+      <div class="fp-prompt">
+        <div class="fp-prompt__body">
+          <div class="fp-prompt__kicker">Worth a look this year</div>
+          <p class="fp-prompt__text">
+            Your county appraised value rose <b>14.2%</b> this year &mdash; from $440,100
+            to $502,310. Want me to pull your comps?
+          </p>
+        </div>
+        <a href="#" class="fp-btn">Request my comps</a>
+      </div>
+
+      <div class="fp-anchor">
+        <div class="fp-anchor__body">
+          <span class="fp-anchor__flag">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>
+            Last year you asked &mdash; here&rsquo;s how it went
+          </span>
+          <h3 class="fp-anchor__h3">Your 2025 protest saved you $1,840</h3>
+          <p class="fp-anchor__p">
+            GCAD came in at $470,600. We put nine comparable sales in front of them showing
+            $441,000. They settled at $446,790 &mdash; a $23,810 reduction on the appraised value.
+          </p>
+          <ul class="fp-anchor__list">
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1a6b4d" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+              <span>Nine MLS comparables within 0.4 miles, adjusted for sqft, age and pool</span>
+            </li>
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1a6b4d" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+              <span>Condition notes and photos from your file</span>
+            </li>
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1a6b4d" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+              <span>Filled-in protest form, ready to submit online</span>
+            </li>
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1a6b4d" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+              <span>A one-page script for the informal hearing</span>
+            </li>
+          </ul>
+          <a href="#" class="fp-btn fp-btn--ghost">
+            Download your 2025 packet
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+          </a>
+        </div>
+
+        <aside class="fp-anchor__side">
+          <div class="fp-count__label">Next protest window opens in</div>
+          <div class="fp-count__num">218</div>
+          <div class="fp-count__unit">days &mdash; notices mail early April 2027</div>
+          <div class="fp-count__rows">
+            <div class="fp-count__row"><span>Homestead filing</span><b>Apr 30</b></div>
+            <div class="fp-count__row"><span>Protest deadline</span><b>May 15</b></div>
+            <div class="fp-count__row"><span>Typical turnaround</span><b>3 business days</b></div>
+            <div class="fp-count__row"><span>Saved to date</span><b>$4,205</b></div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ FIVE-YEAR HISTORY ════════════════════════════════════════════ -->
+  <section class="fp-sec fp-sec--alt">
+    <div class="fp-wrap">
+      <div class="fp-eyebrow">Automatic &middot; Updated Each July</div>
+      <h2 class="fp-h2">Five years of <em>your</em> numbers</h2>
+      <p class="fp-lede">
+        Straight from the Galveston County appraisal roll &mdash; public record, no algorithm involved.
+        The appraised column is the county&rsquo;s market opinion. The assessed column is what you&rsquo;re
+        actually taxed on, held down by your homestead cap. The gap between them is money in your pocket.
+      </p>
+
+      <div class="fp-tablewrap" style="background:#fff;border-radius:var(--radius-lg);box-shadow:var(--shadow-md);padding:0.5rem 0.5rem 0.25rem;">
+        <table class="fp-sold fp-sold--light">
+          <thead>
+            <tr><th>Tax Year</th><th>Appraised</th><th>Change</th><th>Assessed (taxed)</th><th>Cap Savings</th><th>Exemptions</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="yr">2026</td><td>$502,310</td><td class="up">+14.2%</td><td>$389,304</td><td class="save">$110,696</td><td>Homestead</td></tr>
+            <tr><td class="yr">2025</td><td>$440,100</td><td class="up">+4.8%</td><td>$353,913</td><td class="save">$86,187</td><td>Homestead</td></tr>
+            <tr><td class="yr">2024</td><td>$419,900</td><td class="up">+7.1%</td><td>$321,739</td><td class="save">$98,161</td><td>Homestead</td></tr>
+            <tr><td class="yr">2023</td><td>$392,000</td><td class="up">+18.4%</td><td>$292,490</td><td class="save">$99,510</td><td>Homestead</td></tr>
+            <tr><td class="yr">2022</td><td>$331,200</td><td class="up">&mdash;</td><td>$265,900</td><td class="save">$65,300</td><td>Homestead</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="fp-req" style="margin-top:1.75rem;">
+        <div class="fp-req__body">
+          <h4 class="fp-req__h4">Getting ready to sell?</h4>
+          <p class="fp-req__p">
+            The county&rsquo;s job is to assess for taxes, and they&rsquo;re conservative about it. A
+            TruMarket&trade; report is the real answer &mdash; actual comparable sales, current
+            competition, and what your home would list for today. It&rsquo;s almost always a
+            better number than the one above. I build these by hand, so I&rsquo;d rather do it
+            when you&rsquo;re actually thinking about a move.
+          </p>
+          <div class="fp-req__sla">Turnaround: 3 business days &middot; No obligation</div>
+        </div>
+        <a href="#" class="fp-btn">Request a TruMarket&trade; value</a>
+      </div>
+
+      <p style="font-size:0.82rem;color:var(--fp-muted);line-height:1.65;margin-top:1.25rem;max-width:80ch;" class="fp-fine">
+        Values shown are the appraised value on file with the county appraisal district as of
+        January 1 each year. This is the county&rsquo;s assessment for tax purposes &mdash; not an appraisal,
+        not a market analysis, and not what your home would list for today. It&rsquo;s a reliable way to
+        watch direction over time. When you want a real number, just ask.
+      </p>
+    </div>
+  </section>
+
+  <!-- ══ EXEMPTIONS + INSURANCE ═══════════════════════════════════════ -->
+  <section class="fp-sec fp-sec--alt">
+    <div class="fp-wrap">
+      <div class="fp-eyebrow">Money You May Be Leaving On The Table</div>
+      <h2 class="fp-h2">Two checks I run <em>for you</em> every year</h2>
+      <p class="fp-lede">
+        Both of these are pure found money, and both get missed constantly. I check them
+        against your address and tell you if something&rsquo;s off. That&rsquo;s the whole service.
+      </p>
+
+      <div class="fp-duo">
+        <article class="fp-card fp-card--gold">
+          <div class="fp-card__icon">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#C9A455" stroke-width="1.8"><path d="M3 10l9-7 9 7v10a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><path d="M9 22V12h6v10"/></svg>
+          </div>
+          <span class="fp-status fp-status--ok">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><path d="M20 6L9 17l-5-5"/></svg>
+            On file &mdash; verified Feb 2026
+          </span>
+          <h3 class="fp-card__h3">Homestead exemption audit</h3>
+          <p class="fp-card__p">
+            Texas raised the school district homestead exemption from $100,000 to $140,000
+            for the 2025 tax year &mdash; worth roughly $500&ndash;$1,800 a year automatically. Yours is
+            filed and current. I also check over-65, disability and veteran exemptions as
+            your situation changes, because nobody at the county calls to tell you that you qualify.
+          </p>
+          <a href="#" class="fp-btn fp-btn--ghost">View your exemption status</a>
+        </article>
+
+        <article class="fp-card fp-card--teal">
+          <div class="fp-card__icon">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#2089A0" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <span class="fp-status fp-status--warn">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 8v5M12 17h.01"/><circle cx="12" cy="12" r="9"/></svg>
+            Worth a look &mdash; renews November
+          </span>
+          <h3 class="fp-card__h3">Annual insurance review</h3>
+          <p class="fp-card__p">
+            Galveston County averages <b>$4,469 a year</b> against a $3,291 state average &mdash;
+            and a full coastal stack of homeowners, windstorm and flood runs $5,000&ndash;$11,000.
+            TWIA held residential windstorm rates flat for 2026, but most private carriers
+            filed 3&ndash;7% increases. Every fall I&rsquo;ll nudge you to have an independent agent
+            re-shop it. No commission to me either way.
+          </p>
+          <a href="#" class="fp-btn fp-btn--ghost">See who I&rsquo;d call</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ YOUR STREET ══════════════════════════════════════════════════ -->
+  <section class="fp-sec fp-sec--dark">
+    <div class="fp-wrap">
+      <div class="fp-eyebrow">On Request</div>
+      <h2 class="fp-h2">What actually happened <em>on your street</em></h2>
+      <p class="fp-lede">
+        Zillow shows you what sold. I can show you what <em>didn&rsquo;t</em> &mdash; the listings that
+        expired, got withdrawn or terminated without ever finding a buyer. That&rsquo;s the half of the
+        market nobody publishes, and it&rsquo;s the half that tells you what your house is really worth.
+      </p>
+
+      <div class="fp-street">
+        <div class="fp-stat">
+          <div class="fp-stat__lab">Sold in Tuscan Lakes</div>
+          <div class="fp-stat__num">14</div>
+          <div class="fp-stat__note">Past 90 days &mdash; median $472,000</div>
+        </div>
+        <div class="fp-stat">
+          <div class="fp-stat__lab">Failed to sell</div>
+          <div class="fp-stat__num">6</div>
+          <div class="fp-stat__note">Expired, withdrawn or terminated</div>
+        </div>
+        <div class="fp-stat">
+          <div class="fp-stat__lab">Failure rate</div>
+          <div class="fp-stat__num">30%</div>
+          <div class="fp-stat__note">Nearly 1 in 3 listings never closed</div>
+        </div>
+      </div>
+
+      <div class="fp-tablewrap">
+        <table class="fp-sold">
+          <thead>
+            <tr><th>Address</th><th>Beds / Baths</th><th>Sq Ft</th><th>List</th><th>Result</th><th>Days</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>1402 Tuscan Vista Dr</td><td>4 / 3</td><td>2,640</td><td>$479,000</td><td><span class="fp-pill fp-pill--sold">Sold $472,000</span></td><td>31</td></tr>
+            <tr><td>1519 Siena Ridge Ln</td><td>4 / 2.5</td><td>2,410</td><td>$465,000</td><td><span class="fp-pill fp-pill--sold">Sold $461,500</span></td><td>44</td></tr>
+            <tr><td>2208 Florence Way</td><td>5 / 3.5</td><td>3,120</td><td>$559,000</td><td><span class="fp-pill fp-pill--failed">Expired</span></td><td>187</td></tr>
+            <tr><td>1336 Verona Ct</td><td>3 / 2</td><td>2,105</td><td>$429,000</td><td><span class="fp-pill fp-pill--sold">Sold $425,000</span></td><td>22</td></tr>
+            <tr><td>1877 Tuscan Vista Dr</td><td>4 / 3</td><td>2,700</td><td>$524,900</td><td><span class="fp-pill fp-pill--failed">Withdrawn</span></td><td>96</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="fp-req" style="margin-top:2rem;">
+        <div class="fp-req__body">
+          <h4 class="fp-req__h4">Want this run for your street?</h4>
+          <p class="fp-req__p">
+            I pull it by hand from the MLS so it&rsquo;s actually right &mdash; including the listings
+            that failed, which is the part you can&rsquo;t get anywhere else. Ask any time; most
+            people ask once or twice a year, or when a neighbor lists.
+          </p>
+          <div class="fp-req__sla">Turnaround: 3 business days</div>
+        </div>
+        <a href="#" class="fp-btn">Request my street report</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ PAYOFF CALCULATOR ════════════════════════════════════════════ -->
+  <section class="fp-sec" id="payoff">
+    <div class="fp-wrap">
+      <div class="fp-eyebrow">Your Loan &middot; Already Filled In</div>
+      <h2 class="fp-h2">What an extra <em>hundred dollars</em> a month actually does</h2>
+      <p class="fp-lede">
+        Every payoff calculator on the internet asks you for six numbers you don&rsquo;t have
+        handy. This one already has them &mdash; they came off your closing disclosure. Move
+        the slider and watch the date move.
+      </p>
+
+      <div class="pay">
+        <!-- ── The loan on file ── -->
+        <div class="pay__loan">
+          <div class="pay__loan-h">The loan I have on file</div>
+          <dl class="pay__facts">
+            <div><dt>Original amount</dt><dd id="pay-orig">&mdash;</dd></div>
+            <div><dt>Rate</dt><dd id="pay-rate">&mdash;</dd></div>
+            <div><dt>Term</dt><dd id="pay-term">&mdash;</dd></div>
+            <div><dt>First payment</dt><dd id="pay-start">&mdash;</dd></div>
+            <div><dt>Balance today</dt><dd id="pay-bal">&mdash;</dd></div>
+            <div><dt>Principal &amp; interest</dt><dd id="pay-pmt">&mdash;</dd></div>
+          </dl>
+          <p class="pay__loan-note">
+            Wrong? <a href="front-porch.html#annual">Correct it here</a> and everything below
+            re-runs.
+          </p>
+        </div>
+
+        <!-- ── The control ── -->
+        <div class="pay__control">
+          <label class="pay__label" for="pay-extra">Extra toward principal each month</label>
+          <div class="pay__amount">
+            <span class="pay__currency">$</span>
+            <input id="pay-extra" class="pay__input" type="number" min="0" max="3000" step="25"
+                   value="100" inputmode="numeric" aria-describedby="pay-extra-help" />
+            <span class="pay__per">/ month</span>
+          </div>
+          <input id="pay-slider" class="pay__slider" type="range" min="0" max="1000" step="25"
+                 value="100" aria-label="Extra toward principal each month" />
+          <div class="pay__presets" role="group" aria-label="Quick amounts">
+            <button type="button" class="pay__preset" data-extra="50">$50</button>
+            <button type="button" class="pay__preset is-on" data-extra="100">$100</button>
+            <button type="button" class="pay__preset" data-extra="250">$250</button>
+            <button type="button" class="pay__preset" data-extra="500">$500</button>
+            <button type="button" class="pay__preset" data-round>Round up</button>
+          </div>
+          <label class="pay__toggle">
+            <input type="checkbox" id="pay-annual" />
+            <span>Plus one extra payment every year</span>
+          </label>
+          <p class="pay__help" id="pay-extra-help">
+            Extra principal only &mdash; this assumes taxes and insurance are handled separately
+            in escrow.
+          </p>
+        </div>
+
+        <!-- ── The answer ── -->
+        <div class="pay__result">
+          <div class="pay__headline">
+            <span class="pay__headline-k">You&rsquo;d own it outright in</span>
+            <span class="pay__headline-v" id="pay-when">&mdash;</span>
+            <span class="pay__headline-s" id="pay-sooner">&mdash;</span>
+          </div>
+
+          <div class="pay__bars" aria-hidden="true">
+            <div class="pay__bar">
+              <span class="pay__bar-k">As it stands</span>
+              <span class="pay__bar-track"><span class="pay__bar-fill pay__bar-fill--now" id="pay-bar-now"></span></span>
+              <span class="pay__bar-v" id="pay-yrs-now">&mdash;</span>
+            </div>
+            <div class="pay__bar">
+              <span class="pay__bar-k">With the extra</span>
+              <span class="pay__bar-track"><span class="pay__bar-fill pay__bar-fill--new" id="pay-bar-new"></span></span>
+              <span class="pay__bar-v" id="pay-yrs-new">&mdash;</span>
+            </div>
+          </div>
+
+          <dl class="pay__stats">
+            <div>
+              <dt>Interest you don&rsquo;t pay</dt>
+              <dd class="pay__stat--gold" id="pay-saved">&mdash;</dd>
+            </div>
+            <div>
+              <dt>Extra you&rsquo;d put in</dt>
+              <dd id="pay-invested">&mdash;</dd>
+            </div>
+            <div>
+              <dt>What the extra earns you</dt>
+              <dd id="pay-ratio">&mdash;</dd>
+            </div>
+          </dl>
+
+          <p class="pay__caveat">
+            Math on the loan I have on file, not a quote and not advice. Confirm your balance
+            and payoff terms with your servicer &mdash; and check whether extra payments need to
+            be marked <em>principal only</em>, because some servicers will happily apply them
+            to next month instead.
+          </p>
+        </div>
+      </div>
+
+      <div class="fp-req" style="margin-top:1.75rem;">
+        <div class="fp-req__body">
+          <h4 class="fp-req__h4">Want me to run this against selling instead?</h4>
+          <p class="fp-req__p">
+            Paying it down faster is one option. Sometimes the better one is that the equity
+            is already doing nothing and you&rsquo;d rather it did something else. I&rsquo;ll run both
+            side by side &mdash; no pitch either way, and I&rsquo;m not a lender, so I have no dog
+            in the refinance fight.
+          </p>
+          <div class="fp-req__sla">Turnaround: 3 business days</div>
+        </div>
+        <a href="#" class="fp-btn">Run both numbers</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ VAULT + SEASONAL ═════════════════════════════════════════════ -->
+  <section class="fp-sec fp-sec--alt" id="documents">
+    <div class="fp-wrap">
+      <div class="fp-eyebrow">Your File</div>
+      <h2 class="fp-h2">The paperwork you&rsquo;ll <em>eventually</em> need</h2>
+      <p class="fp-lede">
+        Everyone loses their survey. Then they want a fence, or a pool, or they refinance,
+        and a new one runs $400&ndash;$600. I already have yours from closing &mdash; it lives here now.
+        You can add to it too, and you should: every improvement receipt you keep here raises
+        your cost basis, which lowers the capital gains you&rsquo;ll owe when you eventually sell.
+      </p>
+
+      <div class="fp-vault" style="margin-bottom:3.25rem;">
+        <a href="#" class="fp-doc">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1B3A5C" stroke-width="1.7"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+          <span><span class="fp-doc__name">Property Survey</span><span class="fp-doc__sub">PDF &middot; Mar 2021</span></span>
+        </a>
+        <a href="#" class="fp-doc">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1B3A5C" stroke-width="1.7"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+          <span><span class="fp-doc__name">Title Policy</span><span class="fp-doc__sub">PDF &middot; Mar 2021</span></span>
+        </a>
+        <a href="#" class="fp-doc">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1B3A5C" stroke-width="1.7"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+          <span><span class="fp-doc__name">Closing Disclosure</span><span class="fp-doc__sub">PDF &middot; Mar 2021</span></span>
+        </a>
+        <a href="#" class="fp-doc">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1B3A5C" stroke-width="1.7"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+          <span><span class="fp-doc__name">Inspection Report</span><span class="fp-doc__sub">PDF &middot; Feb 2021</span></span>
+        </a>
+        <a href="#" class="fp-doc">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1B3A5C" stroke-width="1.7"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+          <span><span class="fp-doc__name">Builder Warranty</span><span class="fp-doc__sub">PDF &middot; Expires 2031</span></span>
+        </a>
+        <a href="#" class="fp-doc">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1B3A5C" stroke-width="1.7"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+          <span><span class="fp-doc__name">Roof Replacement Invoice</span><span class="fp-doc__sub">You added &middot; Jun 2025 &middot; $18,400</span></span>
+        </a>
+      </div>
+
+      <div class="fp-upload" style="margin-bottom:3.25rem;">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#C9A455" stroke-width="1.6" style="margin:0 auto;display:block;"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><path d="M17 8l-5-5-5 5"/><path d="M12 3v12"/></svg>
+        <h4 class="fp-upload__h4">Add your own documents</h4>
+        <p class="fp-upload__p">
+          Improvement receipts, permits, insurance policies, warranties. Drop them here the week
+          the work is done and you&rsquo;ll never hunt for them again.
+        </p>
+        <div class="fp-chips">
+          <span class="fp-chip fp-chip--on">Improvements &amp; Receipts</span>
+          <span class="fp-chip">Permits</span>
+          <span class="fp-chip">Insurance</span>
+          <span class="fp-chip">Warranties</span>
+          <span class="fp-chip">Closing</span>
+          <span class="fp-chip">Tax</span>
+        </div>
+        <a href="#" class="fp-btn">Choose files</a>
+        <div class="fp-upload__fine">PDF, JPG or PNG &middot; up to 25 MB each &middot; private to you and Phil</div>
+      </div>
+
+      <div class="fp-eyebrow">Seasonal</div>
+      <h2 class="fp-h2">Gulf Coast <em>homeowner rhythm</em></h2>
+      <p class="fp-lede">
+        Two seasons matter here and everybody forgets one of them until it&rsquo;s too late.
+        Checklists live here year-round, and I&rsquo;ll text you when a storm is 72 hours out.
+      </p>
+
+      <div class="fp-season">
+        <div class="fp-card">
+          <span class="fp-status fp-status--warn">Active now &mdash; hurricane season through Nov 30</span>
+          <h3 class="fp-card__h3">Storm prep</h3>
+          <ul class="fp-check">
+            <li><input type="checkbox" checked /><span>Photograph every room &mdash; timestamped, for claims</span></li>
+            <li><input type="checkbox" checked /><span>Confirm flood policy is active (30-day wait to bind)</span></li>
+            <li><input type="checkbox" /><span>Trim limbs away from the roofline</span></li>
+            <li><input type="checkbox" /><span>Clear gutters and check the drainage swale</span></li>
+            <li><input type="checkbox" /><span>Service the generator, stock fuel</span></li>
+            <li><input type="checkbox" /><span>Scan documents to the vault above</span></li>
+          </ul>
+        </div>
+        <div class="fp-card">
+          <span class="fp-status fp-status--info">Opens December</span>
+          <h3 class="fp-card__h3">Freeze prep</h3>
+          <ul class="fp-check">
+            <li><input type="checkbox" /><span>Insulate exposed pipe, especially the north wall</span></li>
+            <li><input type="checkbox" /><span>Locate and tag your main shutoff</span></li>
+            <li><input type="checkbox" /><span>Cover outdoor spigots</span></li>
+            <li><input type="checkbox" /><span>Service the heater before the first hard freeze</span></li>
+            <li><input type="checkbox" /><span>Drain and shut off irrigation</span></li>
+            <li><input type="checkbox" /><span>Know your plumber&rsquo;s after-hours number</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ GUEST PASS ═══════════════════════════════════════════════════ -->
+  <section class="fp-sec fp-sec--alt" id="pass">
+    <div class="fp-wrap">
+      <div class="fp-eyebrow">One Friend, One Thing</div>
+      <h2 class="fp-h2">Hand somebody a <em>guest pass</em></h2>
+      <p class="fp-lede">
+        Not a referral form. Your link opens a page where they can pull up their own
+        county numbers &mdash; appraised value, five years of history, and whether their
+        homestead exemption is actually on file. Free, nothing to join, and it takes
+        them about thirty seconds.
+      </p>
+
+      <div class="gp">
+        <article class="gp__card">
+          <div class="gp__season">Any time</div>
+          <h3 class="gp__h">The exemption check</h3>
+          <p class="gp__p">
+            Plenty of people who bought in the last couple of years never filed. Texas lets
+            them file up to two years late <em>and</em> collect a refund on what they already
+            paid. Most of them have no idea.
+          </p>
+        </article>
+
+        <article class="gp__card">
+          <div class="gp__season">March &ndash; May 15</div>
+          <h3 class="gp__h">Their protest comps</h3>
+          <p class="gp__p">
+            When the appraisal notices land, anyone can request the comparable sales that
+            back up a lower number. Comps do about 90% of the work in a residential protest,
+            and I&rsquo;m pulling them anyway.
+          </p>
+        </article>
+
+        <article class="gp__card">
+          <div class="gp__season">Any time</div>
+          <h3 class="gp__h">The short list</h3>
+          <p class="gp__p">
+            The vendors. Foundation, AC, roof, drainage &mdash; the people I&rsquo;d send my own
+            mother to. Useful the week somebody&rsquo;s slab cracks, which is never a week they
+            planned for.
+          </p>
+        </article>
+      </div>
+
+      <div class="gp__link">
+        <span class="gp__url" id="gp-url">philliphimes.com/pass/sarah-mike-chen</span>
+        <button type="button" class="gp__copy" id="gp-copy">Copy link</button>
+      </div>
+
+      <p class="gp__note">
+        The link is yours, so I know who to thank. They enter their own details &mdash; you&rsquo;re
+        never handing me somebody else&rsquo;s address, which is the part that makes this feel
+        like a favour instead of a hand-off. And they get the numbers whether or not they
+        want to hear from me again.
+      </p>
+    </div>
+  </section>
+
+  <!-- ══ EARLY ACCESS ═════════════════════════════════════════════════ -->
+  <section class="fp-sec fp-sec--dark" id="early">
+    <div class="fp-wrap">
+      <div class="fp-eyebrow">Porch Only</div>
+      <h2 class="fp-h2">Before it hits <em>the market</em></h2>
+      <p class="fp-lede">
+        Coming-soon and quietly-marketed homes, posted here first. Sometimes that&rsquo;s a
+        week of head start. If something looks interesting, just reply &mdash; no form.
+      </p>
+
+      <div class="fp-early">
+        <article class="fp-listing">
+          <div class="fp-listing__img">Photo</div>
+          <div class="fp-listing__body">
+            <span class="fp-listing__tag">Coming soon &middot; 9 days</span>
+            <div class="fp-listing__price">$615,000</div>
+            <div class="fp-listing__addr">4 bd &middot; 3.5 ba &middot; 3,240 sqft<br />Mar Bella, League City</div>
+          </div>
+        </article>
+        <article class="fp-listing">
+          <div class="fp-listing__img">Photo</div>
+          <div class="fp-listing__body">
+            <span class="fp-listing__tag">Quietly marketed</span>
+            <div class="fp-listing__price">$438,000</div>
+            <div class="fp-listing__addr">3 bd &middot; 2 ba &middot; 2,180 sqft<br />Westover Park, League City</div>
+          </div>
+        </article>
+        <article class="fp-listing">
+          <div class="fp-listing__img">Photo</div>
+          <div class="fp-listing__body">
+            <span class="fp-listing__tag">Coming soon &middot; 3 days</span>
+            <div class="fp-listing__price">$789,000</div>
+            <div class="fp-listing__addr">5 bd &middot; 4 ba &middot; 3,910 sqft<br />West Ranch, Friendswood</div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ ANNUAL CHECK-IN ══════════════════════════════════════════════ -->
+  <section class="fp-sec fp-sec--alt">
+    <div class="fp-wrap">
+      <div class="fp-eyebrow">Once A Year &middot; Every January</div>
+      <h2 class="fp-h2">The only thing I&rsquo;ll <em>ask you</em> for</h2>
+      <p class="fp-lede">
+        Your equity number is only as good as what I know about your loan. One short check-in
+        each January keeps it honest &mdash; and it&rsquo;s pre-filled from your closing file, so mostly
+        you&rsquo;re just confirming nothing changed.
+      </p>
+
+      <div class="fp-duo">
+        <article class="fp-card fp-card--gold">
+          <span class="fp-status fp-status--info">Pre-filled from your Closing Disclosure</span>
+          <h3 class="fp-card__h3">Your loan</h3>
+          <p class="fp-card__p">
+            Original amount <b>$332,500</b> &middot; 30-year fixed at <b>3.125%</b> &middot; started March 2021.
+            Estimated balance today: <b>$273,610</b>. If you&rsquo;ve refinanced, taken a HELOC, or been
+            paying extra principal, tell me and the equity number corrects itself.
+          </p>
+          <a href="#" class="fp-btn fp-btn--ghost">Confirm or update</a>
+        </article>
+
+        <article class="fp-card fp-card--teal">
+          <span class="fp-status fp-status--warn">2 receipts added this year</span>
+          <h3 class="fp-card__h3">Any work done on the house?</h3>
+          <p class="fp-card__p">
+            Roof, kitchen, fence, windows, foundation &mdash; anything you paid for. Receipts go in your
+            vault, raise your cost basis for capital gains, and double as evidence at protest time.
+            They also make for a much better listing when you eventually sell.
+          </p>
+          <a href="#" class="fp-btn fp-btn--ghost">Add this year&rsquo;s receipts</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ ASK PHIL ═════════════════════════════════════════════════════ -->
+  <section class="fp-sec">
+    <div class="fp-wrap">
+      <div class="fp-ask">
+        <h2 class="fp-ask__h2">Still just a <em>phone call</em></h2>
+        <p class="fp-ask__p">
+          All of this exists so you don&rsquo;t have to wonder who to ask. But if you&rsquo;d rather
+          just call and ask me &mdash; about a contractor, a permit, whether now is a dumb time
+          to move &mdash; that&rsquo;s still the best way. It always was.
+        </p>
+        <div class="fp-ask__btns">
+          <a href="tel:8329909738" class="fp-btn">Call (832) 990-9738</a>
+          <a href="mailto:phil@philliphimes.com" class="fp-btn fp-btn--ghost">Send me a note</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ FOOTER ═══════════════════════════════════════════════════════ -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__statement">
+        <div class="footer__eyebrow">Phillip Himes &middot; REALTOR&reg; &middot; Brokered by eXp Realty</div>
+        <div class="footer__headline">Real estate built around your <em>life</em> &mdash; not just your transaction.</div>
+        <p class="footer__sub">Serving League City, Friendswood, Pearland, Clear Lake, Dickinson &amp; Manvel.</p>
+        <div class="footer__cta">
+          <a href="tel:8329909738" class="footer__btn footer__btn--gold">Call (832) 990-9738</a>
+          <a href="contact.html" class="footer__btn footer__btn--ghost">Ask Phil &rarr;</a>
+        </div>
+      </div>
+      <div class="footer__legal">
+        <div class="footer__legal-copy">
+          &copy; 2026 Phillip Himes &middot; eXp Realty, LLC &middot; REALTOR&reg; Licensed in Texas &middot; 2600 South Shore Blvd. #300, League City, TX 77573 &nbsp;&middot;&nbsp; <span class="footer__eho">&#8962; Equal Housing Opportunity</span>
+        </div>
+        <div class="footer__legal-links">
+          <a href="privacy-policy.html" class="footer__legal-link">Privacy Policy</a>
+          <a href="terms-of-service.html" class="footer__legal-link">Terms of Service</a>
+          <a href="contact.html" class="footer__legal-link">Contact</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/front-porch-nav.js?v=20260824a"></script>
+  <script src="js/front-porch-payoff.js?v=20260824a"></script>
+  <script>
+    // Guest-pass link copy. Clipboard API needs a secure context; file:// and
+    // plain http on a non-localhost host both fail, so fall back to select.
+    (function () {
+      var btn = document.getElementById('gp-copy'), url = document.getElementById('gp-url');
+      if (!btn || !url) return;
+      btn.addEventListener('click', function () {
+        var text = url.textContent.trim();
+        var done = function () {
+          btn.textContent = 'Copied';
+          btn.classList.add('is-done');
+          setTimeout(function () { btn.textContent = 'Copy link'; btn.classList.remove('is-done'); }, 2200);
+        };
+        if (navigator.clipboard && window.isSecureContext) {
+          navigator.clipboard.writeText(text).then(done, function () { select(); });
+        } else { select(); }
+        function select() {
+          var r = document.createRange(); r.selectNodeContents(url);
+          var sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(r);
+          try { document.execCommand('copy'); done(); } catch (e) { btn.textContent = 'Select and copy'; }
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

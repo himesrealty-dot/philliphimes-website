@@ -1,0 +1,22 @@
+# ── Secrets — never commit ──────────────────────────────
+.idx-key
+.env
+*.key
+
+# ── Probe / diagnostic output (may contain account + listing data) ──
+idx-probe-output.txt
+
+# ── Python ──────────────────────────────────────────────
+__pycache__/
+*.pyc
+
+# ── Parsed appraisal-roll databases ─────────────────────────
+# Rebuildable from the county roll exports via scripts/cad_parse.py.
+# 90 MB for two years of one county — never commit these.
+data/cad*.sqlite
+data/cad*.sqlite-journal
+
+# ── Member roster: names, addresses, loan terms ──────────────
+# Real client data. Keep it local; it is not repo material.
+data/members.csv
+data/porch.sqlite

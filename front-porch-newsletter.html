@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Note | A Monthly Letter from Phil Himes &mdash; Houston Bay Area</title>
+  <meta name="description" content="One letter a month for people who own a home around Houston. A story, something worth knowing about where you live, a place worth the drive, and whatever I cooked. No listings, no pitch." />
+  <!-- TEMPORARY: The Note is meant to be public and indexed, but this issue still
+       contains placeholder content — the bracketed [Phil — ...] note, a fake
+       restaurant, and an invented reader called Mary Jones. Delete this ONE LINE
+       once a real issue is written. Nothing else needs changing. -->
+  <meta name="robots" content="noindex" />
+  <link rel="canonical" href="https://philliphimes.com/front-porch-newsletter.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="The Note &mdash; a monthly letter from Phil Himes" />
+  <meta property="og:description" content="A story, something worth knowing about where you live, a place worth the drive, and whatever I cooked. One a month." />
+  <meta property="og:url" content="https://philliphimes.com/front-porch-newsletter.html" />
+  <meta property="og:image" content="https://philliphimes.com/images/note-cover.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="stylesheet" href="css/styles.css?v=20260824a" />
+  <link rel="stylesheet" href="css/front-porch.css?v=20260824a" />
+  <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+  <!-- The cover is the LCP element — start it early rather than waiting for CSS -->
+  <link rel="preload" as="image" href="images/note-cover.jpg?v=2" fetchpriority="high" />
+
+  <style>
+  /* Hallmark · macrostructure: Cover + alternating spreads · genre: editorial
+   * theme: portal-native (brand-locked navy / gold / teal; rust dept accent)
+   * v4 — magazine model: cover with cover-lines, then two-column spreads that
+   *      alternate media left / media right down the page.
+   * pre-emit critique: P5 H5 E5 S5 R4 V5
+   */
+
+  /* ══ COVER ══════════════════════════════════════════════════════════
+     Photograph, scrim, masthead, cover lines. The cover lines are real
+     anchors — a cover you can click into.                                */
+
+  .nl-cover {
+    position: relative; isolation: isolate;
+    min-height: 680px; display: flex; align-items: stretch;
+    background: var(--fp-navy-deep);
+    overflow: hidden;
+  }
+  .nl-cover__art {
+    position: absolute; inset: 0; z-index: -2;
+    background-image: url('images/note-cover.jpg?v=2');
+    background-size: cover; background-position: 58% center; background-repeat: no-repeat;
+  }
+  /* Scrim measured against the actual photograph: the left third of this image
+     runs 12.7:1 on white, the letter in the middle only 2.9:1. So the scrim is
+     weighted left — heavy where the type sits, clearing across the letter, the
+     writing hand and the mug so the picture is still a picture. */
+  .nl-cover__scrim {
+    position: absolute; inset: 0; z-index: -1;
+    background:
+      linear-gradient(100deg,
+        rgba(9,24,41,0.95) 0%,  rgba(9,24,41,0.90) 30%,
+        rgba(9,24,41,0.60) 48%, rgba(9,24,41,0.26) 68%,
+        rgba(9,24,41,0.18) 100%),
+      linear-gradient(to top, rgba(9,24,41,0.55) 0%, rgba(9,24,41,0) 34%);
+  }
+  .nl-cover__inner {
+    position: relative; width: 100%;
+    max-width: 74rem; margin-inline: auto; padding: 2.25rem 1.5rem 3rem;
+    display: flex; flex-direction: column; gap: 2rem;
+  }
+  
+  .nl-cover__masthead { display: flex; flex-direction: column; align-items: flex-start; gap: 0.55rem; max-width: 34rem; }
+  .nl-cover__title {
+    font-family: var(--font-display); font-size: clamp(2.6rem, 6.4vw, 4.4rem);
+    font-weight: 900; color: #fff; line-height: 0.95; letter-spacing: -0.01em;
+    text-shadow: 0 2px 24px rgba(6,18,32,0.6);
+  }
+  .nl-cover__flag {
+    font-family: var(--font-heading); font-size: 0.68rem; font-weight: 800;
+    letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold);
+    text-shadow: 0 1px 12px rgba(6,18,32,0.7);
+  }
+  .nl-cover__meta {
+    font-family: var(--font-heading); font-size: 0.68rem; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.78);
+    font-variant-numeric: tabular-nums; text-shadow: 0 1px 12px rgba(6,18,32,0.7);
+  }
+
+  /* ── Cover lines ─────────────────────────────────────────────────── */
+  .nl-lines { margin-top: auto; max-width: 34rem; }
+  .nl-cl { display: block; text-decoration: none; padding: 0.75rem 0; }
+  .nl-cl + .nl-cl { border-top: 1px solid rgba(255,255,255,0.18); }
+  .nl-cl__kicker {
+    display: block; font-family: var(--font-heading); font-size: 0.62rem;
+    font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 0.3rem;
+  }
+  .nl-cl__text {
+    display: block; font-family: var(--font-display); font-size: 1.06rem;
+    font-weight: 700; color: rgba(255,255,255,0.9); line-height: 1.35;
+    text-shadow: 0 1px 14px rgba(6,18,32,0.6);
+  }
+  .nl-cl:hover .nl-cl__text { color: var(--gold); }
+
+  /* The lead cover line is the one the issue is about — set like a cover. */
+  .nl-cl--lead { padding-top: 0; padding-bottom: 1.1rem; }
+  .nl-cl--lead .nl-cl__text {
+    font-size: clamp(1.6rem, 3.6vw, 2.4rem); font-weight: 900; color: #fff;
+    line-height: 1.14;
+  }
+  .nl-cl--lead .nl-cl__kicker { font-size: 0.68rem; margin-bottom: 0.55rem; }
+
+  /* ══ SPREADS ════════════════════════════════════════════════════════
+     Two columns, media and text, alternating side down the page.         */
+
+  .nl-sec { max-width: 74rem; margin-inline: auto; padding: 3.5rem 1.5rem; }
+  .nl-sec + .nl-sec { border-top: 1px solid rgba(27,58,92,0.12); }
+
+  .nl-sec--coffee { --dept: var(--fp-gold-ink); }
+  .nl-sec--know   { --dept: var(--fp-dept-know); }
+  .nl-sec--drive  { --dept: var(--navy); }
+  .nl-sec--cook   { --dept: var(--fp-dept-cook); }
+
+  .nl-spread {
+    display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+    gap: 3rem; align-items: start;
+  }
+  .nl-spread__media { grid-column: 1; grid-row: 1; }
+  .nl-spread__text  { grid-column: 2; grid-row: 1; }
+  /* Alternate: media moves to the right-hand column. */
+  .nl-spread--flip .nl-spread__media { grid-column: 2; }
+  .nl-spread--flip .nl-spread__text  { grid-column: 1; }
+
+  /* Media rides down the spread on long sections instead of stranding
+     a column of white space under a short photograph. */
+  .nl-spread__media > figure { position: sticky; top: 5.5rem; }
+
+  /* ── Media ───────────────────────────────────────────────────────── */
+  .nl-media { margin: 0; }
+  .nl-media__box {
+    position: relative; aspect-ratio: 4 / 5; border-radius: var(--radius-md);
+    background: repeating-linear-gradient(45deg,
+      rgba(27,58,92,0.04) 0 12px, rgba(27,58,92,0.07) 12px 24px);
+    border: 1px solid rgba(27,58,92,0.16);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 0.6rem; text-align: center; padding: 1rem;
+  }
+  .nl-media--wide .nl-media__box { aspect-ratio: 4 / 3; }
+  .nl-media__tag {
+    font-family: var(--font-heading); font-size: 0.64rem; font-weight: 800;
+    letter-spacing: 0.15em; text-transform: uppercase; color: var(--fp-muted);
+  }
+  .nl-media__hint { font-size: 0.79rem; color: var(--fp-muted); line-height: 1.6; max-width: 22rem; }
+  .nl-media__play {
+    width: 58px; height: 58px; border-radius: 50%; background: var(--navy);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .nl-media figcaption { font-size: 0.78rem; color: var(--fp-muted); line-height: 1.6; margin-top: 0.7rem; }
+
+  /* ── Department mark ─────────────────────────────────────────────── */
+  .nl-mark { display: flex; align-items: center; gap: 0.7rem; margin-bottom: 1.2rem; }
+  .nl-mark__name {
+    font-family: var(--font-heading); font-size: 0.7rem; font-weight: 800;
+    letter-spacing: 0.18em; text-transform: uppercase; color: var(--dept); white-space: nowrap;
+  }
+  .nl-mark__rule { flex: 1; height: 1px; background: var(--dept); opacity: 0.3; }
+  .nl-mark svg { display: block; flex-shrink: 0; }
+
+  .nl-sec__h {
+    font-family: var(--font-display); font-size: clamp(1.45rem, 2.6vw, 1.95rem);
+    font-weight: 900; color: var(--navy); line-height: 1.22; margin: 0 0 1.1rem;
+    overflow-wrap: anywhere; min-width: 0;
+  }
+
+  .nl-byline {
+    font-size: 0.9rem; line-height: 1.7; color: var(--fp-muted);
+    margin: -0.4rem 0 1.3rem; padding-left: 1.1rem; position: relative;
+  }
+  .nl-byline::before {
+    content: ""; position: absolute; left: 0; top: 0.62em;
+    width: 0.55rem; height: 1px; background: var(--dept);
+  }
+  .nl-byline b { color: var(--navy); font-weight: 700; }
+
+  /* ── Prose ───────────────────────────────────────────────────────── */
+  .nl-prose p { font-size: 1.04rem; line-height: 1.82; color: var(--fp-ink); margin: 0 0 1.25rem; }
+  .nl-prose p:last-child { margin-bottom: 0; }
+  .nl-prose em { font-style: italic; }
+  .nl-prose--sm p { font-size: 0.99rem; line-height: 1.78; color: var(--fp-ink-2); }
+
+  .nl-drop p:first-of-type::first-letter {
+    font-family: var(--font-display); font-size: 3rem; font-weight: 900;
+    color: var(--navy); float: left; line-height: 0.86; margin: 0.12rem 0.5rem 0 0;
+  }
+
+  .nl-turn { border-left: 2px solid var(--gold); padding-left: 1.4rem; margin: 1.9rem 0; }
+  .nl-turn p {
+    font-family: var(--font-display); font-size: 1.16rem; line-height: 1.58;
+    color: var(--navy); margin: 0;
+  }
+
+  .nl-sig { margin-top: 2rem; }
+  .nl-sig__name {
+    font-family: var(--font-display); font-size: 1.4rem; font-weight: 700;
+    color: var(--navy); margin-bottom: 0.15rem;
+  }
+  .nl-sig__note { font-size: 0.82rem; color: var(--fp-muted); }
+
+  /* ── Recipe ──────────────────────────────────────────────────────── */
+  .nl-recipe {
+    margin-top: 1.4rem; border-top: 2px solid var(--fp-dept-cook);
+    border-bottom: 1px solid rgba(27,58,92,0.14); padding: 1.2rem 0 1.3rem;
+  }
+  .nl-recipe__h {
+    font-family: var(--font-heading); font-size: 0.66rem; font-weight: 800;
+    letter-spacing: 0.16em; text-transform: uppercase; color: var(--fp-dept-cook);
+    margin-bottom: 0.65rem;
+  }
+  .nl-recipe ul, .nl-recipe ol { margin: 0 0 1.4rem; padding-left: 1.1rem; }
+  .nl-recipe ul:last-child, .nl-recipe ol:last-child { margin-bottom: 0; }
+  .nl-recipe li {
+    font-size: 0.94rem; line-height: 1.78; color: var(--fp-ink-2);
+    margin-bottom: 0.3rem; font-variant-numeric: tabular-nums;
+  }
+
+  /* ── The ask ─────────────────────────────────────────────────────── */
+  .nl-ps {
+    max-width: 74rem; margin: 0 auto; padding: 3rem 1.5rem 3.5rem;
+    border-top: 1px solid rgba(27,58,92,0.12);
+  }
+  .nl-ps__inner { max-width: 40rem; }
+  .nl-ps p { font-size: 1.04rem; line-height: 1.85; color: var(--fp-ink); margin: 0 0 1rem; }
+  .nl-ps p:last-child { margin-bottom: 0; }
+  .nl-ps__lede { font-family: var(--font-display); font-weight: 700; color: var(--navy); }
+  .nl-ps a {
+    color: var(--navy); text-decoration: none;
+    border-bottom: 2px solid var(--gold); padding-bottom: 1px;
+    transition: border-color 160ms ease-out, color 160ms ease-out;
+  }
+  .nl-ps a:hover { color: var(--fp-gold-ink); border-bottom-color: var(--fp-gold-ink); }
+  .nl-ps__fine { font-size: 0.83rem; color: var(--fp-muted); }
+
+  /* ── Archive ─────────────────────────────────────────────────────── */
+  .nl-archwrap { max-width: 74rem; margin-inline: auto; padding-inline: 1.5rem; }
+  .nl-arch {
+    display: flex; align-items: baseline; gap: 1.25rem; flex-wrap: wrap;
+    padding: 1.05rem 0; border-bottom: 1px solid rgba(27,58,92,0.09); text-decoration: none;
+  }
+  .nl-arch:hover .nl-arch__t { color: var(--teal-dark); }
+  .nl-arch__d {
+    font-family: var(--font-heading); font-size: 0.68rem; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase; color: var(--fp-muted);
+    width: 84px; flex-shrink: 0; font-variant-numeric: tabular-nums;
+  }
+  .nl-arch__t {
+    font-family: var(--font-display); font-size: 1.05rem; font-weight: 700;
+    color: var(--navy); flex: 1; min-width: 200px;
+  }
+
+  /* ── Responsive ──────────────────────────────────────────────────── */
+
+  /* ── Public bar (The Note is ungated) ─────────────────────────────── */
+  .nl-bar { background: #fff; border-bottom: 1px solid rgba(27,58,92,0.1); }
+  .nl-bar__in {
+    max-width: 74rem; margin-inline: auto; padding: 0.85rem 1.5rem;
+    display: flex; align-items: center; gap: 1.1rem;
+  }
+  .nl-bar__logo img { height: 34px; width: auto; display: block; }
+  .nl-bar__cta {
+    margin-left: auto; font-family: var(--font-heading); font-size: 0.72rem;
+    font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--navy); background: var(--gold); border-radius: var(--radius-full);
+    padding: 0.5rem 1.1rem; text-decoration: none; white-space: nowrap;
+  }
+  .nl-bar__cta:hover { background: var(--gold-dark); color: var(--navy); }
+  .nl-bar__ph {
+    font-family: var(--font-heading); font-size: 0.8rem; font-weight: 700;
+    color: var(--navy); text-decoration: none; white-space: nowrap;
+  }
+
+  /* ── Subscribe (public readers can't be members) ──────────────────── */
+  .nl-sub {
+    max-width: 74rem; margin-inline: auto; padding: 3rem 1.5rem 3.5rem;
+    border-top: 1px solid rgba(27,58,92,0.12);
+  }
+  .nl-sub__in {
+    background: linear-gradient(140deg, var(--fp-navy-deep) 0%, var(--navy) 60%, var(--fp-navy-lift) 100%);
+    color: #fff; border-radius: var(--radius-lg); padding: 2.5rem 2.2rem;
+  }
+  .nl-sub__h {
+    font-family: var(--font-display); font-size: clamp(1.45rem, 3vw, 1.95rem);
+    font-weight: 900; margin: 0 0 0.8rem; color: #fff; line-height: 1.28;
+  }
+  .nl-sub__p {
+    font-size: 1rem; line-height: 1.78; color: rgba(255,255,255,0.85);
+    margin: 0 0 1.6rem; max-width: 36rem;
+  }
+  .nl-sub__row { display: grid; grid-template-columns: 1fr 1fr auto; gap: 0.75rem; max-width: 40rem; }
+  .nl-sub__row input {
+    font-family: var(--font-body); font-size: 0.95rem; padding: 0.85rem 1rem;
+    border-radius: var(--radius-md); border: 1px solid rgba(255,255,255,0.24);
+    background: rgba(255,255,255,0.1); color: #fff; min-width: 0;
+  }
+  .nl-sub__row input::placeholder { color: rgba(255,255,255,0.5); }
+  .nl-sub__row input:focus { outline: none; border-color: var(--gold); background: rgba(255,255,255,0.16); }
+  .nl-sub__go {
+    font-family: var(--font-heading); font-size: 0.74rem; font-weight: 800;
+    letter-spacing: 0.09em; text-transform: uppercase; white-space: nowrap;
+    background: var(--gold); color: var(--navy); border: none; cursor: pointer;
+    border-radius: var(--radius-full); padding: 0.85rem 1.5rem;
+  }
+  .nl-sub__go:hover { background: var(--gold-dark); }
+  .nl-sub__fine { font-size: 0.82rem; color: rgba(255,255,255,0.6); margin: 1.1rem 0 0; line-height: 1.7; }
+  @media (max-width: 700px) { .nl-sub__row { grid-template-columns: 1fr; } }
+
+  @media (max-width: 900px) {
+    .nl-spread { grid-template-columns: minmax(0, 1fr); gap: 1.75rem; }
+    /* Stacked: media always leads, whichever side it sat on. */
+    .nl-spread__media, .nl-spread--flip .nl-spread__media { grid-column: 1; grid-row: 1; }
+    .nl-spread__text,  .nl-spread--flip .nl-spread__text  { grid-column: 1; grid-row: 2; }
+    .nl-spread__media > figure { position: static; }
+    .nl-media__box { aspect-ratio: 3 / 2; }
+    .nl-cover, .nl-cover__inner { min-height: 540px; }
+  }
+  @media (max-width: 600px) {
+    .nl-cover, .nl-cover__inner { min-height: 480px; }
+    .nl-cover__inner { padding: 1.5rem 1.15rem 2.25rem; gap: 1.75rem; }
+    .nl-cover__meta { margin-left: 0; flex-basis: 100%; }
+    .nl-sec { padding: 2.5rem 1.15rem; }
+    .nl-ps, .nl-archwrap { padding-inline: 1.15rem; }
+    .nl-media__box { aspect-ratio: 4 / 3; }
+    .nl-turn { padding-left: 1.1rem; }
+    .nl-arch__d { width: auto; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .nl-ps a { transition: none; }
+  }
+  </style>
+</head>
+<body>
+
+  <div class="fp-mock">Mockup v8 &middot; 23 Aug 2026 &mdash; sample issue. Media are placeholders; the Vivian moment, the restaurant and Mary Jones are invented.</div>
+
+  <!-- ══ PUBLIC BAR ═══════════════════════════════════════════════════
+       The Note is public, so it does NOT wear the members' chrome: no portal
+       nav, no "signed in as", nothing pointing at the gated area. -->
+  <header class="nl-bar">
+    <div class="nl-bar__in">
+      <a href="index.html" class="nl-bar__logo" aria-label="Phillip Himes Real Estate">
+        <img src="images/logo.png" alt="Phillip Himes &middot; Brokered by eXp Realty" />
+      </a>
+      <a href="#subscribe" class="nl-bar__cta">Get it monthly</a>
+      <a href="tel:8329909738" class="nl-bar__ph">(832) 990-9738</a>
+    </div>
+  </header>
+
+  <!-- ══ THE ISSUE ════════════════════════════════════════════════════ -->
+  <!-- ══ COVER ════════════════════════════════════════════════════════ -->
+  <header class="nl-cover">
+    <div class="nl-cover__art" role="img"
+         aria-label="A handwritten letter on a dark walnut desk, a fountain pen mid-sentence, a cup of coffee to one side."></div>
+    <div class="nl-cover__scrim" aria-hidden="true"></div>
+
+    <div class="nl-cover__inner">
+      <div class="nl-cover__masthead">
+        <span class="nl-cover__flag">From the Front Porch</span>
+        <span class="nl-cover__title">The Note</span>
+        <span class="nl-cover__meta">Issue 14 &middot; August 2026</span>
+      </div>
+
+      <nav class="nl-lines" aria-label="In this issue">
+        <a href="#coffee" class="nl-cl nl-cl--lead">
+          <span class="nl-cl__kicker">Over Coffee</span>
+          <span class="nl-cl__text">Thirty years of moving people toward their grandkids</span>
+        </a>
+        <a href="#know" class="nl-cl">
+          <span class="nl-cl__kicker">One Thing Worth Knowing</span>
+          <span class="nl-cl__text">The man from League City who saved the Texas Longhorn</span>
+        </a>
+        <a href="#drive" class="nl-cl">
+          <span class="nl-cl__kicker">Worth the Drive</span>
+          <span class="nl-cl__text">Mary Jones made me go to Pearland, and she was right</span>
+        </a>
+        <a href="#cook" class="nl-cl">
+          <span class="nl-cl__kicker">Cooking with Phil</span>
+          <span class="nl-cl__text">Gulf shrimp, without turning the oven on</span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <article>
+
+    <!-- ── OVER COFFEE · media left ────────────────────────────── -->
+    <section class="nl-sec nl-sec--coffee" id="coffee">
+      <div class="nl-spread">
+        <div class="nl-spread__media">
+          <figure class="nl-media">
+            <div class="nl-media__box">
+              <span class="nl-media__tag">Image placeholder &middot; 4:5</span>
+              <span class="nl-media__hint">A photo of Vivian, or of the two of you. Nothing staged &mdash; the worse the photo, the better it works here.</span>
+            </div>
+          </figure>
+        </div>
+
+        <div class="nl-spread__text">
+          <div class="nl-mark">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" style="color:var(--dept)" aria-hidden="true">
+              <path d="M4 9h13v6a4 4 0 01-4 4H8a4 4 0 01-4-4z"/>
+              <path d="M17 10h2.2a2.3 2.3 0 010 4.6H17"/>
+              <path d="M8 3v2M12 2.5v2.5"/>
+            </svg>
+            <span class="nl-mark__name">Over Coffee</span>
+            <span class="nl-mark__rule" aria-hidden="true"></span>
+          </div>
+
+          <h2 class="nl-sec__h">I finally understood what I&rsquo;d been doing for thirty years</h2>
+
+          <div class="nl-prose nl-drop">
+            <p>I have moved a lot of people closer to their grandchildren.</p>
+            <p>
+              I didn&rsquo;t count, for the first twenty years. Somewhere in the second decade I
+              started noticing it in the paperwork &mdash; a couple in their sixties selling the
+              four-bedroom, buying something smaller eleven minutes from their daughter. I&rsquo;d
+              write it up. Downsizing, empty nesters, makes sense on paper.
+            </p>
+            <p>
+              That&rsquo;s honestly what I thought it was. A financial decision with a family
+              flavor to it.
+            </p>
+            <p>Then Vivian was born.</p>
+            <p>
+              <em>[Phil &mdash; this is where the specific moment goes. One small thing, not a
+              summary of how you felt. The Saturday you drove over for no reason. The thing
+              she does that you drive across town for.]</em>
+            </p>
+            <p>
+              So I&rsquo;ve spent thirty years handling the transaction for something I did not
+              actually understand. Hundreds of times. Some of those I financed before I ever
+              sold a house, so it goes back further than my license does.
+            </p>
+          </div>
+
+          <div class="nl-turn">
+            <p>
+              I ask a different question now. I used to ask how far away the kids were. Now I
+              ask how often you&rsquo;d want to drop by without calling first. Those are two
+              completely different houses, and only one of those questions gets you the right one.
+            </p>
+          </div>
+
+          <div class="nl-sig">
+            <div class="nl-sig__name">Phil</div>
+            <div class="nl-sig__note">Reply to this one &mdash; it comes to me, not to a system.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── ONE THING WORTH KNOWING · media right ───────────────── -->
+    <section class="nl-sec nl-sec--know" id="know">
+      <div class="nl-spread nl-spread--flip">
+        <div class="nl-spread__media">
+          <figure class="nl-media">
+            <div class="nl-media__box">
+              <span class="nl-media__tag">Image placeholder &middot; 4:5</span>
+              <span class="nl-media__hint">An archival photo of the Butler herd, or the museum itself. Historical images generally beat modern ones here.</span>
+            </div>
+            <figcaption>Photo credit goes here &mdash; archival images usually need one.</figcaption>
+          </figure>
+        </div>
+
+        <div class="nl-spread__text">
+          <div class="nl-mark">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" style="color:var(--dept)" aria-hidden="true">
+              <path d="M12 3a6 6 0 00-3.6 10.8c.5.4.8 1 .8 1.6v.6h5.6v-.6c0-.6.3-1.2.8-1.6A6 6 0 0012 3z"/>
+              <path d="M9.6 19h4.8M10.4 21.5h3.2"/>
+            </svg>
+            <span class="nl-mark__name">One Thing Worth Knowing</span>
+            <span class="nl-mark__rule" aria-hidden="true"></span>
+          </div>
+
+          <h2 class="nl-sec__h">The reason there are still Texas Longhorns is a man from League City</h2>
+
+          <div class="nl-prose nl-prose--sm">
+            <p>
+              Before it was League City it was Butler&rsquo;s Ranch. George Washington Butler came
+              over from Louisiana in 1854 and ran about two thousand acres of it, and herds off
+              that land went up the Chisholm Trail. The town got its current name in the 1890s
+              when the railroad arrived.
+            </p>
+            <p>
+              Here&rsquo;s the part I didn&rsquo;t know. By the 1930s the pure Texas Longhorn was nearly
+              gone &mdash; crossbred almost out of existence. <b>Milby Butler</b> was one of a
+              small handful of ranchers who kept a pure herd going, breeding for the corkscrew
+              horns and the red-and-white coloring. The Butler line is one of the foundational
+              bloodlines the entire modern breed traces back to.
+            </p>
+            <p>
+              The state animal. The mascot on half the trucks in Texas. It came within a
+              generation of disappearing, and part of why it didn&rsquo;t is ten acres off the water
+              in the League City historic district, where there&rsquo;s a museum about it that I have
+              driven past roughly nine hundred times.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── WORTH THE DRIVE · media left ────────────────────────── -->
+    <section class="nl-sec nl-sec--drive" id="drive">
+      <div class="nl-spread">
+        <div class="nl-spread__media">
+          <figure class="nl-media">
+            <div class="nl-media__box">
+              <span class="nl-media__tag">Image placeholder &middot; 4:5</span>
+              <span class="nl-media__hint">A photo you took there. A phone photo of the actual plate beats anything off their website.</span>
+            </div>
+          </figure>
+        </div>
+
+        <div class="nl-spread__text">
+          <div class="nl-mark">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" style="color:var(--dept)" aria-hidden="true">
+              <path d="M12 21s7-6.3 7-11a7 7 0 10-14 0c0 4.7 7 11 7 11z"/>
+              <circle cx="12" cy="10" r="2.6"/>
+            </svg>
+            <span class="nl-mark__name">Worth the Drive</span>
+            <span class="nl-mark__rule" aria-hidden="true"></span>
+          </div>
+
+          <h2 class="nl-sec__h">Mary Jones made me go to Pearland, and she was right</h2>
+
+          <p class="nl-byline">
+            Sent in by <b>Mary Jones</b>, who also told me to order the bread pudding and
+            would not take no for an answer.
+          </p>
+
+          <div class="nl-prose nl-prose--sm">
+            <p>
+              I know most of you aren&rsquo;t in Pearland. Drive anyway. This is Houston &mdash; we all
+              go forty minutes for dinner and pretend that&rsquo;s normal.
+            </p>
+            <p>
+              <em>[Placeholder Restaurant]</em> is small, loud in the good way, and the person
+              who seats you also owns it. Get there before 6:30 or plan on standing outside.
+              There&rsquo;s no sign on the building, which I found out the hard way.
+            </p>
+            <p>Mary was right about the bread pudding. I want that on the record.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── COOKING WITH PHIL · media right ─────────────────────── -->
+    <section class="nl-sec nl-sec--cook" id="cook">
+      <div class="nl-spread nl-spread--flip">
+        <div class="nl-spread__media">
+          <figure class="nl-media">
+            <div class="nl-media__box">
+              <span class="nl-media__play" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M8 5.5v13l11-6.5z"/></svg>
+              </span>
+              <span class="nl-media__tag">Video placeholder</span>
+              <span class="nl-media__hint">Three or four minutes, one camera, no editing to speak of. Same setup as Coffee with Phil.</span>
+            </div>
+            <figcaption>This one should be video. It cuts to reels without any extra work.</figcaption>
+          </figure>
+        </div>
+
+        <div class="nl-spread__text">
+          <div class="nl-mark">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" style="color:var(--dept)" aria-hidden="true">
+              <path d="M3 12h11.5a3.5 3.5 0 010 7H8a5 5 0 01-5-5z"/>
+              <path d="M14.5 12l5.2-5.2a2 2 0 10-2.8-2.8L12.5 8.2"/>
+            </svg>
+            <span class="nl-mark__name">Cooking with Phil</span>
+            <span class="nl-mark__rule" aria-hidden="true"></span>
+          </div>
+
+          <h2 class="nl-sec__h">Gulf shrimp, and not turning the oven on in August</h2>
+
+          <div class="nl-prose nl-prose--sm">
+            <p>
+              No story about my trip to Italy. I&rsquo;ve never been to Italy. It was 103 on Saturday
+              and I wasn&rsquo;t turning the oven on, so this happens on the grill and takes about
+              eleven minutes.
+            </p>
+          </div>
+
+          <div class="nl-recipe">
+            <div class="nl-recipe__h">What you need</div>
+            <ul>
+              <li>2 lbs Gulf shrimp, shell on &mdash; 16/20s if you can get them</li>
+              <li>A whole head of garlic, more than you think</li>
+              <li>One lemon, one stick of butter, good olive oil</li>
+              <li>Whatever cayenne situation you&rsquo;re comfortable with</li>
+              <li>Bread you&rsquo;re not proud of, for the bottom of the pan</li>
+            </ul>
+            <div class="nl-recipe__h">What you do</div>
+            <ol>
+              <li>Shell on. I&rsquo;m not arguing about this. The shell is where it comes from.</li>
+              <li>Butter, olive oil, garlic and cayenne into a cast iron on the grill. Let the garlic go soft, not brown &mdash; brown garlic is bitter and you can&rsquo;t fix it.</li>
+              <li>Shrimp in, one layer, lid down. Four minutes. Flip once.</li>
+              <li>Lemon over the top off the heat, not on it.</li>
+              <li>Bread in the pan. That&rsquo;s the actual point of the whole thing.</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── THE ASK ─────────────────────────────────────────────── -->
+    <div class="nl-ps">
+      <div class="nl-ps__inner">
+        <p>
+          <span class="nl-ps__lede">P.S.</span> &mdash; Mary&rsquo;s restaurant is up there because
+          she told me about it. Half of what ends up in this note comes from one of you, so
+          if something occurs to you between now and September, send me
+          <a href="mailto:phil@philliphimes.com?subject=Something%20worth%20knowing">a fact about where you live</a>,
+          <a href="mailto:phil@philliphimes.com?subject=Worth%20the%20drive">a place worth the drive</a>, or
+          <a href="mailto:phil@philliphimes.com?subject=A%20recipe">a recipe</a> &mdash;
+          especially one that was your mother&rsquo;s and you&rsquo;ve never gotten right.
+        </p>
+        <p class="nl-ps__fine">
+          If I run it, your name goes on it. Say the word and it won&rsquo;t. Either way, just
+          hit reply &mdash; it comes straight to me.
+        </p>
+      </div>
+    </div>
+
+  </article>
+
+  <section class="nl-sub" id="subscribe">
+    <div class="nl-sub__in">
+      <h2 class="nl-sub__h">One a month, and nothing else</h2>
+      <p class="nl-sub__p">
+        No listings, no market reports, no &ldquo;just checking in.&rdquo; A story, something
+        worth knowing about where you live, a place worth the drive, and whatever I
+        cooked. If a month goes by and I haven&rsquo;t got anything worth saying, you
+        won&rsquo;t hear from me.
+      </p>
+      <form class="nl-sub__row" onsubmit="return false;">
+        <input type="text" name="firstName" placeholder="First name" autocomplete="given-name" />
+        <input type="email" name="email" placeholder="Email address" autocomplete="email" />
+        <button class="nl-sub__go" type="submit">Send it to me</button>
+      </form>
+      <p class="nl-sub__fine">
+        Unsubscribe any time by replying. I don&rsquo;t sell or share your details, and
+        you won&rsquo;t get a text unless you ask for one.
+      </p>
+    </div>
+  </section>
+
+  <!-- ══ ARCHIVE ══════════════════════════════════════════════════════ -->
+  <section class="fp-sec fp-sec--alt">
+    <div class="nl-archwrap">
+      <div class="fp-eyebrow">Back Issues</div>
+      <h2 class="fp-h2">Everything before this</h2>
+      <p class="fp-lede" style="max-width:36rem;">
+        One a month, and nothing else unless it has a deadline on it.
+      </p>
+
+      <a href="#" class="nl-arch"><span class="nl-arch__d">Jul 2026</span><span class="nl-arch__t">The house that sold itself, and the one that didn&rsquo;t</span></a>
+      <a href="#" class="nl-arch"><span class="nl-arch__d">Jun 2026</span><span class="nl-arch__t">My first hurricane season, and what I got wrong about it</span></a>
+      <a href="#" class="nl-arch"><span class="nl-arch__d">May 2026</span><span class="nl-arch__t">Twenty-nine people fought their appraisal. Here&rsquo;s how it went.</span></a>
+      <a href="#" class="nl-arch"><span class="nl-arch__d">Apr 2026</span><span class="nl-arch__t">The kolache argument</span></a>
+      <a href="#" class="nl-arch"><span class="nl-arch__d">Mar 2026</span><span class="nl-arch__t">I priced a house wrong in 2019 and still think about it</span></a>
+      <a href="#" class="nl-arch"><span class="nl-arch__d">Feb 2026</span><span class="nl-arch__t">Five years since the freeze</span></a>
+      <a href="#" class="nl-arch" style="border-bottom:none;"><span class="nl-arch__d">Jan 2026</span><span class="nl-arch__t">The first cool front is the real new year</span></a>
+    </div>
+  </section>
+
+  <!-- ══ FOOTER ═══════════════════════════════════════════════════════ -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__legal">
+        <div class="footer__legal-copy">
+          &copy; 2026 Phillip Himes &middot; eXp Realty, LLC &middot; REALTOR&reg; Licensed in Texas &middot; 2600 South Shore Blvd. #300, League City, TX 77573 &nbsp;&middot;&nbsp; <span class="footer__eho">&#8962; Equal Housing Opportunity</span>
+        </div>
+        <div class="footer__legal-links">
+          <a href="privacy-policy.html" class="footer__legal-link">Privacy Policy</a>
+          <a href="terms-of-service.html" class="footer__legal-link">Terms of Service</a>
+          <a href="front-porch.html" class="footer__legal-link">The Front Porch</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

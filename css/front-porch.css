@@ -1,0 +1,955 @@
+/* NOTE: url() paths here are relative to THIS FILE (/css/), not to the page.
+ * That is why they are ../images/ — they were images/ while this CSS was
+ * inline in front-porch.html and silently 404d when it was extracted.
+ */
+/* Hallmark · scope: portal chrome for The Front Porch · genre: editorial
+ * theme: portal-native — brand-locked to styles.css (navy / gold / teal),
+ *        plus --fp-* inks and the rust department accent defined below.
+ * Owns: portal nav, section scaffolding, buttons, cards, request rows,
+ *       the accessibility floor (roman headings, focus rings, overflow clip).
+ * Page stylesheets inherit from here and must not redeclare these.
+ */
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   THE FRONT PORCH — shared portal chrome
+   Loaded by front-porch.html, front-porch-vendors.html,
+   front-porch-newsletter.html.
+
+   Deliberately separate from the main site's styles.css chrome: the portal
+   is a members' area, not a marketing page, and its nav must NOT inherit
+   from the site nav. Same reasoning as css/idx-nav.css.
+
+   Page-specific bits (hero art, dashboard tiles) stay inline per page.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ═══════════════════════════════════════════════════════════════════════
+   THE FRONT PORCH — gated member portal.  MOCKUP: all data is placeholder.
+   Prefix: fp-   (see CLAUDE.md prefix table)
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* Text-safe variants of the brand colours. --gold-dark and the light greys
+   are fine as fills and borders, but fail WCAG AA as small text on white
+   (gold-dark = 3.36:1, #8a949e = 2.93:1). These are the ink versions. */
+:root {
+  /* Text-safe inks. --gold-dark and the light greys work as fills and borders
+     but fail AA as small text on white; these are the ink versions. */
+  --fp-gold-ink:  #8a6d26;   /* ~4.9:1 on white  */
+  --fp-muted:     #5f6a75;   /* ~5.2:1 on off-white */
+
+  /* Prose inks — were improvised inline across the newsletter. Named here so
+     nothing in the portal declares a raw colour. */
+  --fp-ink:       #2f3a44;   /* running body copy      */
+  --fp-ink-2:     #3d4852;   /* secondary body copy    */
+
+  /* Department accents. The first three are brand; rust is the fourth voice
+     Cooking needed, promoted from an inline hex to a real token. */
+  --fp-dept-know: #17697c;
+  --fp-dept-cook: #8c4526;
+  --fp-rust:      #a65634;
+
+  /* Dark-panel gradient stops, also previously inline. */
+  --fp-navy-deep: #0d2137;
+  --fp-navy-lift: #16406b;
+
+  --fp-focus:     #2089A0;
+}
+
+/* ── Portal nav ─────────────────────────────────────────────────────
+   Deliberately NOT the site nav. Members don't need "First-Time Buyers";
+   different chrome signals a different space. Logo goes to portal home,
+   philliphimes.com is the way back out. No JS — main.js handles the
+   smooth scroll and its nav code is null-guarded against .nav being absent. */
+.fp-nav {
+  position: sticky; top: 0; z-index: 50;
+  background: var(--navy-dark);
+  box-shadow: 0 1px 0 rgba(255,255,255,0.07), 0 2px 14px rgba(0,0,0,0.18);
+}
+.fp-nav__inner {
+  max-width: 1320px; margin: 0 auto; padding: 0 1.5rem;
+  display: flex; align-items: center; gap: 1.75rem; min-height: 62px;
+}
+/* Wraps links + account controls so both collapse into one panel on mobile */
+.fp-nav__menu {
+  display: flex; align-items: center; gap: 1.75rem; flex: 1; min-width: 0;
+}
+/* Hamburger — same geometry as the site nav's, white for the navy bar */
+.fp-nav__burger {
+  display: none; flex-direction: column; gap: 5px;
+  background: none; border: none; padding: 0.5rem; cursor: pointer;
+  margin-left: auto; flex-shrink: 0;
+}
+.fp-nav__burger span {
+  display: block; width: 24px; height: 2px; background: #fff;
+  transition: transform 0.25s, opacity 0.2s;
+}
+.fp-nav__burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.fp-nav__burger.open span:nth-child(2) { opacity: 0; }
+.fp-nav__burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+.fp-nav__brand {
+  display: flex; align-items: center; gap: 0.6rem;
+  text-decoration: none; flex-shrink: 0;
+}
+.fp-nav__brand-name {
+  font-family: var(--font-display); font-size: 1.12rem; font-weight: 900;
+  color: #fff; line-height: 1; white-space: nowrap;
+}
+.fp-nav__brand-name em { color: var(--gold); font-style: normal; font-weight: 900; }
+.fp-nav__links {
+  display: flex; align-items: center; gap: 1.4rem;
+  flex: 1; min-width: 0; overflow-x: auto; scrollbar-width: none;
+}
+.fp-nav__links::-webkit-scrollbar { display: none; }
+.fp-nav__link {
+  font-family: var(--font-heading); font-size: 0.73rem; font-weight: 700;
+  letter-spacing: 0.09em; text-transform: uppercase;
+  color: rgba(255,255,255,0.66); text-decoration: none; white-space: nowrap;
+  padding: 0.45rem 0; border-bottom: 2px solid transparent;
+  transition: color 0.18s, border-color 0.18s;
+}
+.fp-nav__link:hover { color: #fff; border-bottom-color: var(--gold); }
+.fp-nav__link--on { color: #fff; border-bottom-color: var(--gold); }
+
+/* ── Sub-page hero (vendors / newsletter) — shorter, no photo ─────── */
+.fp-subhero {
+  background:
+    radial-gradient(ellipse at 12% 0%, rgba(32,137,160,0.26) 0%, transparent 58%),
+    linear-gradient(140deg, #0d2137 0%, var(--navy) 58%, #16406b 100%);
+  color: #fff; padding: 3.25rem 0 3rem;
+}
+.fp-subhero__inner { max-width: 1320px; margin: 0 auto; padding: 0 1.5rem; }
+.fp-subhero__crumb {
+  font-family: var(--font-heading); font-size: 0.72rem; letter-spacing: 0.09em;
+  text-transform: uppercase; color: rgba(255,255,255,0.55); margin-bottom: 0.9rem;
+}
+.fp-subhero__crumb a { color: var(--gold); text-decoration: none; }
+.fp-subhero__crumb a:hover { color: var(--gold-light); }
+.fp-subhero__h1 {
+  font-family: var(--font-display); font-size: clamp(2rem, 4.4vw, 3rem);
+  font-weight: 900; line-height: 1.1; color: #fff; margin: 0 0 0.9rem;
+}
+.fp-subhero__h1 em { color: var(--gold); font-style: normal; }
+.fp-subhero__sub {
+  font-size: 1.02rem; line-height: 1.75; color: rgba(255,255,255,0.82);
+  max-width: 66ch; margin: 0;
+}
+@media (max-width: 600px) {
+  .fp-subhero { padding: 2.5rem 0 2.25rem; }
+  .fp-subhero__inner { padding: 0 1.15rem; }
+}
+
+.fp-nav__right {
+  display: flex; align-items: center; gap: 1rem; flex-shrink: 0;
+  font-family: var(--font-heading); font-size: 0.71rem;
+  letter-spacing: 0.05em;
+}
+.fp-nav__out {
+  display: inline-flex; align-items: center; gap: 0.35rem;
+  color: var(--gold); text-decoration: none; font-weight: 700;
+  white-space: nowrap;
+}
+.fp-nav__out:hover { color: var(--gold-light); }
+.fp-nav__divider { width: 1px; height: 20px; background: rgba(255,255,255,0.16); }
+.fp-nav__who { color: rgba(255,255,255,0.85); font-weight: 700; white-space: nowrap; }
+.fp-nav__signout {
+  color: rgba(255,255,255,0.5); text-decoration: none; white-space: nowrap;
+  text-transform: uppercase; letter-spacing: 0.09em; font-size: 0.66rem;
+}
+.fp-nav__signout:hover { color: #fff; }
+
+/* offset anchor targets so the sticky bar doesn't cover section headings */
+[id] { scroll-margin-top: 78px; }
+
+/* ── Signed-in line in the hero ────────────────────────────────────── */
+.fp-whoami {
+  display: inline-flex; align-items: center; gap: 0.6rem; flex-wrap: wrap;
+  background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.14);
+  border-radius: var(--radius-full); padding: 0.5rem 1.1rem;
+  font-family: var(--font-heading); font-size: 0.73rem;
+  color: rgba(255,255,255,0.78); margin-top: 1.6rem;
+}
+.fp-whoami__dot { width: 7px; height: 7px; border-radius: 50%; background: var(--gold); }
+.fp-whoami b { color: #fff; font-weight: 700; }
+.fp-whoami__sep { opacity: 0.32; }
+
+/* ── Hero ───────────────────────────────────────────────────────────
+   Photo sits behind a navy scrim that's heaviest on the left, where the
+   copy lives, and lifts toward the right so the couple stays visible.
+   background-position keeps them off-centre-right rather than behind text. */
+.fp-hero {
+  position: relative; overflow: hidden;
+  background-color: #0d2137;
+  background-image:
+    linear-gradient(100deg,
+      rgba(9,24,41,0.96)  0%,
+      rgba(11,29,49,0.93) 34%,
+      rgba(12,32,53,0.84) 50%,
+      rgba(14,36,60,0.46) 74%,
+      rgba(15,38,63,0.28) 100%),
+    url('../images/front-porch-hero.jpg');
+  background-size: cover;
+  background-position: 62% center;
+  background-repeat: no-repeat;
+  color: #fff;
+  min-height: 486px;
+  display: flex; align-items: center;
+  padding: 3.5rem 0;
+}
+.fp-hero__inner {
+  position: relative; z-index: 1; width: 100%;
+  max-width: 1320px; margin: 0 auto; padding: 0 1.5rem;
+}
+.fp-hero__eyebrow {
+  font-family: var(--font-heading); font-size: 0.72rem; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold);
+  margin-bottom: 1rem; max-width: 42ch;
+}
+.fp-hero__h1 {
+  font-family: var(--font-display); font-size: clamp(2.4rem, 5.5vw, 3.9rem);
+  line-height: 1.05; font-weight: 900; color: #fff; margin: 0 0 1.1rem;
+  /* keep the text box inside the heavy end of the scrim — without this its
+     block width runs out over the bright siding on the right of the photo */
+  max-width: 15ch;
+}
+/* Own line, never broken — "The Front Porch" is the brand, not a phrase */
+.fp-hero__h1 em {
+  display: block; white-space: nowrap;
+  color: var(--gold); font-style: normal;
+}
+.fp-hero__sub {
+  font-size: 1.06rem; line-height: 1.75; color: rgba(255,255,255,0.88);
+  max-width: 52ch; margin: 0;
+  text-shadow: 0 1px 12px rgba(6,18,32,0.55);
+}
+.fp-hero__h1, .fp-hero__eyebrow { text-shadow: 0 2px 18px rgba(6,18,32,0.5); }
+
+/* ── Dashboard tiles ───────────────────────────────────────────────── */
+.fp-dash {
+  max-width: 1200px; margin: -2.25rem auto 0; padding: 0 1.5rem;
+  position: relative; z-index: 3;
+}
+.fp-dash__grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 1px;
+  background: rgba(27,58,92,0.12);
+  border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-lg);
+}
+.fp-tile { background: #fff; padding: 1.5rem 1.35rem; }
+.fp-tile__label {
+  font-family: var(--font-heading); font-size: 0.66rem; font-weight: 700;
+  letter-spacing: 0.13em; text-transform: uppercase; color: #7a8794; margin-bottom: 0.55rem;
+}
+.fp-tile__value {
+  font-family: var(--font-display); font-size: 1.85rem; font-weight: 900;
+  color: var(--navy); line-height: 1; margin-bottom: 0.4rem;
+}
+.fp-tile__value--gold { color: var(--fp-gold-ink); }
+.fp-tile__note { font-size: 0.79rem; color: var(--fp-muted); line-height: 1.4; }
+.fp-tile__up { color: #1e7d5a; font-weight: 700; }
+
+/* ── Basis line under the dashboard ────────────────────────────────── */
+.fp-basis {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1.25rem; flex-wrap: wrap;
+  margin-top: 0.9rem; padding: 0.9rem 1.35rem;
+  background: rgba(27,58,92,0.045); border-radius: var(--radius-md);
+}
+.fp-basis__text {
+  margin: 0; font-size: 0.85rem; line-height: 1.6; color: #5a6570;
+  max-width: 74ch; flex: 1; min-width: 250px;
+}
+.fp-basis__cta {
+  font-family: var(--font-heading); font-size: 0.74rem; font-weight: 800;
+  letter-spacing: 0.07em; text-transform: uppercase;
+  color: var(--teal-dark); text-decoration: none; white-space: nowrap;
+  border-bottom: 2px solid rgba(32,137,160,0.35); padding-bottom: 2px;
+}
+.fp-basis__cta:hover { color: var(--navy); border-bottom-color: var(--gold); }
+
+/* ── Section scaffolding ───────────────────────────────────────────── */
+.fp-sec { padding: 4rem 0; }
+.fp-sec--alt { background: var(--off-white); }
+.fp-sec--dark { background: var(--navy); color: #fff; }
+.fp-wrap { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+.fp-eyebrow {
+  font-family: var(--font-heading); font-size: 0.7rem; font-weight: 700;
+  letter-spacing: 0.19em; text-transform: uppercase; color: var(--fp-gold-ink);
+  margin-bottom: 0.7rem;
+}
+.fp-sec--dark .fp-eyebrow { color: var(--gold); }
+.fp-h2 {
+  font-family: var(--font-display); font-size: clamp(1.7rem, 3.4vw, 2.5rem);
+  font-weight: 900; color: var(--navy); line-height: 1.15; margin: 0 0 0.85rem;
+}
+.fp-sec--dark .fp-h2 { color: #fff; }
+.fp-h2 em { font-style: normal; color: var(--fp-gold-ink); }
+.fp-sec--dark .fp-h2 em { color: var(--gold); }
+.fp-lede { font-size: 1.02rem; line-height: 1.75; color: #4a5560; max-width: 68ch; margin: 0 0 2.25rem; }
+.fp-sec--dark .fp-lede { color: rgba(255,255,255,0.8); }
+
+/* ── The anchor card (tax protest) ─────────────────────────────────── */
+.fp-anchor {
+  display: grid; grid-template-columns: 1.35fr 1fr; gap: 0;
+  border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-lg);
+  background: #fff;
+}
+.fp-anchor__body { padding: 2.5rem 2.4rem; }
+.fp-anchor__flag {
+  display: inline-flex; align-items: center; gap: 0.45rem;
+  background: rgba(201,164,85,0.14); color: var(--fp-gold-ink);
+  font-family: var(--font-heading); font-size: 0.66rem; font-weight: 800;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 0.4rem 0.8rem; border-radius: var(--radius-full); margin-bottom: 1.1rem;
+}
+.fp-anchor__h3 {
+  font-family: var(--font-display); font-size: 1.85rem; font-weight: 900;
+  color: var(--navy); margin: 0 0 0.85rem; line-height: 1.2;
+}
+.fp-anchor__p { font-size: 0.97rem; line-height: 1.75; color: #4a5560; margin: 0 0 1.2rem; }
+.fp-anchor__list { list-style: none; padding: 0; margin: 0 0 1.6rem; }
+.fp-anchor__list li {
+  display: flex; gap: 0.7rem; align-items: flex-start;
+  font-size: 0.93rem; color: #3d4852; line-height: 1.6; padding: 0.4rem 0;
+}
+.fp-anchor__list svg { flex-shrink: 0; margin-top: 3px; }
+.fp-anchor__side {
+  background: linear-gradient(160deg, var(--navy) 0%, #16406b 100%);
+  color: #fff; padding: 2.5rem 2rem; display: flex; flex-direction: column; justify-content: center;
+}
+.fp-count__label {
+  font-family: var(--font-heading); font-size: 0.64rem; font-weight: 700;
+  letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.6);
+  margin-bottom: 0.5rem;
+}
+.fp-count__num {
+  font-family: var(--font-display); font-size: 3.6rem; font-weight: 900;
+  color: var(--gold); line-height: 1; margin-bottom: 0.15rem;
+}
+.fp-count__unit { font-size: 0.95rem; color: rgba(255,255,255,0.75); margin-bottom: 1.6rem; }
+.fp-count__rows { border-top: 1px solid rgba(255,255,255,0.16); padding-top: 1.1rem; }
+.fp-count__row {
+  display: flex; justify-content: space-between; gap: 1rem;
+  font-size: 0.83rem; padding: 0.45rem 0; color: rgba(255,255,255,0.78);
+}
+.fp-count__row b { color: #fff; font-weight: 700; }
+
+/* ── Buttons ───────────────────────────────────────────────────────── */
+.fp-btn {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: var(--gold); color: var(--navy);
+  font-family: var(--font-heading); font-size: 0.76rem; font-weight: 800;
+  letter-spacing: 0.09em; text-transform: uppercase;
+  padding: 0.85rem 1.7rem; border-radius: var(--radius-full);
+  text-decoration: none; border: none; cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+}
+.fp-btn:hover { background: var(--gold-dark); transform: translateY(-1px); color: var(--navy); }
+.fp-btn--ghost {
+  background: transparent; color: var(--navy);
+  box-shadow: inset 0 0 0 2px rgba(27,58,92,0.22);
+}
+.fp-btn--ghost:hover { background: rgba(27,58,92,0.05); color: var(--navy); }
+.fp-sec--dark .fp-btn--ghost { color: #fff; box-shadow: inset 0 0 0 2px rgba(255,255,255,0.3); }
+.fp-sec--dark .fp-btn--ghost:hover { background: rgba(255,255,255,0.1); color: #fff; }
+
+/* ── Two-up cards ──────────────────────────────────────────────────── */
+.fp-duo { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.fp-card {
+  background: #fff; border-radius: var(--radius-lg); padding: 2rem 1.9rem;
+  box-shadow: var(--shadow-md); border-top: 4px solid var(--navy);
+  display: flex; flex-direction: column;
+}
+.fp-card--gold { border-top-color: var(--gold); }
+.fp-card--teal { border-top-color: var(--teal); }
+.fp-card__icon { margin-bottom: 1rem; }
+.fp-card__h3 {
+  font-family: var(--font-display); font-size: 1.32rem; font-weight: 800;
+  color: var(--navy); margin: 0 0 0.6rem;
+}
+.fp-card__p { font-size: 0.93rem; line-height: 1.7; color: #4a5560; margin: 0 0 1.2rem; flex: 1; }
+.fp-status {
+  display: inline-flex; align-items: center; gap: 0.45rem;
+  font-family: var(--font-heading); font-size: 0.68rem; font-weight: 800;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 0.35rem 0.75rem; border-radius: var(--radius-full); margin-bottom: 0.9rem;
+}
+.fp-status--ok   { background: rgba(30,125,90,0.12);  color: #1a6b4d; }
+.fp-status--warn { background: rgba(201,164,85,0.18); color: #8a6d26; }
+.fp-status--info { background: rgba(32,137,160,0.13); color: var(--teal-dark); }
+
+/* ── Street report ─────────────────────────────────────────────────── */
+.fp-street { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 2rem; }
+.fp-stat {
+  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
+  border-radius: var(--radius-md); padding: 1.6rem 1.4rem;
+}
+.fp-stat__num {
+  font-family: var(--font-display); font-size: 2.5rem; font-weight: 900;
+  color: var(--gold); line-height: 1; margin-bottom: 0.4rem;
+}
+.fp-stat__lab {
+  font-family: var(--font-heading); font-size: 0.68rem; font-weight: 700;
+  letter-spacing: 0.11em; text-transform: uppercase; color: rgba(255,255,255,0.65);
+  margin-bottom: 0.5rem;
+}
+.fp-stat__note { font-size: 0.83rem; color: rgba(255,255,255,0.6); line-height: 1.5; }
+
+.fp-sold { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+.fp-sold th {
+  text-align: left; font-family: var(--font-heading); font-size: 0.65rem;
+  font-weight: 800; letter-spacing: 0.11em; text-transform: uppercase;
+  color: rgba(255,255,255,0.55); padding: 0.7rem 0.9rem; border-bottom: 1px solid rgba(255,255,255,0.16);
+}
+.fp-sold td { padding: 0.85rem 0.9rem; border-bottom: 1px solid rgba(255,255,255,0.08); color: rgba(255,255,255,0.85); }
+.fp-sold tr:last-child td { border-bottom: none; }
+.fp-pill {
+  display: inline-block; font-family: var(--font-heading); font-size: 0.62rem;
+  font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 0.22rem 0.6rem; border-radius: var(--radius-full);
+}
+.fp-pill--sold   { background: rgba(30,125,90,0.28);  color: #7fe0b8; }
+.fp-pill--failed { background: rgba(190,70,70,0.26);  color: #f0a3a3; }
+.fp-tablewrap { overflow-x: auto; }
+
+/* .fp-sold was written for the dark street section. Reusing it in a light
+   section needs a real modifier — `.fp-sold td` sets colour directly, so
+   inline colour on the <tr> loses and the whole table renders white-on-white. */
+.fp-sold--light { background: #fff; }
+.fp-sold--light th {
+  color: var(--fp-muted);
+  border-bottom-color: rgba(27,58,92,0.14);
+}
+.fp-sold--light td {
+  color: #3d4852;
+  border-bottom-color: rgba(27,58,92,0.07);
+}
+.fp-sold--light tr:last-child td { border-bottom: none; }
+.fp-sold--light .up   { color: #a8433d; font-weight: 700; }
+.fp-sold--light .save { color: #1a6b4d; font-weight: 700; }
+.fp-sold--light .yr   { font-weight: 700; color: var(--navy); }
+
+
+
+/* ── Vendors ───────────────────────────────────────────────────────── */
+.fp-vend { display: grid; grid-template-columns: repeat(auto-fill, minmax(268px, 1fr)); gap: 1.25rem; }
+.fp-vcard {
+  background: #fff; border-radius: var(--radius-md); padding: 1.5rem 1.4rem;
+  box-shadow: var(--shadow-sm); border: 1px solid rgba(27,58,92,0.08);
+  transition: box-shadow 0.2s, transform 0.15s;
+}
+.fp-vcard:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+.fp-vcard__cat {
+  font-family: var(--font-heading); font-size: 0.63rem; font-weight: 800;
+  letter-spacing: 0.13em; text-transform: uppercase; color: var(--teal-dark);
+  margin-bottom: 0.5rem;
+}
+.fp-vcard__name {
+  font-family: var(--font-display); font-size: 1.13rem; font-weight: 800;
+  color: var(--navy); margin: 0 0 0.35rem;
+}
+.fp-vcard__meta { font-size: 0.82rem; color: var(--fp-muted); margin-bottom: 0.85rem; }
+.fp-vcard__proof {
+  display: flex; align-items: center; gap: 0.5rem;
+  font-size: 0.79rem; color: #4a5560;
+  padding-top: 0.8rem; border-top: 1px solid rgba(27,58,92,0.08);
+}
+.fp-stars { color: var(--gold); letter-spacing: 0.06em; font-size: 0.85rem; }
+
+/* ── Vault ─────────────────────────────────────────────────────────── */
+.fp-vault { display: grid; grid-template-columns: repeat(auto-fill, minmax(215px, 1fr)); gap: 1rem; }
+.fp-doc {
+  display: flex; align-items: center; gap: 0.85rem;
+  background: #fff; border: 1px solid rgba(27,58,92,0.1);
+  border-radius: var(--radius-md); padding: 1.05rem 1.15rem;
+  text-decoration: none; transition: border-color 0.2s, box-shadow 0.2s;
+}
+.fp-doc:hover { border-color: var(--gold); box-shadow: var(--shadow-sm); }
+.fp-doc__name {
+  font-family: var(--font-heading); font-size: 0.85rem; font-weight: 700;
+  color: var(--navy); line-height: 1.3;
+}
+.fp-doc__sub { font-size: 0.73rem; color: var(--fp-muted); margin-top: 2px; }
+
+/* ── Seasonal checklist ────────────────────────────────────────────── */
+.fp-season { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.fp-check { list-style: none; padding: 0; margin: 0; }
+.fp-check li {
+  display: flex; gap: 0.75rem; align-items: flex-start;
+  padding: 0.6rem 0; border-bottom: 1px dashed rgba(27,58,92,0.1);
+  font-size: 0.92rem; color: #3d4852; line-height: 1.55;
+}
+.fp-check li:last-child { border-bottom: none; }
+.fp-check input { margin-top: 4px; accent-color: var(--gold); width: 16px; height: 16px; flex-shrink: 0; }
+
+/* ── Early access ──────────────────────────────────────────────────── */
+.fp-early { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.25rem; }
+.fp-listing {
+  background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.14);
+  border-radius: var(--radius-md); overflow: hidden;
+}
+.fp-listing__img {
+  height: 132px; background: linear-gradient(135deg, #2a4d73 0%, #1a3350 100%);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-heading); font-size: 0.68rem; letter-spacing: 0.13em;
+  text-transform: uppercase; color: rgba(255,255,255,0.35);
+}
+.fp-listing__body { padding: 1.15rem 1.2rem; }
+.fp-listing__tag {
+  display: inline-block; background: var(--gold); color: var(--navy);
+  font-family: var(--font-heading); font-size: 0.6rem; font-weight: 800;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 0.22rem 0.6rem; border-radius: var(--radius-full); margin-bottom: 0.6rem;
+}
+.fp-listing__price { font-family: var(--font-display); font-size: 1.3rem; font-weight: 900; color: #fff; margin-bottom: 0.2rem; }
+.fp-listing__addr { font-size: 0.85rem; color: rgba(255,255,255,0.68); line-height: 1.45; }
+
+/* ── Ask Phil ──────────────────────────────────────────────────────── */
+.fp-ask {
+  background: linear-gradient(140deg, #0d2137 0%, var(--navy) 60%, #16406b 100%);
+  border-radius: var(--radius-lg); padding: 3rem 2.5rem; text-align: center; color: #fff;
+}
+.fp-ask__h2 { font-family: var(--font-display); font-size: clamp(1.6rem, 3.2vw, 2.2rem); font-weight: 900; margin: 0 0 0.8rem; }
+.fp-ask__h2 em { color: var(--gold); font-style: normal; }
+.fp-ask__p { font-size: 1rem; line-height: 1.7; color: rgba(255,255,255,0.8); max-width: 55ch; margin: 0 auto 1.8rem; }
+/* .fp-ask is a dark card living inside a light section, so the .fp-sec--dark
+   overrides never reach it — styles.css's global h2 colour and the light-mode
+   ghost button both won, rendering navy-on-navy. Set both explicitly. */
+.fp-ask__h2 { color: #fff; }
+.fp-ask .fp-btn--ghost {
+  color: #fff;
+  box-shadow: inset 0 0 0 2px rgba(255,255,255,0.34);
+}
+.fp-ask .fp-btn--ghost:hover { background: rgba(255,255,255,0.12); color: #fff; }
+.fp-ask__btns { display: flex; gap: 0.85rem; justify-content: center; flex-wrap: wrap; }
+
+/* ── Targeted prompt — the automated invitation ────────────────────── */
+.fp-prompt {
+  display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap;
+  background: linear-gradient(120deg, rgba(201,164,85,0.16) 0%, rgba(201,164,85,0.06) 100%);
+  border: 1px solid rgba(201,164,85,0.42);
+  border-left: 5px solid var(--gold);
+  border-radius: var(--radius-md); padding: 1.5rem 1.6rem; margin-bottom: 2rem;
+}
+.fp-prompt__body { flex: 1; min-width: 260px; }
+.fp-prompt__kicker {
+  font-family: var(--font-heading); font-size: 0.64rem; font-weight: 800;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--fp-gold-ink);
+  margin-bottom: 0.45rem;
+}
+.fp-prompt__text { font-size: 1rem; line-height: 1.6; color: var(--navy); margin: 0; font-weight: 600; }
+.fp-prompt__text b { color: #a8433d; }
+
+/* ── Request-driven service rows ───────────────────────────────────── */
+.fp-req {
+  display: flex; align-items: flex-start; gap: 1.4rem; flex-wrap: wrap;
+  background: #fff; border: 1px solid rgba(27,58,92,0.1);
+  border-radius: var(--radius-md); padding: 1.5rem 1.6rem;
+}
+.fp-sec--dark .fp-req { background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.15); }
+.fp-req__body { flex: 1; min-width: 250px; }
+.fp-req__h4 {
+  font-family: var(--font-display); font-size: 1.16rem; font-weight: 800;
+  color: var(--navy); margin: 0 0 0.35rem;
+}
+.fp-sec--dark .fp-req__h4 { color: #fff; }
+.fp-req__p { font-size: 0.9rem; line-height: 1.65; color: #5a6570; margin: 0; }
+.fp-sec--dark .fp-req__p { color: rgba(255,255,255,0.72); }
+.fp-req__sla {
+  font-family: var(--font-heading); font-size: 0.63rem; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--fp-muted); margin-top: 0.6rem;
+}
+.fp-sec--dark .fp-req__sla { color: rgba(255,255,255,0.5); }
+
+/* ── Upload zone ───────────────────────────────────────────────────── */
+.fp-upload {
+  border: 2px dashed rgba(27,58,92,0.26); border-radius: var(--radius-md);
+  background: rgba(27,58,92,0.025); padding: 1.9rem 1.6rem; text-align: center;
+  transition: border-color 0.2s, background 0.2s;
+}
+.fp-upload:hover { border-color: var(--gold); background: rgba(201,164,85,0.05); }
+.fp-upload__h4 {
+  font-family: var(--font-display); font-size: 1.14rem; font-weight: 800;
+  color: var(--navy); margin: 0.7rem 0 0.4rem;
+}
+.fp-upload__p { font-size: 0.87rem; color: #5a6570; line-height: 1.6; margin: 0 0 1.1rem; max-width: 46ch; margin-inline: auto; }
+.fp-chips { display: flex; gap: 0.45rem; justify-content: center; flex-wrap: wrap; margin-bottom: 1.2rem; }
+.fp-chip {
+  font-family: var(--font-heading); font-size: 0.64rem; font-weight: 700;
+  letter-spacing: 0.07em; text-transform: uppercase;
+  background: #fff; border: 1px solid rgba(27,58,92,0.16); color: #4a5560;
+  padding: 0.35rem 0.75rem; border-radius: var(--radius-full); cursor: pointer;
+}
+.fp-chip--on { background: var(--navy); border-color: var(--navy); color: #fff; }
+.fp-upload__fine { font-size: 0.73rem; color: var(--fp-muted); margin-top: 0.9rem; }
+
+/* ── Mockup banner ─────────────────────────────────────────────────── */
+.fp-mock {
+  background: #2d2a1f; color: #e8d9a8; text-align: center;
+  font-family: var(--font-heading); font-size: 0.72rem; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase; padding: 0.65rem 1rem;
+}
+
+/* ── Responsive ─────────────────────────────────────────────────────
+   Ladder, widest first. The goal is no abrupt 3-col → 1-col jumps:
+   every multi-column grid passes through a 2-col tablet state.        */
+
+/* Large desktop — let the dashboard breathe rather than stretch */
+@media (min-width: 1400px) {
+  .fp-wrap, .fp-dash { max-width: 1320px; }
+  .fp-sec { padding: 4.75rem 0; }
+}
+
+/* Small desktop / large tablet — anchor card stacks, rest holds */
+@media (max-width: 1080px) {
+  .fp-anchor { grid-template-columns: 1fr; }
+  .fp-anchor__side { flex-direction: row; align-items: center; gap: 2.5rem; flex-wrap: wrap; }
+  .fp-anchor__side .fp-count__rows { flex: 1; min-width: 240px; border-top: none; padding-top: 0; }
+}
+
+/* Tablet — the intermediate step that was missing */
+@media (max-width: 900px) {
+  /* Copy goes full-width here, so the scrim has to work top-to-bottom
+     instead of left-to-right. Lighter file too — 95 KB vs 278 KB. */
+  .fp-hero {
+    min-height: 0; padding: 3rem 0 2.75rem;
+    background-image:
+      linear-gradient(178deg,
+        rgba(9,24,41,0.93)  0%,
+        rgba(11,29,49,0.86) 45%,
+        rgba(13,34,57,0.74) 100%),
+      url('../images/front-porch-hero-sm.jpg');
+    background-position: 58% center;
+  }
+  .fp-hero__sub { max-width: none; }
+  .fp-sec { padding: 3.25rem 0; }
+  .fp-street { grid-template-columns: repeat(2, 1fr); }
+  .fp-street > :last-child { grid-column: 1 / -1; }
+  .fp-duo, .fp-season { grid-template-columns: 1fr; }
+  .fp-dash { margin-top: -1.5rem; }
+  /* 2x2 reads better than 4-across once tiles drop under ~220px and
+     the longer labels start wrapping to two lines unevenly */
+  .fp-dash__grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* Nav: shed the member name before anything else has to give */
+@media (max-width: 1000px) {
+  .fp-nav__who, .fp-nav__divider { display: none; }
+  .fp-nav__inner { gap: 1.25rem; }
+  .fp-nav__links { gap: 1.1rem; }
+}
+
+/* Nav: collapse to a hamburger. The panel carries the jump links plus the
+   account controls, so the bar itself stays brand + burger. */
+@media (max-width: 820px) {
+  .fp-nav__inner { gap: 1rem; padding: 0 1.15rem; }
+  .fp-nav__burger { display: flex; }
+
+  .fp-nav__menu {
+    display: none;
+    position: absolute; top: 100%; left: 0; right: 0;
+    flex-direction: column; align-items: stretch; gap: 0;
+    background: var(--navy-dark);
+    border-top: 1px solid rgba(255,255,255,0.1);
+    box-shadow: 0 14px 30px rgba(0,0,0,0.3);
+    padding: 0.4rem 1.15rem 1rem;
+    max-height: calc(100vh - 62px); overflow-y: auto;
+  }
+  .fp-nav__menu.is-open { display: flex; }
+
+  .fp-nav__links {
+    flex-direction: column; align-items: stretch; gap: 0; overflow: visible;
+  }
+  .fp-nav__link {
+    padding: 0.95rem 0.25rem; font-size: 0.82rem;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+  .fp-nav__link:hover { border-bottom-color: rgba(255,255,255,0.07); color: var(--gold); }
+
+  .fp-nav__right {
+    flex-direction: row; align-items: center; justify-content: space-between;
+    gap: 1rem; padding: 1.1rem 0.25rem 0; font-size: 0.76rem;
+  }
+  .fp-nav__divider { display: none; }
+  .fp-nav__who { display: inline; }
+}
+
+/* Small tablet / large phone */
+@media (max-width: 780px) {
+  .fp-vend { grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); }
+  .fp-anchor__side { flex-direction: column; align-items: stretch; gap: 0; }
+  .fp-anchor__side .fp-count__rows {
+    border-top: 1px solid rgba(255,255,255,0.16); padding-top: 1.1rem;
+  }
+}
+
+/* Phone */
+@media (max-width: 600px) {
+  .fp-hero { padding: 2.75rem 0 2.25rem; }
+  .fp-sec { padding: 2.75rem 0; }
+  .fp-wrap, .fp-dash { padding: 0 1.15rem; }
+  .fp-street { grid-template-columns: 1fr; }
+  .fp-street > :last-child { grid-column: auto; }
+  .fp-dash__grid { grid-template-columns: 1fr; }
+  .fp-anchor__body, .fp-anchor__side { padding: 1.75rem 1.35rem; }
+  .fp-ask { padding: 2.1rem 1.25rem; }
+  .fp-vend, .fp-vault, .fp-early { grid-template-columns: 1fr; }
+  .fp-count__num { font-size: 2.9rem; }
+  .fp-nav__brand-name { font-size: 1rem; }
+  .fp-whoami {
+    border-radius: var(--radius-md); padding: 0.7rem 0.9rem;
+    font-size: 0.7rem; line-height: 1.6;
+  }
+  .fp-whoami__sep { display: none; }
+  .fp-btn { width: 100%; justify-content: center; }
+  .fp-prompt { flex-direction: column; align-items: flex-start; }
+}
+
+/* Very narrow phones — the nowrap brand line is the constraint, so ease
+   the clamp floor rather than let it overflow */
+@media (max-width: 360px) {
+  .fp-hero__h1 { font-size: 2.05rem; }
+}
+
+/* Coarse pointers — bigger tap targets regardless of width */
+@media (pointer: coarse) {
+  .fp-doc { padding: 1.2rem 1.15rem; }
+  .fp-check input { width: 20px; height: 20px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fp-btn, .fp-vcard { transition: none; }
+  .fp-btn:hover, .fp-vcard:hover { transform: none; }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   CONTRAST CORRECTIONS — must stay LAST
+   Found by sweeping computed colour against effective background. These
+   selectors are also set earlier in this file; placed here so they win
+   without needing !important.
+   ═══════════════════════════════════════════════════════════════════════════ */
+.fp-tile__label  { color: var(--fp-muted); }
+.fp-req__sla     { color: var(--fp-muted); }
+.fp-stars        { color: var(--fp-gold-ink); }
+.fp-listing__img { color: rgba(255,255,255,0.62); }
+.fp-vcard__meta  { color: var(--fp-muted); }
+.fp-doc__sub     { color: var(--fp-muted); }
+.fp-upload__fine { color: var(--fp-muted); }
+.fp-count        { color: var(--fp-muted); }
+.fp-stat__note   { color: rgba(255,255,255,0.72); }
+.fp-sec--dark .fp-req__sla { color: rgba(255,255,255,0.62); }
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   ACCESSIBILITY FLOOR — must stay LAST
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Root scroll containment. `clip` not `hidden`: `hidden` makes the root a
+   scroll container, which breaks position:sticky on the portal nav. */
+html, body { overflow-x: clip; }
+
+/* Focus rings appear instantly and are never transitioned. */
+.fp-nav__link:focus-visible,
+.fp-nav__out:focus-visible,
+.fp-nav__signout:focus-visible,
+.fp-nav__brand:focus-visible,
+.fp-nav__burger:focus-visible,
+.fp-btn:focus-visible,
+.fp-basis__cta:focus-visible,
+.fp-mini:focus-visible,
+.fp-doc:focus-visible,
+.fp-chip:focus-visible,
+.nl-arch:focus-visible,
+.nl-ps a:focus-visible,
+.footer__legal-link:focus-visible {
+  outline: 2px solid var(--fp-focus);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+.fp-nav__link:focus-visible,
+.fp-nav__out:focus-visible,
+.fp-nav__signout:focus-visible,
+.fp-nav__burger:focus-visible { outline-color: var(--gold); }
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   PAYOFF CALCULATOR (front-porch.html #payoff)
+   Three panels: the loan on file, the one control, the answer. Everything is
+   derived in js/front-porch-payoff.js from a single loan record.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.pay {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: 1.5rem;
+  align-items: start;
+}
+.pay__loan {
+  grid-column: 1; background: var(--off-white);
+  border-radius: var(--radius-lg); padding: 1.6rem 1.5rem;
+}
+.pay__control {
+  grid-column: 2; background: #fff; border: 1px solid rgba(27,58,92,0.12);
+  border-radius: var(--radius-lg); padding: 1.6rem 1.5rem;
+}
+.pay__result {
+  grid-column: 1 / -1;
+  background: linear-gradient(140deg, var(--fp-navy-deep) 0%, var(--navy) 58%, var(--fp-navy-lift) 100%);
+  color: #fff; border-radius: var(--radius-lg); padding: 2rem 1.9rem;
+}
+
+.pay__loan-h, .pay__label {
+  font-family: var(--font-heading); font-size: 0.66rem; font-weight: 800;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--fp-muted);
+  margin-bottom: 0.9rem; display: block;
+}
+.pay__facts { margin: 0; display: grid; gap: 0.55rem; }
+.pay__facts > div { display: flex; justify-content: space-between; gap: 1rem; align-items: baseline; }
+.pay__facts dt { font-size: 0.87rem; color: var(--fp-ink-2); margin: 0; }
+.pay__facts dd {
+  margin: 0; font-family: var(--font-heading); font-size: 0.92rem; font-weight: 700;
+  color: var(--navy); font-variant-numeric: tabular-nums;
+}
+.pay__loan-note { font-size: 0.8rem; color: var(--fp-muted); margin: 1rem 0 0; line-height: 1.6; }
+.pay__loan-note a { color: var(--teal-dark); }
+
+/* ── The control ── */
+.pay__amount { display: flex; align-items: baseline; gap: 0.35rem; margin-bottom: 0.9rem; }
+.pay__currency {
+  font-family: var(--font-display); font-size: 1.7rem; font-weight: 900; color: var(--navy);
+}
+.pay__input {
+  font-family: var(--font-display); font-size: 2.4rem; font-weight: 900; color: var(--navy);
+  border: none; border-bottom: 2px solid var(--gold); background: transparent;
+  width: 5.5ch; padding: 0 0 0.1rem; font-variant-numeric: tabular-nums;
+  -moz-appearance: textfield;
+}
+.pay__input::-webkit-outer-spin-button,
+.pay__input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+.pay__input:focus { outline: none; border-bottom-color: var(--teal); }
+.pay__per { font-size: 0.9rem; color: var(--fp-muted); }
+
+.pay__slider { width: 100%; margin: 0 0 1rem; accent-color: var(--gold); }
+
+.pay__presets { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 1rem; }
+.pay__preset {
+  font-family: var(--font-heading); font-size: 0.72rem; font-weight: 700;
+  letter-spacing: 0.04em; color: var(--navy); background: #fff; cursor: pointer;
+  border: 1px solid rgba(27,58,92,0.2); border-radius: var(--radius-full);
+  padding: 0.42rem 0.85rem; font-variant-numeric: tabular-nums;
+  transition: background 160ms ease-out, border-color 160ms ease-out, color 160ms ease-out;
+}
+.pay__preset:hover { border-color: var(--gold); }
+.pay__preset.is-on { background: var(--navy); border-color: var(--navy); color: #fff; }
+
+.pay__toggle {
+  display: flex; align-items: flex-start; gap: 0.55rem;
+  font-size: 0.89rem; color: var(--fp-ink-2); line-height: 1.55; cursor: pointer;
+}
+.pay__toggle input { margin-top: 0.2rem; accent-color: var(--gold); width: 16px; height: 16px; flex-shrink: 0; }
+.pay__help { font-size: 0.79rem; color: var(--fp-muted); line-height: 1.6; margin: 0.9rem 0 0; }
+
+/* ── The answer ── */
+.pay__headline { margin-bottom: 1.6rem; }
+.pay__headline-k {
+  display: block; font-family: var(--font-heading); font-size: 0.66rem; font-weight: 800;
+  letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.66);
+  margin-bottom: 0.45rem;
+}
+.pay__headline-v {
+  display: block; font-family: var(--font-display);
+  font-size: clamp(1.9rem, 4.4vw, 2.8rem); font-weight: 900; color: var(--gold);
+  line-height: 1.05; font-variant-numeric: tabular-nums;
+}
+.pay__headline-s { display: block; font-size: 1rem; color: rgba(255,255,255,0.85); margin-top: 0.35rem; }
+
+.pay__bars { display: grid; gap: 0.75rem; margin-bottom: 1.6rem; }
+.pay__bar { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr) auto; gap: 0.9rem; align-items: center; }
+.pay__bar-k {
+  font-family: var(--font-heading); font-size: 0.64rem; font-weight: 700;
+  letter-spacing: 0.11em; text-transform: uppercase; color: rgba(255,255,255,0.62);
+}
+.pay__bar-track { height: 8px; border-radius: var(--radius-full); background: rgba(255,255,255,0.14); overflow: hidden; }
+.pay__bar-fill { display: block; height: 100%; border-radius: var(--radius-full); transition: width 260ms ease-out; }
+.pay__bar-fill--now { background: rgba(255,255,255,0.34); }
+.pay__bar-fill--new { background: var(--gold); }
+.pay__bar-v {
+  font-family: var(--font-heading); font-size: 0.78rem; font-weight: 700;
+  color: #fff; white-space: nowrap; font-variant-numeric: tabular-nums;
+}
+
+.pay__stats {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1.25rem;
+  margin: 0 0 1.4rem; padding-top: 1.4rem; border-top: 1px solid rgba(255,255,255,0.16);
+}
+.pay__stats dt {
+  font-family: var(--font-heading); font-size: 0.62rem; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.62);
+  margin-bottom: 0.3rem;
+}
+.pay__stats dd {
+  margin: 0; font-family: var(--font-display); font-size: 1.55rem; font-weight: 900;
+  color: #fff; line-height: 1; font-variant-numeric: tabular-nums;
+}
+.pay__stat--gold { color: var(--gold) !important; }
+
+.pay__caveat { font-size: 0.8rem; line-height: 1.7; color: rgba(255,255,255,0.68); margin: 0; }
+.pay__caveat em { font-style: italic; color: rgba(255,255,255,0.9); }
+
+@media (max-width: 820px) {
+  .pay { grid-template-columns: minmax(0, 1fr); }
+  .pay__loan, .pay__control, .pay__result { grid-column: 1; }
+}
+@media (max-width: 600px) {
+  .pay__result { padding: 1.6rem 1.3rem; }
+  .pay__bar { grid-template-columns: minmax(0, 1fr) auto; }
+  .pay__bar-k { grid-column: 1 / -1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pay__bar-fill, .pay__preset { transition: none; }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   GUEST PASS (front-porch.html #pass)
+   Not a "refer a friend" box. The member hands someone a specific piece of
+   value; the friend claims it themselves at front-porch-pass.html, so no one
+   is submitting a neighbour's details on their behalf.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.gp { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 1.1rem; margin-bottom: 1.6rem; }
+.gp__card {
+  background: #fff; border: 1px solid rgba(27,58,92,0.12);
+  border-radius: var(--radius-md); padding: 1.4rem 1.35rem;
+  display: flex; flex-direction: column;
+}
+.gp__season {
+  font-family: var(--font-heading); font-size: 0.6rem; font-weight: 800;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--fp-muted);
+  margin-bottom: 0.5rem;
+}
+.gp__h {
+  font-family: var(--font-display); font-size: 1.14rem; font-weight: 800;
+  color: var(--navy); margin: 0 0 0.5rem; line-height: 1.3;
+}
+.gp__p { font-size: 0.9rem; line-height: 1.68; color: var(--fp-ink-2); margin: 0 0 1.1rem; flex: 1; }
+
+.gp__link {
+  display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap;
+  background: var(--off-white); border: 1px solid rgba(27,58,92,0.12);
+  border-radius: var(--radius-md); padding: 0.9rem 1.05rem; margin-bottom: 1rem;
+}
+.gp__url {
+  flex: 1; min-width: 0; font-family: var(--font-heading); font-size: 0.82rem;
+  color: var(--navy); overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.gp__copy {
+  font-family: var(--font-heading); font-size: 0.68rem; font-weight: 800;
+  letter-spacing: 0.09em; text-transform: uppercase; color: var(--navy);
+  background: var(--gold); border: none; border-radius: var(--radius-full);
+  padding: 0.5rem 1rem; cursor: pointer; white-space: nowrap;
+  transition: background 160ms ease-out;
+}
+.gp__copy:hover { background: var(--gold-dark); }
+.gp__copy.is-done { background: #1a6b4d; color: #fff; }
+.gp__note { font-size: 0.82rem; color: var(--fp-muted); line-height: 1.65; margin: 0; }
+
+@media (prefers-reduced-motion: reduce) { .gp__copy { transition: none; } }

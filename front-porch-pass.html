@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Property Snapshot | Phil Himes</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="description" content="A property snapshot from Phil Himes, by invitation." />
+  <link rel="stylesheet" href="css/styles.css?v=20260824a" />
+  <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+
+  <style>
+  /* Hallmark · macrostructure: Single-task claim · genre: editorial
+   * theme: portal-native (brand-locked navy / gold / teal)
+   * scope: the ONE public surface of The Front Porch. A guest-pass holder lands
+   *        here, gets their county numbers generated for free, and is only then
+   *        asked whether they'd like them kept current.
+   *
+   * Deliberately NOT the portal chrome — they are not a member yet. Minimal
+   * bar, no nav, one job.
+   */
+
+  :root { --pass-ink: #2f3a44; --pass-ink-2: #3d4852; --pass-muted: #5f6a75; --pass-gold-ink: #8a6d26; }
+
+  .pass-bar { background: #fff; border-bottom: 1px solid rgba(27,58,92,0.1); }
+  .pass-bar__in {
+    max-width: 60rem; margin-inline: auto; padding: 0.9rem 1.5rem;
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .pass-bar__logo img { height: 34px; width: auto; display: block; }
+  .pass-bar__ph {
+    margin-left: auto; font-family: var(--font-heading); font-size: 0.8rem;
+    font-weight: 700; color: var(--navy); text-decoration: none; white-space: nowrap;
+  }
+
+  .pass-wrap { max-width: 44rem; margin-inline: auto; padding: 0 1.5rem; }
+
+  /* ── The gift framing ─────────────────────────────────────────────── */
+  .pass-hero {
+    background: linear-gradient(150deg, #0d2137 0%, var(--navy) 58%, #16406b 100%);
+    color: #fff; padding: 3.25rem 0 3rem;
+  }
+  .pass-from {
+    display: inline-flex; align-items: center; gap: 0.55rem;
+    background: rgba(201,164,85,0.16); border: 1px solid rgba(201,164,85,0.42);
+    border-radius: var(--radius-full); padding: 0.5rem 1.05rem;
+    font-family: var(--font-heading); font-size: 0.72rem; font-weight: 700;
+    color: var(--gold); margin-bottom: 1.35rem;
+  }
+  .pass-h1 {
+    font-family: var(--font-display); font-size: clamp(1.9rem, 4.4vw, 2.7rem);
+    font-weight: 900; color: #fff; line-height: 1.15; margin: 0 0 1rem;
+  }
+  .pass-sub { font-size: 1.04rem; line-height: 1.75; color: rgba(255,255,255,0.86); margin: 0; max-width: 34rem; }
+
+  /* ── Step 1 · address ─────────────────────────────────────────────── */
+  .pass-sec { padding: 3rem 0; }
+  .pass-card {
+    background: #fff; border: 1px solid rgba(27,58,92,0.12);
+    border-radius: var(--radius-lg); box-shadow: var(--shadow-md); padding: 2rem 1.9rem;
+  }
+  .pass-label {
+    display: block; font-family: var(--font-heading); font-size: 0.68rem; font-weight: 800;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--pass-muted); margin-bottom: 0.7rem;
+  }
+  .pass-field { position: relative; }
+  .pass-input {
+    width: 100%; font-family: var(--font-body); font-size: 1.02rem;
+    padding: 0.95rem 1.1rem; color: var(--navy); background: #fff;
+    border: 2px solid rgba(27,58,92,0.18); border-radius: var(--radius-md);
+  }
+  .pass-input:focus { outline: none; border-color: var(--gold); }
+  .pass-ac {
+    position: absolute; top: calc(100% + 4px); left: 0; right: 0; z-index: 5;
+    background: #fff; border: 1px solid rgba(27,58,92,0.16);
+    border-radius: var(--radius-md); box-shadow: var(--shadow-lg);
+    max-height: 15rem; overflow-y: auto; display: none;
+  }
+  .pass-ac.is-open { display: block; }
+  .pass-ac__item {
+    display: block; width: 100%; text-align: left; background: none; border: none;
+    padding: 0.75rem 1.1rem; cursor: pointer; font-family: var(--font-body);
+    font-size: 0.95rem; color: var(--navy); border-bottom: 1px solid rgba(27,58,92,0.07);
+  }
+  .pass-ac__item:last-child { border-bottom: none; }
+  .pass-ac__item:hover, .pass-ac__item.is-active { background: var(--off-white); }
+  .pass-ac__item small { display: block; color: var(--pass-muted); font-size: 0.78rem; margin-top: 2px; }
+  .pass-ac__none { padding: 0.95rem 1.1rem; font-size: 0.9rem; color: var(--pass-muted); line-height: 1.6; }
+
+  .pass-help { font-size: 0.83rem; color: var(--pass-muted); line-height: 1.65; margin: 0.85rem 0 0; }
+  .pass-btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+    background: var(--gold); color: var(--navy); border: none; cursor: pointer;
+    font-family: var(--font-heading); font-size: 0.78rem; font-weight: 800;
+    letter-spacing: 0.09em; text-transform: uppercase;
+    padding: 0.9rem 1.8rem; border-radius: var(--radius-full); margin-top: 1.3rem;
+    transition: background 180ms ease-out;
+  }
+  .pass-btn:hover { background: var(--gold-dark); }
+  .pass-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+  .pass-btn--ghost {
+    background: transparent; color: var(--navy);
+    box-shadow: inset 0 0 0 2px rgba(27,58,92,0.22);
+  }
+  .pass-btn--ghost:hover { background: rgba(27,58,92,0.05); }
+
+  /* ── Step 2 · the generated snapshot ──────────────────────────────── */
+  .pass-step { display: none; }
+  .pass-step.is-on { display: block; }
+
+  .pass-addr {
+    font-family: var(--font-display); font-size: 1.5rem; font-weight: 900;
+    color: var(--navy); margin: 0 0 0.2rem; line-height: 1.2;
+  }
+  .pass-addr-sub {
+    font-family: var(--font-heading); font-size: 0.7rem; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase; color: var(--pass-muted);
+    margin-bottom: 1.6rem;
+  }
+
+  .pass-tiles {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1px; background: rgba(27,58,92,0.12);
+    border-radius: var(--radius-md); overflow: hidden; margin-bottom: 1.6rem;
+  }
+  .pass-tile { background: #fff; padding: 1.3rem 1.15rem; }
+  .pass-tile__k {
+    font-family: var(--font-heading); font-size: 0.62rem; font-weight: 800;
+    letter-spacing: 0.13em; text-transform: uppercase; color: var(--pass-muted); margin-bottom: 0.45rem;
+  }
+  .pass-tile__v {
+    font-family: var(--font-display); font-size: 1.7rem; font-weight: 900;
+    color: var(--navy); line-height: 1; font-variant-numeric: tabular-nums;
+  }
+  .pass-tile__n { font-size: 0.78rem; color: var(--pass-muted); margin-top: 0.35rem; line-height: 1.45; }
+  .pass-up { color: #a8433d; font-weight: 700; }
+
+  /* the exemption finding — the reason this converts */
+  .pass-flag {
+    border-left: 4px solid var(--gold); background: rgba(201,164,85,0.1);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    padding: 1.35rem 1.5rem; margin-bottom: 1.6rem;
+  }
+  .pass-flag__k {
+    font-family: var(--font-heading); font-size: 0.64rem; font-weight: 800;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--pass-gold-ink); margin-bottom: 0.5rem;
+  }
+  .pass-flag__h {
+    font-family: var(--font-display); font-size: 1.2rem; font-weight: 800;
+    color: var(--navy); margin: 0 0 0.55rem; line-height: 1.3;
+  }
+  .pass-flag p { margin: 0; font-size: 0.95rem; line-height: 1.72; color: var(--pass-ink-2); }
+
+  .pass-hist { width: 100%; border-collapse: collapse; font-size: 0.92rem; margin-bottom: 0.9rem; }
+  .pass-hist th {
+    text-align: left; font-family: var(--font-heading); font-size: 0.62rem; font-weight: 800;
+    letter-spacing: 0.11em; text-transform: uppercase; color: var(--pass-muted);
+    padding: 0.6rem 0.7rem; border-bottom: 1px solid rgba(27,58,92,0.14);
+  }
+  .pass-hist td {
+    padding: 0.72rem 0.7rem; border-bottom: 1px solid rgba(27,58,92,0.07);
+    color: var(--pass-ink-2); font-variant-numeric: tabular-nums;
+  }
+  .pass-hist tr:last-child td { border-bottom: none; }
+  .pass-hist .yr { font-weight: 700; color: var(--navy); }
+  .pass-tablewrap { overflow-x: auto; }
+
+  .pass-source { font-size: 0.79rem; color: var(--pass-muted); line-height: 1.7; margin: 0; }
+
+  /* ── The ask, after the give ──────────────────────────────────────── */
+  .pass-ask {
+    background: linear-gradient(140deg, #0d2137 0%, var(--navy) 60%, #16406b 100%);
+    color: #fff; border-radius: var(--radius-lg); padding: 2.25rem 2rem; margin-top: 2rem;
+  }
+  .pass-ask__h {
+    font-family: var(--font-display); font-size: clamp(1.35rem, 3vw, 1.75rem);
+    font-weight: 900; margin: 0 0 0.7rem; color: #fff; line-height: 1.3;
+  }
+  .pass-ask__p { font-size: 0.99rem; line-height: 1.75; color: rgba(255,255,255,0.85); margin: 0 0 1.5rem; max-width: 34rem; }
+  .pass-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; margin-bottom: 0.85rem; }
+  .pass-ask input[type="text"], .pass-ask input[type="email"] {
+    width: 100%; font-family: var(--font-body); font-size: 0.95rem;
+    padding: 0.85rem 1rem; border-radius: var(--radius-md);
+    border: 1px solid rgba(255,255,255,0.24); background: rgba(255,255,255,0.1); color: #fff;
+  }
+  .pass-ask input::placeholder { color: rgba(255,255,255,0.5); }
+  .pass-ask input:focus { outline: none; border-color: var(--gold); background: rgba(255,255,255,0.16); }
+  .pass-consent {
+    display: flex; align-items: flex-start; gap: 0.6rem; margin: 1.1rem 0 0;
+    font-size: 0.88rem; line-height: 1.6; color: rgba(255,255,255,0.82); cursor: pointer;
+  }
+  .pass-consent input { margin-top: 0.2rem; accent-color: var(--gold); width: 17px; height: 17px; flex-shrink: 0; }
+  .pass-fine { font-size: 0.79rem; color: rgba(255,255,255,0.6); margin: 1rem 0 0; line-height: 1.65; }
+  .pass-fine a { color: rgba(255,255,255,0.8); }
+
+  .pass-done {
+    background: var(--off-white); border-radius: var(--radius-lg);
+    padding: 2.25rem 2rem; text-align: center; margin-top: 2rem;
+  }
+  .pass-done__h {
+    font-family: var(--font-display); font-size: 1.5rem; font-weight: 900;
+    color: var(--navy); margin: 0 0 0.6rem;
+  }
+  .pass-done p { font-size: 0.98rem; line-height: 1.75; color: var(--pass-ink-2); margin: 0 auto; max-width: 32rem; }
+
+  .pass-foot {
+    background: var(--navy); color: rgba(255,255,255,0.62); padding: 2rem 0; margin-top: 3rem;
+    font-size: 0.78rem; line-height: 1.7;
+  }
+  .pass-foot a { color: rgba(255,255,255,0.8); }
+
+
+  /* ── Local coverage + FAQ (the indexable surface) ─────────────────── */
+  .pass-local { background: var(--off-white); }
+  .pass-local__h {
+    font-family: var(--font-display); font-size: clamp(1.45rem, 3vw, 1.9rem);
+    font-weight: 900; color: var(--navy); margin: 0 0 0.9rem; line-height: 1.25;
+  }
+  .pass-local__p { font-size: 1rem; line-height: 1.75; color: var(--pass-ink-2); margin: 0 0 1.75rem; max-width: 34rem; }
+  .pass-counties { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.1rem; margin-bottom: 1.5rem; }
+  .pass-county { background: #fff; border: 1px solid rgba(27,58,92,0.1); border-radius: var(--radius-md); padding: 1.2rem 1.25rem; }
+  .pass-county h3 {
+    font-family: var(--font-heading); font-size: 0.7rem; font-weight: 800;
+    letter-spacing: 0.13em; text-transform: uppercase; color: var(--pass-gold-ink); margin: 0 0 0.6rem;
+  }
+  .pass-county p { margin: 0; font-size: 0.88rem; line-height: 1.75; color: var(--pass-ink-2); }
+  .pass-local__note { font-size: 0.88rem; line-height: 1.75; color: var(--pass-muted); margin: 0; max-width: 40rem; }
+  .pass-local__note a { color: var(--teal-dark); }
+
+  .pass-faq-sec { background: #fff; }
+  .pass-faq { max-width: 40rem; }
+  .pass-q { border-bottom: 1px solid rgba(27,58,92,0.12); }
+  .pass-q summary {
+    cursor: pointer; list-style: none; padding: 1.1rem 2rem 1.1rem 0; position: relative;
+    font-family: var(--font-display); font-size: 1.06rem; font-weight: 700; color: var(--navy);
+  }
+  .pass-q summary::-webkit-details-marker { display: none; }
+  .pass-q summary::after {
+    content: '+'; position: absolute; right: 0; top: 50%; transform: translateY(-50%);
+    font-size: 1.35rem; color: var(--gold); font-weight: 700;
+  }
+  .pass-q[open] summary::after { content: '2'; }
+  .pass-q summary:focus-visible { outline: 2px solid var(--teal); outline-offset: 3px; border-radius: 3px; }
+  .pass-a { padding: 0 0 1.2rem; }
+  .pass-a p { font-size: 0.96rem; line-height: 1.8; color: var(--pass-ink-2); margin: 0 0 0.9rem; }
+  .pass-a p:last-child { margin-bottom: 0; }
+  .pass-a em { font-style: italic; }
+
+  @media (max-width: 600px) {
+    .pass-wrap, .pass-bar__in { padding-inline: 1.15rem; }
+    .pass-card { padding: 1.5rem 1.3rem; }
+    .pass-ask { padding: 1.7rem 1.35rem; }
+    .pass-row { grid-template-columns: 1fr; }
+    .pass-btn { width: 100%; }
+  }
+  @media (prefers-reduced-motion: reduce) { .pass-btn { transition: none; } }
+  </style>
+</head>
+<body>
+
+  <div class="fp-mock" style="background:#2d2a1f;color:#e8d9a8;text-align:center;font-family:var(--font-heading);font-size:0.72rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:0.65rem 1rem;">
+    Mockup &middot; 24 Aug 2026 &mdash; sample data. Type &ldquo;1428&rdquo; or &ldquo;22&rdquo; in the address box to see the autocomplete.
+  </div>
+
+  <header class="pass-bar">
+    <div class="pass-bar__in">
+      <a href="index.html" class="pass-bar__logo" aria-label="Phillip Himes Real Estate">
+        <img src="images/logo.png" alt="Phillip Himes &middot; Brokered by eXp Realty" />
+      </a>
+      <a href="tel:8329909738" class="pass-bar__ph">(832) 990-9738</a>
+    </div>
+  </header>
+
+  <!-- ══ STEP 1 · CLAIM ═══════════════════════════════════════════════ -->
+  <div class="pass-step is-on" id="step-claim">
+    <section class="pass-hero">
+      <div class="pass-wrap">
+        <span class="pass-from">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
+            <path d="M20 12v7a1 1 0 01-1 1H5a1 1 0 01-1-1v-7"/><path d="M2 7h20v5H2z"/><path d="M12 7v13"/>
+            <path d="M12 7S9.5 3 7.5 3a2.5 2.5 0 000 5M12 7s2.5-4 4.5-4a2.5 2.5 0 010 5"/>
+          </svg>
+          <span id="pass-sender">Sarah Chen</span> sent you this
+        </span>
+        <h1 class="pass-h1">Here&rsquo;s what the county has on your house</h1>
+        <p class="pass-sub">
+          Appraised value, five years of history, and whether your homestead exemption
+          is actually on file. It&rsquo;s all public record &mdash; most people just never look.
+          Free, and there&rsquo;s nothing to sign up for.
+        </p>
+      </div>
+    </section>
+
+    <section class="pass-sec">
+      <div class="pass-wrap">
+        <div class="pass-card">
+          <label class="pass-label" for="pass-addr">Your address</label>
+          <div class="pass-field">
+            <input class="pass-input" type="text" id="pass-addr" autocomplete="off"
+                   placeholder="Start typing &mdash; e.g. 1428 Tuscan&hellip;"
+                   role="combobox" aria-expanded="false" aria-controls="pass-ac" aria-autocomplete="list" />
+            <div class="pass-ac" id="pass-ac" role="listbox" aria-label="Matching addresses"></div>
+          </div>
+          <p class="pass-help">
+            The list comes straight from the county appraisal rolls, so pick yours from the
+            matches and I&rsquo;ll have the right record. Galveston, Harris, Brazoria and
+            Fort Bend counties.
+          </p>
+          <button class="pass-btn" id="pass-go" disabled>Show me my numbers</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ══ STEP 2 · THE SNAPSHOT ════════════════════════════════════════ -->
+  <div class="pass-step" id="step-result">
+    <section class="pass-sec">
+      <div class="pass-wrap">
+
+        <h1 class="pass-addr" id="res-addr">&mdash;</h1>
+        <div class="pass-addr-sub" id="res-county">&mdash;</div>
+
+        <div class="pass-tiles">
+          <div class="pass-tile">
+            <div class="pass-tile__k">County Appraised Value</div>
+            <div class="pass-tile__v" id="res-val">&mdash;</div>
+            <div class="pass-tile__n"><span class="pass-up" id="res-chg">&mdash;</span> vs. last year</div>
+          </div>
+          <div class="pass-tile">
+            <div class="pass-tile__k">Taxed On</div>
+            <div class="pass-tile__v" id="res-assessed">&mdash;</div>
+            <div class="pass-tile__n" id="res-cap">&mdash;</div>
+          </div>
+          <div class="pass-tile">
+            <div class="pass-tile__k">Homestead Exemption</div>
+            <div class="pass-tile__v" id="res-hs">&mdash;</div>
+            <div class="pass-tile__n" id="res-hs-note">&mdash;</div>
+          </div>
+        </div>
+
+        <!-- The finding. This is the moment the page earns its keep. -->
+        <div class="pass-flag" id="res-flag">
+          <div class="pass-flag__k">Worth knowing</div>
+          <h2 class="pass-flag__h" id="res-flag-h">&mdash;</h2>
+          <p id="res-flag-p">&mdash;</p>
+        </div>
+
+        <div class="pass-tablewrap">
+          <table class="pass-hist">
+            <thead>
+              <tr><th>Tax year</th><th>Appraised</th><th>Change</th><th>Taxed on</th><th>Exemption</th></tr>
+            </thead>
+            <tbody id="res-hist"></tbody>
+          </table>
+        </div>
+        <p class="pass-source" id="res-source">&mdash;</p>
+
+        <!-- ── The ask, only now ── -->
+        <div class="pass-ask">
+          <h2 class="pass-ask__h">Want me to keep an eye on it?</h2>
+          <p class="pass-ask__p">
+            The county reprices your house every spring and mails you a notice most people
+            file in a drawer. I&rsquo;ll send you one note a month &mdash; your number when it
+            changes, what actually sold nearby, and a heads-up before the protest deadline
+            so you don&rsquo;t find out in June.
+          </p>
+
+          <form id="pass-form" novalidate>
+            <div class="pass-row">
+              <input type="text" name="firstName" placeholder="First name" autocomplete="given-name" />
+              <input type="text" name="lastName" placeholder="Last name" autocomplete="family-name" />
+            </div>
+            <input type="email" name="email" placeholder="Email address" autocomplete="email" />
+            <!-- honeypot -->
+            <div style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;" aria-hidden="true">
+              <label>Company<input type="text" name="company" tabindex="-1" autocomplete="off" /></label>
+            </div>
+            <label class="pass-consent">
+              <input type="checkbox" name="consent" id="pass-consent" />
+              <span>Yes &mdash; email me a monthly note about this property. One a month, and I&rsquo;ll stop the day you tell me to.</span>
+            </label>
+            <button class="pass-btn" type="submit" id="pass-sub" disabled>Keep me posted</button>
+          </form>
+
+          <p class="pass-fine">
+            No texts unless you ask for them, and I don&rsquo;t sell or share your details.
+            <a href="privacy-policy.html">Privacy policy</a>.
+          </p>
+        </div>
+
+        <div class="pass-done" id="pass-done" style="display:none;">
+          <div class="pass-done__h">You&rsquo;re on the list</div>
+          <p>
+            First one goes out at the start of next month. In the meantime, if anything about
+            the numbers above looks wrong, just reply to it &mdash; it comes straight to me.
+          </p>
+        </div>
+
+        <p style="margin-top:1.5rem;">
+          <button class="pass-btn pass-btn--ghost" id="pass-again">&larr; Look up a different address</button>
+        </p>
+
+      </div>
+    </section>
+  </div>
+
+  <!-- ══ COVERAGE + FAQ · the local surface search actually reads ═════ -->
+  <section class="pass-sec pass-local" id="coverage">
+    <div class="pass-wrap">
+      <h2 class="pass-local__h">Where this works</h2>
+      <p class="pass-local__p">
+        Four appraisal districts, which between them cover most of the Houston area. If your
+        address is in one of them it will come up in the box above.
+      </p>
+
+      <div class="pass-counties">
+        <div class="pass-county">
+          <h3>Galveston CAD</h3>
+          <p>League City &middot; Friendswood &middot; Dickinson &middot; Texas City &middot; Kemah &middot; Santa Fe &middot; La Marque &middot; Galveston &middot; Bacliff &middot; San Leon</p>
+        </div>
+        <div class="pass-county">
+          <h3>Harris CAD</h3>
+          <p>Houston &middot; Webster &middot; Seabrook &middot; Pasadena &middot; Katy &middot; Cypress &middot; Spring &middot; Humble &middot; Deer Park &middot; La Porte</p>
+        </div>
+        <div class="pass-county">
+          <h3>Brazoria CAD</h3>
+          <p>Pearland &middot; Manvel &middot; Alvin &middot; Angleton &middot; Lake Jackson &middot; Clute &middot; Rosharon &middot; Iowa Colony</p>
+        </div>
+        <div class="pass-county">
+          <h3>Fort Bend CAD</h3>
+          <p>Sugar Land &middot; Missouri City &middot; Richmond &middot; Rosenberg &middot; Katy (south) &middot; Fulshear &middot; Needville</p>
+        </div>
+      </div>
+
+      <p class="pass-local__note">
+        Search by street, not by neighbourhood. The districts record the postal city,
+        so Clear Lake addresses come up as Houston, and a few towns straddle two
+        districts entirely &mdash; League City, Friendswood and Pearland all do. Type the
+        house number and street and yours will surface wherever it actually sits. Not on the list? <a href="mailto:phil@philliphimes.com?subject=Add%20my%20county">Tell me which county</a>
+        and I&rsquo;ll let you know when I add it.
+      </p>
+    </div>
+  </section>
+
+  <section class="pass-sec pass-faq-sec">
+    <div class="pass-wrap">
+      <h2 class="pass-local__h">Questions people ask</h2>
+
+      <div class="pass-faq">
+        <details class="pass-q">
+          <summary>Is this the same as what my house is worth?</summary>
+          <div class="pass-a">
+            <p>
+              No, and the difference matters. The appraised value is what the county assessed
+              your property at for <em>tax</em> purposes, as of 1 January. It is not a market
+              valuation, it does not account for what you have done to the house, and it is
+              usually conservative &mdash; in a rising market it tends to lag what a home would
+              actually sell for. It is a good way to watch direction over time. It is not a
+              number to price a sale on.
+            </p>
+          </div>
+        </details>
+
+        <details class="pass-q">
+          <summary>What is the difference between appraised and assessed?</summary>
+          <div class="pass-a">
+            <p>
+              Appraised is the county&rsquo;s opinion of value. Assessed is the portion you are
+              actually taxed on. If you have a homestead exemption, Texas caps how fast the
+              assessed value can rise &mdash; no more than 10% a year &mdash; so in a fast market
+              the two numbers pull apart. That gap is money you are not being taxed on.
+            </p>
+          </div>
+        </details>
+
+        <details class="pass-q">
+          <summary>I don&rsquo;t have a homestead exemption. Can I still file?</summary>
+          <div class="pass-a">
+            <p>
+              If it is your principal residence, almost certainly yes &mdash; and Texas lets you
+              file late. Under Tax Code &sect;11.431 an appraisal district must accept a homestead
+              application filed up to two years after the delinquency date, and if it is
+              approved you get a <b>refund of the taxes you already overpaid</b>, due within 60
+              days. Plenty of people who bought recently never filed and have no idea.
+            </p>
+            <p>
+              Applications go to your appraisal district, not to me, and they are free. Anyone
+              charging you to file one is charging you for a form.
+            </p>
+          </div>
+        </details>
+
+        <details class="pass-q">
+          <summary>My value went up a lot. Can I do anything?</summary>
+          <div class="pass-a">
+            <p>
+              You can protest it. Appraisal notices generally mail in April and the deadline is
+              <b>15 May</b> or 30 days after your notice, whichever is later. Comparable sales do
+              most of the work in a residential protest &mdash; and pulling comps is my actual job,
+              so if you want them, ask and I will run them.
+            </p>
+          </div>
+        </details>
+
+        <details class="pass-q">
+          <summary>What does this cost, and what happens to my details?</summary>
+          <div class="pass-a">
+            <p>
+              Nothing, and you do not have to give me anything to see your numbers &mdash; the
+              lookup is free and the data is public record. If you decide you want the monthly
+              note, I keep your name and email to send it, I do not sell or share them, and you
+              can stop it any time by replying.
+            </p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <footer class="pass-foot">
+    <div class="pass-wrap">
+      Phillip Himes &middot; REALTOR&reg; &middot; Brokered by eXp Realty &middot; 2600 South Shore Blvd. #300, League City, TX 77573 &middot;
+      <a href="tel:8329909738">(832) 990-9738</a><br /><br />
+      Figures are the appraised and assessed values on file with the county appraisal district,
+      a matter of public record. Not an appraisal, not a market valuation, and not tax advice.
+      Confirm exemption status and any refund entitlement with your appraisal district.
+      &nbsp;&middot;&nbsp; <a href="privacy-policy.html">Privacy</a> &middot; <a href="terms-of-service.html">Terms</a>
+      &nbsp;&middot;&nbsp; &#8962; Equal Housing Opportunity
+    </div>
+  </footer>
+
+  <script src="js/front-porch-pass.js?v=20260824a"></script>
+</body>
+</html>

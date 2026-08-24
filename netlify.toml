@@ -122,6 +122,11 @@
   status = 404
   force = true
 [[redirects]]
+  from = "/FRONT-PORCH-OPS.md"
+  to = "/404.html"
+  status = 404
+  force = true
+[[redirects]]
   from = "/AGENTIC_OS_INTEGRATION.md"
   to = "/404.html"
   status = 404
@@ -150,6 +155,38 @@
     X-XSS-Protection = "1; mode=block"
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
+
+# ── The Front Porch (members' area): keep it out of search entirely ──
+# Header rather than a robots.txt Disallow, for two reasons:
+#   1. robots.txt is public — listing the paths advertises exactly what's
+#      private (same reasoning as the .md 404 rules above).
+#   2. Disallow BLOCKS crawling, which means the noindex tag is never read.
+#      A URL discovered elsewhere could still be indexed as a bare link.
+# X-Robots-Tag is read on fetch and is authoritative. The pages also carry
+# a <meta name="robots"> tag as belt-and-braces.
+# NOTE: this is search hygiene, NOT access control. Real member data must be
+# rendered server-side behind auth — never baked into a static file.
+# Explicit paths, NOT /front-porch* — the wildcard also matched
+# front-porch-pass.html, which is the one page in this family that IS meant to
+# be indexed. An X-Robots-Tag header beats a page <meta robots>, so the wildcard
+# would have silently overridden it and the page would never have ranked.
+[[headers]]
+  for = "/front-porch.html"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow, noarchive, nosnippet"
+    Referrer-Policy = "no-referrer"
+
+[[headers]]
+  for = "/front-porch-pass.html"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow, noarchive, nosnippet"
+    Referrer-Policy = "no-referrer"
+
+[[headers]]
+  for = "/front-porch-vendors.html"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow, noarchive, nosnippet"
+    Referrer-Policy = "no-referrer"
 
 # Cache images for a week (satisfies PageSpeed "efficient cache lifetimes").
 # CSS/JS are intentionally left on Netlify's revalidate default so edits go
