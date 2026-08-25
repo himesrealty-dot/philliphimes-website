@@ -123,9 +123,11 @@
        noindex, so they're deliberately NOT listed here — a sitemap entry
        for a noindex page is a contradiction Search Console reports on. -->
 
-  <url>
-    <loc>https://philliphimes.com/front-porch-newsletter.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
+  <!-- ── THE FRONT PORCH ──
+       The Note (front-porch-newsletter.html) is deliberately NOT listed while
+       it is still a mockup carrying a noindex tag and invented sample content.
+       Listing a noindex URL is the same contradiction called out above.
+       When the first real issue ships: remove the robots meta tag from that
+       page, then add a normal url entry for it here (monthly, priority 0.7).
+       The other three Porch pages are members-only and never belong here. -->
 </urlset>
