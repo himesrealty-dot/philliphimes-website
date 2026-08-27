@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The Note — every issue | Phil Himes</title>
+<meta name="description" content="Every issue of The Note, a monthly letter from Phil Himes." />
+<meta name="author" content="Phillip Himes | Brokered by eXp Realty" />
+<link rel="canonical" href="https://philliphimes.com/note/" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="The Note — every issue" />
+<meta property="og:description" content="Every issue of The Note, a monthly letter from Phil Himes." />
+<meta property="og:url" content="https://philliphimes.com/note/" />
+<meta property="og:image" content="https://philliphimes.com/images/note-cover.jpg" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="icon" type="image/x-icon" href="https://philliphimes.com/images/favicon.ico" />
+<link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,600&family=Montserrat:wght@400;600;700;800;900&family=Open+Sans:wght@300;400;500;600&display=swap" />
+<style>
+  /* ── design tokens ────────────────────────────────────────────────
+     The mockup carried NO :root of its own — it inherited these from the site's
+     css/styles.css and css/front-porch.css, which this page does not load. Every
+     var() was therefore resolving to nothing: body had no background at all (so
+     the page took the browser's, black in dark mode) and every colour fell back
+     to plain black. Values copied from the live stylesheets, not invented. */
+  :root {
+    --navy: #1B3A5C;
+    --gold: #C9A455;
+    --gold-dark: #a8883d;
+    --teal-dark: #186e82;
+    --fp-ink: #2f3a44;
+    --fp-ink-2: #3d4852;
+    --fp-muted: #5f6a75;
+    --fp-navy-deep: #0d2137;
+    --fp-navy-lift: #16406b;
+    --fp-gold-ink: #8a6d26;
+    --fp-dept-know: #17697c;
+    --fp-dept-cook: #8c4526;
+    --radius-md: 8px;
+    --radius-lg: 16px;
+    --radius-full: 9999px;
+    --font-display: 'Playfair Display', Georgia, serif;
+    --font-heading: 'Montserrat', sans-serif;
+    --font-body: 'Open Sans', sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: #ffffff; color: var(--fp-ink);
+    font-family: var(--font-body); line-height: 1.6;
+    -webkit-font-smoothing: antialiased; overflow-x: hidden;
+  }
+</style>
+<style>
+
+  /* Hallmark · macrostructure: Cover + alternating spreads · genre: editorial
+   * theme: portal-native (brand-locked navy / gold / teal; rust dept accent)
+   * v4 — magazine model: cover with cover-lines, then two-column spreads that
+   *      alternate media left / media right down the page.
+   * pre-emit critique: P5 H5 E5 S5 R4 V5
+   */
+
+  /* ══ COVER ══════════════════════════════════════════════════════════
+     Photograph, scrim, masthead, cover lines. The cover lines are real
+     anchors — a cover you can click into.                                */
+
+  .nl-cover {
+    position: relative; isolation: isolate;
+    min-height: 680px; display: flex; align-items: stretch;
+    background: var(--fp-navy-deep);
+    overflow: hidden;
+  }
+  .nl-cover__art {
+    position: absolute; inset: 0; z-index: -2;
+    background-image: var(--cover-art);
+    background-size: cover; background-position: 58% center; background-repeat: no-repeat;
+  }
+  /* Scrim measured against the actual photograph: the left third of this image
+     runs 12.7:1 on white, the letter in the middle only 2.9:1. So the scrim is
+     weighted left — heavy where the type sits, clearing across the letter, the
+     writing hand and the mug so the picture is still a picture. */
+  .nl-cover__scrim {
+    position: absolute; inset: 0; z-index: -1;
+    background:
+      linear-gradient(100deg,
+        rgba(9,24,41,0.95) 0%,  rgba(9,24,41,0.90) 30%,
+        rgba(9,24,41,0.60) 48%, rgba(9,24,41,0.26) 68%,
+        rgba(9,24,41,0.18) 100%),
+      linear-gradient(to top, rgba(9,24,41,0.55) 0%, rgba(9,24,41,0) 34%);
+  }
+  .nl-cover__inner {
+    position: relative; width: 100%;
+    max-width: 74rem; margin-inline: auto; padding: 2.25rem 1.5rem 3rem;
+    display: flex; flex-direction: column; gap: 2rem;
+  }
+  
+  .nl-cover__masthead { display: flex; flex-direction: column; align-items: flex-start; gap: 0.55rem; max-width: 34rem; }
+  .nl-cover__title {
+    margin: 0;
+    font-family: var(--font-display); font-size: clamp(2.6rem, 6.4vw, 4.4rem);
+    font-weight: 900; color: #fff; line-height: 0.95; letter-spacing: -0.01em;
+    text-shadow: 0 2px 24px rgba(6,18,32,0.6);
+  }
+  .nl-cover__flag {
+    font-family: var(--font-heading); font-size: 0.68rem; font-weight: 800;
+    letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold);
+    text-shadow: 0 1px 12px rgba(6,18,32,0.7);
+  }
+  .nl-cover__meta {
+    font-family: var(--font-heading); font-size: 0.68rem; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.78);
+    font-variant-numeric: tabular-nums; text-shadow: 0 1px 12px rgba(6,18,32,0.7);
+  }
+
+  /* ── Cover lines ─────────────────────────────────────────────────── */
+  .nl-lines { margin-top: auto; max-width: 34rem; }
+  .nl-cl { display: block; text-decoration: none; padding: 0.75rem 0; }
+  .nl-cl + .nl-cl { border-top: 1px solid rgba(255,255,255,0.18); }
+  .nl-cl__kicker {
+    display: block; font-family: var(--font-heading); font-size: 0.62rem;
+    font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 0.3rem;
+  }
+  .nl-cl__text {
+    display: block; font-family: var(--font-display); font-size: 1.06rem;
+    font-weight: 700; color: rgba(255,255,255,0.9); line-height: 1.35;
+    text-shadow: 0 1px 14px rgba(6,18,32,0.6);
+  }
+  .nl-cl:hover .nl-cl__text { color: var(--gold); }
+
+  /* The lead cover line is the one the issue is about — set like a cover. */
+  .nl-cl--lead { padding-top: 0; padding-bottom: 1.1rem; }
+  .nl-cl--lead .nl-cl__text {
+    font-size: clamp(1.6rem, 3.6vw, 2.4rem); font-weight: 900; color: #fff;
+    line-height: 1.14;
+  }
+  .nl-cl--lead .nl-cl__kicker { font-size: 0.68rem; margin-bottom: 0.55rem; }
+
+  /* ══ SPREADS ════════════════════════════════════════════════════════
+     Two columns, media and text, alternating side down the page.         */
+
+  .nl-sec { max-width: 74rem; margin-inline: auto; padding: 3.5rem 1.5rem; }
+  .nl-sec + .nl-sec { border-top: 1px solid rgba(27,58,92,0.12); }
+
+  .nl-sec--coffee { --dept: var(--fp-gold-ink); }
+  .nl-sec--know   { --dept: var(--fp-dept-know); }
+  .nl-sec--drive  { --dept: var(--navy); }
+  .nl-sec--cook   { --dept: var(--fp-dept-cook); }
+
+  .nl-spread {
+    display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+    gap: 3rem; align-items: start;
+  }
+  .nl-spread__media { grid-column: 1; grid-row: 1; }
+  .nl-spread__text  { grid-column: 2; grid-row: 1; }
+  /* Alternate: media moves to the right-hand column. */
+  .nl-spread--flip .nl-spread__media { grid-column: 2; }
+  .nl-spread--flip .nl-spread__text  { grid-column: 1; }
+
+  /* Media rides down the spread on long sections instead of stranding
+     a column of white space under a short photograph. */
+  .nl-spread__media > figure { position: sticky; top: 5.5rem; }
+
+  /* ── Media ───────────────────────────────────────────────────────── */
+  .nl-media { margin: 0; }
+  .nl-media__box {
+    position: relative; aspect-ratio: 4 / 5; border-radius: var(--radius-md);
+    background: repeating-linear-gradient(45deg,
+      rgba(27,58,92,0.04) 0 12px, rgba(27,58,92,0.07) 12px 24px);
+    border: 1px solid rgba(27,58,92,0.16);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 0.6rem; text-align: center; padding: 1rem;
+  }
+  .nl-media--wide .nl-media__box { aspect-ratio: 4 / 3; }
+  .nl-media__tag {
+    font-family: var(--font-heading); font-size: 0.64rem; font-weight: 800;
+    letter-spacing: 0.15em; text-transform: uppercase; color: var(--fp-muted);
+  }
+  .nl-media__hint { font-size: 0.79rem; color: var(--fp-muted); line-height: 1.6; max-width: 22rem; }
+  .nl-media__play {
+    width: 58px; height: 58px; border-radius: 50%; background: var(--navy);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .nl-media figcaption { font-size: 0.78rem; color: var(--fp-muted); line-height: 1.6; margin-top: 0.7rem; }
+
+  /* ── Department mark ─────────────────────────────────────────────── */
+  .nl-mark { display: flex; align-items: center; gap: 0.7rem; margin-bottom: 1.2rem; }
+  .nl-mark__name {
+    font-family: var(--font-heading); font-size: 0.7rem; font-weight: 800;
+    letter-spacing: 0.18em; text-transform: uppercase; color: var(--dept); white-space: nowrap;
+  }
+  .nl-mark__rule { flex: 1; height: 1px; background: var(--dept); opacity: 0.3; }
+  .nl-mark svg { display: block; flex-shrink: 0; }
+
+  .nl-sec__h {
+    font-family: var(--font-display); font-size: clamp(1.45rem, 2.6vw, 1.95rem);
+    font-weight: 900; color: var(--navy); line-height: 1.22; margin: 0 0 1.1rem;
+    overflow-wrap: anywhere; min-width: 0;
+  }
+
+  .nl-byline {
+    font-size: 0.9rem; line-height: 1.7; color: var(--fp-muted);
+    margin: -0.4rem 0 1.3rem; padding-left: 1.1rem; position: relative;
+  }
+  .nl-byline::before {
+    content: ""; position: absolute; left: 0; top: 0.62em;
+    width: 0.55rem; height: 1px; background: var(--dept);
+  }
+  .nl-byline b { color: var(--navy); font-weight: 700; }
+
+  /* ── Prose ───────────────────────────────────────────────────────── */
+  .nl-prose p { font-size: 1.04rem; line-height: 1.82; color: var(--fp-ink); margin: 0 0 1.25rem; }
+  .nl-prose p:last-child { margin-bottom: 0; }
+  .nl-prose em { font-style: italic; }
+  .nl-prose--sm p { font-size: 0.99rem; line-height: 1.78; color: var(--fp-ink-2); }
+
+  .nl-drop p:first-of-type::first-letter {
+    font-family: var(--font-display); font-size: 3rem; font-weight: 900;
+    color: var(--navy); float: left; line-height: 0.86; margin: 0.12rem 0.5rem 0 0;
+  }
+
+  .nl-turn { border-left: 2px solid var(--gold); padding-left: 1.4rem; margin: 1.9rem 0; }
+  .nl-turn p {
+    font-family: var(--font-display); font-size: 1.16rem; line-height: 1.58;
+    color: var(--navy); margin: 0;
+  }
+
+  .nl-sig { margin-top: 2rem; }
+  .nl-sig__name {
+    font-family: var(--font-display); font-size: 1.4rem; font-weight: 700;
+    color: var(--navy); margin-bottom: 0.15rem;
+  }
+  .nl-sig__note { font-size: 0.82rem; color: var(--fp-muted); }
+
+  /* ── Recipe ──────────────────────────────────────────────────────── */
+  .nl-recipe {
+    margin-top: 1.4rem; border-top: 2px solid var(--fp-dept-cook);
+    border-bottom: 1px solid rgba(27,58,92,0.14); padding: 1.2rem 0 1.3rem;
+  }
+  .nl-recipe__h {
+    font-family: var(--font-heading); font-size: 0.66rem; font-weight: 800;
+    letter-spacing: 0.16em; text-transform: uppercase; color: var(--fp-dept-cook);
+    margin-bottom: 0.65rem;
+  }
+  .nl-recipe ul, .nl-recipe ol { margin: 0 0 1.4rem; padding-left: 1.1rem; }
+  .nl-recipe ul:last-child, .nl-recipe ol:last-child { margin-bottom: 0; }
+  .nl-recipe li {
+    font-size: 0.94rem; line-height: 1.78; color: var(--fp-ink-2);
+    margin-bottom: 0.3rem; font-variant-numeric: tabular-nums;
+  }
+
+  /* ── The ask ─────────────────────────────────────────────────────── */
+  .nl-ps {
+    max-width: 74rem; margin: 0 auto; padding: 3rem 1.5rem 3.5rem;
+    border-top: 1px solid rgba(27,58,92,0.12);
+  }
+  .nl-ps__inner { max-width: 40rem; }
+  .nl-ps p { font-size: 1.04rem; line-height: 1.85; color: var(--fp-ink); margin: 0 0 1rem; }
+  .nl-ps p:last-child { margin-bottom: 0; }
+  .nl-ps__lede { font-family: var(--font-display); font-weight: 700; color: var(--navy); }
+  .nl-ps a {
+    color: var(--navy); text-decoration: none;
+    border-bottom: 2px solid var(--gold); padding-bottom: 1px;
+    transition: border-color 160ms ease-out, color 160ms ease-out;
+  }
+  .nl-ps a:hover { color: var(--fp-gold-ink); border-bottom-color: var(--fp-gold-ink); }
+
+  /* ── Archive ─────────────────────────────────────────────────────── */
+  .nl-archwrap { max-width: 74rem; margin-inline: auto; padding-inline: 1.5rem; }
+  .nl-arch {
+    display: flex; align-items: baseline; gap: 1.25rem; flex-wrap: wrap;
+    padding: 1.05rem 0; border-bottom: 1px solid rgba(27,58,92,0.09); text-decoration: none;
+  }
+  .nl-arch:hover .nl-arch__t { color: var(--teal-dark); }
+  .nl-arch__d {
+    font-family: var(--font-heading); font-size: 0.68rem; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase; color: var(--fp-muted);
+    width: 84px; flex-shrink: 0; font-variant-numeric: tabular-nums;
+  }
+  .nl-arch__t {
+    font-family: var(--font-display); font-size: 1.05rem; font-weight: 700;
+    color: var(--navy); flex: 1; min-width: 200px;
+  }
+
+  /* ── Responsive ──────────────────────────────────────────────────── */
+
+  /* ── Public bar (The Note is ungated) ─────────────────────────────── */
+  .nl-bar { background: #fff; border-bottom: 1px solid rgba(27,58,92,0.1); }
+  .nl-bar__in {
+    max-width: 74rem; margin-inline: auto; padding: 0.85rem 1.5rem;
+    display: flex; align-items: center; gap: 1.1rem;
+  }
+  .nl-bar__logo img { height: 34px; width: auto; display: block; }
+  .nl-bar__cta {
+    margin-left: auto; font-family: var(--font-heading); font-size: 0.72rem;
+    font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--navy); background: var(--gold); border-radius: var(--radius-full);
+    padding: 0.5rem 1.1rem; text-decoration: none; white-space: nowrap;
+  }
+  .nl-bar__cta:hover { background: var(--gold-dark); color: var(--navy); }
+  .nl-bar__ph {
+    font-family: var(--font-heading); font-size: 0.8rem; font-weight: 700;
+    color: var(--navy); text-decoration: none; white-space: nowrap;
+  }
+
+
+  @media (max-width: 900px) {
+    .nl-spread { grid-template-columns: minmax(0, 1fr); gap: 1.75rem; }
+    /* Stacked: media always leads, whichever side it sat on. */
+    .nl-spread__media, .nl-spread--flip .nl-spread__media { grid-column: 1; grid-row: 1; }
+    .nl-spread__text,  .nl-spread--flip .nl-spread__text  { grid-column: 1; grid-row: 2; }
+    .nl-spread__media > figure { position: static; }
+    .nl-media__box { aspect-ratio: 3 / 2; }
+    .nl-cover, .nl-cover__inner { min-height: 540px; }
+  }
+  @media (max-width: 600px) {
+    .nl-cover, .nl-cover__inner { min-height: 480px; }
+    .nl-cover__inner { padding: 1.5rem 1.15rem 2.25rem; gap: 1.75rem; }
+    .nl-cover__meta { margin-left: 0; flex-basis: 100%; }
+    .nl-sec { padding: 2.5rem 1.15rem; }
+    .nl-ps, .nl-archwrap { padding-inline: 1.15rem; }
+    .nl-media__box { aspect-ratio: 4 / 3; }
+    .nl-turn { padding-left: 1.1rem; }
+    .nl-arch__d { width: auto; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .nl-ps a { transition: none; }
+  }
+  
+  /* ── real images ──────────────────────────────────────────────────
+     The mockup used PLACEHOLDER boxes here, never <img>, so nothing in the
+     borrowed stylesheet constrained one. An unconstrained image renders at its
+     natural size, blows the grid column out and drags the whole document to
+     several thousand pixels wide — which makes every other element look tiny.
+     Belt and braces: a global cap, plus the box's own fitting rules. */
+  img, video { max-width: 100%; height: auto; }
+  .nl-media__box:has(img), .nl-media__box:has(video) {
+    background: var(--fp-navy-deep); border-color: transparent;
+    padding: 0; display: block;
+  }
+  .nl-media__box img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+    border-radius: inherit;
+  }
+  /* A landscape photo in a 4/5 portrait box loses too much. Sections carrying
+     one get a gentler crop; the editorial consistency survives, the subject does
+     not get guillotined. */
+  .nl-media__box.is-wide { aspect-ratio: 3 / 2; }
+
+  /* ── magazine layout ──────────────────────────────────────────────
+     The mockup used a rigid two-column grid: image in one column, all the text
+     in the other, both stopping level. That reads as a newsletter. A magazine
+     runs the headline across the measure, floats the picture into the body, and
+     lets the prose close underneath it.
+
+     The column narrows to 58rem because a float only helps if the line length
+     stays readable. Beside the picture the measure is ~62 characters; where the
+     text closes under it, ~95 — long, but only the tail of a section gets there,
+     and a 4/5 picture is tall enough to hold most bodies alongside it. */
+  .nl-sec > .nl-spread { max-width: 58rem; margin-inline: auto; }
+  .nl-spread { display: block; }
+  .nl-spread__media {
+    float: left; width: 41%; margin: 0.5rem 2.2rem 1.4rem 0;
+  }
+  .nl-spread--flip .nl-spread__media {
+    float: right; margin: 0.5rem 0 1.4rem 2.2rem;
+  }
+  .nl-spread::after { content: ""; display: block; clear: both; }
+  /* The headline and department mark sit above the float, full measure. */
+  .nl-spread > .nl-mark, .nl-spread > .nl-sec__h { clear: both; }
+
+  @media (max-width: 760px) {
+    .nl-spread__media, .nl-spread--flip .nl-spread__media {
+      float: none; width: 100%; margin: 0 0 1.4rem;
+    }
+  }
+
+  /* ── caption as the hook ──────────────────────────────────────────
+     Sized to be read, not filed under the picture. This is the line that pulls
+     someone into the piece, so it carries the weight of a standfirst rather
+     than the whisper of a photo credit — and the gradient grows with it so it
+     still lands on a bright photograph. */
+  .nl-media__cap {
+    text-align: left;            /* the box centres its placeholder; a standfirst ranges left */
+    font-size: 1.02rem; font-weight: 600; line-height: 1.42;
+    letter-spacing: -0.005em;
+    padding: 3.4rem 1.15rem 1rem;
+    background: linear-gradient(to top, rgba(6,18,32,0.90) 0%,
+                rgba(6,18,32,0.72) 38%, rgba(6,18,32,0.28) 70%,
+                rgba(6,18,32,0) 100%);
+    text-shadow: 0 1px 10px rgba(6,18,32,0.8);
+  }
+  /* Video is 16:9 and never cropped — only the frame changes shape. */
+  .nl-media__box.is-video { aspect-ratio: 16 / 9; }
+  .nl-media__box video { width: 100%; height: 100%; display: block;
+    border-radius: inherit; background: #000; object-fit: contain; }
+
+  /* ── caption over the image ───────────────────────────────────────
+     The mockup set captions below the frame; Phil wants them on the picture.
+     A photograph cannot be trusted to be dark where the words land, so the
+     caption carries its own gradient rather than relying on the image. */
+  .nl-media__cap {
+    position: absolute; left: 0; right: 0; bottom: 0; z-index: 2;
+    margin: 0;
+    font-family: var(--font-heading);
+    color: rgba(255,255,255,0.96);
+    border-radius: 0 0 var(--radius-md) var(--radius-md);
+    pointer-events: none;
+  }
+  /* A video's bottom edge belongs to its own controls, so its caption stays
+     below the frame where it cannot swallow the scrubber. */
+  .nl-media figcaption { font-size: 0.78rem; color: var(--fp-muted);
+    line-height: 1.6; margin-top: 0.7rem; }
+  /* The play badge is a 58px flex circle that the placeholder box stacked in normal
+     flow. Over a real image the box is display:block, so it landed BELOW the photo and
+     added its own height to the frame. It belongs on top of the picture. */
+  .nl-media__box:has(img) .nl-media__play, .nl-media__box:has(video) .nl-media__play {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    box-shadow: 0 6px 24px rgba(6, 18, 32, 0.45);
+  }
+
+.nl-foot { background: var(--navy); color: rgba(255,255,255,0.72); margin-top: 0; }
+  .nl-foot__in { max-width: 74rem; margin-inline: auto; padding: 2rem 1.5rem 2.4rem;
+    text-align: center; font-size: 0.86rem; line-height: 1.9; }
+  .nl-foot__name { color: #fff; font-family: var(--font-heading); font-weight: 800;
+    font-size: 0.95rem; letter-spacing: 0.02em; }
+  .nl-foot a { color: var(--gold); text-decoration: none; }
+  .nl-foot__arch { margin-top: 0.5rem; }
+  .nl-foot__fine { font-size: 0.76rem; color: rgba(255,255,255,0.5); margin-top: 0.9rem; }
+</style>
+</head>
+<body>
+
+<header class="nl-bar">
+  <div class="nl-bar__in">
+    <span class="nl-bar__logo"><a href="/"><img src="https://philliphimes.com/images/logo.png"
+      alt="Phillip Himes &middot; Brokered by eXp Realty" /></a></span>
+    <a class="nl-bar__ph" href="tel:+18323384561">(832) 338-4561</a>
+    <a class="nl-bar__cta" href="https://philliphimes.com/front-porch.html">The Front Porch</a>
+  </div>
+</header>
+
+<header class="nl-cover" style="--cover-art:url('https://philliphimes.com/images/note-cover.jpg')">
+  <div class="nl-cover__art"></div>
+  <div class="nl-cover__scrim"></div>
+  <div class="nl-cover__inner">
+    <div class="nl-cover__masthead">
+      <span class="nl-cover__flag">A monthly letter from Phil Himes</span>
+      <h1 class="nl-cover__title">The Note</h1>
+      <span class="nl-cover__meta">Every issue</span>
+    </div>
+    <nav class="nl-lines"></nav>
+  </div>
+</header>
+
+<div class="nl-archwrap"><a class="nl-arch" href="https://philliphimes.com/note/2026-08/"><span class="nl-arch__d">August 2026</span><span class="nl-arch__t"></span></a></div>
+
+<div class="nl-ps">
+  <div class="nl-ps__inner">
+    <p><span class="nl-ps__lede">One more thing.</span> One a month, and nothing else.</p>
+  </div>
+</div>
+
+
+<footer class="nl-foot">
+  <div class="nl-foot__in">
+    <div class="nl-foot__name">Phillip Himes &middot; SRS, ABR, CHBA, CHSA</div>
+    <div>eXp Realty &middot; TREC #658644 &middot; <a href="tel:+18323384561">(832) 338-4561</a></div>
+    <div><a href="https://philliphimes.com">philliphimes.com</a></div>
+    <div class="nl-foot__arch"></div>
+    <div class="nl-foot__fine">League City &middot; Friendswood &middot; Pearland &middot;
+      Galveston County. Equal Housing Opportunity.</div>
+  </div>
+</footer>
+
+</body>
+</html>
