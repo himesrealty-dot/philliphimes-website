@@ -121,6 +121,33 @@
   to = "/404.html"
   status = 404
   force = true
+# Internal working docs that were shipping publicly (found 28 Aug 2026 —
+# all four returned HTTP 200 and were downloadable). Buyers_Guide_2026.pdf was
+# deleted outright: GHL delivers that guide, so the repo copy was both redundant
+# and an ungated copy of a gated asset. These three stay in the repo but 404.
+# NOTE: publish = "." ships EVERY file in the web root. A new .md/.docx/.csv at
+# root is public the moment it lands — add a rule here when you add one.
+[[redirects]]
+  from = "/LEAD_INTAKE_CONTRACT.md"
+  to = "/404.html"
+  status = 404
+  force = true
+[[redirects]]
+  from = "/BuyerIQ_SellerIQ_MarketIQ_Strategy.docx"
+  to = "/404.html"
+  status = 404
+  force = true
+[[redirects]]
+  from = "/Phillip himes master profile.docx"
+  to = "/404.html"
+  status = 404
+  force = true
+[[redirects]]
+  from = "/Phillip%20himes%20master%20profile.docx"
+  to = "/404.html"
+  status = 404
+  force = true
+
 [[redirects]]
   from = "/FRONT-PORCH-OPS.md"
   to = "/404.html"
