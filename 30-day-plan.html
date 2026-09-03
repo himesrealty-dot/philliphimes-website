@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow" />
+<title>The 30-Day Plan to Prepare Your Home to Sell | Phillip Himes</title>
+<meta name="description" content="The exact 30-day prep sequence that gets homes sold faster and for more — room by room, day by day. Check off each day as you go." />
+<link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png" />
+<link rel="stylesheet" href="css/styles.css" />
+<style>
+  /* ══ 30-Day Plan — prefix d30- ══
+     The one thing the PDF cannot do is remember where you got to. Progress is
+     the spine of this page: it persists per browser, drives the sticky bar, and
+     is the honest reason to ask for a mobile number (check-ins), rather than
+     asking for it because we want it. */
+
+  :root {
+    --d30-ink:      #24303c;
+    --d30-muted:    #5f6a75;
+    --d30-line:     rgba(27,58,92,0.12);
+    --d30-done:     #1f7a5c;
+    --d30-rest:     #8a6d26;
+    --d30-card:     #ffffff;
+    --d30-wash:     #f7f5f1;
+  }
+
+  .d30-wrap { max-width: 1080px; margin: 0 auto; padding: 0 1.25rem; }
+
+  /* ── mockup banner ── */
+  .d30-mock {
+    background: #2b2b2b; color: #f2e6c8; text-align: center;
+    font-family: var(--font-heading); font-size: 0.62rem; font-weight: 800;
+    letter-spacing: 0.16em; text-transform: uppercase; padding: 8px 14px;
+  }
+
+  /* ── hero ── */
+  .d30-hero {
+    position: relative; color: #fff; overflow: hidden;
+    background: #0d2137;
+  }
+  .d30-hero__bg {
+    position: absolute; inset: 0;
+    background: url('images/30day/hero.jpg') center/cover no-repeat;
+    opacity: 0.34;
+  }
+  .d30-hero__scrim {
+    position: absolute; inset: 0;
+    background: linear-gradient(100deg, rgba(9,24,40,0.94) 0%, rgba(9,24,40,0.82) 46%, rgba(9,24,40,0.42) 100%);
+  }
+  .d30-hero__in { position: relative; padding: 4.5rem 0 3.75rem; }
+  .d30-hero__eyebrow {
+    font-family: var(--font-heading); font-size: 0.68rem; font-weight: 800;
+    letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold);
+    margin-bottom: 1rem;
+  }
+  .d30-hero__h1 {
+    /* styles.css sets h1-h6 to var(--navy); that beats the white inherited
+       from .d30-hero, so this MUST restate it or the headline goes
+       navy-on-navy (~1.3:1). Same for .d30-sms__h below. */
+    color: #fff;
+    font-family: var(--font-display); font-weight: 900;
+    font-size: clamp(2.3rem, 5.6vw, 3.9rem); line-height: 1.04;
+    letter-spacing: -0.015em; margin: 0 0 1.1rem; max-width: 16ch;
+  }
+  .d30-hero__h1 em { font-style: normal; color: var(--gold); }
+  .d30-hero__sub {
+    font-size: 1.06rem; line-height: 1.62; max-width: 46ch;
+    color: rgba(255,255,255,0.88); margin: 0 0 2rem;
+  }
+  .d30-hero__actions { display: flex; flex-wrap: wrap; gap: 0.85rem; align-items: center; }
+
+  .d30-btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+    min-height: 48px; padding: 0 1.5rem; border-radius: var(--radius-full);
+    font-family: var(--font-heading); font-size: 0.82rem; font-weight: 800;
+    letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none;
+    border: 2px solid transparent; cursor: pointer; transition: transform .15s ease, background .15s ease;
+  }
+  .d30-btn--gold { background: var(--gold); color: #1b3a5c; }
+  .d30-btn--gold:hover { transform: translateY(-2px); }
+  .d30-btn--ghost { border-color: rgba(255,255,255,0.5); color: #fff; background: transparent; }
+  .d30-btn--ghost:hover { border-color: #fff; }
+  .d30-btn--navy { background: var(--navy); color: #fff; }
+  .d30-btn--navy:hover { transform: translateY(-2px); }
+
+  /* ── sticky progress ── */
+  .d30-track {
+    /* The site nav is sticky at top:0 and 85px tall above 768px, so the
+       progress bar has to sit below it or the two overlap. Below 768px the
+       nav goes relative and scrolls away, so the bar takes top:0 itself. */
+    position: sticky; top: 85px; z-index: 40;
+    background: rgba(255,255,255,0.97); backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--d30-line);
+    padding: 0.7rem 0;
+  }
+  .d30-track__in { display: flex; align-items: center; gap: 1rem; }
+  .d30-track__label {
+    font-family: var(--font-heading); font-size: 0.72rem; font-weight: 800;
+    letter-spacing: 0.1em; text-transform: uppercase; color: var(--navy);
+    white-space: nowrap;
+  }
+  .d30-track__bar {
+    flex: 1; height: 8px; border-radius: 99px; background: rgba(27,58,92,0.1);
+    overflow: hidden;
+  }
+  .d30-track__fill {
+    height: 100%; width: 0%; border-radius: 99px;
+    background: linear-gradient(90deg, var(--teal) 0%, var(--gold) 100%);
+    transition: width .35s ease;
+  }
+  .d30-track__reset {
+    background: none; border: none; cursor: pointer; padding: 4px 6px;
+    font-family: var(--font-heading); font-size: 0.66rem; font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase; color: var(--d30-muted);
+    text-decoration: underline; min-height: 32px;
+  }
+  .d30-track__reset:hover { color: var(--navy); }
+
+  /* ── intro ── */
+  .d30-intro { padding: 3.5rem 0 1rem; }
+  .d30-intro__card {
+    background: var(--d30-wash); border-left: 4px solid var(--gold);
+    border-radius: var(--radius-md); padding: 1.9rem 2rem;
+  }
+  .d30-intro__card p { color: var(--d30-ink); line-height: 1.72; margin: 0 0 1rem; }
+  .d30-intro__card p:last-child { margin-bottom: 0; }
+  .d30-intro__sig {
+    font-family: var(--font-accent); font-style: italic;
+    color: var(--navy); font-size: 1.12rem;
+  }
+
+  /* ── phases ── */
+  .d30-phase { padding: 3.25rem 0 0; }
+  .d30-phase__head { display: flex; align-items: baseline; gap: 1rem; margin-bottom: 1.4rem; flex-wrap: wrap; }
+  .d30-phase__range {
+    font-family: var(--font-display); font-weight: 900; color: var(--navy);
+    font-size: clamp(1.7rem, 3.4vw, 2.3rem); line-height: 1;
+  }
+  .d30-phase__title {
+    font-family: var(--font-heading); font-size: 0.76rem; font-weight: 800;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--teal-dark);
+  }
+  .d30-phase__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start; }
+  .d30-phase--flip .d30-phase__media { order: 2; }
+  .d30-phase__media {
+    /* clears the sticky nav (85) + progress bar (55) + breathing room */
+    position: sticky; top: 156px;
+    border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-md);
+  }
+  .d30-phase__media img { display: block; width: 100%; height: auto; }
+
+  /* ── day cards ── */
+  .d30-days { display: flex; flex-direction: column; gap: 0.85rem; }
+  .d30-day {
+    background: var(--d30-card); border: 1px solid var(--d30-line);
+    border-radius: var(--radius-md); transition: border-color .18s ease, box-shadow .18s ease;
+  }
+  .d30-day:hover { box-shadow: var(--shadow-md); }
+  .d30-day__label {
+    display: flex; gap: 0.95rem; align-items: flex-start;
+    padding: 1.1rem 1.2rem; cursor: pointer;
+  }
+  .d30-day__box {
+    flex-shrink: 0; width: 24px; height: 24px; margin-top: 2px;
+    accent-color: var(--d30-done); cursor: pointer;
+  }
+  .d30-day__text { flex: 1; min-width: 0; }
+  .d30-day__n {
+    display: block; font-family: var(--font-heading); font-size: 0.64rem;
+    font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--gold-ink, #8a6d26); margin-bottom: 0.3rem;
+  }
+  .d30-day__h {
+    display: block; font-family: var(--font-display); font-weight: 700;
+    font-size: 1.12rem; color: var(--navy); line-height: 1.3; margin-bottom: 0.45rem;
+  }
+  .d30-day__p { margin: 0; color: var(--d30-ink); line-height: 1.68; font-size: 0.95rem; }
+  .d30-day.is-done { background: #f4faf7; border-color: rgba(31,122,92,0.3); }
+  .d30-day.is-done .d30-day__h { color: var(--d30-done); text-decoration: line-through; text-decoration-thickness: 1px; }
+  .d30-day.is-done .d30-day__p { color: var(--d30-muted); }
+
+  /* a day that is really a Phil touchpoint */
+  .d30-day--phil { border-color: rgba(201,164,85,0.55); background: #fffdf7; }
+  .d30-day--phil .d30-day__n { color: var(--teal-dark); }
+  .d30-day__tag {
+    display: inline-block; margin-top: 0.7rem;
+    font-family: var(--font-heading); font-size: 0.62rem; font-weight: 800;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: #1b3a5c; background: rgba(201,164,85,0.24);
+    padding: 5px 10px; border-radius: var(--radius-full);
+  }
+  .d30-day--rest { background: #fbf8f1; border-style: dashed; }
+
+  /* ── video slot ── */
+  .d30-video {
+    margin-top: 1rem; border-radius: var(--radius-md); overflow: hidden;
+    background: #0d2137; aspect-ratio: 16/9;
+    display: flex; align-items: center; justify-content: center;
+    border: 1px dashed rgba(255,255,255,0.28);
+  }
+  .d30-video__ph { text-align: center; color: rgba(255,255,255,0.75); padding: 1rem; }
+  .d30-video__ico {
+    width: 46px; height: 46px; border-radius: 50%; background: var(--gold);
+    color: #1b3a5c; display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 0.7rem; font-size: 1.1rem;
+  }
+  .d30-video__t {
+    font-family: var(--font-heading); font-size: 0.7rem; font-weight: 800;
+    letter-spacing: 0.12em; text-transform: uppercase;
+  }
+  .d30-video__s { font-size: 0.8rem; margin-top: 0.35rem; color: rgba(255,255,255,0.55); }
+
+  /* ── text check-in capture ── */
+  .d30-sms { margin: 3.5rem 0 0; }
+  .d30-sms__in {
+    background: linear-gradient(140deg, #0d2137 0%, #1b3a5c 60%, #16406b 100%);
+    border-radius: var(--radius-lg); padding: 2.5rem 2rem; color: #fff;
+    display: grid; grid-template-columns: 1.15fr 1fr; gap: 2rem; align-items: center;
+  }
+  .d30-sms__h {
+    color: #fff;                     /* see .d30-hero__h1 note */
+    font-family: var(--font-display); font-weight: 900;
+    font-size: clamp(1.5rem, 3vw, 2rem); line-height: 1.14; margin: 0 0 0.7rem;
+  }
+  .d30-sms__h em { font-style: normal; color: var(--gold); }
+  .d30-sms__p { margin: 0; color: rgba(255,255,255,0.86); line-height: 1.66; font-size: 0.96rem; }
+  .d30-sms__form { display: flex; flex-direction: column; gap: 0.7rem; }
+  .d30-sms__row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; }
+  .d30-sms__input {
+    width: 100%; min-height: 46px; padding: 0 0.9rem;
+    border-radius: var(--radius-md); border: 1px solid rgba(255,255,255,0.28);
+    background: rgba(255,255,255,0.1); color: #fff; font-size: 0.95rem;
+  }
+  .d30-sms__input::placeholder { color: rgba(255,255,255,0.55); }
+  .d30-sms__input:focus { outline: 2px solid var(--gold); outline-offset: 1px; }
+  .d30-sms__consent {
+    display: flex; gap: 0.6rem; align-items: flex-start;
+    font-size: 0.72rem; line-height: 1.5; color: rgba(255,255,255,0.68);
+  }
+  .d30-sms__consent input { margin-top: 3px; width: 16px; height: 16px; flex-shrink: 0; }
+  .d30-sms__consent a { color: rgba(255,255,255,0.9); }
+
+  /* ── close ── */
+  .d30-close { padding: 3.5rem 0; text-align: center; }
+  .d30-close__h {
+    font-family: var(--font-display); font-weight: 900; color: var(--navy);
+    font-size: clamp(1.7rem, 3.6vw, 2.4rem); margin: 0 0 0.9rem;
+  }
+  .d30-close__p { color: var(--d30-muted); max-width: 52ch; margin: 0 auto 1.7rem; line-height: 1.7; }
+  .d30-close__actions { display: flex; gap: 0.85rem; justify-content: center; flex-wrap: wrap; }
+
+  /* ── responsive ── */
+  @media (max-width: 768px) {
+    .d30-track { top: 0; }           /* site nav is relative here */
+  }
+  @media (max-width: 860px) {
+    .d30-phase__grid { grid-template-columns: 1fr; gap: 1.25rem; }
+    .d30-phase--flip .d30-phase__media { order: 0; }
+    .d30-phase__media { position: static; }
+    .d30-sms__in { grid-template-columns: 1fr; padding: 2rem 1.4rem; }
+  }
+  @media (max-width: 560px) {
+    .d30-hero__in { padding: 3.25rem 0 2.75rem; }
+    .d30-sms__row { grid-template-columns: 1fr; }
+    .d30-track__label { font-size: 0.64rem; }
+    .d30-btn { width: 100%; }
+    .d30-hero__actions { flex-direction: column; align-items: stretch; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .d30-btn, .d30-track__fill, .d30-day { transition: none; }
+    .d30-btn:hover { transform: none; }
+  }
+
+  /* keyboard focus */
+  .d30-btn:focus-visible, .d30-day__label:focus-within,
+  .d30-track__reset:focus-visible {
+    outline: 2px solid var(--gold); outline-offset: 2px;
+  }
+
+  @media print {
+    .d30-mock, .d30-track, .d30-sms, .d30-video, nav, footer { display: none !important; }
+    .d30-phase__media { display: none; }
+    .d30-phase__grid { grid-template-columns: 1fr; }
+    .d30-hero { color: #000; background: none; }
+    .d30-hero__bg, .d30-hero__scrim { display: none; }
+    .d30-hero__h1, .d30-hero__sub { color: #000; }
+  }
+</style>
+</head>
+<body>
+
+<div class="d30-mock">Mockup &middot; 28 Aug 2026 &mdash; content is the real guide; video slots and the text sign-up are not wired up yet</div>
+
+<nav class="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo" aria-label="Phillip Himes Real Estate Home">
+        <img loading="lazy" src="images/logo.png" alt="Phillip Himes | Brokered by eXp Realty" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+        <span class="nav__logo-text" style="display:none;">
+          <span class="nav__logo-name">Phillip Himes</span>
+          <span class="nav__logo-brokerage">Brokered by eXp Realty</span>
+        </span>
+      </a>
+
+      <ul class="nav__links" id="nav-links">
+        <li class="nav__item nav__item--dropdown">
+          <a href="buyers.html" class="nav__link">Buying</a>
+          <ul class="nav__dropdown" aria-label="Buying submenu">
+            <li><a href="buyers.html">For Buyers</a></li>
+            <li><a href="first-home.html">First-Time Buyers</a></li>
+            <li><a href="growing-family.html">Growing Families</a></li>
+            <li><a href="veterans.html">Veterans &amp; VA Loans</a></li>
+            <li><a href="new-construction.html">New Construction</a></li>
+            <li><a href="relocating-to-league-city.html">Relocating</a></li>
+          </ul>
+        </li>
+        <li><a href="sellers.html" class="nav__link nav__link--active">Selling</a></li>
+        <li><a href="search.html" class="nav__link">Search</a></li>
+        <li><a href="listings.html" class="nav__link">Listings</a></li>
+        <li class="nav__item nav__item--dropdown">
+          <a href="cities.html" class="nav__link">Cities</a>
+          <ul class="nav__dropdown" aria-label="Cities submenu">
+            <li><a href="league-city.html">League City</a></li>
+            <li><a href="friendswood.html">Friendswood</a></li>
+            <li><a href="pearland.html">Pearland</a></li>
+            <li><a href="clear-lake.html">Clear Lake</a></li>
+            <li><a href="dickinson.html">Dickinson</a></li>
+            <li><a href="manvel.html">Manvel</a></li>
+          </ul>
+        </li>
+        <li class="nav__item nav__item--dropdown">
+          <a href="marketiq.html" class="nav__link">Tools</a>
+          <ul class="nav__dropdown" aria-label="Tools submenu">
+            <li><a href="buyeriq.html">BuyerIQ™ — Buyer's Edge</a></li>
+            <li><a href="selleriq.html">SellerIQ™ — Seller's Edge</a></li>
+            <li><a href="marketiq.html">MarketIQ™ — Property Intelligence</a></li>
+            <li><a href="market-insights.html">Market Insights</a></li>
+          </ul>
+        </li>
+        <li><a href="about.html" class="nav__link">My Story</a></li>
+        <li><a href="contact.html" class="nav__link">Ask Phil</a></li>
+                <li class="nav__mobile-cta" style="display:none;">
+          <a href="tel:8329909738" class="btn btn--secondary" style="width:100%;margin-top:var(--space-md);">Call (832) 990-9738</a>
+          <a href="search.html" class="btn btn--primary" style="width:100%;margin-top:var(--space-sm);">Search Homes</a>
+          <a href="what-is-my-home-worth.html" class="btn btn--secondary" style="width:100%;margin-top:var(--space-sm);">Home Value</a>
+          <a href="sign-in.html" class="btn btn--secondary" style="width:100%;margin-top:var(--space-sm);">Sign In</a>
+        </li>
+      </ul>
+
+            <div class="nav__cta">
+        <a href="tel:8329909738" class="nav__phone">(832) 990-9738</a>
+        <a href="sign-in.html" class="btn btn--secondary btn--sm">Sign In</a>
+        <a href="what-is-my-home-worth.html" class="btn btn--primary btn--sm">Home Value</a>
+      </div>
+
+      <button class="nav__hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+<!-- ══ HERO ══ -->
+<header class="d30-hero">
+  <div class="d30-hero__bg" aria-hidden="true"></div>
+  <div class="d30-hero__scrim" aria-hidden="true"></div>
+  <div class="d30-wrap d30-hero__in">
+    <p class="d30-hero__eyebrow">For Sellers &middot; Free Plan</p>
+    <h1 class="d30-hero__h1">The 30-Day Plan to <em>Prepare Your Home</em> to Sell</h1>
+    <p class="d30-hero__sub">The exact prep sequence that gets homes sold faster and for more &mdash; room by room, one day at a time. Tick each day off as you go; the page remembers where you got to.</p>
+    <div class="d30-hero__actions">
+      <a href="#day-01-02" class="d30-btn d30-btn--gold">Start with Day 1 &rarr;</a>
+      <a href="#check-ins" class="d30-btn d30-btn--ghost">Get text check-ins</a>
+    </div>
+  </div>
+</header>
+
+<!-- ══ STICKY PROGRESS ══ -->
+<div class="d30-track">
+  <div class="d30-wrap d30-track__in">
+    <span class="d30-track__label" id="d30-count">0 of 30 done</span>
+    <div class="d30-track__bar" role="progressbar" aria-labelledby="d30-count" aria-valuemin="0" aria-valuemax="30" aria-valuenow="0" id="d30-bar">
+      <div class="d30-track__fill" id="d30-fill"></div>
+    </div>
+    <button type="button" class="d30-track__reset" id="d30-reset">Reset</button>
+  </div>
+</div>
+
+<!-- ══ INTRO ══ -->
+<section class="d30-intro">
+  <div class="d30-wrap">
+    <div class="d30-intro__card">
+      <p>Don't just list your home without any advance preparation. A few minor touch-ups go a long way toward making a favourable impression on buyers &mdash; and perhaps cinching a deal. Put your buyer's hat on and walk through your home like it's the first time. Make notes on what you, as a buyer, would notice, then repair or replace those things.</p>
+      <p>I've built this as a 30-day plan so you don't get overwhelmed, and can take it one day at a time. Reach out any time with questions &mdash; and know that we'll be checking in with you throughout the 30 days.</p>
+      <p class="d30-intro__sig">&mdash; Phil</p>
+    </div>
+  </div>
+</section>
+
+<section class="d30-phase" id="day-01-02">
+  <div class="d30-wrap">
+    <div class="d30-phase__head">
+      <span class="d30-phase__range">Day 1&ndash;2</span>
+      <span class="d30-phase__title">Start with light and paperwork</span>
+    </div>
+    <div class="d30-phase__grid">
+      <div class="d30-phase__media">
+        <img width="1400" height="934" loading="lazy" src="images/30day/day-01-02.jpg" alt="Start with light and paperwork" />
+      </div>
+      <div class="d30-days">
+        <div class="d30-day">
+          <label class="d30-day__label" for="d1">
+            <input class="d30-day__box" type="checkbox" id="d1" />
+            <span class="d30-day__text">
+              <span class="d30-day__n">Day 1</span>
+              <span class="d30-day__h">Change light bulbs and update light fixtures</span>
+              <p class="d30-day__p">It's easy to forget the bulbs that have burned out over the years, but you want your home as bright as possible. Lighting makes an incredible difference in how a home looks to buyers. If your fixtures are dated — it's OK, a lot of us have them — a quick trip to IKEA, Lowe's or Home Depot gets you something modern.</p>
+            </span>
+          </label>
+        </div>
+        <div class="d30-day">
+          <label class="d30-day__label" for="d2">
+            <input class="d30-day__box" type="checkbox" id="d2" />
+            <span class="d30-day__text">
+              <span class="d30-day__n">Day 2</span>
+              <span class="d30-day__h">Prepare the paperwork</span>
+              <p class="d30-day__p">Buyers and agents are going to ask a lot of questions, so start digging now: utility bills, tax bills, renovation details, warranties, well and septic records, building permits, mortgage details, survey and rental contracts.</p>
+            </span>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="d30-phase d30-phase--flip" id="day-03-04">
+  <div class="d30-wrap">
+    <div class="d30-phase__head">
+      <span class="d30-phase__range">Day 3&ndash;4</span>
+      <span class="d30-phase__title">Keys and packing supplies</span>
+    </div>
+    <div class="d30-phase__grid">
+      <div class="d30-phase__media">
+        <img width="1400" height="933" loading="lazy" src="images/30day/day-03-04.jpg" alt="Keys and packing supplies" />
+      </div>
+      <div class="d30-days">
+        <div class="d30-day d30-day--phil">
+          <label class="d30-day__label" for="d3">
+            <input class="d30-day__box" type="checkbox" id="d3" />
+            <span class="d30-day__text">
+              <span class="d30-day__n">Day 3</span>
+              <span class="d30-day__h">Make an extra set of keys</span>
+              <p class="d30-day__p">Buyers and their agents need to get in, so you'll need a spare set. We'll put a lockbox on or near your front door that the key goes in, so agents have access once a showing has been scheduled.</p>
+          <span class="d30-day__tag">We help with this</span>
+            </span>
+          </label>
+        </div>
+        <div class="d30-day">
+          <label class="d30-day__label" for="d4">
+            <input class="d30-day__box" type="checkbox" id="d4" />
+            <span class="d30-day__text">
+              <span class="d30-day__n">Day 4</span>
+              <span class="d30-day__h">Buy proper packing supplies</span>
+              <p class="d30-day__p">A big part of what's coming involves reducing clutter. The grocery or liquor store might be a cheap source of boxes, but it isn't convenient. Under $100 gets you proper packing supplies and takes real stress out of it. If a lot is coming out of the house, consider a POD-type locker — you fill it, it gets carted away and stored, and it's delivered to your new home when you move in.</p>
+            </span>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="d30-phase" id="day-05-06">
+  <div class="d30-wrap">
+    <div class="d30-phase__head">
+      <span class="d30-phase__range">Day 5&ndash;6</span>
+      <span class="d30-phase__title">The two rooms buyers judge hardest</span>
+    </div>
+    <div class="d30-phase__grid">
+      <div class="d30-phase__media">
+        <img width="1400" height="933" loading="lazy" src="images/30day/day-05-06.jpg" alt="The two rooms buyers judge hardest" />
+        <div class="d30-video">
+          <div class="d30-video__ph">
+            <div class="d30-video__ico" aria-hidden="true">&#9654;</div>
+            <div class="d30-video__t">Video slot</div>
+            <div class="d30-video__s">Phil's kitchen &amp; bath walk-through</div>
+          </div>
+        </div>
+      </div>
+      <div class="d30-days">
+        <div class="d30-day d30-day--phil">
+          <label class="d30-day__label" for="d5">
+            <input class="d30-day__box" type="checkbox" id="d5" />
+            <span class="d30-day__text">
+              <span class="d30-day__n">Day 5</span>
+              <span class="d30-day__h">Tackle the bathrooms</span>
+              <p class="d30-day__p">Remove every toiletry on display. Invest in some new white towels — and no, you don't get to use them. Kohl's, TJ Maxx, HomeGoods or Marshall's for affordable accessories: soap dish, toothbrush holder. If your toilet seat, shower curtain or bath mat are gross, be honest, replace them. Consider swapping the toilet paper holder and towel rack too, and clean every fixture. We have some tricks for getting shower pans clean, so ask if you want them.</p>
+          <span class="d30-day__tag">We help with this</span>
+            </span>
+          </label>
+        </div>
+        <div class="d30-day">
+          <label class="d30-day__label" for="d6">
+            <input class="d30-day__box" type="checkbox" id="d6" />
+            <span class="d30-day__text">
+              <span class="d30-day__n">Day 6</span>
+              <span class="d30-day__h">De-clutter the kitchen</span>
+              <p class="d30-day__p">The kitchen is one of the rooms buyers are most drawn to, so if you're going to skip a room, this isn't it. Blender, mixer, toaster, bread machine — off the counters. Clean inside all the cupboards, and don't cram everything back in; you want to show there's enough storage for the buyer's things. Clean the fridge inside and out, magnets and photos included. Run the self-cleaning oven, probably for the first time. Store the booze collection and take out the empties. Fresh flowers and a bowl of fruit go a long way.</p>
+            </span>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="d30-phase d30-phase--flip" id="day-07-09">
+  <div class="d30-wrap">
+    <div class="d30-phase__head">
+      <span class="d30-phase__range">Day 7&ndash;9</span>
+      <span class="d30-phase__title">Bedrooms, living room, dining room</span>
+    </div>
+    <div class="d30-phase__grid">
+      <div class="d30-phase__media">
+        <img width="1400" height="933" loading="lazy" src="images/30day/day-07-09.jpg" alt="Bedrooms, living room, dining room" />
+      </div>
+      <div class="d30-days">
+        <div class="d30-day">
+          <label class="d30-day__label" for="d7">
+            <input class="d30-day__box" type="checkbox" id="d7" />
+            <span class="d30-day__text">
+              <span class="d30-day__n">Day 7</span>
+              <span class="d30-day__h">Make the bedrooms inviting</span>
+              <p class="d30-day__p">More cleaning and decluttering, plus a few props. If you don't have one, a neutral-coloured duvet cover and some new pillows. Straighten the bookshelves. Remove personal photos, knick-knacks and grooming products. Clean out the closets. An area rug if the floors feel cold. If a dresser or armoire is jammed into a space it doesn't fit, store it offsite.</p>
+            </span>
+          </label>
+        </div>
+        <div class="d30-day">
+          <label class="d30-day__label" for="d8">
+            <input class="d30-day__box" type="checkbox" id="d8" />
+            <span class="d30-day__text">
+              <span class="d30-day__n">Day 8</span>
+              <span class="d30-day__h">Reset the living room</span>
+              <p class="d30-day__p">Clean the sofa and chairs and invest in some new throw pillows. An area rug can bring the room together. Hide the magazine rack and the clutter that's accumulated — and hide the wires from the TV, stereo and speakers.</p>
+            </span>
+          </label>
+        </div>
+        <div class="d30-day">
+          <label class="d30-day__label" for="d9">
+            <input class="d30-day__box" type="checkbox" id="d9" />
+            <span class="d30-day__text">
+              <span class="d30-day__n">Day 9</span>
+              <span class="d30-day__h">Clear the dining room</span>
+              <p class="d30-day__p">Remove the kids' homework and the piles of things that have built up on the dining table. Clean up the hutch. If the chairs have seen better days, consider getting them reupholstered. A new tablecloth hides an old table.</p>
+            </span>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="d30-phase" id="day-10-12">
+  <div class="d30-wrap">
+    <div class="d30-phase__head">
+      <span class="d30-phase__range">Day 10&ndash;12</span>
+      <span class="d30-phase__title">Garage, storage and closets</span>
+    </div>
+    <div class="d30-phase__grid">
+      <div class="d30-phase__media">
+        <img width="1400" height="934" loading="lazy" src="images/30day/day-10-12.jpg" alt="Garage, storage and closets" />
+      </div>
+      <div class="d30-days">
+        <div class="d30-day">
+          <label class="d30-day__label" for="d10">
+            <input class="d30-day__box" type="checkbox" id="d10" />
+            <span class="d30-day__text">
+              <span class="d30-day__n">Day 10</span>
+              <span class="d30-day__h">Take on the garage</span>
+              <p class="d30-day__p">If your garage is anything like ours, this is going to take more than one day. Whether the basement is finished or is just where the extra stuff lives, put the time in to make it look as spacious and clean as possible. It's a great way to rid yourself of everything you never use.</p>
+            </span>
+          </label>
+        </div>
+        <div class="d30-day">
+          <label class="d30-day__label" for="d11">
+            <input class="d30-day__box" type="checkbox" id="d11" />
+            <span class="d30-day__text">
+              <span class="d30-day__n">Day 11</span>
+              <span class="d30-day__h">Store, donate or discard</span>
+              <p class="d30-day__p">It's a pain, and expensive, to store all the things you don't need. Now is a great time to make some real decisions about what actually comes with you.</p>
+            </span>
+          </label>
+        </div>
+        <div class="d30-day">
+          <label class="d30-day__label" for="d12">
+            <input class="d30-day__box" type="checkbox" id="d12" />
+            <span class="d30-day__text">
+              <span class="d30-day__n">Day 12</span>
+              <span class="d30-day__h">Pack away what's in the closets</span>
+              <p class="d30-day__p">As much as I'd love to say you can cram everything you don't want on display into the closets — buyers will open them. They'll look in your cupboards. The last thing you want is for buyers to think there isn't enough storage, so pack away what you won't need in the immediate future.</p>
+            </span>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ TEXT CHECK-INS — the second magnet: the plan is the reason to want them ══ -->
+<section class="d30-sms" id="check-ins">
+  <div class="d30-wrap">
+    <div class="d30-sms__in">
+      <div>
+        <h2 class="d30-sms__h">Want me to <em>check in</em> as you go?</h2>
+        <p class="d30-sms__p">Thirty days is a long time to hold a plan in your head. Give me a mobile number and I'll text you at the start of each phase &mdash; what's coming, and the one thing most people forget. Reply STOP any time.</p>
+      </div>
+      <form class="d30-sms__form" id="d30-sms-form">
+        <div class="d30-sms__row">
+          <input class="d30-sms__input" type="text" name="first_name" aria-label="First name" placeholder="First name" autocomplete="given-name" required />
+          <input class="d30-sms__input" type="text" name="last_name" aria-label="Last name" placeholder="Last name" autocomplete="family-name" />
+        </div>
+        <input class="d30-sms__input" type="tel" name="phone" aria-label="Mobile number" placeholder="Mobile number" autocomplete="tel" required />
+        <label class="d30-sms__consent" for="d30-consent">
+          <input type="checkbox" id="d30-consent" name="consent" required />
+          <span>I agree to receive text messages from Phillip Himes about preparing my home to sell. Msg &amp; data rates may apply. Reply STOP to cancel. See <a href="privacy-policy.html">Privacy Policy</a>.</span>
+        </label>
+        <button type="submit" class="d30-btn d30-btn--gold">Text me the check-ins</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section class="d30-phase d30-phase--flip" id="day-13-15">
+  <div class="d30-wrap">
+    <div class="d30-phase__head">
+      <span class="d30-phase__range">Day 13&ndash;15</span>
+      <span class="d30-phase__title">First impressions, and a day off</span>
+    </div>
+    <div class="d30-phase__grid">
+      <div class="d30-phase__media">
+        <img width="1400" height="933" loading="lazy" src="images/30day/day-13-15.jpg" alt="First impressions, and a day off" />
+      </div>
+      <div class="d30-days">
+        <div class="d30-day">
+          <label class="d30-day__label" for="d13">
+            <input class="d30-day__box" type="checkbox" id="d13" />
+            <span class="d30-day__text">
+              <span class="d30-day__n">Day 13</span>
+              <span class="d30-day__h">Own the entrance</span>
+              <p class="d30-day__p">Most buyers have an emotional reaction to your home within 15 seconds of walking in, so what they meet at the entrance is critical: clean, de-cluttered, inviting. You won't be wearing every coat and pair of shoes while the house is on the market, so be disciplined and store them. And if you don't have a hall closet, don't pile 15 coats on a rack — that just draws attention to the fact you don't have one.</p>
+            </span>
+          </label>
+        </div>
+        <div class="d30-day">
+          <label class="d30-day__label" for="d14">
+            <input class="d30-day__box" type="checkbox" id="d14" />
+            <span class="d30-day__text">
+              <span class="d30-day__n">Day 14</span>
+              <span class="d30-day__h">Depersonalise</span>
+              <p class="d30-day__p">You want the house to appeal to as many buyers as possible, and that only happens if they can picture their own things in it. Pack up some of the family photos, the collections, the souvenirs from your trip to Asia. Walk every room pretending you're a buyer: if what you see helps people get to know you as you, remove it.</p>
+            </span>
+          </label>
+        </div>
+        <div class="d30-day d30-day--rest">
+          <label class="d30-day__label" for="d15">
+            <input class="d30-day__box" type="checkbox" id="d15" />
+            <span class="d30-day__text">
+              <span class="d30-day__n">Day 15</span>
+              <span class="d30-day__h">Rest — the hardest day of them all</span>
+              <p class="d30-day__p">Take the day off and do something for yourself that you enjoy.</p>
+            </span>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="d30-phase" id="day-16-18">
+  <div class="d30-wrap">
+    <div class="d30-phase__head">
+      <span class="d30-phase__range">Day 16&ndash;18</span>
+      <span class="d30-phase__title">Paint, repairs and windows</span>
+    </div>
+    <div class="d30-phase__grid">
+      <div class="d30-phase__media">
+        <img width="1280" height="725" loading="lazy" src="images/30day/day-16-18.jpg" alt="Paint, repairs and windows" />
+      </div>
+      <div class="d30-days">
+        <div class="d30-day d30-day--phil">
+          <label class="d30-day__label" for="d16">
+            <input class="d30-day__box" type="checkbox" id="d16" />
+            <span class="d30-day__text">
+              <span class="d30-day__n">Day 16</span>
+              <span class="d30-day__h">A fresh coat of paint</span>
+              <p class="d30-day__p">One of the cheapest ways to freshen up a home. Bold colours are bound to put some buyers off, so take the time to repaint that red bedroom and blue bathroom. Light colours help small rooms look bigger. Don't forget the baseboards and ceilings, they might need it too. We have a great painter if you need one.</p>
+          <span class="d30-day__tag">We help with this</span>
+            </span>
+          </label>
+        </div>
+        <div class="d30-day d30-day--phil">
+          <label class="d30-day__label" for="d17">
+            <input class="d30-day__box" type="checkbox" id="d17" />
+            <span class="d30-day__text">
+              <span class="d30-day__n">Day 17</span>
+              <span class="d30-day__h">The never-done repairs</span>
+              <p class="d30-day__p">We all have the list — the leaky faucet, the picture holes in the wall. Now's the time to get to it and finish it once and for all. If you aren't handy, bring in a handyman; we know some good ones and can help.</p>
+          <span class="d30-day__tag">We help with this</span>
+            </span>
+          </label>
+        </div>
+        <div class="d30-day">
+          <label class="d30-day__label" for="d18">
+            <input class="d30-day__box" type="checkbox" id="d18" />
+            <span class="d30-day__text">
+              <span class="d30-day__n">Day 18</span>
+              <span class="d30-day__h">Clean the windows</span>
+              <p class="d30-day__p">You probably don't even think about it, but rain, snow and construction really do make windows dirty. Buyers will look out of them, and you don't want them noticing. Clean the tracks while you're there.</p>
+            </span>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="d30-phase d30-phase--flip" id="day-19-21">
+  <div class="d30-wrap">
+    <div class="d30-phase__head">
+      <span class="d30-phase__range">Day 19&ndash;21</span>
+      <span class="d30-phase__title">Curb appeal and carpets</span>
+    </div>
+    <div class="d30-phase__grid">
+      <div class="d30-phase__media">
+        <img width="1400" height="933" loading="lazy" src="images/30day/day-19-21.jpg" alt="Curb appeal and carpets" />
+        <div class="d30-video">
+          <div class="d30-video__ph">
+            <div class="d30-video__ico" aria-hidden="true">&#9654;</div>
+            <div class="d30-video__t">Video slot</div>
+            <div class="d30-video__s">Curb appeal: what I look for from the street</div>
+          </div>
+        </div>
+      </div>
+      <div class="d30-days">
+        <div class="d30-day">
+          <label class="d30-day__label" for="d19">
+            <input class="d30-day__box" type="checkbox" id="d19" />
+            <span class="d30-day__text">
+              <span class="d30-day__n">Day 19</span>
+              <span class="d30-day__h">Work the front yard</span>
+              <p class="d30-day__p">Curb appeal matters and will significantly shape people's first impression. Stand on your street and take in the front of the house: what do you actually see? At a minimum, clean the scuff marks off the front door and touch up the chipped paint, or give it a fresh coat. If the door has seen better days, consider a new one. Make the porch inviting rather than a receptacle for more stuff. Invest in some seasonal plants and tidy the garden. Plenty of buyers will see your home at night, so make sure the outdoor lighting shows it off.</p>
+            </span>
+          </label>
+        </div>
+        <div class="d30-day">
+          <label class="d30-day__label" for="d20">
+            <input class="d30-day__box" type="checkbox" id="d20" />
+            <span class="d30-day__text">
+              <span class="d30-day__n">Day 20</span>
+              <span class="d30-day__h">Then the backyard</span>
+              <p class="d30-day__p">What you can get done depends on the time of year. Spring or summer: clean up the gardens, trim the trees, cut the grass, stain the deck, clean the patio furniture and the BBQ. Winter: do your best to make it presentable.</p>
+            </span>
+          </label>
+        </div>
+        <div class="d30-day">
+          <label class="d30-day__label" for="d21">
+            <input class="d30-day__box" type="checkbox" id="d21" />
+            <span class="d30-day__text">
+              <span class="d30-day__n">Day 21</span>
+              <span class="d30-day__h">Steam-clean the carpets</span>
+              <p class="d30-day__p">Unless your carpets are brand new, have them steam cleaned, or do it yourself. You'll be amazed at the difference it makes.</p>
+            </span>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="d30-phase" id="day-22-25">
+  <div class="d30-wrap">
+    <div class="d30-phase__head">
+      <span class="d30-phase__range">Day 22&ndash;25</span>
+      <span class="d30-phase__title">Floors, walls, deep clean, kids and pets</span>
+    </div>
+    <div class="d30-phase__grid">
+      <div class="d30-phase__media">
+        <img width="1400" height="933" loading="lazy" src="images/30day/day-22-25.jpg" alt="Floors, walls, deep clean, kids and pets" />
+      </div>
+      <div class="d30-days">
+        <div class="d30-day">
+          <label class="d30-day__label" for="d22">
+            <input class="d30-day__box" type="checkbox" id="d22" />
+            <span class="d30-day__text">
+              <span class="d30-day__n">Day 22</span>
+              <span class="d30-day__h">Floors</span>
+              <p class="d30-day__p">You'll need more than a Swiffer to get into all the corners and cracks. If your floors are scratched, there are some great products out there that make them look almost brand new.</p>
+            </span>
+          </label>
+        </div>
+        <div class="d30-day">
+          <label class="d30-day__label" for="d23">
+            <input class="d30-day__box" type="checkbox" id="d23" />
+            <span class="d30-day__text">
+              <span class="d30-day__n">Day 23</span>
+              <span class="d30-day__h">Walls, doors and art</span>
+              <p class="d30-day__p">If your walls and doors are scuffed, buy some Magic Erasers and go to town. You'll wonder why you didn't do it sooner. If the art needs an update, now's the time for that too.</p>
+            </span>
+          </label>
+        </div>
+        <div class="d30-day d30-day--phil">
+          <label class="d30-day__label" for="d24">
+            <input class="d30-day__box" type="checkbox" id="d24" />
+            <span class="d30-day__text">
+              <span class="d30-day__n">Day 24</span>
+              <span class="d30-day__h">Bring in professional cleaners</span>
+              <p class="d30-day__p">By now you're probably exhausted — sorry about that. You can do this final step yourself, but we always suggest bringing in professionals who will get the spots you won't: baseboards, inside the lights, the fridge. We have referral vendors for that too.</p>
+          <span class="d30-day__tag">We help with this</span>
+            </span>
+          </label>
+        </div>
+        <div class="d30-day">
+          <label class="d30-day__label" for="d25">
+            <input class="d30-day__box" type="checkbox" id="d25" />
+            <span class="d30-day__text">
+              <span class="d30-day__n">Day 25</span>
+              <span class="d30-day__h">Make a plan for kids and pets</span>
+              <p class="d30-day__p">No buyer wants to look at toys, finger-painting masterpieces or dirty diapers, so put it all away and make a plan to keep it concealed. I love my dogs too, but buyers won't appreciate the barking and jumping. Plan to get pets out of the house for showings: doggie daycare, grandparents, or a couple of long walks.</p>
+            </span>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="d30-phase d30-phase--flip" id="day-26-30">
+  <div class="d30-wrap">
+    <div class="d30-phase__head">
+      <span class="d30-phase__range">Day 26&ndash;30</span>
+      <span class="d30-phase__title">The final week</span>
+    </div>
+    <div class="d30-phase__grid">
+      <div class="d30-phase__media">
+        <img width="1400" height="1400" loading="lazy" src="images/30day/day-26-30.jpg" alt="The final week" />
+        <div class="d30-video">
+          <div class="d30-video__ph">
+            <div class="d30-video__ico" aria-hidden="true">&#9654;</div>
+            <div class="d30-video__t">Video slot</div>
+            <div class="d30-video__s">What happens on photography day</div>
+          </div>
+        </div>
+      </div>
+      <div class="d30-days">
+        <div class="d30-day">
+          <label class="d30-day__label" for="d26">
+            <input class="d30-day__box" type="checkbox" id="d26" />
+            <span class="d30-day__text">
+              <span class="d30-day__n">Day 26</span>
+              <span class="d30-day__h">Deal with pet smells</span>
+              <p class="d30-day__p">If you're a dog owner, wash any couches, beds and surfaces where the dogs sleep. You may not smell him any more, but buyers will. Tuck the litter box away, and clean it twice a day while the home is on the market. Febreze on everything. Candles or essential oils are fine — avoid strong air fresheners.</p>
+            </span>
+          </label>
+        </div>
+        <div class="d30-day d30-day--phil">
+          <label class="d30-day__label" for="d27">
+            <input class="d30-day__box" type="checkbox" id="d27" />
+            <span class="d30-day__text">
+              <span class="d30-day__n">Day 27</span>
+              <span class="d30-day__h">Walk it with fresh eyes — and with us</span>
+              <p class="d30-day__p">Come in through the front door and look around each room. Does any furniture need moving to make the rooms feel larger and more inviting? We'd love to come and see all your hard work on day 27, and give you our professional opinion.</p>
+          <span class="d30-day__tag">We help with this</span>
+            </span>
+          </label>
+        </div>
+        <div class="d30-day">
+          <label class="d30-day__label" for="d28">
+            <input class="d30-day__box" type="checkbox" id="d28" />
+            <span class="d30-day__text">
+              <span class="d30-day__n">Day 28</span>
+              <span class="d30-day__h">Final once-over, floor to ceiling</span>
+              <p class="d30-day__p">Go through the house one more time and look everything over from floor to ceiling. Take a final walk through every room and adjust as necessary. You want it just right. Is everything ready for picture day tomorrow?</p>
+            </span>
+          </label>
+        </div>
+        <div class="d30-day d30-day--phil">
+          <label class="d30-day__label" for="d29">
+            <input class="d30-day__box" type="checkbox" id="d29" />
+            <span class="d30-day__text">
+              <span class="d30-day__n">Day 29</span>
+              <span class="d30-day__h">Photography day</span>
+              <p class="d30-day__p">De-cluttered and clean, the house is ready for prime time, and it's time for the photographer to work their magic. This happens a few days before you list — and if you work with us, it includes a 360° tour and video.</p>
+          <span class="d30-day__tag">We help with this</span>
+            </span>
+          </label>
+        </div>
+        <div class="d30-day">
+          <label class="d30-day__label" for="d30">
+            <input class="d30-day__box" type="checkbox" id="d30" />
+            <span class="d30-day__text">
+              <span class="d30-day__n">Day 30</span>
+              <span class="d30-day__h">Step back and admire it</span>
+              <p class="d30-day__p">You've worked hard, and now it's time to step back and admire the work. How does it look? Most people say their house has never looked better than it does right before they sell. Now for the hard part — don't. touch. anything.</p>
+            </span>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CLOSE ══ -->
+<section class="d30-close">
+  <div class="d30-wrap">
+    <h2 class="d30-close__h">That's the whole plan.</h2>
+    <p class="d30-close__p">Most people say their house has never looked better than it does right before they sell. When you're ready to talk about what it's worth in today's market, I'm a call away.</p>
+    <div class="d30-close__actions">
+      <a href="tel:8329909738" class="d30-btn d30-btn--navy">Call (832) 990-9738</a>
+      <a href="what-is-my-home-worth.html" class="d30-btn d30-btn--gold">What's my home worth?</a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer" role="contentinfo">
+    <div class="container">
+
+      <div class="footer__statement">
+        <div class="footer__eyebrow">Phillip Himes &middot; REALTOR&reg; &middot; Brokered by eXp Realty</div>
+        <div class="footer__headline">Real estate built around your <em>life</em> &mdash; not just your transaction.</div>
+        <p class="footer__sub">Serving League City, Friendswood, Pearland, Clear Lake, Dickinson &amp; Manvel. When you're ready to make the smart move, let's talk.</p>
+        <div class="footer__cta">
+          <a href="tel:8329909738" class="footer__btn footer__btn--gold">Call (832) 990-9738</a>
+          <a href="what-is-my-home-worth.html" class="footer__btn footer__btn--ghost">What's My Home Worth? &rarr;</a>
+        </div>
+      </div>
+
+      <div class="footer__cols">
+        <div>
+          <div class="footer__brand-name">Phillip Himes</div>
+          <div class="footer__brokerage">Brokered by eXp Realty</div>
+          <div class="footer__contact">
+            <a href="tel:8329909738">(832) 990-9738</a>
+            <a href="mailto:phil@philliphimes.com">phil@philliphimes.com</a>
+          </div>
+          <p class="footer__addr">2600 South Shore Blvd. #300<br />League City, TX 77573</p>
+        </div>
+        <div>
+          <div class="footer__heading">Buying</div>
+          <ul class="footer__links">
+            <li><a href="search.html" class="footer__link">Search Homes</a></li>
+            <li><a href="listings.html" class="footer__link">Featured Listings</a></li>
+            <li><a href="buyers.html" class="footer__link">For Buyers</a></li>
+            <li><a href="first-home.html" class="footer__link">First-Time Buyers</a></li>
+            <li><a href="new-construction.html" class="footer__link">New Construction</a></li>
+            <li><a href="relocating-to-league-city.html" class="footer__link">Relocating</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer__heading">By District</div>
+          <ul class="footer__links">
+            <li><a href="ccisd-homes.html" class="footer__link">Clear Creek ISD</a></li>
+            <li><a href="alvin-isd-homes.html" class="footer__link">Alvin ISD</a></li>
+            <li><a href="friendswood-isd-homes.html" class="footer__link">Friendswood ISD</a></li>
+            <li><a href="pearland-isd-homes.html" class="footer__link">Pearland ISD</a></li>
+            <li><a href="dickinson-isd-homes.html" class="footer__link">Dickinson ISD</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer__heading">Selling &amp; Tools</div>
+          <ul class="footer__links">
+            <li><a href="sellers.html" class="footer__link">Sell Your Home</a></li>
+            <li><a href="what-is-my-home-worth.html" class="footer__link">What's My Home Worth?</a></li>
+            <li><a href="buyeriq.html" class="footer__link">BuyerIQ&trade;</a></li>
+            <li><a href="selleriq.html" class="footer__link">SellerIQ&trade;</a></li>
+            <li><a href="marketiq.html" class="footer__link">MarketIQ&trade;</a></li>
+            <li><a href="cities.html" class="footer__link">All Cities</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer__legal">
+        <div class="footer__legal-copy">
+          &copy; 2026 Phillip Himes &middot; eXp Realty, LLC &middot; REALTOR&reg; Licensed in Texas &middot; 2600 South Shore Blvd. #300, League City, TX 77573 &nbsp;&middot;&nbsp; <span class="footer__eho">&#8962; Equal Housing Opportunity</span>
+        </div>
+        <div class="footer__legal-links">
+          <a href="privacy-policy.html" class="footer__legal-link">Privacy Policy</a>
+          <a href="terms-of-service.html" class="footer__legal-link">Terms of Service</a>
+          <a href="contact.html" class="footer__legal-link">Contact</a>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+<script src="js/main.js"></script>
+<script>
+(function () {
+  'use strict';
+  // Progress lives in this browser only. It is a convenience, not a record —
+  // a private window or a different device starts fresh, and every read/write
+  // is guarded because some browsers throw on storage access outright.
+  var KEY = 'phh-30day-progress';
+
+  function load() {
+    try { return JSON.parse(localStorage.getItem(KEY) || '{}') || {}; }
+    catch (e) { return {}; }
+  }
+  function save(state) {
+    try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {}
+  }
+
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('.d30-day__box'));
+  var fill  = document.getElementById('d30-fill');
+  var count = document.getElementById('d30-count');
+  var bar   = document.getElementById('d30-bar');
+  var reset = document.getElementById('d30-reset');
+  var state = load();
+
+  function paint() {
+    var done = 0;
+    boxes.forEach(function (b) {
+      var card = b.closest('.d30-day');
+      if (b.checked) { done++; card.classList.add('is-done'); }
+      else { card.classList.remove('is-done'); }
+    });
+    var pct = boxes.length ? (done / boxes.length) * 100 : 0;
+    fill.style.width = pct + '%';
+    count.textContent = done + ' of ' + boxes.length + ' done';
+    bar.setAttribute('aria-valuenow', String(done));
+  }
+
+  boxes.forEach(function (b) {
+    if (state[b.id]) b.checked = true;
+    b.addEventListener('change', function () {
+      state[b.id] = b.checked;
+      if (!b.checked) delete state[b.id];
+      save(state); paint();
+    });
+  });
+
+  reset.addEventListener('click', function () {
+    if (!window.confirm('Clear your progress and start the 30 days over?')) return;
+    state = {}; save(state);
+    boxes.forEach(function (b) { b.checked = false; });
+    paint();
+  });
+
+  paint();
+})();
+</script>
+</body>
+</html>
