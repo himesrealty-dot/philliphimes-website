@@ -1,0 +1,317 @@
+/* Mockup of incentives.html — the cold-traffic builder-incentive lander.
+   Single-theme by intent: the page commits to Phil's forest-green + gold world,
+   so every colour is painted explicitly and nothing is left to the host ground. */
+:root {
+  /* forest ground — lifted from the new-construction CTA band */
+  --forest-1:   #0c1f14;
+  --forest-2:   #143524;
+  --forest-3:   #1d4630;
+  --forest-rule: rgba(255,255,255,0.14);
+
+  /* brand */
+  --gold:       #C9A455;
+  --gold-lift:  #d8b96a;
+  --navy:       #1B3A5C;
+
+  /* light half of the page — warm neutral, biased green so it sits under the hero */
+  --paper:      #F7F6F2;
+  --paper-2:    #EFEEE7;
+  --ink:        #1a2620;
+  --ink-2:      #4a5751;
+  --rule:       #dedcd2;
+
+  --on-dark:    #ffffff;
+  --on-dark-2:  rgba(255,255,255,0.78);
+  --on-dark-3:  rgba(255,255,255,0.58);
+
+  /* Type comes from css/styles.css — declared here only as local aliases. */
+  --display: var(--font-display);
+  --chrome:  var(--font-heading);
+  --body:    var(--font-body);
+
+  --wrap: 1140px;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink-2);
+  font-family: var(--body);
+  -webkit-font-smoothing: antialiased;
+}
+html, body { overflow-x: clip; }
+
+.wrap {
+  width: 100%;
+  max-width: var(--wrap);
+  margin-inline: auto;
+  padding-inline: clamp(1.15rem, 4vw, 2.5rem);
+}
+
+/* ── brand bar — no navigation, one phone number ───────────────────────── */
+.bar {
+  background: var(--forest-1);
+  border-bottom: 1px solid var(--forest-rule);
+  padding-block: 0.8rem;
+}
+.bar__in { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.bar__logo { height: 34px; width: auto; display: block; border-radius: 3px; }
+.bar__tel {
+  font-family: var(--chrome); font-weight: 800; font-size: 0.95rem;
+  color: var(--gold); text-decoration: none; white-space: nowrap;
+}
+.bar__tel:hover { color: var(--on-dark); }
+
+/* ── hero — title + lede single column, then video | form ─────────────── */
+.hero {
+  background: linear-gradient(135deg, var(--forest-1) 0%, var(--forest-2) 60%, var(--forest-3) 100%);
+  color: var(--on-dark);
+  padding-block: clamp(2.25rem, 4.5vw, 3.25rem) clamp(2.75rem, 5vw, 3.75rem);
+}
+/* Product wordmark above the headline. Same treatment as .logo-relifeiq on
+   amplify.html: display serif, mid weight, middle word in gold. */
+.brandmark {
+  font-family: var(--display); font-weight: 600; font-style: normal;
+  font-size: 1.3rem; line-height: 1; letter-spacing: -0.005em;
+  color: var(--on-dark); margin: 0 0 0.9rem;
+}
+.brandmark span { color: var(--gold); }
+
+.hero h1 {
+  font-family: var(--display); font-weight: 900; font-style: normal;
+  font-size: clamp(2rem, 4.2vw + 0.4rem, 3.15rem);
+  line-height: 1.07; letter-spacing: -0.02em;
+  text-wrap: balance; overflow-wrap: anywhere;
+  color: var(--on-dark); margin: 0;
+}
+.hero h1 em { font-style: normal; color: var(--gold); }
+
+/* Two columns: copy + video stack down the left, the form holds the right from
+   the top. DOM order is say → form → video, so the phone gets the form second
+   and the video last — the ask stays above the fold at every width. */
+.hero__split {
+  display: grid; gap: clamp(1.5rem, 3vw, 2.25rem);
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+}
+@media (min-width: 62rem) {
+  .hero__split {
+    grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+    column-gap: 3rem; row-gap: 2rem;
+  }
+  .hero__say  { grid-column: 1; grid-row: 1; }
+  .hero .vid  { grid-column: 1; grid-row: 2; }
+  .hero .card { grid-column: 2; grid-row: 1 / span 2; }
+}
+
+/* ── video placeholder ─────────────────────────────────────────────────── */
+.vid { margin: 0; }
+.vid__box {
+  position: relative; aspect-ratio: 16 / 9; width: 100%;
+  border-radius: 14px; overflow: hidden;
+  background:
+    repeating-linear-gradient(135deg, rgba(255,255,255,0.035) 0 12px, rgba(255,255,255,0) 12px 24px),
+    rgba(255,255,255,0.06);
+  border: 1px solid var(--forest-rule);
+  display: grid; place-items: center;
+}
+.vid__play {
+  width: 76px; height: 76px; border-radius: 50%;
+  background: var(--gold); display: grid; place-items: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.32);
+}
+.vid__play svg { margin-left: 5px; display: block; }
+.vid__tag {
+  position: absolute; left: 14px; top: 14px;
+  font-family: var(--chrome); font-weight: 800; font-size: 0.6rem;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--on-dark-3);
+  border: 1px solid var(--forest-rule); border-radius: 999px;
+  padding: 0.28rem 0.7rem;
+}
+.vid__cap {
+  font-size: 0.95rem; line-height: 1.6; color: var(--on-dark-2);
+  margin-top: 0.95rem;
+}
+.vid__cap b { color: var(--gold); font-weight: 700; }
+
+/* ── form card — the layout Phil picked, glass on forest ──────────────── */
+.card {
+  background: rgba(255,255,255,0.07);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255,255,255,0.16);
+  border-radius: 1.25rem;
+  padding: clamp(1.4rem, 2.5vw, 1.85rem);
+}
+.card__t {
+  font-family: var(--display); font-weight: 900; font-style: normal;
+  font-size: 1.18rem; color: var(--on-dark); margin: 0 0 0.35rem;
+}
+.card__s { font-size: 0.85rem; line-height: 1.55; color: var(--on-dark-3); margin: 0 0 1.35rem; }
+
+.f { margin-bottom: 0.85rem; }
+.f input, .f select {
+  width: 100%; height: 48px;
+  background: rgba(255,255,255,0.95);
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 9px;
+  padding-inline: 0.95rem;
+  font-family: var(--body); font-size: 0.95rem; color: var(--navy);
+  outline: 2px solid transparent; outline-offset: 2px;
+}
+.f input::placeholder { color: #8a97a3; }
+.f input:focus-visible, .f select:focus-visible { outline-color: var(--gold); }
+.f select {
+  appearance: none; cursor: pointer; color: #8a97a3;
+  padding-inline-end: 2.4rem;
+  background-image:
+    linear-gradient(45deg, transparent 50%, #8a97a3 50%),
+    linear-gradient(135deg, #8a97a3 50%, transparent 50%);
+  background-position: right 1.25rem center, right 0.95rem center;
+  background-size: 0.34rem 0.34rem, 0.34rem 0.34rem;
+  background-repeat: no-repeat;
+}
+.f select.is-picked { color: var(--navy); }
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; }
+@media (max-width: 30rem) { .row { grid-template-columns: 1fr; } }
+
+.consent {
+  display: flex; gap: 0.55rem; align-items: flex-start;
+  margin: 0.7rem 0 1.15rem;
+  font-size: 0.72rem; line-height: 1.5; color: var(--on-dark-3);
+}
+.consent input { margin-top: 0.15rem; flex-shrink: 0; accent-color: var(--gold); }
+
+.submit {
+  width: 100%; min-height: 50px;
+  background: var(--gold); color: var(--navy);
+  font-family: var(--chrome); font-weight: 800; font-size: 0.95rem;
+  border: 0; border-radius: 50px; padding: 0.9rem 1.5rem;
+  cursor: pointer; white-space: nowrap;
+  transition: background 180ms cubic-bezier(0.16,1,0.3,1), transform 120ms cubic-bezier(0.16,1,0.3,1);
+}
+.submit:hover { background: var(--gold-lift); }
+.submit:active { transform: translateY(1px); }
+.submit:focus-visible { outline: 2px solid var(--on-dark); outline-offset: 3px; }
+.fine { font-size: 0.7rem; line-height: 1.55; color: var(--on-dark-3); margin: 0.85rem 0 0; }
+
+/* ── testimonial ───────────────────────────────────────────────────────── */
+.quote { background: var(--paper); padding-block: clamp(2.75rem, 5.5vw, 4rem); }
+.quote__in {
+  display: grid; gap: clamp(1.25rem, 3vw, 2.25rem);
+  grid-template-columns: minmax(0, 1fr);
+  align-items: center;
+}
+@media (min-width: 48rem) {
+  .quote__in { grid-template-columns: minmax(0, 2.15fr) minmax(0, 1fr); align-items: center; }
+}
+.quote__stars { color: var(--gold); font-size: 0.95rem; letter-spacing: 0.18em; margin-bottom: 0.9rem; }
+.quote__q {
+  font-family: var(--display); font-weight: 700; font-style: normal;
+  font-size: clamp(1.02rem, 1.1vw + 0.5rem, 1.3rem);
+  line-height: 1.5; color: var(--ink); margin: 0 0 1.1rem;
+  text-wrap: balance;
+}
+.quote__who { font-family: var(--chrome); font-weight: 800; font-size: 0.92rem; color: var(--ink); }
+.quote__meta {
+  font-size: 0.78rem; line-height: 1.6; color: var(--ink-2); margin-top: 0.25rem;
+}
+.quote__score {
+  border-left: 3px solid var(--gold);
+  padding: 0.15rem 0 0.15rem 1.4rem;
+}
+.quote__num {
+  font-family: var(--display); font-weight: 900;
+  font-size: clamp(2.6rem, 4vw, 3.4rem); line-height: 0.95;
+  color: var(--ink); font-variant-numeric: tabular-nums;
+}
+.quote__score .stars {
+  color: var(--gold); font-size: 0.95rem; letter-spacing: 0.16em;
+  margin-top: 0.5rem;
+}
+.quote__lbl {
+  font-family: var(--chrome); font-weight: 800; font-size: 0.62rem;
+  letter-spacing: 0.15em; text-transform: uppercase; color: var(--ink-2);
+  margin-top: 1.5rem; padding-top: 1.1rem; border-top: 1px solid var(--rule);
+}
+.quote__score ul { list-style: none; margin: 0.8rem 0 0; padding: 0; display: grid; gap: 0.55rem; }
+.quote__score li {
+  font-family: var(--chrome); font-weight: 700; font-size: 0.92rem;
+  color: var(--ink); line-height: 1.3;
+}
+
+/* -- STEP 2 -----------------------------------------------------------------
+   Same hero grid as the lander, mirrored: copy holds the left, the video takes
+   the slot the form occupied. Reusing the grid keeps the two pages reading as
+   one funnel rather than two designs. */
+.hero--flip .hero__split { align-items: start; }
+@media (min-width: 62rem) {
+  .hero--flip .hero__say { grid-column: 1; grid-row: 1; }
+  .hero--flip .vid       { grid-column: 2; grid-row: 1 / span 2; }
+}
+.hero__body + .hero__body { margin-top: 0.9rem; }
+.hero__body {
+  font-size: 1.02rem; line-height: 1.72; color: var(--on-dark-2);
+  max-width: 54ch; margin: 1.1rem 0 0;
+}
+
+/* the two ways to talk to Phil */
+.ways { display: grid; gap: 0.9rem; margin-top: 1.9rem; max-width: 34rem; }
+@media (min-width: 34rem) { .ways { grid-template-columns: 1fr 1fr; } }
+.way {
+  border: 1px solid var(--forest-rule); border-radius: 12px;
+  padding: 1rem 1.1rem; background: rgba(255,255,255,0.05);
+}
+.way__k {
+  font-family: var(--chrome); font-weight: 800; font-size: 0.62rem;
+  letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold);
+  margin-bottom: 0.4rem;
+}
+.way__t { font-family: var(--chrome); font-weight: 800; font-size: 0.98rem; color: var(--on-dark); }
+.way__d { font-size: 0.85rem; line-height: 1.55; color: var(--on-dark-3); margin-top: 0.3rem; }
+
+/* booking */
+.book { background: var(--paper); padding-block: clamp(2.75rem, 5.5vw, 4rem); }
+.book__head { max-width: 62ch; margin-bottom: 1.6rem; }
+.book__t {
+  font-family: var(--display); font-weight: 900; font-style: normal;
+  font-size: clamp(1.6rem, 2.6vw + 0.4rem, 2.2rem); line-height: 1.14;
+  letter-spacing: -0.018em; color: var(--ink); margin: 0 0 0.7rem;
+  text-wrap: balance;
+}
+.book__s { font-size: 1rem; line-height: 1.68; color: var(--ink-2); margin: 0; }
+/* The live GHL scheduler. */
+.book__frame {
+  width: 100%; height: 46rem; display: block;
+  border: 1px solid var(--rule); border-radius: 14px; background: var(--paper-2);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition-duration: 1ms !important; animation-duration: 1ms !important; }
+}
+
+
+/* ── page furniture the mockup didn't need ───────────────────────────────── */
+
+/* Keyboard users get to the form without tabbing the whole hero. */
+.skip {
+  position: absolute; left: -9999px;
+  background: var(--forest-1); color: #fff;
+  font-family: var(--chrome); font-weight: 700; font-size: 0.85rem;
+  padding: 0.7rem 1.1rem; border-radius: 8px; text-decoration: none; z-index: 900;
+}
+.skip:focus { left: 1rem; top: 1rem; }
+
+/* Honeypot. Off-screen rather than display:none — bots skip the obvious ones. */
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+/* Validation message. Sits under its field; the field keeps its own geometry, so
+   showing an error never shifts the form. */
+.f__err {
+  font-family: var(--body); font-size: 0.78rem; line-height: 1.45;
+  color: #ffd9d2; margin-top: 0.4rem;
+}
+.f input[aria-invalid="true"],
+.f select[aria-invalid="true"] { border-color: #e2725b; }

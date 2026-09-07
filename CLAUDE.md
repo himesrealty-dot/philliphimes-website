@@ -322,6 +322,57 @@ All pages share an identical footer with a **"Buying by District"** column linki
 
 ---
 
+---
+
+## Landing-page footer (no-navigation pages)
+
+Landing pages (`incentives.html`, `incentives-thank-you.html`, future PPC landers) carry
+**no site nav and no footer sitemap**. They close with the shared `.lp-foot` block instead —
+brokerage identity, contact, the TREC notices, Equal Housing, and a slot for page-specific
+disclosure.
+
+**Three files:**
+
+| File | Role |
+|------|------|
+| `css/landing-footer.css` | The footer's styles. Self-contained — defines its own fallback tokens, so it works with or without `css/styles.css`. |
+| `js/compliance.js` | **Single source of truth** for the TREC URLs and brokerage identity. |
+| the `.lp-foot` markup | Copy the block verbatim from `incentives.html`. |
+
+**To add the footer to a new landing page:**
+
+1. `<link rel="stylesheet" href="css/landing-footer.css" />` in the head
+2. Copy the `<footer class="lp-foot">` block from `incentives.html`
+3. `<script src="js/compliance.js"></script>` before `</body>`
+4. Replace the `.lp-foot__note` paragraphs with that page's disclosure — or delete the
+   whole `.lp-foot__note` div if the page needs none
+
+### The required notices
+
+```
+TREC Consumer Protection Notice
+https://assets.cdn.filesafe.space/l8dNWKKtBchv50jZJYBL/media/6a9f2196bcef8b5f2c2e9c78.pdf
+
+TREC Information About Brokerage Services
+https://assets.cdn.filesafe.space/l8dNWKKtBchv50jZJYBL/media/6a9f21b6bbc6015019c5157f.pdf
+```
+
+**Why the hrefs are hardcoded AND in `compliance.js`.** These are legally required
+disclosures, so the `href` is written into the page statically — a required notice must
+never depend on a script that might be blocked or fail. `js/compliance.js` is the canonical
+copy and re-syncs any `<a data-phh-link="trec-cpn|trec-iabs|privacy|terms">` on load. So a
+URL change is a one-file edit, and JS-off visitors still get a working link.
+
+**When a TREC URL changes:** edit `js/compliance.js`, then sweep the static fallbacks so
+they don't drift:
+
+```
+Select-String -Pattern 'assets.cdn.filesafe.space' -Path *.html
+```
+
+> These notices are **not** present on the main site's standard footer — only on landing
+> pages. Adding them site-wide is an open item.
+
 ## JSON-LD Blocks
 
 Each neighborhood page includes two JSON-LD blocks:

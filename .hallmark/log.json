@@ -1,12 +1,25 @@
 [
   {
+    "date": "2026-09-07",
+    "macrostructure": "Split Studio",
+    "theme": "brand-locked (navy/gold/teal; teal-dark action accent)",
+    "theme_axes": "light paper / high-contrast-serif display / cool accent",
+    "enrichment": "none \u2014 typography only",
+    "scope": "two-page funnel",
+    "verb": "redesign",
+    "nav": "none (landing page, zero destinations)",
+    "footer": "legal strip (Reg Z + TREC compliance, not a link index)",
+    "brief": "Builder-incentive funnel \u2014 cold-traffic lead capture lander + thank-you/booking page, Phil Himes",
+    "note": "Split Studio chosen over Letter (prior build): diptych keeps the form in view beside the offer. Dropped the 400KB hero photo \u2014 LCP cost on paid traffic. Shared css/incentives.css so the pair cannot drift."
+  },
+  {
     "date": "2026-08-24",
     "macrostructure": "Letter",
     "theme": "portal-native (brand-locked navy/gold/teal + rust dept accent)",
-    "enrichment": "none — media placeholders only, typography carries the page",
+    "enrichment": "none \u2014 media placeholders only, typography carries the page",
     "scope": "single-page",
     "verb": "redesign",
-    "brief": "The Note — monthly relationship newsletter inside The Front Porch members' portal, Phil Himes",
+    "brief": "The Note \u2014 monthly relationship newsletter inside The Front Porch members' portal, Phil Himes",
     "note": "Letter macrostructure deliberately PRESERVED (audit found the structure sound). Redesign replaced component voice only: pill badges -> department rules, stripe card -> byline, filled recipe card -> typographic block between rules, 3-tile gradient submission grid -> P.S."
   }
 ]

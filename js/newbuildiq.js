@@ -16,6 +16,11 @@
 
   var NEWBUILDIQ_API = 'https://real-estate-agentic-os-production.up.railway.app';
   var DEFAULT_CITY = 'League City';
+  // Where a captured new-construction lead lands: a short video on what happens next,
+  // the booking calendar (Zoom or model-home tour), and a review. The incentive list
+  // itself goes out by email as a PDF. Forms name it via data-redirect; data-reveal
+  // is the legacy alias for the same destination.
+  var INCENTIVES_THANKYOU = 'incentives-thank-you.html';
 
   // ── IDX listings links for the live community cards ────────────────────────
   // Community name (exactly as the feed returns it) -> its branded new-construction
@@ -215,6 +220,11 @@
         Object.keys(data).forEach(function (k) {
           if (k.indexOf('contact.') === 0 && String(data[k]).trim() !== '') payload[k] = data[k];
         });
+        // The community select is a real GHL field, not just note text. Until the key
+        // exists in GHL the backend preserves it in the lead note and warns Phil to
+        // create it — never dropped (Lead Intake Contract v1.3.1 § Custom fields).
+        var community = (data.community || '').trim();
+        if (community) payload['contact.lead_community'] = community;
         if (btn) { btn.textContent = 'Sending...'; btn.disabled = true; }
         try {
           var r = await fetch(NEWBUILDIQ_API + '/lead', {
@@ -223,19 +233,22 @@
             body: JSON.stringify(payload)
           });
           if (!r.ok) throw new Error('http ' + r.status);
-          // Lead captured. Opted-in forms hand off to the results page (incentives by
-          // community + the per-community tour CTA) — that's the conversion step a
-          // thank-you message was missing. Identity rides in localStorage, NEVER the
-          // url: no personal data in query strings.
-          if (form.getAttribute('data-reveal') === 'incentives') {
+          // Lead captured. Opted-in forms hand off to the thank-you page, where the
+          // booking calendar is the conversion an inline thank-you message was
+          // missing. Identity rides in localStorage, NEVER the url: no personal data
+          // in query strings.
+          //   data-redirect="<page>"    explicit destination (preferred)
+          //   data-reveal="incentives"  legacy alias, same destination
+          var dest = (form.getAttribute('data-redirect') || '').trim()
+            || (form.getAttribute('data-reveal') === 'incentives' ? INCENTIVES_THANKYOU : '');
+          if (dest) {
             try {
               localStorage.setItem('nbiq_lead', JSON.stringify({
                 name: payload.full_name, email: payload.email, phone: payload.phone
               }));
-            } catch (e) { /* private mode: the results page just asks again */ }
-            var city = form.getAttribute('data-city') || DEFAULT_CITY;
-            var community = (data.community || '').trim();
-            var url = 'incentives.html?city=' + encodeURIComponent(city);
+            } catch (e) { /* private mode: the page just skips the greeting */ }
+            var url = dest + (dest.indexOf('?') === -1 ? '?' : '&')
+              + 'city=' + encodeURIComponent(cityOf(form));
             if (community) url += '&community=' + encodeURIComponent(community);
             location.href = url;
             return;
@@ -248,6 +261,16 @@
         }
       });
     });
+  }
+
+  // Which market the lead is shopping. A community <select> carries the city on the
+  // chosen <option data-city>, so a Manvel pick from a League-City-defaulted form
+  // still hands off the right market. Falls back to the form, then the default.
+  function cityOf(form) {
+    var sel = form.querySelector('select[name="community"]');
+    var opt = sel && sel.selectedIndex >= 0 ? sel.options[sel.selectedIndex] : null;
+    var fromOption = opt && opt.getAttribute('data-city');
+    return (fromOption || form.getAttribute('data-city') || DEFAULT_CITY).trim();
   }
 
   function showMsg(form, ok) {

@@ -159,12 +159,6 @@
   status = 404
   force = true
 [[redirects]]
-  # Retired duplicate of incentives.html (superseded by the NewBuildIQ flow).
-  from = "/nc-incentives.html"
-  to = "/incentives.html"
-  status = 301
-  force = true
-[[redirects]]
   # Deleted internal preview scratch file.
   from = "/har-preview.html"
   to = "/404.html"

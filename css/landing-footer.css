@@ -1,0 +1,122 @@
+/* Landing-page footer — shared chrome for every no-navigation landing page.
+ *
+ * A landing page has no site nav and no footer sitemap; this closes the page with
+ * the things that must be there: who the broker is, how to reach them, the TREC
+ * notices, Equal Housing, and any page-specific disclosure.
+ *
+ * Self-contained on purpose — it defines its own fallback tokens so it can be
+ * dropped onto ANY landing page whether or not css/styles.css is loaded. Where
+ * the brand tokens do exist, they win.
+ *
+ * Usage:
+ *   <link rel="stylesheet" href="css/landing-footer.css">
+ *   ...footer markup (see CLAUDE.md § Landing-page footer for the canonical block)
+ *   <script src="js/compliance.js"></script>
+ */
+
+.lp-foot {
+  --lp-ground:   var(--navy-dark, #122840);
+  --lp-ground-2: #0c1f14;                    /* forest, matching the lander hero */
+  --lp-rule:     rgba(255, 255, 255, 0.15);
+  --lp-text:     rgba(255, 255, 255, 0.62);
+  --lp-text-2:   rgba(255, 255, 255, 0.82);
+  --lp-bright:   #ffffff;
+  --lp-gold:     var(--gold, #C9A455);
+  --lp-chrome:   var(--font-heading, 'Montserrat', system-ui, sans-serif);
+  --lp-display:  var(--font-display, 'Playfair Display', Georgia, serif);
+  --lp-body:     var(--font-body, 'Open Sans', system-ui, sans-serif);
+
+  background: var(--lp-ground-2);
+  border-top: 3px solid var(--lp-gold);
+  color: var(--lp-text);
+  font-family: var(--lp-body);
+  padding-block: clamp(2.25rem, 4vw, 3rem) clamp(1.75rem, 3vw, 2.25rem);
+}
+.lp-foot--navy { background: var(--lp-ground); }
+
+.lp-foot__wrap {
+  width: 100%;
+  max-width: 1140px;
+  margin-inline: auto;
+  padding-inline: clamp(1.15rem, 4vw, 2.5rem);
+}
+
+/* Page-specific disclosure slot (Reg Z, MLS, income claims, whatever the page needs).
+   Sits above the identity block; omit the element entirely when a page has none. */
+.lp-foot__note {
+  padding-bottom: clamp(1.5rem, 3vw, 2rem);
+  margin-bottom: clamp(1.5rem, 3vw, 2rem);
+  border-bottom: 1px solid var(--lp-rule);
+}
+/* Full bleed across the footer — a disclosure column half the page wide reads
+   like a caption; this has to look like the notice it is. */
+.lp-foot__note p {
+  font-size: 0.74rem; line-height: 1.7; color: var(--lp-text);
+  margin: 0 0 0.7rem;
+}
+.lp-foot__note p:last-child { margin-bottom: 0; }
+.lp-foot__note strong { color: var(--lp-text-2); }
+
+/* Identity — who is advertising, and how to reach them. */
+.lp-foot__id {
+  display: grid; gap: clamp(1.25rem, 3vw, 2.5rem);
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+}
+@media (min-width: 46rem) {
+  .lp-foot__id { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); }
+}
+.lp-foot__logo {
+  display: block; height: 46px; width: auto; margin-bottom: 0.9rem;
+}
+.lp-foot__name {
+  font-family: var(--lp-display); font-weight: 900; font-style: normal;
+  font-size: 1.15rem; line-height: 1.2; color: var(--lp-bright);
+}
+.lp-foot__brokerage {
+  font-family: var(--lp-chrome); font-weight: 700; font-size: 0.68rem;
+  letter-spacing: 0.13em; text-transform: uppercase; color: var(--lp-gold);
+  margin-top: 0.4rem;
+}
+.lp-foot__addr {
+  font-style: normal; font-size: 0.8rem; line-height: 1.7;
+  color: var(--lp-text); margin-top: 0.8rem;
+}
+.lp-foot__reach { display: flex; flex-wrap: wrap; gap: 0.35rem 1.25rem; margin-top: 0.7rem; }
+.lp-foot__reach a {
+  font-family: var(--lp-chrome); font-weight: 700; font-size: 0.85rem;
+  color: var(--lp-gold); text-decoration: none; white-space: nowrap;
+}
+.lp-foot__reach a:hover { color: var(--lp-bright); }
+
+/* The required notices. */
+.lp-foot__notices { display: grid; gap: 0.5rem; align-content: start; }
+.lp-foot__notices a {
+  font-family: var(--lp-chrome); font-weight: 700; font-size: 0.78rem;
+  color: var(--lp-text-2); text-decoration: none;
+  border-bottom: 1px solid var(--lp-rule);
+  padding-bottom: 0.5rem;
+}
+.lp-foot__notices a:hover { color: var(--lp-gold); border-bottom-color: var(--lp-gold); }
+.lp-foot__notices a::after { content: ' \2197'; color: var(--lp-gold); }
+
+/* Baseline: Equal Housing + copyright. */
+.lp-foot__base {
+  margin-top: clamp(1.5rem, 3vw, 2rem);
+  padding-top: 1.1rem;
+  border-top: 1px solid var(--lp-rule);
+  display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem;
+  align-items: center; justify-content: space-between;
+  font-size: 0.72rem; line-height: 1.6;
+}
+.lp-foot__eho { color: var(--lp-text-2); }
+
+.lp-foot a:focus-visible {
+  outline: 2px solid var(--lp-gold);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+@media (pointer: coarse) {
+  .lp-foot__reach a, .lp-foot__notices a { min-height: 44px; display: flex; align-items: center; }
+}
