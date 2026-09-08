@@ -16,11 +16,9 @@
 
   var NEWBUILDIQ_API = 'https://real-estate-agentic-os-production.up.railway.app';
   var DEFAULT_CITY = 'League City';
-  // Where a captured new-construction lead lands: a short video on what happens next,
-  // the booking calendar (Zoom or model-home tour), and a review. The incentive list
-  // itself goes out by email as a PDF. Forms name it via data-redirect; data-reveal
-  // is the legacy alias for the same destination.
-  var INCENTIVES_THANKYOU = 'incentives-thank-you.html';
+  // Captured leads hand off to a thank-you page named by the form's data-redirect:
+  // a short video on what happens next, the booking calendar (Zoom or model-home
+  // tour), and a review. The list itself goes out by email as a PDF.
 
   // ── IDX listings links for the live community cards ────────────────────────
   // Community name (exactly as the feed returns it) -> its branded new-construction
@@ -237,10 +235,10 @@
           // booking calendar is the conversion an inline thank-you message was
           // missing. Identity rides in localStorage, NEVER the url: no personal data
           // in query strings.
-          //   data-redirect="<page>"    explicit destination (preferred)
-          //   data-reveal="incentives"  legacy alias, same destination
-          var dest = (form.getAttribute('data-redirect') || '').trim()
-            || (form.getAttribute('data-reveal') === 'incentives' ? INCENTIVES_THANKYOU : '');
+          //   data-redirect="<page>"  the destination
+          //   data-offer="report"     swaps the noun on the thank-you page, for forms
+          //                           whose offer isn't the incentive list
+          var dest = (form.getAttribute('data-redirect') || '').trim();
           if (dest) {
             try {
               localStorage.setItem('nbiq_lead', JSON.stringify({
@@ -250,6 +248,8 @@
             var url = dest + (dest.indexOf('?') === -1 ? '?' : '&')
               + 'city=' + encodeURIComponent(cityOf(form));
             if (community) url += '&community=' + encodeURIComponent(community);
+            var offer = (form.getAttribute('data-offer') || '').trim();
+            if (offer) url += '&offer=' + encodeURIComponent(offer);
             location.href = url;
             return;
           }

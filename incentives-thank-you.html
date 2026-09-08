@@ -58,7 +58,7 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=Lead&noscript=1"
           <div class="brandmark">New<span>Build</span>IQ&trade;</div>
           <h1 id="tyTitle">Your list is on <em>its way</em>.</h1>
           <p class="hero__body">
-            Check your inbox over the next few minutes &mdash; the current incentives for the
+            Check your inbox over the next few minutes &mdash; the current numbers for the
             community you picked are on their way from Phil.
           </p>
           <p class="hero__body">
@@ -90,7 +90,7 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=Lead&noscript=1"
             </span>
           </div>
           <figcaption class="vid__cap">
-            <b>Watch this next.</b> What to do with the list once it lands, what to ask at the
+            <b>Watch this next.</b> What to do with it once it lands, what to ask at the
             builder&rsquo;s sales office, and the two things worth settling before you set foot
             in a model home.
           </figcaption>
@@ -200,17 +200,26 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=Lead&noscript=1"
 
   <script src="js/compliance.js"></script>
   <script>
-  /* Greet by first name when the lander handed one over. Identity rides in
-     localStorage, never the URL — no personal data in query strings. */
+  /* Two jobs: name the thing that is coming, and greet by first name when the
+     form handed one over. Identity rides in localStorage, never the URL — no
+     personal data in query strings. The offer noun is not personal data. */
   (function () {
+    var OFFERS = { report: 'report', list: 'list' };
+    var offer = OFFERS[new URLSearchParams(location.search).get('offer')] || 'list';
+
     var lead = null;
     try { lead = JSON.parse(localStorage.getItem('nbiq_lead') || 'null'); } catch (e) { /* private mode */ }
     var first = lead && lead.name ? String(lead.name).trim().split(/\s+/)[0] : '';
-    if (!first) return;
+
     var esc = document.createElement('div');
     esc.textContent = first;
     document.getElementById('tyTitle').innerHTML =
-      esc.innerHTML + ', your list is on <em>its way</em>.';
+      (first ? esc.innerHTML + ', your ' : 'Your ') + offer + ' is on <em>its way</em>.';
+
+    // The tab title names the offer too, so a report lead doesn't read "list".
+    if (offer !== 'list') {
+      document.title = document.title.replace('Builder Incentive List', 'Market Report');
+    }
   })();
   </script>
 </body>
