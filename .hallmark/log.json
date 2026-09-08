@@ -1,5 +1,16 @@
 [
   {
+    "date": "2026-09-08",
+    "macrostructure": "unchanged (colour-scope redesign)",
+    "theme": "brand-locked forest (#0c1f14 -> #1d4630, single gold accent)",
+    "theme_axes": "dark paper band / display-serif / warm-gold accent",
+    "enrichment": "none",
+    "scope": "single-page, colour only",
+    "verb": "redesign",
+    "brief": "new-construction.html recoloured from navy/teal to the forest ground shared with the incentives funnel",
+    "note": "Teal retired entirely - one accent (gold). Added --nc-gold-ink #806628 for small accent text on paper (5.04:1); --nc-gold-deep stays for display sizes. Neutrals and shadows re-tinted green; nothing navy-tinted remains. Structure, layout and copy untouched."
+  },
+  {
     "date": "2026-09-07",
     "macrostructure": "Split Studio",
     "theme": "brand-locked (navy/gold/teal; teal-dark action accent)",

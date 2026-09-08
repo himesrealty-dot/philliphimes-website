@@ -52,182 +52,225 @@
     "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": [
-      { "@type": "Question", "name": "Do I need a REALTOR® to buy new construction?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — and working with your own REALTOR® doesn't change the price you pay for the home or get you a worse deal. Builder sales agents work for the builder, not you. Bringing your own REALTOR® gives you independent representation to negotiate upgrades, review contracts, and protect your interests throughout the build. How the buyer's-agent commission is handled is part of the agreement, and Phil walks you through it before you sign anything." } },
+      { "@type": "Question", "name": "Do I need a REALTOR® to buy new construction?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — and working with your own REALTOR® doesn't change the price you pay for the home or get you a worse deal. Builder sales agents work for the builder, not you. Bringing your own REALTOR® gives you independent representation to negotiate price and terms, review the contract, and protect your interests through closing. How the buyer's-agent commission is handled is part of the agreement, and Phil walks you through it before you sign anything." } },
       { "@type": "Question", "name": "What new construction communities are near League City TX?", "acceptedAnswer": { "@type": "Answer", "text": "Active builder communities in the Houston Bay Area include Legacy, Westland Ranch, and Coastal Point (League City, CCISD); Friendswood Trails (Friendswood, FISD); Massey Oaks and Alexander (Pearland, Alvin ISD); Peacock Isle (Dickinson, Dickinson ISD); Toll Brothers at Midline (Webster/Clear Lake, CCISD); and Valencia, Pomona, Meridiana, Del Bello Lakes, and Avellino (Manvel, Alvin ISD). Prices range from the mid $250s to $1M+ depending on community and builder." } },
       { "@type": "Question", "name": "How much do new construction homes cost in League City TX?", "acceptedAnswer": { "@type": "Answer", "text": "New construction in the Bay Area starts as low as the mid $250s at Avellino in Manvel (KB Home, Alvin ISD). Westland Ranch in League City starts from the $270s. Manvel and Pearland communities (Meridiana, Pomona, Massey Oaks) typically run from the low $300s to high $400s. League City CCISD communities (Legacy, Coastal Point) start in the high $300s to $400s. Friendswood FISD new construction starts from the $400s to $600s. Luxury new construction at Toll Brothers Midline in Webster starts around $680K." } },
-      { "@type": "Question", "name": "How long does it take to build a new home in this area?", "acceptedAnswer": { "@type": "Answer", "text": "Production builds (spec homes) typically take 4–6 months from contract. Semi-custom builds with selected options take 6–9 months. Custom homes on your lot can take 10–14 months or more. Phil monitors your build timeline and attends key milestones — framing inspection, pre-drywall walk, and final walkthrough." } },
-      { "@type": "Question", "name": "Can I negotiate on a new construction home?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — builders rarely move on base price but frequently offer incentives: free upgrades, closing cost contributions, rate buydowns, or appliance packages. The best leverage is at quarter-end when builders need to hit sales targets. Phil knows which builders negotiate and when — and he has existing relationships that translate into better outcomes." } }
+      { "@type": "Question", "name": "How long does it take to build a new home in this area?", "acceptedAnswer": { "@type": "Answer", "text": "Production builders complete homes in about 4–6 months. A home already under construction when you contract will be shorter than that, and a finished quick move-in can close in 30–60 days. Phil tracks the timeline and attends the inspection and both walk-throughs." } },
+      { "@type": "Question", "name": "Can I negotiate on a new construction home?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — builders rarely move on base price but frequently offer incentives: included upgrade packages, closing cost contributions, rate buydowns, or appliances. The best leverage is at quarter-end when builders need to hit sales targets. Phil knows which builders negotiate and when — and he has existing relationships that translate into better outcomes." } }
     ]
   }
   </script>
   <style>
+  /* Hallmark - redesign, colour scope only - genre: editorial - tone: utilitarian
+   * theme: brand-locked forest, the same ground as incentives.html
+   * ground #0c1f14 -> #1d4630 - single accent: gold - ink biased green, not navy
+   * pre-emit critique: P4 H5 E5 S4 R5 V4
+   *
+   * Structure, layout and copy are unchanged. Every colour below resolves through
+   * a token; nothing in this stylesheet inlines a raw colour value.
+   */
+  :root {
+    /* Ground - the three forest stops, shared with the incentives funnel */
+    --nc-forest-1: #0c1f14;
+    --nc-forest-2: #143524;
+    --nc-forest-3: #1d4630;
+    --nc-ground:   linear-gradient(135deg, var(--nc-forest-1) 0%, var(--nc-forest-2) 60%, var(--nc-forest-3) 100%);
+    --nc-hair:     rgba(255,255,255,0.14);
+
+    /* Ink on light grounds - green-biased so the neutrals agree with the accent */
+    --nc-ink:      #16311f;
+    --nc-ink-2:    #40554a;
+    --nc-muted:    #6d7f74;
+    --nc-faint:    rgba(22,49,31,0.42);
+
+    /* Paper - warm, tinted toward the gold; never pure white */
+    --nc-paper:    #f7f6f2;
+    --nc-paper-2:  #f1f0ea;
+    --nc-card:     #fdfdfb;
+    --nc-rule:     #dfe3da;
+    --nc-rule-2:   rgba(22,49,31,0.10);
+
+    /* Accent - one hue. Gold carries every emphasis on both grounds. */
+    --nc-gold:      var(--gold);
+    --nc-gold-lift: #d4b86a;
+    --nc-gold-deep: var(--gold-dark);   /* large text / borders on paper */
+    --nc-gold-ink:  #806628;            /* small accent text on paper - 5.04:1 */
+    --nc-gold-wash: #fbf4e2;
+    --nc-gold-ghost: rgba(201,164,85,0.32);   /* decorative watermark numeral + glows */
+
+    /* Text on the forest ground */
+    --nc-on-dark:   #f6f7f3;
+    --nc-on-dark-2: rgba(246,247,243,0.78);
+    --nc-on-dark-3: rgba(246,247,243,0.58);
+    --nc-on-dark-4: rgba(246,247,243,0.58);
+
+    /* Overlay surfaces on the forest ground, and shadows tinted toward it */
+    --nc-glass:     rgba(255,255,255,0.07);
+    --nc-glass-2:   rgba(255,255,255,0.08);
+    --nc-field:     rgba(255,255,255,0.95);
+    --nc-field-rule: rgba(255,255,255,0.25);
+    --nc-shadow:    rgba(22,49,31,0.08);
+    --nc-shadow-2:  rgba(22,49,31,0.14);
+  }
+
     .nc-hero {
-      background: linear-gradient(135deg, #0c1f14 0%, #122a1c 60%, #1a3d28 100%);
+      background: var(--nc-ground);
       padding: 5rem 0 4rem; position: relative; overflow: hidden;
     }
     .nc-hero::before {
       content: ''; position: absolute; inset: 0;
-      background: radial-gradient(ellipse at 70% 50%, rgba(201,164,85,0.1) 0%, transparent 60%);
+      background: radial-gradient(ellipse at 70% 50%, var(--nc-gold-ghost) 0%, transparent 60%);
       pointer-events: none;
     }
-    .nc-hero__crumb { font-family: var(--font-heading); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; color: rgba(255,255,255,0.45); margin-bottom: 0.9rem; }
-    .nc-hero__crumb a { color: rgba(255,255,255,0.45); text-decoration: none; transition: color 0.2s; }
+    .nc-hero__crumb { font-family: var(--font-heading); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; color: var(--nc-on-dark-4); margin-bottom: 0.9rem; }
+    .nc-hero__crumb a { color: var(--nc-on-dark-4); text-decoration: none; transition: color 0.2s; }
     .nc-hero__crumb a:hover { color: var(--gold); }
     .nc-hero__eyebrow { font-family: var(--font-heading); font-size: 0.72rem; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.85rem; display: block; }
-    .nc-hero__title { font-family: var(--font-display); font-weight: 900; font-size: clamp(2rem, 4.5vw, 3.2rem); color: white; line-height: 1.05; margin-bottom: 1.1rem; }
+    .nc-hero__title { font-family: var(--font-display); font-weight: 900; font-size: clamp(2rem, 4.5vw, 3.2rem); color: var(--nc-on-dark); line-height: 1.05; margin-bottom: 1.1rem; }
     .nc-hero__title span { color: var(--gold); }
-    .nc-hero__sub { font-size: 1.05rem; color: rgba(255,255,255,0.75); line-height: 1.72; max-width: 580px; margin-bottom: 2rem; }
+    .nc-hero__sub { font-size: 1.05rem; color: var(--nc-on-dark-2); line-height: 1.72; max-width: 580px; margin-bottom: 2rem; }
     .nc-hero__btns { display: flex; gap: 1rem; flex-wrap: wrap; }
-    .nc-hero__btn-primary { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--gold); color: var(--navy); font-family: var(--font-heading); font-weight: 800; font-size: 0.9rem; padding: 0.9rem 1.75rem; border-radius: 50px; text-decoration: none; transition: background 0.2s; }
-    .nc-hero__btn-primary:hover { background: #d4b86a; }
-    .nc-hero__btn-ghost { display: inline-flex; align-items: center; gap: 0.5rem; background: transparent; color: rgba(255,255,255,0.82); font-family: var(--font-heading); font-weight: 700; font-size: 0.88rem; padding: 0.9rem 1.5rem; border-radius: 50px; text-decoration: none; border: 1.5px solid rgba(255,255,255,0.25); transition: all 0.2s; }
-    .nc-hero__btn-ghost:hover { border-color: rgba(255,255,255,0.6); color: white; }
+    .nc-hero__btn-primary { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--nc-gold); color: var(--nc-forest-1); font-family: var(--font-heading); font-weight: 800; font-size: 0.9rem; padding: 0.9rem 1.75rem; border-radius: 50px; text-decoration: none; transition: background 0.2s; }
+    .nc-hero__btn-primary:hover { background: var(--nc-gold-lift); }
+    .nc-hero__btn-ghost { display: inline-flex; align-items: center; gap: 0.5rem; background: transparent; color: var(--nc-on-dark-2); font-family: var(--font-heading); font-weight: 700; font-size: 0.88rem; padding: 0.9rem 1.5rem; border-radius: 50px; text-decoration: none; border: 1.5px solid var(--nc-field-rule); transition: all 0.2s; }
+    .nc-hero__btn-ghost:hover { border-color: var(--nc-on-dark-3); color: var(--nc-on-dark); }
 
-    .page-stats { background: var(--navy); padding: 1.65rem 0; }
+    .page-stats { background: var(--nc-forest-2); padding: 1.65rem 0; }
     .page-stats__grid { display: grid; grid-template-columns: repeat(4, 1fr); }
     @media (max-width: 768px) { .page-stats__grid { grid-template-columns: repeat(2, 1fr); } }
-    .page-stats__item { text-align: center; padding: 0.65rem 0; border-right: 1px solid rgba(255,255,255,0.1); }
+    .page-stats__item { text-align: center; padding: 0.65rem 0; border-right: 1px solid var(--nc-hair); }
     .page-stats__item:last-child { border-right: none; }
-    @media (max-width: 768px) { .page-stats__item:nth-child(2) { border-right: none; } .page-stats__item:nth-child(3) { border-right: 1px solid rgba(255,255,255,0.1); } }
+    @media (max-width: 768px) { .page-stats__item:nth-child(2) { border-right: none; } .page-stats__item:nth-child(3) { border-right: 1px solid var(--nc-hair); } }
     .page-stats__value { font-family: var(--font-display); font-weight: 900; font-size: 1.85rem; color: var(--gold); line-height: 1; margin-bottom: 0.3rem; }
-    .page-stats__label { font-size: 0.72rem; color: rgba(255,255,255,0.55); font-family: var(--font-heading); font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; }
+    .page-stats__label { font-size: 0.72rem; color: var(--nc-on-dark-3); font-family: var(--font-heading); font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; }
 
-    .page-section { padding: 4.5rem 0; background: #f9f7f4; }
-    .page-section--white { padding: 4.5rem 0; background: white; }
-    .page-section--dark { padding: 4.5rem 0; background: var(--navy); }
-    .section-eyebrow { font-family: var(--font-heading); font-size: 0.75rem; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: var(--teal); margin-bottom: 0.6rem; display: block; }
+    .page-section { padding: 4.5rem 0; background: var(--nc-paper); }
+    .page-section--white { padding: 4.5rem 0; background: var(--nc-card); }
+    .page-section--dark { padding: 4.5rem 0; background: var(--nc-ground); }
+    .section-eyebrow { font-family: var(--font-heading); font-size: 0.75rem; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: var(--nc-gold-ink); margin-bottom: 0.6rem; display: block; }
     .section-eyebrow--gold { color: var(--gold); }
-    .section-title { font-family: var(--font-heading); font-weight: 900; font-size: clamp(1.8rem, 4vw, 2.6rem); color: var(--navy); line-height: 1.1; margin-bottom: 0.65rem; }
-    .section-title--white { color: white; }
-    .section-title span { color: var(--teal); }
+    .section-title { font-family: var(--font-heading); font-weight: 900; font-size: clamp(1.8rem, 4vw, 2.6rem); color: var(--nc-ink); line-height: 1.1; margin-bottom: 0.65rem; }
+    .section-title--white { color: var(--nc-on-dark); }
+    .section-title span { color: var(--nc-gold-deep); }
     .section-title--white span { color: var(--gold); }
-    .section-sub { font-size: 1rem; color: var(--dark-gray); line-height: 1.7; max-width: 600px; margin-bottom: 2.5rem; }
-    .section-sub--white { color: rgba(255,255,255,0.75); }
+    .section-sub { font-size: 1rem; color: var(--nc-ink-2); line-height: 1.7; max-width: 600px; margin-bottom: 2.5rem; }
+    .section-sub--white { color: var(--nc-on-dark-2); }
     .section-header { margin-bottom: 2.5rem; }
     .section-header--center { text-align: center; }
     .section-header--center .section-sub { margin-left: auto; margin-right: auto; }
 
-    .guide-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+    /* Uneven on purpose: the argument column is prose, the card grid needs the room.
+       Widening the cards shortens them, which closes most of the height difference
+       left when the service checklist moved out to the process section. */
+    .guide-grid { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 3.25rem; align-items: start; }
     @media (max-width: 860px) { .guide-grid { grid-template-columns: 1fr; gap: 2.5rem; } }
-    .guide-body { font-size: 0.95rem; color: var(--dark-gray); line-height: 1.82; }
+    .guide-body { font-size: 0.95rem; color: var(--nc-ink-2); line-height: 1.82; }
     .guide-body p { margin-bottom: 1.1rem; }
-    .guide-highlights { background: white; border-radius: var(--radius-xl); padding: 1.75rem 1.65rem; border: 1px solid #e4eaf0; margin-top: 1.5rem; }
-    .guide-highlights__title { font-family: var(--font-display); font-weight: 800; font-size: 0.85rem; color: var(--navy); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 1rem; }
-    .guide-highlights__list { list-style: none; padding: 0; margin: 0; }
-    .guide-highlights__list li { font-size: 0.88rem; color: var(--dark-gray); padding: 0.5rem 0; border-bottom: 1px solid #eef1f4; display: flex; align-items: flex-start; gap: 0.6rem; line-height: 1.55; }
-    .guide-highlights__list li:last-child { border-bottom: none; }
-    .guide-highlights__list li::before { content: '✓'; color: var(--teal); font-weight: 800; flex-shrink: 0; margin-top: 0.05rem; }
+
+    /* Closes the left column where the service checklist used to sit. Carries the
+       argument's thesis instead of repeating the process steps further down. */
+    .guide-callout { margin-top: 1.75rem; padding: 1.5rem 1.65rem; background: white; border-radius: var(--radius-xl); border: 1px solid var(--nc-rule); border-top: 4px solid var(--gold); }
+    .guide-callout p { font-family: var(--font-display); font-weight: 800; font-size: 1.06rem; color: var(--nc-ink); line-height: 1.5; margin: 0; }
+    .guide-callout p span { color: var(--nc-gold-ink); }
 
     .reason-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
     @media (max-width: 900px) { .reason-grid { grid-template-columns: repeat(2, 1fr); } }
     @media (max-width: 560px) { .reason-grid { grid-template-columns: 1fr; } }
-    .reason-card { background: white; border-radius: var(--radius-xl); padding: 1.65rem 1.5rem; border: 1px solid #e4eaf0; border-top: 4px solid var(--teal); }
-    .reason-card__num { font-family: var(--font-display); font-weight: 900; font-size: 1.6rem; color: rgba(32,137,160,0.18); line-height: 1; margin-bottom: 0.5rem; }
-    .reason-card__title { font-family: var(--font-display); font-weight: 800; font-size: 0.95rem; color: var(--navy); margin-bottom: 0.6rem; line-height: 1.3; }
-    .reason-card__body { font-size: 0.84rem; color: var(--dark-gray); line-height: 1.65; }
+    .reason-card { background: var(--nc-card); border-radius: var(--radius-xl); padding: 1.65rem 1.5rem; border: 1px solid var(--nc-rule); border-top: 4px solid var(--nc-gold); }
+    .reason-card__num { font-family: var(--font-display); font-weight: 900; font-size: 1.6rem; color: var(--nc-gold-ghost); line-height: 1; margin-bottom: 0.5rem; }
+    .reason-card__title { font-family: var(--font-display); font-weight: 800; font-size: 0.95rem; color: var(--nc-ink); margin-bottom: 0.6rem; line-height: 1.3; }
+    .reason-card__body { font-size: 0.84rem; color: var(--nc-ink-2); line-height: 1.65; }
 
     .community-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
     @media (max-width: 900px) { .community-grid { grid-template-columns: repeat(2, 1fr); } }
     @media (max-width: 560px) { .community-grid { grid-template-columns: 1fr; } }
-    .community-card { background: white; border: 1px solid rgba(27,58,92,0.1); border-radius: var(--radius-xl); padding: 1.75rem 1.65rem; transition: all 0.25s; box-shadow: 0 2px 12px rgba(27,58,92,0.06); text-decoration: none; display: block; }
-    .community-card:hover { border-color: rgba(32,137,160,0.45); transform: translateY(-3px); box-shadow: 0 8px 24px rgba(27,58,92,0.12); }
-    .community-card__city { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(27,58,92,0.4); margin-bottom: 0.2rem; }
-    .community-card__name { font-family: var(--font-display); font-weight: 900; font-size: 1.1rem; color: var(--navy); margin-bottom: 0.35rem; }
-    .community-card__district { display: inline-block; font-family: var(--font-heading); font-size: 0.67rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #2089A0; background: rgba(32,137,160,0.1); border: 1px solid rgba(32,137,160,0.25); border-radius: 50px; padding: 0.2rem 0.65rem; margin-bottom: 0.7rem; }
-    .community-card__desc { font-size: 0.83rem; color: var(--dark-gray); line-height: 1.6; margin-bottom: 0.8rem; }
-    .community-card__price { font-family: var(--font-display); font-weight: 700; font-size: 0.85rem; color: var(--navy); margin-top: 0.8rem; }
+    .community-card { background: var(--nc-card); border: 1px solid var(--nc-rule-2); border-radius: var(--radius-xl); padding: 1.75rem 1.65rem; transition: all 0.25s; box-shadow: 0 2px 12px var(--nc-shadow); text-decoration: none; display: block; }
+    .community-card:hover { border-color: var(--nc-gold); transform: translateY(-3px); box-shadow: 0 8px 24px var(--nc-shadow-2); }
+    .community-card__city { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--nc-faint); margin-bottom: 0.2rem; }
+    .community-card__name { font-family: var(--font-display); font-weight: 900; font-size: 1.1rem; color: var(--nc-ink); margin-bottom: 0.35rem; }
+    .community-card__district { display: inline-block; font-family: var(--font-heading); font-size: 0.67rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--nc-gold-ink); background: var(--nc-gold-wash); border: 1px solid var(--nc-gold-ghost); border-radius: 50px; padding: 0.2rem 0.65rem; margin-bottom: 0.7rem; }
+    .community-card__desc { font-size: 0.83rem; color: var(--nc-ink-2); line-height: 1.6; margin-bottom: 0.8rem; }
+    .community-card__price { font-family: var(--font-display); font-weight: 700; font-size: 0.85rem; color: var(--nc-ink); margin-top: 0.8rem; }
     .community-card__price span { color: var(--gold); }
-    .community-card__cta { display: flex; align-items: center; gap: 0.4rem; font-family: var(--font-heading); font-size: 0.78rem; font-weight: 700; color: var(--teal); margin-top: 0.9rem; padding-top: 0.85rem; border-top: 1px solid rgba(27,58,92,0.08); transition: gap 0.2s; }
+    .community-card__cta { display: flex; align-items: center; gap: 0.4rem; font-family: var(--font-heading); font-size: 0.78rem; font-weight: 700; color: var(--nc-gold-ink); margin-top: 0.9rem; padding-top: 0.85rem; border-top: 1px solid var(--nc-shadow); transition: gap 0.2s; }
     .community-card:hover .community-card__cta { gap: 0.65rem; }
 
-    .city-label { font-family: var(--font-heading); font-weight: 800; font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; margin-top: 0.5rem; }
+    .city-label { font-family: var(--font-heading); font-weight: 800; font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--nc-gold-ink); margin-bottom: 1rem; margin-top: 0.5rem; }
 
-    .builder-note { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); border-radius: 1rem; padding: 1.5rem 1.75rem; max-width: 680px; margin: 2.5rem auto 0; text-align: center; }
-    .builder-note p { font-size: 0.9rem; color: rgba(255,255,255,0.75); line-height: 1.7; margin: 0; }
+    .builder-note { background: var(--nc-glass-2); border: 1px solid var(--nc-hair); border-radius: 1rem; padding: 1.5rem 1.75rem; max-width: 680px; margin: 2.5rem auto 0; text-align: center; }
+    .builder-note p { font-size: 0.9rem; color: var(--nc-on-dark-2); line-height: 1.7; margin: 0; }
     .builder-note strong { color: var(--gold); }
 
-    .process-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
-    @media (max-width: 900px) { .process-grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 560px) { .process-grid { grid-template-columns: 1fr; } }
-    .process-step { text-align: center; padding: 1.5rem 1rem; }
-    .process-step__num { width: 2.75rem; height: 2.75rem; border-radius: 50%; background: var(--gold); display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-family: var(--font-display); font-weight: 900; font-size: 1rem; color: var(--navy); }
-    .process-step__title { font-family: var(--font-display); font-weight: 800; font-size: 0.9rem; color: white; margin-bottom: 0.5rem; }
-    .process-step__body { font-size: 0.82rem; color: rgba(255,255,255,0.65); line-height: 1.65; }
+    .process-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5rem 1.25rem; }
+    .process-step { flex: 0 1 calc(25% - 1rem); min-width: 12.5rem; text-align: center; padding: 1.5rem 1rem; }
+    @media (max-width: 900px) { .process-step { flex-basis: calc(50% - 0.75rem); } }
+    @media (max-width: 560px) { .process-step { flex-basis: 100%; } }
+    .process-step__num { width: 2.75rem; height: 2.75rem; border-radius: 50%; background: var(--nc-gold); display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-family: var(--font-display); font-weight: 900; font-size: 1rem; color: var(--nc-forest-1); }
+    .process-step__title { font-family: var(--font-display); font-weight: 800; font-size: 0.9rem; color: var(--nc-on-dark); margin-bottom: 0.5rem; }
+    .process-step__body { font-size: 0.82rem; color: var(--nc-on-dark-3); line-height: 1.65; }
 
-    .idx-section { background: linear-gradient(135deg, #0a5c6e 0%, #2089a0 100%); padding: 4.5rem 0; }
-    .idx-section__inner { display: grid; grid-template-columns: 1fr 1fr; gap: 3.5rem; align-items: start; }
-    @media (max-width: 860px) { .idx-section__inner { grid-template-columns: 1fr; } }
-    .idx-copy h2 { font-family: var(--font-heading); font-weight: 900; font-size: clamp(1.7rem, 3vw, 2.4rem); color: white; line-height: 1.1; margin-bottom: 0.9rem; }
-    .idx-copy h2 span { color: var(--gold); }
-    .idx-copy p { font-size: 0.96rem; color: rgba(255,255,255,0.8); line-height: 1.75; margin-bottom: 1.25rem; }
-    .idx-widget-card { background: rgba(255,255,255,0.1); backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.18); border-radius: 1.25rem; padding: 2rem; }
-    .idx-widget-card__label { font-family: var(--font-heading); font-size: 0.68rem; font-weight: 800; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-bottom: 0.5rem; }
-    .idx-widget-card__title { font-family: var(--font-display); font-weight: 900; font-size: 1.1rem; color: white; margin-bottom: 1.25rem; }
-    .idx-widget-inner { background: white; border-radius: 0.75rem; padding: 1rem; min-height: 60px; }
-    .idx-browse-btn { display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 1.25rem; background: white; color: var(--teal); font-family: var(--font-heading); font-weight: 800; font-size: 0.85rem; padding: 0.75rem 1.5rem; border-radius: 50px; text-decoration: none; transition: all 0.2s; box-shadow: 0 4px 14px rgba(0,0,0,0.12); }
-    .idx-browse-btn:hover { background: var(--gold); color: var(--navy); }
 
-    .faq-section { padding: 4.5rem 0; background: #f7f4ef; }
+    .faq-section { padding: 4.5rem 0; background: var(--nc-paper-2); }
     .faq-list { max-width: 740px; }
-    .faq-item { border-bottom: 1px solid #dde3ea; padding: 1.3rem 0; }
-    .faq-item:first-of-type { border-top: 1px solid #dde3ea; }
-    .faq-item__q { font-family: var(--font-heading); font-weight: 800; font-size: 0.95rem; color: var(--navy); margin-bottom: 0.55rem; line-height: 1.4; }
-    .faq-item__a { font-size: 0.88rem; color: var(--dark-gray); line-height: 1.72; }
+    .faq-item { border-bottom: 1px solid var(--nc-rule); padding: 1.3rem 0; }
+    .faq-item:first-of-type { border-top: 1px solid var(--nc-rule); }
+    .faq-item__q { font-family: var(--font-heading); font-weight: 800; font-size: 0.95rem; color: var(--nc-ink); margin-bottom: 0.55rem; line-height: 1.4; }
+    .faq-item__a { font-size: 0.88rem; color: var(--nc-ink-2); line-height: 1.72; }
 
     /* NewBuildIQ live data + lead magnet */
     .nbiq-live { margin-bottom: 2.75rem; }
     .nbiq-live__bar { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 1.1rem; }
-    .nbiq-live__dot { width: 9px; height: 9px; border-radius: 50%; background: #25c281; box-shadow: 0 0 0 4px rgba(37,194,129,0.18); flex-shrink: 0; }
-    .nbiq-live__label { font-family: var(--font-heading); font-weight: 800; font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--teal); }
-    .nbiq-cta { background: linear-gradient(135deg, #0c1f14 0%, #143524 60%, #1d4630 100%); padding: 4.5rem 0; }
+    .nbiq-live__dot { width: 9px; height: 9px; border-radius: 50%; background: var(--nc-gold); box-shadow: 0 0 0 4px var(--nc-gold-ghost); flex-shrink: 0; }
+    .nbiq-live__label { font-family: var(--font-heading); font-weight: 800; font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--nc-gold-deep); }
+    .nbiq-cta { background: var(--nc-ground); padding: 4.5rem 0; }
     .nbiq-cta__grid { display: grid; grid-template-columns: 1.05fr 1fr; gap: 3.5rem; align-items: center; }
     @media (max-width: 860px) { .nbiq-cta__grid { grid-template-columns: 1fr; gap: 2.25rem; } }
     .nbiq-cta__eyebrow { font-family: var(--font-heading); font-size: 0.72rem; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.8rem; display: block; }
-    .nbiq-cta__title { font-family: var(--font-display); font-weight: 900; font-size: clamp(1.7rem, 3.4vw, 2.5rem); color: white; line-height: 1.08; margin-bottom: 1rem; }
+    .nbiq-cta__title { font-family: var(--font-display); font-weight: 900; font-size: clamp(1.7rem, 3.4vw, 2.5rem); color: var(--nc-on-dark); line-height: 1.08; margin-bottom: 1rem; }
     .nbiq-cta__title span { color: var(--gold); }
-    .nbiq-cta__body { font-size: 0.98rem; color: rgba(255,255,255,0.78); line-height: 1.75; margin-bottom: 1.25rem; }
+    .nbiq-cta__body { font-size: 0.98rem; color: var(--nc-on-dark-2); line-height: 1.75; margin-bottom: 1.25rem; }
     .nbiq-cta__list { list-style: none; padding: 0; margin: 0 0 0.5rem; }
-    .nbiq-cta__list li { font-size: 0.9rem; color: rgba(255,255,255,0.8); padding: 0.32rem 0; display: flex; gap: 0.55rem; align-items: flex-start; }
+    .nbiq-cta__list li { font-size: 0.9rem; color: var(--nc-on-dark-2); padding: 0.32rem 0; display: flex; gap: 0.55rem; align-items: flex-start; }
     .nbiq-cta__list li::before { content: '✓'; color: var(--gold); font-weight: 800; flex-shrink: 0; }
-    .nbiq-card { background: rgba(255,255,255,0.07); backdrop-filter: blur(14px); border: 1px solid rgba(255,255,255,0.16); border-radius: 1.25rem; padding: 2rem 1.85rem; }
-    .nbiq-card__title { font-family: var(--font-display); font-weight: 900; font-size: 1.15rem; color: white; margin-bottom: 0.35rem; }
-    .nbiq-card__sub { font-size: 0.85rem; color: rgba(255,255,255,0.6); margin-bottom: 1.4rem; line-height: 1.55; }
+    .nbiq-card { background: var(--nc-glass); backdrop-filter: blur(14px); border: 1px solid var(--nc-hair); border-radius: 1.25rem; padding: 2rem 1.85rem; }
+    .nbiq-card__title { font-family: var(--font-display); font-weight: 900; font-size: 1.15rem; color: var(--nc-on-dark); margin-bottom: 0.35rem; }
+    .nbiq-card__sub { font-size: 0.85rem; color: var(--nc-on-dark-3); margin-bottom: 1.4rem; line-height: 1.55; }
     .nbiq-field { margin-bottom: 0.85rem; }
     .nbiq-field input[type=text], .nbiq-field input[type=email], .nbiq-field input[type=tel], .nbiq-field select {
-      width: 100%; box-sizing: border-box; background: rgba(255,255,255,0.95); border: 1px solid rgba(255,255,255,0.25);
-      border-radius: 9px; padding: 0.8rem 0.95rem; font-size: 0.95rem; font-family: inherit; color: var(--navy); }
-    .nbiq-field input::placeholder { color: #8a97a3; }
+      width: 100%; box-sizing: border-box; background: var(--nc-field); border: 1px solid var(--nc-field-rule);
+      border-radius: 9px; padding: 0.8rem 0.95rem; font-size: 0.95rem; font-family: inherit; color: var(--nc-ink); }
+    .nbiq-field input::placeholder { color: var(--nc-muted); }
     /* Community select — matches the lander's form (incentives.html). Sits muted
        like a placeholder until a real community is picked. */
-    .nbiq-field select { appearance: none; cursor: pointer; color: #8a97a3; padding-right: 2.4rem;
-      background-image: linear-gradient(45deg, transparent 50%, #8a97a3 50%), linear-gradient(135deg, #8a97a3 50%, transparent 50%);
+    .nbiq-field select { appearance: none; cursor: pointer; color: var(--nc-muted); padding-right: 2.4rem;
+      background-image: linear-gradient(45deg, transparent 50%, var(--nc-muted) 50%), linear-gradient(135deg, var(--nc-muted) 50%, transparent 50%);
       background-position: right 1.25rem center, right 0.95rem center;
       background-size: 0.34rem 0.34rem, 0.34rem 0.34rem; background-repeat: no-repeat; }
-    .nbiq-field select.is-picked { color: var(--navy); }
+    .nbiq-field select.is-picked { color: var(--nc-ink); }
     .nbiq-field select:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
     .nbiq-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; }
     @media (max-width: 480px) { .nbiq-row { grid-template-columns: 1fr; } }
-    .nbiq-consent { display: flex; gap: 0.55rem; align-items: flex-start; margin: 0.6rem 0 1.1rem; font-size: 0.72rem; color: rgba(255,255,255,0.6); line-height: 1.45; }
+    .nbiq-consent { display: flex; gap: 0.55rem; align-items: flex-start; margin: 0.6rem 0 1.1rem; font-size: 0.72rem; color: var(--nc-on-dark-3); line-height: 1.45; }
     .nbiq-consent input { margin-top: 0.15rem; flex-shrink: 0; }
-    .nbiq-submit { width: 100%; background: var(--gold); color: var(--navy); font-family: var(--font-heading); font-weight: 800; font-size: 0.95rem; border: 0; border-radius: 50px; padding: 0.95rem 1.5rem; cursor: pointer; transition: background 0.2s; }
-    .nbiq-submit:hover { background: #d4b86a; }
+    .nbiq-submit { width: 100%; background: var(--nc-gold); color: var(--nc-forest-1); font-family: var(--font-heading); font-weight: 800; font-size: 0.95rem; border: 0; border-radius: 50px; padding: 0.95rem 1.5rem; cursor: pointer; transition: background 0.2s; }
+    .nbiq-submit:hover { background: var(--nc-gold-lift); }
     .nbiq-submit:disabled { opacity: 0.6; cursor: default; }
     .nbiq-hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
     /* ── gated incentive reveal (post-submit) ── */
     .nbiq-reveal { margin-top: 1.4rem; }
-    .nbiq-reveal__head { font-family: var(--font-heading); font-weight: 900; color: #fff; font-size: 1.15rem; margin-bottom: 1rem; }
-    .nbiq-reveal__empty { color: rgba(255,255,255,0.8); font-size: 0.95rem; line-height: 1.6; }
+    .nbiq-reveal__head { font-family: var(--font-heading); font-weight: 900; color: var(--nc-on-dark); font-size: 1.15rem; margin-bottom: 1rem; }
+    .nbiq-reveal__empty { color: var(--nc-on-dark-2); font-size: 0.95rem; line-height: 1.6; }
     .nbiq-reveal__grid { display: grid; gap: 0.85rem; }
-    .nbiq-inc { background: #fff; border-radius: 12px; padding: 1rem 1.15rem; border-left: 4px solid var(--gold); }
+    .nbiq-inc { background: var(--nc-card); border-radius: 12px; padding: 1rem 1.15rem; border-left: 4px solid var(--gold); }
     .nbiq-inc__top { display: flex; justify-content: space-between; align-items: baseline; gap: 0.5rem; }
-    .nbiq-inc__builder { font-family: var(--font-heading); font-weight: 800; color: var(--navy); font-size: 1rem; }
-    .nbiq-inc__where { font-size: 0.72rem; color: var(--teal); font-weight: 700; }
-    .nbiq-inc__type { color: var(--teal); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.66rem; margin: 0.15rem 0 0.5rem; }
-    .nbiq-inc__amt { color: var(--text-dark); font-size: 0.95rem; line-height: 1.5; }
-    .nbiq-inc__lender { color: var(--dark-gray); font-size: 0.82rem; margin-top: 0.4rem; }
-    .nbiq-inc__exp { display: inline-block; margin-top: 0.6rem; background: #fbf4e2; color: var(--gold-dark); font-weight: 700; font-size: 0.72rem; padding: 0.25rem 0.7rem; border-radius: 50px; }
-    .nbiq-reveal__disc { color: rgba(255,255,255,0.5); font-size: 0.72rem; line-height: 1.55; margin-top: 1rem; }
-    .nbiq-reveal__cta { color: #fff; font-weight: 600; font-size: 0.92rem; margin-top: 0.9rem; }
+    .nbiq-inc__builder { font-family: var(--font-heading); font-weight: 800; color: var(--nc-ink); font-size: 1rem; }
+    .nbiq-inc__where { font-size: 0.72rem; color: var(--nc-gold-deep); font-weight: 700; }
+    .nbiq-inc__type { color: var(--nc-gold-deep); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.66rem; margin: 0.15rem 0 0.5rem; }
+    .nbiq-inc__amt { color: var(--nc-ink); font-size: 0.95rem; line-height: 1.5; }
+    .nbiq-inc__lender { color: var(--nc-muted); font-size: 0.82rem; margin-top: 0.4rem; }
+    .nbiq-inc__exp { display: inline-block; margin-top: 0.6rem; background: var(--nc-gold-wash); color: var(--nc-gold-deep); font-weight: 700; font-size: 0.72rem; padding: 0.25rem 0.7rem; border-radius: 50px; }
+    .nbiq-reveal__disc { color: var(--nc-on-dark-3); font-size: 0.72rem; line-height: 1.55; margin-top: 1rem; }
+    .nbiq-reveal__cta { color: var(--nc-on-dark); font-weight: 600; font-size: 0.92rem; margin-top: 0.9rem; }
     .nbiq-reveal__cta a { color: var(--gold); font-weight: 800; }
   </style>
 
@@ -372,53 +415,45 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
           <span class="section-eyebrow">Your Advantage</span>
           <h2 class="section-title" id="why-heading">Why You Need a <span>REALTOR®</span> for New Construction</h2>
           <div class="guide-body">
-            <p>The builder's on-site sales agent has one job: maximize the builder's profit. They're professionals at it. You need someone in your corner — and working with Phil doesn't change the price you pay for the home or get you a worse deal.</p>
-            <p>Phil has walked hundreds of new construction deals in South Houston. He knows which builders deliver on their promises, which upgrades are worth paying for, and what the contract language actually means when things go sideways during the build.</p>
-            <p>From your first model home visit through the final walk-through punch list, Phil protects your investment at every stage.</p>
+            <p>The builder&rsquo;s on-site sales agent has one job: maximize the builder&rsquo;s profit. They&rsquo;re professionals at it. Everything you learn about that home, that contract and that community comes from someone paid by the other side of the table.</p>
+            <p>Most production builders now build spec &mdash; homes designed, started and finished before a buyer ever walks in. It keeps their costs predictable and their schedules short. It also means you aren&rsquo;t choosing finishes or negotiating options. You&rsquo;re choosing between finished houses, and the leverage sits in price, terms, and knowing which house.</p>
+            <p>Phil has over 20 years in real estate, with experience as a mortgage lender, REALTOR&reg; and investor. On a new build the negotiation is financing-shaped, so that second half matters as much as the first &mdash; and working with him doesn&rsquo;t change the price you pay for the home or get you a worse deal.</p>
           </div>
-          <div class="guide-highlights" style="margin-top:1.75rem;">
-            <div class="guide-highlights__title">What Phil Does on Your Build</div>
-            <ul class="guide-highlights__list">
-              <li>Negotiates upgrades, lot premiums & closing cost contributions</li>
-              <li>Reviews the builder's contract — not the same as a resale contract</li>
-              <li>Recommends an independent inspector (not the builder's)</li>
-              <li>Attends framing walk, pre-drywall inspection & final walkthrough</li>
-              <li>Identifies quality issues before they're covered up</li>
-              <li>Manages your warranty claims during the builder's 1-year period</li>
-            </ul>
+          <div class="guide-callout">
+            <p>You&rsquo;re not doing this alone, <span>trusting the builder to tell you what you need to know.</span></p>
           </div>
         </div>
         <div>
           <div class="reason-grid">
             <div class="reason-card">
               <div class="reason-card__num">01</div>
-              <div class="reason-card__title">Contract Protection</div>
-              <div class="reason-card__body">Builder contracts favor the builder. Phil flags the clauses that let them change specs, delay closings, or void your deal — before you sign.</div>
+              <div class="reason-card__title">The Contract</div>
+              <div class="reason-card__body">Builder contracts are written by the industry&rsquo;s best lawyers, and they are written to protect the builder. Misreading one can cost you your earnest money &mdash; or the house you already fell in love with. Phil reviews it with you so you understand the risks before you sign.</div>
             </div>
             <div class="reason-card">
               <div class="reason-card__num">02</div>
-              <div class="reason-card__title">Upgrade Negotiation</div>
-              <div class="reason-card__body">Builders move on incentives more than price. Phil knows what's standard in each community and what's genuinely negotiable for your build date.</div>
+              <div class="reason-card__title">The Incentives</div>
+              <div class="reason-card__body">Builder incentives are complicated, and they are deliberately hard to compare from one builder to the next. Phil helps you understand what each one is actually worth, so you get the house you want at the best price and terms available.</div>
             </div>
             <div class="reason-card">
               <div class="reason-card__num">03</div>
-              <div class="reason-card__title">Lot Selection</div>
-              <div class="reason-card__body">Not all lots are equal. Phil evaluates drainage, elevation, neighbor proximity, and future development that the builder won't volunteer.</div>
+              <div class="reason-card__title">Community Selection</div>
+              <div class="reason-card__body">A builder&rsquo;s agent can only ever recommend their own community. Phil guides you through the selection &mdash; amenities, nearby businesses, commute times, and the lifestyle needs that decide whether a place actually fits.</div>
             </div>
             <div class="reason-card">
               <div class="reason-card__num">04</div>
-              <div class="reason-card__title">Builder Reputation</div>
-              <div class="reason-card__body">Phil has firsthand experience with the major builders in this market — construction quality, customer service, and how they handle warranty claims.</div>
+              <div class="reason-card__title">Builder Track Record</div>
+              <div class="reason-card__body">You didn&rsquo;t watch this house go up, so the builder&rsquo;s record is your best read on what&rsquo;s behind the drywall. Phil has firsthand experience with the major builders here &mdash; construction quality, customer service, and how they actually handle warranty claims.</div>
             </div>
             <div class="reason-card">
               <div class="reason-card__num">05</div>
-              <div class="reason-card__title">School Zone Clarity</div>
-              <div class="reason-card__body">New communities sometimes straddle district boundaries. Phil verifies the exact school assignment for every lot you consider.</div>
+              <div class="reason-card__title">School Zones</div>
+              <div class="reason-card__body">New communities sometimes straddle district boundaries. Phil verifies the exact school assignment for the specific address you&rsquo;re considering &mdash; not the one on the community brochure.</div>
             </div>
             <div class="reason-card">
               <div class="reason-card__num">06</div>
               <div class="reason-card__title">Same Price, Either Way</div>
-              <div class="reason-card__body">Working with Phil doesn't change the price you pay for the home or get you a worse deal with the builder. How his commission is handled is part of the negotiation — so there's no reason to go in without representation.</div>
+              <div class="reason-card__body">Working with Phil doesn't change the price you pay for the home or get you a worse deal with the builder. How his commission is handled is part of the negotiation &mdash; so there's no reason to go in without representation.</div>
             </div>
           </div>
         </div>
@@ -755,47 +790,43 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
       <div class="process-grid">
         <div class="process-step">
           <div class="process-step__num">1</div>
-          <div class="process-step__title">Community & Builder Selection</div>
-          <div class="process-step__body">Phil matches your priorities — school zone, commute, lot size, price — to the right community and builder combination. He knows which builders deliver.</div>
+          <div class="process-step__title">Community Selection</div>
+          <div class="process-step__body">Phil walks you through the communities themselves &mdash; amenities, nearby businesses, commute times, and how each one fits the way you actually live.</div>
         </div>
         <div class="process-step">
           <div class="process-step__num">2</div>
-          <div class="process-step__title">Contract & Negotiation</div>
-          <div class="process-step__body">Phil reviews the builder contract, identifies favorable contingencies, and negotiates upgrades, closing costs, and rate buydowns on your behalf.</div>
+          <div class="process-step__title">New Home Tours</div>
+          <div class="process-step__body">Several communities in one run, so floor plans, finishes and lot sizes compare side by side while they&rsquo;re still fresh &mdash; not from memory across three weekends.</div>
         </div>
         <div class="process-step">
           <div class="process-step__num">3</div>
-          <div class="process-step__title">Build Milestone Visits</div>
-          <div class="process-step__body">Phil attends your framing walk, pre-drywall inspection, and final walkthrough with an independent inspector — catching issues before they're permanent.</div>
+          <div class="process-step__title">Negotiation</div>
+          <div class="process-step__body">Phil knows where each builder has room and where they don&rsquo;t. He negotiates price, financing incentives and closing costs &mdash; the levers that actually move on a production home.</div>
         </div>
         <div class="process-step">
           <div class="process-step__num">4</div>
-          <div class="process-step__title">Closing & Warranty</div>
-          <div class="process-step__body">Phil guides you through the final walk, punch list, and closing. He stays engaged during your builder's 1-year warranty period to help document and resolve claims.</div>
+          <div class="process-step__title">Contract Review</div>
+          <div class="process-step__body">Phil goes through the builder&rsquo;s contract with you, builder-side contingencies included, so you sign knowing what you&rsquo;ve agreed to and where the risk sits.</div>
+        </div>
+        <div class="process-step">
+          <div class="process-step__num">5</div>
+          <div class="process-step__title">Independent Inspection</div>
+          <div class="process-step__body">Phil lines up a credible inspector who works for you, not the builder &mdash; so the house is looked at by someone on your side of the deal.</div>
+        </div>
+        <div class="process-step">
+          <div class="process-step__num">6</div>
+          <div class="process-step__title">Blue Tape &amp; Final Walk</div>
+          <div class="process-step__body">Phil attends both walks, documents the deficiencies, and pushes the builder to work through the list before you close.</div>
+        </div>
+        <div class="process-step">
+          <div class="process-step__num">7</div>
+          <div class="process-step__title">Closing</div>
+          <div class="process-step__body">Phil is at the closing table confirming that what you agreed to is what&rsquo;s on the paper in front of you.</div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="idx-section" aria-labelledby="idx-heading">
-    <div class="container">
-      <div class="idx-section__inner">
-        <div class="idx-copy">
-          <h2 id="idx-heading">Search <span>New Construction</span> Listings</h2>
-          <p>Find spec homes, quick move-ins, and new construction listings across League City, Pearland, and Manvel — updated daily from HAR MLS.</p>
-          <p>Phil can also access pre-MLS builder inventory and lot release schedules not visible in the public search. Ask him what's coming.</p>
-        </div>
-        <div class="idx-widget-card">
-          <p class="idx-widget-card__label">Powered by IDXBroker · Houston MLS</p>
-          <h3 class="idx-widget-card__title">Search by Community or Zip Code</h3>
-          <div class="idx-widget-inner">
-            <script id="idxaddons-autocomplete-script" src="https://idxaddons.com/addon/searchtool/NWJfWXV2c0ctOEQ%3DDbVFmnXAMYT/?citylist=c047&srt=newest&dfltstatus=Active" data-placeholder="77573, 77089, 77578..." data-dropdown="n"></script>
-          </div>
-          <a href="https://philliphimes.idxbroker.com/idx/search/advanced" class="idx-browse-btn" target="_blank" rel="noopener">Browse All New Listings →</a>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <section class="faq-section" aria-labelledby="faq-heading">
     <div class="container">
@@ -809,7 +840,7 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
         <div class="faq-list">
           <div class="faq-item">
             <p class="faq-item__q">Do I need a REALTOR® to buy new construction?</p>
-            <p class="faq-item__a">Yes — and working with your own REALTOR® doesn't change the price you pay or get you a worse deal. Builder sales agents work for the builder, not you. Bringing Phil gives you independent representation to negotiate upgrades, review contracts, and protect your interests. How the buyer's-agent commission is handled is part of the agreement, and Phil explains it before you sign anything.</p>
+            <p class="faq-item__a">Yes — and working with your own REALTOR® doesn't change the price you pay or get you a worse deal. Builder sales agents work for the builder, not you. Bringing Phil gives you independent representation to negotiate price and terms, review the contract, and protect your interests through closing. How the buyer's-agent commission is handled is part of the agreement, and Phil explains it before you sign anything.</p>
           </div>
           <div class="faq-item">
             <p class="faq-item__q">What new construction communities are near League City TX?</p>
@@ -817,15 +848,15 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
           </div>
           <div class="faq-item">
             <p class="faq-item__q">How much does new construction cost near League City TX?</p>
-            <p class="faq-item__a">New construction starts as low as the mid $250s at Avellino in Manvel (KB Home). Westland Ranch in League City starts from the $270s. Manvel and Pearland communities (Meridiana, Pomona, Massey Oaks) typically run from the low $300s to high $400s. League City CCISD communities (Legacy, Coastal Point) start in the high $300s to $400s. Friendswood FISD new construction starts from the $400s to $600s. Lot premiums, elevation selections, and design center upgrades all add to the base price.</p>
+            <p class="faq-item__a">New construction starts as low as the mid $250s at Avellino in Manvel (KB Home). Westland Ranch in League City starts from the $270s. Manvel and Pearland communities (Meridiana, Pomona, Massey Oaks) typically run from the low $300s to high $400s. League City CCISD communities (Legacy, Coastal Point) start in the high $300s to $400s. Friendswood FISD new construction starts from the $400s to $600s. The floor plan, the lot premium, and the upgrade package already in a given house are what move it above that base price.</p>
           </div>
           <div class="faq-item">
             <p class="faq-item__q">How long does it take to build a new home?</p>
-            <p class="faq-item__a">Quick move-in spec homes can close in 30–60 days. Standard production builds take 4–6 months from contract. Semi-custom builds with your selections take 6–9 months. Custom homes on your lot run 10–14 months or more. Phil monitors your timeline and attends all key build milestones.</p>
+            <p class="faq-item__a">Production builders complete homes in about 4–6 months. A home already under construction when you contract will be shorter than that, and a finished quick move-in can close in 30–60 days. Phil tracks the timeline and attends the inspection and both walk-throughs.</p>
           </div>
           <div class="faq-item">
             <p class="faq-item__q">Can I negotiate on a new construction home?</p>
-            <p class="faq-item__a">Yes — builders rarely reduce base price but regularly offer incentives: free upgrades, closing cost contributions, preferred lender rate buydowns, or appliance packages. Leverage is highest at quarter-end when builders need to hit sales targets. Phil knows which builders are negotiating and when, and he has existing relationships that typically produce better outcomes than going in alone.</p>
+            <p class="faq-item__a">Yes — builders rarely reduce base price but regularly offer incentives: included upgrade packages, closing cost contributions, preferred-lender rate buydowns, or appliances. Leverage is highest at quarter-end when builders need to hit sales targets. Phil knows which builders are negotiating and when, and he has existing relationships that typically produce better outcomes than going in alone.</p>
           </div>
         </div>
       </div>
