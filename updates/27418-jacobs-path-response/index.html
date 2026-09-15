@@ -93,6 +93,32 @@
     .step:nth-child(n+3){border-top:1px solid rgba(255,255,255,.10)}
   }
 
+  /* video */
+  .stage{background:#16324F;padding:34px 0 38px}
+  video{width:100%;aspect-ratio:16/9;border-radius:10px;display:block;background:#0D1D2E;border:1px solid rgba(255,255,255,.12)}
+  video:focus-visible{outline:3px solid #D8B76A;outline-offset:3px}
+  .vph{
+    aspect-ratio:16/9; border-radius:10px; border:1.5px dashed rgba(216,183,106,.55);
+    background:radial-gradient(70% 90% at 50% 50%, rgba(32,137,160,.16) 0%, rgba(32,137,160,0) 70%), #0D1D2E;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:12px; text-align:center; padding:20px;
+  }
+  .vph .play{width:64px;height:64px;border-radius:50%;border:2px solid #D8B76A;position:relative;flex:none}
+  .vph .play::after{
+    content:""; position:absolute; left:25px; top:19px;
+    border-left:19px solid #D8B76A; border-top:12px solid transparent; border-bottom:12px solid transparent;
+  }
+  .vph .t{font-family:var(--serif);font-size:21px;color:#fff;font-weight:600}
+  .vph .s{font-size:11.5px;letter-spacing:1.6px;text-transform:uppercase;color:#D8B76A;font-weight:700}
+  .runtime{color:#C7D3DE;font-size:12.5px;margin-top:10px;text-align:center}
+  @media (max-width:560px){.vph .play{width:50px;height:50px}.vph .play::after{left:19px;top:13px;border-left-width:16px;border-top-width:10px;border-bottom-width:10px}.vph .t{font-size:18px}}
+
+  /* excluded sales */
+  .excluded td.why{min-width:320px;font-size:14px;line-height:1.5}
+  .excluded .price{color:var(--mute)}
+  .excluded .tag{margin-bottom:5px}
+  .tag.new{background:var(--tag-gold-bg);color:var(--tag-gold-ink)}
+
   /* body */
   main{padding:38px 0 10px}
   .lede{font-size:18px;line-height:1.6}
@@ -253,27 +279,43 @@
   </div>
 </div>
 
+<div class="stage">
+  <div class="wrap">
+    <!-- VIDEO PLACEHOLDER. When the walkthrough is ready, replace the .vph div below with:
+    <video controls playsinline preload="metadata" poster="poster.jpg"
+      src="https://assets.cdn.filesafe.space/l8dNWKKtBchv50jZJYBL/media/VIDEO-ID.mp4">
+      Your browser cannot play this video.
+    </video>
+    Host the mp4 on the GHL media CDN or R2. Never commit the mp4 to this repo. -->
+    <div class="vph" role="img" aria-label="Video walkthrough placeholder">
+      <div class="play"></div>
+      <div class="t">Walkthrough of the comparable sales</div>
+      <div class="s">Video coming soon</div>
+    </div>
+    <div class="runtime">Phil walks through each sale and adjustment</div>
+  </div>
+</div>
+
 <main class="wrap">
 
   <div class="figures">
     <div class="fig lead"><div class="v">$1,650,000</div><div class="l">Our offer</div></div>
-    <div class="fig"><div class="v">$1,632,443</div><div class="l">Median, six adjusted sales</div></div>
-    <div class="fig"><div class="v">$1,636,500</div><div class="l">Median, six sale prices unadjusted</div></div>
-    <div class="fig"><div class="v">$1,733,394</div><div class="l">Average, six adjusted sales</div></div>
+    <div class="fig"><div class="v">$1,658,248</div><div class="l">Median, five adjusted sales</div></div>
+    <div class="fig"><div class="v">$1,623,000</div><div class="l">Median, five sale prices unadjusted</div></div>
+    <div class="fig"><div class="v">$1,778,520</div><div class="l">Average, five adjusted sales</div></div>
   </div>
 
   <div class="statement">
-    Our offer sits <b>$17,557 above the median</b> of the six closest sales in Benders Landing
+    Our offer sits <b>within $8,248 of the median</b> of the five closest sales in Benders Landing
     Estates, after adjusting each one to this house. It is not a low-ball. It is where the
     data puts the home.
   </div>
 
   <div class="eyebrow">The evidence</div>
-  <h2>Six sales in Benders Landing Estates this year</h2>
+  <h2>Five sales in Benders Landing Estates this year</h2>
   <div class="prose">
     <p>These are the resales in the neighborhood between 5,000 and 7,000 square feet, off the water, that
-    closed between April and August, plus the lakefront sale closest to this home in size. All six have a
-    private pool.</p>
+    closed between April and August. All five have a private pool.</p>
   </div>
 
   <div class="tablewrap comps">
@@ -311,12 +353,6 @@
           <td><span class="tag pool">Pool</span></td>
         </tr>
         <tr>
-          <td class="addr">5506 Balsam Fir Ct</td><td class="dim">Aug 13, 2026</td>
-          <td class="num price">$1,650,000</td><td class="num">6,062</td><td class="num">$272</td>
-          <td class="dim">5 / 5.2</td><td class="num">2013</td><td class="num">1.24 ac</td>
-          <td><span class="tag pool">Pool</span><span class="tag water">Lakefront</span></td>
-        </tr>
-        <tr>
           <td class="addr">28007 Whispering Maple Way</td><td class="dim">Jun 22, 2026</td>
           <td class="num price">$2,400,000</td><td class="num">6,793</td><td class="num">$353</td>
           <td class="dim">4 / 4.1</td><td class="num">2014</td><td class="num">2.00 ac</td>
@@ -331,14 +367,55 @@
       </tbody>
     </table>
   </div>
-  <p class="caption">Sold prices as reported to HAR. 5506 Balsam Fir included $18,000 in seller-paid
-  repairs; 28007 Whispering Maple included $10,000. Both are deducted below.</p>
+  <p class="caption">Sold prices as reported to HAR. 28007 Whispering Maple included $10,000 in
+  seller-paid repairs, deducted below.</p>
+
+  <div class="eyebrow">Excluded</div>
+  <h2>Three sales we did not use, and why</h2>
+  <div class="prose">
+    <p>A comparable sale has to describe the same kind of house. These three are close in size and
+    sold this year, but each has something 27418 does not, and no adjustment could fairly price it out.</p>
+  </div>
+
+  <div class="tablewrap comps excluded">
+    <table>
+      <thead>
+        <tr>
+          <th>Address</th><th>Closed</th><th class="num">Sold</th><th class="num">Sqft</th>
+          <th class="num">$/sqft</th><th>Why it is not a comp</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="addr">3438 W Benders Landing Blvd</td><td class="dim">May 14, 2026</td>
+          <td class="num price">$2,840,000</td><td class="num">6,704</td><td class="num">$424</td>
+          <td class="why"><span class="tag water">Lakefront</span><br>Waterfront property. It also sits in
+          Benders Landing, a separate subdivision from the Estates, and sold $145,000 over asking in two days.</td>
+        </tr>
+        <tr>
+          <td class="addr">5506 Balsam Fir Ct</td><td class="dim">Aug 13, 2026</td>
+          <td class="num price">$1,650,000</td><td class="num">6,062</td><td class="num">$272</td>
+          <td class="why"><span class="tag water">Lakefront</span><br>Waterfront property. 27418 has no
+          water frontage, so this sale does not describe the same house.</td>
+        </tr>
+        <tr>
+          <td class="addr">6318 N Lazy Meadow Way</td><td class="dim">Jun 29, 2026</td>
+          <td class="num price">$2,850,000</td><td class="num">6,035</td><td class="num">$472</td>
+          <td class="why"><span class="tag new">Total remodel</span><br>Superior finishes and amenities
+          throughout: golf simulator, double-island kitchen, home gym, outdoor fire pit with a sunken
+          patio, pool and spa. It sold $250,000 over asking in two days.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="caption">Two other water sales in the same size range, 27306 Owosso Ct (lake view) and
+  5402 White Birch Run (lakefront), were left out for the same reason.</p>
 
   <div class="eyebrow">Adjustments</div>
   <h2>Each sale, adjusted to 27418</h2>
   <div class="prose">
     <p>Every sale differs from this house in size, age, acreage, and whether it has a pool.
-    The grid prices each difference in dollars and applies it to the comparable, so all six
+    The grid prices each difference in dollars and applies it to the comparable, so all five
     end up describing 27418. A plus sign means the comparable is lacking something 27418 has.
     A minus sign means the comparable has something 27418 does not.</p>
   </div>
@@ -352,7 +429,6 @@
           <th>27494 S Lazy Meadow<span class="sub">5,213 sf &middot; 2020 &middot; 1.48 ac</span></th>
           <th>27302 Keystone Bend<span class="sub">5,314 sf &middot; 2013 &middot; 1.00 ac</span></th>
           <th>5342 Pine Wood Hills<span class="sub">5,261 sf &middot; 2012 &middot; 2.10 ac</span></th>
-          <th>5506 Balsam Fir<span class="sub">6,062 sf &middot; 2013 &middot; 1.24 ac</span></th>
           <th>28007 Whispering Maple<span class="sub">6,793 sf &middot; 2014 &middot; 2.00 ac</span></th>
         </tr>
       </thead>
@@ -360,52 +436,47 @@
         <tr class="sold">
           <td>Sold price</td>
           <td class="num">$1,584,000</td><td class="num">$1,757,000</td><td class="num">$1,475,000</td>
-          <td class="num">$1,623,000</td><td class="num">$1,650,000</td><td class="num">$2,400,000</td>
+          <td class="num">$1,623,000</td><td class="num">$2,400,000</td>
         </tr>
         <tr>
           <td>Seller concessions</td>
           <td class="num zero">&mdash;</td><td class="num zero">&mdash;</td><td class="num zero">&mdash;</td>
-          <td class="num zero">&mdash;</td><td class="num neg">&minus;$18,000</td><td class="num neg">&minus;$10,000</td>
+          <td class="num zero">&mdash;</td><td class="num neg">&minus;$10,000</td>
         </tr>
         <tr>
           <td>Living area<span class="rate">$110 per sqft</span></td>
           <td class="num pos">+$50,710</td><td class="num pos">+$160,820</td><td class="num pos">+$149,710</td>
-          <td class="num pos">+$155,540</td><td class="num pos">+$67,430</td><td class="num neg">&minus;$12,980</td>
+          <td class="num pos">+$155,540</td><td class="num neg">&minus;$12,980</td>
         </tr>
         <tr>
           <td>Private pool<span class="rate">27418 has none</span></td>
           <td class="num neg">&minus;$75,000</td><td class="num neg">&minus;$75,000</td><td class="num neg">&minus;$75,000</td>
-          <td class="num neg">&minus;$75,000</td><td class="num neg">&minus;$75,000</td><td class="num neg">&minus;$75,000</td>
+          <td class="num neg">&minus;$75,000</td><td class="num neg">&minus;$75,000</td>
         </tr>
         <tr>
           <td>Year built<span class="rate">$7,500 per year</span></td>
           <td class="num pos">+$22,500</td><td class="num neg">&minus;$15,000</td><td class="num pos">+$37,500</td>
-          <td class="num pos">+$45,000</td><td class="num pos">+$37,500</td><td class="num pos">+$30,000</td>
+          <td class="num pos">+$45,000</td><td class="num pos">+$30,000</td>
         </tr>
         <tr>
           <td>Acreage<span class="rate">$100,000 per acre</span></td>
           <td class="num neg">&minus;$20,551</td><td class="num neg">&minus;$42,991</td><td class="num pos">+$4,428</td>
-          <td class="num neg">&minus;$105,292</td><td class="num neg">&minus;$19,171</td><td class="num neg">&minus;$95,792</td>
-        </tr>
-        <tr>
-          <td>Lake frontage</td>
-          <td class="num zero">&mdash;</td><td class="num zero">&mdash;</td><td class="num zero">&mdash;</td>
-          <td class="num zero">&mdash;</td><td class="num neg">&minus;$150,000</td><td class="num zero">&mdash;</td>
+          <td class="num neg">&minus;$105,292</td><td class="num neg">&minus;$95,792</td>
         </tr>
         <tr>
           <td>Whole-home generator<span class="rate">27418 has one</span></td>
           <td class="num pos">+$15,000</td><td class="num pos">+$15,000</td><td class="num pos">+$15,000</td>
-          <td class="num pos">+$15,000</td><td class="num pos">+$15,000</td><td class="num pos">+$15,000</td>
+          <td class="num pos">+$15,000</td><td class="num pos">+$15,000</td>
         </tr>
         <tr class="net">
           <td>Net adjustment</td>
           <td class="num neg">&minus;$7,341</td><td class="num pos">+$42,829</td><td class="num pos">+$131,638</td>
-          <td class="num pos">+$35,248</td><td class="num neg">&minus;$142,241</td><td class="num neg">&minus;$148,772</td>
+          <td class="num pos">+$35,248</td><td class="num neg">&minus;$148,772</td>
         </tr>
         <tr class="result">
           <td>Adjusted to 27418</td>
           <td class="num">$1,576,659</td><td class="num">$1,799,829</td><td class="num">$1,606,638</td>
-          <td class="num">$1,658,248</td><td class="num">$1,507,759</td><td class="num outlier">$2,251,228</td>
+          <td class="num">$1,658,248</td><td class="num outlier">$2,251,228</td>
         </tr>
       </tbody>
     </table>
@@ -417,7 +488,7 @@
   <div class="eyebrow">The pool</div>
   <h2>Every sale in this set has a pool. 27418 does not.</h2>
   <div class="prose">
-    <p>At this price, in this neighborhood, a private pool is expected. The six closest sales all have
+    <p>At this price, in this neighborhood, a private pool is expected. The five closest sales all have
     one, and so does every resale between 6,000 and 7,500 square feet currently for sale in Benders Landing Estates.
     A buyer here is weighing this house against homes that already have the backyard finished.</p>
     <p>The grid deducts <strong>$75,000</strong> for it. That is a conservative figure: it is what the pool
@@ -428,14 +499,14 @@
   <div class="points">
     <div class="pt">
       <div class="pt-t">Credit where it is due</div>
-      <div class="pt-b">27418 is newer than five of the six sales, and the grid adds up to $45,000 for that.
+      <div class="pt-b">27418 is newer than four of the five sales, and the grid adds up to $45,000 for that.
       The casita, theater and game room are all inside the 6,675 square feet it is credited for, and the
       generator is added on top.</div>
     </div>
     <div class="pt">
-      <div class="pt-t">The lakefront sale</div>
-      <div class="pt-b">5506 Balsam Fir sits on the water and still closed at $272 a square foot after
-      $18,000 in repairs. Even with lake frontage, a large home here did not reach $1.8 million.</div>
+      <div class="pt-t">The closest match</div>
+      <div class="pt-b">27322 Silver Jade is the nearest in size at 6,214 square feet and needed the
+      least adjusting of any sale but one. It listed at $1,825,000 and closed at $1,584,000.</div>
     </div>
   </div>
 
@@ -512,15 +583,15 @@
   </div>
 
   <div class="figures three">
-    <div class="fig"><div class="v">$1,733,394</div><div class="l">Average with Whispering Maple</div></div>
-    <div class="fig"><div class="v">$1,629,827</div><div class="l">Average without it</div></div>
-    <div class="fig lead"><div class="v">$1,632,443</div><div class="l">Median with it</div></div>
+    <div class="fig"><div class="v">$1,778,520</div><div class="l">Average with Whispering Maple</div></div>
+    <div class="fig"><div class="v">$1,660,344</div><div class="l">Average without it</div></div>
+    <div class="fig lead"><div class="v">$1,658,248</div><div class="l">Median with it</div></div>
   </div>
 
   <div class="prose">
-    <p>One sale moves the average by <strong>$103,567</strong>. The median keeps that sale in the set and
+    <p>One sale moves the average by <strong>$118,176</strong>. The median keeps that sale in the set and
     lets it set the top of the range, without dragging the middle upward. The median lands within
-    $3,000 of the average without it, which tells us the other five sales agree with each other.</p>
+    $2,100 of the average without it, which tells us the other four sales agree with each other.</p>
     <p>The same logic is why I did not price this home off the neighborhood&rsquo;s price per square foot.
     Four homes over 6,000 square feet are listed at $280 to $296 a foot today, and they have been
     sitting for 66 to 432 days. Buyers are not paying those numbers for large homes here.</p>
@@ -529,10 +600,10 @@
   <div class="signoff">
     <h2>Where that leaves us</h2>
     <div class="prose">
-      <p>Adjusted to this house, the six closest sales put 27418 Jacobs Path Lane at a median of
-      <strong>$1,632,443</strong>. Our offer of <strong>$1,650,000</strong> is above that number.
-      It also accounts for what the listing has already shown: 115 days and two reductions at
-      prices above it.</p>
+      <p>Adjusted to this house, the five closest sales put 27418 Jacobs Path Lane at a median of
+      <strong>$1,658,248</strong>. Our offer of <strong>$1,650,000</strong> is within $8,248 of that
+      number. It also accounts for what the listing has already shown: 115 days and two reductions at
+      prices well above it.</p>
       <p>If you would like to go through any of these sales or adjustments in more detail, call me.
       I appreciate the dialogue.</p>
     </div>
