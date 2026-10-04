@@ -38,7 +38,7 @@ const LISTINGS = [
     address:   '2222 Scenic Shore Drive',
     city:      'Seabrook, TX',
     community: 'Seabrook Island',
-    price:     '$479,900',
+    price:     '$459,900',
     beds:      '4',
     baths:     '3½',
     sqft:      '3,129',
