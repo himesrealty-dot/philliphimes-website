@@ -243,6 +243,9 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
       window.scrollTo(0, 0);
     }
 
+    // Private preview link (?preview=1): skip the gate without submitting a lead
+    if (new URLSearchParams(window.location.search).get('preview') === '1') { reveal(); }
+
     form.addEventListener('submit', async function (e) {
       e.preventDefault();
       var data = {};
