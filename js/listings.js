@@ -22,7 +22,7 @@ const LISTINGS = [
     address:   '6310 Star Light Court',
     city:      'Spring, TX',
     community: 'Benders Landing Estates',
-    price:     '$1,425,000',
+    price:     '$1,349,000',
     beds:      '4',
     baths:     '4½',
     sqft:      '3,862',
