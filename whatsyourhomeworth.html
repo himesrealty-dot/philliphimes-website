@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>What's Your Home Worth? | Phillip Himes, REALTOR&reg;</title>
+  <meta name="description" content="Find out what your Houston Bay Area home is worth. Phil personally reviews recent sales near you and sends a real number — not just an algorithm." />
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/landing-footer.css" />
+  <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png" />
+
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '920421110921173');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+
+  <style>
+    body { background: #0d2137; margin: 0; }
+
+    .skip { position: absolute; left: -9999px; top: 0; z-index: 100; background: var(--gold); color: var(--navy);
+      padding: 0.6rem 1rem; border-radius: 6px; font-weight: 700; text-decoration: none; }
+    .skip:focus { left: 1rem; top: 1rem; }
+
+    /* ─── Brand bar (not navigation — the form is the only exit) ─── */
+    .hw-bar { background: #0a1c2e; border-bottom: 1px solid rgba(255,255,255,0.08); padding: 0.85rem 0; }
+    .hw-bar__in { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+    .hw-bar__logo { height: 34px; width: auto; display: block; border-radius: 3px; }
+    .hw-bar__tel { color: rgba(255,255,255,0.82); font-family: var(--font-heading); font-weight: 700;
+      font-size: 0.9rem; text-decoration: none; white-space: nowrap; }
+    .hw-bar__tel:hover { color: #fff; }
+
+    /* ─── Page section (same gradient as sellers.html Stage 1) ─── */
+    .hv-section {
+      background: linear-gradient(135deg, #1B3A5C 0%, #2089A0 100%);
+      padding: 4rem 0 4.5rem; position: relative; overflow: hidden; min-height: calc(100vh - 62px);
+      box-sizing: border-box;
+    }
+    .hv-section::after {
+      content: 'Home Value'; position: absolute; bottom: -1rem; right: 0.5rem;
+      font-family: var(--font-heading); font-size: 7rem; font-weight: 900;
+      color: rgba(255,255,255,0.04); pointer-events: none; white-space: nowrap; line-height: 1;
+    }
+    @media (max-width: 560px) { .hv-section { padding: 2rem 0 3rem; } .hv-section::after { font-size: 4rem; } }
+
+    /* Wizard h1 (sellers uses h2 — this page's only heading) */
+    h1.hvw__title { margin-top: 0; }
+
+    /* ─── Trust strip under the card ─── */
+    .hw-trust { max-width: 640px; margin: 1.75rem auto 0; position: relative; z-index: 1;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; }
+    .hw-trust__item { text-align: center; color: rgba(255,255,255,0.78); font-size: 0.8rem; line-height: 1.45; }
+    .hw-trust__item strong { display: block; color: #fff; font-family: var(--font-heading); font-size: 0.82rem;
+      font-weight: 800; letter-spacing: 0.02em; margin-bottom: 0.2rem; }
+    @media (max-width: 560px) { .hw-trust { grid-template-columns: 1fr; gap: 0.9rem; } }
+
+    /* ─── Phil sign-off ─── */
+    .hw-phil { max-width: 640px; margin: 2rem auto 0; position: relative; z-index: 1;
+      display: flex; align-items: center; justify-content: center; gap: 0.9rem; }
+    .hw-phil img { width: 56px; height: 56px; border-radius: 50%; object-fit: cover;
+      border: 2px solid rgba(201,164,85,0.7); }
+    .hw-phil__name { color: #fff; font-family: var(--font-heading); font-weight: 800; font-size: 0.92rem; }
+    .hw-phil__role { color: rgba(255,255,255,0.65); font-size: 0.78rem; }
+
+    /* Wizard shell */
+    .hvw {
+      max-width: 640px; margin: 0 auto; position: relative; z-index: 1;
+      background: rgba(255,255,255,0.08); backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.16); border-radius: 1.25rem;
+      padding: 2.5rem; box-shadow: 0 24px 60px rgba(10,20,34,0.28);
+    }
+    @media (max-width: 560px) { .hvw { padding: 1.75rem 1.25rem; } }
+
+    .hvw__head { text-align: center; margin-bottom: 1.75rem; }
+    .hvw.is-complete .hvw__head,
+    .hvw.is-complete .hvw__progress { display: none; }
+    .hvw__eyebrow {
+      font-family: var(--font-heading); font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.6rem;
+    }
+    .hvw__title {
+      font-family: var(--font-display); font-weight: 900;
+      font-size: clamp(1.6rem, 3.5vw, 2.25rem); color: #fff; line-height: 1.1; margin-bottom: 0.65rem;
+    }
+    .hvw__sub {
+      font-size: 0.92rem; color: rgba(255,255,255,0.78); line-height: 1.6;
+      max-width: 460px; margin: 0 auto;
+    }
+
+    /* Progress bar */
+    .hvw__progress { margin-bottom: 1.75rem; }
+    .hvw__prog-track {
+      height: 4px; background: rgba(255,255,255,0.14); border-radius: 50px; overflow: hidden;
+    }
+    .hvw__prog-fill {
+      height: 100%; width: 25%; background: var(--gold); border-radius: 50px;
+      transition: width 0.35s ease;
+    }
+    .hvw__prog-pct {
+      margin-top: 0.55rem; text-align: right;
+      font-family: var(--font-heading); font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.06em; text-transform: uppercase; color: rgba(255,255,255,0.6);
+    }
+
+    /* Panels */
+    .hvw__panel { display: none; }
+    .hvw__panel.is-active { display: block; animation: hvwFade 0.3s ease; }
+    @keyframes hvwFade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+    .hvw__label {
+      display: block; font-family: var(--font-heading); font-size: 0.78rem; font-weight: 700;
+      letter-spacing: 0.02em; color: rgba(255,255,255,0.9); margin-bottom: 0.5rem;
+    }
+    .hvw__label .req { color: var(--gold); }
+    .hvw__hint { font-size: 0.78rem; color: rgba(255,255,255,0.5); margin: 0.35rem 0 0; }
+
+    .hvw__input {
+      width: 100%; box-sizing: border-box; padding: 0.9rem 1.15rem;
+      background: rgba(255,255,255,0.1); border: 1.5px solid rgba(255,255,255,0.22);
+      border-radius: 0.65rem; color: #fff; font-family: var(--font-body); font-size: 0.95rem;
+      outline: none; transition: border-color 0.2s, background 0.2s;
+    }
+    .hvw__input::placeholder { color: rgba(255,255,255,0.42); }
+    .hvw__input:focus { border-color: var(--gold); background: rgba(255,255,255,0.14); }
+
+    .hvw__field { margin-bottom: 1.15rem; }
+    .hvw__field:last-of-type { margin-bottom: 0; }
+    .hvw__row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; }
+    @media (max-width: 480px) { .hvw__row { grid-template-columns: 1fr; } }
+
+    /* Segmented button groups (beds / baths) */
+    .hvw__seg { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+    .hvw__seg button {
+      flex: 1; min-width: 44px; padding: 0.65rem 0.4rem;
+      background: rgba(255,255,255,0.08); border: 1.5px solid rgba(255,255,255,0.2);
+      border-radius: 0.55rem; color: rgba(255,255,255,0.8);
+      font-family: var(--font-heading); font-weight: 700; font-size: 0.9rem;
+      cursor: pointer; transition: all 0.18s;
+    }
+    .hvw__seg button:hover { border-color: rgba(255,255,255,0.45); }
+    .hvw__seg button.is-sel {
+      background: var(--gold); border-color: var(--gold); color: var(--navy);
+      box-shadow: 0 4px 14px rgba(201,164,85,0.35);
+    }
+
+    /* Yes/No feature toggles */
+    .hvw__toggle { display: flex; gap: 0.4rem; }
+    .hvw__toggle button {
+      flex: 1; padding: 0.55rem; background: rgba(255,255,255,0.08);
+      border: 1.5px solid rgba(255,255,255,0.2); border-radius: 0.5rem;
+      color: rgba(255,255,255,0.75); font-family: var(--font-heading); font-weight: 700;
+      font-size: 0.8rem; cursor: pointer; transition: all 0.18s;
+    }
+    .hvw__toggle button:hover { border-color: rgba(255,255,255,0.45); }
+    .hvw__toggle button.is-sel { background: var(--gold); border-color: var(--gold); color: var(--navy); }
+    .hvw__feat-label {
+      display: block; font-family: var(--font-heading); font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.02em; color: rgba(255,255,255,0.85); margin-bottom: 0.4rem;
+    }
+
+    /* Consent */
+    .hvw__consent { display: flex; align-items: flex-start; gap: 0.65rem; margin: 1.25rem 0 0; cursor: pointer; }
+    .hvw__consent input[type="checkbox"] { margin-top: 3px; flex-shrink: 0; accent-color: var(--gold); width: 16px; height: 16px; }
+    .hvw__consent-text { font-size: 0.74rem; color: rgba(255,255,255,0.5); line-height: 1.55; }
+    .hvw__consent-text a { color: rgba(255,255,255,0.68); }
+
+    /* Error line */
+    .hvw__err { display: none; color: #ffb3b3; font-size: 0.82rem; margin-top: 0.75rem; }
+    .hvw__err.show { display: block; }
+
+    /* Nav */
+    .hvw__nav { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-top: 1.75rem; }
+    .hvw__back {
+      background: none; border: none; color: rgba(255,255,255,0.6);
+      font-family: var(--font-heading); font-weight: 700; font-size: 0.82rem;
+      cursor: pointer; padding: 0.5rem 0; transition: color 0.2s;
+    }
+    .hvw__back:hover { color: #fff; }
+    .hvw__next, .hvw__submit {
+      margin-left: auto; padding: 0.9rem 2rem; background: var(--gold); color: var(--navy);
+      border: none; border-radius: 50px; cursor: pointer; white-space: nowrap;
+      font-family: var(--font-heading); font-size: 0.8rem; font-weight: 800;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      box-shadow: 0 4px 16px rgba(201,164,85,0.35); transition: background 0.2s, transform 0.1s, opacity 0.2s;
+    }
+    .hvw__next:hover, .hvw__submit:hover { background: #b8923e; transform: translateY(-1px); }
+    .hvw__submit:disabled { opacity: 0.6; cursor: default; }
+
+    /* Thank-you step */
+    .hvw__thanks { text-align: center; padding: 1rem 0; }
+    .hvw__thanks-icon {
+      width: 64px; height: 64px; margin: 0 auto 1.25rem; border-radius: 50%;
+      background: rgba(201,164,85,0.18); border: 1px solid rgba(201,164,85,0.4);
+      display: flex; align-items: center; justify-content: center; font-size: 2rem;
+    }
+    .hvw__thanks-title {
+      font-family: var(--font-heading); font-weight: 900; font-size: 1.6rem; color: var(--gold);
+      margin-bottom: 0.75rem; line-height: 1.15;
+    }
+    .hvw__thanks-msg { font-size: 0.95rem; color: rgba(255,255,255,0.8); line-height: 1.65; max-width: 440px; margin: 0 auto; }
+  </style>
+</head>
+<body>
+
+  <a class="skip" href="#hvw">Skip to the form</a>
+
+  <header class="hw-bar">
+    <div class="container hw-bar__in">
+      <img class="hw-bar__logo" src="images/logo-white.png" width="628" height="261"
+           alt="Phillip Himes, REALTOR&reg; &mdash; Brokered by eXp Realty" />
+      <a class="hw-bar__tel" href="tel:8329909738">(832)&nbsp;990-9738</a>
+    </div>
+  </header>
+
+  <main class="hv-section" aria-label="Home value request">
+    <div class="container">
+
+      <div class="hvw" id="hvw">
+        <div class="hvw__head">
+          <div class="hvw__eyebrow">Free Home Value</div>
+          <h1 class="hvw__title">What's Your Home Worth?</h1>
+          <p class="hvw__sub">Answer a few quick questions and Phil will personally send you your home value — a real number based on recent sales in your neighborhood, not just an algorithm.</p>
+        </div>
+
+        <div class="hvw__progress">
+          <div class="hvw__prog-track"><div class="hvw__prog-fill" id="hvw-progfill"></div></div>
+          <div class="hvw__prog-pct" id="hvw-progpct">25% Complete</div>
+        </div>
+
+        <form id="hvw-form" novalidate>
+
+          <!-- STEP 1 — Address -->
+          <div class="hvw__panel is-active" data-step="1">
+            <div class="hvw__field">
+              <label class="hvw__label" for="hvw-address">Property Address <span class="req">*</span></label>
+              <input class="hvw__input" type="text" id="hvw-address" name="address" placeholder="Street, City, ZIP" autocomplete="street-address" />
+              <p class="hvw__hint">Enter the full address of the home you'd like valued.</p>
+            </div>
+            <div class="hvw__err" data-err="1"></div>
+            <div class="hvw__nav">
+              <button type="button" class="hvw__next" data-next>Continue →</button>
+            </div>
+          </div>
+
+          <!-- STEP 2 — Property details -->
+          <div class="hvw__panel" data-step="2">
+            <div class="hvw__field">
+              <label class="hvw__label">Bedrooms <span class="req">*</span></label>
+              <div class="hvw__seg" data-seg="beds">
+                <button type="button" data-val="1">1</button>
+                <button type="button" data-val="2">2</button>
+                <button type="button" data-val="3">3</button>
+                <button type="button" data-val="4">4</button>
+                <button type="button" data-val="5+">5+</button>
+              </div>
+              <input type="hidden" name="beds" />
+            </div>
+            <div class="hvw__field">
+              <label class="hvw__label">Bathrooms <span class="req">*</span></label>
+              <div class="hvw__seg" data-seg="baths">
+                <button type="button" data-val="1">1</button>
+                <button type="button" data-val="1.5">1.5</button>
+                <button type="button" data-val="2">2</button>
+                <button type="button" data-val="2.5">2.5</button>
+                <button type="button" data-val="3">3</button>
+                <button type="button" data-val="3.5">3.5</button>
+                <button type="button" data-val="4">4</button>
+                <button type="button" data-val="4.5">4.5</button>
+                <button type="button" data-val="5+">5+</button>
+              </div>
+              <input type="hidden" name="baths" />
+            </div>
+            <div class="hvw__field">
+              <label class="hvw__label" for="hvw-sqft">Approx. Square Footage <span class="req">*</span></label>
+              <input class="hvw__input" type="text" inputmode="numeric" id="hvw-sqft" name="sqft" placeholder="e.g. 2,400" />
+            </div>
+            <div class="hvw__field">
+              <div class="hvw__row">
+                <div>
+                  <span class="hvw__feat-label">Pool</span>
+                  <div class="hvw__toggle" data-seg="pool">
+                    <button type="button" data-val="Yes">Yes</button>
+                    <button type="button" data-val="No">No</button>
+                  </div>
+                </div>
+                <div>
+                  <span class="hvw__feat-label">Gated</span>
+                  <div class="hvw__toggle" data-seg="gated">
+                    <button type="button" data-val="Yes">Yes</button>
+                    <button type="button" data-val="No">No</button>
+                  </div>
+                </div>
+                <div>
+                  <span class="hvw__feat-label">Waterfront</span>
+                  <div class="hvw__toggle" data-seg="waterfront">
+                    <button type="button" data-val="Yes">Yes</button>
+                    <button type="button" data-val="No">No</button>
+                  </div>
+                </div>
+              </div>
+              <input type="hidden" name="pool" />
+              <input type="hidden" name="gated" />
+              <input type="hidden" name="waterfront" />
+            </div>
+            <div class="hvw__err" data-err="2"></div>
+            <div class="hvw__nav">
+              <button type="button" class="hvw__back" data-back>← Back</button>
+              <button type="button" class="hvw__next" data-next>Continue →</button>
+            </div>
+          </div>
+
+          <!-- STEP 3 — Contact -->
+          <div class="hvw__panel" data-step="3">
+            <div class="hvw__field">
+              <div class="hvw__row">
+                <input class="hvw__input" type="text" name="firstName" placeholder="First Name" autocomplete="given-name"  aria-label="First Name"/>
+                <input class="hvw__input" type="text" name="lastName" placeholder="Last Name" autocomplete="family-name"  aria-label="Last Name"/>
+              </div>
+            </div>
+            <div class="hvw__field">
+              <input class="hvw__input" type="tel" name="phone" placeholder="Phone Number" autocomplete="tel"  aria-label="Phone Number"/>
+            </div>
+            <div class="hvw__field">
+              <input class="hvw__input" type="email" name="email" placeholder="Email Address" autocomplete="email"  aria-label="Email Address"/>
+            </div>
+            <!-- honeypot: real people leave this empty -->
+            <div style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;" aria-hidden="true">
+              <label>Company<input type="text" name="company" tabindex="-1" autocomplete="off" /></label>
+            </div>
+            <label class="hvw__consent">
+              <input type="checkbox" name="consent" id="hvw-consent" />
+              <span class="hvw__consent-text">I agree to receive text messages from Phillip Himes about my home value. Msg &amp; data rates may apply. Reply STOP to cancel. See <a href="privacy-policy.html">Privacy Policy</a>.</span>
+            </label>
+            <div class="hvw__err" data-err="3"></div>
+            <div class="hvw__nav">
+              <button type="button" class="hvw__back" data-back>← Back</button>
+              <button type="submit" class="hvw__submit">Get My Home Value →</button>
+            </div>
+          </div>
+
+          <!-- STEP 4 — Thank you -->
+          <div class="hvw__panel" data-step="4">
+            <div class="hvw__thanks">
+              <div class="hvw__thanks-icon">✅</div>
+              <div class="hvw__thanks-title">Thank You for Requesting Your Home Value</div>
+              <p class="hvw__thanks-msg">Phil will review your property and personally reach out within 1 business day with your home value — a real number based on what's actually selling near you.</p>
+            </div>
+          </div>
+
+        </form>
+      </div>
+
+      <div class="hw-trust">
+        <div class="hw-trust__item"><strong>Real local comps</strong>Based on recent sales near you</div>
+        <div class="hw-trust__item"><strong>Reviewed by Phil</strong>A person, not an algorithm</div>
+        <div class="hw-trust__item"><strong>No obligation</strong>Just the number &mdash; no pressure</div>
+      </div>
+
+      <div class="hw-phil">
+        <img src="images/phil-himes-avatar.jpg" alt="Phillip Himes" width="56" height="56" />
+        <div>
+          <div class="hw-phil__name">Phillip Himes, REALTOR&reg;</div>
+          <div class="hw-phil__role">eXp Realty &middot; Houston Bay Area</div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ── Landing footer (CLAUDE.md § Landing-page footer) ── -->
+  <footer class="lp-foot" role="contentinfo">
+    <div class="lp-foot__wrap">
+
+      <div class="lp-foot__note">
+        <p>
+          The home value Phillip Himes provides is a broker&rsquo;s opinion of value based on
+          comparable sales and current market conditions. It is not an appraisal and should not
+          be relied on as one for lending or legal purposes.
+        </p>
+      </div>
+
+      <div class="lp-foot__id">
+        <div>
+          <img class="lp-foot__logo" src="images/logo-white.png" width="628" height="261"
+               alt="Phillip Himes, REALTOR&reg; &mdash; Brokered by eXp Realty" />
+          <div class="lp-foot__brokerage">Licensed in Texas</div>
+          <address class="lp-foot__addr">2600 South Shore Blvd. #300<br />League City, TX 77573</address>
+          <div class="lp-foot__reach">
+            <a href="tel:8329909738">(832)&nbsp;990-9738</a>
+            <a href="mailto:phil@philliphimes.com">phil@philliphimes.com</a>
+          </div>
+        </div>
+        <div class="lp-foot__notices">
+          <a data-phh-link="trec-cpn" href="https://assets.cdn.filesafe.space/l8dNWKKtBchv50jZJYBL/media/6a9f2196bcef8b5f2c2e9c78.pdf" target="_blank" rel="noopener">TREC Consumer Protection Notice</a>
+          <a data-phh-link="trec-iabs" href="https://assets.cdn.filesafe.space/l8dNWKKtBchv50jZJYBL/media/6a9f21b6bbc6015019c5157f.pdf" target="_blank" rel="noopener">Information About Brokerage Services</a>
+          <a data-phh-link="privacy" href="privacy-policy.html" target="_blank" rel="noopener">Privacy Policy</a>
+          <a data-phh-link="terms" href="terms-of-service.html" target="_blank" rel="noopener">Terms of Service</a>
+        </div>
+      </div>
+
+      <div class="lp-foot__base">
+        <span class="lp-foot__eho">&#8962;&nbsp; Equal Housing Opportunity</span>
+        <span>&copy; 2026 Phillip Himes &middot; eXp Realty, LLC</span>
+      </div>
+
+    </div>
+  </footer>
+
+  <script src="js/compliance.js"></script>
+  <!-- Home-value wizard → /lead (contract v1.2: source=home-value, tags=[seller, home-value]) -->
+  <script>
+  (function () {
+    var LEAD_API = 'https://real-estate-agentic-os-production.up.railway.app';
+    var form = document.getElementById('hvw-form');
+    if (!form) return;
+    var wrap    = document.getElementById('hvw');
+    var panels  = Array.prototype.slice.call(form.querySelectorAll('.hvw__panel'));
+    var progEl  = document.getElementById('hvw-progfill');
+    var pctEl   = document.getElementById('hvw-progpct');
+    var total   = panels.length; // 4
+    var current = 1;
+
+    function showStep(n) {
+      current = n;
+      panels.forEach(function (p) { p.classList.toggle('is-active', +p.dataset.step === n); });
+      var pct = Math.round(n / total * 100);
+      if (progEl) progEl.style.width = pct + '%';
+      if (pctEl) pctEl.textContent = pct + '% Complete';
+      if (n === total) wrap.classList.add('is-complete');
+      try { wrap.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch (e) {}
+    }
+
+    function err(step, msg) {
+      var el = form.querySelector('[data-err="' + step + '"]');
+      if (!el) return;
+      if (msg) { el.textContent = msg; el.classList.add('show'); }
+      else { el.textContent = ''; el.classList.remove('show'); }
+    }
+
+    // Segmented / toggle button groups → write to matching hidden input
+    form.querySelectorAll('[data-seg]').forEach(function (group) {
+      var hidden = form.querySelector('input[name="' + group.dataset.seg + '"]');
+      group.querySelectorAll('button').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          group.querySelectorAll('button').forEach(function (b) { b.classList.remove('is-sel'); });
+          btn.classList.add('is-sel');
+          if (hidden) hidden.value = btn.dataset.val;
+          err(current, '');
+        });
+      });
+    });
+
+    function validate(step) {
+      if (step === 1) {
+        if (!form.address.value.trim()) { err(1, 'Please enter your property address.'); return false; }
+      } else if (step === 2) {
+        if (!form.beds.value)  { err(2, 'Please select the number of bedrooms.'); return false; }
+        if (!form.baths.value) { err(2, 'Please select the number of bathrooms.'); return false; }
+        if (!form.sqft.value.trim()) { err(2, 'Please enter the approximate square footage.'); return false; }
+      } else if (step === 3) {
+        if (!form.firstName.value.trim() || !form.lastName.value.trim()) { err(3, 'Please enter your first and last name.'); return false; }
+        if (!form.phone.value.trim()) { err(3, 'Please enter your phone number.'); return false; }
+        var email = form.email.value.trim();
+        if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { err(3, 'Please enter a valid email address.'); return false; }
+        if (!form.consent.checked) { err(3, 'Please check the consent box to continue.'); return false; }
+      }
+      err(step, '');
+      return true;
+    }
+
+    form.querySelectorAll('[data-next]').forEach(function (btn) {
+      btn.addEventListener('click', function () { if (validate(current)) showStep(current + 1); });
+    });
+    form.querySelectorAll('[data-back]').forEach(function (btn) {
+      btn.addEventListener('click', function () { err(current, ''); showStep(current - 1); });
+    });
+
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      // Enter pressed on an earlier step: advance instead of submitting
+      if (current < 3) { if (validate(current)) showStep(current + 1); return; }
+      if (!validate(3)) return;
+      var btn = form.querySelector('.hvw__submit');
+      btn.textContent = 'Sending...'; btn.disabled = true;
+
+      // honeypot: real people leave "company" empty
+      if ((form.company && form.company.value || '').trim()) { showStep(4); return; }
+
+      var v = function (n) { return (form[n] && form[n].value || '').trim(); };
+      var yn = function (n) { var x = v(n).toLowerCase(); return x === 'yes' ? 'true' : (x === 'no' ? 'false' : ''); };
+
+      // Lead Intake Contract v1.2 — home value: side seller, intent home-value.
+      // Property details ride as contact.<GHL key> fields (never folded into the note).
+      var payload = {
+        first_name: v('firstName'),
+        last_name:  v('lastName'),
+        email:      v('email'),
+        phone:      v('phone'),
+        message:    'Home value request via whatsyourhomeworth landing page.',
+        consent:    form.consent.checked,
+        source:     'home-value',                 // contract: source = intent
+        tags:       ['seller', 'home-value'],     // side + intent
+        company:    '',
+        'contact.lead_property_address': v('address'),
+        'contact.lead_beds':             v('beds'),
+        'contact.lead_baths':            v('baths'),
+        'contact.lead_property_sqft':    v('sqft').replace(/[^0-9.]/g, '')
+      };
+      var _pool = yn('pool'), _gated = yn('gated'), _waterfront = yn('waterfront');
+      if (_pool)       payload['contact.lead_property_pool'] = _pool;
+      if (_gated)      payload['contact.lead_property_gated'] = _gated;
+      if (_waterfront) payload['contact.lead_property_waterfront'] = _waterfront;
+
+      try {
+        var r = await fetch(LEAD_API + '/lead', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+        if (!r.ok) throw new Error('http ' + r.status);
+        try { if (window.fbq) fbq('track', 'Lead'); } catch (e3) {}
+      } catch (err2) { /* still show thank-you; lead retried server-side */ }
+      showStep(4);
+    });
+  })();
+  </script>
+
+</body>
+</html>
