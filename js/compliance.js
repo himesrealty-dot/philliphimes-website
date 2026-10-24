@@ -34,8 +34,8 @@
     brokerage:   'eXp Realty, LLC',
     licensedIn:  'Texas',
     address:     '2600 South Shore Blvd. #300, League City, TX 77573',
-    phone:       '(832) 990-9738',
-    phoneHref:   'tel:8329909738',
+    phone:       '(832) 338-4561',
+    phoneHref:   'tel:8323384561',
     email:       'phil@philliphimes.com'
   };
 
