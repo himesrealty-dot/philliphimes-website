@@ -15,6 +15,22 @@
 
 const LISTINGS = [
   {
+    id:        '388-dover-lane',
+    active:    true,
+    status:    'active',
+    badge:     'For Sale',
+    address:   '388 Dover Lane',
+    city:      'League City, TX',
+    community: 'Westover Park',
+    price:     '$585,000',
+    beds:      '5',
+    baths:     '3½',
+    sqft:      '3,601',
+    img:       'images/listings/388-dover-lane/01.jpg',
+    href:      '388-dover-lane-listing.html',
+    blurb:     'Backs to green space — saltwater pool & spa, outdoor kitchen, media room. Clear Creek ISD.',
+  },
+  {
     id:        '6310-star-light-ct',
     active:    true,
     status:    'active',                 // 'active' | 'pending' | 'sold'
