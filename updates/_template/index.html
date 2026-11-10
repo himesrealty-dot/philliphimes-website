@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Your Home Update | Phil Himes</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Open+Sans:wght@400;600;700&family=Playfair+Display:ital@1&display=swap">
+<style>
+/* Layout: one 760px reading column; navy bands for the hero and the recommendation, white sections between. */
+:root{
+  --navy:#1B3A5C; --navy-dk:#122840; --gold:#C9A455; --gold-dk:#8A6E2C; --teal:#186E82;
+  --ink:#1A1A2E; --body:#333333; --muted:#495057; --line:#E9ECEF; --wash:#F5F7F9; --bg:#FFFFFF;
+  --good:#1E7F4F; --warn:#9A6B00; --risk:#A23B3B;
+  --f-head:"Montserrat",system-ui,sans-serif; --f-body:"Open Sans",system-ui,sans-serif; --f-accent:"Playfair Display",Georgia,serif;
+  color-scheme:light;
+}
+body{background:var(--bg);color:var(--body);font-family:var(--f-body);font-size:16px;line-height:1.6;margin:0}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--navy)}
+.wrap{max-width:760px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--f-head);color:var(--ink);text-wrap:balance;margin:0}
+a{color:var(--teal)}
+.bar{background:var(--navy);position:sticky;top:env(safe-area-inset-top,0px);z-index:20}
+.bar .wrap{display:flex;justify-content:space-between;align-items:center;padding-block:10px;gap:12px}
+.bar img{height:32px;width:auto;display:block}
+.bar .logo-txt{color:#fff;font-family:var(--f-head);font-weight:800;letter-spacing:.5px}
+.bar .ph{color:#fff;font-weight:700;font-size:15px;user-select:all}
+.hero{position:relative;background:var(--navy) center/cover no-repeat;min-height:300px;display:flex;align-items:flex-end}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(9,20,34,.94),rgba(9,20,34,.45) 60%,rgba(9,20,34,.15))}
+.hero .wrap{position:relative;z-index:2;width:100%;padding-block:32px}
+.badge{display:inline-block;background:var(--gold);color:var(--navy-dk);font-family:var(--f-head);font-weight:800;font-size:11px;letter-spacing:2px;padding:5px 10px;border-radius:3px}
+.hero h1{color:#fff;font-size:clamp(28px,6vw,42px);line-height:1.1;margin-top:12px}
+.hero .addr{color:#fff;font-weight:700;margin-top:6px}
+.hero .addr span{font-weight:400;opacity:.85}
+.hero .meta{color:#E9ECEF;font-size:13px;margin-top:4px}
+section{padding-block:28px;border-bottom:1px solid var(--line)}
+section:last-of-type{border-bottom:0}
+.eyebrow{font-family:var(--f-head);font-weight:700;font-size:11px;letter-spacing:2.5px;color:var(--teal);text-transform:uppercase}
+h2{font-size:22px;margin-top:4px}
+.lead{font-family:var(--f-accent);font-style:italic;font-size:clamp(20px,4.4vw,26px);line-height:1.4;color:var(--navy)}
+.sub{color:var(--muted);margin-top:8px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:18px}
+.stat{background:var(--wash);border-radius:6px;padding:14px}
+.stat b{display:block;font-family:var(--f-head);font-size:26px;color:var(--navy);line-height:1.1;font-variant-numeric:tabular-nums}
+.stat span{font-size:13px;color:var(--muted)}
+.outcomes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:14px}
+.oc{border:1px solid var(--line);border-radius:6px;padding:12px;min-width:0}
+.oc small{font-family:var(--f-head);font-weight:700;font-size:10px;letter-spacing:1.5px;color:var(--muted)}
+.oc strong{display:block;font-family:var(--f-head);font-size:14px;color:var(--ink);margin-top:2px}
+.oc p{margin:4px 0 0;font-size:13px;line-height:1.45}
+.oc.on{border:2px solid var(--gold);background:#FBF7EE}
+.oc.on small{color:var(--gold-dk)}
+.oc .here{display:inline-block;margin-top:6px;font-family:var(--f-head);font-weight:800;font-size:10px;letter-spacing:1.5px;color:var(--navy-dk);background:var(--gold);padding:2px 6px;border-radius:3px}
+@media (max-width:560px){.outcomes{grid-template-columns:1fr}}
+.prose p{margin:12px 0 0}
+.homes{display:flex;flex-direction:column;gap:10px;margin-top:14px}
+.home{border-left:3px solid var(--gold);background:var(--wash);padding:12px 14px;border-radius:0 6px 6px 0}
+.home h3{font-size:15px;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.chip{font-family:var(--f-head);font-size:10px;font-weight:800;letter-spacing:1px;padding:2px 7px;border-radius:3px;color:#fff;background:var(--teal)}
+.chip.pend{background:var(--warn)} .chip.sold{background:var(--good)} .chip.new{background:var(--teal)} .chip.cut{background:var(--risk)}
+.home p{margin:4px 0 0;font-size:14px}
+.note{font-size:13px;color:var(--muted);margin-top:12px}
+.tbl{overflow-x:auto;margin-top:14px;border:1px solid var(--line);border-radius:6px}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:520px}
+th{font-family:var(--f-head);font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);text-align:left;background:var(--wash);padding:9px 10px}
+td{padding:9px 10px;border-top:1px solid var(--line);vertical-align:top}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.you td{background:#FBF7EE;font-weight:600}
+.funnel{margin-top:16px;display:flex;flex-direction:column;gap:6px}
+.fstep{display:grid;grid-template-columns:120px 1fr 70px;gap:10px;align-items:center;font-size:13px}
+.fbar{height:12px;background:var(--line);border-radius:6px;overflow:hidden}
+.fbar i{display:block;height:100%;background:var(--navy);border-radius:6px}
+.fstep b{text-align:right;font-variant-numeric:tabular-nums}
+.lev{font-family:var(--f-head);font-weight:800;font-size:10px;letter-spacing:1px;padding:2px 7px;border-radius:3px;white-space:nowrap}
+.lev.Position{background:#E3EEF7;color:var(--navy)} .lev.Value{background:#E2F2EF;color:#145E52} .lev.Price{background:#F7EBD7;color:var(--gold-dk)} .lev.Positive{background:#E5F3EA;color:var(--good)}
+.levsum{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;font-size:13px}
+ul.doing{margin:12px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px}
+ul.doing li{padding-left:22px;position:relative}
+ul.doing li::before{content:"";position:absolute;left:4px;top:9px;width:7px;height:7px;background:var(--gold);transform:rotate(45deg)}
+.rec{background:var(--navy);color:#fff;border-bottom:0}
+.rec .eyebrow{color:var(--gold)}
+.rec h2,.rec .big{color:#fff}
+.rec .big{font-family:var(--f-head);font-weight:800;font-size:clamp(34px,8vw,48px);line-height:1.05;margin-top:8px;font-variant-numeric:tabular-nums}
+.rec .delta{color:#E9ECEF;margin-top:6px}
+.rec .prose p{color:#fff}
+.cta{text-align:center}
+.cta .btns{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:14px}
+.btn{display:inline-block;background:var(--navy);color:#fff;text-decoration:none;font-family:var(--f-head);font-weight:700;padding:12px 22px;border-radius:6px}
+.btn.alt{background:var(--gold);color:var(--navy-dk)}
+.btn:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+.cta .num{font-weight:700;color:var(--navy);margin-top:10px;user-select:all}
+.sig{display:flex;gap:14px;align-items:center;justify-content:center;margin-top:20px}
+.sig img{width:64px;height:64px;border-radius:32px;object-fit:cover;border:2px solid var(--gold);background:#fff}
+footer{background:var(--wash);font-size:12px;color:var(--muted);line-height:1.5}
+footer .wrap{padding-block:20px}
+video{width:100%;border-radius:8px;display:block;background:#000}
+</style>
+</head>
+<body>
+
+
+<!--
+  HOW TO USE THIS TEMPLATE
+  1. Copy this file to /updates/<street-name>/index.html for each listing.
+  2. Edit only the JSON inside <script id="update-data"> below. Everything on the page is built from it.
+  3. "type": "weekly" for the Monday update, "review" for the Day 21/28 review (adds the comparison,
+     "What I considered first", and the recommendation).
+  4. Delete any section you don't need from the JSON (set it to null or remove the key) and it disappears.
+  5. Price per sq ft, the funnel percentages, and the feedback-by-lever counts are calculated for you.
+-->
+<script id="update-data" type="application/json">
+{
+  "type": "review",
+  "weekLabel": "Your 4-Week Home Update",
+  "address": "6310 Star Light Court",
+  "cityStateZip": "Spring, TX 77386",
+  "date": "August 21, 2026",
+  "mls": "91533239",
+  "heroImage": "/images/listings/6310-star-light/01.jpg",
+  "logo": "/images/logo.png",
+  "headshot": "/images/phil-himes-headshot.png",
+  "video": null,
+
+  "headline": "Since our last update, two homes in Benders Landing went under contract. Both of them lowered their price first.",
+  "subhead": "What changed in the neighborhood, how those homes differ from yours, and my recommendation on price.",
+
+  "stats": [
+    {"value": "2", "label": "neighbors under contract"},
+    {"value": "14", "label": "days since your last showing"},
+    {"value": "29", "label": "days on market"},
+    {"value": "Sat", "label": "second showing booked"}
+  ],
+
+  "outcome": {
+    "current": 2,
+    "note": "Your opening weekend was strong, and then showings stopped. That is outcome 2: the price and photos got buyers in the door, but buyers are choosing other homes in person. This is the plan we agreed on before we listed."
+  },
+
+  "sinceLast": {
+    "title": "What has happened since our last update",
+    "intro": "Two homes in Benders Landing went under contract. That is genuinely good news, because it means buyers are active and writing offers in your neighborhood right now.",
+    "homes": [
+      {"address": "27498 S Lazy Meadow Way", "status": "Under contract", "kind": "pend", "text": "Right around the corner. Listed July 7 at $1,495,000, lowered to $1,450,000 on July 20, and under contract on August 7."},
+      {"address": "4223 Maple Rapids Lane", "status": "Option pending", "kind": "pend", "text": "Listed June 26 at $1,750,000. Came off the market July 30, went back on the same day at $1,695,000, and was under contract fifteen days later."}
+    ],
+    "caveat": "Neither home has closed yet, so we do not know what either one will actually sell for. What we do know is the price each seller had to be at before a buyer would write. In both cases that was after a reduction."
+  },
+
+  "compare": {
+    "title": "What is different about those two homes",
+    "intro": "Size is the biggest difference, and it is not close.",
+    "rows": [
+      {"home": "6310 Star Light Ct", "sqft": 3862, "diff": "", "has": "Cigar lounge, climate-controlled wine room, steam sauna", "you": true},
+      {"home": "27498 S Lazy Meadow", "sqft": 4329, "diff": "+467 sf", "has": "Dedicated media room, guest suite with its own kitchen"},
+      {"home": "4223 Maple Rapids Ln", "sqft": 6064, "diff": "+2,202 sf", "has": "Two game rooms, one down and one up"}
+    ],
+    "paragraphs": [
+      "In both of those homes the extra square footage turns into a media room or a game room, and at this price point that is a room buyers come looking for.",
+      "Your home answers with a cigar lounge, a climate-controlled wine room and a steam sauna. Neither of the other two has any of them. You also have age on your side: yours was built in 2021, theirs in 2015 and 2014.",
+      "So this is a real trade. The catch is that more buyers at this price are shopping for a media room than for a wine room, and that is why the price has to do more of the work for us."
+    ]
+  },
+
+  "activity": {
+    "numbers": [
+      {"value": "11", "label": "people through the opening open house"},
+      {"value": "5", "label": "private showings booked"},
+      {"value": "12,360", "label": "times shown on Homes.com"},
+      {"value": "76", "label": "clicked in to look closer"}
+    ],
+    "funnel": {"seen": 12360, "clicked": 76, "showings": 5},
+    "paragraphs": [
+      "The opening weekend was strong. Three of the five private-showing buyers walked the home. One was canceled by the agent, and one on July 25 never got inside because the gate code failed and nobody could reach me. That one still bothers me and I own it.",
+      "Visibility is not the problem. People are finding the listing. What has stopped is people coming to see it, and fourteen quiet days in the same two weeks that two neighbors went under contract is the clearest signal we have."
+    ]
+  },
+
+  "feedback": [
+    {"date": "Jul 26", "who": "Open house visitors", "lever": "Position", "comment": "Asked about a media room. Compared it to the larger homes on the tour."},
+    {"date": "Aug 2", "who": "JLA Realty agent", "lever": "Positive", "comment": "Buyer called the home beautiful and kept it on their list."},
+    {"date": "Aug 7", "who": "Paul (buyer)", "lever": "Price", "comment": "Likes the home. His hesitation has been price."}
+  ],
+
+  "pricing": {
+    "title": "Where your price sits",
+    "intro": "You are asking $1,425,000. We have not reduced since listing on July 23.",
+    "rows": [
+      {"home": "6310 Star Light Ct", "sqft": 3862, "built": 2021, "price": 1425000, "status": "Active, 29 days", "you": true},
+      {"home": "5517 Balsam Fir Ct", "sqft": 3332, "built": 2020, "price": 1150000, "status": "Under contract in 6 days"},
+      {"home": "27498 S Lazy Meadow", "sqft": 4329, "built": 2015, "price": 1450000, "status": "Under contract"},
+      {"home": "4223 Maple Rapids Ln", "sqft": 6064, "built": 2014, "price": 1695000, "status": "Option pending"}
+    ],
+    "paragraphs": [
+      "You are the highest per square foot of the four, and the only one that has not attracted an offer.",
+      "Lazy Meadow tells the story best. It is 467 square feet larger, sits on a full acre, has a four-car garage, a media room and a guest suite, and it went under contract at $1,450,000. A buyer who walks both homes sees more house and more land for almost the same money."
+    ]
+  },
+
+  "consideredFirst": [
+    {"lever": "Value", "item": "Stage the flex room as a media room", "verdict": "Worth doing this week. It answers the media-room question, but it does not close a gap with a larger home at nearly the same price."},
+    {"lever": "Position", "item": "Wait for the competition to change", "verdict": "The two homes we compete with most just went under contract. Waiting will not improve your position."},
+    {"lever": "Price", "item": "One clean reduction", "verdict": "Recommended below."}
+  ],
+
+  "doing": [
+    "Calling every agent who has walked a buyer through, more than once. That is how I got Paul back to the table.",
+    "Paul is coming back Saturday at 1:30. His hesitation has been price, and a second visit is the one that counts.",
+    "Following up with the JLA Realty agent whose buyer kept the home on their list.",
+    "Making certain the gate access failure from July 25 cannot happen to anyone else."
+  ],
+
+  "recommendation": {
+    "price": 1325000,
+    "from": 1425000,
+    "paragraphs": [
+      "That lands between the two homes buyers are actually choosing right now, Balsam Fir at $345 and Lazy Meadow at $335 a square foot. It moves you from the most expensive home in the comparison to a competitive one.",
+      "I would rather make one clean move than chase the market down $25,000 at a time. Both homes that just went under contract moved once, and then found their buyer.",
+      "I am not going to tell Paul we are considering anything before Saturday. I want to see what he does at the current price first."
+    ]
+  },
+
+  "next": {
+    "title": "Let's talk",
+    "text": "Give me a call when you get a second. I would like your read on price before Saturday if we can manage it.",
+    "cadence": "This is your day-28 review. From here, a standing weekly check-in every Monday."
+  },
+
+  "agent": {"name": "Phillip Himes", "phone": "(832) 338-4561", "phoneRaw": "8323384561", "email": "phil@philliphimes.com", "office": "2600 South Shore Blvd. Ste 300, League City, TX 77573"}
+}
+</script>
+
+<div id="app"></div>
+
+<script>
+(function(){
+  var D = JSON.parse(document.getElementById('update-data').textContent);
+  function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  function money(n){return '$'+Math.round(n).toLocaleString('en-US');}
+  function num(n){return Number(n).toLocaleString('en-US');}
+  function paras(a){return (a||[]).map(function(p){return '<p>'+esc(p)+'</p>';}).join('');}
+  function sec(inner,cls){return '<section'+(cls?' class="'+cls+'"':'')+'><div class="wrap">'+inner+'</div></section>';}
+  var review = D.type === 'review';
+  var A = D.agent || {};
+  var h = '';
+
+  h += '<header class="bar"><div class="wrap">'+
+       (D.logo ? '<img src="'+esc(D.logo)+'" alt="Phillip Himes Real Estate">' : '<span class="logo-txt">PHILLIP HIMES</span>')+
+       '<span class="ph">'+esc(A.phone)+'</span></div></header>';
+
+  h += '<div class="hero" style="'+(D.heroImage?'background-image:url(\''+esc(D.heroImage)+'\')':'')+'"><div class="wrap">'+
+       '<span class="badge">PRIVATE OWNER UPDATE</span>'+
+       '<h1>'+esc(D.weekLabel || (review?'Your Home Review':'Your Weekly Home Update'))+'</h1>'+
+       '<div class="addr">'+esc(D.address)+' <span>· '+esc(D.cityStateZip)+'</span></div>'+
+       '<div class="meta">A personal update from Phil · '+esc(D.date)+'</div></div></div>';
+
+  h += '<main>';
+  if (D.video && D.video.src){
+    h += sec('<video controls playsinline preload="metadata"'+(D.video.poster?' poster="'+esc(D.video.poster)+'"':'')+' src="'+esc(D.video.src)+'"></video>');
+  }
+
+  var top = '<p class="lead">'+esc(D.headline)+'</p>'+(D.subhead?'<p class="sub">'+esc(D.subhead)+'</p>':'');
+  if (D.stats && D.stats.length){
+    top += '<div class="stats">'+D.stats.map(function(s){return '<div class="stat"><b>'+esc(s.value)+'</b><span>'+esc(s.label)+'</span></div>';}).join('')+'</div>';
+  }
+  h += sec(top);
+
+  if (D.outcome){
+    var O=[['Outcome 1','Few or no showings','We missed the mark. We re-check position and price against the competition.'],
+           ['Outcome 2','Showings, no offers','Buyers like the price but see a value gap in person. We find it and close it.'],
+           ['Outcome 3','Busy showings, offers','One or more offers in 21 days. Position, value, and price are lined up.']];
+    var oc = O.map(function(o,i){var on=(i+1)===D.outcome.current;
+      return '<div class="oc'+(on?' on':'')+'"><small>'+o[0].toUpperCase()+'</small><strong>'+o[1]+'</strong><p>'+o[2]+'</p>'+(on?'<span class="here">WE ARE HERE</span>':'')+'</div>';}).join('');
+    h += sec('<div class="eyebrow">The first 21 days</div><h2>Where we stand</h2><div class="outcomes">'+oc+'</div>'+
+             (D.outcome.note?'<div class="prose"><p>'+esc(D.outcome.note)+'</p></div>':''));
+  }
+
+  if (D.sinceLast){
+    var S=D.sinceLast;
+    h += sec('<div class="eyebrow">The market</div><h2>'+esc(S.title||'What has changed')+'</h2>'+
+      (S.intro?'<div class="prose"><p>'+esc(S.intro)+'</p></div>':'')+
+      '<div class="homes">'+(S.homes||[]).map(function(x){return '<div class="home"><h3>'+esc(x.address)+'<span class="chip '+esc(x.kind||'')+'">'+esc(String(x.status).toUpperCase())+'</span></h3><p>'+esc(x.text)+'</p></div>';}).join('')+'</div>'+
+      (S.caveat?'<p class="note">'+esc(S.caveat)+'</p>':''));
+  }
+
+  if (review && D.compare){
+    var C=D.compare;
+    h += sec('<div class="eyebrow">Position and value</div><h2>'+esc(C.title)+'</h2>'+(C.intro?'<div class="prose"><p>'+esc(C.intro)+'</p></div>':'')+
+      '<div class="tbl"><table><thead><tr><th>Home</th><th class="num">Size</th><th class="num">Difference</th><th>What it has that the others do not</th></tr></thead><tbody>'+
+      C.rows.map(function(r){return '<tr'+(r.you?' class="you"':'')+'><td>'+esc(r.home)+'</td><td class="num">'+num(r.sqft)+' sf</td><td class="num">'+(esc(r.diff)||'—')+'</td><td>'+esc(r.has)+'</td></tr>';}).join('')+
+      '</tbody></table></div><div class="prose">'+paras(C.paragraphs)+'</div>');
+  }
+
+  if (D.activity){
+    var Ac=D.activity, f=Ac.funnel, fun='';
+    if (f && f.seen){
+      var steps=[['Seen in search',f.seen],['Clicked to look',f.clicked],['Booked a showing',f.showings]];
+      fun = '<div class="funnel">'+steps.map(function(s,i){var w=Math.max(2,Math.round(100*Math.sqrt(s[1]/f.seen)));
+        var pct = i===0?'':' <span style="color:var(--muted);font-weight:400">('+(100*s[1]/steps[i-1][1]).toFixed(1)+'%)</span>';
+        return '<div class="fstep"><span>'+s[0]+'</span><div class="fbar"><i style="width:'+w+'%"></i></div><b>'+num(s[1])+'</b></div>'+(pct?'<div style="font-size:12px;margin:-2px 0 2px 130px;color:var(--muted)">'+(100*s[1]/steps[i-1][1]).toFixed(1)+'% of the step above</div>':'');}).join('')+
+        '<div class="note">Bar lengths use a square-root scale so the small numbers stay visible.</div></div>';
+    }
+    h += sec('<div class="eyebrow">Your activity</div><h2>Who is looking</h2><div class="stats">'+
+      (Ac.numbers||[]).map(function(s){return '<div class="stat"><b>'+esc(s.value)+'</b><span>'+esc(s.label)+'</span></div>';}).join('')+'</div>'+fun+
+      '<div class="prose">'+paras(Ac.paragraphs)+'</div>');
+  }
+
+  if (D.feedback && D.feedback.length){
+    var counts={}; D.feedback.forEach(function(x){counts[x.lever]=(counts[x.lever]||0)+1;});
+    h += sec('<div class="eyebrow">Buyer feedback</div><h2>What buyers are telling us</h2>'+
+      '<div class="levsum">'+Object.keys(counts).map(function(k){return '<span><span class="lev '+esc(k)+'">'+esc(k.toUpperCase())+'</span> '+counts[k]+'</span>';}).join('')+'</div>'+
+      '<div class="tbl"><table><thead><tr><th>Date</th><th>From</th><th>Lever</th><th>What they said</th></tr></thead><tbody>'+
+      D.feedback.map(function(x){return '<tr><td style="white-space:nowrap">'+esc(x.date)+'</td><td>'+esc(x.who)+'</td><td><span class="lev '+esc(x.lever)+'">'+esc(String(x.lever).toUpperCase())+'</span></td><td>'+esc(x.comment)+'</td></tr>';}).join('')+
+      '</tbody></table></div><p class="note">One comment is preference. The same comment from several buyers means one of the three levers is off.</p>');
+  }
+
+  if (D.pricing){
+    var P=D.pricing;
+    h += sec('<div class="eyebrow">Price</div><h2>'+esc(P.title||'Where your price sits')+'</h2>'+(P.intro?'<div class="prose"><p>'+esc(P.intro)+'</p></div>':'')+
+      '<div class="tbl"><table><thead><tr><th>Home</th><th class="num">Size</th><th class="num">Built</th><th class="num">Price</th><th class="num">Per sq ft</th><th>Status</th></tr></thead><tbody>'+
+      P.rows.map(function(r){return '<tr'+(r.you?' class="you"':'')+'><td>'+esc(r.home)+'</td><td class="num">'+num(r.sqft)+' sf</td><td class="num">'+esc(r.built||'')+'</td><td class="num">'+money(r.price)+'</td><td class="num">'+money(r.price/r.sqft)+'</td><td>'+esc(r.status)+'</td></tr>';}).join('')+
+      '</tbody></table></div><div class="prose">'+paras(P.paragraphs)+'</div>');
+  }
+
+  if (review && D.consideredFirst && D.consideredFirst.length){
+    h += sec('<div class="eyebrow">Before we talk about price</div><h2>What I considered first</h2>'+
+      '<div class="prose"><p>Price is the last lever I pull. Here is what I looked at before recommending a change.</p></div>'+
+      '<div class="tbl"><table style="min-width:460px"><thead><tr><th>Lever</th><th>Option</th><th>My read</th></tr></thead><tbody>'+
+      D.consideredFirst.map(function(x){return '<tr><td><span class="lev '+esc(x.lever)+'">'+esc(String(x.lever).toUpperCase())+'</span></td><td>'+esc(x.item)+'</td><td>'+esc(x.verdict)+'</td></tr>';}).join('')+
+      '</tbody></table></div>');
+  }
+
+  if (D.doing && D.doing.length){
+    h += sec('<div class="eyebrow">This week</div><h2>What I am doing</h2><ul class="doing">'+D.doing.map(function(x){return '<li>'+esc(x)+'</li>';}).join('')+'</ul>');
+  }
+
+  if (review && D.recommendation){
+    var R=D.recommendation, sq=(D.pricing&&D.pricing.rows||[]).filter(function(r){return r.you;})[0];
+    var cut=R.from-R.price;
+    h += sec('<div class="eyebrow">My recommendation</div><div class="big">'+money(R.price)+'</div>'+
+      '<div class="delta">A reduction of '+money(cut)+', or '+(100*cut/R.from).toFixed(1)+'%'+(sq?'. That puts you at '+money(R.price/sq.sqft)+' a square foot.':'.')+'</div>'+
+      '<div class="prose">'+paras(R.paragraphs)+'</div>','rec');
+  }
+
+  if (D.next){
+    h += sec('<div class="cta"><h2>'+esc(D.next.title||"Let's talk")+'</h2><div class="prose"><p>'+esc(D.next.text)+'</p></div>'+
+      '<div class="btns"><a class="btn" href="tel:'+esc(A.phoneRaw)+'">Call Phil</a><a class="btn alt" href="sms:'+esc(A.phoneRaw)+'">Text Phil</a></div>'+
+      '<div class="num">'+esc(A.phone)+' · '+esc(A.email)+'</div>'+
+      (D.next.cadence?'<p class="note">'+esc(D.next.cadence)+'</p>':'')+
+      '<div class="sig">'+(D.headshot?'<img src="'+esc(D.headshot)+'" alt="Phillip Himes">':'')+'<div style="text-align:left"><strong style="font-family:var(--f-head);color:var(--ink)">'+esc(A.name)+'</strong><br><span style="font-size:13px;color:var(--muted)">REALTOR® · Brokered by eXp Realty</span></div></div></div>');
+  }
+  h += '</main>';
+
+  h += '<footer><div class="wrap">'+esc(A.name)+', REALTOR® · Brokered by eXp Realty · '+esc(A.office)+'<br>'+esc(A.phone)+' · '+esc(A.email)+'<br>'+
+       (D.mls?'MLS# '+esc(D.mls)+' · ':'')+'Licensed in Texas · Equal Housing Opportunity. Prepared privately for the owners of '+esc(D.address)+
+       '. Pricing recommendations reflect Phil\'s professional opinion of market activity and are not an appraisal. Information deemed reliable but not guaranteed. Contract prices on pending homes stay private until closing.'+
+       '<br><a href="https://assets.cdn.filesafe.space/l8dNWKKtBchv50jZJYBL/media/6a9f21b6bbc6015019c5157f.pdf" target="_blank" rel="noopener">Texas Real Estate Commission Information About Brokerage Services</a> · '+
+       '<a href="https://assets.cdn.filesafe.space/l8dNWKKtBchv50jZJYBL/media/6a9f2196bcef8b5f2c2e9c78.pdf" target="_blank" rel="noopener">Texas Real Estate Commission Consumer Protection Notice</a></div></footer>';
+
+  document.getElementById('app').innerHTML = h;
+  document.title = (D.weekLabel || 'Home Update') + ' — ' + D.address;
+})();
+</script>
+
+</body>
+</html>
