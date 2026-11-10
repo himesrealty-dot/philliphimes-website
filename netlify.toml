@@ -177,6 +177,16 @@
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
 
+# ── Seller closing timelines: private per-transaction pages ──
+# Every page under /closing/ is prepared for one seller. Same reasoning as the
+# Front Porch block below: header (read on fetch) rather than a robots.txt
+# Disallow, plus a <meta robots> tag on each page. Search hygiene, not access control.
+[[headers]]
+  for = "/closing/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow, noarchive, nosnippet"
+    Referrer-Policy = "no-referrer"
+
 # ── The Front Porch (members' area): keep it out of search entirely ──
 # Header rather than a robots.txt Disallow, for two reasons:
 #   1. robots.txt is public — listing the paths advertises exactly what's

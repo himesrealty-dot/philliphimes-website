@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Your Closing Timeline | Phil Himes</title>
+<meta name="robots" content="noindex,nofollow,noarchive">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Open+Sans:wght@400;600;700&family=Playfair+Display:ital@1&display=swap">
+<style>
+/* Layout: one 760px reading column. Navy hero with progress, then a vertical timeline, then the closing checklists. */
+:root{
+  --navy:#1B3A5C; --navy-dk:#122840; --gold:#C9A455; --gold-dk:#8A6E2C; --teal:#186E82;
+  --ink:#1A1A2E; --body:#333333; --muted:#495057; --line:#E9ECEF; --wash:#F5F7F9; --bg:#FFFFFF;
+  --good:#1E7F4F; --risk:#A23B3B; --cream:#FBF7EE;
+  --f-head:"Montserrat",system-ui,sans-serif; --f-body:"Open Sans",system-ui,sans-serif; --f-accent:"Playfair Display",Georgia,serif;
+  color-scheme:light;
+}
+body{background:var(--bg);color:var(--body);font-family:var(--f-body);font-size:16px;line-height:1.6;margin:0}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--navy)}
+.wrap{max-width:760px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--f-head);color:var(--ink);text-wrap:balance;margin:0}
+a{color:var(--teal)}
+.bar{background:var(--navy);position:sticky;top:env(safe-area-inset-top,0px);z-index:20}
+.bar .wrap{display:flex;justify-content:space-between;align-items:center;padding-block:10px;gap:12px}
+.bar img{height:32px;width:auto;display:block}
+.bar .logo-txt{color:#fff;font-family:var(--f-head);font-weight:800;letter-spacing:.5px}
+.bar .ph{color:#fff;font-weight:700;font-size:15px;user-select:all}
+.hero{background:var(--navy);color:#fff}
+.hero .wrap{padding-block:30px 26px;display:flex;flex-direction:column;gap:8px}
+.badge{align-self:flex-start;background:var(--gold);color:var(--navy-dk);font-family:var(--f-head);font-weight:800;font-size:11px;letter-spacing:2px;padding:5px 10px;border-radius:3px}
+.hero h1{color:#fff;font-size:clamp(28px,6vw,40px);line-height:1.1}
+.hero .addr{font-weight:700}
+.hero .addr span{font-weight:400;opacity:.85}
+.hero .lead{font-family:var(--f-accent);font-style:italic;font-size:clamp(18px,4vw,22px);line-height:1.45;color:#F1E3C0;margin-top:4px}
+.keydates{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:14px}
+.kd{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);border-radius:6px;padding:10px 12px;min-width:0}
+.kd small{display:block;font-family:var(--f-head);font-weight:700;font-size:10px;letter-spacing:1.5px;color:var(--gold)}
+.kd b{display:block;font-family:var(--f-head);font-size:17px;line-height:1.2;margin-top:2px}
+@media (max-width:560px){.keydates{grid-template-columns:1fr}}
+.prog{margin-top:14px;display:flex;flex-direction:column;gap:6px}
+.prog .track{height:8px;background:rgba(255,255,255,.18);border-radius:4px;overflow:hidden}
+.prog .track i{display:block;height:100%;background:var(--gold);border-radius:4px}
+.prog span{font-size:13px;color:#E9ECEF}
+section{padding-block:28px;border-bottom:1px solid var(--line)}
+.eyebrow{font-family:var(--f-head);font-weight:700;font-size:11px;letter-spacing:2.5px;color:var(--teal);text-transform:uppercase}
+h2{font-size:22px;margin-top:4px}
+.sub{color:var(--muted);margin-top:8px}
+.legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:12px;font-size:13px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.star{color:var(--gold-dk);font-weight:800}
+ol.tl{list-style:none;margin:18px 0 0;padding:0;position:relative}
+ol.tl::before{content:"";position:absolute;left:15px;top:6px;bottom:6px;width:2px;background:var(--line)}
+.ms{position:relative;padding:0 0 22px 48px}
+.ms:last-child{padding-bottom:0}
+.dot{position:absolute;left:4px;top:2px;width:24px;height:24px;border-radius:12px;background:#fff;border:2px solid #ADB5BD;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#fff}
+.ms.done .dot{background:var(--good);border-color:var(--good)}
+.ms.now .dot{background:var(--gold);border-color:var(--gold)}
+.ms .when{font-family:var(--f-head);font-weight:700;font-size:12px;letter-spacing:1px;color:var(--muted);text-transform:uppercase;font-variant-numeric:tabular-nums}
+.ms h3{font-size:18px;margin-top:2px;display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.pill{font-family:var(--f-head);font-weight:800;font-size:10px;letter-spacing:1px;padding:2px 7px;border-radius:3px;color:#fff;white-space:nowrap}
+.pill.done{background:var(--good)} .pill.now{background:var(--gold);color:var(--navy-dk)} .pill.call{background:var(--navy)}
+.ms p{margin:6px 0 0}
+.box{margin-top:10px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+@media (max-width:560px){.box{grid-template-columns:1fr}}
+.cell{background:var(--wash);border-radius:6px;padding:10px 12px;font-size:14px;line-height:1.5;min-width:0}
+.cell small{display:block;font-family:var(--f-head);font-weight:700;font-size:10px;letter-spacing:1.5px;color:var(--muted);text-transform:uppercase;margin-bottom:2px}
+.cell.you{background:var(--cream)}
+.cell.you small{color:var(--gold-dk)}
+.ms.now .cell.you{outline:2px solid var(--gold)}
+.upd{margin-top:10px;border-left:3px solid var(--teal);padding:6px 0 6px 12px;font-size:14px}
+.upd b{font-family:var(--f-head);font-size:11px;letter-spacing:1px;color:var(--teal);text-transform:uppercase;display:block}
+.warn{background:#FCEFEF;border:2px solid var(--risk);border-radius:8px;padding:16px 18px;margin-top:16px}
+.warn h3{color:var(--risk);font-size:17px}
+.warn p{margin:6px 0 0}
+.warn .num{font-weight:700;color:var(--ink);user-select:all}
+.lists{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:16px}
+@media (max-width:680px){.lists{grid-template-columns:1fr}}
+.list{border:1px solid var(--line);border-radius:6px;padding:14px;min-width:0}
+.list h3{font-size:15px}
+.list ul{margin:8px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px;font-size:14px}
+.list li{padding-left:20px;position:relative}
+.list li::before{content:"";position:absolute;left:3px;top:8px;width:7px;height:7px;background:var(--gold);transform:rotate(45deg)}
+.people{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-top:14px}
+.person{background:var(--wash);border-radius:6px;padding:12px 14px;font-size:14px}
+.person small{display:block;font-family:var(--f-head);font-weight:700;font-size:10px;letter-spacing:1.5px;color:var(--muted);text-transform:uppercase}
+.person b{font-family:var(--f-head);color:var(--ink)}
+.person .num{user-select:all}
+.note{font-size:13px;color:var(--muted);margin-top:12px}
+footer{background:var(--wash);font-size:12px;color:var(--muted);line-height:1.5}
+footer .wrap{padding-block:20px}
+</style>
+</head>
+<body>
+
+<!--
+  HOW TO USE THIS TEMPLATE
+  1. Copy this folder to /closing/<street-slug>/ the day the contract is signed.
+  2. Edit only the JSON in <script id="closing-data">. Every milestone date is calculated from
+     "contract". Always check the dates against the executed contract; put any date that differs
+     in "overrides".
+  3. As milestones finish, add their ids to "completed". The next one is marked "Happening now".
+  4. Put anything the seller should know about a milestone in "updates" (e.g. the repair agreement).
+  Milestone ids: accepted, earnest, title, inspection, option, appraisal, financing, prep, walkthrough, closing, after
+-->
+<script id="closing-data" type="application/json">
+{
+  "seller": "Sample Seller",
+  "address": "123 Example Lane",
+  "cityStateZip": "League City, TX 77573",
+  "logo": "/images/logo.png",
+
+  "contract": {
+    "effective": "2026-11-12",
+    "optionDays": 7,
+    "financing": "Conventional",
+    "financingDays": 21,
+    "closing": "2026-12-18",
+    "possession": "At closing and funding"
+  },
+
+  "overrides": {},
+
+  "completed": ["accepted", "earnest"],
+
+  "updates": {
+    "earnest": "The title company confirmed the earnest money and option fee on Nov 13."
+  },
+
+  "title": {"company": "Example Title Company", "officer": "Escrow officer name", "phone": "(281) 000-0000", "address": "Title office address"},
+
+  "agent": {"name": "Phillip Himes", "phone": "(832) 338-4561", "phoneRaw": "8323384561", "email": "phil@philliphimes.com", "office": "2600 South Shore Blvd. Ste 300, League City, TX 77573"}
+}
+</script>
+
+<div id="app"></div>
+
+<script>
+(function(){
+  var D = JSON.parse(document.getElementById('closing-data').textContent);
+  var C = D.contract, A = D.agent, T = D.title || {};
+  var cash = /cash/i.test(C.financing || '');
+
+  function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+  function d(s){return new Date(s+'T12:00:00')}
+  function add(dt,n){var x=new Date(dt);x.setDate(x.getDate()+n);return x}
+  function fmt(dt){return dt.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'})}
+  function iso(dt){return dt.toISOString().slice(0,10)}
+  var eff = d(C.effective), close = d(C.closing), optEnd = add(eff, +C.optionDays || 0);
+
+  // The SOP: each milestone, when it happens, what the seller does, what Phil handles. star = Phil calls.
+  var M = [
+    {id:'accepted', star:true, title:'Offer accepted', date:eff,
+      what:'The contract is signed by everyone. Every date on this page counts from today, the effective date.',
+      you:'Nothing yet. Read through this timeline so you know what’s coming.',
+      phil:'Sends the contract to the title company, confirms the buyer’s loan with their loan officer, and builds this timeline.'},
+    {id:'earnest', date:add(eff,3), when:'Within 3 days',
+      what:'The buyer delivers the earnest money and option fee to the title company.',
+      you:'Nothing.',
+      phil:'Confirms both were received on time.'},
+    {id:'title', date:add(eff,5), when:'First week',
+      what:'The title company opens the file and starts the title search.',
+      you:'Answer the title company’s request for your information so they can order your mortgage payoff. Your survey and T-47 are already done.',
+      phil:'Delivers your survey and T-47, orders the HOA resale certificate, and follows up with title.'},
+    {id:'inspection', date:add(eff,4), range:[add(eff,1),optEnd], when:'During the option period',
+      what:'The buyer’s inspector goes through the home. This is the buyer’s due diligence time, and they have the unrestricted right to terminate.',
+      you:'Be out of the house during the inspection. Leave the utilities on and the attic and panel accessible.',
+      phil:'Schedules access and reviews the report against your pre-listing inspection.'},
+    {id:'option', star:true, title:'Option period ends', date:optEnd, when:'5:00 p.m.',
+      what:'The buyer either moves forward, asks for repairs or a credit, or terminates.',
+      you:'If there’s a repair request, we decide together: agree, counter, offer a credit, or decline.',
+      phil:'Negotiates any repair request, using your pre-listing inspection to show what was already disclosed.'},
+    {id:'appraisal', date:add(eff,18), range:[add(eff,14),add(eff,21)], when:'About 2 to 3 weeks in', skip:cash,
+      what:'The buyer’s lender sends an appraiser to confirm the value.',
+      you:'Keep the home show-ready the day the appraiser comes. Phil calls you if the value comes in low.',
+      phil:'Meets the appraiser and gives them the comparable sales and a list of your upgrades.'},
+    {id:'financing', date:add(eff,+C.financingDays||21), title:'Buyer’s loan approved', skip:cash,
+      what:'The deadline for the buyer to get final loan approval.',
+      you:'Nothing.',
+      phil:'Checks in with the buyer’s loan officer until approval.'},
+    {id:'prep', star:true, title:'Getting ready to close', date:add(close,-10), when:'About 10 days before closing',
+      what:'Closing is scheduled. The title company sends your figures.',
+      you:'Book movers. Set utilities to shut off 3 days after closing. Confirm whether you’ll receive money or bring it, and how. Read the wire fraud warning below.',
+      phil:'Schedules closing and the sign removal, and reviews your settlement figures with you.'},
+    {id:'walkthrough', date:add(close,-1), range:[add(close,-2),add(close,-1)], when:'1 to 2 days before closing',
+      what:'The buyer does a final walkthrough to confirm the home’s condition.',
+      you:'Leave the home clean and empty, with manuals, spare keys, remotes, and the turnover packet on the kitchen counter.',
+      phil:'Confirms any agreed repairs are finished, with receipts.'},
+    {id:'closing', star:true, title:'Closing day', date:close,
+      what:'You sign, the loan funds, and the home transfers to the buyer.',
+      you:'Bring your photo ID and one set of keys to the title company. They hand the keys over when it closes.',
+      phil:'Removes the lockbox and celebrates with you.'},
+    {id:'after', star:true, title:'After closing', date:add(close,30), when:'About 30 days later',
+      what:'Your old lender refunds any money left in your escrow account.',
+      you:'Cancel your homeowner’s insurance now that the sale has closed, not before. Forward your mail.',
+      phil:'Checks in, and would be grateful for a Google review if he earned it.'}
+  ].filter(function(m){return !m.skip});
+  var TITLES = {earnest:'Earnest money and option fee',title:'Title work begins',inspection:'Buyer’s inspection',appraisal:'Appraisal',walkthrough:'Final walkthrough'};
+  M.forEach(function(m){ m.title = m.title || TITLES[m.id] || m.id; });
+
+  var ov = D.overrides || {};
+  M.forEach(function(m){ if(ov[m.id]){ m.date=d(ov[m.id]); m.range=null; } });
+  M.sort(function(a,b){return a.date-b.date});
+  var done = D.completed || [];
+  var nowIdx = -1;
+  M.forEach(function(m,i){ m.done = done.indexOf(m.id)>-1; if(!m.done && nowIdx<0) nowIdx=i; });
+
+  var h = '';
+  h += '<div class="bar"><div class="wrap">'+(D.logo?'<img src="'+esc(D.logo)+'" alt="Phillip Himes Real Estate">':'<span class="logo-txt">PHILLIP HIMES</span>')+'<span class="ph">'+esc(A.phone)+'</span></div></div>';
+
+  var pct = Math.round(100*M.filter(function(m){return m.done}).length/M.length);
+  h += '<header class="hero"><div class="wrap"><span class="badge">UNDER CONTRACT</span>'+
+    '<h1>Your road to closing</h1>'+
+    '<div class="addr">'+esc(D.address)+' <span>'+esc(D.cityStateZip)+'</span></div>'+
+    '<div class="lead">Every step between now and closing, with the date it happens and what, if anything, you need to do.</div>'+
+    '<div class="keydates">'+
+      '<div class="kd"><small>CONTRACT SIGNED</small><b>'+fmt(eff)+'</b></div>'+
+      '<div class="kd"><small>OPTION PERIOD ENDS</small><b>'+fmt(optEnd)+'</b></div>'+
+      '<div class="kd"><small>CLOSING</small><b>'+fmt(close)+'</b></div>'+
+    '</div>'+
+    '<div class="prog"><div class="track" role="img" aria-label="'+pct+'% of steps complete"><i style="width:'+pct+'%"></i></div><span>'+M.filter(function(m){return m.done}).length+' of '+M.length+' steps complete'+(nowIdx>-1?' · Next: '+esc(M[nowIdx].title):'')+'</span></div>'+
+    '</div></header><main>';
+
+  h += '<section><div class="wrap"><div class="eyebrow">The timeline</div><h2>What happens, and when</h2>'+
+    '<p class="sub">You don’t need to track any of this. Phil watches every deadline. The steps marked with a star are when he’ll call you.</p>'+
+    '<div class="legend"><span><span class="star">★</span> Phil calls you</span><span>Gold box: what you do</span></div><ol class="tl">';
+  M.forEach(function(m,i){
+    var st = m.done?'done':(i===nowIdx?'now':'');
+    var when = (m.range? fmt(m.range[0])+' – '+fmt(m.range[1]) : fmt(m.date)) + (m.when?' · '+m.when:'');
+    var title = m.title;
+    h += '<li class="ms '+st+'"><div class="dot" aria-hidden="true">'+(m.done?'✓':'')+'</div>'+
+      '<div class="when">'+esc(when)+'</div>'+
+      '<h3>'+(m.star?'<span class="star" aria-label="Phil calls you">★</span>':'')+esc(title)+
+        (m.done?'<span class="pill done">DONE</span>':(i===nowIdx?'<span class="pill now">HAPPENING NOW</span>':''))+'</h3>'+
+      '<p>'+esc(m.what)+'</p>'+
+      '<div class="box"><div class="cell you"><small>What you do</small>'+esc(m.you)+'</div><div class="cell"><small>What Phil is handling</small>'+esc(m.phil)+'</div></div>'+
+      ((D.updates||{})[m.id]?'<div class="upd"><b>Update</b>'+esc(D.updates[m.id])+'</div>':'')+
+      '</li>';
+  });
+  h += '</ol></div></section>';
+
+  h += '<section><div class="wrap"><div class="eyebrow">Closing day</div><h2>Before you close</h2>'+
+    '<div class="warn" role="note"><h3>Protect your money from wire fraud</h3>'+
+    '<p>Criminals send fake emails that look like they come from the title company, with new wire instructions. <strong>Never send or accept a wire based on an email.</strong> Before any money moves, call the title company at the number below, which Phil gave you, and confirm the instructions by voice.</p>'+
+    (T.phone?'<p class="num">'+esc(T.company)+' · '+esc(T.phone)+'</p>':'')+
+    '<p>Phil will never send you wire instructions. If anyone emails you new ones, call the title company before you do anything.</p></div>'+
+    '<div class="lists">'+
+      '<div class="list"><h3>Bring to the title company</h3><ul><li>Photo ID for every seller</li><li>One set of house keys</li><li>Bank details for your wire, confirmed by phone with title</li><li>A cashier’s check or wire, only if your figures show you owe at closing</li></ul></div>'+
+      '<div class="list"><h3>Leave on the kitchen counter</h3><ul><li>Appliance manuals and warranties</li><li>Spare keys and mailbox key</li><li>Garage remotes and gate fobs</li><li>The completed turnover packet</li></ul></div>'+
+      '<div class="list"><h3>Keep these on</h3><ul><li>Utilities until 3 days after closing, as a courtesy to the buyer</li><li>Homeowner’s insurance until the sale has closed</li></ul></div>'+
+    '</div></div></section>';
+
+  h += '<section><div class="wrap"><div class="eyebrow">Who’s who</div><h2>Your closing team</h2><div class="people">'+
+    '<div class="person"><small>Your agent</small><b>'+esc(A.name)+'</b><br><span class="num">'+esc(A.phone)+'</span><br>'+esc(A.email)+'</div>'+
+    (T.company?'<div class="person"><small>Title company</small><b>'+esc(T.company)+'</b><br>'+esc(T.officer)+'<br><span class="num">'+esc(T.phone)+'</span>'+(T.address?'<br>'+esc(T.address):'')+'</div>':'')+
+    '</div><p class="note">Questions about any step? Call or text Phil anytime at '+esc(A.phone)+'.</p></div></section>';
+
+  h += '</main><footer><div class="wrap">'+esc(A.name)+', REALTOR® · Brokered by eXp Realty · '+esc(A.office)+'<br>'+esc(A.phone)+' · '+esc(A.email)+'<br>'+
+    'Licensed in Texas · Equal Housing Opportunity. Prepared privately for the owners of '+esc(D.address)+
+    '. Dates are estimates based on the contract and may change; the executed contract controls. Phil is not an attorney and this page is not legal advice.'+
+    '<br><a href="https://assets.cdn.filesafe.space/l8dNWKKtBchv50jZJYBL/media/6a9f21b6bbc6015019c5157f.pdf" target="_blank" rel="noopener">Texas Real Estate Commission Information About Brokerage Services</a> · '+
+    '<a href="https://assets.cdn.filesafe.space/l8dNWKKtBchv50jZJYBL/media/6a9f2196bcef8b5f2c2e9c78.pdf" target="_blank" rel="noopener">Texas Real Estate Commission Consumer Protection Notice</a></div></footer>';
+
+  document.getElementById('app').innerHTML = h;
+  document.title = 'Your Closing Timeline — ' + D.address;
+
+  // Machine-readable schedule for the transaction coordinator agent.
+  window.CLOSING_SCHEDULE = M.map(function(m){return {id:m.id,title:m.title,date:iso(m.date),philCalls:!!m.star,done:m.done}});
+})();
+</script>
+
+</body>
+</html>
