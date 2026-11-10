@@ -268,10 +268,10 @@ video{width:100%;border-radius:8px;display:block;background:#000}
   if (D.outcome){
     var O=[['Outcome 1','Few or no showings','We missed the mark. We re-check position and price against the competition.'],
            ['Outcome 2','Showings, no offers','Buyers like the price but see a value gap in person. We find it and close it.'],
-           ['Outcome 3','Busy showings, offers','One or more offers in 21 days. Position, value, and price are lined up.']];
+           ['Outcome 3','Busy showings, offers','Buyers are writing offers. Position, value, and price are lined up.']];
     var oc = O.map(function(o,i){var on=(i+1)===D.outcome.current;
       return '<div class="oc'+(on?' on':'')+'"><small>'+o[0].toUpperCase()+'</small><strong>'+o[1]+'</strong><p>'+o[2]+'</p>'+(on?'<span class="here">WE ARE HERE</span>':'')+'</div>';}).join('');
-    h += sec('<div class="eyebrow">The first 21 days</div><h2>Where we stand</h2><div class="outcomes">'+oc+'</div>'+
+    h += sec('<div class="eyebrow">How buyers are responding</div><h2>Where we stand</h2><div class="outcomes">'+oc+'</div>'+
              (D.outcome.note?'<div class="prose"><p>'+esc(D.outcome.note)+'</p></div>':''));
   }
 
