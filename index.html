@@ -1279,10 +1279,12 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
     // Lead Intake Contract v1.2 — guide requests post to the Agentic OS /lead endpoint.
     // The guide key sets side + intent.
     var LEAD_API = 'https://real-estate-agentic-os-production.up.railway.app';
+    // `guide` is the per-guide tag GHL's delivery workflows trigger on, so each
+    // request gets the guide it asked for (side + intent still drive intake).
     var GUIDE_TAX = {
-      '30day':           { side: 'seller', intent: 'seller-guide' },
-      'seller-edge':     { side: 'seller', intent: 'seller-guide' },
-      'buyer-advantage': { side: 'buyer',  intent: 'buyer-search' }
+      '30day':           { side: 'seller', intent: 'seller-guide', guide: 'guide-30day' },
+      'seller-edge':     { side: 'seller', intent: 'seller-guide', guide: 'guide-seller-edge' },
+      'buyer-advantage': { side: 'buyer',  intent: 'buyer-search', guide: 'guide-buyer-advantage' }
     };
 
     // Guide config — keyed by the data-guide attribute on each trigger.
@@ -1390,7 +1392,7 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
         message: 'Guide request: ' + (data.guide_title || data.guide || ''),
         consent: false,   // email-only opt-in here; no SMS consent collected
         source: tax.intent,                        // contract: source = intent
-        tags: [tax.side, tax.intent].filter(Boolean) // side + intent
+        tags: [tax.side, tax.intent, tax.guide].filter(Boolean) // side + intent + guide
       };
       fetch(LEAD_API + '/lead', {
         method: 'POST',
