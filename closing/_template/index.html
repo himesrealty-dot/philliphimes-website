@@ -146,7 +146,19 @@ footer .wrap{padding-block:20px}
   function add(dt,n){var x=new Date(dt);x.setDate(x.getDate()+n);return x}
   function fmt(dt){return dt.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'})}
   function iso(dt){return dt.toISOString().slice(0,10)}
+  // Paragraph 5: earnest money and option fee are due within 3 calendar days (effective date = Day 0).
+  // If Day 3 lands on a Saturday, Sunday or legal holiday, it rolls to the end of the next day that isn't one.
+  // Legal holidays here = federal holidays (with the Monday observance when one falls on a Sunday).
+  // Any other date the contract or title treats differently goes in "overrides".
+  function nth(y,m,dow,n){var x=new Date(y,m,1,12);while(x.getDay()!==dow)x.setDate(x.getDate()+1);x.setDate(x.getDate()+7*(n-1));return x}
+  function last(y,m,dow){var x=new Date(y,m+1,0,12);while(x.getDay()!==dow)x.setDate(x.getDate()-1);return x}
+  function holidays(y){
+    var fixed=[[0,1],[5,19],[6,4],[10,11],[11,25]].map(function(a){var x=new Date(y,a[0],a[1],12);if(x.getDay()===0)x.setDate(x.getDate()+1);return x});
+    return fixed.concat([nth(y,0,1,3),nth(y,1,1,3),last(y,4,1),nth(y,8,1,1),nth(y,9,1,2),nth(y,10,4,4)]).map(function(x){return x.toDateString()});
+  }
+  function businessDeadline(dt){var x=new Date(dt);while(x.getDay()===0||x.getDay()===6||holidays(x.getFullYear()).indexOf(x.toDateString())>-1)x.setDate(x.getDate()+1);return x}
   var eff = d(C.effective), close = d(C.closing), optEnd = add(eff, +C.optionDays || 0);
+  var earnestDue = businessDeadline(add(eff,3));
 
   // The SOP: each milestone, when it happens, what the seller does, what Phil handles. star = Phil calls.
   var M = [
@@ -154,7 +166,7 @@ footer .wrap{padding-block:20px}
       what:'The contract is signed by everyone. Every date on this page counts from today, the effective date.',
       you:'Nothing yet. Read through this timeline so you know what’s coming.',
       phil:'Sends the contract to the title company, confirms the buyer’s loan with their loan officer, and builds this timeline.'},
-    {id:'earnest', date:add(eff,3), when:'Within 3 days',
+    {id:'earnest', date:earnestDue, when:'Due by end of day',
       what:'The buyer delivers the earnest money and option fee to the title company.',
       you:'Nothing.',
       phil:'Confirms both were received on time.'},
