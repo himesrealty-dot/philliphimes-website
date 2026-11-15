@@ -1,0 +1,433 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Your Closing Timeline | Phil Himes</title>
+<meta name="robots" content="noindex,nofollow,noarchive">
+<meta name="referrer" content="no-referrer">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Open+Sans:wght@400;600;700&family=Playfair+Display:ital@1&display=swap">
+<style>
+/* Live seller closing timeline. Chrome + styles cloned from closing/_template/index.html.
+   Difference: dates/order/completion/notes are read LIVE from the transaction coordinator
+   endpoint (no offset math). One 760px reading column: navy hero with progress, a vertical
+   timeline, the closing checklists, and the closing team. */
+:root{
+  --navy:#1B3A5C; --navy-dk:#122840; --gold:#C9A455; --gold-dk:#8A6E2C; --teal:#186E82;
+  --ink:#1A1A2E; --body:#333333; --muted:#495057; --line:#E9ECEF; --wash:#F5F7F9; --bg:#FFFFFF;
+  --good:#1E7F4F; --risk:#A23B3B; --cream:#FBF7EE;
+  --f-head:"Montserrat",system-ui,sans-serif; --f-body:"Open Sans",system-ui,sans-serif; --f-accent:"Playfair Display",Georgia,serif;
+  color-scheme:light;
+}
+body{background:var(--bg);color:var(--body);font-family:var(--f-body);font-size:16px;line-height:1.6;margin:0}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--navy)}
+.wrap{max-width:760px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--f-head);color:var(--ink);text-wrap:balance;margin:0}
+a{color:var(--teal)}
+.bar{background:var(--navy);position:sticky;top:env(safe-area-inset-top,0px);z-index:20}
+.bar .wrap{display:flex;justify-content:space-between;align-items:center;padding-block:10px;gap:12px}
+.bar img{height:32px;width:auto;display:block}
+.bar .logo-txt{color:#fff;font-family:var(--f-head);font-weight:800;letter-spacing:.5px}
+.bar .ph{color:#fff;font-weight:700;font-size:15px;user-select:all}
+.hero{background:var(--navy);color:#fff}
+.hero .wrap{padding-block:30px 26px;display:flex;flex-direction:column;gap:8px}
+.badge{align-self:flex-start;background:var(--gold);color:var(--navy-dk);font-family:var(--f-head);font-weight:800;font-size:11px;letter-spacing:2px;padding:5px 10px;border-radius:3px}
+.hello{font-family:var(--f-head);font-weight:700;font-size:11px;letter-spacing:2.5px;color:var(--gold);text-transform:uppercase;margin-top:2px}
+.hero h1{color:#fff;font-size:clamp(28px,6vw,40px);line-height:1.1}
+.hero .addr{font-weight:700}
+.hero .addr span{font-weight:400;opacity:.85}
+.hero .lead{font-family:var(--f-accent);font-style:italic;font-size:clamp(18px,4vw,22px);line-height:1.45;color:#F1E3C0;margin-top:4px}
+.keydates{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:14px}
+.kd{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);border-radius:6px;padding:10px 12px;min-width:0}
+.kd small{display:block;font-family:var(--f-head);font-weight:700;font-size:10px;letter-spacing:1.5px;color:var(--gold)}
+.kd b{display:block;font-family:var(--f-head);font-size:17px;line-height:1.2;margin-top:2px}
+@media (max-width:560px){.keydates{grid-template-columns:1fr}}
+.prog{margin-top:14px;display:flex;flex-direction:column;gap:6px}
+.prog .track{height:8px;background:rgba(255,255,255,.18);border-radius:4px;overflow:hidden}
+.prog .track i{display:block;height:100%;background:var(--gold);border-radius:4px}
+.prog span{font-size:13px;color:#E9ECEF}
+section{padding-block:28px;border-bottom:1px solid var(--line)}
+.eyebrow{font-family:var(--f-head);font-weight:700;font-size:11px;letter-spacing:2.5px;color:var(--teal);text-transform:uppercase}
+h2{font-size:22px;margin-top:4px}
+.sub{color:var(--muted);margin-top:8px}
+.legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:12px;font-size:13px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.star{color:var(--gold-dk);font-weight:800}
+ol.tl{list-style:none;margin:18px 0 0;padding:0;position:relative}
+ol.tl::before{content:"";position:absolute;left:15px;top:6px;bottom:6px;width:2px;background:var(--line)}
+.ms{position:relative;padding:0 0 22px 48px}
+.ms:last-child{padding-bottom:0}
+.dot{position:absolute;left:4px;top:2px;width:24px;height:24px;border-radius:12px;background:#fff;border:2px solid #ADB5BD;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#fff}
+.ms.done .dot{background:var(--good);border-color:var(--good)}
+.ms.now .dot{background:var(--gold);border-color:var(--gold)}
+.ms .when{font-family:var(--f-head);font-weight:700;font-size:12px;letter-spacing:1px;color:var(--muted);text-transform:uppercase;font-variant-numeric:tabular-nums}
+.ms .when.tbd{color:var(--gold-dk)}
+.ms h3{font-size:18px;margin-top:2px;display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.pill{font-family:var(--f-head);font-weight:800;font-size:10px;letter-spacing:1px;padding:2px 7px;border-radius:3px;color:#fff;white-space:nowrap}
+.pill.done{background:var(--good)} .pill.now{background:var(--gold);color:var(--navy-dk)} .pill.call{background:var(--navy)}
+.ms p{margin:6px 0 0}
+.box{margin-top:10px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+@media (max-width:560px){.box{grid-template-columns:1fr}}
+.cell{background:var(--wash);border-radius:6px;padding:10px 12px;font-size:14px;line-height:1.5;min-width:0}
+.cell small{display:block;font-family:var(--f-head);font-weight:700;font-size:10px;letter-spacing:1.5px;color:var(--muted);text-transform:uppercase;margin-bottom:2px}
+.cell.you{background:var(--cream)}
+.cell.you small{color:var(--gold-dk)}
+.ms.now .cell.you{outline:2px solid var(--gold)}
+.upd{margin-top:10px;border-left:3px solid var(--teal);padding:6px 0 6px 12px;font-size:14px}
+.upd b{font-family:var(--f-head);font-size:11px;letter-spacing:1px;color:var(--teal);text-transform:uppercase;display:block}
+.warn{background:#FCEFEF;border:2px solid var(--risk);border-radius:8px;padding:16px 18px;margin-top:16px}
+.warn h3{color:var(--risk);font-size:17px}
+.warn p{margin:6px 0 0}
+.warn .num{font-weight:700;color:var(--ink);user-select:all}
+.lists{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:16px}
+@media (max-width:680px){.lists{grid-template-columns:1fr}}
+.list{border:1px solid var(--line);border-radius:6px;padding:14px;min-width:0}
+.list h3{font-size:15px}
+.list ul{margin:8px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px;font-size:14px}
+.list li{padding-left:20px;position:relative}
+.list li::before{content:"";position:absolute;left:3px;top:8px;width:7px;height:7px;background:var(--gold);transform:rotate(45deg)}
+.people{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-top:14px}
+.person{background:var(--wash);border-radius:6px;padding:12px 14px;font-size:14px}
+.person small{display:block;font-family:var(--f-head);font-weight:700;font-size:10px;letter-spacing:1.5px;color:var(--muted);text-transform:uppercase}
+.person b{font-family:var(--f-head);color:var(--ink)}
+.person .num{user-select:all}
+.note{font-size:13px;color:var(--muted);margin-top:12px}
+footer{background:var(--wash);font-size:12px;color:var(--muted);line-height:1.5}
+footer .wrap{padding-block:20px}
+/* Loading / status (complete + error) states */
+.state{min-height:60vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:40px 0}
+.state .wrap{display:flex;flex-direction:column;align-items:center;gap:10px}
+.state .mark{font-family:var(--f-head);font-weight:800;letter-spacing:.5px;color:var(--navy)}
+.state h1{font-size:clamp(24px,5vw,32px)}
+.state p{max-width:42ch;color:var(--muted)}
+.spin{width:30px;height:30px;border:3px solid var(--line);border-top-color:var(--gold);border-radius:50%;animation:sp 1s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.spin{animation:none}}
+</style>
+</head>
+<body>
+
+<div id="app">
+  <div class="state"><div class="wrap"><div class="spin" role="status" aria-label="Loading your closing timeline"></div><p>Loading your closing timeline&hellip;</p></div></div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  // ── Config ──────────────────────────────────────────────────────────────
+  // The transaction coordinator (TC) agent owns the data. This page only renders it.
+  // Client details NEVER live in this repo — they are fetched live, per key, at view time.
+  var ENDPOINT = 'https://brokeriq-agentic-system-production.up.railway.app/closing-data';
+
+  // Phil's details are the only constants baked into the page (not client data).
+  var A = {
+    name:  'Phillip Himes',
+    phone: '(832) 338-4561',
+    email: 'phil@philliphimes.com',
+    office:'2600 South Shore Blvd. Ste 300, League City, TX 77573',
+    logo:  '/images/logo.png'
+  };
+
+  function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]});}
+  function qp(name){try{return new URLSearchParams(location.search).get(name);}catch(e){return null;}}
+  function norm(s){return String(s==null?'':s).toLowerCase().replace(/\s+/g,' ').trim();}
+  var app = function(){return document.getElementById('app');};
+
+  // ── Phil's approved SOP copy, keyed by the TC endpoint's step labels ──────
+  // what   = what happens at this step
+  // you    = what the seller does
+  // phil   = what Phil handles
+  // star   = Phil calls the seller around this step
+  // Labels that arrive without an entry here still render (label + date), just
+  // without the you/Phil detail boxes — so a new TC label never breaks the page.
+  var SOP = {
+    'offer accepted': {star:true,
+      what:'The contract is signed by everyone. Every date on this page comes from the executed contract.',
+      you:'Nothing yet. Read through this timeline so you know what’s coming.',
+      phil:'Sends the contract to the title company, confirms the buyer’s loan with their loan officer, and builds this timeline.'},
+    'earnest / option fee due': {
+      what:'The buyer delivers the earnest money and option fee to the title company.',
+      you:'Nothing.',
+      phil:'Confirms both were received on time.'},
+    'earnest money and option fee': {
+      what:'The buyer delivers the earnest money and option fee to the title company.',
+      you:'Nothing.',
+      phil:'Confirms both were received on time.'},
+    'option period ends': {star:true,
+      what:'The buyer either moves forward, asks for repairs or a credit, or terminates.',
+      you:'If there’s a repair request, we decide together: agree, counter, offer a credit, or decline.',
+      phil:'Negotiates any repair request, using your pre-listing inspection to show what was already disclosed.'},
+    'survey due': {
+      what:'Your existing survey (or a new one) is delivered so the buyer and title company can confirm the property lines and improvements.',
+      you:'If you have your existing survey and T-47 affidavit, give them to Phil.',
+      phil:'Delivers your survey and T-47 to the title company, and orders a new survey if one is needed.'},
+    'title commitment due': {
+      what:'The title company completes the title search and issues the title commitment.',
+      you:'Answer the title company’s request for your information so they can order your mortgage payoff.',
+      phil:'Sends the title company your contract, survey and T-47, and follows up on the title work.'},
+    'title work begins': {
+      what:'The title company opens the file and starts the title search.',
+      you:'Answer the title company’s request for your information so they can order your mortgage payoff.',
+      phil:'Sends the title company your contract, survey and T-47, and follows up on the title work.'},
+    'title objection deadline': {
+      what:'The deadline for the buyer to object to anything in the title commitment or survey.',
+      you:'Nothing, unless the buyer raises an objection — then we decide how to respond together.',
+      phil:'Reviews any objection and negotiates the cure on your behalf.'},
+    'property approval deadline': {
+      what:'The deadline tied to the buyer’s lender confirming the home’s value and condition.',
+      you:'Keep the home show-ready the day the appraiser comes. Phil calls you if the value comes in low.',
+      phil:'Follows up with the buyer’s lender, and submits comparable sales if the value comes in low.'},
+    'appraisal': {
+      what:'The buyer’s lender sends an appraiser to confirm the value.',
+      you:'Keep the home show-ready the day the appraiser comes. Phil calls you if the value comes in low.',
+      phil:'Follows up with the buyer’s lender, and submits comparable sales if the value comes in low.'},
+    'financing deadline': {
+      what:'The deadline for the buyer to obtain final loan approval.',
+      you:'Nothing.',
+      phil:'Checks in with the buyer’s loan officer until approval.'},
+    'buyer’s loan approved': {
+      what:'The deadline for the buyer to get final loan approval.',
+      you:'Nothing.',
+      phil:'Checks in with the buyer’s loan officer until approval.'},
+    'final walkthrough': {
+      what:'The buyer does a final walkthrough to confirm the home’s condition.',
+      you:'Leave the home clean and empty, with manuals, spare keys, remotes, and the turnover packet on the kitchen counter.',
+      phil:'Confirms any agreed repairs are finished, with receipts.'},
+    'closing': {star:true,
+      what:'You sign, the loan funds, and the home transfers to the buyer.',
+      you:'Bring your photo ID and one set of keys to the title company. They hand the keys over when it closes.',
+      phil:'Removes the lockbox and celebrates with you.'}
+  };
+
+  // Which steps carry the "Phil calls you" star when the SOP map has no entry.
+  // (Belt and braces; SOP.star is the primary source.)
+
+  // Key dates shown in the hero, in this order of preference, if present in the data.
+  var KEY_PREF = ['option period ends','financing deadline','closing'];
+
+  // ── Data normalizers (shape-tolerant) ─────────────────────────────────────
+  function isBlankDate(v){ return v==null || /^\s*$/.test(String(v)); }
+  function isNADate(v){ return /^(n\/?a|not[\s-]?applicable|tbd—na)$/i.test(String(v==null?'':v).trim()); }
+
+  // A step is Not Applicable (hidden) when the TC flags it or sets an N/A date.
+  function isNA(entry){
+    if(!entry) return true;
+    if(entry.applicable===false || entry.na===true) return true;
+    if(isNADate(entry.date)) return true;
+    return false;
+  }
+
+  // completed_steps may be: ["Closing", ...] | [{label:"Closing"}] | {"Closing":true}
+  function doneSet(cs){
+    var set = {};
+    if(!cs) return set;
+    if(Array.isArray(cs)){
+      cs.forEach(function(x){
+        if(x==null) return;
+        if(typeof x==='string') set[norm(x)]=true;
+        else if(typeof x==='object' && x.label!=null) set[norm(x.label)]=true;
+        else if(typeof x==='object' && x.step!=null) set[norm(x.step)]=true;
+      });
+    } else if(typeof cs==='object'){
+      Object.keys(cs).forEach(function(k){ if(cs[k]) set[norm(k)]=true; });
+    }
+    return set;
+  }
+
+  // update_notes may be: [{label,note}] | [{step,note}] | {"Closing":"text"}
+  function notesMap(un){
+    var map = {};
+    if(!un) return map;
+    if(Array.isArray(un)){
+      un.forEach(function(x){
+        if(!x || typeof x!=='object') return;
+        var key = x.label!=null ? x.label : x.step;
+        var val = x.note!=null ? x.note : x.text;
+        if(key!=null && val!=null) map[norm(key)] = val;
+      });
+    } else if(typeof un==='object'){
+      Object.keys(un).forEach(function(k){ if(un[k]!=null) map[norm(k)] = un[k]; });
+    }
+    return map;
+  }
+
+  // ── Renderers ─────────────────────────────────────────────────────────────
+  function renderComplete(message){
+    app().innerHTML =
+      '<div class="state"><div class="wrap">'+
+        '<div class="mark">PHILLIP HIMES</div>'+
+        '<h1>All done</h1>'+
+        '<p>'+esc(message || 'This closing is complete. Congratulations!')+'</p>'+
+        '<p class="note">Questions anytime? Call or text Phil at <span class="num">'+esc(A.phone)+'</span>.</p>'+
+      '</div></div>';
+    document.title = 'Closing complete — Phil Himes';
+  }
+
+  function renderError(){
+    app().innerHTML =
+      '<div class="state"><div class="wrap">'+
+        '<div class="mark">PHILLIP HIMES</div>'+
+        '<h1>We couldn’t load your timeline</h1>'+
+        '<p>Your link may be incomplete, or we’re having a brief connection issue. Please reopen the link from Phil’s text, or just reach out and he’ll resend it.</p>'+
+        '<p class="note">Call or text Phil at <span class="num">'+esc(A.phone)+'</span> &middot; '+esc(A.email)+'</p>'+
+      '</div></div>';
+    document.title = 'Your Closing Timeline — Phil Himes';
+  }
+
+  function renderActive(D){
+    D = D || {};
+    var T = D.title || {};
+    var dates = Array.isArray(D.dates) ? D.dates : [];
+    var done = doneSet(D.completed_steps);
+    var notes = notesMap(D.update_notes);
+    var first = (D.client_first_name!=null ? String(D.client_first_name) : '').trim();
+    var addr  = (D.address!=null ? String(D.address) : '').trim();
+
+    // Build the visible step list from the endpoint's dates array (its order is authoritative).
+    var steps = dates.filter(function(e){ return e && !isNA(e); }).map(function(e){
+      var label = String(e.label==null ? '' : e.label);
+      var sop = SOP[norm(label)] || {};
+      var blank = isBlankDate(e.date);
+      return {
+        label: label,
+        dateText: blank ? 'Date to be set' : String(e.date),
+        tbd: blank,
+        done: !!done[norm(label)],
+        note: notes[norm(label)],
+        star: !!sop.star,
+        what: sop.what, you: sop.you, phil: sop.phil
+      };
+    });
+
+    // "Happening now" = first step that isn't done.
+    var nowIdx = -1;
+    steps.forEach(function(s,i){ if(!s.done && nowIdx<0) nowIdx = i; });
+
+    var doneCount = steps.filter(function(s){return s.done;}).length;
+    var pct = steps.length ? Math.round(100*doneCount/steps.length) : 0;
+
+    // Key dates for the hero.
+    var byLabel = {};
+    steps.forEach(function(s){ byLabel[norm(s.label)] = s; });
+    var keyCards = [];
+    KEY_PREF.forEach(function(k){ if(byLabel[k]) keyCards.push(byLabel[k]); });
+    if(!keyCards.length){ keyCards = steps.slice(0,3); } // fallback: first few
+
+    var h = '';
+
+    // Top bar
+    h += '<div class="bar"><div class="wrap">'+
+      (A.logo ? '<img src="'+esc(A.logo)+'" alt="Phillip Himes Real Estate">' : '<span class="logo-txt">PHILLIP HIMES</span>')+
+      '<span class="ph">'+esc(A.phone)+'</span></div></div>';
+
+    // Hero
+    h += '<header class="hero"><div class="wrap"><span class="badge">UNDER CONTRACT</span>'+
+      (first ? '<div class="hello">For '+esc(first)+'</div>' : '')+
+      '<h1>Your road to closing</h1>'+
+      (addr ? '<div class="addr">'+esc(addr)+'</div>' : '')+
+      '<div class="lead">Every step between now and closing, with the date it happens and what, if anything, you need to do.</div>';
+
+    if(keyCards.length){
+      h += '<div class="keydates">';
+      keyCards.forEach(function(s){
+        h += '<div class="kd"><small>'+esc(s.label.toUpperCase())+'</small><b>'+esc(s.dateText)+'</b></div>';
+      });
+      h += '</div>';
+    }
+
+    h += '<div class="prog"><div class="track" role="img" aria-label="'+pct+'% of steps complete"><i style="width:'+pct+'%"></i></div>'+
+      '<span>'+doneCount+' of '+steps.length+' steps complete'+(nowIdx>-1?' · Next: '+esc(steps[nowIdx].label):'')+'</span></div>'+
+      '</div></header><main>';
+
+    // Timeline
+    h += '<section><div class="wrap"><div class="eyebrow">The timeline</div><h2>What happens, and when</h2>'+
+      '<p class="sub">You don’t need to track any of this. Phil watches every deadline. The steps marked with a star are when he’ll call you.</p>'+
+      '<div class="legend"><span><span class="star">★</span> Phil calls you</span><span>Gold box: what you do</span></div><ol class="tl">';
+
+    if(!steps.length){
+      h += '<li class="ms"><div class="dot" aria-hidden="true"></div><p>Your timeline is being set up. Phil will have every date filled in shortly — reach out anytime at '+esc(A.phone)+'.</p></li>';
+    }
+
+    steps.forEach(function(s,i){
+      var st = s.done ? 'done' : (i===nowIdx ? 'now' : '');
+      h += '<li class="ms '+st+'"><div class="dot" aria-hidden="true">'+(s.done?'✓':'')+'</div>'+
+        '<div class="when'+(s.tbd?' tbd':'')+'">'+esc(s.dateText)+'</div>'+
+        '<h3>'+(s.star?'<span class="star" aria-label="Phil calls you">★</span>':'')+esc(s.label)+
+          (s.done?'<span class="pill done">DONE</span>':(i===nowIdx?'<span class="pill now">HAPPENING NOW</span>':''))+'</h3>'+
+        (s.what?'<p>'+esc(s.what)+'</p>':'')+
+        ((s.you||s.phil)?'<div class="box">'+
+          '<div class="cell you"><small>What you do</small>'+esc(s.you||'Nothing — Phil has this one.')+'</div>'+
+          '<div class="cell"><small>What Phil is handling</small>'+esc(s.phil||'Watching this deadline for you.')+'</div>'+
+        '</div>':'')+
+        (s.note?'<div class="upd"><b>Update</b>'+esc(s.note)+'</div>':'')+
+        '</li>';
+    });
+    h += '</ol></div></section>';
+
+    // Closing day checklist + wire fraud warning
+    h += '<section><div class="wrap"><div class="eyebrow">Closing day</div><h2>Before you close</h2>'+
+      '<div class="warn" role="note"><h3>Protect your money from wire fraud</h3>'+
+      '<p>Criminals send fake emails that look like they come from the title company, with new wire instructions. <strong>Never send or accept a wire based on an email.</strong> Before any money moves, call the title company at the number below, which Phil gave you, and confirm the instructions by voice.</p>'+
+      (T.phone?'<p class="num">'+esc(T.name || 'Your title company')+' · '+esc(T.phone)+'</p>':'')+
+      '<p>Phil will never send you wire instructions. If anyone emails you new ones, call the title company before you do anything.</p></div>'+
+      '<div class="lists">'+
+        '<div class="list"><h3>Bring to the title company</h3><ul><li>Photo ID for every seller</li><li>One set of house keys</li><li>Bank details for your wire, confirmed by phone with title</li><li>A cashier’s check or wire, only if your figures show you owe at closing</li></ul></div>'+
+        '<div class="list"><h3>Leave on the kitchen counter</h3><ul><li>Appliance manuals and warranties</li><li>Spare keys and mailbox key</li><li>Garage remotes and gate fobs</li><li>The completed turnover packet</li></ul></div>'+
+        '<div class="list"><h3>Keep these on</h3><ul><li>Utilities until 3 days after closing, as a courtesy to the buyer</li><li>Homeowner’s insurance until the sale has closed</li></ul></div>'+
+      '</div></div></section>';
+
+    // Closing team
+    h += '<section><div class="wrap"><div class="eyebrow">Who’s who</div><h2>Your closing team</h2><div class="people">'+
+      '<div class="person"><small>Your agent</small><b>'+esc(A.name)+'</b><br><span class="num">'+esc(A.phone)+'</span><br>'+esc(A.email)+'</div>'+
+      (T.name?'<div class="person"><small>Title company</small><b>'+esc(T.name)+'</b>'+(T.phone?'<br><span class="num">'+esc(T.phone)+'</span>':'')+'</div>':'')+
+      (D.lender?'<div class="person"><small>Lender</small><b>'+esc(typeof D.lender==='object'?(D.lender.name||''):D.lender)+'</b>'+((D.lender&&D.lender.phone)?'<br><span class="num">'+esc(D.lender.phone)+'</span>':'')+'</div>':'')+
+      '</div><p class="note">Questions about any step? Call or text Phil anytime at '+esc(A.phone)+'.</p></div></section>';
+
+    // Footer
+    h += '</main><footer><div class="wrap">'+esc(A.name)+', REALTOR® · Brokered by eXp Realty · '+esc(A.office)+'<br>'+esc(A.phone)+' · '+esc(A.email)+'<br>'+
+      'Licensed in Texas · Equal Housing Opportunity. Prepared privately'+(addr?' for the owners of '+esc(addr):'')+
+      '. Dates are estimates based on the contract and may change; the executed contract controls. Phil is not an attorney and this page is not legal advice.'+
+      '<br><a href="https://assets.cdn.filesafe.space/l8dNWKKtBchv50jZJYBL/media/6a9f21b6bbc6015019c5157f.pdf" target="_blank" rel="noopener">Texas Real Estate Commission Information About Brokerage Services</a> · '+
+      '<a href="https://assets.cdn.filesafe.space/l8dNWKKtBchv50jZJYBL/media/6a9f2196bcef8b5f2c2e9c78.pdf" target="_blank" rel="noopener">Texas Real Estate Commission Consumer Protection Notice</a></div></footer>';
+
+    app().innerHTML = h;
+    document.title = 'Your Closing Timeline' + (addr ? ' — ' + addr : '') + ' · Phil Himes';
+
+    // Machine-readable schedule for the transaction coordinator agent.
+    window.CLOSING_SCHEDULE = steps.map(function(s){return {label:s.label, date:s.tbd?null:s.dateText, philCalls:s.star, done:s.done};});
+  }
+
+  // status: "complete" => neutral page; anything else => active render.
+  function route(D){
+    if(D && D.status === 'complete'){ renderComplete(D.message); }
+    else { renderActive(D); }
+  }
+
+  // ── Boot ───────────────────────────────────────────────────────────────────
+  function boot(){
+    // Test seam: a copy of this page can set window.__CLOSING_MOCK__ before this
+    // script runs to preview rendering without the live endpoint. Never set in prod.
+    if(window.__CLOSING_MOCK__){ try{ route(window.__CLOSING_MOCK__); }catch(e){ renderError(); } return; }
+
+    var k = qp('k');
+    if(!k){ renderError(); return; }
+
+    fetch(ENDPOINT + '?k=' + encodeURIComponent(k), {
+      method:'GET',
+      credentials:'omit',
+      cache:'no-store',
+      referrerPolicy:'no-referrer'
+    })
+    .then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
+    .then(route)
+    .catch(function(){ renderError(); });
+  }
+
+  boot();
+})();
+</script>
+
+</body>
+</html>
