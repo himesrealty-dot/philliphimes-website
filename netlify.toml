@@ -208,6 +208,16 @@
     X-Robots-Tag = "noindex, nofollow, noarchive, nosnippet"
     Referrer-Policy = "no-referrer"
 
+# ── Agent tools: Phil's private admin pages (client saved searches) ──
+# Real access control is the passphrase session enforced by the
+# agent-* functions; this just keeps the page out of search and caches.
+[[headers]]
+  for = "/agent/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow, noarchive, nosnippet"
+    Referrer-Policy = "no-referrer"
+    Cache-Control = "no-store"
+
 # ── The Front Porch (members' area): keep it out of search entirely ──
 # Header rather than a robots.txt Disallow, for two reasons:
 #   1. robots.txt is public — listing the paths advertises exactly what's

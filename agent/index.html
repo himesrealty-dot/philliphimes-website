@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Client Saved Searches — Agent Tools</title>
+  <meta name="robots" content="noindex, nofollow, noarchive" />
+  <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
+  <link rel="stylesheet" href="/css/styles.css" />
+  <style>
+    body { background: var(--off-white); color: var(--text-body); font-family: var(--font-body); }
+    .ag-top { background: var(--navy); color: var(--white); padding: 14px 16px; }
+    .ag-top__inner { max-width: 760px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .ag-top__brand { font-family: var(--font-heading); font-weight: 700; letter-spacing: .02em; font-size: .95rem; }
+    .ag-top__brand span { color: var(--gold); }
+    .ag-link { background: none; border: 0; color: var(--gold-light); font: inherit; font-size: .85rem; cursor: pointer; text-decoration: underline; padding: 0; }
+    .ag-wrap { max-width: 760px; margin: 0 auto; padding: 24px 16px 64px; }
+    .ag-card { background: var(--white); border-radius: var(--radius-md); box-shadow: var(--shadow-sm); padding: 20px; margin-bottom: 20px; border-top: 4px solid var(--navy); }
+    .ag-card h1, .ag-card h2 { font-family: var(--font-display); color: var(--navy); margin: 0 0 6px; }
+    .ag-card h1 { font-size: 1.6rem; }
+    .ag-card h2 { font-size: 1.25rem; }
+    .ag-sub { color: var(--dark-gray); font-size: .9rem; margin: 0 0 16px; }
+    .ag-step { font-family: var(--font-heading); font-size: .72rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--gold-dark); margin-bottom: 4px; }
+    .ag-field { display: flex; flex-direction: column; gap: 4px; margin-bottom: 12px; flex: 1 1 200px; }
+    .ag-field label { font-family: var(--font-heading); font-size: .8rem; font-weight: 600; color: var(--navy); }
+    .ag-field input[type=text], .ag-field input[type=email], .ag-field input[type=tel], .ag-field input[type=password], .ag-field input[type=url] {
+      border: 1px solid var(--mid-gray); border-radius: var(--radius-sm); padding: 10px 12px; font: inherit; font-size: 1rem; width: 100%; box-sizing: border-box; background: var(--white);
+    }
+    .ag-field input:focus { outline: 2px solid var(--teal); outline-offset: 1px; border-color: var(--teal); }
+    .ag-hint { font-size: .8rem; color: var(--dark-gray); }
+    .ag-row { display: flex; flex-wrap: wrap; gap: 12px; }
+    .ag-check { display: flex; align-items: center; gap: 8px; margin: 4px 0 14px; font-size: .92rem; }
+    .ag-btn { font-family: var(--font-heading); font-weight: 700; font-size: .85rem; border: 0; border-radius: var(--radius-full); padding: 10px 20px; cursor: pointer; background: var(--navy); color: var(--white); }
+    .ag-btn:hover { background: var(--navy-light); }
+    .ag-btn:disabled { opacity: .55; cursor: wait; }
+    .ag-btn--gold { background: var(--gold); color: var(--navy-dark); }
+    .ag-btn--gold:hover { background: var(--gold-light); }
+    .ag-btn--ghost { background: transparent; color: var(--navy); border: 1px solid var(--navy); }
+    .ag-btn--ghost:hover { background: var(--off-white); }
+    .ag-btn--danger { background: transparent; color: #a12a2a; border: 1px solid #d9a3a3; padding: 6px 14px; font-size: .78rem; }
+    .ag-msg { border-radius: var(--radius-sm); padding: 10px 12px; font-size: .9rem; margin: 0 0 12px; }
+    .ag-msg--err { background: #fdecec; color: #8a1f1f; }
+    .ag-msg--ok { background: #e8f5ee; color: #1d5e3a; }
+    .ag-msg--info { background: #eef5f8; color: var(--navy); }
+    .ag-client { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; background: var(--off-white); border-radius: var(--radius-sm); padding: 12px; }
+    .ag-client strong { color: var(--navy); }
+    .ag-list { list-style: none; margin: 0 0 8px; padding: 0; }
+    .ag-list li { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--light-gray); }
+    .ag-list li:last-child { border-bottom: 0; }
+    .ag-list__name { font-weight: 600; color: var(--navy); }
+    .ag-list__meta { font-size: .8rem; color: var(--dark-gray); word-break: break-word; }
+    .ag-chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 12px; }
+    .ag-chip { background: var(--off-white); border: 1px solid var(--light-gray); border-radius: var(--radius-full); padding: 3px 10px; font-size: .78rem; }
+    .ag-steps { margin: 0 0 14px; padding-left: 20px; font-size: .9rem; }
+    .ag-steps li { margin-bottom: 4px; }
+    details.ag-diag summary { cursor: pointer; font-size: .85rem; color: var(--dark-gray); }
+    details.ag-diag pre { background: var(--off-white); padding: 12px; border-radius: var(--radius-sm); overflow: auto; max-height: 360px; font-size: .75rem; }
+    [hidden] { display: none !important; }
+  </style>
+</head>
+<body>
+
+<header class="ag-top">
+  <div class="ag-top__inner">
+    <div class="ag-top__brand">Phil Himes <span>·</span> Agent Tools</div>
+    <button type="button" class="ag-link" id="signout" hidden>Sign out</button>
+  </div>
+</header>
+
+<main class="ag-wrap">
+
+  <!-- ── Sign in ── -->
+  <section class="ag-card" id="view-signin" hidden>
+    <h1>Agent sign-in</h1>
+    <p class="ag-sub">Private tools for setting up client home searches.</p>
+    <div class="ag-msg ag-msg--err" id="signin-msg" role="alert" hidden></div>
+    <form id="signin-form">
+      <div class="ag-field">
+        <label for="pw">Passphrase</label>
+        <input type="password" id="pw" autocomplete="current-password" required />
+      </div>
+      <button class="ag-btn" type="submit">Sign in</button>
+    </form>
+  </section>
+
+  <section class="ag-card" id="view-unconfigured" hidden>
+    <h1>Not set up yet</h1>
+    <p class="ag-sub">Add <code>AGENT_PASSWORD</code>, <code>AGENT_SESSION_SECRET</code> and <code>IDX_API_KEY</code> in Netlify &rarr; Site configuration &rarr; Environment variables, then redeploy.</p>
+  </section>
+
+  <div id="view-app" hidden>
+
+    <!-- ── Step 1: client ── -->
+    <section class="ag-card">
+      <div class="ag-step">Step 1</div>
+      <h2>Find the client</h2>
+      <p class="ag-sub">Look them up by email. If they don&rsquo;t have an account yet, you can create one.</p>
+      <div class="ag-msg" id="client-msg" role="status" hidden></div>
+
+      <form id="find-form" class="ag-row" style="align-items:flex-end">
+        <div class="ag-field">
+          <label for="find-email">Client email</label>
+          <input type="email" id="find-email" autocomplete="off" required />
+        </div>
+        <div class="ag-field" style="flex:0 0 auto">
+          <button class="ag-btn" type="submit">Look up</button>
+        </div>
+      </form>
+
+      <form id="create-form" hidden>
+        <p class="ag-sub" style="margin-top:4px">No account found for that email. Create one:</p>
+        <div class="ag-row">
+          <div class="ag-field"><label for="c-first">First name</label><input type="text" id="c-first" required /></div>
+          <div class="ag-field"><label for="c-last">Last name</label><input type="text" id="c-last" required /></div>
+        </div>
+        <div class="ag-row">
+          <div class="ag-field"><label for="c-email">Email</label><input type="email" id="c-email" required /></div>
+          <div class="ag-field"><label for="c-phone">Phone (optional)</label><input type="tel" id="c-phone" /></div>
+        </div>
+        <button class="ag-btn" type="submit">Create client account</button>
+      </form>
+
+      <div class="ag-client" id="client-card" hidden>
+        <div>
+          <strong id="client-name"></strong><br />
+          <span class="ag-list__meta" id="client-meta"></span>
+        </div>
+        <button type="button" class="ag-btn ag-btn--ghost" id="client-clear">Change client</button>
+      </div>
+    </section>
+
+    <!-- ── Step 2: searches ── -->
+    <section class="ag-card" id="searches-card" hidden>
+      <div class="ag-step">Step 2</div>
+      <h2>Their saved searches</h2>
+      <div class="ag-msg" id="list-msg" role="status" hidden></div>
+      <ul class="ag-list" id="search-list"></ul>
+    </section>
+
+    <section class="ag-card" id="new-card" hidden>
+      <div class="ag-step">Step 3</div>
+      <h2>Add a saved search</h2>
+      <ol class="ag-steps">
+        <li><a href="https://search.philliphimes.com/idx/search/advanced" target="_blank" rel="noopener">Open the search page</a> (opens in a new tab) and set the criteria.</li>
+        <li>Click <strong>Search</strong>, then copy the results page URL from the address bar.</li>
+        <li>Paste it below.</li>
+      </ol>
+      <div class="ag-msg" id="new-msg" role="status" hidden></div>
+      <form id="new-form">
+        <div class="ag-field">
+          <label for="s-name">Search name (the client sees this)</label>
+          <input type="text" id="s-name" maxlength="100" placeholder="e.g. League City 4-bed under $500K" required />
+        </div>
+        <div class="ag-field">
+          <label for="s-url">Search results URL</label>
+          <input type="url" id="s-url" placeholder="https://search.philliphimes.com/idx/results/listings?..." required />
+          <span class="ag-hint">Must be the results page, not the blank search form.</span>
+        </div>
+        <div class="ag-chips" id="s-preview" aria-live="polite"></div>
+        <label class="ag-check"><input type="checkbox" id="s-updates" checked /> Email the client when new listings match</label>
+        <button class="ag-btn ag-btn--gold" type="submit">Create saved search</button>
+      </form>
+    </section>
+
+    <details class="ag-diag">
+      <summary>IDX field check (troubleshooting)</summary>
+      <p class="ag-hint">Asks IDX which lead and search fields your account accepts. Pick a client first to include search fields.</p>
+      <button type="button" class="ag-btn ag-btn--ghost" id="diag-run">Run check</button>
+      <pre id="diag-out" hidden></pre>
+    </details>
+  </div>
+</main>
+
+<script>
+(function () {
+  'use strict';
+  var AUTH = '/.netlify/functions/agent-auth';
+  var API = '/.netlify/functions/agent-searches';
+  var $ = function (id) { return document.getElementById(id); };
+  var current = null; // { leadID, firstName, lastName, email }
+
+  // Friendly labels for common IDX search keys (unknown keys show raw).
+  var LABELS = {
+    idxID: 'MLS', pt: 'Type', lp: 'Min $', hp: 'Max $', bd: 'Beds', tb: 'Baths', ba: 'Baths',
+    sqFt: 'Sq ft', sqft: 'Sq ft', acres: 'Acres', city: 'City IDs', zipcode: 'ZIP', county: 'County',
+    add: 'Added (days)', srt: 'Sort', a_propStatus: 'Status', a_subdivisionName: 'Subdivision'
+  };
+
+  function show(el, on) { el.hidden = !on; }
+
+  function msg(el, text, kind) {
+    if (!text) { el.hidden = true; return; }
+    el.className = 'ag-msg ag-msg--' + (kind || 'info');
+    el.textContent = text;
+    el.hidden = false;
+  }
+
+  function call(url, body) {
+    return fetch(url, {
+      method: body ? 'POST' : 'GET',
+      credentials: 'same-origin',
+      headers: body ? { 'Content-Type': 'application/json' } : {},
+      body: body ? JSON.stringify(body) : undefined
+    }).then(function (res) {
+      return res.json().catch(function () { return {}; }).then(function (data) {
+        if (res.status === 401 && url === API) { route({ signedIn: false, configured: true }); }
+        if (!res.ok) { throw new Error(data.error || ('Request failed (' + res.status + ')')); }
+        return data;
+      });
+    });
+  }
+
+  function busy(form, on) {
+    Array.prototype.forEach.call(form.querySelectorAll('button'), function (b) { b.disabled = on; });
+  }
+
+  // ── Routing ──
+  function route(state) {
+    show($('view-unconfigured'), !state.configured);
+    show($('view-signin'), state.configured && !state.signedIn);
+    show($('view-app'), state.configured && state.signedIn);
+    show($('signout'), state.signedIn);
+    if (state.configured && !state.signedIn) { $('pw').focus(); }
+  }
+
+  call(AUTH).then(route).catch(function () {
+    route({ configured: true, signedIn: false });
+    msg($('signin-msg'), 'Could not reach the server. Agent tools only work on the live site or under netlify dev.', 'err');
+  });
+
+  $('signin-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var form = e.target; busy(form, true); msg($('signin-msg'), '');
+    call(AUTH, { password: $('pw').value })
+      .then(function () { $('pw').value = ''; route({ configured: true, signedIn: true }); $('find-email').focus(); })
+      .catch(function (err) { msg($('signin-msg'), err.message, 'err'); })
+      .then(function () { busy(form, false); });
+  });
+
+  $('signout').addEventListener('click', function () {
+    call(AUTH, { logout: true }).then(function () { clearClient(); route({ configured: true, signedIn: false }); });
+  });
+
+  // ── Step 1: client ──
+  function setClient(lead) {
+    current = lead;
+    $('client-name').textContent = ((lead.firstName || '') + ' ' + (lead.lastName || '')).trim() || lead.email;
+    $('client-meta').textContent = lead.email + ' · IDX lead #' + lead.leadID;
+    show($('find-form'), false); show($('create-form'), false); show($('client-card'), true);
+    show($('searches-card'), true); show($('new-card'), true);
+    msg($('client-msg'), ''); msg($('new-msg'), '');
+    loadSearches();
+  }
+
+  function clearClient() {
+    current = null;
+    show($('find-form'), true); show($('create-form'), false); show($('client-card'), false);
+    show($('searches-card'), false); show($('new-card'), false);
+    msg($('client-msg'), '');
+    $('find-email').value = '';
+  }
+
+  $('client-clear').addEventListener('click', function () { clearClient(); $('find-email').focus(); });
+
+  $('find-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var form = e.target; var email = $('find-email').value.trim();
+    busy(form, true); msg($('client-msg'), ''); show($('create-form'), false);
+    call(API, { action: 'findLead', email: email })
+      .then(function (data) {
+        if (data.leads && data.leads.length) { setClient(data.leads[0]); return; }
+        $('c-email').value = email;
+        show($('create-form'), true);
+        $('c-first').focus();
+      })
+      .catch(function (err) { msg($('client-msg'), err.message, 'err'); })
+      .then(function () { busy(form, false); });
+  });
+
+  $('create-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var form = e.target; busy(form, true); msg($('client-msg'), '');
+    var lead = { firstName: $('c-first').value, lastName: $('c-last').value, email: $('c-email').value, phone: $('c-phone').value };
+    call(API, Object.assign({ action: 'createLead' }, lead))
+      .then(function (data) {
+        setClient({ leadID: data.leadID, firstName: lead.firstName.trim(), lastName: lead.lastName.trim(), email: lead.email.trim().toLowerCase() });
+        msg($('client-msg'), data.existed ? 'That client already had an account, so I used it.' : 'Client account created in IDX.', 'ok');
+        form.reset();
+      })
+      .catch(function (err) { msg($('client-msg'), err.message, 'err'); })
+      .then(function () { busy(form, false); });
+  });
+
+  // ── Step 2: list ──
+  function describeCriteria(c) {
+    if (!c) return '';
+    if (typeof c === 'string') return c;
+    return Object.keys(c).map(function (k) {
+      var v = Array.isArray(c[k]) ? c[k].join(', ') : (typeof c[k] === 'object' ? JSON.stringify(c[k]) : c[k]);
+      return (LABELS[k] || k) + ': ' + v;
+    }).join(' · ');
+  }
+
+  function loadSearches() {
+    var list = $('search-list'); list.textContent = '';
+    msg($('list-msg'), 'Loading…', 'info');
+    var lead = current;
+    call(API, { action: 'listSearches', leadID: lead.leadID })
+      .then(function (data) {
+        if (current !== lead) return;
+        msg($('list-msg'), '');
+        if (!data.searches.length) { msg($('list-msg'), 'No saved searches yet.', 'info'); return; }
+        data.searches.forEach(function (s) { list.appendChild(searchRow(s)); });
+      })
+      .catch(function (err) { msg($('list-msg'), err.message, 'err'); });
+  }
+
+  function searchRow(s) {
+    var li = document.createElement('li');
+    var info = document.createElement('div');
+    var name = document.createElement('div'); name.className = 'ag-list__name'; name.textContent = s.searchName;
+    var meta = document.createElement('div'); meta.className = 'ag-list__meta';
+    var bits = [];
+    if (s.receiveUpdates !== null && s.receiveUpdates !== undefined) {
+      bits.push(/^(y|yes|1|true)$/i.test(String(s.receiveUpdates)) ? 'Email alerts on' : 'Email alerts off');
+    }
+    if (s.created) bits.push('Created ' + s.created);
+    var crit = describeCriteria(s.criteria); if (crit) bits.push(crit);
+    meta.textContent = bits.join(' · ');
+    info.appendChild(name); info.appendChild(meta);
+
+    var del = document.createElement('button');
+    del.type = 'button'; del.className = 'ag-btn ag-btn--danger'; del.textContent = 'Delete';
+    del.addEventListener('click', function () {
+      if (!confirm('Delete the saved search "' + s.searchName + '"? The client will stop getting alerts for it. This can’t be undone.')) return;
+      del.disabled = true;
+      call(API, { action: 'deleteSearch', leadID: current.leadID, searchID: s.searchID })
+        .then(function () { loadSearches(); })
+        .catch(function (err) { del.disabled = false; msg($('list-msg'), err.message, 'err'); });
+    });
+
+    li.appendChild(info); li.appendChild(del);
+    return li;
+  }
+
+  // ── Step 3: create ──
+  function previewUrl() {
+    var box = $('s-preview'); box.textContent = '';
+    var raw = $('s-url').value.trim(); if (!raw) return;
+    var url; try { url = new URL(raw); } catch (e) { return; }
+    var seen = {};
+    url.searchParams.forEach(function (v, k) {
+      if (!v) return;
+      var key = k.replace(/\[\d*\]$/, '');
+      if (/^(start|per|page|pg|view|mode)$/.test(key)) return;
+      (seen[key] = seen[key] || []).push(v);
+    });
+    var keys = Object.keys(seen);
+    if (!keys.length) {
+      var none = document.createElement('span'); none.className = 'ag-hint';
+      none.textContent = 'No criteria found in that link yet. Copy it from the results page.';
+      box.appendChild(none); return;
+    }
+    keys.forEach(function (k) {
+      var chip = document.createElement('span'); chip.className = 'ag-chip';
+      chip.textContent = (LABELS[k] || k) + ': ' + seen[k].join(', ');
+      box.appendChild(chip);
+    });
+  }
+  $('s-url').addEventListener('input', previewUrl);
+
+  $('new-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var form = e.target; busy(form, true); msg($('new-msg'), '');
+    call(API, {
+      action: 'createSearch', leadID: current.leadID,
+      searchName: $('s-name').value, searchUrl: $('s-url').value, receiveUpdates: $('s-updates').checked
+    })
+      .then(function () {
+        msg($('new-msg'), 'Saved search created' + ($('s-updates').checked ? ' with email alerts on.' : '.'), 'ok');
+        form.reset(); $('s-updates').checked = true; $('s-preview').textContent = '';
+        loadSearches();
+      })
+      .catch(function (err) { msg($('new-msg'), err.message, 'err'); })
+      .then(function () { busy(form, false); });
+  });
+
+  // ── Diagnostics ──
+  $('diag-run').addEventListener('click', function () {
+    var out = $('diag-out'); out.hidden = false; out.textContent = 'Asking IDX…';
+    call(API, { action: 'fields', leadID: current ? current.leadID : undefined })
+      .then(function (data) { out.textContent = JSON.stringify(data, null, 2); })
+      .catch(function (err) { out.textContent = err.message; });
+  });
+})();
+</script>
+</body>
+</html>

@@ -20,3 +20,6 @@ data/cad*.sqlite-journal
 # Real client data. Keep it local; it is not repo material.
 data/members.csv
 data/porch.sqlite
+
+# Local Netlify folder
+.netlify
