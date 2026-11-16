@@ -44,8 +44,10 @@ function safeEqual(a, b) {
 
 /** Compare passphrases via their HMACs so length differences don't leak. */
 function passwordMatches(input) {
-  if (!configured() || typeof input !== 'string' || !input) return false;
-  return safeEqual(sign('pw:' + input), sign('pw:' + process.env.AGENT_PASSWORD));
+  if (!configured() || typeof input !== 'string' || !input.trim()) return false;
+  // Trim both sides: a stray space or newline pasted into the Netlify value
+  // (or autofilled into the field) shouldn't lock Phil out.
+  return safeEqual(sign('pw:' + input.trim()), sign('pw:' + process.env.AGENT_PASSWORD.trim()));
 }
 
 function readCookie(event) {
