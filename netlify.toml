@@ -1,3 +1,19 @@
+# ── Closing-portal cutover ──
+# The client-facing closing timeline moved to its own gated portal at
+# closings.philliphimes.com (passwordless OTP auth + server-side BrokerIQ
+# proxy — no client data or shared secret ever reaches the browser).
+# Redirect every old /closing/ link — already texted to clients — to the
+# portal, preserving the ?k= transaction key (Netlify passes the query
+# string through automatically). force=true so this wins over the old
+# closing/index.html file still in the repo. Retire closing/*.html later.
+# NOTE: deploy THIS before flipping ENFORCE_PORTAL_SECRET on in Railway,
+# so nothing is still hitting /closing-data browser-direct at cutover.
+[[redirects]]
+  from = "/closing/*"
+  to = "https://closings.philliphimes.com/:splat"
+  status = 301
+  force = true
+
 [[redirects]]
   from = "/neighborhoods.html"
   to = "/cities.html"
