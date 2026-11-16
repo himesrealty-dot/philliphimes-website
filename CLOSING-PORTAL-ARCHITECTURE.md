@@ -122,11 +122,11 @@ Why this over the alternatives:
 
 | Option | Verdict |
 |--------|---------|
-| **Phone OTP (recommended)** | Low friction, familiar (every bank does it), reuses `sms-verify.js` almost as-is. "Possession of the link **+** possession of the phone." The client needs no password and nothing to remember. |
+| **Phone OTP (recommended — and now built on the BrokerIQ side, §6)** | Low friction, familiar (every bank does it). "Possession of the link **+** possession of the phone." The client needs no password and nothing to remember. **BrokerIQ sends the code** (it owns the phone + GHL), so the phone and raw code never reach the portal; the portal reuses the `sms-verify.js` HMAC pattern only to **sign its own session cookie**. |
 | **Magic link** | The link *is* already a magic link today — that's the problem. A *proper* magic link means single-use + short expiry + server-side tracking, which pushes state and minting onto BrokerIQ. More work, and still single-factor (whoever holds the link wins). |
 | **Signed, expiring key** | Good *hardening* (a leaked old link dies), and worth doing regardless, but it's still a bare bearer token — no second factor. Pairs well with OTP; doesn't replace it. |
 
-A lighter variant if Phil wants minimal friction: **confirm the last 4 digits of the phone on file** instead of a full OTP round-trip. Weaker (last-4 is guessable/discoverable), but still raises the bar from "anyone with the link" to "someone who knows whose phone it is." OTP is the right default; last-4 is the fallback for friction complaints.
+A lighter variant if Phil wants minimal friction: **confirm the last 4 digits of the phone on file** instead of a full OTP round-trip. Weaker (last-4 is guessable/discoverable), but still raises the bar from "anyone with the link" to "someone who knows whose phone it is." (The built `/closing-send-code` already returns those last 4 as its `hint`, so this variant is a small portal-side change, not a BrokerIQ one.) OTP is the right default; last-4 is the fallback for friction complaints.
 
 **Where auth state lives:** server-issued **HttpOnly, Secure, SameSite=Strict cookie**, short TTL (e.g. 2–8 hours — a client checks their timeline, they don't live in it), scoped to the one transaction key. **Not** `localStorage` (XSS-readable) and **not** a token the page can see. The OTP verification is the only thing that mints it. This mirrors the existing HMAC-token pattern, upgraded to a cookie.
 
@@ -160,40 +160,79 @@ Netlify preserves query strings on a `301` with a splat; the exact rule goes in 
 The four problems aren't equally urgent. **Auth (#1/#4) is the one with a live privacy exposure.** Decoupling (#2) and testability (#3) are engineering health. Phase accordingly:
 
 - **Phase 0 — now:** nothing changes; the bandaid stays live. (Optional 10-minute hardening: have BrokerIQ switch to *signed, expiring* keys so the current open links at least age out — see §6.)
-- **Phase 1 — close the privacy hole:** stand up the serverless proxy + OTP gate. Can ship on the **current** site infra under `/closing/` (reuses `sms-verify.js`), or directly on the new subdomain. The browser stops calling BrokerIQ; PII gets gated. **This is the fix that makes the bandaid a real thing.**
+- **Phase 1 — close the privacy hole:** stand up the serverless proxy + OTP gate. The BrokerIQ half is **already built** (§6, PR #1 unmerged); the portal half is sketched concretely in **Appendix A**. Can ship on the **current** site infra under `/closing/` first, or directly on the new subdomain. The browser stops calling BrokerIQ; PII gets gated. **This is the fix that makes the bandaid a real thing.**
 - **Phase 2 — decouple:** move to its own repo + Netlify project + `closings.philliphimes.com`. 301 the old path. Retire the coupled page.
 
-Doing Phase 1 first means the privacy fix doesn't wait on the repo-split ceremony.
+Doing Phase 1 first means the privacy fix doesn't wait on the repo-split ceremony. And because the server side already exists behind a dark flag, Phase 1 is now mostly **portal-side** work (Appendix A) plus a reviewed merge and one env flag.
 
 ---
 
-## 6. What the BrokerIQ team / session must do (propose only — do NOT change from here)
+## 6. The BrokerIQ API changes — **already built** (BrokerIQ PR #1, not merged)
 
-> The BrokerIQ transaction-coordinator system is a **separate repo.** None of this was changed by this design pass. These are asks to coordinate with whoever owns it.
+> The BrokerIQ transaction-coordinator system is a **separate repo** and **nothing in it was changed by this design pass.** A separate session already built the server side on its own branch: **[BrokerIQ-Agentic-System PR #1](https://github.com/himesrealty-dot/BrokerIQ-Agentic-System/pull/1)** (branch `claude/exciting-thompson-523f91`), **not merged / not deployed** — Phil reviews it there. The portal (this repo's side) must be built to the contract below.
 
-1. **Accept a server-to-server credential.** `/closing-data` should authenticate the portal's proxy function via a **shared secret header** (or mTLS / signed service token), so the data flows proxy→BrokerIQ, not browser→BrokerIQ. Once that exists, the **browser-origin CORS lock is no longer the access boundary** and can be relaxed or dropped for the proxy path.
-2. **Expose the client's phone to the proxy (server-to-server only).** For OTP, the portal needs to send a code to the number on file. Two ways, smallest-ask first:
-   - **(Preferred, less BrokerIQ work):** include the client's mobile (or an E.164 number) in the **server-to-server** `/closing-data` response. The portal sends its *own* OTP via the existing Twilio infra and verifies it. BrokerIQ then only needs #1 + one field.
-   - **(More BrokerIQ work):** BrokerIQ exposes `send-otp?k=` and `verify-otp` endpoints and owns the OTP lifecycle itself.
-3. **(Optional hardening, independently valuable):** mint keys as **signed tokens with an embedded expiry** so a leaked or forwarded old link stops resolving. Helps even before the portal ships.
-4. **Provide a staging/test endpoint or a mock mode** so the portal can be developed against something other than live client data — this is how problem #3 (prod-only testability) actually dies.
+It chose the **BrokerIQ-owns-the-OTP** model: because BrokerIQ already holds the client's phone and already sends SMS via GHL, *it* texts the code. **The client's phone and the raw code never reach the portal or the browser at all** — the portal only ever sees a masked hint and a pass/fail. That's cleaner than the "portal sends its own OTP" idea floated earlier in §4.3, so it's the model the rest of this doc now assumes.
 
-**The single smallest viable BrokerIQ change** that unblocks the recommended design: *#1 (accept a shared secret) + the preferred half of #2 (include the phone in the server-to-server response).* Everything else is optional or lives entirely on the portal side.
+### 6.1 The two new endpoints (exact contract)
+
+Both are server-to-server only and require a shared secret:
+
+```
+Authorization: Bearer <CLOSING_PORTAL_SECRET>      # set in Railway; the portal holds the same value
+```
+
+**`POST /closing-send-code`**  — texts the client their code
+```
+request:   { "k": "<key>" }
+200:       { "ok": true, "hint": "•••1234" }        # last 4 of the phone on file, for the UI to show
+404:       unknown k
+429:       resend attempted within ~30s (cooldown)
+```
+Sends *"Your closing verification code is NNNNNN"* to the client via GHL. 6-digit code, **10-minute TTL**.
+
+**`POST /closing-verify-code`**  — checks a code
+```
+request:   { "k": "<key>", "code": "<6 digits>" }
+200 ok:    { "ok": true }                            # ONE-TIME use — a verified code is spent
+200 fail:  { "ok": false, "reason": "expired" | "locked" | "invalid" }
+```
+**Locks after 5 wrong attempts.** Code store is **Redis-backed** on Railway (`otp:<k>`, native 600s expiry; `otp:cd:<k>` 30s resend marker), with an in-memory fallback for local/CI.
+
+**Dev/test seam (this is what finally kills prod-only testability):**
+```
+k == "TEST123"  →  send returns hint "•••0000" WITHOUT texting anyone
+                   verify accepts code "000000"
+```
+So the whole portal flow — send, show hint, verify, mint session, fetch data — is runnable on `localhost` and deploy previews against `TEST123`, with no live client and no SMS. Problem #3 solved for real.
+
+### 6.2 The `/closing-data` enforcement flag (the cutover lever)
+
+- `/closing-data` is **still open** (no secret required) and its **response shape is unchanged** — the live public page and the 388 Dover client are unaffected right now.
+- A guard exists but is **dark behind an env flag `ENFORCE_PORTAL_SECRET` (default OFF).** When ON, `/closing-data` will `401` unless called with `Authorization: Bearer <CLOSING_PORTAL_SECRET>`.
+- **⚠️ Cutover ordering is load-bearing:** flip `ENFORCE_PORTAL_SECRET` **ON only after** the portal proxy is live and calling `/closing-data` with the Bearer secret. Turning it on earlier **401s the current live page**. (Until then the portal can already call the secret-authenticated send/verify endpoints; only the data-fetch enforcement waits.)
+
+### 6.3 What is still open on the BrokerIQ side
+
+- **Merge + deploy** BrokerIQ PR #1 (Phil's review).
+- **Set `CLOSING_PORTAL_SECRET`** to the same value in both Railway and the portal's Netlify project.
+- Confirm **`REDIS_URL`** is set on Railway (the OTP store needs it in production; it was exercised only via `fakeredis` in CI).
+- **Optional hardening, independent of the above:** mint `k` as a signed, expiring token so leaked/forwarded old links age out.
+- **Not needed after all:** adding the phone to `/closing-data` — the OTP-owns-the-phone model means the portal never needs it.
 
 ---
 
 ## 7. Constraints honored
 
-- **No client data in any repo, ever.** Preserved and strengthened — the live-fetch pattern stays, and with the proxy the data passes through a function's memory without ever being written to the repo or a client-cached URL.
-- **BrokerIQ untouched.** This pass changed nothing in that system; §6 is a proposal to hand to its owner.
-- **Design only.** Nothing here is built.
+- **No client data in any repo, ever.** Preserved and strengthened — the live-fetch pattern stays, and with the proxy the data passes through a function's memory without ever being written to the repo or a client-cached URL. With the OTP-owns-the-phone model, the client's phone and raw code never even reach the portal.
+- **BrokerIQ untouched by this pass.** This design pass changed nothing in that repo. The server-side endpoints in §6 were built by a *separate* session on its own branch (BrokerIQ PR #1) and are unmerged; they remain Phil's to review and deploy.
+- **Design only (this repo).** No portal code is built here — Appendix A is a build sketch, not an implementation.
 
 ---
 
 ## 8. Open questions for Phil
 
 1. **Friction tolerance.** Are you OK asking clients for a one-time code texted to their phone before they see the timeline? (Recommended.) Or do you want it frictionless, accepting a weaker "last-4 of your phone" check — or even just hardened bearer links with an expiry and no second factor?
-2. **BrokerIQ ownership & timeline.** Who can make the endpoint changes in §6, and on what timeline? Is there a BrokerIQ repo/session to coordinate with, or is that you too? The recommended design is blocked on at least ask #1 there.
+2. **BrokerIQ PR #1 review.** The server endpoints (§6) are already built and waiting in [BrokerIQ PR #1](https://github.com/himesrealty-dot/BrokerIQ-Agentic-System/pull/1). Will you review/merge it, and is `REDIS_URL` set on Railway (the OTP store needs it in prod)? Phase 1 unblocks the moment that merges and `CLOSING_PORTAL_SECRET` is shared with the portal.
 3. **Phone-on-file reliability.** The TC texts clients, so it clearly has a mobile per deal — but is it always the *client's* number (vs. a co-agent, a spouse, a landline)? OTP is only as good as the number it's sent to.
 4. **Subdomain name.** `closings.philliphimes.com`? Or `my.philliphimes.com` / `portal.`? (Affects DNS + the BrokerIQ link the TC texts.)
 5. **Scope creep check.** Is this *only* the closing timeline, or is it the seed of a broader client portal (document sharing, e-sign status, past-closing archive)? That changes whether to build minimally or lay a foundation.
@@ -203,4 +242,95 @@ Doing Phase 1 first means the privacy fix doesn't wait on the repo-split ceremon
 
 ---
 
-*Prepared as a design proposal. The live `/closing/` page is unchanged. Recommend reviewing §3 (target architecture) and §8 (open questions), then deciding Phase 1 scope before any build.*
+*Prepared as a design proposal. The live `/closing/` page is unchanged. Recommend reviewing §3 (target architecture), §6 (the now-built BrokerIQ contract), Appendix A (the Phase 1 build sketch), and §8 (open questions), then deciding Phase 1 scope before any build.*
+
+---
+
+## Appendix A — Phase 1 build sketch (portal side)
+
+This is the concrete portal build against the §6 contract. It's a sketch for review, **not built**. It targets the current site infra (`netlify/functions/*` + a page under `/closing/`) so Phase 1 can ship before the repo split; the same three files move to the standalone project in Phase 2 unchanged.
+
+### A.1 Files
+
+```
+netlify/functions/
+  closing-session.js     # POST — proxies send/verify to BrokerIQ; mints the session cookie
+  closing-data.js        # GET  — requires the cookie; proxies BrokerIQ /closing-data
+closing/
+  index.html             # the OTP gate + the EXISTING renderer (data source swapped)
+```
+
+Three functions' worth of logic, but folded into two endpoints. All three BrokerIQ calls (`send`, `verify`, `data`) happen **server-side inside these functions**, each carrying `Authorization: Bearer <CLOSING_PORTAL_SECRET>`. The browser never holds the secret and never calls Railway.
+
+### A.2 Request flow (what happens, in order)
+
+```
+1. Client taps texted link → closing/index.html?k=<key>
+2. Page shows "Verify it's you" screen, posts {k} to /.netlify/functions/closing-session
+   with action=send.
+3. closing-session.js → POST BrokerIQ /closing-send-code {k} (Bearer).
+   Returns the masked hint to the page: "We texted a code to the phone ending •••1234."
+4. Client types the 6-digit code → page posts {k, code, action:"verify"} to closing-session.js.
+5. closing-session.js → POST BrokerIQ /closing-verify-code {k, code} (Bearer).
+      ok:false  → relay reason (expired / locked / invalid) to the UI, let them retry/resend.
+      ok:true   → mint a signed session cookie (A.3) and return 200.
+6. Page now calls GET /.netlify/functions/closing-data (credentials:"same-origin").
+7. closing-data.js validates the cookie, extracts k from it, → GET BrokerIQ /closing-data?k=<k>
+   (Bearer), returns the JSON.
+8. The EXISTING renderActive() draws the seller/buyer timeline. (Only the fetch line changed.)
+```
+
+The only change to the ~400-line approved renderer is its data source:
+
+```diff
+- fetch(ENDPOINT + '?k=' + encodeURIComponent(k), { credentials:'omit', ... })  // browser → Railway
++ fetch('/.netlify/functions/closing-data', { credentials:'same-origin' })        // browser → our function
+```
+
+### A.3 The session (how auth state is held)
+
+On `verify ok:true`, `closing-session.js` sets:
+
+```
+Set-Cookie: phh_closing=<token>; HttpOnly; Secure; SameSite=Strict;
+            Path=/; Max-Age=14400                      # 4h — long enough to read, short enough to expire
+```
+
+`<token>` is an **HMAC-signed value** carrying `{k, iat, exp}`, signed with a portal secret — the exact pattern already proven in `sms-verify.js` (`crypto.createHmac('sha256', SECRET)`), just stored as a cookie instead of returned to JS. Key properties:
+
+- **Scoped to one `k`.** `closing-data.js` reads `k` *from the verified cookie*, never from a query param — so a valid session for closing A can't be replayed against closing B's key.
+- **HttpOnly** → not readable by page JS, so an XSS bug can't lift it. **SameSite=Strict** → not sent on cross-site navigations.
+- **Stateless** → no session DB on the portal side (BrokerIQ's Redis handles OTP state; the portal just verifies its own signature). Same no-DB philosophy as `sms-verify.js`.
+- Re-verification is only needed after the 4h expiry; a page refresh inside the window reuses the cookie.
+
+### A.4 Environment variables (portal side)
+
+```
+CLOSING_PORTAL_SECRET   # SAME value as Railway's — the Bearer token for all BrokerIQ calls
+PHH_SESSION_SECRET      # signs the session cookie (independent of the above; rotate freely)
+BROKERIQ_BASE_URL       # https://brokeriq-agentic-system-production.up.railway.app
+```
+
+`CLOSING_PORTAL_SECRET` is the one shared secret that must match Railway. It lives only in the function runtime's env — never in the repo, never in client JS. (This is a concrete reason to prefer the Phase-2 standalone Netlify project: that secret shouldn't share an environment with the public marketing build.)
+
+### A.5 Build-and-verify path (no live client needed)
+
+Thanks to the `TEST123` / `000000` dev seam (§6.1), the whole flow is testable off-prod:
+
+1. `netlify dev` locally (or a deploy preview). Open `…/closing/?k=TEST123`.
+2. Gate posts `{k:"TEST123"}` → `send` returns hint `•••0000`, no SMS fires.
+3. Enter `000000` → `verify` returns `ok:true` → cookie minted.
+4. `closing-data` fetches the test record → renderer draws it.
+
+This is the first time the portal can be exercised end-to-end without merging to the live domain — the direct answer to bandaid problem #3.
+
+### A.6 Cutover checklist (Phase 1 → live)
+
+1. Merge + deploy **BrokerIQ PR #1** (endpoints go live, still with `ENFORCE_PORTAL_SECRET` **OFF**).
+2. Set `CLOSING_PORTAL_SECRET` (both sides), `PHH_SESSION_SECRET`, `BROKERIQ_BASE_URL` on the portal.
+3. Ship the portal (`closing-session.js`, `closing-data.js`, gated `closing/index.html`). It now proxies `/closing-data` **with** the Bearer secret.
+4. Verify a real deal end-to-end (OTP texts, timeline renders).
+5. **Flip `ENFORCE_PORTAL_SECRET` → ON** on Railway. From this moment `/closing-data` requires the secret, so the old un-gated direct-fetch page would 401 — which is why step 3 must be live first. The gate is now mandatory for everyone.
+6. (Phase 2) Move these three files to the standalone project + subdomain; 301 the old path.
+
+Step 5 is the single irreversible-feeling switch, and it's cleanly ordered after the portal is proven in step 4.
