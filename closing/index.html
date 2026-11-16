@@ -132,17 +132,23 @@ footer .wrap{padding-block:20px}
 
   function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]});}
   function qp(name){try{return new URLSearchParams(location.search).get(name);}catch(e){return null;}}
-  function norm(s){return String(s==null?'':s).toLowerCase().replace(/\s+/g,' ').trim();}
+  // Lowercase, canonicalize apostrophes/quotes (curly vs straight) and dashes, collapse
+  // whitespace — so SOP/label matching is punctuation-insensitive to whatever the TC sends.
+  function norm(s){return String(s==null?'':s).toLowerCase()
+    .replace(/[‘’ʼ`´]/g,"'")
+    .replace(/[–—]/g,'-')
+    .replace(/\s+/g,' ').trim();}
   var app = function(){return document.getElementById('app');};
 
   // ── Phil's approved SOP copy, keyed by the TC endpoint's step labels ──────
   // what   = what happens at this step
-  // you    = what the seller does
+  // you    = what the client does
   // phil   = what Phil handles
-  // star   = Phil calls the seller around this step
-  // Labels that arrive without an entry here still render (label + date), just
-  // without the you/Phil detail boxes — so a new TC label never breaks the page.
-  var SOP = {
+  // star   = Phil calls the client around this step
+  // One map per side (the payload's `side` field selects it). Labels that arrive
+  // without an entry still render (label + date), just without the you/Phil detail
+  // boxes — so a new TC label never breaks the page.
+  var SOP_SELLER = {
     'offer accepted': {star:true,
       what:'The contract is signed by everyone. Every date on this page comes from the executed contract.',
       you:'Nothing yet. Read through this timeline so you know what’s coming.',
@@ -187,7 +193,7 @@ footer .wrap{padding-block:20px}
       what:'The deadline for the buyer to obtain final loan approval.',
       you:'Nothing.',
       phil:'Checks in with the buyer’s loan officer until approval.'},
-    'buyer’s loan approved': {
+    "buyer's loan approved": {
       what:'The deadline for the buyer to get final loan approval.',
       you:'Nothing.',
       phil:'Checks in with the buyer’s loan officer until approval.'},
@@ -201,8 +207,97 @@ footer .wrap{padding-block:20px}
       phil:'Removes the lockbox and celebrates with you.'}
   };
 
-  // Which steps carry the "Phil calls you" star when the SOP map has no entry.
-  // (Belt and braces; SOP.star is the primary source.)
+  // Buyer SOP copy (reuses closing/_template-buyer/index.html, Phil's approved wording).
+  var SOP_BUYER = {
+    'offer accepted': {star:true,
+      what:'The contract is signed by everyone. Every date on this page comes from the executed contract.',
+      you:'Get your earnest money and option fee to the title company, and keep your inspection appointment.',
+      phil:'Sends the contract to the title company and your lender, books your inspection inside the option period, and builds this timeline.'},
+    'earnest / option fee due': {
+      what:'Your earnest money and option fee are due at the title company.',
+      you:'Deliver both by this date. Before you wire anything, call the title company at the number on this page and confirm the instructions by voice.',
+      phil:'Confirms the title company received both on time.'},
+    'earnest money and option fee': {
+      what:'Your earnest money and option fee are due at the title company.',
+      you:'Deliver both by this date. Before you wire anything, call the title company at the number on this page and confirm the instructions by voice.',
+      phil:'Confirms the title company received both on time.'},
+    'your inspection': {
+      what:'Your inspector goes through the home top to bottom. This is your due diligence window.',
+      you:'Come for the last 30 minutes so the inspector can walk you through what they found.',
+      phil:'Schedules access with the listing agent and goes through the report with you.'},
+    'inspection': {
+      what:'Your inspector goes through the home top to bottom. This is your due diligence window.',
+      you:'Come for the last 30 minutes so the inspector can walk you through what they found.',
+      phil:'Schedules access with the listing agent and goes through the report with you.'},
+    'option period ends': {star:true,
+      what:'Until 5:00 p.m. today you can walk away for any reason. After that, the contract has teeth.',
+      you:'Decide with Phil: move forward as is, ask for repairs or a credit, or walk away.',
+      phil:'Negotiates any repair request and gets any notice delivered before the deadline.'},
+    'survey due': {
+      what:'The survey is delivered so you and the title company can confirm the property lines and improvements.',
+      you:'Nothing — Phil reviews it for anything that affects you.',
+      phil:'Reviews the survey against the title commitment and flags anything that needs fixing.'},
+    'title commitment due': {
+      what:'The title company issues the title commitment, and you receive the survey and the HOA documents.',
+      you:'Nothing, unless Phil calls. He’ll tell you anything worth knowing about the HOA rules and fees.',
+      phil:'Reviews the title commitment, survey and HOA documents, and objects to anything that needs fixing before the deadline.'},
+    'title, survey and hoa documents': {
+      what:'The title company sends the title commitment, and you receive the survey and the HOA documents.',
+      you:'Nothing, unless Phil calls. He’ll tell you anything worth knowing about the HOA rules and fees.',
+      phil:'Reviews the title commitment, survey and HOA documents, and objects to anything that needs fixing before the deadline.'},
+    'title objection deadline': {
+      what:'The deadline to object to anything in the title commitment or survey.',
+      you:'Nothing — Phil raises any objection for you.',
+      phil:'Objects to anything on the title or survey that needs to be cured before closing.'},
+    'property approval deadline': {
+      what:'The deadline tied to your lender confirming the home’s value and condition.',
+      you:'Nothing. Phil calls you if the appraisal comes in low.',
+      phil:'Follows up with your lender, and advises you if the value comes in low.'},
+    'appraisal': {
+      what:'Your lender sends an appraiser to confirm the home’s value.',
+      you:'Nothing. Phil calls you if the value comes in low.',
+      phil:'Follows up with your lender until the report is in.'},
+    "homeowner's insurance": {
+      what:'Your lender needs proof of homeowner’s insurance before closing.',
+      you:'Shop and bind your policy. On the coast, wind and flood can be separate policies; make sure you have every one you need.',
+      phil:'Confirms your lender has proof of insurance.'},
+    'homeowners insurance': {
+      what:'Your lender needs proof of homeowner’s insurance before closing.',
+      you:'Shop and bind your policy. On the coast, wind and flood can be separate policies; make sure you have every one you need.',
+      phil:'Confirms your lender has proof of insurance.'},
+    'insurance': {
+      what:'Your lender needs proof of homeowner’s insurance before closing.',
+      you:'Shop and bind your policy. On the coast, wind and flood can be separate policies; make sure you have every one you need.',
+      phil:'Confirms your lender has proof of insurance.'},
+    'financing deadline': {
+      what:'The deadline for your loan’s final approval.',
+      you:'Until closing: no new credit, no big purchases, no job changes, and answer your lender’s requests the same day.',
+      phil:'Checks in with your loan officer every week until approval.'},
+    'loan approval': {
+      what:'The deadline for your loan’s final approval.',
+      you:'Until closing: no new credit, no big purchases, no job changes, and answer your lender’s requests the same day.',
+      phil:'Checks in with your loan officer every week until approval.'},
+    'final walkthrough': {
+      what:'You walk through the home one last time to confirm its condition and any agreed repairs.',
+      you:'Plan on about 30 minutes. Run the faucets, appliances, and heat and air.',
+      phil:'Walks through with you and checks the repairs against the receipts.'},
+    'closing': {star:true,
+      what:'You sign, your loan funds, and the home is yours.',
+      you:'Bring photo ID for every buyer. Make sure your funds have reached the title company, confirmed by phone.',
+      phil:'Is there with you, and takes your closing photo.'}
+  };
+
+  // Closing-day checklist, per side.
+  var LISTS_SELLER = [
+    {h:'Bring to the title company', items:['Photo ID for every seller','One set of house keys','Bank details for your wire, confirmed by phone with title','A cashier’s check or wire, only if your figures show you owe at closing']},
+    {h:'Leave on the kitchen counter', items:['Appliance manuals and warranties','Spare keys and mailbox key','Garage remotes and gate fobs','The completed turnover packet']},
+    {h:'Keep these on', items:['Utilities until 3 days after closing, as a courtesy to the buyer','Homeowner’s insurance until the sale has closed']}
+  ];
+  var LISTS_BUYER = [
+    {h:'Bring to the title company', items:['Photo ID for every buyer','Your funds to close, by wire or cashier’s check, with the amount and instructions confirmed by phone with title']},
+    {h:'Set up before closing', items:['Electric, water and internet in your name, starting closing day','Homeowner’s insurance, bound and starting closing day','Mail forwarding to your new address']},
+    {h:'After you get the keys', items:['Change or re-key the locks','Reset garage and gate codes','File your homestead exemption']}
+  ];
 
   // Key dates shown in the hero, in this order of preference, if present in the data.
   var KEY_PREF = ['option period ends','financing deadline','closing'];
@@ -279,6 +374,10 @@ footer .wrap{padding-block:20px}
   function renderActive(D){
     D = D || {};
     var T = D.title || {};
+    var SIDE = norm(D.side) === 'buyer' ? 'buyer' : 'seller';
+    var SOP   = SIDE === 'buyer' ? SOP_BUYER   : SOP_SELLER;
+    var LISTS = SIDE === 'buyer' ? LISTS_BUYER : LISTS_SELLER;
+    var partyNoun = SIDE === 'buyer' ? 'buyers' : 'owners';
     var dates = Array.isArray(D.dates) ? D.dates : [];
     var done = doneSet(D.completed_steps);
     var notes = notesMap(D.update_notes);
@@ -373,21 +472,23 @@ footer .wrap{padding-block:20px}
       (T.phone?'<p class="num">'+esc(T.name || 'Your title company')+' · '+esc(T.phone)+'</p>':'')+
       '<p>Phil will never send you wire instructions. If anyone emails you new ones, call the title company before you do anything.</p></div>'+
       '<div class="lists">'+
-        '<div class="list"><h3>Bring to the title company</h3><ul><li>Photo ID for every seller</li><li>One set of house keys</li><li>Bank details for your wire, confirmed by phone with title</li><li>A cashier’s check or wire, only if your figures show you owe at closing</li></ul></div>'+
-        '<div class="list"><h3>Leave on the kitchen counter</h3><ul><li>Appliance manuals and warranties</li><li>Spare keys and mailbox key</li><li>Garage remotes and gate fobs</li><li>The completed turnover packet</li></ul></div>'+
-        '<div class="list"><h3>Keep these on</h3><ul><li>Utilities until 3 days after closing, as a courtesy to the buyer</li><li>Homeowner’s insurance until the sale has closed</li></ul></div>'+
+        LISTS.map(function(col){
+          return '<div class="list"><h3>'+esc(col.h)+'</h3><ul>'+
+            col.items.map(function(it){return '<li>'+esc(it)+'</li>';}).join('')+
+          '</ul></div>';
+        }).join('')+
       '</div></div></section>';
 
     // Closing team
     h += '<section><div class="wrap"><div class="eyebrow">Who’s who</div><h2>Your closing team</h2><div class="people">'+
       '<div class="person"><small>Your agent</small><b>'+esc(A.name)+'</b><br><span class="num">'+esc(A.phone)+'</span><br>'+esc(A.email)+'</div>'+
       (T.name?'<div class="person"><small>Title company</small><b>'+esc(T.name)+'</b>'+(T.phone?'<br><span class="num">'+esc(T.phone)+'</span>':'')+'</div>':'')+
-      (D.lender?'<div class="person"><small>Lender</small><b>'+esc(typeof D.lender==='object'?(D.lender.name||''):D.lender)+'</b>'+((D.lender&&D.lender.phone)?'<br><span class="num">'+esc(D.lender.phone)+'</span>':'')+'</div>':'')+
+      (D.lender?'<div class="person"><small>Your lender</small><b>'+esc(typeof D.lender==='object'?(D.lender.name||''):D.lender)+'</b>'+((D.lender&&D.lender.phone)?'<br><span class="num">'+esc(D.lender.phone)+'</span>':'')+'</div>':'')+
       '</div><p class="note">Questions about any step? Call or text Phil anytime at '+esc(A.phone)+'.</p></div></section>';
 
     // Footer
     h += '</main><footer><div class="wrap">'+esc(A.name)+', REALTOR® · Brokered by eXp Realty · '+esc(A.office)+'<br>'+esc(A.phone)+' · '+esc(A.email)+'<br>'+
-      'Licensed in Texas · Equal Housing Opportunity. Prepared privately'+(addr?' for the owners of '+esc(addr):'')+
+      'Licensed in Texas · Equal Housing Opportunity. Prepared privately'+(addr?' for the '+partyNoun+' of '+esc(addr):'')+
       '. Dates are estimates based on the contract and may change; the executed contract controls. Phil is not an attorney and this page is not legal advice.'+
       '<br><a href="https://assets.cdn.filesafe.space/l8dNWKKtBchv50jZJYBL/media/6a9f21b6bbc6015019c5157f.pdf" target="_blank" rel="noopener">Texas Real Estate Commission Information About Brokerage Services</a> · '+
       '<a href="https://assets.cdn.filesafe.space/l8dNWKKtBchv50jZJYBL/media/6a9f2196bcef8b5f2c2e9c78.pdf" target="_blank" rel="noopener">Texas Real Estate Commission Consumer Protection Notice</a></div></footer>';
