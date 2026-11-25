@@ -7,9 +7,11 @@
  *
  * Bump CACHE when app shell assets change so clients pick up the new version.
  */
-const CACHE = 'hsiq-v1';
+// Bump this on any app-shell change so the new worker clears the old cache.
+const CACHE = 'hsiq-v2';
+// Note: '/app' is deliberately NOT precached — it's always fetched network-first
+// (see below) so the shell can never be served stale. These are static assets only.
 const SHELL = [
-  '/app',
   '/css/app.css',
   '/js/app.js',
   '/manifest.webmanifest',
@@ -46,9 +48,10 @@ self.addEventListener('fetch', (event) => {
   const isShellAsset = SHELL.includes(url.pathname);
 
   if (isAppNav) {
-    // Network-first so content stays fresh; fall back to the cached shell offline.
+    // Network-first, bypassing the HTTP cache so a returning visitor always gets
+    // the latest shell; fall back to the last-cached copy only when offline.
     event.respondWith(
-      fetch(req)
+      fetch(new Request(req.url, { cache: 'reload' }))
         .then((res) => {
           const copy = res.clone();
           caches.open(CACHE).then((c) => c.put('/app', copy)).catch(() => {});
