@@ -393,6 +393,29 @@ City market-update articles ({city}-market-update-{month}-{year}.html, e.g. `fri
 
 Key derived stat: failRatePct = (Terminated+Expired+Withdrawn) / (failed + sold). Caveat any neighborhood with <10 solds as a small sample. Taylor Lake Village is a separate municipality — NOT in the Clear Lake export; needs its own data.
 
+## Monthly Market Report Pages (imported, do not hand-edit)
+
+Separate from the market-update articles above. The Market Report System
+(`E:\Market-Report-System`) builds 12 cities of pages + PDFs each month; this repo imports
+them with one command (full detail in `README.md`):
+
+```
+python scripts/import-market-reports.py "E:\Market-Report-System\staging\<YYYY-MM>\site"
+```
+
+- Owned by the import and overwritten monthly: `<city>-tx-housing-market/`, `sellsmart/`,
+  `buyright/`, `market-report/`, `market-reports/`, `assets/market-report/`,
+  `sitemap-market-reports.xml`. Never hand-edit; never rename the URLs (QR codes, GHL, emails).
+- The import stamps the nav + footer from `market-insights.html` onto every report page
+  with root-relative links. A nav change reaches them on the next import (or re-run it).
+- Report pages load `css/styles.css` → `css/market-report-shell.css` → the scoped
+  `assets/market-report/site.css`, and `js/market-report-nav.js` instead of `js/main.js`
+  (main.js animates every `.card`, which the report body uses for layout).
+- `market-insights.html#city-reports` is the hub (nav label: "Market Reports"). The thanks
+  router falls back to it.
+- `robots.txt`: `/market-reports/` (PDFs) is disallowed; `/sellsmart/` and `/buyright/` must
+  stay crawlable so their `noindex` tag can be read.
+
 ## Blog Section
 
 All neighborhood pages have an empty blog section:

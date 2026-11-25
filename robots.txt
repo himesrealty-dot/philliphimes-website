@@ -7,5 +7,7 @@ Disallow: /idx-footer.html
 Disallow: /next-step.html
 Disallow: /relifeiq.html
 Disallow: /updates/
+Disallow: /market-reports/
 
 Sitemap: https://philliphimes.com/sitemap.xml
+Sitemap: https://philliphimes.com/sitemap-market-reports.xml

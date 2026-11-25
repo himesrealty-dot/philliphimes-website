@@ -1,0 +1,60 @@
+/* ==========================================================================
+   market-report-shell.css — isolation layer for the monthly market report pages
+   philliphimes.com
+   --------------------------------------------------------------------------
+   The report pages (/<city>-tx-housing-market/, /sellsmart/, /buyright/,
+   /market-report/thanks/) are built by the Market Report System and wrapped in
+   the site nav + footer by scripts/import-market-reports.py.
+
+   LOAD ORDER on those pages (the import script writes it):
+     1. /css/styles.css                   site chrome (nav, footer)
+     2. /css/market-report-shell.css      THIS FILE
+     3. /assets/market-report/site.css    report body, scoped to <main class="wrap">
+
+   WHY THIS FILE EXISTS: styles.css carries a global reset (* { margin:0;
+   padding:0 }), bare element rules (p, h1-h6, a, img, ul) and three class names
+   the report body also uses (.card, .btn, .badge). Left alone they restyle the
+   report content. The rules below hand everything inside <main class="wrap">
+   back to browser defaults, so the report body renders exactly as the Market
+   Report System designed it, while the nav and footer keep the site styles.
+
+   Specificity is deliberately LOW (:where() adds none) so the report's own
+   stylesheet, loaded next, and third-party widget styles (GHL forms, the
+   IDXAddons search) still win.
+   ========================================================================== */
+
+body.mr-page { background: #F8F9FA; }
+
+/* Undo the site reset and bare element rules inside the report body.
+   :is(*, i) matches every element with the specificity of one element
+   selector, which is exactly enough to beat `p { }`, `h2 { }`, `a { }`. */
+main:where(.wrap),
+:where(main.wrap) :is(*, i) { all: revert; }
+
+main.wrap { -webkit-font-smoothing: auto; -moz-osx-font-smoothing: auto; }
+
+/* Undo the three class-name clashes with styles.css: .card, .btn, .badge.
+   Only the properties styles.css sets on those classes are listed. A blanket
+   `all: revert` here would outrank the report's own element rules (its link
+   colour, its box-sizing) on anything carrying one of these classes.
+   If styles.css gains a property on .card / .btn / .badge, add it here. */
+:where(main.wrap) .card {
+  background: revert; border-radius: revert; box-shadow: revert;
+  overflow: revert; transition: revert;
+}
+:where(main.wrap) .card:hover { transform: none; box-shadow: none; }
+:where(main.wrap) .btn {
+  display: revert; align-items: revert; justify-content: revert; gap: revert;
+  padding: revert; border-radius: revert; font-family: revert; font-weight: revert;
+  font-size: revert; letter-spacing: revert; text-transform: revert; cursor: revert;
+  border: revert; transition: revert; white-space: revert; text-decoration: revert;
+}
+:where(main.wrap) .badge {
+  display: revert; align-items: revert; gap: revert; padding: revert;
+  border-radius: revert; font-family: revert; font-size: revert; font-weight: revert;
+  letter-spacing: revert; text-transform: revert;
+}
+
+/* The site nav is sticky, so in-page anchors (#get-report, #payment,
+   #incentives) need to stop below it rather than underneath it. */
+main.wrap [id] { scroll-margin-top: 104px; }

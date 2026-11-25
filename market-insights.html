@@ -72,6 +72,39 @@
     .insight-card__title { font-size: 1rem; color: var(--navy); margin-bottom: var(--space-sm); }
     .insight-card__desc { font-size: 0.85rem; color: var(--dark-gray); line-height: 1.6; }
 
+    .city-reports {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .city-reports__group {
+      background: var(--white);
+      border: 1px solid var(--light-gray);
+      border-top: 4px solid var(--gold);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl) var(--space-lg);
+      box-shadow: var(--shadow-sm);
+    }
+    .city-reports__title { font-size: 1.15rem; color: var(--navy); margin-bottom: var(--space-md); }
+    .city-reports__list { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+    .city-reports__list a {
+      display: inline-block;
+      padding: 0.55rem 1rem;
+      border: 1px solid var(--light-gray);
+      border-radius: var(--radius-full);
+      background: var(--off-white);
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: var(--navy);
+      transition: background var(--transition), color var(--transition), border-color var(--transition);
+    }
+    .city-reports__list a:hover,
+    .city-reports__list a:focus-visible { background: var(--navy); border-color: var(--navy); color: var(--white); }
+    @media (max-width: 768px) { .city-reports { grid-template-columns: 1fr; } }
+
     .subscribe-form {
       display: flex;
       gap: var(--space-sm);
@@ -166,7 +199,7 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
             <li><a href="buyeriq.html">BuyerIQ&#8482; &#8212; Buyer's Edge</a></li>
             <li><a href="selleriq.html">SellerIQ&#8482; &#8212; Seller's Edge</a></li>
             <li><a href="marketiq.html">MarketIQ&#8482; &#8212; Property Intelligence</a></li>
-            <li><a href="market-insights.html" class="nav__link--active">Market Insights</a></li>
+            <li><a href="market-insights.html" class="nav__link--active">Market Reports</a></li>
           </ul>
         </li>
         <li><a href="about.html" class="nav__link">My Story</a></li>
@@ -204,8 +237,51 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
     </div>
   </section>
 
+  <!-- ── MONTHLY CITY REPORTS ────────────────────────────
+       The 12 city pages are built monthly by the Market Report System and
+       imported with scripts/import-market-reports.py (see README.md). The
+       /market-report/thanks/ page links here as its fallback, so keep this
+       section first and keep all 12 cities listed. -->
+  <section class="section" id="city-reports" aria-labelledby="city-reports-heading">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-header__eyebrow">Updated Monthly · 12 Cities</span>
+        <h2 class="section-header__title" id="city-reports-heading">Market Reports by City</h2>
+        <p class="section-header__subtitle">
+          Pick your city for this month's numbers — supply, days on market, and what sellers are really
+          netting — then get the full Sell Smart or Buy Right Report.
+        </p>
+      </div>
+
+      <div class="city-reports">
+        <div class="city-reports__group">
+          <h3 class="city-reports__title">Bay Area</h3>
+          <ul class="city-reports__list">
+            <li><a href="league-city-tx-housing-market/">League City</a></li>
+            <li><a href="pearland-tx-housing-market/">Pearland</a></li>
+            <li><a href="friendswood-tx-housing-market/">Friendswood</a></li>
+            <li><a href="dickinson-tx-housing-market/">Dickinson</a></li>
+            <li><a href="seabrook-tx-housing-market/">Seabrook</a></li>
+            <li><a href="webster-tx-housing-market/">Webster</a></li>
+            <li><a href="kemah-tx-housing-market/">Kemah</a></li>
+          </ul>
+        </div>
+        <div class="city-reports__group">
+          <h3 class="city-reports__title">North Houston</h3>
+          <ul class="city-reports__list">
+            <li><a href="spring-tx-housing-market/">Spring</a></li>
+            <li><a href="the-woodlands-tx-housing-market/">The Woodlands</a></li>
+            <li><a href="tomball-tx-housing-market/">Tomball</a></li>
+            <li><a href="humble-tx-housing-market/">Humble</a></li>
+            <li><a href="kingwood-tx-housing-market/">Kingwood</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ── LATEST REPORTS ──────────────────────────────── -->
-  <section class="section" aria-labelledby="reports-heading">
+  <section class="section section--alt" aria-labelledby="reports-heading">
     <div class="container">
       <div class="section-header">
         <span class="section-header__eyebrow">June 2026 · Six Months of HAR MLS Data</span>
@@ -252,7 +328,7 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
   </section>
 
   <!-- ── COMPARISONS ─────────────────────────────────── -->
-  <section class="section section--alt" aria-labelledby="compare-heading">
+  <section class="section" aria-labelledby="compare-heading">
     <div class="container">
       <div class="section-header">
         <span class="section-header__eyebrow">Side-by-Side</span>

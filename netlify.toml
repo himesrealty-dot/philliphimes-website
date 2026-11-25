@@ -179,6 +179,12 @@
   to = "/404.html"
   status = 404
   force = true
+# Repo README (documents the monthly market-report import) - internal.
+[[redirects]]
+  from = "/README.md"
+  to = "/404.html"
+  status = 404
+  force = true
 [[redirects]]
   # Deleted internal preview scratch file.
   from = "/har-preview.html"

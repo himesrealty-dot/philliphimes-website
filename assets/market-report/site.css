@@ -1,0 +1,84 @@
+/* scoped to <main class="wrap"> by scripts/import-market-reports.py - do not edit, re-run the import */
+/* Market report web pages (SEO city pages + download pages). Phillip Himes Real Estate brand. */
+@font-face{font-family:Montserrat;font-weight:400;src:url(fonts/montserrat-latin-400-normal.woff2) format('woff2');font-display:swap}
+@font-face{font-family:Montserrat;font-weight:600;src:url(fonts/montserrat-latin-600-normal.woff2) format('woff2');font-display:swap}
+@font-face{font-family:Montserrat;font-weight:700;src:url(fonts/montserrat-latin-700-normal.woff2) format('woff2');font-display:swap}
+@font-face{font-family:Montserrat;font-weight:800;src:url(fonts/montserrat-latin-800-normal.woff2) format('woff2');font-display:swap}
+@font-face{font-family:'Open Sans';font-weight:400;src:url(fonts/open-sans-latin-400-normal.woff2) format('woff2');font-display:swap}
+@font-face{font-family:'Open Sans';font-weight:600;src:url(fonts/open-sans-latin-600-normal.woff2) format('woff2');font-display:swap}
+@font-face{font-family:'Open Sans';font-weight:700;src:url(fonts/open-sans-latin-700-normal.woff2) format('woff2');font-display:swap}
+@font-face{font-family:'Playfair Display';font-style:italic;font-weight:400;src:url(fonts/playfair-display-latin-400-italic.woff2) format('woff2');font-display:swap}
+main:where(.wrap), :where(main.wrap) :is(*, i){box-sizing:border-box}
+main:where(.wrap){margin:0;background:#F8F9FA;font-family:'Open Sans',sans-serif;color:#333333;line-height:1.6}
+:where(main.wrap) a{color:#186E82}:where(main.wrap) a:hover{color:#1B3A5C}
+:where(main.wrap) h1, :where(main.wrap) h2, :where(main.wrap) h3{font-family:Montserrat,sans-serif;color:#1A1A2E;line-height:1.15}
+:where(main.wrap) input:focus, :where(main.wrap) select:focus, :where(main.wrap) button:focus-visible, :where(main.wrap) a:focus-visible{outline:2px solid #2089A0;outline-offset:2px}
+:where(main.wrap) .top, :where(main.wrap).top{background:#1B3A5C}
+:where(main.wrap) .top .in, :where(main.wrap).top .in{max-width:1120px;margin:0 auto;padding:16px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+:where(main.wrap) .top img, :where(main.wrap).top img{height:50px;width:auto;display:block}
+:where(main.wrap) .top a.ph, :where(main.wrap).top a.ph{font-family:Montserrat,sans-serif;font-weight:700;color:#FFFFFF;text-decoration:none}
+:where(main.wrap) .goldbar, :where(main.wrap).goldbar{height:4px;background:#C9A455}
+:where(main.wrap) .wrap, :where(main.wrap).wrap{max-width:1120px;margin:0 auto;padding:36px 24px 64px;display:flex;flex-direction:column;gap:32px}
+:where(main.wrap) .narrow, :where(main.wrap).narrow{max-width:820px}
+:where(main.wrap) .kick, :where(main.wrap).kick{font-family:Montserrat,sans-serif;font-size:12px;font-weight:700;letter-spacing:3px;color:#A8883D;text-transform:uppercase}
+:where(main.wrap) .kick.buyer, :where(main.wrap).kick.buyer{color:#186E82}
+:where(main.wrap) h1{margin:6px 0 10px;font-size:clamp(28px,4vw,40px);font-weight:800}
+:where(main.wrap) .lead, :where(main.wrap).lead{font-size:17px;color:#495057;margin:0}
+:where(main.wrap) .updated, :where(main.wrap).updated{font-size:13px;color:#495057;margin-top:8px}
+:where(main.wrap) .card, :where(main.wrap).card{background:#FFFFFF;border:1px solid #E9ECEF;border-radius:12px;padding:26px}
+:where(main.wrap) .row, :where(main.wrap).row{display:flex;flex-wrap:wrap;gap:24px}
+:where(main.wrap) .grow, :where(main.wrap).grow{flex:999 1 440px;min-width:0}
+:where(main.wrap) .side, :where(main.wrap).side{flex:1 1 280px}
+:where(main.wrap) .btn, :where(main.wrap).btn{display:inline-block;line-height:1.3;white-space:normal;background:#1B3A5C;color:#FFFFFF;text-decoration:none;font-family:Montserrat,sans-serif;font-weight:700;font-size:15px;padding:13px 20px;border-radius:7px;border:0;cursor:pointer}
+:where(main.wrap) .btn.buyer, :where(main.wrap).btn.buyer{background:#186E82}:where(main.wrap) .btn.gold, :where(main.wrap).btn.gold{background:#C9A455;color:#1A1A2E}:where(main.wrap) .btn.dark, :where(main.wrap).btn.dark{background:#1A1A2E}
+:where(main.wrap) .btn:hover, :where(main.wrap).btn:hover{color:#FFFFFF;filter:brightness(1.1)}:where(main.wrap) .btn.gold:hover, :where(main.wrap).btn.gold:hover{color:#1A1A2E}
+:where(main.wrap) .qa h2, :where(main.wrap).qa h2{font-size:24px;margin:0 0 8px}
+:where(main.wrap) .qa .answer, :where(main.wrap).qa .answer{font-size:17px;margin:0 0 14px}
+:where(main.wrap) .stats, :where(main.wrap).stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px}
+:where(main.wrap) .stat, :where(main.wrap).stat{background:#F8F9FA;border-radius:8px;padding:14px 16px}
+:where(main.wrap) .stat .v, :where(main.wrap).stat .v{font-family:Montserrat,sans-serif;font-size:28px;font-weight:800;color:#1B3A5C}
+:where(main.wrap) .stat .k, :where(main.wrap).stat .k{font-size:13px;color:#495057}
+:where(main.wrap) .tbl, :where(main.wrap).tbl{overflow-x:auto}
+:where(main.wrap) table.data{border-collapse:collapse;width:100%;font-size:14px;min-width:520px}
+:where(main.wrap) table.data caption{text-align:left;font-size:13px;color:#495057;padding-bottom:6px}
+:where(main.wrap) table.data th{background:#1B3A5C;color:#FFFFFF;font-family:Montserrat,sans-serif;font-size:12px;padding:9px 10px;text-align:right}
+:where(main.wrap) table.data th:first-child, :where(main.wrap) table.data td:first-child{text-align:left}
+:where(main.wrap) table.data td{padding:8px 10px;border-bottom:1px solid #E9ECEF;text-align:right}
+:where(main.wrap) .take, :where(main.wrap).take{background:#1B3A5C;border-radius:10px;padding:18px 20px;color:#FFFFFF;font-family:'Playfair Display',serif;font-style:italic;font-size:18px;line-height:1.45}
+:where(main.wrap) .optin, :where(main.wrap).optin{background:#1B3A5C;color:#FFFFFF;border-radius:12px;padding:26px;display:flex;flex-wrap:wrap;gap:20px;align-items:center}
+:where(main.wrap) .optin.buyer, :where(main.wrap).optin.buyer{background:#186E82}
+:where(main.wrap) .optin h2, :where(main.wrap).optin h2{color:#FFFFFF;margin:0 0 6px;font-size:24px}
+:where(main.wrap) .optin p, :where(main.wrap).optin p{margin:0;color:#E3EAF1}
+:where(main.wrap) .optin .slot, :where(main.wrap).optin .slot{flex:1 1 320px;background:#FFFFFF;border-radius:10px;padding:18px;color:#333333;font-size:13px}
+:where(main.wrap) .bio, :where(main.wrap).bio{display:flex;gap:16px;align-items:flex-start;font-size:15px}
+:where(main.wrap) .bio .badge, :where(main.wrap).bio .badge{font-family:Montserrat,sans-serif;font-weight:800;color:#1B3A5C}
+:where(main.wrap) .nearby, :where(main.wrap).nearby{display:flex;flex-wrap:wrap;gap:10px}
+:where(main.wrap) .nearby a, :where(main.wrap).nearby a{background:#FFFFFF;border:1px solid #E9ECEF;border-radius:999px;padding:8px 14px;text-decoration:none;font-weight:600;font-size:14px}
+:where(main.wrap) .ctas, :where(main.wrap).ctas{display:flex;flex-wrap:wrap;gap:20px}
+:where(main.wrap) .ctas>*, :where(main.wrap).ctas>*{flex:1 1 300px;background:#FFFFFF;border:1px solid #E9ECEF;border-radius:10px;padding:20px 22px;text-decoration:none;display:flex;flex-direction:column;gap:6px}
+:where(main.wrap) .ctas .t, :where(main.wrap).ctas .t{font-family:Montserrat,sans-serif;font-weight:800;font-size:17px;color:#1A1A2E}
+:where(main.wrap) .ctas .d, :where(main.wrap).ctas .d{font-size:14px;color:#495057}
+:where(main.wrap) .ctas .goldcard, :where(main.wrap).ctas .goldcard{background:#C9A455;border:0}:where(main.wrap) .ctas .goldcard .d, :where(main.wrap).ctas .goldcard .d{color:#1A1A2E}
+:where(main.wrap) form.f{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+:where(main.wrap) form.f label{display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:600;color:#1A1A2E}
+:where(main.wrap) form.f .full{grid-column:1/-1}
+:where(main.wrap) form.f input, :where(main.wrap) form.f select{font:inherit;font-weight:400;font-size:16px;padding:11px 12px;border:1px solid #CED4DA;border-radius:6px;background:#FFFFFF}
+:where(main.wrap) .pills, :where(main.wrap).pills{display:flex;flex-wrap:wrap;gap:8px}
+:where(main.wrap) .pill, :where(main.wrap).pill{font:inherit;font-size:14px;font-weight:600;padding:10px 14px;border-radius:999px;border:2px solid #CED4DA;background:#FFFFFF;color:#1A1A2E;cursor:pointer}
+:where(main.wrap) .pill[aria-pressed=true], :where(main.wrap).pill[aria-pressed=true]{background:#1B3A5C;border-color:#1B3A5C;color:#FFFFFF}
+:where(main.wrap) .est, :where(main.wrap).est{background:#1B3A5C;border-radius:10px;padding:24px;color:#FFFFFF;display:flex;flex-direction:column;gap:12px}
+:where(main.wrap) .est>*, :where(main.wrap).est>*{flex-shrink:0}
+:where(main.wrap) .est .lbl, :where(main.wrap).est .lbl{font-family:Montserrat,sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;color:#DBBF76}
+:where(main.wrap) .est .total, :where(main.wrap).est .total{font-family:Montserrat,sans-serif;font-size:46px;font-weight:800;line-height:1}
+:where(main.wrap) .est .line, :where(main.wrap).est .line{display:flex;justify-content:space-between;font-size:14px}
+:where(main.wrap) .est .lines, :where(main.wrap).est .lines{border-top:1px solid #254D7A;padding-top:12px;display:flex;flex-direction:column;gap:8px}
+:where(main.wrap) .est .cmp, :where(main.wrap).est .cmp{background:#254D7A;border-radius:8px;padding:12px 14px;font-size:13px}
+:where(main.wrap) .est .small, :where(main.wrap).est .small{font-size:12px;color:#E3EAF1}
+:where(main.wrap) .seg, :where(main.wrap).seg{display:flex;gap:8px}
+:where(main.wrap) .seg button, :where(main.wrap).seg button{flex:1;font:inherit;font-size:13px;font-weight:600;padding:11px 8px;border-radius:6px;border:2px solid #CED4DA;background:#FFFFFF;color:#1A1A2E;cursor:pointer}
+:where(main.wrap) .seg button[aria-pressed=true], :where(main.wrap).seg button[aria-pressed=true]{border-color:#1B3A5C;background:#1B3A5C;color:#FFFFFF}
+:where(main.wrap) .fine, :where(main.wrap).fine{font-size:12px;color:#495057}
+:where(main.wrap) .foot, :where(main.wrap).foot{border-top:1px solid #E9ECEF;padding-top:18px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:12px;color:#495057}
+:where(main.wrap) .foot .slogan, :where(main.wrap).foot .slogan{font-family:Montserrat,sans-serif;font-weight:700;letter-spacing:1.5px;color:#1B3A5C}
+:where(main.wrap) [id], :where(main.wrap)[id]{scroll-margin-top:24px}
+@media (max-width:640px){:where(main.wrap) form.f{grid-template-columns:1fr}:where(main.wrap) .est .total, :where(main.wrap).est .total{font-size:38px}}

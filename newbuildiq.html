@@ -139,27 +139,8 @@
     .nbiq-card { background: rgba(255,255,255,0.07); backdrop-filter: blur(14px); border: 1px solid rgba(255,255,255,0.16); border-radius: 1.25rem; padding: 2rem 1.85rem; }
     .nbiq-card__title { font-family: var(--font-display); font-weight: 900; font-size: 1.15rem; color: white; margin-bottom: 0.35rem; }
     .nbiq-card__sub { font-size: 0.85rem; color: rgba(255,255,255,0.6); margin-bottom: 1.4rem; line-height: 1.55; }
-    .nbiq-field { margin-bottom: 0.85rem; }
-    .nbiq-field input[type=text], .nbiq-field input[type=email], .nbiq-field input[type=tel] { width: 100%; box-sizing: border-box; background: rgba(255,255,255,0.95); border: 1px solid rgba(255,255,255,0.25); border-radius: 9px; padding: 0.8rem 0.95rem; font-size: 0.95rem; font-family: inherit; color: var(--navy); }
-    .nbiq-field input::placeholder { color: #8a97a3; }
-    /* Community select - same list and behaviour as the lander (incentives.html).
-       Sits muted like a placeholder until a real community is picked. */
-    .nbiq-field select { width: 100%; box-sizing: border-box; background: rgba(255,255,255,0.95); border: 1px solid rgba(255,255,255,0.25);
-      border-radius: 9px; padding: 0.8rem 0.95rem; font-size: 0.95rem; font-family: inherit; color: #8a97a3;
-      appearance: none; cursor: pointer; padding-right: 2.4rem;
-      background-image: linear-gradient(45deg, transparent 50%, #8a97a3 50%), linear-gradient(135deg, #8a97a3 50%, transparent 50%);
-      background-position: right 1.25rem center, right 0.95rem center;
-      background-size: 0.34rem 0.34rem, 0.34rem 0.34rem; background-repeat: no-repeat; }
-    .nbiq-field select.is-picked { color: var(--navy); }
-    .nbiq-field select:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
-    .nbiq-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; }
-    @media (max-width: 480px) { .nbiq-row { grid-template-columns: 1fr; } }
-    .nbiq-consent { display: flex; gap: 0.55rem; align-items: flex-start; margin: 0.6rem 0 1.1rem; font-size: 0.72rem; color: rgba(255,255,255,0.6); line-height: 1.45; }
-    .nbiq-consent input { margin-top: 0.15rem; flex-shrink: 0; }
-    .nbiq-submit { width: 100%; background: var(--gold); color: var(--navy); font-family: var(--font-heading); font-weight: 800; font-size: 0.95rem; border: 0; border-radius: 50px; padding: 0.95rem 1.5rem; cursor: pointer; transition: background 0.2s; }
-    .nbiq-submit:hover { background: #d4b86a; }
-    .nbiq-submit:disabled { opacity: 0.6; cursor: default; }
-    .nbiq-hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+    /* GHL form embed sits on a white panel inside the glass card */
+    .nbiq-embed { background: #fff; border-radius: 12px; padding: 8px; }
 
     .faq-section { padding: 4.5rem 0; background: #f7f4ef; }
     .faq-list { max-width: 740px; }
@@ -231,7 +212,7 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
             <li><a href="buyeriq.html">BuyerIQ™ — Buyer's Edge</a></li>
             <li><a href="selleriq.html">SellerIQ™ — Seller's Edge</a></li>
             <li><a href="marketiq.html">MarketIQ™ — Property Intelligence</a></li>
-            <li><a href="market-insights.html">Market Insights</a></li>
+            <li><a href="market-insights.html">Market Reports</a></li>
           </ul>
         </li>
         <li><a href="about.html" class="nav__link">My Story</a></li>
@@ -377,66 +358,40 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
           <p class="nbiq-cta__body" style="margin-top:1rem;font-size:0.85rem;color:rgba(255,255,255,0.6);">Register with Phil <strong style="color:var(--gold);">before</strong> you visit a model home — it's how you keep independent representation and your negotiating leverage.</p>
         </div>
         <div class="nbiq-card">
-          <div class="nbiq-card__title">Send me the current list</div>
-          <div class="nbiq-card__sub">No obligation. Phil replies personally — usually same day.</div>
-          <form class="nbiq-form" data-tag="builder-incentives" data-source="newbuildiq-hub" data-redirect="incentives-thank-you.html" data-city="League City" novalidate>
-            <div class="nbiq-field"><input type="text" name="name" placeholder="Your name" autocomplete="name"  aria-label="Your name"/></div>
-            <div class="nbiq-row">
-              <div class="nbiq-field"><input type="email" name="email" placeholder="Email" autocomplete="email"  aria-label="Email"/></div>
-              <div class="nbiq-field"><input type="tel" name="phone" placeholder="Phone (optional)" autocomplete="tel"  aria-label="Phone (optional)"/></div>
-            </div>
-            <!-- Communities mirror COMMUNITY_SEARCH in js/newbuildiq.js. Each option carries
-                 its city so the handoff passes ?city= without a lookup. Same list as the
-                 lander form on incentives.html - keep the three in step. -->
-            <div class="nbiq-field">
-              <select name="community" aria-label="Community you are considering">
-                <option value="" data-city="League City">Community you&rsquo;re considering (optional)</option>
-                <optgroup label="League City">
-                  <option data-city="League City">Legacy</option>
-                  <option data-city="League City">Westland Ranch</option>
-                  <option data-city="League City">Samara</option>
-                  <option data-city="League City">Davis Harbor</option>
-                  <option data-city="League City">Pedregal</option>
-                </optgroup>
-                <optgroup label="Manvel">
-                  <option data-city="Manvel">Meridiana</option>
-                  <option data-city="Manvel">Valencia</option>
-                  <option data-city="Manvel">Pomona</option>
-                  <option data-city="Manvel">Del Bello Lakes</option>
-                  <option data-city="Manvel">Foxtail Palms</option>
-                  <option data-city="Manvel">Avellino</option>
-                </optgroup>
-                <optgroup label="Pearland">
-                  <option data-city="Pearland">Massey Oaks</option>
-                  <option data-city="Pearland">Alexander</option>
-                </optgroup>
-                <optgroup label="Texas City">
-                  <option data-city="Texas City">Lago Mar</option>
-                  <option data-city="Texas City">Beacon Point</option>
-                  <option data-city="Texas City">Pearlbrook</option>
-                  <option data-city="Texas City">Steed Landing</option>
-                  <option data-city="Texas City">Vida Costera</option>
-                  <option data-city="Texas City">Grand Cay Harbour</option>
-                </optgroup>
-                <optgroup label="Friendswood">
-                  <option data-city="Friendswood">Friendswood Trails</option>
-                </optgroup>
-                <optgroup label="Dickinson">
-                  <option data-city="Dickinson">Peacock Isle</option>
-                </optgroup>
-                <optgroup label="Clear Lake &amp; Webster">
-                  <option data-city="Clear Lake">Midline</option>
-                </optgroup>
-                <option value="Not sure yet" data-city="League City">I&rsquo;m not sure yet &mdash; send me everything</option>
-              </select>
-            </div>
-            <div class="nbiq-hp" aria-hidden="true"><label>Company<input type="text" name="company" tabindex="-1" autocomplete="off" /></label></div>
-            <label class="nbiq-consent">
-              <input type="checkbox" name="sms_consent" value="yes" />
-              <span>By checking this box I agree to receive calls/texts from Phillip Himes about new-construction homes. Msg &amp; data rates may apply; reply STOP to opt out. Consent isn't a condition of any purchase.</span>
-            </label>
-            <button type="submit" class="nbiq-submit">Send Me the Current List →</button>
-          </form>
+          <div class="nbiq-card__title">Get this week's builder incentives</div>
+          <div class="nbiq-card__sub">No obligation. I'll call the builder reps and send you this week's incentives within 1 business day.</div>
+          <!-- GHL form "New Construction - Incentive List" (id yZrCa0u74sAT1wasfr90).
+               An embed, not a site form: GHL records the page URL and UTMs itself.
+               Source snippet: Market Report System templates/newbuildiq-incentive-form-snippet.html -->
+          <div id="incentive-form" class="nbiq-embed">
+            <iframe
+              src="https://links.aibrokeriq.com/widget/form/yZrCa0u74sAT1wasfr90"
+              style="width:100%;height:620px;border:none;border-radius:6px"
+              id="inline-yZrCa0u74sAT1wasfr90"
+              data-layout="{'id':'INLINE'}"
+              data-trigger-type="alwaysShow"
+              data-trigger-value=""
+              data-activation-type="alwaysActivated"
+              data-activation-value=""
+              data-deactivation-type="neverDeactivate"
+              data-deactivation-value=""
+              data-form-name="New Construction - Incentive List"
+              data-height="620"
+              data-layout-iframe-id="inline-yZrCa0u74sAT1wasfr90"
+              data-form-id="yZrCa0u74sAT1wasfr90"
+              title="Get this week's builder incentives"></iframe>
+            <script>
+            // Market report pages link here with ?city=<slug>. Pass it to the form's
+            // hidden market_report_city field so the lead keeps its city.
+            (function () {
+              var city = new URLSearchParams(location.search).get('city') || '';
+              if (!/^[a-z]+(-[a-z]+)*$/.test(city) || city.length > 40) return;
+              var f = document.getElementById('inline-yZrCa0u74sAT1wasfr90');
+              f.src = f.src + '?market_report_city=' + encodeURIComponent(city);
+            })();
+            </script>
+            <script src="https://links.aibrokeriq.com/js/form_embed.js"></script>
+          </div>
         </div>
       </div>
     </div>
@@ -530,14 +485,6 @@ src="https://www.facebook.com/tr?id=920421110921173&ev=PageView&noscript=1"
 
   <script src="js/main.js"></script>
   <script src="js/newbuildiq.js"></script>
-  <script>
-  // Community select sits muted until a real pick is made (mirrors incentives.html).
-  (function () {
-    var sel = document.querySelector('form.nbiq-form select[name="community"]');
-    if (!sel) return;
-    sel.addEventListener('change', function () { sel.classList.toggle('is-picked', !!sel.value); });
-  })();
-  </script>
   <script>
     document.querySelectorAll('.faq-item__q').forEach(q => {
       q.addEventListener('click', () => {
