@@ -46,7 +46,8 @@ Get Phil's OK before pushing. To check a build without writing anything, add `--
 
 It does not touch page titles, descriptions, canonicals, robots meta, Open Graph, JSON-LD,
 anything inside `<main>`, or any form, iframe or script. It adds three `<link>` tags to each
-page's head (favicon, site CSS, isolation CSS) and nothing else.
+page's head (favicon, site CSS, isolation CSS) plus the site's Meta Pixel block, copied from
+`market-insights.html`, and nothing else.
 
 ### What it owns in the repo
 

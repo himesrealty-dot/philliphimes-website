@@ -21,8 +21,9 @@ What it does, every month, from the raw build:
 
 What it never touches: the page <head> content (title, description, canonical,
 robots meta, Open Graph, JSON-LD), anything inside <main>, any iframe or script,
-and any file in the repo outside the market-report paths. Three <link> tags are
-ADDED to the head (favicon, site CSS, isolation CSS); nothing is removed.
+and any file in the repo outside the market-report paths. Three <link> tags
+(favicon, site CSS, isolation CSS) and the site's Meta Pixel block are ADDED to
+the head; nothing is removed.
 
 Standard library only. Safe to re-run: the output depends only on the build
 folder and the current site nav.
@@ -95,8 +96,8 @@ def root_relative(html: str) -> str:
     return _URL_ATTR.sub(fix, html)
 
 
-def load_chrome() -> tuple[str, str, str]:
-    """Return (nav_html, footer_html, trailing_scripts) from the hub page."""
+def load_chrome() -> tuple[str, str, str, str]:
+    """Return (nav_html, footer_html, trailing_scripts, meta_pixel) from the hub page."""
     src_path = REPO / CHROME_SOURCE
     if not src_path.is_file():
         raise ImportError_(f"{CHROME_SOURCE} not found - cannot read the site nav/footer.")
@@ -113,17 +114,26 @@ def load_chrome() -> tuple[str, str, str]:
     chat = re.search(
         r'<script src="https://widgets\.leadconnectorhq\.com/loader\.js"[^>]*></script>', src)
     scripts = NAV_SCRIPT + ("\n" + chat.group(0) if chat else "")
-    return root_relative(navs[0]), root_relative(footers[0]), scripts
+
+    # The Meta Pixel block, exactly as the site pages carry it, so the report
+    # pages track in the same pixel. Read from the hub rather than hardcoded:
+    # if the pixel id ever changes site-wide, the next import picks it up.
+    pixels = re.findall(r"<!-- Meta Pixel Code -->.*?<!-- End Meta Pixel Code -->", src, re.S)
+    if len(pixels) != 1:
+        raise ImportError_(
+            f"Expected exactly one Meta Pixel block in {CHROME_SOURCE}; found {len(pixels)}.")
+    return root_relative(navs[0]), root_relative(footers[0]), scripts, pixels[0]
 
 
 # ═════════════════════════════════════════════════════════════════════════════
 # Page wrap
 # ═════════════════════════════════════════════════════════════════════════════
 
-def wrap_page(html: str, nav: str, footer: str, scripts: str, name: str) -> str:
+def wrap_page(html: str, nav: str, footer: str, scripts: str, pixel: str, name: str) -> str:
     """Swap the placeholder header for the site nav and append the site footer."""
     checks = {
         "site.css <link>": html.count(CSS_LINK),
+        "</head>": html.count("</head>"),
         "<body>": html.count(BODY_OPEN),
         '<header class="top">': len(HEADER_RE.findall(html)),
         '<main class="wrap">': html.count('<main class="wrap">'),
@@ -138,6 +148,7 @@ def wrap_page(html: str, nav: str, footer: str, scripts: str, name: str) -> str:
             "The builder template has changed - update wrap_page() to match before importing.")
 
     html = html.replace(CSS_LINK, HEAD_ADDITIONS + CSS_LINK)
+    html = html.replace("</head>", f"\n{pixel}\n</head>")
     html = html.replace(BODY_OPEN, '<body class="mr-page">')
     html = HEADER_RE.sub(lambda _m: nav, html)
     head, _sep, _tail = html.rpartition(PAGE_TAIL)
@@ -342,7 +353,7 @@ def main() -> int:
     try:
         site = args.site.resolve()
         files = collect(site)
-        nav, footer, scripts = load_chrome()
+        nav, footer, scripts, pixel = load_chrome()
 
         # Build everything in memory first, so a bad page stops the run before
         # any file in the repo has changed. None = copy the file byte-for-byte.
@@ -351,7 +362,7 @@ def main() -> int:
             src = site / rel
             if rel.suffix == ".html":
                 wrapped = wrap_page(src.read_text(encoding="utf-8"), nav, footer, scripts,
-                                    rel.as_posix())
+                                    pixel, rel.as_posix())
                 outputs[rel] = wrapped.encode("utf-8")
             elif rel.as_posix() == "assets/market-report/site.css":
                 outputs[rel] = (SCOPED_MARK + scope_css(src.read_text(encoding="utf-8"))
