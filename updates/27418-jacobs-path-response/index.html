@@ -242,6 +242,97 @@
     .fig .v{font-size:21px}
   }
   @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+  /* ── print / save as PDF ──────────────────────────── */
+  .printonly{display:none}
+  .printbtn{
+    margin-top:18px; display:inline-flex; align-items:center; gap:8px;
+    background:transparent; border:1.5px solid rgba(216,183,106,.8); color:#D8B76A;
+    font-family:var(--sans); font-weight:700; font-size:13px; letter-spacing:.4px;
+    padding:9px 16px; border-radius:7px; cursor:pointer;
+  }
+  .printbtn:hover{background:rgba(216,183,106,.12)}
+  .printbtn:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+
+  @page{size:letter;margin:.5in}
+  @media print{
+    html,body{background:#fff;color:#1A1A2E;font-size:10.5pt;line-height:1.45}
+    .wrap{max-width:none;padding:0}
+    .prose{max-width:none}
+    .stage,.printbtn,.ctas,video{display:none!important}
+    .printonly{display:block}
+
+    .hero{background:#fff;color:#122840;padding:0 0 10pt;border-bottom:2pt solid #C9A455}
+    h1{color:#122840;font-size:23pt;margin:4pt 0 2pt}
+    .kick{color:#8A6D2F;font-size:8pt}
+    .place,.facts,.legal{color:#3A4650}
+    .facts{border-top:.5pt solid #ccc;padding-top:6pt;margin-top:7pt}
+    .prepared{color:#122840}
+    .ledger{border-top:.5pt solid #ccc;margin-top:12pt}
+    .step{padding:7pt 10pt 7pt 0}
+    .step+.step{border-left:.5pt solid #ddd;padding-left:10pt}
+    .step .d{color:#5A666F}
+    .step .p{color:#122840;font-size:13pt}
+    .step .n{color:#5A666F}
+    .step.cut .p{color:#5A666F}
+    .step.now .p{color:#8A6D2F}
+
+    main{padding:12pt 0 0}
+    h2{color:#122840;font-size:14.5pt;break-after:avoid}
+    .eyebrow{color:#1C6F82;margin-top:16pt;font-size:8pt;break-after:avoid}
+    p{margin-top:6pt}
+
+    .figures,.figures.three{gap:7pt;margin:10pt 0 4pt}
+    .fig{border:.75pt solid #BFC7CE;padding:7pt 9pt;box-shadow:none;break-inside:avoid}
+    .fig .v{color:#122840;font-size:14pt}
+    .fig .l{color:#5A666F;font-size:7pt}
+    .fig.lead{border:1.25pt solid #C9A455;box-shadow:none}
+    .fig.lead .v{color:#8A6D2F}
+
+    .statement{
+      background:#fff;color:#122840;border:.75pt solid #122840;border-left:4pt solid #C9A455;
+      border-radius:4pt;padding:11pt 13pt;margin:12pt 0 4pt;font-size:12.5pt;break-inside:avoid;
+    }
+    .statement b{color:#8A6D2F}
+
+    .tablewrap{overflow:visible;border:.75pt solid #BFC7CE;break-inside:avoid;margin:9pt 0 4pt}
+    table,.comps table,.grid table{min-width:0!important;width:100%;font-size:8.5pt}
+    th{color:#49555E;font-size:7pt;padding:5pt 6pt;border-bottom:1pt solid #BFC7CE}
+    td{padding:5pt 6pt;border-bottom:.5pt solid #D9DEE3}
+    .grid table{font-size:8pt;table-layout:fixed}
+    .grid th{font-size:8pt;color:#1A1A2E}
+    .grid th .sub{font-size:6.5pt;color:#5A666F}
+    .grid th:first-child,.grid td:first-child{position:static;min-width:0;background:#fff}
+    .grid td:first-child{font-size:7.5pt;color:#49555E}
+    .grid td:first-child .rate{font-size:6.5pt}
+    .grid .result td:not(:first-child){font-size:10.5pt;color:#122840}
+    .grid .neg,.excluded .price{color:#8A3324}
+    .grid .pos{color:#1A5E4E}
+    .excluded td.why{min-width:0;font-size:7.5pt}
+    tr.subject td,.grid .result td{
+      background:#F7F1E0!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;
+    }
+    .grid .result td:first-child{background:#fff!important}
+    .tag{border:.5pt solid #8A8F95;background:#fff!important;color:#3A4650!important;font-size:6.5pt;padding:1pt 4pt}
+    .caption{color:#5A666F;font-size:7.5pt;max-width:none}
+
+    .points{gap:9pt;break-inside:avoid}
+    .pt{border:.75pt solid #BFC7CE;padding:9pt 10pt;break-inside:avoid}
+    .pt-t{color:#122840}
+
+    .signoff{border:1pt solid #122840;box-shadow:none;padding:12pt 14pt;margin-top:16pt;break-inside:avoid}
+
+    footer{
+      background:#fff;color:#3A4650;text-align:left;margin-top:14pt;
+      padding:9pt 0 0;border-top:.75pt solid #BFC7CE;break-inside:avoid;
+    }
+    footer .name{color:#122840}
+    footer a{color:#122840}
+    footer .fine{color:#5A666F;font-size:7.5pt;max-width:none;margin-top:5pt}
+
+    /* screen-only helper text has no meaning on paper */
+    .screenonly{display:none}
+  }
 </style>
 </head>
 <body>
@@ -253,6 +344,8 @@
     <div class="facts">5 bed &middot; 4.1 bath &middot; 6,675 sqft &middot; 1.05 acres &middot; built 2018 &middot; no private pool</div>
     <div class="legal">Benders Landing Estates 07, Block 6, Lot 1 &middot; MLS #85280036</div>
     <div class="prepared">Prepared for Wendy &middot; Phil Himes, eXp Realty &middot; September 15, 2026</div>
+    <div class="printonly legal">Comparative Market Analysis &middot; prepared in support of an offer</div>
+    <button class="printbtn" type="button" onclick="window.print()">&#128424; Print or save as PDF</button>
 
     <div class="ledger" aria-label="List price history">
       <div class="step cut">
@@ -292,6 +385,9 @@
 </div>
 
 <main class="wrap">
+
+  <p class="printonly caption">A 13-minute video walkthrough of these sales accompanies this analysis at
+  philliphimes.com/updates/27418-jacobs-path-response/</p>
 
   <div class="figures">
     <div class="fig lead"><div class="v">$1,650,000</div><div class="l">Our offer</div></div>
@@ -478,7 +574,7 @@
   </div>
   <p class="caption">Size is adjusted at $110 per square foot rather than the neighborhood&rsquo;s average
   price per square foot, because each added square foot on a home this large is worth less than the
-  first ones. Scroll sideways on a phone to see every sale.</p>
+  first ones. <span class="screenonly">Scroll sideways on a phone to see every sale.</span></p>
 
   <div class="eyebrow">The pool</div>
   <h2>Every sale in this set has a pool. 27418 does not.</h2>
@@ -619,6 +715,9 @@
       the Houston Association of REALTORS&reg;, believed reliable but not guaranteed. Adjustment rates are
       the preparing agent&rsquo;s estimates. This is a discussion of one property&rsquo;s value and is not
       an appraisal. Equal Housing Opportunity.
+    </div>
+    <div class="printonly fine">
+      Printed from philliphimes.com/updates/27418-jacobs-path-response/
     </div>
   </div>
 </footer>
