@@ -1,0 +1,25 @@
+{
+  "name": "HomeSearchIQ — Phillip Himes",
+  "short_name": "HomeSearchIQ",
+  "description": "Search Houston Bay Area homes — League City, Friendswood, Pearland, Clear Lake, Dickinson and Manvel — with Phillip Himes, REALTOR®.",
+  "id": "/app",
+  "start_url": "/app?src=pwa",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "theme_color": "#1B3A5C",
+  "background_color": "#1B3A5C",
+  "lang": "en-US",
+  "categories": ["lifestyle", "business", "shopping"],
+  "icons": [
+    { "src": "/images/homesearchiq-icon.svg", "type": "image/svg+xml", "sizes": "any", "purpose": "any" },
+    { "src": "/images/hsiq-icon-192.png", "type": "image/png", "sizes": "192x192", "purpose": "any" },
+    { "src": "/images/hsiq-icon-512.png", "type": "image/png", "sizes": "512x512", "purpose": "any" },
+    { "src": "/images/hsiq-icon-maskable-512.png", "type": "image/png", "sizes": "512x512", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Search homes", "url": "/app?tab=search", "short_name": "Search" },
+    { "name": "Saved homes", "url": "/app?tab=saved", "short_name": "Saved" },
+    { "name": "Create account", "url": "/register", "short_name": "Sign up" }
+  ]
+}

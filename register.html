@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Create your HomeSearchIQ account | Phillip Himes</title>
+  <meta name="description" content="Create a free HomeSearchIQ account to save homes, get instant match alerts, and work directly with Phillip Himes, REALTOR®, across the Houston Bay Area." />
+  <meta name="robots" content="noindex, nofollow" />
+
+  <link rel="manifest" href="/manifest.webmanifest" />
+  <meta name="theme-color" content="#1B3A5C" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/hsiq-apple-touch-180.png" />
+  <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
+
+  <link rel="stylesheet" href="/css/landing-footer.css" />
+  <style>
+    @import url('https://fonts.bunny.net/css2?family=Montserrat:wght@400;600;700;800;900&family=Open+Sans:wght@400;500;600&display=swap');
+    :root{
+      --navy:#1B3A5C; --navy-dark:#122840; --gold:#C9A455; --gold-light:#dbbf76;
+      --cream:#F6F3EC; --surface:#fff; --surface-2:#F1EEE6; --line:#E4DFD4;
+      --ink:#1a2634; --ink-soft:#5b6675; --good:#2f8f5b;
+      --fh:'Montserrat',sans-serif; --fb:'Open Sans',sans-serif;
+    }
+    *{box-sizing:border-box;}
+    html,body{margin:0;padding:0;}
+    body{font-family:var(--fb);color:var(--ink);background:var(--cream);}
+    .reg-wrap{max-width:520px;margin:0 auto;min-height:100vh;display:flex;flex-direction:column;background:var(--cream);}
+    .reg-top{
+      background:var(--navy);color:#fff;text-align:center;
+      padding:calc(env(safe-area-inset-top,0px) + 30px) 22px 28px;
+    }
+    .reg-top__icon{width:64px;height:64px;border-radius:17px;margin:0 auto 14px;display:block;}
+    .reg-top h1{font:800 24px/1.15 var(--fh);margin:0 0 7px;}
+    .reg-top p{margin:0 auto;font-size:14px;color:rgba(255,255,255,.82);max-width:34ch;line-height:1.5;}
+    .reg-benefits{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-top:16px;}
+    .reg-benefits span{font:600 12px var(--fh);color:var(--gold-light);display:inline-flex;gap:6px;align-items:center;}
+    .reg-main{flex:1 1 auto;padding:22px 18px 30px;}
+    .reg-card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:20px 18px;box-shadow:0 14px 34px -22px rgba(18,40,64,.5);}
+    .fld{display:flex;flex-direction:column;gap:5px;margin-bottom:13px;}
+    .fld>span{font:600 11.5px var(--fh);letter-spacing:.03em;text-transform:uppercase;color:var(--ink-soft);}
+    .fld input,.fld select{
+      border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:11px;
+      padding:12px 13px;font-size:15px;font-family:var(--fb);width:100%;
+    }
+    .fld input:focus,.fld select:focus{outline:2px solid var(--gold);outline-offset:1px;border-color:var(--gold);}
+    .fld-row{display:flex;gap:11px;}
+    .fld-row .fld{flex:1;min-width:0;}
+    .f__err{color:#b4452e;font-size:12px;margin-top:4px;}
+    .f__err[hidden]{display:none;}
+    .consent{display:flex;gap:9px;align-items:flex-start;font-size:12.5px;color:var(--ink);line-height:1.45;margin:4px 0 14px;}
+    .consent input{margin-top:2px;width:17px;height:17px;accent-color:var(--navy);flex:0 0 auto;}
+    .reg-submit{width:100%;border:0;border-radius:12px;background:var(--navy);color:#fff;font:800 15px var(--fh);padding:14px;cursor:pointer;}
+    .reg-submit:disabled{opacity:.6;cursor:default;}
+    .reg-fine{font-size:11px;color:var(--ink-soft);line-height:1.5;margin:12px 0 0;}
+    .reg-sync{display:flex;gap:8px;align-items:center;justify-content:center;font:600 11px var(--fh);color:var(--gold-dark,#a8883d);background:var(--surface-2);border:1px dashed var(--gold);border-radius:10px;padding:9px 11px;margin-top:14px;text-align:center;}
+    .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;}
+    .reg-alt{text-align:center;font-size:13px;color:var(--ink-soft);margin-top:16px;}
+    .reg-alt a{color:var(--navy);font-weight:700;text-decoration:none;}
+    /* success state */
+    .reg-done{display:none;text-align:center;padding:10px 4px;}
+    .reg-done.is-shown{display:block;}
+    .reg-card.is-hidden{display:none;}
+    .reg-check{width:64px;height:64px;border-radius:50%;background:var(--good);display:grid;place-items:center;margin:0 auto 14px;}
+    .reg-done h2{font:800 21px var(--fh);color:var(--ink);margin:0 0 8px;}
+    .reg-done p{font-size:14px;color:var(--ink-soft);line-height:1.6;max-width:36ch;margin:0 auto 10px;}
+    .reg-done .btnrow{display:flex;flex-direction:column;gap:9px;margin-top:16px;}
+    .reg-done a{display:block;text-decoration:none;border-radius:12px;font:800 14px var(--fh);padding:13px;}
+    .b-gold{background:var(--gold);color:var(--navy-dark);}
+    .b-ghost{background:transparent;color:var(--navy);border:1.5px solid var(--navy);}
+    @media (prefers-reduced-motion:no-preference){.reg-done.is-shown{animation:fin .3s ease;}@keyframes fin{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}}
+  </style>
+</head>
+<body>
+  <div class="reg-wrap">
+
+    <header class="reg-top">
+      <img class="reg-top__icon" src="/images/homesearchiq-icon.svg" alt="HomeSearchIQ" width="64" height="64" />
+      <h1>Create your free account</h1>
+      <p>Save homes, get instant match alerts, and work directly with Phil.</p>
+      <div class="reg-benefits">
+        <span>❤️ Save homes</span>
+        <span>🔔 Match alerts</span>
+        <span>🤝 Work with Phil</span>
+      </div>
+    </header>
+
+    <main class="reg-main">
+      <form class="reg-card" id="reg-form" novalidate>
+        <div class="fld">
+          <span>Full name</span>
+          <input type="text" name="full_name" autocomplete="name" placeholder="Your name" required aria-required="true" />
+          <div class="f__err" hidden></div>
+        </div>
+        <div class="fld-row">
+          <div class="fld">
+            <span>Email</span>
+            <input type="email" name="email" autocomplete="email" inputmode="email" placeholder="you@email.com" />
+          </div>
+          <div class="fld">
+            <span>Mobile</span>
+            <input type="tel" name="phone" autocomplete="tel" inputmode="tel" placeholder="(281) 555-0000" />
+          </div>
+        </div>
+        <div class="f__err" id="contact-err" hidden></div>
+        <div class="fld">
+          <span>Where are you searching? <em style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--ink-soft)">(optional)</em></span>
+          <select name="area" aria-label="Area you are searching">
+            <option value="">Any Houston Bay Area city</option>
+            <option>League City</option>
+            <option>Friendswood</option>
+            <option>Pearland</option>
+            <option>Clear Lake</option>
+            <option>Dickinson</option>
+            <option>Manvel</option>
+          </select>
+        </div>
+
+        <!-- Honeypot: real people never see this; bots fill it and get dropped. -->
+        <div class="hp" aria-hidden="true">
+          <label>Company<input type="text" name="company" tabindex="-1" autocomplete="off" /></label>
+        </div>
+
+        <label class="consent">
+          <input type="checkbox" name="sms_consent" value="yes" />
+          <span>By checking this box I agree to receive calls/texts from Phillip Himes about homes and
+            my search. Msg &amp; data rates may apply; reply STOP to opt out. Consent isn’t a condition
+            of any purchase.</span>
+        </label>
+
+        <button class="reg-submit" id="reg-submit" type="submit">Create account &amp; start searching</button>
+
+        <p class="reg-fine">
+          By continuing you agree to the <a data-phh-link="terms" href="terms-of-service.html" target="_blank" rel="noopener">Terms</a>
+          and <a data-phh-link="privacy" href="privacy-policy.html" target="_blank" rel="noopener">Privacy Policy</a>.
+          Provide an email or mobile number so Phil can reach you.
+        </p>
+
+        <div class="reg-sync">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.6-6.4M21 3v6h-6"/></svg>
+          Your details go straight to Phil
+        </div>
+      </form>
+
+      <div class="reg-done" id="reg-done" aria-live="polite">
+        <div class="reg-check">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+        </div>
+        <h2 id="reg-done-h">You’re all set!</h2>
+        <p>Your account request is in and your details are on their way to Phil — he’ll reach out within one business day.</p>
+        <p style="font-size:12.5px;">Want saved-search email alerts too? Finish setting up your home-search login next.</p>
+        <div class="btnrow">
+          <a class="b-gold" href="/app">Start searching homes</a>
+          <a class="b-ghost" href="/sign-in.html">Set up saved-search alerts</a>
+        </div>
+      </div>
+
+      <p class="reg-alt">Already have an account? <a href="/sign-in.html">Sign in</a></p>
+    </main>
+
+    <!-- ── Landing footer (TREC notices, brokerage identity) ──────────────── -->
+    <footer class="lp-foot" role="contentinfo">
+      <div class="lp-foot__wrap">
+        <div class="lp-foot__id">
+          <div>
+            <img class="lp-foot__logo" src="/images/logo-white.png" width="628" height="261"
+                 alt="Phillip Himes, REALTOR® — Brokered by eXp Realty" />
+            <div class="lp-foot__brokerage">Licensed in Texas</div>
+            <address class="lp-foot__addr">2600 South Shore Blvd. #300<br />League City, TX 77573</address>
+            <div class="lp-foot__reach">
+              <a href="tel:8323384561">(832)&nbsp;338-4561</a>
+              <a href="mailto:phil@philliphimes.com">phil@philliphimes.com</a>
+            </div>
+          </div>
+          <div class="lp-foot__notices">
+            <a data-phh-link="trec-cpn" href="https://assets.cdn.filesafe.space/l8dNWKKtBchv50jZJYBL/media/6a9f2196bcef8b5f2c2e9c78.pdf" target="_blank" rel="noopener">TREC Consumer Protection Notice</a>
+            <a data-phh-link="trec-iabs" href="https://assets.cdn.filesafe.space/l8dNWKKtBchv50jZJYBL/media/6a9f21b6bbc6015019c5157f.pdf" target="_blank" rel="noopener">Information About Brokerage Services</a>
+            <a data-phh-link="privacy" href="privacy-policy.html" target="_blank" rel="noopener">Privacy Policy</a>
+            <a data-phh-link="terms" href="terms-of-service.html" target="_blank" rel="noopener">Terms of Service</a>
+          </div>
+        </div>
+        <div class="lp-foot__base">
+          <span class="lp-foot__eho">&#8962;&nbsp; Equal Housing Opportunity</span>
+          <span>&copy; 2026 Phillip Himes &middot; eXp Realty, LLC</span>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <script src="/js/compliance.js"></script>
+  <script>
+  (function () {
+    var form = document.getElementById('reg-form');
+    var doneEl = document.getElementById('reg-done');
+    var submitBtn = document.getElementById('reg-submit');
+    var LEAD_URL = 'https://real-estate-agentic-os-production.up.railway.app/lead';
+
+    function err(input, msg) {
+      var slot = input.closest('.fld') ? input.closest('.fld').querySelector('.f__err') : null;
+      if (slot) { slot.textContent = msg || ''; slot.hidden = !msg; }
+      input.setAttribute('aria-invalid', msg ? 'true' : 'false');
+    }
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var data = {};
+      new FormData(form).forEach(function (v, k) { data[k] = v; });
+
+      // Honeypot — silently succeed without sending.
+      if ((data.company || '').trim() !== '') { showDone(data); return; }
+
+      var name = (data.full_name || '').trim();
+      var email = (data.email || '').trim();
+      var phone = (data.phone || '').trim();
+      var consentEl = form.querySelector('[name="sms_consent"]');
+
+      var ok = true;
+      if (name.length < 2) { err(form.full_name, 'Add your name so Phil knows who he’s writing to.'); ok = false; }
+      else err(form.full_name, '');
+
+      var contactErr = document.getElementById('contact-err');
+      if (!email && !phone) {
+        contactErr.textContent = 'Enter an email or a mobile number so Phil can reach you.';
+        contactErr.hidden = false; ok = false;
+      } else { contactErr.hidden = true; }
+
+      if (consentEl && !consentEl.checked) {
+        // soft gate: require consent to text/call
+        var c = form.querySelector('.consent');
+        c.style.color = '#b4452e';
+        ok = false;
+      }
+      if (!ok) return;
+
+      var parts = name.split(' ');
+      var payload = {
+        full_name: name,
+        first_name: parts[0] || '',
+        last_name: parts.slice(1).join(' ') || '',
+        email: email,
+        phone: phone,
+        message: 'HomeSearchIQ app registration' + (data.area ? ' — searching ' + data.area : ''),
+        consent: consentEl ? consentEl.checked : true,
+        source: 'buyer-search',
+        tags: ['buyer', 'buyer-search', 'src:homesearchiq'],
+        company: ''
+      };
+      if (data.area) payload['contact.lead_property_city'] = data.area;
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Creating your account…';
+
+      fetch(LEAD_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      }).then(function (r) {
+        if (!r.ok) throw new Error('bad status');
+        showDone(payload);
+      }).catch(function () {
+        // Fallback: open an email to Phil so the lead is never lost.
+        var body = encodeURIComponent(
+          'New HomeSearchIQ registration:\n\n' +
+          'Name: ' + name + '\nEmail: ' + email + '\nPhone: ' + phone +
+          (data.area ? '\nArea: ' + data.area : '')
+        );
+        window.location.href = 'mailto:phil@philliphimes.com?subject=' +
+          encodeURIComponent('HomeSearchIQ registration — ' + name) + '&body=' + body;
+        showDone(payload);
+      });
+    });
+
+    function showDone(p) {
+      var first = (p && (p.first_name || (p.full_name || '').split(' ')[0])) || '';
+      if (first) document.getElementById('reg-done-h').textContent = 'You’re all set, ' + first + '!';
+      form.classList.add('is-hidden');
+      doneEl.classList.add('is-shown');
+      try { window.scrollTo(0, 0); } catch (e) {}
+    }
+  })();
+  </script>
+</body>
+</html>

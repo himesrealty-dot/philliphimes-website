@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="HomeSearchIQ">
+  <defs>
+    <linearGradient id="hsiqBg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1B3A5C"/>
+      <stop offset="1" stop-color="#112840"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="114" ry="114" fill="url(#hsiqBg)"/>
+  <g fill="none" stroke="#C9A455" stroke-width="34" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="224" cy="224" r="118"/>
+    <path d="M168 224 224 172l56 52M186 212v74h76v-74"/>
+    <line x1="308" y1="308" x2="372" y2="372"/>
+  </g>
+</svg>

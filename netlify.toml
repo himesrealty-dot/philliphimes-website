@@ -186,6 +186,13 @@
   status = 404
   force = true
 
+[[redirects]]
+  # HomeSearchIQ app — vanity path for the installable PWA shell (app.html).
+  from = "/homesearchiq"
+  to = "/app"
+  status = 301
+  force = true
+
 # No SPA catch-all: this is a static multi-page site, so unknown paths
 # must return a real 404 (Netlify auto-serves /404.html) instead of the
 # homepage with a 200 — avoids soft-404s and duplicate-content noise.
@@ -253,6 +260,27 @@
   [headers.values]
     X-Robots-Tag = "noindex, nofollow, noarchive, nosnippet"
     Referrer-Policy = "no-referrer"
+
+# ── HomeSearchIQ registration: lead-capture page, keep out of search ──
+# Header (read on fetch) + a <meta robots> tag on the page itself; same pattern
+# as the private pages above. Not a robots.txt Disallow (that would block the
+# crawl and the noindex tag would never be read).
+[[headers]]
+  for = "/register.html"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow, noarchive, nosnippet"
+
+# Serve the PWA manifest with the correct MIME type.
+[[headers]]
+  for = "/manifest.webmanifest"
+  [headers.values]
+    Content-Type = "application/manifest+json"
+
+# The service worker must revalidate so clients pick up a new version promptly.
+[[headers]]
+  for = "/sw.js"
+  [headers.values]
+    Cache-Control = "no-cache"
 
 # Cache images for a week (satisfies PageSpeed "efficient cache lifetimes").
 # CSS/JS are intentionally left on Netlify's revalidate default so edits go
