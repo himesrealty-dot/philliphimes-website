@@ -77,6 +77,7 @@ body {
   border: 0; outline: 0; font: 500 15px var(--font-body); color: var(--ink);
   width: 100%; background: transparent;
 }
+.app-tagline { margin: 10px 0 0; font: 500 12.5px var(--font-body); color: rgba(255,255,255,.8); }
 
 /* ---- content panes ---- */
 .app-body { flex: 1 1 auto; padding-bottom: calc(var(--tabbar-h) + env(safe-area-inset-bottom, 0px)); }
@@ -196,6 +197,38 @@ body {
 
 /* IDX widgets injected into the app get a little breathing room */
 .idx-slot { margin-bottom: 18px; min-height: 40px; }
+
+/* IDXAddons Omnisearch — reshape the injected widget to fit the app column.
+   Structure: #idxaddons-omnisearch-form > .selectContainer (label + input) ×5 + button. */
+.idx-omni { margin-bottom: 18px; }
+.idx-omni * { box-sizing: border-box; max-width: 100%; }
+.idx-omni #idxaddons-omnisearch-form,
+.idx-omni .idxaddons--search {
+  display: flex !important; flex-wrap: wrap !important; gap: 10px !important; width: 100% !important;
+}
+.idx-omni .selectContainer {
+  flex: 1 1 46% !important; min-width: 0 !important; margin: 0 !important;
+  display: flex !important; flex-direction: column !important; gap: 5px !important;
+}
+.idx-omni #idxaddonsAcInputContainer { flex: 1 1 100% !important; }   /* search spans full width */
+.idx-omni label {
+  font: 600 11px var(--font-head) !important; letter-spacing: .04em !important;
+  text-transform: uppercase !important; color: var(--ink-soft) !important; margin: 0 !important;
+}
+.idx-omni #iaofMinPrice, .idx-omni #iaofMaxPrice,
+.idx-omni #iaofBeds, .idx-omni #iaofBaths,
+.idx-omni .ms-ctn.form-control {
+  background: #fff !important; border: 1px solid var(--line) !important; border-radius: 11px !important;
+  padding: 11px 12px !important; font-size: 14px !important; color: var(--ink) !important;
+  width: 100% !important; min-height: 44px; box-shadow: none !important;
+}
+.idx-omni .ms-ctn input { border: 0 !important; padding: 0 !important; background: transparent !important; }
+.idx-omni #idxaddons-omnisearch-form button,
+.idx-omni .idxaddons--search button {
+  flex: 1 1 100% !important; order: 99; background: var(--gold) !important; color: var(--navy-dark) !important;
+  border: 0 !important; border-radius: 11px !important; padding: 13px !important;
+  font: 700 14px var(--font-head) !important; cursor: pointer;
+}
 
 @media (max-width: 380px) {
   .quick-row, .hood-grid { grid-template-columns: 1fr; }
